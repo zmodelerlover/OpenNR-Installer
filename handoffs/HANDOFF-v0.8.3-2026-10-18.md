@@ -108,8 +108,8 @@ nenhum push, tag, upload no HF ou release. A ordem de publicação está no fim.
 
 ## Artefatos
 
-- Instalador: `opti\exports\release-0.5.4\installer\` (build de `774458a`): `AMD-NR-ReShade-Installer.exe`
-  `6016f369ab11d189fc2b7e006b66d88c7b5d5c66813642ebb4604baefe926bef` (23711589 bytes), `SHA256SUMS.txt`,
+- Instalador: `opti\exports\release-0.5.4\installer\` (build de `6df14c0`): `AMD-NR-ReShade-Installer.exe`
+  `9598d6fd7e55c75c95e7f7b65e3d60998f5371e44de73f6d22c267c36db8bd9e` (23710832 bytes), `SHA256SUMS.txt`,
   `AMD-NR-ReShade-Installer-v0.8.3.7z` (exe + `config.json`, `payload.json`, `api-db.json`). Notas da release:
   `opti\exports\release-0.5.4\notes-installer-0.8.3.md`. Changelog do Discord: `nr-bot\changelogs\2026-10-18_v0.8.3.md`.
 - Para o HF: `publish-lmxxf-gfx1200-0.5.4-amd-nr\`, `publish-optiscaler-x86-0.5.4-amd-nr\`,
@@ -121,7 +121,7 @@ nenhum push, tag, upload no HF ou release. A ordem de publicação está no fim.
 Cada passo depende do anterior. Rodar do PowerShell.
 
 1. **opti**: `opti\exports\release-0.5.4\PUBLICAR.md` passo 1 (push de `dlss-neural-rendering`, tag
-   `v0.5.4-amd-nr` em `58dea8c94`, `gh release create` com o zip e `notes-opti-0.5.4.md`). Baixar o zip de volta e
+   `v0.5.4-amd-nr` em `6ef8eb7fd`, `gh release create` com o zip e `notes-opti-0.5.4.md`). Baixar o zip de volta e
    conferir `10eeb820beb43942659a4477f7d37988806660b3b540526e0e3c70c34bb950b4`.
 2. **add-on v0.7.13**: `reshade\release\v0.7.13\PUBLICAR.md` passos 3 e 4 (push, tag, release com os 6 arquivos).
 3. **Hugging Face** (`zmodelerlover/amd-nr`, `--repo-type dataset`), de dentro de `AMD-NR-ReShade-Installer`:
