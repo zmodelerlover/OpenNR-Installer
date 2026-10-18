@@ -21,7 +21,7 @@ nenhum push, tag, upload no HF ou release. A ordem de publicação está no fim.
 
 | componente | versão | arquivo(s) | sha256 |
 |---|---|---|---|
-| `optiscaler` | 0.5.4-amd-nr | `OptiScaler-0.5.4-amd-nr.zip` (GitHub) | `be2846ef…95ca3e` |
+| `optiscaler` | 0.5.4-amd-nr | `OptiScaler-0.5.4-amd-nr.zip` (GitHub) | `10eeb820…bb950b4` |
 | `lmxxf-gfx1200` | 0.5.4-amd-nr | kernels do lmxxf 0.43 | `1bd429fc…ad7f7` |
 | `optiscaler-x86` | 0.5.4-amd-nr | 4 arquivos, com `opengl32.dll` | `e1fb4200…688da` |
 | `lmxxf-weights` | 1 | o mesmo de antes | `7f6cdd1c…` |
@@ -122,7 +122,7 @@ Cada passo depende do anterior. Rodar do PowerShell.
 
 1. **opti**: `opti\exports\release-0.5.4\PUBLICAR.md` passo 1 (push de `dlss-neural-rendering`, tag
    `v0.5.4-amd-nr` em `58dea8c94`, `gh release create` com o zip e `notes-opti-0.5.4.md`). Baixar o zip de volta e
-   conferir `be2846ef3bed000755088bb378be203bc1fdc939c7a0a5357b1a8a4dac95ca3e`.
+   conferir `10eeb820beb43942659a4477f7d37988806660b3b540526e0e3c70c34bb950b4`.
 2. **add-on v0.7.13**: `reshade\release\v0.7.13\PUBLICAR.md` passos 3 e 4 (push, tag, release com os 6 arquivos).
 3. **Hugging Face** (`zmodelerlover/amd-nr`, `--repo-type dataset`), de dentro de `AMD-NR-ReShade-Installer`:
    - `hf upload zmodelerlover/amd-nr publish-lmxxf-gfx1200-0.5.4-amd-nr\lmxxf-gfx1200-0.5.4-amd-nr.zip lmxxf-gfx1200/0.5.4-amd-nr/lmxxf-gfx1200-0.5.4-amd-nr.zip --repo-type dataset --commit-message "lmxxf RX 9060 kernels 0.5.4-amd-nr"`

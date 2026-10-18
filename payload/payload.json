@@ -252,8 +252,8 @@
             "files": [
               {
                 "name": "OptiScaler-0.5.4-amd-nr.zip",
-                "size": 152279005,
-                "sha256": "be2846ef3bed000755088bb378be203bc1fdc939c7a0a5357b1a8a4dac95ca3e",
+                "size": 152278984,
+                "sha256": "10eeb820beb43942659a4477f7d37988806660b3b540526e0e3c70c34bb950b4",
                 "url": "https://github.com/MatheusFerreiraS/neural-amd-opti/releases/download/v0.5.4-amd-nr/OptiScaler-0.5.4-amd-nr.zip"
               }
             ],
@@ -544,7 +544,7 @@
                 "name": "LmxxfNrRuntime.dll",
                 "path": "LmxxfNrRuntime.dll",
                 "size": 1599488,
-                "sha256": "4145a7a4e3590be22bdf2b640059bd3d511d8732001a424b47d03074e2956fa7"
+                "sha256": "4b7de06b7d75c1aeebcc4f88b23db2c0698ca4f174d87519db44a9cefd0983ce"
               },
               {
                 "name": "OptiScaler.dll",
