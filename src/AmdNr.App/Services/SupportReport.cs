@@ -39,11 +39,13 @@ public static class SupportReport
         // The OptiScaler route's own: which process loaded the proxy, and whether an overlay came
         // through its dxgi hooks, is only in these.
         "OptiScaler.log", "OptiScaler.ini", "amd_bridge.log", "amd_presr.log",
+        // WrongGPU's, when it is installed beside OptiScaler, and person protection's worker.
+        "wronggpu-fsr.log", "wronggpu-asi.log", "wronggpu.ini", "person-model/person-worker.log",
     ];
 
     /// <summary>What a 32-bit game's OptiScaler host and its proxies write beside OptiScaler.log.</summary>
     private static readonly string[] HostEvidence =
-        ["OptiScaler.previous.log", "dx9-host.log", "dx9-x86.log", "dxgi-x86.log"];
+        ["OptiScaler.previous.log", "dx9-host.log", "dx9-x86.log", "dxgi-x86.log", "opengl32-x86.log"];
 
     /// <summary>A single file this big is taken in full; past it, the tail is taken and the cut is
     /// noted. A ReShade log from a long session is the only thing here that ever grows.</summary>

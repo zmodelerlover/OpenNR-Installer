@@ -236,6 +236,9 @@ public sealed class Library(Session session)
     /// <summary>Whether that OptiScaler also runs D3D10 and 32-bit D3D9 and D3D10 games (<see cref="Work.OptiRunsBridged"/>).</summary>
     public bool OptiBridges(GameCard card) => Work.OptiRunsBridged(OptiVersion(card));
 
+    /// <summary>Whether that OptiScaler also runs 32-bit D3D11 and OpenGL games (<see cref="Work.OptiRunsX86Wide"/>).</summary>
+    public bool OptiX86Wide(GameCard card) => Work.OptiRunsX86Wide(OptiVersion(card));
+
     private string? OptiVersion(GameCard card) =>
         card.Entry.OptiScalerVersion
         ?? session.Manifest?.Offered(PayloadManifest.OptiScalerComponent).FirstOrDefault()?.Version;
@@ -254,7 +257,7 @@ public sealed class Library(Session session)
     public void Apply(GameCard card, GraphicsDetection detection)
     {
         card.Graphics = detection;
-        if (!card.Entry.PresetChosen && detection.PresetFor(OptiEverywhere(card), OptiBridges(card)) is { } preset) card.Entry.Preset = preset;
+        if (!card.Entry.PresetChosen && detection.PresetFor(OptiEverywhere(card), OptiBridges(card), OptiX86Wide(card)) is { } preset) card.Entry.Preset = preset;
         // Nothing recommends a route and nobody chose one: the route installed there is the game's.
         else if (!card.Entry.PresetChosen && card.InstalledVia == RouteFamily.OptiScaler) card.Entry.Preset = Preset.OptiScaler;
     }

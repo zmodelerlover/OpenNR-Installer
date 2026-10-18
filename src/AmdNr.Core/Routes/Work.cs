@@ -60,6 +60,16 @@ public sealed class PayloadPins
     /// not carry it; installed only when it is asked for.</summary>
     public IReadOnlyDictionary<string, string> MochizukiFiles { get; init; } = new Dictionary<string, string>();
 
+    /// <summary>WrongGPU's files (its DLLs, its ini, its setup) by their path in the payload folder, and its
+    /// version. Empty when the OptiScaler version chosen does not carry it; installed only when it is ticked.</summary>
+    public IReadOnlyDictionary<string, string> WrongGpuFiles { get; init; } = new Dictionary<string, string>();
+    public string WrongGpuVersion { get; init; } = string.Empty;
+
+    /// <summary>NVIDIA's DLSS file WrongGPU's setup converts the model from when the PC has none it can use, by
+    /// its path in the payload folder; empty when it was not downloaded.</summary>
+    public string WrongGpuDlss { get; init; } = string.Empty;
+    public string WrongGpuDlssSha { get; init; } = string.Empty;
+
     /// <summary>The add-on and bridge versions pinned: which of <see cref="UserRuntimes"/> the ReShade
     /// routes can run. Empty when not known, which runs none of them.</summary>
     public string AddonVersion { get; init; } = string.Empty;
@@ -178,7 +188,7 @@ public static partial class Work
         }
         // Asked about only where an install has them, as on the OptiScaler route.
         if (payload.Has(PayloadManifest.MochizukiComponent) && payload.Has(PayloadManifest.MochizukiModelComponent))
-            foreach (var name in new[] { PayloadManifest.MochizukiComponent, PayloadManifest.MochizukiModelComponent })
+            foreach (var name in MochizukiComponents.Where(payload.Has))
                 foreach (var file in payload.Component(name).Installed)
                     pinned[MochizukiDestination(file.RelativePath)] = Engine.Lower(file.Sha256);
         return pinned;
@@ -428,12 +438,14 @@ public static partial class Work
     /// what OptiScaler goes in as when no name was picked and no install of it is here already.</param>
     /// <param name="api">The API the game runs OptiScaler on (<see cref="GraphicsDetection.OptiApi"/>). From OptiScaler
     /// 0.5.0 on it names OptiScaler's default name: opengl32.dll, d3d9.dll, winmm.dll for Vulkan, dxgi.dll otherwise.</param>
+    /// <param name="wrongGpu">WrongGPU goes in with OptiScaler (0.5.4 on, a 64-bit game): see Work.WrongGpu.cs.
+    /// Left off, an install takes out what an earlier one put in of it.</param>
     public static Report Preflight(string gameDir, string payloadDir, Preset preset, PayloadPins pins,
         string? proxy = null, bool mochizuki = false, string? ownRuntime = null, UserRuntime? wantedRuntime = null,
-        string? suggestedProxy = null, GraphicsApi? api = null)
+        string? suggestedProxy = null, GraphicsApi? api = null, bool wrongGpu = false)
     {
         var report = preset.IsOptiScaler()
-            ? PreflightOptiScaler(gameDir, payloadDir, pins, proxy, mochizuki, ownRuntime, wantedRuntime, suggestedProxy, api)
+            ? PreflightOptiScaler(gameDir, payloadDir, pins, proxy, mochizuki, ownRuntime, wantedRuntime, suggestedProxy, api, wrongGpu)
             : preset == Preset.FiveM ? PreflightFiveM(gameDir, payloadDir, pins, ownRuntime, wantedRuntime)
             : PreflightReShade(gameDir, payloadDir, preset, pins, proxy, mochizuki, ownRuntime, wantedRuntime);
         if (Running(gameDir, preset) is { } running) report.Err(running);
@@ -454,9 +466,10 @@ public static partial class Work
     /// <param name="wantedRuntime">See <see cref="Preflight"/>.</param>
     /// <param name="suggestedProxy">See <see cref="Preflight"/>.</param>
     /// <param name="api">See <see cref="Preflight"/>.</param>
+    /// <param name="wrongGpu">See <see cref="Preflight"/>.</param>
     public static Report Install(string gameDir, string payloadDir, Preset preset, PayloadPins pins,
         string? proxy = null, bool mochizuki = false, string? ownRuntime = null, UserRuntime? wantedRuntime = null,
-        string? suggestedProxy = null, GraphicsApi? api = null)
+        string? suggestedProxy = null, GraphicsApi? api = null, bool wrongGpu = false)
     {
         if (Running(gameDir, preset) is { } running)
         {
@@ -473,7 +486,7 @@ public static partial class Work
             return report;
         }
         report.Append(preset.Route() == Route.X86 ? InstallX86(gameDir, payloadDir, preset, pins, proxy, mochizuki, ownRuntime, wantedRuntime)
-            : preset.IsOptiScaler() ? InstallOptiScaler(gameDir, payloadDir, pins, proxy, mochizuki, ownRuntime, wantedRuntime, suggestedProxy, api)
+            : preset.IsOptiScaler() ? InstallOptiScaler(gameDir, payloadDir, pins, proxy, mochizuki, ownRuntime, wantedRuntime, suggestedProxy, api, wrongGpu)
             : preset == Preset.FiveM ? InstallFiveM(gameDir, payloadDir, pins, ownRuntime, wantedRuntime)
             : InstallReShade(gameDir, payloadDir, preset, pins, proxy, mochizuki, ownRuntime, wantedRuntime));
         return report;

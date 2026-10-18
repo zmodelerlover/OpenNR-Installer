@@ -36,8 +36,13 @@ public static partial class Work
         "lmxxf-modules", "lmxxf-modules-gfx1200", "native-game-tiled-assets", "shaders",
         // A 32-bit game's, after what is inside it (Work.Mochizuki takes dlssnr-amd).
         "OptiScaler64/OptiScaler/D3D12_OptiScaler", "OptiScaler64/OptiScaler", "OptiScaler64/experimental_lighting",
-        "OptiScaler64/dlssnr-amd", "OptiScaler64",
+        "OptiScaler64/dlssnr-amd", "OptiScaler64/person-model", "OptiScaler64",
+        // Person protection, and WrongGPU's plugin folder.
+        "person-model", "plugins",
     ];
+
+    /// <summary>Person protection's folder beside OptiScaler (0.5.4 on), with its slash.</summary>
+    private const string PersonModelFolder = "person-model/";
 
     /// <summary>The lmxxf runtime, which OptiScaler 0.2.0 and later install beside the danielblnc one.</summary>
     internal const string LmxxfRuntimeName = "LmxxfNrRuntime.dll";
@@ -125,7 +130,8 @@ public static partial class Work
         payload = payload.Newest(PayloadManifest.OptiScalerComponent);
         var pinned = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         foreach (var name in new[] { PayloadManifest.OptiScalerComponent, PayloadManifest.LmxxfWeightsComponent,
-                                     PayloadManifest.LmxxfGfx1200Component, PayloadManifest.OptiX86Component })
+                                     PayloadManifest.LmxxfGfx1200Component, PayloadManifest.OptiX86Component,
+                                     PayloadManifest.PersonModelComponent })
             if (payload.Has(name))
                 foreach (var file in payload.Component(name).Installed)
                     pinned[OptiDestination(file.RelativePath, OptiScalerDllPayload)] = Engine.Lower(file.Sha256);
@@ -139,9 +145,13 @@ public static partial class Work
         // Asked about only where an install has them: a folder installed without mochizuki has none
         // of these names in its manifest.
         if (payload.Has(PayloadManifest.MochizukiComponent) && payload.Has(PayloadManifest.MochizukiModelComponent))
-            foreach (var name in new[] { PayloadManifest.MochizukiComponent, PayloadManifest.MochizukiModelComponent })
+            foreach (var name in MochizukiComponents.Where(payload.Has))
                 foreach (var file in payload.Component(name).Installed)
                     pinned[MochizukiDestination(file.RelativePath)] = Engine.Lower(file.Sha256);
+        if (payload.Has(PayloadManifest.WrongGpuComponent))
+            foreach (var file in payload.Component(PayloadManifest.WrongGpuComponent).Installed)
+                if (WrongGpuDestination(file.RelativePath) is { } at)
+                    pinned[at] = Engine.Lower(file.Sha256);
         // A 32-bit game's install keeps all of it in OptiScaler64\ with the host; its proxies are left out of the
         // comparison, as OptiScaler under its proxy name is on a 64-bit game.
         foreach (var (name, sha) in pinned.ToList())
@@ -193,7 +203,8 @@ public static partial class Work
             .Append((WeightsName, pins.WeightsSize));
 
     private static Report InstallOptiScaler(string gameDir, string payloadDir, PayloadPins pins, string? proxy,
-        bool mochizuki, string? ownRuntime, UserRuntime? wantedRuntime, string? suggestedProxy, GraphicsApi? api)
+        bool mochizuki, string? ownRuntime, UserRuntime? wantedRuntime, string? suggestedProxy, GraphicsApi? api,
+        bool wrongGpu = false)
     {
         var report = new Report();
         var dir = ResolveSource(gameDir);
@@ -233,10 +244,9 @@ public static partial class Work
         // 32-bit proxy for the game's API goes beside the game, under the 32-bit route's record.
         var detected = GraphicsDetector.Detect(dir);
         var x86 = detected.Width == Route.X86;
-        if (x86 && !OptiRunsBridged(pins.OptiScalerVersion))
+        if (x86 && X86Refused(detected, api, pins.OptiScalerVersion) is { } refused)
         {
-            report.Err($"This is a 32-bit game. OptiScaler runs 32-bit games from {OptiBridges} on, through its 32-bit "
-                       + "proxy: pick that version or a later one, or the ReShade route.");
+            report.Err(refused);
             return report;
         }
         var route = x86 ? Route.X86 : Route.X64;
@@ -245,7 +255,7 @@ public static partial class Work
         var iniName = home + OptiScalerIni;
         var manifest = InstalledManifest(dir, route);
         var everywhere = OptiRunsEverywhere(pins.OptiScalerVersion);
-        var proxyName = x86 ? OptiX86Proxy(api ?? detected.OptiApi(true, true))
+        var proxyName = x86 ? OptiX86Proxy(X86Api(detected, api, pins.OptiScalerVersion))
             : OptiProxyFor(proxy, manifest, suggestedProxy, everywhere ? api : null);
         CheckOptiInTheWay(dir, proxyName, manifest, report);
         var foreign = ForeignNrMod(dir, manifest);
@@ -297,10 +307,9 @@ public static partial class Work
                 continue;
             }
             if (VerifiedPayload(src, path, sha, report) is { } bytes)
-                files[destination] = destination == iniName
-                    ? WithoutUpscaler(RunsMochizuki(RunsLmxxf(OnlyInTheGame(dir, bytes, report), lmxxf, !LmxxfWeighted(pins)),
-                        runsMochizuki), everywhere)
-                    : bytes;
+                files[destination] = destination != iniName ? bytes
+                    : WithoutUpscaler(RunsMochizuki(RunsLmxxf(OnlyInTheGame(dir, x86 ? NrOn(bytes) : bytes, report), lmxxf,
+                        !LmxxfWeighted(pins)), runsMochizuki), everywhere);
         }
         if (x86 && !files.ContainsKey(proxyName))
             report.Err($"This OptiScaler package has no 32-bit {proxyName}: a 32-bit game needs {OptiBridges} or a later one.");
@@ -323,6 +332,8 @@ public static partial class Work
             AddMochizuki(mochizukiFiles, src, pins, report);
             foreach (var (name, bytes) in mochizukiFiles) files[home + name] = bytes;
         }
+        if (wrongGpu && x86) report.Err("WrongGPU runs in 64-bit games only. Leave it off for this one.");
+        else if (wrongGpu && !report.Failed) AddWrongGpu(files, dir, src, pins, report);
 
         if (report.Failed)
         {
@@ -335,10 +346,14 @@ public static partial class Work
         // So does OptiScaler under the name it had, when it now goes in under another: two of it would
         // both load, and whatever that name displaced comes back.
         var recorded = MochizukiRecorded(manifest).Concat(InstalledOptiProxies(manifest).Where(n => n != proxyName))
-            // lmxxf's weights and RX 9060 kernels an earlier install put in, on a card that has no use for them.
+            // lmxxf's weights and RX 9060 kernels an earlier install put in, on a card that has no use for them, and
+            // person protection with them.
             .Concat(LmxxfWeighted(pins) ? [] : manifest?.Entries.Where(e => e.Owned && !files.ContainsKey(e.Name)
                     && (e.Name.StartsWith(LmxxfWeightsFolder, StringComparison.Ordinal)
-                        || e.Name.StartsWith("lmxxf-modules-gfx1200/", StringComparison.Ordinal))).Select(e => e.Name) ?? [])
+                        || e.Name.StartsWith("lmxxf-modules-gfx1200/", StringComparison.Ordinal)
+                        || e.Name.StartsWith(home + PersonModelFolder, StringComparison.Ordinal))).Select(e => e.Name) ?? [])
+            // WrongGPU, when it is left off.
+            .Concat(wrongGpu ? [] : WrongGpuRecorded(manifest))
             .ToList();
         var log = new List<string>();
         try
@@ -353,6 +368,7 @@ public static partial class Work
             return report;
         }
 
+        if (!x86 && (wrongGpu || recorded.Any(WrongGpuNames.Contains))) PointIniAtWrongGpu(dir, wrongGpu, report);
         report.Info(x86
             ? $"OptiScaler goes in {OptiHostFolder}\\ with its 64-bit host, and the 32-bit {proxyName} beside the game hands "
               + "the host every frame: NR, frame generation and the menu run there."

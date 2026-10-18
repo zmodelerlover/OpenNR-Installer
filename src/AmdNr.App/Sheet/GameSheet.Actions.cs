@@ -55,6 +55,7 @@ public partial class GameSheet
         var preset = card.Entry.Preset;
         var proxy = _proxy;
         var mochizuki = WantsMochizuki(card);
+        var wrongGpu = WantsWrongGpu(card);
         var wanted = WantedRuntime(card);
         // One offered here and not found is the check's error (NoteRuntime); anything else the engine explains.
         var unoffered = wanted is not null && !Offered(wanted);
@@ -72,10 +73,10 @@ public partial class GameSheet
         {
             (report, staged, runtime) = await Task.Run(() =>
             {
-                var folder = CachedPayloadFolder(preset, mochizuki);
+                var folder = CachedPayloadFolder(ComponentsFor(preset, mochizuki, wrongGpu, NeedsDlss(card, wrongGpu)));
                 var own = wanted is null ? null : Work.FindUserRuntime(wanted, TargetFor(card));
                 return (Work.Preflight(TargetFor(card), folder ?? "", preset, pins, proxy, mochizuki, own,
-                    unoffered ? wanted : null, wiki, api), folder, own);
+                    unoffered ? wanted : null, wiki, api, wrongGpu), folder, own);
             });
         }
         catch (Exception e)
@@ -120,6 +121,7 @@ public partial class GameSheet
         var pins = Pins();
         var proxy = _proxy;
         var mochizuki = WantsMochizuki(card);
+        var wrongGpu = WantsWrongGpu(card);
         var wanted = WantedRuntime(card);
         try
         {
@@ -144,7 +146,7 @@ public partial class GameSheet
 
             ResultBanner.IsVisible = false;
             ShowStep(StepDownload);
-            var folder = await EnsurePayloadsAsync(preset, mochizuki);
+            var folder = await EnsurePayloadsAsync(ComponentsFor(preset, mochizuki, wrongGpu, NeedsDlss(card, wrongGpu)));
             if (folder is null)
             {
                 ShowStep(StepDownload, failed: true);
@@ -159,7 +161,7 @@ public partial class GameSheet
             Report report;
             var wiki = WikiProxy(card);
             var api = OptiApi(card);
-            try { report = await WritingAsync(() => Work.Install(target, folder, preset, pins, proxy, mochizuki, runtime, wanted, wiki, api)); }
+            try { report = await WritingAsync(() => Work.Install(target, folder, preset, pins, proxy, mochizuki, runtime, wanted, wiki, api, wrongGpu)); }
             catch (Exception ex)
             {
                 // The engine turns everything it expects into a report line, and rolls back before
@@ -333,7 +335,7 @@ public partial class GameSheet
     /// <summary>Downloads whatever this route needs, then hands back the folder to install from --
     /// the same shape someone would have unzipped by hand, so the engine cannot tell the difference.
     /// A failure says why at every address it tried, in the Details, and opens them.</summary>
-    private async Task<string?> EnsurePayloadsAsync(Preset preset, bool mochizuki)
+    private async Task<string?> EnsurePayloadsAsync(string[] wanted)
     {
         _unreachable = false;
         var manifest = Selected();
@@ -355,7 +357,7 @@ public partial class GameSheet
         try
         {
             // Filtered against the manifest: a manifest that predates a component skips it.
-            var components = ComponentsFor(preset, mochizuki).Where(manifest.Has).ToArray();
+            var components = wanted.Where(manifest.Has).ToArray();
             foreach (var component in components)
                 await DownloadLog.EnsureAsync(Session, manifest, component, progress);
 
@@ -387,12 +389,15 @@ public partial class GameSheet
     /// <summary>What a route needs. Every ReShade route needs the add-on and the runtime; the bridge
     /// routes also need their own 32-bit pair and the pinned ReShade beside it. The OptiScaler route
     /// needs OptiScaler, the runtime build it drives, and the weights out of the runtime component --
-    /// and the mochizuki runtime and its model only when it was asked for.</summary>
-    private static string[] ComponentsFor(Preset preset, bool mochizuki = false) =>
+    /// and the mochizuki runtime and its models only when it was asked for, and WrongGPU (with NVIDIA's DLSS for its
+    /// setup when the PC has none it can use) only when it was ticked.</summary>
+    private static string[] ComponentsFor(Preset preset, bool mochizuki = false, bool wrongGpu = false, bool dlss = false) =>
         preset.IsOptiScaler()
             ? [PayloadManifest.OptiScalerComponent, PayloadManifest.OptiRuntimeComponent, PayloadManifest.RuntimeComponent,
                PayloadManifest.LmxxfWeightsComponent, PayloadManifest.LmxxfGfx1200Component, PayloadManifest.OptiX86Component,
-               .. Mochizuki(mochizuki)]
+               PayloadManifest.PersonModelComponent, .. Mochizuki(mochizuki),
+               .. wrongGpu ? [PayloadManifest.WrongGpuComponent] : Array.Empty<string>(),
+               .. dlss ? [PayloadManifest.WrongGpuDlssComponent] : Array.Empty<string>()]
             : preset.Route() == Route.X86
                 ? [PayloadManifest.BridgeComponent, PayloadManifest.X86ExtrasComponent,
                    PayloadManifest.RuntimeComponent, PayloadManifest.ShaderComponent, .. Mochizuki(mochizuki)]
@@ -400,16 +405,16 @@ public partial class GameSheet
                    PayloadManifest.ReShadeComponent, PayloadManifest.ShaderComponent, .. Mochizuki(mochizuki)];
 
     private static string[] Mochizuki(bool wanted) =>
-        wanted ? [PayloadManifest.MochizukiComponent, PayloadManifest.MochizukiModelComponent] : [];
+        wanted ? [PayloadManifest.MochizukiComponent, PayloadManifest.MochizukiModelComponent, PayloadManifest.MochizukiSmallModelComponent] : [];
 
     /// <summary>The folder a route would install from, when it is already complete in the cache.</summary>
-    private string? CachedPayloadFolder(Preset preset, bool mochizuki)
+    private string? CachedPayloadFolder(string[] wanted)
     {
         var manifest = Selected();
         if (manifest is null) return null;
         try
         {
-            var components = ComponentsFor(preset, mochizuki).Where(manifest.Has).ToArray();
+            var components = wanted.Where(manifest.Has).ToArray();
             if (!components.All(c => PayloadCache.IsComplete(manifest, c))) return null;
             return Session.Cache().Stage(manifest, components);
         }

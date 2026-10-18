@@ -230,6 +230,15 @@ public static partial class Engine
         "LmxxfNrRuntime.dll",
         // OptiScaler 0.4.0's third runtime, mochizuki. Its dlssnr-amd folder is matched by rule.
         "MochizukiNrRuntime.dll",
+        // WrongGPU (OptiScaler 0.5.4 on, only when ticked): its FFX provider, its runtime, AMD's FSR 4 it compares
+        // against, the ASI plugin that names it in OptiScaler, its ini and its licence and notices.
+        "wronggpu_ffx_dx12.dll",
+        "wronggpu_runtime.dll",
+        "wronggpu-amd-compare.dll",
+        "plugins/WrongGPU.asi",
+        "wronggpu.ini",
+        "wronggpu-license.txt",
+        "wronggpu-notices.txt",
         // The author's setup loads danielblnc's runtime under this name, and the OptiScaler route
         // moves that file to the backup when it takes it as its runtime; uninstall puts it back.
         // OptiScaler itself goes in under it when that is the name picked for it.
@@ -237,10 +246,12 @@ public static partial class Engine
     };
 
     /// <summary>Folders whose every plain file is ours: the lmxxf runtime's HIP modules (the RX 9060
-    /// series' in their own folder, since a path may hold one folder level only) and its weights. The names inside come from upstream and change with it, so listing each one here
+    /// series' in their own folder, since a path may hold one folder level only), its weights, and OptiScaler
+    /// 0.5.4's person protection (person-worker.exe, ONNX Runtime, the person models and their licences). The names inside come from upstream and change with it, so listing each one here
     /// would tie every weights update to a new build of this app. The folder names are the
     /// runtime's own and nothing else uses them.</summary>
-    private static readonly string[] OwnedFolders = ["lmxxf-modules", "lmxxf-modules-gfx1200", "native-game-tiled-assets"];
+    private static readonly string[] OwnedFolders =
+        ["lmxxf-modules", "lmxxf-modules-gfx1200", "native-game-tiled-assets", "person-model"];
 
     /// <summary>Whether this installer may create, back up or remove a file under this name:
     /// everything in <see cref="Allowed"/>, one plain file directly inside an
@@ -331,5 +342,5 @@ public static partial class Engine
     /// with "Manifest config mismatch" (T6 Zombies).</summary>
     public static bool IsConfig(string name) =>
         Path.GetFileName(name) is "ReShade.ini" or "dgVoodoo.conf" or "amd-nr.ini" or "OptiScaler.ini"
-            or "dlss5-neural.ini";
+            or "dlss5-neural.ini" or "wronggpu.ini";
 }

@@ -9,6 +9,7 @@
 
       MochizukiNrRuntime.dll
       dlssnr-amd\dlssnr.bin                  the model
+      dlssnr-amd\dlssnr-small.bin            the second model (NVIDIA 310.9.16, optional; OptiScaler 0.5.4 on)
       dlssnr-amd\prewarm\manifest.txt        the prewarm list, made for these shaders
       dlssnr-amd\shaders\...                 files, and one level of folders under it
       dlssnr-amd\aco\...                     ACO's network (optional), two folder levels
@@ -27,13 +28,16 @@
        shaders under the payload paths the app keeps them at (dlssnr-amd.shaders.runtime/x.spv for
        dlssnr-amd\shaders\runtime\x.spv, see Work.MochizukiDestination), in ordinal order and with a
        fixed timestamp, so the same files always make the same archive on any machine;
-    4. rewrites releases.optiscaler[<version>].components.mochizuki (the archive and every file in it)
-       and mochizuki-model (dlssnr.bin, loose) in payload.json;
+    4. rewrites releases.optiscaler[<version>].components.mochizuki (the archive and every file in it),
+       mochizuki-model (dlssnr.bin, loose) and, when -From has it, mochizuki-model-small (dlssnr-small.bin,
+       loose) in payload.json;
     5. prints the upload command for each file it pinned, at the path its url names.
 
   The model has an address of its own per model version, because published addresses are
   overwritable and versions that coexist need names that coexist. The same bytes keep the version
-  already pinned; other bytes need -ModelVersion.
+  already pinned; other bytes need -ModelVersion. The second model goes the same way, at
+  mochizuki/model-small-<version>/dlssnr-small.bin, with -SmallModelVersion. Both are NVIDIA-derived and
+  hosted loose like this, never inside the archive.
 
 .EXAMPLE
   .\tools\pin-mochizuki.ps1 -From <release build>\candidate\runtime -License <neural-amd-opti>\third_party\mochizuki\LICENSE
@@ -44,6 +48,7 @@ param(
     [string] $License = '',
     [string] $Version = '0.4.0-amd-nr',
     [string] $ModelVersion = '',
+    [string] $SmallModelVersion = '',
     [string] $Out = '',
     [string] $Manifest = '',
     [string] $Repo = 'zmodelerlover/amd-nr'
@@ -97,7 +102,7 @@ function Written($name) { $name -eq 'pipeline.cache' -or $name -like '*.tmp' -or
 $top = Get-ChildItem -LiteralPath $data -Force
 foreach ($item in $top) {
     $ok = ($item.PSIsContainer -and $item.Name -in 'prewarm', 'shaders', 'aco', 'int4') -or
-          (-not $item.PSIsContainer -and $item.Name -in 'dlssnr.bin', 'dlssnr-int4.bin')
+          (-not $item.PSIsContainer -and $item.Name -in 'dlssnr.bin', 'dlssnr-int4.bin', 'dlssnr-small.bin')
     if (-not $ok) { Fail "dlssnr-amd\$($item.Name) is not part of a release$(if (Written $item.Name) { ': the runtime wrote it while a game ran' })" }
 }
 $extra = Get-ChildItem -LiteralPath (Join-Path $data 'prewarm') -Force | Where-Object { $_.Name -ne 'manifest.txt' }
@@ -196,27 +201,28 @@ $releases = @($m.releases.optiscaler)
 $release = $releases | Where-Object { $_.version -eq $Version } | Select-Object -First 1
 if (-not $release) { Fail "releases.optiscaler has no $Version. Run tools/pin-optiscaler.ps1 with its archive first" }
 
-$modelSha = Sha256File $model
-$modelSize = (Get-Item -LiteralPath $model).Length
-$pinned = $releases | ForEach-Object { $_.components.PSObject.Properties['mochizuki-model'] } | Where-Object { $_ } |
-    ForEach-Object { $_.Value } | Select-Object -First 1
-if ($ModelVersion) {
-    if ($pinned -and $pinned.version -eq $ModelVersion -and $pinned.files[0].sha256 -ne $modelSha) {
-        Fail "model version $ModelVersion is already pinned to other bytes; a published address never gets new bytes"
+# One loose model: the version already pinned when the bytes are the same, a new one only when asked for.
+function ModelPin($file, $component, $folder, $wanted, $flag) {
+    $name = Split-Path -Leaf $file
+    $sha = Sha256File $file
+    $size = (Get-Item -LiteralPath $file).Length
+    $pinned = $releases | ForEach-Object { $_.components.PSObject.Properties[$component] } | Where-Object { $_ } |
+        ForEach-Object { $_.Value } | Select-Object -First 1
+    $version = if ($wanted) { $wanted } elseif ($pinned) { $pinned.version } else { '1' }
+    if ($pinned -and $pinned.version -eq $version) {
+        if ($pinned.files[0].sha256 -eq $sha) { Note "$name is the model already pinned as version $version"; return $pinned }
+        if ($wanted) { Fail "$component version $version is already pinned to other bytes; a published address never gets new bytes" }
+        Fail "$name is not the model pinned as version $version. Pass $flag with a new version for it"
     }
-    $modelComponent = [ordered]@{ version = $ModelVersion; files = @([ordered]@{
-        name = 'dlssnr.bin'; path = 'dlssnr-amd/dlssnr.bin'; size = $modelSize; sha256 = $modelSha
-        url = "$base/mochizuki/model-$ModelVersion/dlssnr.bin" }) }
-} elseif ($pinned -and $pinned.files[0].sha256 -eq $modelSha) {
-    $modelComponent = $pinned
-    Note "dlssnr.bin is the model already pinned as version $($pinned.version)"
-} elseif ($pinned) {
-    Fail "dlssnr.bin is not the model pinned as version $($pinned.version). Pass -ModelVersion with a new version for it"
-} else {
-    $modelComponent = [ordered]@{ version = '1'; files = @([ordered]@{
-        name = 'dlssnr.bin'; path = 'dlssnr-amd/dlssnr.bin'; size = $modelSize; sha256 = $modelSha
-        url = "$base/mochizuki/model-1/dlssnr.bin" }) }
+    return [ordered]@{ version = $version; files = @([ordered]@{
+        name = $name; path = "dlssnr-amd/$name"; size = $size; sha256 = $sha
+        url = "$base/mochizuki/$folder-$version/$name" }) }
 }
+$modelComponent = ModelPin $model 'mochizuki-model' 'model' $ModelVersion '-ModelVersion'
+$modelSha = $modelComponent.files[0].sha256
+$modelSize = $modelComponent.files[0].size
+$small = Join-Path $data 'dlssnr-small.bin'
+$smallComponent = if (Test-Path -LiteralPath $small) { ModelPin $small 'mochizuki-model-small' 'model-small' $SmallModelVersion '-SmallModelVersion' }
 
 $old = $release.components.PSObject.Properties['mochizuki']
 if ($old -and ($old.Value.files | Where-Object { $_.sha256 -ne $zero -and $_.sha256 -ne $zipSha })) {
@@ -230,12 +236,18 @@ $component = [ordered]@{
 }
 $release.components | Add-Member -NotePropertyName mochizuki -NotePropertyValue $component -Force
 $release.components | Add-Member -NotePropertyName 'mochizuki-model' -NotePropertyValue $modelComponent -Force
+if ($smallComponent) { $release.components | Add-Member -NotePropertyName 'mochizuki-model-small' -NotePropertyValue $smallComponent -Force }
+elseif ($release.components.PSObject.Properties['mochizuki-model-small']) { $release.components.PSObject.Properties.Remove('mochizuki-model-small') }
 [IO.File]::WriteAllText($Manifest, ($m | ConvertTo-Json -Depth 20), [Text.UTF8Encoding]::new($false))
 Good "$Manifest"
 Note "mochizuki $Version`: $zipName $zipSha"
 Note "mochizuki-model $($modelComponent.version): dlssnr.bin $modelSize bytes $modelSha"
 
 $sums = @("$zipSha *$zipName", "$modelSha *dlssnr.bin")
+if ($smallComponent) {
+    Note "mochizuki-model-small $($smallComponent.version): dlssnr-small.bin $($smallComponent.files[0].size) bytes $($smallComponent.files[0].sha256)"
+    $sums += "$($smallComponent.files[0].sha256) *dlssnr-small.bin"
+}
 [IO.File]::WriteAllLines((Join-Path $Out 'SHA256SUMS.txt'), $sums)
 
 # --- 5. where each goes ----------------------------------------------------------------------------
@@ -243,6 +255,10 @@ $modelInRepo = $modelComponent.files[0].url.Substring($base.Length + 1)
 Write-Host "`nUpload, before payload.json:" -ForegroundColor Cyan
 Write-Host "  hf upload $Repo `"$zipPath`" mochizuki/$Version/$zipName --repo-type dataset --commit-message `"mochizuki $Version`: runtime, shaders, prewarm list and licence`""
 Write-Host "  hf upload $Repo `"$model`" $modelInRepo --repo-type dataset --commit-message `"mochizuki model $($modelComponent.version)`""
+if ($smallComponent) {
+    $smallInRepo = $smallComponent.files[0].url.Substring($base.Length + 1)
+    Write-Host "  hf upload $Repo `"$small`" $smallInRepo --repo-type dataset --commit-message `"mochizuki model-small $($smallComponent.version) (310.9.16)`""
+}
 $left = foreach ($c in $release.components.PSObject.Properties) {
     if (@($c.Value.files) + @($c.Value.extract) | Where-Object { $_ -and $_.sha256 -eq $zero }) { $c.Name }
 }

@@ -57,7 +57,10 @@ ships an upscaler, that route is the one selected. Every ReShade route stays in 
 | `dlssnr_on_amd_weights.bin` | the same weights as the add-on |
 | `LmxxfNrRuntime.dll`, `lmxxf-modules\`, `shaders\` | the second runtime OptiScaler 0.2.0 can drive, lmxxf's open-source port (RDNA4) |
 | `native-game-tiled-assets\` | its weights, about 590 MB, on an RX 9070 or RX 9060 card only: elsewhere they are not downloaded, and the ini runs danielblnc |
-| `MochizukiNrRuntime.dll`, `dlssnr-amd\` | only when ticked: the third runtime OptiScaler 0.4.0 can drive, mochizuki's Vulkan port (RDNA4, experimental), with its shaders, prewarm list and model (`dlssnr.bin`, about 141 MB) |
+| `MochizukiNrRuntime.dll`, `dlssnr-amd\` | only when ticked: the third runtime OptiScaler 0.4.0 can drive, mochizuki's Vulkan port (RDNA4, experimental), with its shaders, prewarm list and model (`dlssnr.bin`, about 141 MB; from 0.5.4 also NVIDIA's 310.9.16 model, `dlssnr-small.bin`, about 109 MB) |
+| `person-model\` | 0.5.4 and later, on RX 9000: person protection's worker, ONNX Runtime and the three person models, with their licences in the same folder |
+| `x86\` proxies, `OptiScaler64\` | 32-bit games (0.5.2 and later; D3D11 and OpenGL from 0.5.4): the 32-bit `d3d9.dll`, `dxgi.dll` or `opengl32.dll` beside the game, OptiScaler and its 64-bit host in `OptiScaler64\` |
+| `wronggpu_*.dll`, `plugins\WrongGPU.asi`, `wronggpu.ini` | only when ticked, 0.5.4 and later, RX 9000, 64-bit games: WrongGPU, DLSS 4.5 super resolution (Model M) as OptiScaler's FSR upscaler; its model is converted on the PC by WrongGPU's own setup from a DLSS file found there, or from NVIDIA's `nvngx_dlss.dll` 310.9.1 downloaded from NVIDIA's GitHub |
 
 The game's OptiScaler panel has an **OptiScaler version** menu, beside the name it loads as, like the
 add-on's on the ReShade side: every version the payload list carries, newest first, remembered per
@@ -257,6 +260,17 @@ its weights are NVIDIA-derived and, like the others, are not in this repository.
 runtime is neural-amd-opti's build of [mochizuki0323/DLSSNR-AMD](https://github.com/mochizuki0323/DLSSNR-AMD)
 (MIT), and its licence goes into the game folder with it, as `dlssnr-amd\LICENSE-DLSSNR-AMD.txt`;
 its model is NVIDIA-derived too, and is not in this repository either.
+
+Person protection (OptiScaler 0.5.4) runs on [ONNX Runtime](https://github.com/microsoft/onnxruntime) (MIT) with
+[YuNet](https://github.com/opencv/opencv_zoo) (MIT), [PP-HumanSeg](https://github.com/opencv/opencv_zoo) (Apache-2.0)
+and [Ultralytics YOLO11n-seg](https://github.com/ultralytics/ultralytics) (AGPL-3.0); each licence goes into the
+game folder with it, in `person-model\` (`onnxruntime_LICENSE.txt`, `YuNet_MIT.txt`, `PPHumanSeg_Apache-2.0.txt`,
+`YOLO11_AGPL-3.0.txt`).
+
+WrongGPU is phantoslayer21's, closed source, and installed here with the author's written permission; its licence
+and notices go into the game folder with it (`wronggpu-license.txt`, `wronggpu-notices.txt`). None of NVIDIA's
+files are redistributed: its model is converted on the PC from a DLSS file found there, or from the one NVIDIA
+publishes on its own GitHub, which is downloaded from there.
 
 The install engine is ported from the Rust installer in
 [dlss5-neural-amd](https://github.com/zmodelerlover/dlss5-neural-amd) (MIT).

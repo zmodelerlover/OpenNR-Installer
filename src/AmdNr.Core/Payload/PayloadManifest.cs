@@ -139,6 +139,25 @@ public sealed class PayloadManifest
     public const string MochizukiComponent = "mochizuki";
     public const string MochizukiModelComponent = "mochizuki-model";
 
+    /// <summary>mochizuki's second model, NVIDIA's 310.9.16 one (dlssnr-amd\dlssnr-small.bin), which OptiScaler 0.5.4
+    /// and add-on v0.7.13 run by default when it is there. Loose and versioned like <see cref="MochizukiModelComponent"/>,
+    /// and optional: without it the runtime runs the 310.8 model.</summary>
+    public const string MochizukiSmallModelComponent = "mochizuki-model-small";
+
+    /// <summary>OptiScaler 0.5.4's person protection: person-worker.exe, ONNX Runtime, the three person models and
+    /// their licences, in person-model\ beside OptiScaler. Only lmxxf and mochizuki use it, so it goes where lmxxf's
+    /// weights go (<see cref="WithoutLmxxf"/>).</summary>
+    public const string PersonModelComponent = "person-model";
+
+    /// <summary>WrongGPU, phantoslayer21's DLSS 4.5 super resolution (Model M) for RX 9000 as an FFX upscaler
+    /// provider of OptiScaler's, redistributed with the author's written permission: its DLLs, and its setup, which
+    /// converts the model from a DLSS file on the PC (Work.WrongGpu.cs). Installed only when ticked.</summary>
+    public const string WrongGpuComponent = "wronggpu";
+
+    /// <summary>NVIDIA's nvngx_dlss.dll 310.9.1 from NVIDIA's own GitHub repository, for WrongGPU's setup to convert
+    /// the model from when the PC has no DLSS 310.5 or newer. Never installed in a game.</summary>
+    public const string WrongGpuDlssComponent = "wronggpu-dlss";
+
     /// <summary>Components fetched only when a route that uses them is installed. The OptiScaler
     /// archive alone is 132 MB, so downloading it in the first-run wizard for everybody, most of
     /// whom run the ReShade route, would be the largest download the app makes, spent on nothing.</summary>
@@ -146,7 +165,8 @@ public sealed class PayloadManifest
         new HashSet<string>(StringComparer.Ordinal)
         {
             OptiScalerComponent, OptiRuntimeComponent, LmxxfWeightsComponent, LmxxfGfx1200Component, OptiX86Component,
-            MochizukiComponent, MochizukiModelComponent,
+            MochizukiComponent, MochizukiModelComponent, MochizukiSmallModelComponent, PersonModelComponent,
+            WrongGpuComponent, WrongGpuDlssComponent,
         };
 
     /// <summary>The SHA-256 a pin carries until the bytes it stands for exist: 64 zeros. A release
@@ -237,14 +257,16 @@ public sealed class PayloadManifest
     }
 
     /// <summary>This manifest without lmxxf's weights and RX 9060 kernels, for a card lmxxf does not run on: about
-    /// 590 MB nobody there can use. Neither is downloaded, pinned or installed then.</summary>
+    /// 590 MB nobody there can use. Neither is downloaded, pinned or installed then, and nor are person protection,
+    /// which only lmxxf and mochizuki run, and WrongGPU, which runs on RX 9000 only.</summary>
     public PayloadManifest WithoutLmxxf() => new()
     {
         Schema = Schema,
         Owner = Owner,
         Repo = Repo,
         Tag = Tag,
-        Components = Components.Where(c => c.Key is not (LmxxfWeightsComponent or LmxxfGfx1200Component))
+        Components = Components.Where(c => c.Key is not (LmxxfWeightsComponent or LmxxfGfx1200Component or PersonModelComponent
+                or WrongGpuComponent or WrongGpuDlssComponent))
             .ToDictionary(c => c.Key, c => c.Value, StringComparer.Ordinal),
         Releases = Releases,
         UserRuntimes = UserRuntimes,
@@ -310,15 +332,13 @@ public sealed class PayloadManifest
         var carrier = Offered(OptiScalerComponent).FirstOrDefault(r =>
             r.Components.ContainsKey(MochizukiComponent) && r.Components.ContainsKey(MochizukiModelComponent));
         if (carrier is null) return this;
-        return With(new ComponentRelease
+        var components = new Dictionary<string, PayloadComponent>(StringComparer.Ordinal)
         {
-            Version = carrier.Version,
-            Components = new Dictionary<string, PayloadComponent>(StringComparer.Ordinal)
-            {
-                [MochizukiComponent] = carrier.Components[MochizukiComponent],
-                [MochizukiModelComponent] = carrier.Components[MochizukiModelComponent],
-            },
-        });
+            [MochizukiComponent] = carrier.Components[MochizukiComponent],
+            [MochizukiModelComponent] = carrier.Components[MochizukiModelComponent],
+        };
+        if (carrier.Components.TryGetValue(MochizukiSmallModelComponent, out var small)) components[MochizukiSmallModelComponent] = small;
+        return With(new ComponentRelease { Version = carrier.Version, Components = components });
     }
 
     /// <summary>This manifest at the newest version of a component: what an install gets when
@@ -395,17 +415,23 @@ public sealed class PayloadManifest
         // and the other routes must keep installing from it.
         // The lmxxf weights go in with OptiScaler itself, so they are pinned the same way.
         var optiFiles = new Dictionary<string, string>(StringComparer.Ordinal);
-        foreach (var name in new[] { OptiScalerComponent, LmxxfWeightsComponent, LmxxfGfx1200Component, OptiX86Component })
+        foreach (var name in new[] { OptiScalerComponent, LmxxfWeightsComponent, LmxxfGfx1200Component, OptiX86Component, PersonModelComponent })
             if (Components.TryGetValue(name, out var component))
                 foreach (var f in component.Installed)
                     optiFiles[f.RelativePath] = Engine.Lower(f.Sha256);
         var optiRuntime = Components.TryGetValue(OptiRuntimeComponent, out var optiRt) ? optiRt.Files.FirstOrDefault() : null;
         // Both halves or neither: the runtime without its model, or the model without the runtime,
-        // is nothing OptiScaler can run.
+        // is nothing OptiScaler can run. The second model goes with them when there is one.
         var mochizuki = new Dictionary<string, string>(StringComparer.Ordinal);
         if (Components.TryGetValue(MochizukiComponent, out var mz) && Components.TryGetValue(MochizukiModelComponent, out var model))
-            foreach (var f in mz.Installed.Concat(model.Installed))
+            foreach (var f in mz.Installed.Concat(model.Installed)
+                         .Concat(Components.TryGetValue(MochizukiSmallModelComponent, out var small) ? small.Installed : []))
                 mochizuki[f.RelativePath] = Engine.Lower(f.Sha256);
+        var wrongGpu = new Dictionary<string, string>(StringComparer.Ordinal);
+        if (Components.TryGetValue(WrongGpuComponent, out var wg))
+            foreach (var f in wg.Installed)
+                wrongGpu[f.RelativePath] = Engine.Lower(f.Sha256);
+        var dlss = Components.TryGetValue(WrongGpuDlssComponent, out var dl) ? dl.Installed.FirstOrDefault() : null;
         return new PayloadPins
         {
             AddonSha = addon.Sha256,
@@ -425,6 +451,10 @@ public sealed class PayloadManifest
             OptiScalerVersion = Components.TryGetValue(OptiScalerComponent, out var opti) ? opti.Version : string.Empty,
             OptiRuntimeVersion = optiRt?.Version ?? string.Empty,
             MochizukiFiles = mochizuki,
+            WrongGpuFiles = wrongGpu,
+            WrongGpuVersion = wg?.Version ?? string.Empty,
+            WrongGpuDlss = dlss?.RelativePath ?? string.Empty,
+            WrongGpuDlssSha = dlss is null ? string.Empty : Engine.Lower(dlss.Sha256),
             ReShade64Sha = Pin(ReShadeComponent, "ReShade64.dll") ?? Engine.ReShade64Sha,
             ReShade32Sha = Pin(X86ExtrasComponent, "dxgi.dll") ?? Engine.ReShadeSha,
             D3d8To9Sha = Pin(X86ExtrasComponent, "d3d8to9.dll") ?? Engine.D3d8To9Sha,

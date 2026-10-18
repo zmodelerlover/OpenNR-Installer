@@ -192,9 +192,10 @@ public partial class GameSheet : UserControl
     {
         var everywhere = _card is { } card && OptiEverywhere(card);
         var bridges = _card is { } bridged && OptiBridges(bridged);
-        var recommended = graphics.RecommendedFor(everywhere, bridges);
-        ApiHint.Text = graphics.PresetFor(everywhere, bridges) is null && graphics.All.Count > 0 ? Ui.Text("Str.NoRoute")
-            : graphics.NeedsRendererSwitchFor(everywhere, bridges)
+        var wide = _card is { } widened && OptiX86Wide(widened);
+        var recommended = graphics.RecommendedFor(everywhere, bridges, wide);
+        ApiHint.Text = graphics.PresetFor(everywhere, bridges, wide) is null && graphics.All.Count > 0 ? Ui.Text("Str.NoRoute")
+            : graphics.NeedsRendererSwitchFor(everywhere, bridges, wide)
                 ? Ui.Format("Str.SwitchRenderer",
                       GraphicsDetection.Short(recommended),
                       string.Join(", ", graphics.All.Select(GraphicsDetection.Short)))

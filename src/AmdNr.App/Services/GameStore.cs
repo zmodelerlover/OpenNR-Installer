@@ -51,6 +51,10 @@ public sealed class GameEntry
     /// preselected, and the download everywhere else.</summary>
     public string? UserRuntime { get; set; }
 
+    /// <summary>WrongGPU ticked (true) or unticked (false) for this game on the OptiScaler route; null until then, and
+    /// then it follows the folder, like the mochizuki files do.</summary>
+    public bool? WrongGpu { get; set; }
+
     /// <summary>The name the person gave the game in this app. Null keeps the launcher's, or the folder's.
     /// Kept apart from <see cref="Name"/> so going back to the original is always possible.</summary>
     public string? CustomName { get; set; }

@@ -154,18 +154,20 @@ public static partial class Work
                 + "only a warning.");
     }
 
-    private static void CheckOptiRouteIsReachable(string dir, Report report, bool everywhere, bool bridges = false)
+    private static void CheckOptiRouteIsReachable(string dir, Report report, bool everywhere, bool bridges = false,
+        bool x86Wide = false)
     {
         var local = GraphicsDetector.Detect(dir);
         // An engine's default, not read from the game (a Godot 4 pack that cannot be read), says nothing against a route.
         if (local.Guessed) return;
         if (everywhere)
         {
-            if (local.CanRunOptiScalerWith(true, bridges)) return;
+            if (local.CanRunOptiScalerWith(true, bridges, x86Wide)) return;
             report.Warn(
                 $"The files here read as {local.Tag}. OptiScaler runs on 64-bit D3D9, "
-                + (bridges ? "D3D10, D3D11, D3D12, Vulkan and OpenGL games, and 32-bit D3D9 and D3D10 games. "
-                           : "D3D11, D3D12, Vulkan and OpenGL games. ")
+                + (x86Wide ? "D3D10, D3D11, D3D12, Vulkan and OpenGL games, and 32-bit D3D9, D3D10, D3D11 and OpenGL games. "
+                   : bridges ? "D3D10, D3D11, D3D12, Vulkan and OpenGL games, and 32-bit D3D9 and D3D10 games. "
+                   : "D3D11, D3D12, Vulkan and OpenGL games. ")
                 + local.Why);
             return;
         }

@@ -56,10 +56,16 @@ public partial class GameSheet
     private bool OptiBridges(GameCard card) =>
         _version?.Opti is { } opti ? Work.OptiRunsBridged(opti.Version) : Library.OptiBridges(card);
 
+    /// <summary>The same for 32-bit D3D11 and OpenGL games (<see cref="Work.OptiRunsX86Wide"/>).</summary>
+    private bool OptiX86Wide(GameCard card) =>
+        _version?.Opti is { } opti ? Work.OptiRunsX86Wide(opti.Version) : Library.OptiX86Wide(card);
+
     /// <summary>The API this game runs OptiScaler on, which names the file it goes in as when nothing else
     /// does. Null on a version older than 0.5.0, where it is always dxgi.dll.</summary>
     private GraphicsApi? OptiApi(GameCard card) =>
-        OptiEverywhere(card) ? (card.Graphics ?? GraphicsDetector.Detect(card.Path)).OptiApi(true, OptiBridges(card)) : null;
+        OptiEverywhere(card)
+            ? (card.Graphics ?? GraphicsDetector.Detect(card.Path)).OptiApi(true, OptiBridges(card), OptiX86Wide(card))
+            : null;
 
     /// <summary>Which card says Recommended and Installed, and what each says about this game, for the
     /// OptiScaler version in question. Shown again when that version changes.</summary>
@@ -67,10 +73,11 @@ public partial class GameSheet
     {
         var everywhere = OptiEverywhere(card);
         var bridges = OptiBridges(card);
+        var wide = OptiX86Wide(card);
 
         // Recommended is what detection would pick; installed is what is in the folder. A game can
         // carry both on different cards, and that is the case that most needs saying.
-        var recommended = graphics.PresetFor(everywhere, bridges)?.Family();
+        var recommended = graphics.PresetFor(everywhere, bridges, wide)?.Family();
         ReShadeRecommended.IsVisible = recommended == RouteFamily.ReShade;
         OptiRecommended.IsVisible = recommended == RouteFamily.OptiScaler;
         ReShadeInstalled.IsVisible = card.InstalledVia == RouteFamily.ReShade;
@@ -83,7 +90,7 @@ public partial class GameSheet
         ReShadeSummary.Text = reshadeFits
             ? Ui.Text("Str.RouteReShadeSummary")
             : Ui.Format("Str.RouteReShadeMisfit", graphics.Tag);
-        var optiFits = graphics.CanRunOptiScalerWith(everywhere, bridges);
+        var optiFits = graphics.CanRunOptiScalerWith(everywhere, bridges, wide);
         RouteOpti.Classes.Set("misfit", !optiFits);
         OptiSummary.Text = !optiFits
             ? Ui.Format(everywhere ? "Str.RouteOptiMisfitAll" : "Str.RouteOptiMisfit", graphics.Tag)
@@ -160,6 +167,7 @@ public partial class GameSheet
         ShowVersions(preset);
         ShowRuntime();
         ShowMochizuki();
+        ShowWrongGpu();
         // What either route would bring waits for the route.
         if (undecided) RuntimeSection.IsVisible = MochizukiSection.IsVisible = false;
         ShowInstallLabel();
@@ -359,6 +367,7 @@ public partial class GameSheet
         if (box == OptiVersionBox) ShowRecommendation(card, card.Graphics ?? GraphicsDetector.Detect(card.Path));
         ShowRuntime();
         ShowMochizuki();
+        ShowWrongGpu();
         ShowInstallLabel();
         // A different version is a different pair of hashes, so the pre-flight has to be redone:
         // "already installed" is only true of the version that is actually in the folder.

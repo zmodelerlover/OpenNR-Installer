@@ -325,22 +325,23 @@
                               <TextBlock Text="{DynamicResource Str.ProxySectionOpti}" Classes="section" />
                               <Border Classes="info" ToolTip.Tip="{DynamicResource Str.ProxyNoteOpti}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
                             </StackPanel>
-                            <ComboBox x:Name="OptiProxyBox" HorizontalAlignment="Stretch" SelectionChanged="OnProxyChanged"
-                                      AutomationProperties.Name="{DynamicResource Str.ProxySectionOpti}" />
+                            <ComboBox x:Name="OptiProxyBox" HorizontalAlignment="Stretch" SelectionChanged="OnProxyChanged" AutomationProperties.Name="{DynamicResource Str.ProxySectionOpti}" />
                           </StackPanel>
                           <StackPanel Grid.Column="2" x:Name="OptiVersionSection" Spacing="6">
                             <StackPanel Orientation="Horizontal">
                               <TextBlock Text="{DynamicResource Str.VersionSectionOpti}" Classes="section" />
                               <Border Classes="info" ToolTip.Tip="{Binding #OptiVersionNote.Text}" IsVisible="{Binding #OptiVersionNote.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
                             </StackPanel>
-                            <ComboBox x:Name="OptiVersionBox" HorizontalAlignment="Stretch"
-                                      SelectionChanged="OnAddonVersionChanged"
-                                      AutomationProperties.Name="{DynamicResource Str.VersionSectionOpti}" />
+                            <ComboBox x:Name="OptiVersionBox" HorizontalAlignment="Stretch" SelectionChanged="OnAddonVersionChanged" AutomationProperties.Name="{DynamicResource Str.VersionSectionOpti}" />
                             <TextBlock x:Name="OptiVersionNote" IsVisible="False" />
                             <Button Classes="link" Click="OnWhatsNew" HorizontalAlignment="Left"
                                     Content="{DynamicResource Str.WhatsNew}" />
                           </StackPanel>
                         </Grid>
+                        <StackPanel x:Name="WrongGpuSection" Spacing="4" IsVisible="False"><!-- WrongGPU: off unless ticked, RX 9000, 64-bit -->
+                          <CheckBox x:Name="WrongGpuBox" Content="{DynamicResource Str.WrongGpuToggle}" Click="OnWrongGpuChanged" AutomationProperties.Name="{DynamicResource Str.WrongGpuToggle}" />
+                          <TextBlock Text="{DynamicResource Str.WrongGpuNote}" Classes="caption" TextWrapping="Wrap" />
+                        </StackPanel>
                       </StackPanel>
                     </Border>
 

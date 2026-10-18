@@ -157,17 +157,23 @@ public sealed record GraphicsDetection(
     /// GPU, D3D9 does too unless the device cannot share.</summary>
     public static readonly GraphicsApi[] OptiX86Apis = [GraphicsApi.D3D10, GraphicsApi.D3D9];
 
-    private IEnumerable<GraphicsApi> OptiApis(bool bridges) =>
-        Width == Route.X86 ? (bridges ? OptiX86Apis : []) : bridges ? OptiBridgedApis : OptiEverywhereApis;
+    /// <summary>From <see cref="Work.OptiX86Wide"/> on the 32-bit dxgi.dll also takes D3D11 (a legacy shared texture
+    /// to the host) and the new 32-bit opengl32.dll takes OpenGL. D3D8 stays on ReShade.</summary>
+    public static readonly GraphicsApi[] OptiX86WideApis = [GraphicsApi.D3D11, GraphicsApi.D3D10, GraphicsApi.D3D9, GraphicsApi.OpenGL];
+
+    private IEnumerable<GraphicsApi> OptiApis(bool bridges, bool x86Wide) =>
+        Width == Route.X86 ? (x86Wide ? OptiX86WideApis : bridges ? OptiX86Apis : [])
+        : bridges || x86Wide ? OptiBridgedApis : OptiEverywhereApis;
 
     /// <summary>The recommended route when the OptiScaler version in question runs on every API it
     /// supports (<paramref name="optiEverywhere"/>): OptiScaler for any 64-bit game that renders with
     /// one of <see cref="OptiEverywhereApis"/>, ReShade for the rest -- emulators, 32-bit games, D3D10
     /// and D3D8. With <paramref name="bridges"/> (<see cref="Work.OptiBridges"/>), D3D10 and the 32-bit games of
-    /// <see cref="OptiX86Apis"/> are OptiScaler's too. Without either, <see cref="Preset"/>.</summary>
-    public Preset? PresetFor(bool optiEverywhere, bool bridges = false) =>
+    /// <see cref="OptiX86Apis"/> are OptiScaler's too, and with <paramref name="x86Wide"/> (<see cref="Work.OptiX86Wide"/>)
+    /// the 32-bit games of <see cref="OptiX86WideApis"/>. Without either, <see cref="Preset"/>.</summary>
+    public Preset? PresetFor(bool optiEverywhere, bool bridges = false, bool x86Wide = false) =>
         (!optiEverywhere ? Preset
-            : Emulator is not null || !All.Any(OptiApis(bridges).Contains) ? ReShadeRoute
+            : Emulator is not null || !All.Any(OptiApis(bridges, x86Wide).Contains) ? ReShadeRoute
             : Core.Preset.OptiScaler) is var preset && preset == Core.Preset.OptiScaler && OptiAvoided is not null
             ? ReShadeRoute
             : preset;
@@ -179,28 +185,28 @@ public sealed record GraphicsDetection(
 
     /// <summary><see cref="CanRunOptiScaler"/> for an OptiScaler version that runs on every API it
     /// supports, when <paramref name="optiEverywhere"/>.</summary>
-    public bool CanRunOptiScalerWith(bool optiEverywhere, bool bridges = false) =>
+    public bool CanRunOptiScalerWith(bool optiEverywhere, bool bridges = false, bool x86Wide = false) =>
         !optiEverywhere ? CanRunOptiScaler
-        : All.Count == 0 || All.Any(OptiApis(bridges).Contains);
+        : All.Count == 0 || All.Any(OptiApis(bridges, x86Wide).Contains);
 
     /// <summary>The API the OptiScaler route runs on for this game: D3D12 for a game with an upscaler
     /// that offers it, else the first of the APIs OptiScaler runs on that the game renders with. Null when
     /// it renders with none of them, or nothing is known.</summary>
-    public GraphicsApi? OptiApi(bool optiEverywhere, bool bridges = false) =>
+    public GraphicsApi? OptiApi(bool optiEverywhere, bool bridges = false, bool x86Wide = false) =>
         !optiEverywhere ? (All.Contains(GraphicsApi.D3D12) ? GraphicsApi.D3D12 : null)
-        : OptiApis(bridges).Where(All.Contains).Select(a => (GraphicsApi?)a).FirstOrDefault();
+        : OptiApis(bridges, x86Wide).Where(All.Contains).Select(a => (GraphicsApi?)a).FirstOrDefault();
 
     /// <summary><see cref="Recommended"/> with the OptiScaler version in question.</summary>
-    public GraphicsApi RecommendedFor(bool optiEverywhere, bool bridges = false) =>
-        PresetFor(optiEverywhere, bridges) == Core.Preset.OptiScaler
-            ? OptiApi(optiEverywhere, bridges) ?? GraphicsApi.D3D12
+    public GraphicsApi RecommendedFor(bool optiEverywhere, bool bridges = false, bool x86Wide = false) =>
+        PresetFor(optiEverywhere, bridges, x86Wide) == Core.Preset.OptiScaler
+            ? OptiApi(optiEverywhere, bridges, x86Wide) ?? GraphicsApi.D3D12
             : Recommended;
 
     /// <summary><see cref="NeedsRendererSwitch"/> with the OptiScaler version in question: on OptiScaler,
     /// whether the game offers more than one API it runs on.</summary>
-    public bool NeedsRendererSwitchFor(bool optiEverywhere, bool bridges = false) =>
-        PresetFor(optiEverywhere, bridges) == Core.Preset.OptiScaler
-            ? (optiEverywhere ? All.Count(OptiApis(bridges).Contains) > 1 : NeedsRendererSwitch)
+    public bool NeedsRendererSwitchFor(bool optiEverywhere, bool bridges = false, bool x86Wide = false) =>
+        PresetFor(optiEverywhere, bridges, x86Wide) == Core.Preset.OptiScaler
+            ? (optiEverywhere ? All.Count(OptiApis(bridges, x86Wide).Contains) > 1 : NeedsRendererSwitch)
             : NeedsRendererSwitch;
 
     /// <summary>The API that route runs on. OptiScaler runs the network on D3D12, so a game that

@@ -108,6 +108,7 @@ public static partial class Work
             foreach (var name in OptiHostDroppings) gone += RemoveFile(hostDir, name, report);
             AfterMochizukiUninstall(hostDir, report);
         }
+        if (opti) PointIniAtWrongGpu(dir, false, report);
         if (opti) AfterOptiScalerUninstall(dir, recorded.Count > 0, report);
 
         if (gone == 0) report.Warn("Nothing of ours was in that folder.");
@@ -327,13 +328,13 @@ public static partial class Work
         // upscaling loads its own copies of the runtime under these names.
         "OptiScaler.log", "amd_bridge.log", "amd_presr.log",
         "dlssnr_amd_present1.dll", "dlssnr_amd_present2.dll", "dlssnr_amd_present3.dll",
-        // And the mochizuki runtime, beside itself.
-        MochizukiLog,
+        // And the mochizuki runtime, beside itself, and OptiScaler 0.5.4's person protection worker in its folder.
+        MochizukiLog, "person-model/person-worker.log", "person-model/person-worker.1.log",
     ];
 
     /// <summary>The logs a 32-bit game's OptiScaler host and its proxies write in OptiScaler64\.</summary>
     private static readonly string[] OptiHostDroppings =
-        ["OptiScaler.previous.log", "dx9-host.log", "dx9-x86.log", "dxgi-x86.log"];
+        ["OptiScaler.previous.log", "dx9-host.log", "dx9-x86.log", "dxgi-x86.log", "opengl32-x86.log"];
 
     internal static readonly string[] DroppingFolders =["amd-nr-runtime", "dlss5-runtime", "amd-nr-captures", "dlss5-captures"];
 

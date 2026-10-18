@@ -5,7 +5,7 @@ namespace AmdNr.Core;
 public static partial class Work
 {
     private static Report PreflightOptiScaler(string gameDir, string payloadDir, PayloadPins pins, string? proxy,
-        bool mochizuki, string? ownRuntime, UserRuntime? wantedRuntime, string? suggestedProxy, GraphicsApi? api)
+        bool mochizuki, string? ownRuntime, UserRuntime? wantedRuntime, string? suggestedProxy, GraphicsApi? api, bool wrongGpu)
     {
         var report = new Report();
         var dir = ResolveSource(gameDir);
@@ -33,6 +33,7 @@ public static partial class Work
                 report.Ok("Every OptiScaler file is there. Installing verifies the SHA-256 of each one.");
         }
         if (mochizuki) CheckMochizukiPayload(src, pins, report);
+        if (wrongGpu) CheckWrongGpu(src, pins, Directory.Exists(dir) && GraphicsDetector.Detect(dir).Width == Route.X86, report);
         CheckSupplied(ownRuntime, wantedRuntime, pins, Preset.OptiScaler, report);
 
         if (dir.Length == 0)
@@ -52,12 +53,11 @@ public static partial class Work
 
         var detected = GraphicsDetector.Detect(dir);
         var x86 = detected.Width == Route.X86;
-        if (x86 && !OptiRunsBridged(pins.OptiScalerVersion))
-            report.Err($"This is a 32-bit game. OptiScaler runs 32-bit games from {OptiBridges} on, through its 32-bit "
-                       + "proxy: pick that version or a later one, or the ReShade route.");
+        if (x86 && X86Refused(detected, api, pins.OptiScalerVersion) is { } refused)
+            report.Err(refused);
         var manifest = InstalledManifest(dir, x86 ? Route.X86 : Route.X64);
         var everywhere = OptiRunsEverywhere(pins.OptiScalerVersion);
-        var proxyName = x86 ? OptiX86Proxy(api ?? detected.OptiApi(true, true))
+        var proxyName = x86 ? OptiX86Proxy(X86Api(detected, api, pins.OptiScalerVersion))
             : OptiProxyFor(proxy, manifest, suggestedProxy, everywhere ? api : null);
         if (x86)
             report.Info($"A 32-bit game: OptiScaler and its 64-bit host go in {OptiHostFolder}\\, and the 32-bit {proxyName} "
@@ -87,9 +87,12 @@ public static partial class Work
         CheckRenamedStreamline(dir, report);
         CheckAuthorsRuntime(dir, pins, Preset.OptiScaler, report);
         CheckUpscaler(dir, report, everywhere, GraphicsDetector.Detect(dir).Executable);
-        CheckOptiRouteIsReachable(dir, report, everywhere, OptiRunsBridged(pins.OptiScalerVersion));
+        CheckOptiRouteIsReachable(dir, report, everywhere, OptiRunsBridged(pins.OptiScalerVersion),
+            OptiRunsX86Wide(pins.OptiScalerVersion));
         if (!mochizuki && manifest?.Entries.Any(e => e.Name == MochizukiRuntimeName && e.Owned) == true)
             report.Info(MochizukiComesOut);
+        if (!wrongGpu && WrongGpuRecorded(manifest).Any())
+            report.Info("WrongGPU is installed here and is left off this time, so installing takes out what this app put in of it.");
 
         var homeDir = x86 ? Path.Combine(dir, OptiHostFolder) : dir;
         if (File.Exists(Path.Combine(homeDir, OptiScalerIni))
