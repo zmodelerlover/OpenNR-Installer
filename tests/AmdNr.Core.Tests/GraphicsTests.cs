@@ -147,6 +147,20 @@ public class GraphicsTests
         Assert.Equal(GraphicsApi.D3D11, GraphicsDetector.Detect(Game("plain-dx11", "game.exe", Fixture.PeWithImports(true, ["d3d11.dll"]))).Api);
     }
 
+    /// <summary>Gears of War: E-Day: the executable imports no graphics API and xgameruntime.dll beside it only
+    /// dxgi.dll, which read as D3D11; it ships DirectStorage and renders D3D12.</summary>
+    [Fact]
+    public void ADxgiOnlyModuleBesideDirectStorageIsAD3D12Game()
+    {
+        var root = Game("gears-eday", "GoWEDay-Steam.exe", Fixture.PeWithImports(true, ["kernel32.dll"]));
+        File.WriteAllBytes(Path.Combine(root, "xgameruntime.dll"), Fixture.PeWithImports(true, ["dxgi.dll"]));
+        Assert.Equal(GraphicsApi.D3D11, GraphicsDetector.Detect(root).Api);
+        File.WriteAllText(Path.Combine(root, "dstorage.dll"), "stand-in");
+        var detection = GraphicsDetector.Detect(root);
+        Assert.Equal(GraphicsApi.D3D12, detection.Api);
+        Assert.Contains("DirectStorage", detection.Why);
+    }
+
     /// <summary>What this app installs is not the game: the mochizuki runtime beside an executable that
     /// imports nothing made Euro Truck Simulator 2 a Vulkan game, and OptiScaler as winmm.dll imports D3D12.</summary>
     [Fact]

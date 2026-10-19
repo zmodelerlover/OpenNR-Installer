@@ -355,9 +355,15 @@ public static partial class GraphicsDetector
             {
                 var name = Path.GetFileName(dll).ToLowerInvariant();
                 if (NotTheRenderer.Any(name.StartsWith)) continue;
-                if (Decide(PeImports.Read(dll)) is { } fromModule)
-                    return new GraphicsDetection(exe, width, fromModule.Api, fromModule.Both,
-                        $"{exeName} loads {Path.GetFileName(dll)}, which imports {fromModule.Evidence}.");
+                if (Decide(PeImports.Read(dll)) is not { } fromModule) continue;
+                // Gears of War: E-Day's executable imports nothing, and xgameruntime.dll beside it only dxgi.dll;
+                // its DirectStorage says D3D12, as for an executable that links D3D11 alone.
+                if (fromModule is { Api: GraphicsApi.D3D11, Both: false } && OnlyD3D12Loads(root, folder) is { } only)
+                    return new GraphicsDetection(exe, width, GraphicsApi.D3D12, false,
+                        $"{exeName} loads {Path.GetFileName(dll)}, which imports {fromModule.Evidence}, but ships "
+                        + $"{only}, which only a D3D12 game loads.");
+                return new GraphicsDetection(exe, width, fromModule.Api, fromModule.Both,
+                    $"{exeName} loads {Path.GetFileName(dll)}, which imports {fromModule.Evidence}.");
             }
         }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException)
