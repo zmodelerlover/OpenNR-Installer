@@ -69,8 +69,9 @@ internal static class MochizukiFlow
     }
 
     /// <summary>A newer OptiScaler under "releases" with the same OptiScaler files as <paramref name="from"/>
-    /// and the mochizuki runtime and model, every file already in the cache like the rest of the flows'.</summary>
-    private static void Seed(string from, string to)
+    /// and the mochizuki runtime and model (and with <paramref name="rdna3"/> its RX 7000 network), every file
+    /// already in the cache like the rest of the flows'.</summary>
+    internal static void Seed(string from, string to, bool rdna3 = false)
     {
         var path = Path.Combine(AppPaths.Root, "payload.json");
         var root = JsonNode.Parse(File.ReadAllText(path))!.AsObject();
@@ -97,6 +98,9 @@ internal static class MochizukiFlow
                 [PayloadManifest.MochizukiModelComponent] = Pinned(PayloadManifest.MochizukiModelComponent, "1", "dlssnr-amd/dlssnr.bin"),
             },
         });
+        if (rdna3)
+            releases[0]!["components"]![PayloadManifest.MochizukiRdna3Component] = Pinned(PayloadManifest.MochizukiRdna3Component, to,
+                "dlssnr-amd.shaders-rdna3/g_attn.spv", "dlssnr-amd.shaders-rdna3.temporal/temporal_post_fp32.spv");
         File.WriteAllText(path, root.ToJsonString());
     }
 

@@ -404,8 +404,10 @@ public partial class GameSheet
                 : [PayloadManifest.AddonComponent, PayloadManifest.RuntimeComponent,
                    PayloadManifest.ReShadeComponent, PayloadManifest.ShaderComponent, .. Mochizuki(mochizuki)];
 
+    /// <summary>The RX 7000 network among them is in the manifest only when it was ticked (Selected).</summary>
     private static string[] Mochizuki(bool wanted) =>
-        wanted ? [PayloadManifest.MochizukiComponent, PayloadManifest.MochizukiModelComponent, PayloadManifest.MochizukiSmallModelComponent] : [];
+        wanted ? [PayloadManifest.MochizukiComponent, PayloadManifest.MochizukiModelComponent, PayloadManifest.MochizukiSmallModelComponent,
+                  PayloadManifest.MochizukiRdna3Component] : [];
 
     /// <summary>The folder a route would install from, when it is already complete in the cache.</summary>
     private string? CachedPayloadFolder(string[] wanted)
@@ -435,8 +437,10 @@ public partial class GameSheet
         var versioned = Versioned(manifest);
         var offer = RuntimeChoices(versioned);
         var runtime = Work.RuntimePick(offer, _card?.Entry.DanielRuntime, Rdna4);
-        // lmxxf runs on RX 9070 and RX 9060 cards only: on a card read as anything else its weights stay out.
-        return Session.Machine?.Rdna4 == false ? versioned.WithRuntime(runtime).WithoutLmxxf() : versioned.WithRuntime(runtime);
+        // lmxxf runs on RX 9070 and RX 9060 cards only: on a card read as anything else its weights stay out. The RX 7000
+        // network goes nowhere it was not ticked.
+        var selected = Session.Machine?.Rdna4 == false ? versioned.WithRuntime(runtime).WithoutLmxxf() : versioned.WithRuntime(runtime);
+        return _card is { } card && WantsMochizukiRdna3(card) ? selected : selected.WithoutMochizukiRdna3();
     }
 
     private bool Rdna4 => Session.Machine?.Rdna4 == true;

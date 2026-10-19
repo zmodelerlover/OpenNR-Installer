@@ -405,15 +405,14 @@
 
                     <!-- The danielblnc version, and on RX 9000 what goes in beside it and runs by default. -->
                     <StackPanel x:Name="MochizukiSection" Spacing="6" IsVisible="False">
-                      <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{DynamicResource Str.MochizukiSection}" Classes="section" />
-                      </StackPanel>
+                      <TextBlock Text="{DynamicResource Str.MochizukiSection}" Classes="section" />
                       <Grid x:Name="DanielVersionRow" ColumnDefinitions="Auto,Auto,12,*">
                         <TextBlock Text="{DynamicResource Str.DanielVersion}" VerticalAlignment="Center" />
                         <Border Grid.Column="1" Classes="info" ToolTip.Tip="{DynamicResource Str.DanielVersionTip}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
                         <ComboBox Grid.Column="3" x:Name="DanielVersionBox" HorizontalAlignment="Stretch" SelectionChanged="OnDanielVersionChanged"
                                   AutomationProperties.Name="{DynamicResource Str.DanielVersion}" />
                       </Grid>
+                      <CheckBox x:Name="MochizukiRdna3Box" Content="{DynamicResource Str.MochizukiRdna3Toggle}" Click="OnMochizukiRdna3Changed" IsVisible="False" AutomationProperties.Name="{DynamicResource Str.MochizukiRdna3Toggle}" /><!-- RX 7000: off unless ticked -->
                       <TextBlock x:Name="MochizukiNote" Classes="caption" TextWrapping="Wrap" IsVisible="False" />
                     </StackPanel>
                   </StackPanel>

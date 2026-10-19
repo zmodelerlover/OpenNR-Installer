@@ -228,6 +228,7 @@ void Flows()
           && card.Entry.OptiScalerVersion is null, $"Update installs the newer one ({verdict.Text})");
 
     MochizukiFlow.Run(main, sheet, card, game, Check, Until, Click, (w, n) => Save(w, n)); // leaves 1.0.3 with mochizuki
+    Rdna3Flow.Run(main, sheet, card, game, Check, Until, Click, (w, n) => Save(w, n)); // leaves 1.0.4, RX 7000 network out
     UninstallFlow.Run(main, sheet, card, game, TileSays, Check, Until, Click, (w, n) => Save(w, n)); // the installed route, whatever is selected
     Check(!Directory.Exists(Path.Combine(game, "dlssnr-amd")) && !File.Exists(Path.Combine(game, "MochizukiNrRuntime.dll")), "and mochizuki went with it");
 

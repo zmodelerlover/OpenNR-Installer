@@ -415,6 +415,8 @@ public static partial class Work
                             ? ""
                             : $" {OptiScalerIni} keeps the NR runtime it names: to use mochizuki, pick it under NR runtime in "
                               + "OptiScaler's Neural tab and restart the game."));
+        if (mochizuki && pins.MochizukiFiles.Keys.Any(k => MochizukiDestination(k).StartsWith(MochizukiRdna3Folder, StringComparison.Ordinal)))
+            report.Info(MochizukiRdna3Installed);
         else if (recorded.Count > 0) AfterMochizukiRetired(dir, report);
         report.Info(Preset.OptiScaler.Note());
         return report;

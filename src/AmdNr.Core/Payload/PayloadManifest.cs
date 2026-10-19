@@ -144,6 +144,12 @@ public sealed class PayloadManifest
     /// and optional: without it the runtime runs the 310.8 model.</summary>
     public const string MochizukiSmallModelComponent = "mochizuki-model-small";
 
+    /// <summary>mochizuki's RX 7000 network (dlssnr-amd\shaders-rdna3), experimental, installed only when ticked on an
+    /// RX 7000 card. A component of its own for the same reason as <see cref="LmxxfGfx1200Component"/>: inside the
+    /// mochizuki archive, the installers already published would put its 32 MB in on every RX 9000 that takes
+    /// mochizuki, and they never ask for a component they do not know.</summary>
+    public const string MochizukiRdna3Component = "mochizuki-rdna3";
+
     /// <summary>OptiScaler 0.5.4's person protection: person-worker.exe, ONNX Runtime, the three person models and
     /// their licences, in person-model\ beside OptiScaler. Only lmxxf and mochizuki use it, so it goes where lmxxf's
     /// weights go (<see cref="WithoutLmxxf"/>).</summary>
@@ -165,8 +171,8 @@ public sealed class PayloadManifest
         new HashSet<string>(StringComparer.Ordinal)
         {
             OptiScalerComponent, OptiRuntimeComponent, LmxxfWeightsComponent, LmxxfGfx1200Component, OptiX86Component,
-            MochizukiComponent, MochizukiModelComponent, MochizukiSmallModelComponent, PersonModelComponent,
-            WrongGpuComponent, WrongGpuDlssComponent,
+            MochizukiComponent, MochizukiModelComponent, MochizukiSmallModelComponent, MochizukiRdna3Component,
+            PersonModelComponent, WrongGpuComponent, WrongGpuDlssComponent,
         };
 
     /// <summary>The SHA-256 a pin carries until the bytes it stands for exist: 64 zeros. A release
@@ -259,15 +265,21 @@ public sealed class PayloadManifest
     /// <summary>This manifest without lmxxf's weights and RX 9060 kernels, for a card lmxxf does not run on: about
     /// 590 MB nobody there can use. Neither is downloaded, pinned or installed then, and nor are person protection,
     /// which only lmxxf and mochizuki run, and WrongGPU, which runs on RX 9000 only.</summary>
-    public PayloadManifest WithoutLmxxf() => new()
+    public PayloadManifest WithoutLmxxf() =>
+        Without(c => c is LmxxfWeightsComponent or LmxxfGfx1200Component or PersonModelComponent or WrongGpuComponent
+            or WrongGpuDlssComponent);
+
+    /// <summary>This manifest without mochizuki's RX 7000 network, for every install but the RX 7000 opt-in: it is
+    /// neither downloaded, pinned nor installed then.</summary>
+    public PayloadManifest WithoutMochizukiRdna3() => Without(c => c == MochizukiRdna3Component);
+
+    private PayloadManifest Without(Func<string, bool> dropped) => new()
     {
         Schema = Schema,
         Owner = Owner,
         Repo = Repo,
         Tag = Tag,
-        Components = Components.Where(c => c.Key is not (LmxxfWeightsComponent or LmxxfGfx1200Component or PersonModelComponent
-                or WrongGpuComponent or WrongGpuDlssComponent))
-            .ToDictionary(c => c.Key, c => c.Value, StringComparer.Ordinal),
+        Components = Components.Where(c => !dropped(c.Key)).ToDictionary(c => c.Key, c => c.Value, StringComparer.Ordinal),
         Releases = Releases,
         UserRuntimes = UserRuntimes,
         RuntimeChoice = RuntimeChoice,
@@ -421,11 +433,13 @@ public sealed class PayloadManifest
                     optiFiles[f.RelativePath] = Engine.Lower(f.Sha256);
         var optiRuntime = Components.TryGetValue(OptiRuntimeComponent, out var optiRt) ? optiRt.Files.FirstOrDefault() : null;
         // Both halves or neither: the runtime without its model, or the model without the runtime,
-        // is nothing OptiScaler can run. The second model goes with them when there is one.
+        // is nothing OptiScaler can run. The second model goes with them when there is one, and so does the RX 7000
+        // network when this manifest still has it (WithoutMochizukiRdna3).
         var mochizuki = new Dictionary<string, string>(StringComparer.Ordinal);
         if (Components.TryGetValue(MochizukiComponent, out var mz) && Components.TryGetValue(MochizukiModelComponent, out var model))
             foreach (var f in mz.Installed.Concat(model.Installed)
-                         .Concat(Components.TryGetValue(MochizukiSmallModelComponent, out var small) ? small.Installed : []))
+                         .Concat(Components.TryGetValue(MochizukiSmallModelComponent, out var small) ? small.Installed : [])
+                         .Concat(Components.TryGetValue(MochizukiRdna3Component, out var rdna3) ? rdna3.Installed : []))
                 mochizuki[f.RelativePath] = Engine.Lower(f.Sha256);
         var wrongGpu = new Dictionary<string, string>(StringComparer.Ordinal);
         if (Components.TryGetValue(WrongGpuComponent, out var wg))

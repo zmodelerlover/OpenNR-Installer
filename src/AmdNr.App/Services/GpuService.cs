@@ -14,7 +14,9 @@ namespace AmdNr.App;
 
 /// <param name="Rdna4">Whether the card is RDNA4 (RX 9000 series), which the mochizuki runtime needs:
 /// null when no adapter could be read, so nobody is told their card cannot do what it can.</param>
-public sealed record SystemState(string Gpu, string Driver, bool Hip7, bool LooksLikeRadeon, bool? Rdna4 = null)
+/// <param name="Rx7000">Whether the card is an RX 7000 (Work.IsRx7000), where mochizuki's RX 7000 network is offered,
+/// experimental and off unless ticked: null as <paramref name="Rdna4"/> is.</param>
+public sealed record SystemState(string Gpu, string Driver, bool Hip7, bool LooksLikeRadeon, bool? Rdna4 = null, bool? Rx7000 = null)
 {
     public bool Ready => Hip7 && LooksLikeRadeon;
 }
@@ -29,7 +31,7 @@ public static unsafe class GpuService
         var name = "unknown";
         var driver = "unknown";
         var radeon = false;
-        bool? rdna4 = null;
+        bool? rdna4 = null, rx7000 = null;
         try
         {
             // A laptop reports the integrated adapter too; the Radeon is the one that matters, and
@@ -48,6 +50,7 @@ public static unsafe class GpuService
                 rdna4 = best.Vendor == AmdVendor ? IsRdna4(best.Vendor, best.Device, best.Name)
                     : adapters.Any(IsOtherDiscrete) ? false
                     : null;
+                rx7000 = rdna4 is null ? null : best.Vendor == AmdVendor && AmdNr.Core.Work.IsRx7000(best.Vendor, best.Device, best.Name);
             }
         }
         catch (Exception e) when (e is DllNotFoundException or EntryPointNotFoundException or COMException
@@ -55,7 +58,7 @@ public static unsafe class GpuService
         {
             // No DXGI is a machine this cannot run on anyway; say "unknown" rather than fall over.
         }
-        return new SystemState(name, driver, FindHip7() is not null, radeon, rdna4);
+        return new SystemState(name, driver, FindHip7() is not null, radeon, rdna4, rx7000);
     }
 
     /// <summary>The Navi 48 and Navi 44 device ids: RX 9070 XT, 9070 and 9070 GRE, Radeon AI PRO R9700,

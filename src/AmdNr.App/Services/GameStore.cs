@@ -55,6 +55,10 @@ public sealed class GameEntry
     /// then it follows the folder, like the mochizuki files do.</summary>
     public bool? WrongGpu { get; set; }
 
+    /// <summary>mochizuki's RX 7000 network ticked or unticked for this game on an RX 7000 card; null until then, and
+    /// then it follows the folder, like WrongGPU.</summary>
+    public bool? MochizukiRdna3 { get; set; }
+
     /// <summary>The name the person gave the game in this app. Null keeps the launcher's, or the folder's.
     /// Kept apart from <see cref="Name"/> so going back to the original is always possible.</summary>
     public string? CustomName { get; set; }
