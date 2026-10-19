@@ -5,7 +5,7 @@
 
   <!-- Українська. The same keys as Strings.en.axaml, in its order. -->
 
-  <sys:String x:Key="Str.AppTitle">AMD-NR ReShade Installer</sys:String>
+  <sys:String x:Key="Str.AppTitle">OpenNR Installer</sys:String>
   <sys:String x:Key="Str.Subtitle">Нейронний рендеринг DLSS 5 на Radeon, встановлений за вас</sys:String>
   <sys:String x:Key="Str.Games">Ігри</sys:String>
   <sys:String x:Key="Str.RemoveGame">Прибрати зі списку</sys:String>
@@ -56,13 +56,13 @@
   <sys:String x:Key="Str.SupportKofiBody">Разова кава.</sys:String>
   <sys:String x:Key="Str.SupportVakinhaTitle">Vakinha</sys:String>
   <sys:String x:Key="Str.SupportVakinhaBody">Бразильський збір коштів проєкту.</sys:String>
-  <sys:String x:Key="Str.SupportRail">Підтримати AMD-NR</sys:String>
-  <sys:String x:Key="Str.SupportTitle">Допоможіть AMD-NR жити</sys:String>
+  <sys:String x:Key="Str.SupportRail">Підтримати OpenNR</sys:String>
+  <sys:String x:Key="Str.SupportTitle">Допоможіть OpenNR жити</sys:String>
   <sys:String x:Key="Str.SupportBody">Цей проєкт живе лише завдяки підтримці тих, хто ним користується. Це двоє людей, дві відеокарти й пообідні години роботи: ні компанії, ні спонсора. Усе тут безкоштовне й таким лишиться. Підтримка нічого не відкриває — вона дає змогу працювати далі.</sys:String>
   <sys:String x:Key="Str.SupportBrazil">Ви в Бразилії? Vakinha приймає Pix, картку або boleto.</sys:String>
   <sys:String x:Key="Str.CreditRuntimeTitle">DLSS-NR-on-AMD — автор danielblnc</sys:String>
   <sys:String x:Key="Str.CreditRuntimeBody">Сама мережа і причина, з якої все це існує: саме вона вперше запустила нейронний рендеринг DLSS 5 на Radeon. Рантайм і ваги, які завантажує ця програма, — його робота, не наша. Дякуємо, danielblnc.</sys:String>
-  <sys:String x:Key="Str.CreditAddonTitle">dlss5-neural-amd — аддон</sys:String>
+  <sys:String x:Key="Str.CreditAddonTitle">OpenNR-ReShade — аддон</sys:String>
   <sys:String x:Key="Str.CreditAddonBody">Те, що підключає цю мережу до гри через ReShade: аддон, який встановлює ця програма, і випуски, з яких вона пропонує вибрати. Ліцензія MIT, окремий репозиторій від цього інсталятора.</sys:String>
   <sys:String x:Key="Str.CreditDiscordTitle">Discord — тут усі</sys:String>
   <sys:String x:Key="Str.CreditDiscordBody">Нові збірки, що працює в якій грі, і де питати, коли щось ламається.</sys:String>
@@ -403,7 +403,7 @@
   <sys:String x:Key="Str.SessionFrames">Оброблено кадрів: {0}</sys:String>
   <sys:String x:Key="Str.SessionGpu">Мережа: {0} мс на кадр</sys:String>
   <sys:String x:Key="Str.SessionRuntime">Рантайм {0}</sys:String>
-  <sys:String x:Key="Str.SessionNoFramesReShade">У грі відкрийте оверлей ReShade клавішею Home і перевірте, що NR увімкнено на панелі AMD Neural Rendering.</sys:String>
+  <sys:String x:Key="Str.SessionNoFramesReShade">У грі відкрийте оверлей ReShade клавішею Home і перевірте, що NR увімкнено на панелі OpenNR.</sys:String>
   <sys:String x:Key="Str.SessionNoFramesOpti">У грі ввімкніть DLSS, FSR або XeSS, потім натисніть Insert, відкрийте вкладку Neural і ввімкніть Enable NR.</sys:String>
   <sys:String x:Key="Str.SessionNotLoadedHint">ReShade.log у папці гри каже, в якій папці ReShade шукав аддони. «Повідомити про проблему» пакує його разом з рештою.</sys:String>
   <sys:String x:Key="Str.SessionReportHint">«Повідомити про проблему» пакує ці журнали в один файл, яким можна поділитися в Discord.</sys:String>
@@ -436,7 +436,7 @@
   <sys:String x:Key="Str.TransferExported">Налаштування збережено в {0}.</sys:String>
   <sys:String x:Key="Str.TransferImported">Налаштування з {0} застосовано. Ті, що вони замінили, збережено в {1}.</sys:String>
   <sys:String x:Key="Str.TransferWrongRoute">Ці налаштування для маршруту {0}, а в цій грі встановлено {1}.</sys:String>
-  <sys:String x:Key="Str.TransferInvalid">Цей файл не є експортом налаштувань AMD-NR.</sys:String>
+  <sys:String x:Key="Str.TransferInvalid">Цей файл не є експортом налаштувань OpenNR.</sys:String>
   <sys:String x:Key="Str.Emulator.pcsx2">Settings &gt; Graphics &gt; Renderer: Direct3D 11. Зважайте на налаштування окремої гри у її властивостях: вони мовчки перекривають загальні, і це найчастіша причина, чому все виглядає зламаним, хоча це не так.</sys:String>
   <sys:String x:Key="Str.Emulator.rpcs3">Settings &gt; GPU &gt; Renderer: Vulkan. Direct3D тут немає зовсім, тож цей маршрут отримує лише колір і оцінений рух — без глибини.</sys:String>
   <sys:String x:Key="Str.Emulator.duckstation">Settings &gt; Graphics &gt; Renderer: Direct3D 11.</sys:String>
@@ -450,7 +450,7 @@
   <sys:String x:Key="Str.Emulator.vita3k">Vulkan — бекенд за замовчуванням. На Vulkan немає глибини.</sys:String>
   <sys:String x:Key="Str.Emulator.shadps4">Лише Vulkan. На Vulkan немає глибини, а сам емулятор ще на ранній стадії — чекайте проблем.</sys:String>
   <sys:String x:Key="Str.Emulator.kyty">Лише Vulkan. Вкажіть теку kyty_emulator.exe (launcher.exe лише запускає його). Глибини немає, а сам емулятор ще ранній — чекайте проблем.</sys:String>
-  <sys:String x:Key="Str.Emulator.fivem">У грі: Home відкриває ReShade, AMD Neural Rendering — у вкладці Add-ons, або Ctrl+End. FiveM має власний античит — спершу перевірте правила сервера.</sys:String>
+  <sys:String x:Key="Str.Emulator.fivem">У грі: Home відкриває ReShade, OpenNR — у вкладці Add-ons, або Ctrl+End. FiveM має власний античит — спершу перевірте правила сервера.</sys:String>
   <sys:String x:Key="Str.Emulator.azahar">Emulation &gt; Configure &gt; Graphics &gt; Graphics API: Vulkan. Для OpenGL тепер теж є маршрут, але найбільш випробуваний тут Vulkan.</sys:String>
   <sys:String x:Key="Str.Emulator.xemu">xemu рендерить лише через OpenGL, тож маршрут OpenGL тут єдиний. Це найновіший із маршрутів, і він експериментальний: колір і оцінений рух, без глибини.</sys:String>
   <sys:String x:Key="Str.Emulator.melonds">Emu settings &gt; Video &gt; 3D renderer: OpenGL. Програмний рендерер малює на CPU, і аддону там нічого досягти, тож потрібен саме OpenGL — а цей маршрут експериментальний: колір і оцінений рух, без глибини.</sys:String>

@@ -18,11 +18,11 @@
 
     .EXAMPLE
       ./tools/check-release.ps1
-      ./tools/check-release.ps1 -Exe publish-v0.3.0/AMD-NR-ReShade-Installer.exe
+      ./tools/check-release.ps1 -Exe publish-v0.8.4/OpenNR-Installer.exe
 #>
 param(
     [string]$Exe = '',
-    [string]$Repo = 'zmodelerlover/AMD-NR-ReShade-Installer'
+    [string]$Repo = 'zmodelerlover/OpenNR-Installer'
 )
 $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
@@ -37,7 +37,7 @@ if (-not $declared) { Bad 'the csproj declares no <Version>; the exe would repor
 Write-Host "csproj <Version>: $declared"
 
 # 2. what the built exe says it is
-if (-not $Exe) { $Exe = Join-Path $root "publish-v$declared/AMD-NR-ReShade-Installer.exe" }
+if (-not $Exe) { $Exe = Join-Path $root "publish-v$declared/OpenNR-Installer.exe" }
 if (Test-Path $Exe) {
     # A hotfix carries a fourth number (0.7.5.1); a release shows three.
     $built = [version](Get-Item $Exe).VersionInfo.FileVersion
@@ -74,10 +74,16 @@ if (-not $latest) {
         $dir = Join-Path ([IO.Path]::GetTempPath()) ([guid]::NewGuid().ToString('N'))
         New-Item -ItemType Directory -Path $dir -Force | Out-Null
         try {
-            gh release download $latest --repo $Repo --pattern 'AMD-NR-ReShade-Installer.exe' --dir $dir 2>$null
-            $got = (Get-FileHash (Join-Path $dir 'AMD-NR-ReShade-Installer.exe') -Algorithm SHA256).Hash.ToLower()
-            if ($got -eq $want) { Ok 'the asset on the release is the exe that was built' }
-            else { Bad 'the asset on the release is NOT the exe that was built; a stale upload is live' }
+            # The installers from before the rename update from AMD-NR-ReShade-Installer.exe, so the same exe
+            # goes up under both names (and both lines in SHA256SUMS.txt).
+            foreach ($name in 'OpenNR-Installer.exe', 'AMD-NR-ReShade-Installer.exe') {
+                gh release download $latest --repo $Repo --pattern $name --dir $dir 2>$null
+                $file = Join-Path $dir $name
+                if (-not (Test-Path $file)) { Bad "the release has no $name"; continue }
+                $got = (Get-FileHash $file -Algorithm SHA256).Hash.ToLower()
+                if ($got -eq $want) { Ok "$name on the release is the exe that was built" }
+                else { Bad "$name on the release is NOT the exe that was built; a stale upload is live" }
+            }
         } finally { Remove-Item $dir -Recurse -Force -ErrorAction SilentlyContinue }
     }
 }

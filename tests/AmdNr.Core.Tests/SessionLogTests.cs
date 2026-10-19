@@ -146,6 +146,11 @@ public class SessionLogTests
             File.SetLastWriteTime(reshade, When.AddHours(1));
             Assert.Equal(SessionOutcome.NotLoaded, SessionLog.Read(dir)!.Outcome);
 
+            File.WriteAllText(reshade, "INFO | Registered add-on \"OpenNR\" v0.0.0.0 using ReShade API version 20.\n");
+            File.SetLastWriteTime(reshade, When.AddHours(1));
+            Assert.Equal(SessionOutcome.Ran, SessionLog.Read(dir)!.Outcome);
+
+            // An add-on from before OpenNR, under its old name.
             File.WriteAllText(reshade, "INFO | Registered add-on \"AMD Neural Rendering\" v0.0.0.0 using ReShade API version 20.\n");
             File.SetLastWriteTime(reshade, When.AddHours(1));
             Assert.Equal(SessionOutcome.Ran, SessionLog.Read(dir)!.Outcome);

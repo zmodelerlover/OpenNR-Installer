@@ -84,7 +84,7 @@
         <StackPanel>
           <Grid ColumnDefinitions="Auto,*" Margin="20,18">
             <Border Width="40" Height="40" CornerRadius="11" Margin="0,0,14,0" ClipToBounds="True">
-              <Image Source="avares://AMD-NR-ReShade-Installer/Assets/logo.png"
+              <Image Source="avares://OpenNR-Installer/Assets/logo.png"
                      Stretch="UniformToFill" RenderOptions.BitmapInterpolationMode="HighQuality" />
             </Border>
             <StackPanel Grid.Column="1" Spacing="3" VerticalAlignment="Center">

@@ -247,7 +247,7 @@ public sealed class Report
     public string ToLog(string header)
     {
         var o = new StringBuilder();
-        o.AppendLine("AMD-NR ReShade Installer log");
+        o.AppendLine("OpenNR Installer log");
         o.AppendLine(header);
         o.AppendLine(new string('-', 70));
         foreach (var (level, line) in Lines)

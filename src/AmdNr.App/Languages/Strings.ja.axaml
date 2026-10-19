@@ -5,7 +5,7 @@
 
   <!-- 日本語. The same keys as Strings.en.axaml, in its order. -->
 
-  <sys:String x:Key="Str.AppTitle">AMD-NR ReShade Installer</sys:String>
+  <sys:String x:Key="Str.AppTitle">OpenNR Installer</sys:String>
   <sys:String x:Key="Str.Subtitle">Radeon で DLSS 5 のニューラルレンダリングを。インストールはおまかせ</sys:String>
   <sys:String x:Key="Str.Games">ゲーム</sys:String>
   <sys:String x:Key="Str.RemoveGame">リストから削除</sys:String>
@@ -56,13 +56,13 @@
   <sys:String x:Key="Str.SupportKofiBody">一度きりのコーヒー代。</sys:String>
   <sys:String x:Key="Str.SupportVakinhaTitle">Vakinha</sys:String>
   <sys:String x:Key="Str.SupportVakinhaBody">このプロジェクトのブラジルでの募金。</sys:String>
-  <sys:String x:Key="Str.SupportRail">AMD-NR を支援</sys:String>
-  <sys:String x:Key="Str.SupportTitle">AMD-NR を続けるために</sys:String>
+  <sys:String x:Key="Str.SupportRail">OpenNR を支援</sys:String>
+  <sys:String x:Key="Str.SupportTitle">OpenNR を続けるために</sys:String>
   <sys:String x:Key="Str.SupportBody">このプロジェクトは、使ってくれる人たちの支援があってこそ続いています。二人の開発者、二枚のグラフィックカード、そして午後の作業時間だけ。会社もスポンサーもありません。ここにあるものはすべて無料で、これからも無料です。支援で何かが解放されることはなく、作業を続ける力になります。</sys:String>
   <sys:String x:Key="Str.SupportBrazil">ブラジルにお住まいですか？ Vakinha は Pix、カード、boleto に対応しています。</sys:String>
   <sys:String x:Key="Str.CreditRuntimeTitle">DLSS-NR-on-AMD（作者：danielblnc）</sys:String>
   <sys:String x:Key="Str.CreditRuntimeBody">ネットワークそのものであり、これらすべてが存在する理由です。DLSS 5 のニューラルレンダリングを初めて Radeon で動かしたのがこれです。このアプリがダウンロードするランタイムと重みは彼の成果で、私たちのものではありません。ありがとう、danielblnc。</sys:String>
-  <sys:String x:Key="Str.CreditAddonTitle">dlss5-neural-amd（アドオン）</sys:String>
+  <sys:String x:Key="Str.CreditAddonTitle">OpenNR-ReShade（アドオン）</sys:String>
   <sys:String x:Key="Str.CreditAddonBody">そのネットワークを ReShade 経由でゲームにつなぐもの。このアプリがインストールするアドオンと、選択できるリリース群です。MIT ライセンスで、このインストーラーとは別のリポジトリです。</sys:String>
   <sys:String x:Key="Str.CreditDiscordTitle">Discord（みんなが集まる場所）</sys:String>
   <sys:String x:Key="Str.CreditDiscordBody">新しいビルド、どのゲームで何が動くか、そして問題が起きたときの質問先です。</sys:String>
@@ -403,7 +403,7 @@
   <sys:String x:Key="Str.SessionFrames">処理したフレーム数: {0}</sys:String>
   <sys:String x:Key="Str.SessionGpu">ネットワーク: 1 フレームあたり {0} ms</sys:String>
   <sys:String x:Key="Str.SessionRuntime">ランタイム {0}</sys:String>
-  <sys:String x:Key="Str.SessionNoFramesReShade">ゲーム内で Home キーを押して ReShade のオーバーレイを開き、AMD Neural Rendering パネルで NR がオンになっているか確認してください。</sys:String>
+  <sys:String x:Key="Str.SessionNoFramesReShade">ゲーム内で Home キーを押して ReShade のオーバーレイを開き、OpenNR パネルで NR がオンになっているか確認してください。</sys:String>
   <sys:String x:Key="Str.SessionNoFramesOpti">ゲーム内で DLSS、FSR、XeSS のいずれかをオンにしてから Insert キーを押し、Neural タブを開いて「Enable NR」をオンにしてください。</sys:String>
   <sys:String x:Key="Str.SessionNotLoadedHint">ゲームフォルダーの ReShade.log には、ReShade がどのフォルダーでアドオンを探したかが記録されています。「問題を報告」を使うと、ほかのファイルと一緒にまとめられます。</sys:String>
   <sys:String x:Key="Str.SessionReportHint">「問題を報告」を使うと、これらのログを 1 つのファイルにまとめて Discord で共有できます。</sys:String>
@@ -436,7 +436,7 @@
   <sys:String x:Key="Str.TransferExported">設定を保存しました: {0}</sys:String>
   <sys:String x:Key="Str.TransferImported">{0} の設定を適用しました。置き換えられた設定は {1} に保存してあります。</sys:String>
   <sys:String x:Key="Str.TransferWrongRoute">この設定は {0} 用ですが、このゲームには {1} がインストールされています。</sys:String>
-  <sys:String x:Key="Str.TransferInvalid">このファイルは AMD-NR の設定エクスポートではありません。</sys:String>
+  <sys:String x:Key="Str.TransferInvalid">このファイルは OpenNR の設定エクスポートではありません。</sys:String>
   <sys:String x:Key="Str.Emulator.pcsx2">Settings &gt; Graphics &gt; Renderer: Direct3D 11。ゲームのプロパティにあるゲーム別の設定に注意してください。全体の設定を知らせずに上書きするので、実際には壊れていないのに壊れているように見える、いちばんよくある原因です。</sys:String>
   <sys:String x:Key="Str.Emulator.rpcs3">Settings &gt; GPU &gt; Renderer: Vulkan。ここには Direct3D が一切ないため、この導入方法で得られるのは色と推定した動きだけで、深度はありません。</sys:String>
   <sys:String x:Key="Str.Emulator.duckstation">Settings &gt; Graphics &gt; Renderer: Direct3D 11。</sys:String>
@@ -450,7 +450,7 @@
   <sys:String x:Key="Str.Emulator.vita3k">Vulkan が既定のバックエンドです。Vulkan では深度はありません。</sys:String>
   <sys:String x:Key="Str.Emulator.shadps4">Vulkan のみ。Vulkan では深度はなく、エミュレーター自体もまだ初期段階なので、問題が起きることを想定してください。</sys:String>
   <sys:String x:Key="Str.Emulator.kyty">Vulkan のみ。kyty_emulator.exe のフォルダーを指定してください（launcher.exe は起動するだけです）。深度はなく、エミュレーター自体もまだ初期段階なので、問題が起きることを想定してください。</sys:String>
-  <sys:String x:Key="Str.Emulator.fivem">ゲーム内：Home で ReShade が開き、AMD Neural Rendering は Add-ons にあります。または Ctrl+End。FiveM には独自のアンチチートがあるので、先にサーバーのルールを確認してください。</sys:String>
+  <sys:String x:Key="Str.Emulator.fivem">ゲーム内：Home で ReShade が開き、OpenNR は Add-ons にあります。または Ctrl+End。FiveM には独自のアンチチートがあるので、先にサーバーのルールを確認してください。</sys:String>
   <sys:String x:Key="Str.Emulator.azahar">Emulation &gt; Configure &gt; Graphics &gt; Graphics API: Vulkan。OpenGL にも導入方法ができましたが、ここでの実績が多いのは Vulkan です。</sys:String>
   <sys:String x:Key="Str.Emulator.xemu">xemu は OpenGL だけで描画するため、ここにある導入方法は OpenGL だけです。最も新しい導入方法で、実験的です。色と推定した動きのみで、深度はありません。</sys:String>
   <sys:String x:Key="Str.Emulator.melonds">Emu settings &gt; Video &gt; 3D renderer: OpenGL。ソフトウェアレンダラーは CPU で描画し、アドオンが届くものが何もないため、OpenGL のレンダラーにする必要があります。この導入方法は実験的で、色と推定した動きのみ、深度はありません。</sys:String>

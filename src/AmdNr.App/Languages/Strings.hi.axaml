@@ -5,7 +5,7 @@
 
   <!-- हिन्दी. The same keys as Strings.en.axaml, in its order. -->
 
-  <sys:String x:Key="Str.AppTitle">AMD-NR ReShade Installer</sys:String>
+  <sys:String x:Key="Str.AppTitle">OpenNR Installer</sys:String>
   <sys:String x:Key="Str.Subtitle">Radeon पर DLSS 5 न्यूरल रेंडरिंग, आपके लिए इंस्टॉल किया हुआ</sys:String>
   <sys:String x:Key="Str.Games">गेम</sys:String>
   <sys:String x:Key="Str.RemoveGame">सूची से हटाएँ</sys:String>
@@ -56,13 +56,13 @@
   <sys:String x:Key="Str.SupportKofiBody">एक बार की कॉफ़ी।</sys:String>
   <sys:String x:Key="Str.SupportVakinhaTitle">Vakinha</sys:String>
   <sys:String x:Key="Str.SupportVakinhaBody">प्रोजेक्ट का ब्राज़ीलियाई फ़ंडरेज़र।</sys:String>
-  <sys:String x:Key="Str.SupportRail">AMD-NR को सपोर्ट करें</sys:String>
-  <sys:String x:Key="Str.SupportTitle">AMD-NR को ज़िंदा रखें</sys:String>
+  <sys:String x:Key="Str.SupportRail">OpenNR को सपोर्ट करें</sys:String>
+  <sys:String x:Key="Str.SupportTitle">OpenNR को ज़िंदा रखें</sys:String>
   <sys:String x:Key="Str.SupportBody">यह प्रोजेक्ट सिर्फ़ इस्तेमाल करने वालों के सपोर्ट से चलता है। दो लोग, दो ग्राफ़िक्स कार्ड और दोपहर भर का काम: न कोई कंपनी, न कोई स्पॉन्सर। यहाँ सब कुछ मुफ़्त है और मुफ़्त ही रहेगा। सपोर्ट से कुछ अनलॉक नहीं होता; इससे काम चलता रहता है।</sys:String>
   <sys:String x:Key="Str.SupportBrazil">ब्राज़ील में हैं? Vakinha पर Pix, कार्ड या boleto से दे सकते हैं।</sys:String>
   <sys:String x:Key="Str.CreditRuntimeTitle">DLSS-NR-on-AMD — danielblnc द्वारा</sys:String>
   <sys:String x:Key="Str.CreditRuntimeBody">नेटवर्क खुद, और इस सबके होने की वजह: इसी से DLSS 5 की न्यूरल रेंडरिंग पहली बार Radeon पर चली। यह ऐप जो रनटाइम और वेट्स डाउनलोड करता है, वे उनका काम हैं, हमारा नहीं। धन्यवाद, danielblnc।</sys:String>
-  <sys:String x:Key="Str.CreditAddonTitle">dlss5-neural-amd — ऐड-ऑन</sys:String>
+  <sys:String x:Key="Str.CreditAddonTitle">OpenNR-ReShade — ऐड-ऑन</sys:String>
   <sys:String x:Key="Str.CreditAddonBody">जो उस नेटवर्क को ReShade के ज़रिए गेम से जोड़ता है: यह ऐप जो ऐड-ऑन इंस्टॉल करता है, और वे रिलीज़ जिनमें से यह आपको चुनने देता है। MIT लाइसेंस, इस इंस्टॉलर से अलग रिपॉज़िटरी।</sys:String>
   <sys:String x:Key="Str.CreditDiscordTitle">Discord — जहाँ सब हैं</sys:String>
   <sys:String x:Key="Str.CreditDiscordBody">नए बिल्ड, किस गेम में क्या चलता है, और कुछ टूटे तो कहाँ पूछें।</sys:String>
@@ -403,7 +403,7 @@
   <sys:String x:Key="Str.SessionFrames">प्रोसेस हुए फ़्रेम: {0}</sys:String>
   <sys:String x:Key="Str.SessionGpu">नेटवर्क: {0} ms प्रति फ़्रेम</sys:String>
   <sys:String x:Key="Str.SessionRuntime">रनटाइम {0}</sys:String>
-  <sys:String x:Key="Str.SessionNoFramesReShade">गेम में Home से ReShade ओवरले खोलें और देखें कि AMD Neural Rendering पैनल में NR चालू है।</sys:String>
+  <sys:String x:Key="Str.SessionNoFramesReShade">गेम में Home से ReShade ओवरले खोलें और देखें कि OpenNR पैनल में NR चालू है।</sys:String>
   <sys:String x:Key="Str.SessionNoFramesOpti">गेम में DLSS, FSR या XeSS चालू करें, फिर Insert दबाएँ, Neural टैब खोलें और Enable NR चालू करें।</sys:String>
   <sys:String x:Key="Str.SessionNotLoadedHint">गेम फ़ोल्डर का ReShade.log बताता है कि ReShade ने ऐड-ऑन किस फ़ोल्डर में खोजे। “समस्या रिपोर्ट करें” इसे बाकी के साथ पैक करता है।</sys:String>
   <sys:String x:Key="Str.SessionReportHint">“समस्या रिपोर्ट करें” इन लॉग को Discord पर साझा करने के लिए एक फ़ाइल में पैक करता है।</sys:String>
@@ -436,7 +436,7 @@
   <sys:String x:Key="Str.TransferExported">सेटिंग्स {0} में सेव हुईं।</sys:String>
   <sys:String x:Key="Str.TransferImported">{0} की सेटिंग्स लागू हो गईं। जिन्हें उन्होंने बदला, वे {1} में रखी गईं।</sys:String>
   <sys:String x:Key="Str.TransferWrongRoute">ये सेटिंग्स {0} रूट के लिए हैं, और इस गेम में {1} इंस्टॉल है।</sys:String>
-  <sys:String x:Key="Str.TransferInvalid">वह फ़ाइल AMD-NR सेटिंग्स का एक्सपोर्ट नहीं है।</sys:String>
+  <sys:String x:Key="Str.TransferInvalid">वह फ़ाइल OpenNR सेटिंग्स का एक्सपोर्ट नहीं है।</sys:String>
   <sys:String x:Key="Str.Emulator.pcsx2">Settings &gt; Graphics &gt; Renderer: Direct3D 11. गेम की properties में हर गेम की अलग सेटिंग पर ध्यान दें — यह चुपचाप ग्लोबल सेटिंग को बदल देती है, और यही सबसे आम वजह है कि सब ठीक होने पर भी यह खराब दिखता है।</sys:String>
   <sys:String x:Key="Str.Emulator.rpcs3">Settings &gt; GPU &gt; Renderer: Vulkan. यहाँ Direct3D है ही नहीं, इसलिए इस रूट को केवल रंग और अनुमानित मोशन मिलता है — डेप्थ नहीं।</sys:String>
   <sys:String x:Key="Str.Emulator.duckstation">Settings &gt; Graphics &gt; Renderer: Direct3D 11.</sys:String>
@@ -450,7 +450,7 @@
   <sys:String x:Key="Str.Emulator.vita3k">Vulkan डिफ़ॉल्ट बैकएंड है। Vulkan पर डेप्थ नहीं।</sys:String>
   <sys:String x:Key="Str.Emulator.shadps4">केवल Vulkan। Vulkan पर डेप्थ नहीं, और यह एमुलेटर खुद अभी शुरुआती दौर में है — दिक्कतों की उम्मीद रखें।</sys:String>
   <sys:String x:Key="Str.Emulator.kyty">सिर्फ़ Vulkan। kyty_emulator.exe वाला फ़ोल्डर चुनें (launcher.exe सिर्फ़ उसे चलाता है)। डेप्थ नहीं है, और एमुलेटर खुद अभी शुरुआती है — दिक्कतों की उम्मीद रखें।</sys:String>
-  <sys:String x:Key="Str.Emulator.fivem">गेम में: Home से ReShade खुलता है, AMD Neural Rendering Add-ons में है, या Ctrl+End दबाएँ। FiveM का अपना एंटी-चीट है — पहले सर्वर के नियम देख लें।</sys:String>
+  <sys:String x:Key="Str.Emulator.fivem">गेम में: Home से ReShade खुलता है, OpenNR Add-ons में है, या Ctrl+End दबाएँ। FiveM का अपना एंटी-चीट है — पहले सर्वर के नियम देख लें।</sys:String>
   <sys:String x:Key="Str.Emulator.azahar">Emulation &gt; Configure &gt; Graphics &gt; Graphics API: Vulkan. अब OpenGL का भी रूट है, लेकिन यहाँ सबसे ज़्यादा परखा हुआ Vulkan है।</sys:String>
   <sys:String x:Key="Str.Emulator.xemu">xemu केवल OpenGL से रेंडर करता है, इसलिए यहाँ OpenGL रूट ही अकेला है। यह सबसे नया रूट है और प्रायोगिक है: रंग और अनुमानित मोशन, डेप्थ नहीं।</sys:String>
   <sys:String x:Key="Str.Emulator.melonds">Emu settings &gt; Video &gt; 3D renderer: OpenGL. सॉफ़्टवेयर रेंडरर CPU पर बनाता है और वहाँ ऐड-ऑन के पहुँचने लायक कुछ नहीं है, इसलिए OpenGL वाला ही होना चाहिए — और वह रूट प्रायोगिक है: रंग और अनुमानित मोशन, डेप्थ नहीं।</sys:String>

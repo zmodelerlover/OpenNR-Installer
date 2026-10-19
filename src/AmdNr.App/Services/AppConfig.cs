@@ -26,16 +26,16 @@ public sealed class RepoRef
 
 public sealed class AppConfig
 {
-    public RepoRef App { get; set; } = new() { Owner = "zmodelerlover", Repo = "AMD-NR-ReShade-Installer" };
+    public RepoRef App { get; set; } = new() { Owner = "zmodelerlover", Repo = "OpenNR-Installer" };
 
     /// <summary>The payload list and the API database: published on Hugging Face, where the files
-    /// are, and in AMD-NR-Extras on GitHub as the second place to read them from. The defaults are
+    /// are, and in OpenNR-Extras on GitHub as the second place to read them from. The defaults are
     /// what the shipped config.json says, so an executable moved away from that file -- to the
     /// desktop, which is where people put it -- reads exactly the same places.</summary>
     public RepoRef Payload { get; set; } = new()
     {
         Owner = "zmodelerlover",
-        Repo = "AMD-NR-Extras",
+        Repo = "OpenNR-Extras",
         ManifestUrl = "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/payload.json",
         ApiDbUrl = "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/api-db.json",
     };
@@ -43,7 +43,7 @@ public sealed class AppConfig
     /// <summary>The add-on's own repository. Only its releases are read, to know which versions
     /// exist and what each one publishes; the files still come from release asset addresses.
     /// </summary>
-    public RepoRef Addon { get; set; } = new() { Owner = "zmodelerlover", Repo = "dlss5-neural-amd" };
+    public RepoRef Addon { get; set; } = new() { Owner = "zmodelerlover", Repo = "OpenNR-ReShade" };
 
     /// <summary>The chat everyone is actually in, and the project the network comes from. Both are
     /// here rather than in the code because an invite can be rotated and a repository can move, and

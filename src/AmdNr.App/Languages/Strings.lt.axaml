@@ -5,7 +5,7 @@
 
   <!-- Lietuvių. The same keys as Strings.en.axaml, in its order. -->
 
-  <sys:String x:Key="Str.AppTitle">AMD-NR ReShade Installer</sys:String>
+  <sys:String x:Key="Str.AppTitle">OpenNR Installer</sys:String>
   <sys:String x:Key="Str.Subtitle">DLSS 5 neuroninis atvaizdavimas Radeon kortose, įdiegtas už jus</sys:String>
   <sys:String x:Key="Str.Games">Žaidimai</sys:String>
   <sys:String x:Key="Str.RemoveGame">Pašalinti iš sąrašo</sys:String>
@@ -56,13 +56,13 @@
   <sys:String x:Key="Str.SupportKofiBody">Vienkartinė kava.</sys:String>
   <sys:String x:Key="Str.SupportVakinhaTitle">Vakinha</sys:String>
   <sys:String x:Key="Str.SupportVakinhaBody">Projekto lėšų rinkimas Brazilijoje.</sys:String>
-  <sys:String x:Key="Str.SupportRail">Paremti AMD-NR</sys:String>
-  <sys:String x:Key="Str.SupportTitle">Išlaikykite AMD-NR gyvą</sys:String>
+  <sys:String x:Key="Str.SupportRail">Paremti OpenNR</sys:String>
+  <sys:String x:Key="Str.SupportTitle">Išlaikykite OpenNR gyvą</sys:String>
   <sys:String x:Key="Str.SupportBody">Šis projektas gyvuoja tik jo naudotojų parama. Tai du žmonės, dvi vaizdo plokštės ir darbo popietės: jokios įmonės, jokio rėmėjo. Viskas čia nemokama ir tokia liks. Parama nieko neatrakina; ji leidžia darbui tęstis.</sys:String>
   <sys:String x:Key="Str.SupportBrazil">Esate Brazilijoje? Vakinha priima Pix, kortelę arba boleto.</sys:String>
   <sys:String x:Key="Str.CreditRuntimeTitle">DLSS-NR-on-AMD — danielblnc</sys:String>
   <sys:String x:Key="Str.CreditRuntimeBody">Pats tinklas ir priežastis, kodėl visa tai egzistuoja: būtent jis apskritai paleido DLSS 5 neuroninį atvaizdavimą Radeon kortose. Vykdymo aplinka ir svoriai, kuriuos atsisiunčia ši programa, yra jo darbas, ne mūsų. Ačiū, danielblnc.</sys:String>
-  <sys:String x:Key="Str.CreditAddonTitle">dlss5-neural-amd — priedas</sys:String>
+  <sys:String x:Key="Str.CreditAddonTitle">OpenNR-ReShade — priedas</sys:String>
   <sys:String x:Key="Str.CreditAddonBody">Tai, kas per ReShade prijungia tinklą prie žaidimo: priedas, kurį įdiegia ši programa, ir leidimai, iš kurių ji leidžia rinktis. MIT licencija, atskira saugykla nuo šios diegimo programos.</sys:String>
   <sys:String x:Key="Str.CreditDiscordTitle">Discord — čia visi</sys:String>
   <sys:String x:Key="Str.CreditDiscordBody">Nauji leidimai, kas veikia kuriame žaidime ir kur klausti, kai kas nors sugenda.</sys:String>
@@ -403,7 +403,7 @@
   <sys:String x:Key="Str.SessionFrames">Apdorota kadrų: {0}</sys:String>
   <sys:String x:Key="Str.SessionGpu">Tinklas: {0} ms kadrui</sys:String>
   <sys:String x:Key="Str.SessionRuntime">Vykdymo aplinka {0}</sys:String>
-  <sys:String x:Key="Str.SessionNoFramesReShade">Žaidime atverkite ReShade perdangą klavišu Home ir patikrinkite, ar NR įjungtas AMD Neural Rendering skydelyje.</sys:String>
+  <sys:String x:Key="Str.SessionNoFramesReShade">Žaidime atverkite ReShade perdangą klavišu Home ir patikrinkite, ar NR įjungtas OpenNR skydelyje.</sys:String>
   <sys:String x:Key="Str.SessionNoFramesOpti">Žaidime įjunkite DLSS, FSR arba XeSS, tada paspauskite Insert, atverkite skirtuką Neural ir įjunkite Enable NR.</sys:String>
   <sys:String x:Key="Str.SessionNotLoadedHint">ReShade.log žaidimo aplanke nurodo, kuriame aplanke ReShade ieškojo priedų. „Pranešti apie problemą“ jį supakuoja su kitais.</sys:String>
   <sys:String x:Key="Str.SessionReportHint">„Pranešti apie problemą“ supakuoja šiuos žurnalus į vieną failą, kuriuo galima pasidalinti Discord.</sys:String>
@@ -436,7 +436,7 @@
   <sys:String x:Key="Str.TransferExported">Nustatymai įrašyti į {0}.</sys:String>
   <sys:String x:Key="Str.TransferImported">Nustatymai iš {0} pritaikyti. Pakeisti nustatymai išsaugoti {1}.</sys:String>
   <sys:String x:Key="Str.TransferWrongRoute">Šie nustatymai skirti {0} maršrutui, o šiame žaidime įdiegtas {1}.</sys:String>
-  <sys:String x:Key="Str.TransferInvalid">Šis failas nėra AMD-NR nustatymų eksportas.</sys:String>
+  <sys:String x:Key="Str.TransferInvalid">Šis failas nėra OpenNR nustatymų eksportas.</sys:String>
   <sys:String x:Key="Str.Emulator.pcsx2">Settings &gt; Graphics &gt; Renderer: Direct3D 11. Atkreipkite dėmesį į atskiro žaidimo nustatymus žaidimo savybėse — jie tyliai perrašo bendruosius ir dažniausiai dėl jų atrodo, kad kažkas sugedo, nors taip nėra.</sys:String>
   <sys:String x:Key="Str.Emulator.rpcs3">Settings &gt; GPU &gt; Renderer: Vulkan. Čia visai nėra Direct3D, todėl šis maršrutas gauna tik spalvą ir įvertintą judesį — be gylio.</sys:String>
   <sys:String x:Key="Str.Emulator.duckstation">Settings &gt; Graphics &gt; Renderer: Direct3D 11.</sys:String>
@@ -450,7 +450,7 @@
   <sys:String x:Key="Str.Emulator.vita3k">Vulkan yra numatytoji posistemė. Su Vulkan gylio nėra.</sys:String>
   <sys:String x:Key="Str.Emulator.shadps4">Tik Vulkan. Su Vulkan gylio nėra, o pats emuliatorius dar ankstyvos stadijos — tikėkitės problemų.</sys:String>
   <sys:String x:Key="Str.Emulator.kyty">Tik Vulkan. Nurodykite kyty_emulator.exe aplanką (launcher.exe jį tik paleidžia). Gylio nėra, o pats emuliatorius dar ankstyvas – tikėkitės problemų.</sys:String>
-  <sys:String x:Key="Str.Emulator.fivem">Žaidime: Home atveria ReShade, AMD Neural Rendering yra Add-ons skiltyje, arba Ctrl+End. FiveM turi savo apsaugą nuo sukčiavimo – pirma pasitikrinkite serverio taisykles.</sys:String>
+  <sys:String x:Key="Str.Emulator.fivem">Žaidime: Home atveria ReShade, OpenNR yra Add-ons skiltyje, arba Ctrl+End. FiveM turi savo apsaugą nuo sukčiavimo – pirma pasitikrinkite serverio taisykles.</sys:String>
   <sys:String x:Key="Str.Emulator.azahar">Emulation &gt; Configure &gt; Graphics &gt; Graphics API: Vulkan. Dabar maršrutą turi ir OpenGL, bet čia labiausiai išbandytas Vulkan.</sys:String>
   <sys:String x:Key="Str.Emulator.xemu">xemu atvaizduoja tik su OpenGL, todėl OpenGL maršrutas čia vienintelis. Tai naujausias maršrutas, ir jis eksperimentinis: spalva ir įvertintas judesys, be gylio.</sys:String>
   <sys:String x:Key="Str.Emulator.melonds">Emu settings &gt; Video &gt; 3D renderer: OpenGL. Programinis atvaizduoklis piešia procesoriumi, ir ten priedui nėra ko pasiekti, todėl reikia OpenGL — o šis maršrutas eksperimentinis: spalva ir įvertintas judesys, be gylio.</sys:String>

@@ -6,9 +6,9 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
-    <AssemblyName>AMD-NR-ReShade-Installer</AssemblyName>
+    <AssemblyName>OpenNR-Installer</AssemblyName>
     <RootNamespace>AmdNr.App</RootNamespace>
-    <Version>0.8.3</Version>
+    <Version>0.8.4</Version>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Assets\app.ico</ApplicationIcon>
 

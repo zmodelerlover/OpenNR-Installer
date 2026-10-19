@@ -5,7 +5,7 @@
 
   <!-- Polski. The same keys as Strings.en.axaml, in its order. -->
 
-  <sys:String x:Key="Str.AppTitle">AMD-NR ReShade Installer</sys:String>
+  <sys:String x:Key="Str.AppTitle">OpenNR Installer</sys:String>
   <sys:String x:Key="Str.Subtitle">Neuronowe renderowanie DLSS 5 na Radeonie, zainstalowane za Ciebie</sys:String>
   <sys:String x:Key="Str.Games">Gry</sys:String>
   <sys:String x:Key="Str.RemoveGame">Usuń z listy</sys:String>
@@ -56,13 +56,13 @@
   <sys:String x:Key="Str.SupportKofiBody">Jednorazowa kawa.</sys:String>
   <sys:String x:Key="Str.SupportVakinhaTitle">Vakinha</sys:String>
   <sys:String x:Key="Str.SupportVakinhaBody">Brazylijska zbiórka projektu.</sys:String>
-  <sys:String x:Key="Str.SupportRail">Wesprzyj AMD-NR</sys:String>
-  <sys:String x:Key="Str.SupportTitle">Utrzymaj AMD-NR przy życiu</sys:String>
+  <sys:String x:Key="Str.SupportRail">Wesprzyj OpenNR</sys:String>
+  <sys:String x:Key="Str.SupportTitle">Utrzymaj OpenNR przy życiu</sys:String>
   <sys:String x:Key="Str.SupportBody">Ten projekt żyje tylko dzięki wsparciu osób, które z niego korzystają. To dwie osoby, dwie karty graficzne i popołudnia pracy: bez firmy i sponsora. Wszystko tu jest darmowe i takie zostanie. Wsparcie niczego nie odblokowuje; pozwala pracować dalej.</sys:String>
   <sys:String x:Key="Str.SupportBrazil">Jesteś w Brazylii? Vakinha przyjmuje Pix, kartę lub boleto.</sys:String>
   <sys:String x:Key="Str.CreditRuntimeTitle">DLSS-NR-on-AMD — autor: danielblnc</sys:String>
   <sys:String x:Key="Str.CreditRuntimeBody">Sama sieć i powód, dla którego to wszystko istnieje: to dzięki niej neuronowe renderowanie DLSS 5 w ogóle ruszyło na Radeonie. Runtime i wagi pobierane przez tę aplikację to jego praca, nie nasza. Dziękujemy, danielblnc.</sys:String>
-  <sys:String x:Key="Str.CreditAddonTitle">dlss5-neural-amd — dodatek</sys:String>
+  <sys:String x:Key="Str.CreditAddonTitle">OpenNR-ReShade — dodatek</sys:String>
   <sys:String x:Key="Str.CreditAddonBody">To, co łączy tę sieć z grą przez ReShade: dodatek, który ta aplikacja instaluje, i wydania, spośród których możesz wybierać. Licencja MIT, osobne repozytorium niż ten instalator.</sys:String>
   <sys:String x:Key="Str.CreditDiscordTitle">Discord — tam są wszyscy</sys:String>
   <sys:String x:Key="Str.CreditDiscordBody">Nowe wersje, co działa w której grze i gdzie pytać, gdy coś się zepsuje.</sys:String>
@@ -403,7 +403,7 @@
   <sys:String x:Key="Str.SessionFrames">Przetworzone klatki: {0}</sys:String>
   <sys:String x:Key="Str.SessionGpu">Sieć: {0} ms na klatkę</sys:String>
   <sys:String x:Key="Str.SessionRuntime">Runtime {0}</sys:String>
-  <sys:String x:Key="Str.SessionNoFramesReShade">W grze otwórz nakładkę ReShade klawiszem Home i sprawdź, czy NR jest włączony w panelu AMD Neural Rendering.</sys:String>
+  <sys:String x:Key="Str.SessionNoFramesReShade">W grze otwórz nakładkę ReShade klawiszem Home i sprawdź, czy NR jest włączony w panelu OpenNR.</sys:String>
   <sys:String x:Key="Str.SessionNoFramesOpti">W grze włącz DLSS, FSR lub XeSS, potem naciśnij Insert, otwórz kartę Neural i włącz Enable NR.</sys:String>
   <sys:String x:Key="Str.SessionNotLoadedHint">ReShade.log w folderze gry mówi, w którym folderze ReShade szukał dodatków. „Zgłoś problem” spakuje go z resztą.</sys:String>
   <sys:String x:Key="Str.SessionReportHint">„Zgłoś problem” pakuje te logi w jeden plik do udostępnienia na Discordzie.</sys:String>
@@ -436,7 +436,7 @@
   <sys:String x:Key="Str.TransferExported">Ustawienia zapisano w {0}.</sys:String>
   <sys:String x:Key="Str.TransferImported">Ustawienia z {0} są wczytane. Zastąpione ustawienia zachowano w {1}.</sys:String>
   <sys:String x:Key="Str.TransferWrongRoute">Te ustawienia są dla ścieżki {0}, a w tej grze zainstalowano {1}.</sys:String>
-  <sys:String x:Key="Str.TransferInvalid">Ten plik nie jest eksportem ustawień AMD-NR.</sys:String>
+  <sys:String x:Key="Str.TransferInvalid">Ten plik nie jest eksportem ustawień OpenNR.</sys:String>
   <sys:String x:Key="Str.Emulator.pcsx2">Settings &gt; Graphics &gt; Renderer: Direct3D 11. Uważaj na ustawienia dla konkretnej gry we właściwościach gry: po cichu nadpisują globalne i to najczęstszy powód, dla którego wygląda to na zepsute, choć nie jest.</sys:String>
   <sys:String x:Key="Str.Emulator.rpcs3">Settings &gt; GPU &gt; Renderer: Vulkan. Nie ma tu w ogóle Direct3D, więc ta ścieżka dostaje tylko kolor i szacowany ruch — bez głębi.</sys:String>
   <sys:String x:Key="Str.Emulator.duckstation">Settings &gt; Graphics &gt; Renderer: Direct3D 11.</sys:String>
@@ -450,7 +450,7 @@
   <sys:String x:Key="Str.Emulator.vita3k">Vulkan jest domyślnym backendem. Na Vulkanie nie ma głębi.</sys:String>
   <sys:String x:Key="Str.Emulator.shadps4">Tylko Vulkan. Na Vulkanie nie ma głębi, a sam emulator jest na wczesnym etapie — spodziewaj się problemów.</sys:String>
   <sys:String x:Key="Str.Emulator.kyty">Tylko Vulkan. Wskaż folder kyty_emulator.exe (launcher.exe tylko go uruchamia). Bez głębi, a sam emulator jest jeszcze wczesny — spodziewaj się problemów.</sys:String>
-  <sys:String x:Key="Str.Emulator.fivem">W grze: Home otwiera ReShade, a AMD Neural Rendering jest w Add-ons, albo Ctrl+End. FiveM ma własny anti-cheat — najpierw sprawdź zasady serwera.</sys:String>
+  <sys:String x:Key="Str.Emulator.fivem">W grze: Home otwiera ReShade, a OpenNR jest w Add-ons, albo Ctrl+End. FiveM ma własny anti-cheat — najpierw sprawdź zasady serwera.</sys:String>
   <sys:String x:Key="Str.Emulator.azahar">Emulation &gt; Configure &gt; Graphics &gt; Graphics API: Vulkan. OpenGL też ma już ścieżkę, ale to Vulkan jest tu najlepiej sprawdzony.</sys:String>
   <sys:String x:Key="Str.Emulator.xemu">xemu renderuje wyłącznie przez OpenGL, więc ścieżka OpenGL jest tu jedyna. To najnowsza ze ścieżek i jest eksperymentalna: kolor i szacowany ruch, bez głębi.</sys:String>
   <sys:String x:Key="Str.Emulator.melonds">Emu settings &gt; Video &gt; 3D renderer: OpenGL. Renderer programowy rysuje na CPU i dodatek nie ma tam do czego się dostać, więc musi to być OpenGL — a ta ścieżka jest eksperymentalna: kolor i szacowany ruch, bez głębi.</sys:String>

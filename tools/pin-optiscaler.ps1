@@ -35,7 +35,7 @@
   touched: tools/pin-mochizuki.ps1 writes those.
 
 .EXAMPLE
-  gh release download v0.4.0-amd-nr --repo MatheusFerreiraS/neural-amd-opti --pattern 'OptiScaler-*.zip' --dir $env:TEMP\opti
+  gh release download v0.4.0-amd-nr --repo MatheusFerreiraS/OpenNR-OptiScaler --pattern 'OptiScaler-*.zip' --dir $env:TEMP\opti
   .\tools\pin-optiscaler.ps1 -Zip $env:TEMP\opti\OptiScaler-0.4.0-amd-nr.zip -Published 2026-09-25
 #>
 [CmdletBinding()]
@@ -78,7 +78,7 @@ if (-not $Version) {
 if ($zipName -ne "OptiScaler-$Version.zip") { Fail "$zipName is not OptiScaler-$Version.zip, the name the release publishes" }
 if ($Version -notmatch '^\d+\.\d+\.\d+') { Fail "unusable version '$Version'" }
 if ($Published -notmatch '^\d{4}-\d{2}-\d{2}$') { Fail "-Published wants yyyy-MM-dd, got '$Published'" }
-if (-not $Url) { $Url = "https://github.com/MatheusFerreiraS/neural-amd-opti/releases/download/v$Version/$zipName" }
+if (-not $Url) { $Url = "https://github.com/MatheusFerreiraS/OpenNR-OptiScaler/releases/download/v$Version/$zipName" }
 
 # What the installers already published accept inside a game folder, besides the proxy name
 # OptiScaler.dll goes in under: Engine.Allowed as of v0.5.1, and its three rules.

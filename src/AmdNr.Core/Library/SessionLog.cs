@@ -86,6 +86,8 @@ public static partial class SessionLog
         // everything of ours is a session our add-on was never part of.
         if (reshadeWhen is { } started && (newest is null || started - newest > SameSession)
             && Tail(Path.Combine(folder, ReShadeLog)) is { } reshade
+            // The add-on's name before OpenNR is still in the games that keep an older one.
+            && !reshade.Contains("Registered add-on \"OpenNR", StringComparison.Ordinal)
             && !reshade.Contains("Registered add-on \"AMD Neural Rendering", StringComparison.Ordinal))
         {
             // Only when this folder carries the add-on at all: ReShade on its own is somebody else's.

@@ -95,7 +95,7 @@ public static class AppUpdate
         }
     }
 
-    public const string ExeAsset = "AMD-NR-ReShade-Installer.exe";
+    public const string ExeAsset = "OpenNR-Installer.exe";
     public const string SumsAsset = "SHA256SUMS.txt";
 
     /// <summary>Fetches the new executable and checks it against the sums the same release

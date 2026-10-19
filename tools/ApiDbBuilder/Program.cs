@@ -162,7 +162,7 @@ static (int Status, string? Location, string Body) Curl(string url, bool follow)
     foreach (var arg in new[]
              {
                  "-sS", "--max-time", "30", "-A",
-                 "AMD-NR-ReShade-Installer-ApiDbBuilder/1.0 (+https://github.com/zmodelerlover/AMD-NR-ReShade-Installer)",
+                 "OpenNR-Installer-ApiDbBuilder/1.0 (+https://github.com/zmodelerlover/OpenNR-Installer)",
                  "-w", "\n%{http_code}\n%{redirect_url}", url,
              })
         start.ArgumentList.Add(arg);

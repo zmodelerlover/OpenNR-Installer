@@ -6,7 +6,7 @@
   <!-- The fallback language. Every other Strings.*.axaml carries the same keys; one that is missing
        falls through to whatever this file says. -->
 
-  <sys:String x:Key="Str.AppTitle">AMD-NR ReShade Installer</sys:String>
+  <sys:String x:Key="Str.AppTitle">OpenNR Installer</sys:String>
   <sys:String x:Key="Str.Subtitle">DLSS 5 neural rendering on Radeon, installed for you</sys:String>
 
   <sys:String x:Key="Str.Games">Games</sys:String>
@@ -63,13 +63,13 @@
   <sys:String x:Key="Str.SupportKofiBody">A one-off coffee.</sys:String>
   <sys:String x:Key="Str.SupportVakinhaTitle">Vakinha</sys:String>
   <sys:String x:Key="Str.SupportVakinhaBody">The project's Brazilian fundraiser.</sys:String>
-  <sys:String x:Key="Str.SupportRail">Support AMD-NR</sys:String>
-  <sys:String x:Key="Str.SupportTitle">Keep AMD-NR alive</sys:String>
+  <sys:String x:Key="Str.SupportRail">Support OpenNR</sys:String>
+  <sys:String x:Key="Str.SupportTitle">Keep OpenNR alive</sys:String>
   <sys:String x:Key="Str.SupportBody">This project only stays alive with support from the people who use it. It is two people, two graphics cards and afternoons of work: no company, no sponsor. Everything here is free and stays free. Support unlocks nothing; it keeps the work going.</sys:String>
   <sys:String x:Key="Str.SupportBrazil">In Brazil? The Vakinha takes Pix, card or boleto.</sys:String>
   <sys:String x:Key="Str.CreditRuntimeTitle">DLSS-NR-on-AMD — by danielblnc</sys:String>
   <sys:String x:Key="Str.CreditRuntimeBody">The network itself, and the reason any of this exists: it is what got DLSS 5's neural rendering running on Radeon at all. The runtime and the weights this app downloads are his work, not ours. Thank you, danielblnc.</sys:String>
-  <sys:String x:Key="Str.CreditAddonTitle">dlss5-neural-amd — the add-on</sys:String>
+  <sys:String x:Key="Str.CreditAddonTitle">OpenNR-ReShade — the add-on</sys:String>
   <sys:String x:Key="Str.CreditAddonBody">What plugs that network into a game through ReShade: the add-on this installs, and the releases this offers you a choice of. MIT licensed, and a separate repository from this installer.</sys:String>
   <sys:String x:Key="Str.CreditDiscordTitle">Discord — where everyone is</sys:String>
   <sys:String x:Key="Str.CreditDiscordBody">New builds, what works in which game, and where to ask when something breaks.</sys:String>
@@ -429,7 +429,7 @@
   <sys:String x:Key="Str.SessionFrames">Frames processed: {0}</sys:String>
   <sys:String x:Key="Str.SessionGpu">Network: {0} ms per frame</sys:String>
   <sys:String x:Key="Str.SessionRuntime">Runtime {0}</sys:String>
-  <sys:String x:Key="Str.SessionNoFramesReShade">In the game, open the ReShade overlay with Home and check that NR is on in the AMD Neural Rendering panel.</sys:String>
+  <sys:String x:Key="Str.SessionNoFramesReShade">In the game, open the ReShade overlay with Home and check that NR is on in the OpenNR panel.</sys:String>
   <sys:String x:Key="Str.SessionNoFramesOpti">In the game, turn on DLSS, FSR or XeSS, then press Insert, open the Neural tab and turn on Enable NR.</sys:String>
   <sys:String x:Key="Str.SessionNotLoadedHint">ReShade.log in the game folder says which folder ReShade searched for add-ons. Report a problem packs it with the rest.</sys:String>
   <sys:String x:Key="Str.SessionReportHint">Report a problem packs these logs into one file to share on Discord.</sys:String>
@@ -462,6 +462,6 @@
   <sys:String x:Key="Str.TransferExported">Settings saved to {0}.</sys:String>
   <sys:String x:Key="Str.TransferImported">The settings from {0} are in. The ones they replaced were kept in {1}.</sys:String>
   <sys:String x:Key="Str.TransferWrongRoute">These settings are for the {0} route, and this game has {1} installed.</sys:String>
-  <sys:String x:Key="Str.TransferInvalid">That file is not an AMD-NR settings export.</sys:String>
+  <sys:String x:Key="Str.TransferInvalid">That file is not an OpenNR settings export.</sys:String>
 
 </ResourceDictionary>

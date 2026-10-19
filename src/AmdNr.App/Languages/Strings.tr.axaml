@@ -5,7 +5,7 @@
 
   <!-- Türkçe. The same keys as Strings.en.axaml, in its order. -->
 
-  <sys:String x:Key="Str.AppTitle">AMD-NR ReShade Installer</sys:String>
+  <sys:String x:Key="Str.AppTitle">OpenNR Installer</sys:String>
   <sys:String x:Key="Str.Subtitle">Radeon üzerinde DLSS 5 nöral işleme, sizin için kurulur</sys:String>
   <sys:String x:Key="Str.Games">Oyunlar</sys:String>
   <sys:String x:Key="Str.RemoveGame">Listeden kaldır</sys:String>
@@ -56,13 +56,13 @@
   <sys:String x:Key="Str.SupportKofiBody">Tek seferlik bir kahve.</sys:String>
   <sys:String x:Key="Str.SupportVakinhaTitle">Vakinha</sys:String>
   <sys:String x:Key="Str.SupportVakinhaBody">Projenin Brezilya'daki bağış kampanyası.</sys:String>
-  <sys:String x:Key="Str.SupportRail">AMD-NR'ı destekle</sys:String>
-  <sys:String x:Key="Str.SupportTitle">AMD-NR'ı yaşat</sys:String>
+  <sys:String x:Key="Str.SupportRail">OpenNR'ı destekle</sys:String>
+  <sys:String x:Key="Str.SupportTitle">OpenNR'ı yaşat</sys:String>
   <sys:String x:Key="Str.SupportBody">Bu proje yalnızca kullananların desteğiyle ayakta kalıyor. İki kişi, iki ekran kartı ve öğleden sonraları süren bir emek: şirket yok, sponsor yok. Buradaki her şey ücretsiz ve öyle kalacak. Destek hiçbir şeyin kilidini açmaz; işin sürmesini sağlar.</sys:String>
   <sys:String x:Key="Str.SupportBrazil">Brezilya'da mısın? Vakinha Pix, kart veya boleto kabul eder.</sys:String>
   <sys:String x:Key="Str.CreditRuntimeTitle">DLSS-NR-on-AMD — danielblnc</sys:String>
   <sys:String x:Key="Str.CreditRuntimeBody">Ağın kendisi ve tüm bunların var olma sebebi: DLSS 5'in nöral işlemesini Radeon'da çalıştırmayı başaran şey odur. Bu uygulamanın indirdiği çalışma zamanı ve ağırlıklar onun emeğidir, bizim değil. Teşekkürler, danielblnc.</sys:String>
-  <sys:String x:Key="Str.CreditAddonTitle">dlss5-neural-amd — eklenti</sys:String>
+  <sys:String x:Key="Str.CreditAddonTitle">OpenNR-ReShade — eklenti</sys:String>
   <sys:String x:Key="Str.CreditAddonBody">O ağı ReShade üzerinden bir oyuna bağlayan şey: bu uygulamanın kurduğu eklenti ve aralarından seçim yapmanızı sağladığı sürümler. MIT lisanslıdır ve bu yükleyiciden ayrı bir depodadır.</sys:String>
   <sys:String x:Key="Str.CreditDiscordTitle">Discord — herkesin buluştuğu yer</sys:String>
   <sys:String x:Key="Str.CreditDiscordBody">Yeni sürümler, hangi oyunda neyin çalıştığı ve bir şey bozulduğunda nereye soracağınız.</sys:String>
@@ -403,7 +403,7 @@
   <sys:String x:Key="Str.SessionFrames">İşlenen kare: {0}</sys:String>
   <sys:String x:Key="Str.SessionGpu">Ağ: kare başına {0} ms</sys:String>
   <sys:String x:Key="Str.SessionRuntime">Çalışma zamanı: {0}</sys:String>
-  <sys:String x:Key="Str.SessionNoFramesReShade">Oyunda ReShade katmanını Home tuşuyla açın ve AMD Neural Rendering panelinde NR'nin açık olduğunu kontrol edin.</sys:String>
+  <sys:String x:Key="Str.SessionNoFramesReShade">Oyunda ReShade katmanını Home tuşuyla açın ve OpenNR panelinde NR'nin açık olduğunu kontrol edin.</sys:String>
   <sys:String x:Key="Str.SessionNoFramesOpti">Oyunda DLSS, FSR veya XeSS'i açın; ardından Insert tuşuna basın, Neural sekmesini açın ve «Enable NR» seçeneğini açın.</sys:String>
   <sys:String x:Key="Str.SessionNotLoadedHint">Oyun klasöründeki ReShade.log, ReShade'in eklentileri hangi klasörde aradığını söyler. «Sorun bildir» onu diğerleriyle birlikte toplar.</sys:String>
   <sys:String x:Key="Str.SessionReportHint">«Sorun bildir» bu günlükleri Discord'da paylaşmak için tek bir dosyada toplar.</sys:String>
@@ -436,7 +436,7 @@
   <sys:String x:Key="Str.TransferExported">Ayarlar kaydedildi: {0}.</sys:String>
   <sys:String x:Key="Str.TransferImported">Şu dosyadaki ayarlar uygulandı: {0}. Değiştirilen ayarlar şurada saklandı: {1}.</sys:String>
   <sys:String x:Key="Str.TransferWrongRoute">Bu ayarların yöntemi: {0}. Bu oyunda kurulu olan: {1}.</sys:String>
-  <sys:String x:Key="Str.TransferInvalid">Bu dosya bir AMD-NR ayar dışa aktarımı değil.</sys:String>
+  <sys:String x:Key="Str.TransferInvalid">Bu dosya bir OpenNR ayar dışa aktarımı değil.</sys:String>
   <sys:String x:Key="Str.Emulator.pcsx2">Settings &gt; Graphics &gt; Renderer: Direct3D 11. Oyun özelliklerindeki oyuna özel ayarlara dikkat edin: genel ayarı sessizce geçersiz kılarlar ve çalışıyorken bozukmuş gibi görünmesinin en yaygın nedeni budur.</sys:String>
   <sys:String x:Key="Str.Emulator.rpcs3">Settings &gt; GPU &gt; Renderer: Vulkan. Burada Direct3D hiç yok, bu yüzden bu yöntem yalnızca renk ve tahmini hareket alır; derinlik yok.</sys:String>
   <sys:String x:Key="Str.Emulator.duckstation">Settings &gt; Graphics &gt; Renderer: Direct3D 11.</sys:String>
@@ -450,7 +450,7 @@
   <sys:String x:Key="Str.Emulator.vita3k">Varsayılan arka uç Vulkan'dır. Vulkan'da derinlik yok.</sys:String>
   <sys:String x:Key="Str.Emulator.shadps4">Yalnızca Vulkan. Vulkan'da derinlik yok ve emülatörün kendisi de henüz çok yeni; sorun bekleyin.</sys:String>
   <sys:String x:Key="Str.Emulator.kyty">Yalnızca Vulkan. kyty_emulator.exe'nin klasörünü seç (launcher.exe onu yalnızca başlatır). Derinlik yok ve emülatörün kendisi henüz erken aşamada — sorun bekle.</sys:String>
-  <sys:String x:Key="Str.Emulator.fivem">Oyunda: Home ReShade'i açar, AMD Neural Rendering Add-ons sekmesindedir ya da Ctrl+End. FiveM'in kendi hile koruması var — önce sunucunun kurallarına bak.</sys:String>
+  <sys:String x:Key="Str.Emulator.fivem">Oyunda: Home ReShade'i açar, OpenNR Add-ons sekmesindedir ya da Ctrl+End. FiveM'in kendi hile koruması var — önce sunucunun kurallarına bak.</sys:String>
   <sys:String x:Key="Str.Emulator.azahar">Emulation &gt; Configure &gt; Graphics &gt; Graphics API: Vulkan. Artık OpenGL için de bir yöntem var, ama burada en çok denenmiş olan Vulkan.</sys:String>
   <sys:String x:Key="Str.Emulator.xemu">xemu yalnızca OpenGL ile görüntü oluşturur, bu yüzden burada tek yöntem OpenGL yöntemidir. Yöntemlerin en yenisidir ve deneyseldir: renk ve tahmini hareket, derinlik yok.</sys:String>
   <sys:String x:Key="Str.Emulator.melonds">Emu settings &gt; Video &gt; 3D renderer: OpenGL. Yazılımsal işleyici CPU üzerinde çizer ve orada bir eklentinin erişebileceği hiçbir şey yoktur; bu yüzden OpenGL işleyicisi olmalıdır. Bu yöntem deneyseldir: renk ve tahmini hareket, derinlik yok.</sys:String>

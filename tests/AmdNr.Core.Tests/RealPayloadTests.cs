@@ -76,19 +76,19 @@ public class RealPayloadTests
         Directory.CreateDirectory(dir);
         var bytes = "a new build"u8.ToArray();
         var sha = Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(bytes)).ToLowerInvariant();
-        var sums = string.Join('\n', $"{sha} *AMD-NR-ReShade-Installer.exe", "0000 not-a-pin", "");
+        var sums = string.Join('\n', $"{sha} *OpenNR-Installer.exe", "0000 not-a-pin", "");
 
-        Assert.True(AppUpdater.Verify(bytes, sums, "AMD-NR-ReShade-Installer.exe"));
-        Assert.False(AppUpdater.Verify("something else"u8.ToArray(), sums, "AMD-NR-ReShade-Installer.exe"));
+        Assert.True(AppUpdater.Verify(bytes, sums, "OpenNR-Installer.exe"));
+        Assert.False(AppUpdater.Verify("something else"u8.ToArray(), sums, "OpenNR-Installer.exe"));
         Assert.False(AppUpdater.Verify(bytes, sums, "not-listed.exe"));
-        Assert.False(AppUpdater.Verify(bytes, "", "AMD-NR-ReShade-Installer.exe"));
+        Assert.False(AppUpdater.Verify(bytes, "", "OpenNR-Installer.exe"));
 
         // The exact shape the release publishes: two spaces, no asterisk, CRLF, more than one file
         // listed. A sums file this cannot parse is not an error anywhere -- CanSelfUpdate goes false
         // and the app quietly opens the browser instead, which is what v0.1.0 did for want of one.
         Assert.True(AppUpdater.Verify(bytes,
-            $"{sha}  AMD-NR-ReShade-Installer.exe\r\n{new string('0', 64)}  AMD-NR-ReShade-Installer-v0.1.1.zip\r\n",
-            "AMD-NR-ReShade-Installer.exe"));
+            $"{sha}  OpenNR-Installer.exe\r\n{new string('0', 64)}  OpenNR-Installer-v0.1.1.zip\r\n",
+            "OpenNR-Installer.exe"));
 
         var current = Path.Combine(dir, "app.exe");
         var staged = Path.Combine(dir, "staged.exe");

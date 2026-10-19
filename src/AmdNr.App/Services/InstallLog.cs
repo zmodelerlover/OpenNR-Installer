@@ -199,7 +199,7 @@ public static class InstallLog
 
     internal static void Header(StringBuilder o, string action, bool failed)
     {
-        Head(o, "AMD-NR ReShade Installer");
+        Head(o, "OpenNR Installer");
         Line(o, "when", DateTimeOffset.Now.ToString("yyyy-MM-dd HH:mm:ss zzz"));
         Line(o, "action", action);
         Line(o, "app", $"v{App.Version}  (language {App.CurrentLanguage})");

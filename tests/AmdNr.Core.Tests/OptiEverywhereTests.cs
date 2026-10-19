@@ -135,7 +135,7 @@ public class OptiEverywhereTests
         Assert.Contains("LmxxfNrRuntime.pak", Work.ForeignNrMod(game, null));
         var report = Work.Install(game, src, Preset.OptiScaler, pins);
         Assert.False(report.Failed, report.ToLog("install"));
-        Assert.True(Fixture.HasAny(report, "Another AMD NR mod"), report.ToLog("install"));
+        Assert.True(Fixture.HasAny(report, "Another neural rendering mod"), report.ToLog("install"));
         Assert.Equal("stand-in OptiScaler.ini", File.ReadAllText(Path.Combine(game, Work.OptiScalerIni)));
 
         // Uninstall puts theirs back.

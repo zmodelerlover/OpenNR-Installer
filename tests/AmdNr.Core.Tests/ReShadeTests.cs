@@ -110,7 +110,7 @@ public class ReShadeTests
         Assert.Equal("1", Engine.GetIni(after, "GENERAL", "PerformanceMode"));
         Assert.Equal("Other.addon64", Engine.GetIni(after, "ADDON", "DisabledAddons"));
         Assert.Equal("4", Engine.GetIni(after, "OVERLAY", "TutorialProgress"));
-        Assert.Contains("AMD Neural Rendering", Engine.GetIni(after, "OVERLAY", "Window"), StringComparison.Ordinal);
+        Assert.Contains("OpenNR", Engine.GetIni(after, "OVERLAY", "Window"), StringComparison.Ordinal);
 
         // Running it again changes nothing: a reinstall must not churn someone's ini.
         Assert.Equal(after, Work.ReadyReShadeIni(after));

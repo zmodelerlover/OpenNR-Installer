@@ -137,7 +137,7 @@ public static partial class Work
         if (supplied is { } kept) report.Info(SuppliedInstalled(kept.Build));
         report.Info(Preset.FiveM.Note());
         report.Info(
-            "It starts switched off. In FiveM press Home, find AMD Neural Rendering under Add-ons and turn it on, "
+            "It starts switched off. In FiveM press Home, find OpenNR under Add-ons and turn it on, "
             + "or press Ctrl+End. After a FiveM update, run this again if it stops.");
         return report;
     }
@@ -240,7 +240,7 @@ public static partial class Work
         catch (Exception e) when (e is IOException or UnauthorizedAccessException) { return; }
         var gta = Engine.GetIni(ini, "Game", "IVPath");
         if (gta.Length == 0 || !File.Exists(Path.Combine(gta, AddonName))) return;
-        report.Info($"The GTA V folder ({gta}) has AMD-NR as well. FiveM ignores graphics mods there -- that is the "
+        report.Info($"The GTA V folder ({gta}) has OpenNR as well. FiveM ignores graphics mods there -- that is the "
                     + "\"Ignored graphics mod\" line in its F8 console -- so it stays for story mode and is not touched.");
     }
 }

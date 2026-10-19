@@ -5,7 +5,7 @@
 
   <!-- Español. The same keys as Strings.en.axaml, in its order. -->
 
-  <sys:String x:Key="Str.AppTitle">AMD-NR ReShade Installer</sys:String>
+  <sys:String x:Key="Str.AppTitle">OpenNR Installer</sys:String>
   <sys:String x:Key="Str.Subtitle">Renderizado neuronal de DLSS 5 en Radeon, instalado por ti</sys:String>
   <sys:String x:Key="Str.Games">Juegos</sys:String>
   <sys:String x:Key="Str.RemoveGame">Quitar de la lista</sys:String>
@@ -56,13 +56,13 @@
   <sys:String x:Key="Str.SupportKofiBody">Un café, una sola vez.</sys:String>
   <sys:String x:Key="Str.SupportVakinhaTitle">Vakinha</sys:String>
   <sys:String x:Key="Str.SupportVakinhaBody">La colecta brasileña del proyecto.</sys:String>
-  <sys:String x:Key="Str.SupportRail">Apoyar AMD-NR</sys:String>
-  <sys:String x:Key="Str.SupportTitle">Mantén vivo AMD-NR</sys:String>
+  <sys:String x:Key="Str.SupportRail">Apoyar OpenNR</sys:String>
+  <sys:String x:Key="Str.SupportTitle">Mantén vivo OpenNR</sys:String>
   <sys:String x:Key="Str.SupportBody">Este proyecto solo sigue vivo con el apoyo de quienes lo usan. Son dos personas, dos tarjetas gráficas y tardes de trabajo: sin empresa ni patrocinio. Todo aquí es gratis y seguirá siéndolo. El apoyo no desbloquea nada; mantiene el trabajo en marcha.</sys:String>
   <sys:String x:Key="Str.SupportBrazil">¿Estás en Brasil? La Vakinha acepta Pix, tarjeta o boleto.</sys:String>
   <sys:String x:Key="Str.CreditRuntimeTitle">DLSS-NR-on-AMD, de danielblnc</sys:String>
   <sys:String x:Key="Str.CreditRuntimeBody">La red en sí, y la razón de que todo esto exista: es lo que consiguió que el renderizado neuronal de DLSS 5 funcionara en Radeon. El runtime y los pesos que descarga esta app son trabajo suyo, no nuestro. Gracias, danielblnc.</sys:String>
-  <sys:String x:Key="Str.CreditAddonTitle">dlss5-neural-amd, el add-on</sys:String>
+  <sys:String x:Key="Str.CreditAddonTitle">OpenNR-ReShade, el add-on</sys:String>
   <sys:String x:Key="Str.CreditAddonBody">Lo que conecta esa red a un juego a través de ReShade: el add-on que instala esta app y las versiones entre las que te deja elegir. Con licencia MIT, y en un repositorio distinto al de este instalador.</sys:String>
   <sys:String x:Key="Str.CreditDiscordTitle">Discord, donde está todo el mundo</sys:String>
   <sys:String x:Key="Str.CreditDiscordBody">Versiones nuevas, qué funciona en cada juego y dónde preguntar cuando algo falla.</sys:String>
@@ -403,7 +403,7 @@
   <sys:String x:Key="Str.SessionFrames">Fotogramas procesados: {0}</sys:String>
   <sys:String x:Key="Str.SessionGpu">Red: {0} ms por fotograma</sys:String>
   <sys:String x:Key="Str.SessionRuntime">Runtime {0}</sys:String>
-  <sys:String x:Key="Str.SessionNoFramesReShade">En el juego, abre el overlay de ReShade con Inicio (Home) y comprueba que NR está activado en el panel AMD Neural Rendering.</sys:String>
+  <sys:String x:Key="Str.SessionNoFramesReShade">En el juego, abre el overlay de ReShade con Inicio (Home) y comprueba que NR está activado en el panel OpenNR.</sys:String>
   <sys:String x:Key="Str.SessionNoFramesOpti">En el juego, activa DLSS, FSR o XeSS; luego pulsa Insert, abre la pestaña Neural y activa «Enable NR».</sys:String>
   <sys:String x:Key="Str.SessionNotLoadedHint">El ReShade.log de la carpeta del juego dice en qué carpeta buscó ReShade los add-ons. «Informar de un problema» lo reúne con todo lo demás.</sys:String>
   <sys:String x:Key="Str.SessionReportHint">«Informar de un problema» reúne estos logs en un solo archivo para compartirlo en Discord.</sys:String>
@@ -436,7 +436,7 @@
   <sys:String x:Key="Str.TransferExported">Ajustes guardados en {0}.</sys:String>
   <sys:String x:Key="Str.TransferImported">Los ajustes de {0} ya están aplicados. Los que reemplazaron se guardaron en {1}.</sys:String>
   <sys:String x:Key="Str.TransferWrongRoute">Estos ajustes son del método {0}, y este juego tiene {1} instalado.</sys:String>
-  <sys:String x:Key="Str.TransferInvalid">Ese archivo no es una exportación de ajustes de AMD-NR.</sys:String>
+  <sys:String x:Key="Str.TransferInvalid">Ese archivo no es una exportación de ajustes de OpenNR.</sys:String>
   <sys:String x:Key="Str.Emulator.pcsx2">Settings &gt; Graphics &gt; Renderer: Direct3D 11. Ojo con la configuración por juego en las propiedades del juego: pisa la global sin avisar, y es la forma más común de que esto parezca roto sin estarlo.</sys:String>
   <sys:String x:Key="Str.Emulator.rpcs3">Settings &gt; GPU &gt; Renderer: Vulkan. Aquí no hay Direct3D en absoluto, así que este método solo recibe color y movimiento estimado, sin profundidad.</sys:String>
   <sys:String x:Key="Str.Emulator.duckstation">Settings &gt; Graphics &gt; Renderer: Direct3D 11.</sys:String>
@@ -450,7 +450,7 @@
   <sys:String x:Key="Str.Emulator.vita3k">Vulkan es el backend predeterminado. Sin profundidad en Vulkan.</sys:String>
   <sys:String x:Key="Str.Emulator.shadps4">Solo Vulkan. Sin profundidad en Vulkan, y el propio emulador es muy reciente: espera problemas.</sys:String>
   <sys:String x:Key="Str.Emulator.kyty">Solo Vulkan. Apunta a la carpeta de kyty_emulator.exe (launcher.exe solo lo inicia). Sin profundidad, y el emulador aún es temprano: espera problemas.</sys:String>
-  <sys:String x:Key="Str.Emulator.fivem">En el juego: Inicio abre ReShade, y AMD Neural Rendering está en Add-ons, o Ctrl+Fin. FiveM tiene su propio anticheat: revisa antes las reglas de tu servidor.</sys:String>
+  <sys:String x:Key="Str.Emulator.fivem">En el juego: Inicio abre ReShade, y OpenNR está en Add-ons, o Ctrl+Fin. FiveM tiene su propio anticheat: revisa antes las reglas de tu servidor.</sys:String>
   <sys:String x:Key="Str.Emulator.azahar">Emulation &gt; Configure &gt; Graphics &gt; Graphics API: Vulkan. OpenGL ya tiene método también, pero aquí el más probado es Vulkan.</sys:String>
   <sys:String x:Key="Str.Emulator.xemu">xemu renderiza solo con OpenGL, así que el método OpenGL es el único que hay aquí. Es el más nuevo de los métodos y es experimental: color y movimiento estimado, sin profundidad.</sys:String>
   <sys:String x:Key="Str.Emulator.melonds">Emu settings &gt; Video &gt; 3D renderer: OpenGL. El renderizador por software dibuja en la CPU y ahí no hay nada que un add-on pueda alcanzar, así que tiene que ser el de OpenGL, y ese método es experimental: color y movimiento estimado, sin profundidad.</sys:String>

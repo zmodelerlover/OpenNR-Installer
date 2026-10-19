@@ -46,8 +46,10 @@ public static partial class Work
     /// <summary>Sections only another project's OptiScaler.ini has.</summary>
     private static readonly string[] ForeignIniSections = ["[AmdGi]", "[AmdRtgi]", "[AmdLook]"];
 
+    private static readonly string[] OurOptiScalerTags = ["opennr", "amd-nr"];
+
     /// <summary>Another AMD NR mod in this folder, each file with what it is: an OptiScaler that is not this
-    /// project's build (every one of ours calls its version "...-amd-nr"), an lmxxf runtime that names
+    /// project's build (ours call their version "...-opennr", up to 0.5.4 "...-amd-nr"), an lmxxf runtime that names
     /// another product, and the files only those mods leave. Empty when there is none, or what is here was
     /// installed by this app.</summary>
     internal static List<string> ForeignNrMod(string dir, Manifest? m)
@@ -61,7 +63,7 @@ public static partial class Work
             if (!File.Exists(path)) continue;
             var (_, product, version) = Identify(path);
             if (product?.Contains("OptiScaler", StringComparison.OrdinalIgnoreCase) == true
-                && version?.Contains("amd-nr", StringComparison.OrdinalIgnoreCase) != true)
+                && !OurOptiScalerTags.Any(t => version?.Contains(t, StringComparison.OrdinalIgnoreCase) == true))
                 found.Add($"{name} ({product}{(version is null ? "" : $" {version}")})");
         }
         var lmxxf = Path.Combine(dir, LmxxfRuntimeName);
@@ -95,7 +97,7 @@ public static partial class Work
     {
         if (ForeignNrMod(dir, m) is not { Count: > 0 } found) return;
         report.Warn(
-            $"Another AMD NR mod is in this folder: {Joined(found)}. It is not this project's, and two of them in one "
+            $"Another neural rendering mod is in this folder: {Joined(found)}. It is not this project's, and two of them in one "
             + $"folder load over each other. Its OptiScaler and its {OptiScalerIni} are backed up and replaced, and "
             + "uninstall puts them back; the rest of it stays, so remove that mod with its own uninstaller first.");
     }

@@ -5,7 +5,7 @@
 
   <!-- ไทย. The same keys as Strings.en.axaml, in its order. -->
 
-  <sys:String x:Key="Str.AppTitle">AMD-NR ReShade Installer</sys:String>
+  <sys:String x:Key="Str.AppTitle">OpenNR Installer</sys:String>
   <sys:String x:Key="Str.Subtitle">การเรนเดอร์แบบนิวรัลของ DLSS 5 บน Radeon ติดตั้งให้คุณเสร็จสรรพ</sys:String>
   <sys:String x:Key="Str.Games">เกม</sys:String>
   <sys:String x:Key="Str.RemoveGame">นำออกจากรายการ</sys:String>
@@ -56,13 +56,13 @@
   <sys:String x:Key="Str.SupportKofiBody">กาแฟหนึ่งแก้ว ครั้งเดียว</sys:String>
   <sys:String x:Key="Str.SupportVakinhaTitle">Vakinha</sys:String>
   <sys:String x:Key="Str.SupportVakinhaBody">การระดมทุนของโปรเจกต์ในบราซิล</sys:String>
-  <sys:String x:Key="Str.SupportRail">สนับสนุน AMD-NR</sys:String>
-  <sys:String x:Key="Str.SupportTitle">ช่วยให้ AMD-NR ไปต่อได้</sys:String>
+  <sys:String x:Key="Str.SupportRail">สนับสนุน OpenNR</sys:String>
+  <sys:String x:Key="Str.SupportTitle">ช่วยให้ OpenNR ไปต่อได้</sys:String>
   <sys:String x:Key="Str.SupportBody">โปรเจกต์นี้อยู่ได้ด้วยการสนับสนุนจากผู้ใช้เท่านั้น เป็นคนสองคน การ์ดจอสองใบ และงานในช่วงบ่าย ไม่มีบริษัท ไม่มีสปอนเซอร์ ทุกอย่างที่นี่ฟรีและจะฟรีต่อไป การสนับสนุนไม่ได้ปลดล็อกอะไร แต่ช่วยให้งานเดินต่อได้</sys:String>
   <sys:String x:Key="Str.SupportBrazil">อยู่บราซิลใช่ไหม Vakinha รับ Pix บัตร หรือ boleto</sys:String>
   <sys:String x:Key="Str.CreditRuntimeTitle">DLSS-NR-on-AMD — โดย danielblnc</sys:String>
   <sys:String x:Key="Str.CreditRuntimeBody">ตัวเครือข่ายนิวรัลเอง และเหตุผลที่ทั้งหมดนี้มีอยู่ เขาคือผู้ทำให้การเรนเดอร์แบบนิวรัลของ DLSS 5 ทำงานบน Radeon ได้ รันไทม์และน้ำหนักที่แอปนี้ดาวน์โหลดเป็นผลงานของเขา ไม่ใช่ของเรา ขอบคุณ danielblnc</sys:String>
-  <sys:String x:Key="Str.CreditAddonTitle">dlss5-neural-amd — add-on</sys:String>
+  <sys:String x:Key="Str.CreditAddonTitle">OpenNR-ReShade — add-on</sys:String>
   <sys:String x:Key="Str.CreditAddonBody">สิ่งที่เชื่อมเครือข่ายนั้นเข้ากับเกมผ่าน ReShade คือ add-on ที่แอปนี้ติดตั้ง และรุ่นที่ให้คุณเลือก ใช้สัญญาอนุญาต MIT และอยู่ใน repository แยกจากตัวติดตั้งนี้</sys:String>
   <sys:String x:Key="Str.CreditDiscordTitle">Discord — ที่ที่ทุกคนอยู่</sys:String>
   <sys:String x:Key="Str.CreditDiscordBody">บิลด์ใหม่ อะไรใช้ได้กับเกมไหน และที่สำหรับถามเมื่อมีอะไรพัง</sys:String>
@@ -403,7 +403,7 @@
   <sys:String x:Key="Str.SessionFrames">เฟรมที่ประมวลผล: {0}</sys:String>
   <sys:String x:Key="Str.SessionGpu">เครือข่าย: {0} ms ต่อเฟรม</sys:String>
   <sys:String x:Key="Str.SessionRuntime">รันไทม์ {0}</sys:String>
-  <sys:String x:Key="Str.SessionNoFramesReShade">ในเกม เปิดโอเวอร์เลย์ของ ReShade ด้วย Home แล้วตรวจว่าเปิด NR ในแผง AMD Neural Rendering แล้ว</sys:String>
+  <sys:String x:Key="Str.SessionNoFramesReShade">ในเกม เปิดโอเวอร์เลย์ของ ReShade ด้วย Home แล้วตรวจว่าเปิด NR ในแผง OpenNR แล้ว</sys:String>
   <sys:String x:Key="Str.SessionNoFramesOpti">ในเกม เปิด DLSS, FSR หรือ XeSS แล้วกด Insert เปิดแท็บ Neural และเปิด «Enable NR»</sys:String>
   <sys:String x:Key="Str.SessionNotLoadedHint">ReShade.log ในโฟลเดอร์เกมบอกว่า ReShade ค้นหา add-on ในโฟลเดอร์ใด «รายงานปัญหา» จะรวมไฟล์นี้ไว้กับไฟล์อื่น</sys:String>
   <sys:String x:Key="Str.SessionReportHint">«รายงานปัญหา» จะรวม log เหล่านี้เป็นไฟล์เดียว เพื่อแชร์ใน Discord</sys:String>
@@ -436,7 +436,7 @@
   <sys:String x:Key="Str.TransferExported">บันทึกการตั้งค่าไว้ที่ {0} แล้ว</sys:String>
   <sys:String x:Key="Str.TransferImported">นำการตั้งค่าจาก {0} เข้ามาแล้ว ของเดิมที่ถูกแทนที่เก็บไว้ใน {1}</sys:String>
   <sys:String x:Key="Str.TransferWrongRoute">การตั้งค่านี้สำหรับวิธี {0} แต่เกมนี้ติดตั้ง {1} อยู่</sys:String>
-  <sys:String x:Key="Str.TransferInvalid">ไฟล์นั้นไม่ใช่ไฟล์ส่งออกการตั้งค่าของ AMD-NR</sys:String>
+  <sys:String x:Key="Str.TransferInvalid">ไฟล์นั้นไม่ใช่ไฟล์ส่งออกการตั้งค่าของ OpenNR</sys:String>
   <sys:String x:Key="Str.Emulator.pcsx2">Settings &gt; Graphics &gt; Renderer: Direct3D 11 ระวังการตั้งค่าเฉพาะเกมในคุณสมบัติของเกม ซึ่งจะแทนที่การตั้งค่าหลักโดยไม่แจ้ง และเป็นสาเหตุที่พบบ่อยที่สุดที่ทำให้ดูเหมือนพังทั้งที่ไม่ได้พัง</sys:String>
   <sys:String x:Key="Str.Emulator.rpcs3">Settings &gt; GPU &gt; Renderer: Vulkan ที่นี่ไม่มี Direct3D เลย วิธีนี้จึงได้เพียงสีและการเคลื่อนไหวแบบประมาณ ไม่มีค่าความลึก</sys:String>
   <sys:String x:Key="Str.Emulator.duckstation">Settings &gt; Graphics &gt; Renderer: Direct3D 11</sys:String>
@@ -450,7 +450,7 @@
   <sys:String x:Key="Str.Emulator.vita3k">Vulkan เป็นแบ็กเอนด์เริ่มต้น ไม่มีค่าความลึกบน Vulkan</sys:String>
   <sys:String x:Key="Str.Emulator.shadps4">Vulkan เท่านั้น ไม่มีค่าความลึกบน Vulkan และตัวอีมูเลเตอร์เองยังอยู่ในช่วงแรก คาดว่าจะเจอปัญหา</sys:String>
   <sys:String x:Key="Str.Emulator.kyty">Vulkan เท่านั้น ให้เลือกโฟลเดอร์ของ kyty_emulator.exe (launcher.exe แค่เปิดมันขึ้นมา) ไม่มีค่าความลึก และตัวอีมูเลเตอร์เองยังอยู่ช่วงแรก อาจเจอปัญหาได้</sys:String>
-  <sys:String x:Key="Str.Emulator.fivem">ในเกม: กด Home เพื่อเปิด ReShade แล้ว AMD Neural Rendering อยู่ในแท็บ Add-ons หรือกด Ctrl+End FiveM มีระบบกันโกงของตัวเอง ตรวจสอบกฎของเซิร์ฟเวอร์ก่อน</sys:String>
+  <sys:String x:Key="Str.Emulator.fivem">ในเกม: กด Home เพื่อเปิด ReShade แล้ว OpenNR อยู่ในแท็บ Add-ons หรือกด Ctrl+End FiveM มีระบบกันโกงของตัวเอง ตรวจสอบกฎของเซิร์ฟเวอร์ก่อน</sys:String>
   <sys:String x:Key="Str.Emulator.azahar">Emulation &gt; Configure &gt; Graphics &gt; Graphics API: Vulkan ตอนนี้ OpenGL ก็มีวิธีติดตั้งแล้ว แต่ Vulkan ผ่านการใช้งานมามากกว่าที่นี่</sys:String>
   <sys:String x:Key="Str.Emulator.xemu">xemu เรนเดอร์ด้วย OpenGL เท่านั้น วิธี OpenGL จึงเป็นวิธีเดียวที่มีที่นี่ เป็นวิธีใหม่ล่าสุดและยังทดลอง มีสีและการเคลื่อนไหวแบบประมาณ ไม่มีค่าความลึก</sys:String>
   <sys:String x:Key="Str.Emulator.melonds">Emu settings &gt; Video &gt; 3D renderer: OpenGL ตัวเรนเดอร์แบบซอฟต์แวร์วาดบน CPU และไม่มีอะไรให้ add-on เข้าถึงได้ จึงต้องเป็น OpenGL และวิธีนี้ยังทดลอง มีสีและการเคลื่อนไหวแบบประมาณ ไม่มีค่าความลึก</sys:String>

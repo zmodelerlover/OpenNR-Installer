@@ -5,7 +5,7 @@
 
   <!-- 简体中文. The same keys as Strings.en.axaml, in its order. -->
 
-  <sys:String x:Key="Str.AppTitle">AMD-NR ReShade Installer</sys:String>
+  <sys:String x:Key="Str.AppTitle">OpenNR Installer</sys:String>
   <sys:String x:Key="Str.Subtitle">在 Radeon 上运行 DLSS 5 神经渲染，一键为你安装</sys:String>
   <sys:String x:Key="Str.Games">游戏</sys:String>
   <sys:String x:Key="Str.RemoveGame">从列表中移除</sys:String>
@@ -56,13 +56,13 @@
   <sys:String x:Key="Str.SupportKofiBody">请喝一杯咖啡。</sys:String>
   <sys:String x:Key="Str.SupportVakinhaTitle">Vakinha</sys:String>
   <sys:String x:Key="Str.SupportVakinhaBody">本项目在巴西的众筹。</sys:String>
-  <sys:String x:Key="Str.SupportRail">支持 AMD-NR</sys:String>
-  <sys:String x:Key="Str.SupportTitle">让 AMD-NR 继续下去</sys:String>
+  <sys:String x:Key="Str.SupportRail">支持 OpenNR</sys:String>
+  <sys:String x:Key="Str.SupportTitle">让 OpenNR 继续下去</sys:String>
   <sys:String x:Key="Str.SupportBody">这个项目只能靠使用者的支持延续下去。它只是两个人、两张显卡和一个个下午的工作：没有公司，也没有赞助。这里的一切都是免费的，并将一直免费。支持不会解锁任何东西，它让工作得以继续。</sys:String>
   <sys:String x:Key="Str.SupportBrazil">在巴西？Vakinha 支持 Pix、银行卡或 boleto。</sys:String>
   <sys:String x:Key="Str.CreditRuntimeTitle">DLSS-NR-on-AMD，作者 danielblnc</sys:String>
   <sys:String x:Key="Str.CreditRuntimeBody">神经网络本身，也是这一切得以存在的原因：正是它让 DLSS 5 的神经渲染第一次在 Radeon 上跑了起来。本应用下载的运行时和权重都是他的成果，而不是我们的。谢谢你，danielblnc。</sys:String>
-  <sys:String x:Key="Str.CreditAddonTitle">dlss5-neural-amd，插件</sys:String>
+  <sys:String x:Key="Str.CreditAddonTitle">OpenNR-ReShade，插件</sys:String>
   <sys:String x:Key="Str.CreditAddonBody">通过 ReShade 将该神经网络接入游戏的部分：即本应用安装的插件，以及它让你选择的各个版本。采用 MIT 许可证，与本安装器是不同的代码仓库。</sys:String>
   <sys:String x:Key="Str.CreditDiscordTitle">Discord：大家都在这里</sys:String>
   <sys:String x:Key="Str.CreditDiscordBody">新版本发布、哪些游戏能用，以及出问题时去哪里提问。</sys:String>
@@ -403,7 +403,7 @@
   <sys:String x:Key="Str.SessionFrames">已处理帧数：{0}</sys:String>
   <sys:String x:Key="Str.SessionGpu">网络：每帧 {0} 毫秒</sys:String>
   <sys:String x:Key="Str.SessionRuntime">运行时 {0}</sys:String>
-  <sys:String x:Key="Str.SessionNoFramesReShade">在游戏中按 Home 打开 ReShade 界面，确认 AMD Neural Rendering 面板中的 NR 已开启。</sys:String>
+  <sys:String x:Key="Str.SessionNoFramesReShade">在游戏中按 Home 打开 ReShade 界面，确认 OpenNR 面板中的 NR 已开启。</sys:String>
   <sys:String x:Key="Str.SessionNoFramesOpti">在游戏中开启 DLSS、FSR 或 XeSS，然后按 Insert，打开 Neural 选项卡并开启“Enable NR”。</sys:String>
   <sys:String x:Key="Str.SessionNotLoadedHint">游戏文件夹中的 ReShade.log 记录了 ReShade 在哪个文件夹中查找插件。“报告问题”会把它和其他文件一起打包。</sys:String>
   <sys:String x:Key="Str.SessionReportHint">“报告问题”会把这些日志打包成一个文件，方便在 Discord 上分享。</sys:String>
@@ -436,7 +436,7 @@
   <sys:String x:Key="Str.TransferExported">设置已保存到 {0}。</sys:String>
   <sys:String x:Key="Str.TransferImported">已应用 {0} 中的设置。被替换的设置已保存在 {1}。</sys:String>
   <sys:String x:Key="Str.TransferWrongRoute">这些设置适用于 {0} 方式，而此游戏安装的是 {1}。</sys:String>
-  <sys:String x:Key="Str.TransferInvalid">该文件不是 AMD-NR 设置导出文件。</sys:String>
+  <sys:String x:Key="Str.TransferInvalid">该文件不是 OpenNR 设置导出文件。</sys:String>
   <sys:String x:Key="Str.Emulator.pcsx2">Settings &gt; Graphics &gt; Renderer: Direct3D 11。注意游戏属性中针对单个游戏的设置：它会在不提示的情况下覆盖全局设置，这是看起来出问题、实际却没问题的最常见原因。</sys:String>
   <sys:String x:Key="Str.Emulator.rpcs3">Settings &gt; GPU &gt; Renderer: Vulkan。这里完全没有 Direct3D，因此此安装方式只能获得颜色和估算的运动，没有深度。</sys:String>
   <sys:String x:Key="Str.Emulator.duckstation">Settings &gt; Graphics &gt; Renderer: Direct3D 11。</sys:String>
@@ -450,7 +450,7 @@
   <sys:String x:Key="Str.Emulator.vita3k">Vulkan 是默认后端。Vulkan 上没有深度。</sys:String>
   <sys:String x:Key="Str.Emulator.shadps4">仅支持 Vulkan。Vulkan 上没有深度，而且这个模拟器本身还处于早期阶段，可能会遇到问题。</sys:String>
   <sys:String x:Key="Str.Emulator.kyty">仅 Vulkan。请选择 kyty_emulator.exe 所在的文件夹（launcher.exe 只负责启动它）。没有深度，而且模拟器本身还很早期，可能会遇到问题。</sys:String>
-  <sys:String x:Key="Str.Emulator.fivem">游戏中：按 Home 打开 ReShade，AMD Neural Rendering 在 Add-ons 里，或按 Ctrl+End。FiveM 有自己的反作弊，请先查看服务器规则。</sys:String>
+  <sys:String x:Key="Str.Emulator.fivem">游戏中：按 Home 打开 ReShade，OpenNR 在 Add-ons 里，或按 Ctrl+End。FiveM 有自己的反作弊，请先查看服务器规则。</sys:String>
   <sys:String x:Key="Str.Emulator.azahar">Emulation &gt; Configure &gt; Graphics &gt; Graphics API: Vulkan。OpenGL 现在也有安装方式了，但这里经过更多实际验证的是 Vulkan。</sys:String>
   <sys:String x:Key="Str.Emulator.xemu">xemu 只使用 OpenGL 渲染，所以这里只有 OpenGL 这一种安装方式。它是最新的安装方式，仍处于实验阶段：只有颜色和估算的运动，没有深度。</sys:String>
   <sys:String x:Key="Str.Emulator.melonds">Emu settings &gt; Video &gt; 3D renderer: OpenGL。软件渲染器在 CPU 上绘制，插件在那里无从介入，所以必须使用 OpenGL 渲染器，而该安装方式仍处于实验阶段：只有颜色和估算的运动，没有深度。</sys:String>

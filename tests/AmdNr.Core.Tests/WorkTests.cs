@@ -43,7 +43,7 @@ public class WorkTests
         Assert.DoesNotContain("dlss5-neural.addon32", ready, StringComparison.Ordinal);
         // And the rest of what a first run needs, which is the other half this route was missing.
         Assert.Contains("TutorialProgress=4", ready, StringComparison.Ordinal);
-        Assert.Contains("[Window][AMD Neural Rendering]", ready, StringComparison.Ordinal);
+        Assert.Contains("[Window][OpenNR]", ready, StringComparison.Ordinal);
     }
 
     /// <summary>ReShade loads every add-on in the folder, so one left under the name it used before

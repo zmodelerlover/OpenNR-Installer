@@ -9,7 +9,7 @@ namespace AmdNr.App;
 
 public partial class GameSheet
 {
-    private static readonly FilePickerFileType TransferFiles = new("AMD-NR") { Patterns = ["*" + SettingsTransfer.Extension, "*.zip"] };
+    private static readonly FilePickerFileType TransferFiles = new("OpenNR") { Patterns = ["*" + SettingsTransfer.Extension, "*.zip"] };
 
     /// <summary>Where the settings are: beside the executable the install went next to.</summary>
     private static string SettingsFolder(GameCard card)

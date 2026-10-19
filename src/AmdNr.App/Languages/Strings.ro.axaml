@@ -5,7 +5,7 @@
 
   <!-- Română. The same keys as Strings.en.axaml, in its order. -->
 
-  <sys:String x:Key="Str.AppTitle">AMD-NR ReShade Installer</sys:String>
+  <sys:String x:Key="Str.AppTitle">OpenNR Installer</sys:String>
   <sys:String x:Key="Str.Subtitle">Randarea neurală DLSS 5 pe Radeon, instalată pentru tine</sys:String>
   <sys:String x:Key="Str.Games">Jocuri</sys:String>
   <sys:String x:Key="Str.RemoveGame">Scoate din listă</sys:String>
@@ -56,13 +56,13 @@
   <sys:String x:Key="Str.SupportKofiBody">O cafea, o singură dată.</sys:String>
   <sys:String x:Key="Str.SupportVakinhaTitle">Vakinha</sys:String>
   <sys:String x:Key="Str.SupportVakinhaBody">Strângerea de fonduri braziliană a proiectului.</sys:String>
-  <sys:String x:Key="Str.SupportRail">Susține AMD-NR</sys:String>
-  <sys:String x:Key="Str.SupportTitle">Ține AMD-NR în viață</sys:String>
+  <sys:String x:Key="Str.SupportRail">Susține OpenNR</sys:String>
+  <sys:String x:Key="Str.SupportTitle">Ține OpenNR în viață</sys:String>
   <sys:String x:Key="Str.SupportBody">Acest proiect rămâne în viață doar cu sprijinul celor care îl folosesc. Sunt două persoane, două plăci video și după-amiezi de muncă: nicio firmă, niciun sponsor. Totul aici e gratuit și așa rămâne. Sprijinul nu deblochează nimic; ține munca în mișcare.</sys:String>
   <sys:String x:Key="Str.SupportBrazil">Ești în Brazilia? Vakinha acceptă Pix, card sau boleto.</sys:String>
   <sys:String x:Key="Str.CreditRuntimeTitle">DLSS-NR-on-AMD — de danielblnc</sys:String>
   <sys:String x:Key="Str.CreditRuntimeBody">Rețeaua în sine și motivul pentru care există toate acestea: datorită ei a pornit randarea neurală DLSS 5 pe Radeon. Runtime-ul și ponderile pe care le descarcă această aplicație sunt munca lui, nu a noastră. Mulțumim, danielblnc.</sys:String>
-  <sys:String x:Key="Str.CreditAddonTitle">dlss5-neural-amd — add-on-ul</sys:String>
+  <sys:String x:Key="Str.CreditAddonTitle">OpenNR-ReShade — add-on-ul</sys:String>
   <sys:String x:Key="Str.CreditAddonBody">Ce conectează rețeaua la un joc prin ReShade: add-on-ul pe care îl instalează aplicația și versiunile dintre care îți oferă să alegi. Licență MIT, într-un depozit separat de acest instalator.</sys:String>
   <sys:String x:Key="Str.CreditDiscordTitle">Discord — acolo sunt toți</sys:String>
   <sys:String x:Key="Str.CreditDiscordBody">Versiuni noi, ce merge în fiecare joc și unde să întrebi când se strică ceva.</sys:String>
@@ -403,7 +403,7 @@
   <sys:String x:Key="Str.SessionFrames">Cadre procesate: {0}</sys:String>
   <sys:String x:Key="Str.SessionGpu">Rețea: {0} ms pe cadru</sys:String>
   <sys:String x:Key="Str.SessionRuntime">Runtime {0}</sys:String>
-  <sys:String x:Key="Str.SessionNoFramesReShade">În joc, deschide overlay-ul ReShade cu Home și verifică dacă NR este activat în panoul AMD Neural Rendering.</sys:String>
+  <sys:String x:Key="Str.SessionNoFramesReShade">În joc, deschide overlay-ul ReShade cu Home și verifică dacă NR este activat în panoul OpenNR.</sys:String>
   <sys:String x:Key="Str.SessionNoFramesOpti">În joc, activează DLSS, FSR sau XeSS, apoi apasă Insert, deschide fila Neural și activează Enable NR.</sys:String>
   <sys:String x:Key="Str.SessionNotLoadedHint">ReShade.log din folderul jocului spune în ce folder a căutat ReShade add-on-uri. „Raportează o problemă” îl împachetează cu restul.</sys:String>
   <sys:String x:Key="Str.SessionReportHint">„Raportează o problemă” împachetează aceste jurnale într-un singur fișier de distribuit pe Discord.</sys:String>
@@ -436,7 +436,7 @@
   <sys:String x:Key="Str.TransferExported">Setări salvate în {0}.</sys:String>
   <sys:String x:Key="Str.TransferImported">Setările din {0} au fost aplicate. Cele înlocuite au fost păstrate în {1}.</sys:String>
   <sys:String x:Key="Str.TransferWrongRoute">Aceste setări sunt pentru ruta {0}, iar acest joc are instalat {1}.</sys:String>
-  <sys:String x:Key="Str.TransferInvalid">Fișierul acela nu este un export de setări AMD-NR.</sys:String>
+  <sys:String x:Key="Str.TransferInvalid">Fișierul acela nu este un export de setări OpenNR.</sys:String>
   <sys:String x:Key="Str.Emulator.pcsx2">Settings &gt; Graphics &gt; Renderer: Direct3D 11. Atenție la setările per joc din proprietățile jocului — le înlocuiesc în tăcere pe cele globale și sunt cel mai des motivul pentru care pare stricat când nu este.</sys:String>
   <sys:String x:Key="Str.Emulator.rpcs3">Settings &gt; GPU &gt; Renderer: Vulkan. Aici nu există deloc Direct3D, așa că această rută primește doar culoare și mișcare estimată — fără adâncime.</sys:String>
   <sys:String x:Key="Str.Emulator.duckstation">Settings &gt; Graphics &gt; Renderer: Direct3D 11.</sys:String>
@@ -450,7 +450,7 @@
   <sys:String x:Key="Str.Emulator.vita3k">Vulkan este backendul implicit. Fără adâncime pe Vulkan.</sys:String>
   <sys:String x:Key="Str.Emulator.shadps4">Doar Vulkan. Fără adâncime pe Vulkan, iar emulatorul însuși este încă la început — așteaptă-te la probleme.</sys:String>
   <sys:String x:Key="Str.Emulator.kyty">Doar Vulkan. Alege folderul lui kyty_emulator.exe (launcher.exe doar îl pornește). Fără adâncime, iar emulatorul e încă la început — așteaptă-te la probleme.</sys:String>
-  <sys:String x:Key="Str.Emulator.fivem">În joc: Home deschide ReShade, iar AMD Neural Rendering e la Add-ons, sau Ctrl+End. FiveM are propriul anti-cheat — verifică întâi regulile serverului.</sys:String>
+  <sys:String x:Key="Str.Emulator.fivem">În joc: Home deschide ReShade, iar OpenNR e la Add-ons, sau Ctrl+End. FiveM are propriul anti-cheat — verifică întâi regulile serverului.</sys:String>
   <sys:String x:Key="Str.Emulator.azahar">Emulation &gt; Configure &gt; Graphics &gt; Graphics API: Vulkan. Și OpenGL are acum o rută, dar Vulkan este cea mai testată aici.</sys:String>
   <sys:String x:Key="Str.Emulator.xemu">xemu randează doar cu OpenGL, așa că ruta OpenGL este singura de aici. Este cea mai nouă dintre rute și este experimentală: culoare și mișcare estimată, fără adâncime.</sys:String>
   <sys:String x:Key="Str.Emulator.melonds">Emu settings &gt; Video &gt; 3D renderer: OpenGL. Rendererul software desenează pe CPU și add-on-ul nu are acolo la ce să ajungă, așa că trebuie să fie cel OpenGL — iar această rută este experimentală: culoare și mișcare estimată, fără adâncime.</sys:String>

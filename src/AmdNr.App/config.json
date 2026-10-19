@@ -1,11 +1,11 @@
 {
   "App": {
     "Owner": "zmodelerlover",
-    "Repo": "AMD-NR-ReShade-Installer"
+    "Repo": "OpenNR-Installer"
   },
   "Addon": {
     "Owner": "zmodelerlover",
-    "Repo": "dlss5-neural-amd"
+    "Repo": "OpenNR-ReShade"
   },
   "DiscordUrl": "https://discord.gg/wYhvS3JSHM",
   "RuntimeUrl": "https://github.com/danielblnc/DLSS-NR-on-AMD",

@@ -5,7 +5,7 @@
 
   <!-- Pirate English. The same keys as Strings.en.axaml, in its order. -->
 
-  <sys:String x:Key="Str.AppTitle">AMD-NR ReShade Installer</sys:String>
+  <sys:String x:Key="Str.AppTitle">OpenNR Installer</sys:String>
   <sys:String x:Key="Str.Subtitle">DLSS 5 neural renderin' on yer Radeon, rigged up for ye</sys:String>
   <sys:String x:Key="Str.Games">Plunder</sys:String>
   <sys:String x:Key="Str.RemoveGame">Make it walk the plank</sys:String>
@@ -56,13 +56,13 @@
   <sys:String x:Key="Str.SupportKofiBody">A one-off mug o' coffee (rum not included).</sys:String>
   <sys:String x:Key="Str.SupportVakinhaTitle">Vakinha</sys:String>
   <sys:String x:Key="Str.SupportVakinhaBody">The crew's Brazilian treasure chest.</sys:String>
-  <sys:String x:Key="Str.SupportRail">Support AMD-NR</sys:String>
-  <sys:String x:Key="Str.SupportTitle">Keep AMD-NR afloat</sys:String>
+  <sys:String x:Key="Str.SupportRail">Support OpenNR</sys:String>
+  <sys:String x:Key="Str.SupportTitle">Keep OpenNR afloat</sys:String>
   <sys:String x:Key="Str.SupportBody">This ship only stays afloat on the doubloons o' them that sail her. 'Tis two pirates, two graphics cards an' long afternoons o' work: no company, no patron. Everythin' here be free an' stays free. Support unlocks no treasure; it keeps the work sailin'.</sys:String>
   <sys:String x:Key="Str.SupportBrazil">In Brazil, matey? The Vakinha takes Pix, card or boleto.</sys:String>
   <sys:String x:Key="Str.CreditRuntimeTitle">DLSS-NR-on-AMD — by danielblnc</sys:String>
   <sys:String x:Key="Str.CreditRuntimeBody">The network itself, an' the reason any o' this sails at all: it be what got DLSS 5's neural renderin' runnin' on Radeon in the first place. The runtime an' weights this app hauls aboard be his work, not ours. Thank ye kindly, danielblnc.</sys:String>
-  <sys:String x:Key="Str.CreditAddonTitle">dlss5-neural-amd — the add-on</sys:String>
+  <sys:String x:Key="Str.CreditAddonTitle">OpenNR-ReShade — the add-on</sys:String>
   <sys:String x:Key="Str.CreditAddonBody">What lashes that network to a game through ReShade: the add-on this hoists, an' the releases it lets ye choose from. MIT licensed, an' a separate repository from this installer.</sys:String>
   <sys:String x:Key="Str.CreditDiscordTitle">Discord — where the whole crew drinks</sys:String>
   <sys:String x:Key="Str.CreditDiscordBody">New builds, what works in which game, an' where to holler when somethin' breaks.</sys:String>
@@ -403,7 +403,7 @@
   <sys:String x:Key="Str.SessionFrames">Frames processed: {0}</sys:String>
   <sys:String x:Key="Str.SessionGpu">Network: {0} ms per frame</sys:String>
   <sys:String x:Key="Str.SessionRuntime">Runtime {0}</sys:String>
-  <sys:String x:Key="Str.SessionNoFramesReShade">In the game, open the ReShade overlay with Home an' check NR be on in the AMD Neural Rendering panel.</sys:String>
+  <sys:String x:Key="Str.SessionNoFramesReShade">In the game, open the ReShade overlay with Home an' check NR be on in the OpenNR panel.</sys:String>
   <sys:String x:Key="Str.SessionNoFramesOpti">In the game, turn on DLSS, FSR or XeSS, then press Insert, open the Neural tab an' turn on Enable NR.</sys:String>
   <sys:String x:Key="Str.SessionNotLoadedHint">ReShade.log in the game's hold says which hold ReShade searched for add-ons. Send up a flare packs it with the rest.</sys:String>
   <sys:String x:Key="Str.SessionReportHint">Send up a flare packs these logs into one file to share on Discord.</sys:String>
@@ -436,7 +436,7 @@
   <sys:String x:Key="Str.TransferExported">Settings stowed in {0}.</sys:String>
   <sys:String x:Key="Str.TransferImported">The settings from {0} be aboard. The ones they replaced were stowed in {1}.</sys:String>
   <sys:String x:Key="Str.TransferWrongRoute">These settings be for the {0} heading, an' this game has {1} aboard.</sys:String>
-  <sys:String x:Key="Str.TransferInvalid">That file ain't an AMD-NR settings export.</sys:String>
+  <sys:String x:Key="Str.TransferInvalid">That file ain't an OpenNR settings export.</sys:String>
   <sys:String x:Key="Str.Emulator.pcsx2">Settings &gt; Graphics &gt; Renderer: Direct3D 11. Watch for a per-game override in the game properties — it beats the global settin' without a word, an' it be the most common way this looks broken when it ain't.</sys:String>
   <sys:String x:Key="Str.Emulator.rpcs3">Settings &gt; GPU &gt; Renderer: Vulkan. There be no Direct3D here at all, so this heading gets colour an' estimated motion only — no depth.</sys:String>
   <sys:String x:Key="Str.Emulator.duckstation">Settings &gt; Graphics &gt; Renderer: Direct3D 11.</sys:String>
@@ -450,7 +450,7 @@
   <sys:String x:Key="Str.Emulator.vita3k">Vulkan be the default backend. No depth on Vulkan.</sys:String>
   <sys:String x:Key="Str.Emulator.shadps4">Vulkan only. No depth on Vulkan, an' this emulator be a young ship itself — expect rough seas.</sys:String>
   <sys:String x:Key="Str.Emulator.kyty">Vulkan only. Point at kyty_emulator.exe's folder (launcher.exe only starts it). No depth, an' the emulator be young yet — expect squalls.</sys:String>
-  <sys:String x:Key="Str.Emulator.fivem">In game: Home opens ReShade, an' AMD Neural Rendering be under Add-ons, or Ctrl+End. FiveM has its own anti-cheat — check yer server's articles first.</sys:String>
+  <sys:String x:Key="Str.Emulator.fivem">In game: Home opens ReShade, an' OpenNR be under Add-ons, or Ctrl+End. FiveM has its own anti-cheat — check yer server's articles first.</sys:String>
   <sys:String x:Key="Str.Emulator.azahar">Emulation &gt; Configure &gt; Graphics &gt; Graphics API: Vulkan. OpenGL has a heading now too, but Vulkan be the one with the nautical miles on it here.</sys:String>
   <sys:String x:Key="Str.Emulator.xemu">xemu renders with OpenGL an' nothin' else, so the OpenGL heading be the only one there is here. It be the newest o' the headings an' it be experimental: colour an' estimated motion, no depth.</sys:String>
   <sys:String x:Key="Str.Emulator.melonds">Emu settings &gt; Video &gt; 3D renderer: OpenGL. The software renderer draws on the CPU an' there be nothin' there for an add-on to grab, so it has to be the OpenGL one — an' that heading be experimental: colour an' estimated motion, no depth.</sys:String>

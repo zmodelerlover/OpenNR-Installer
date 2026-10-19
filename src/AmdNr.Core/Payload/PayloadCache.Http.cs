@@ -122,7 +122,7 @@ public sealed partial class PayloadCache
             // of a window waiting on the payload list before it detected a single game.
             Timeout = TimeSpan.FromSeconds(100),
         };
-        client.DefaultRequestHeaders.UserAgent.ParseAdd($"AMD-NR-ReShade-Installer/{version}");
+        client.DefaultRequestHeaders.UserAgent.ParseAdd($"OpenNR-Installer/{version}");
         return client;
     }
 

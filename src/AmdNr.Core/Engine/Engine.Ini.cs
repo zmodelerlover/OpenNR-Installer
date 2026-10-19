@@ -103,8 +103,8 @@ public static partial class Engine
 
     /// <summary>The window titles the add-ons register with reshade::register_overlay. ImGui keys
     /// the saved layout by title, so docking under the wrong one leaves the real panel floating.</summary>
-    public const string PanelTitle = "AMD Neural Rendering";
-    public const string PanelTitle32 = "AMD Neural Rendering (32-bit)";
+    public const string PanelTitle = "OpenNR";
+    public const string PanelTitle32 = "OpenNR (32-bit)";
 
     /// <summary>Dock the panel once, on a fresh layout only. A saved layout is authoritative even
     /// when the user undocked the panel, so this never rebuilds or guesses a target.</summary>

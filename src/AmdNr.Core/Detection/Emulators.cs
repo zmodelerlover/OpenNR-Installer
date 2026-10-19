@@ -155,7 +155,7 @@ public static class Emulators
             ["FiveM.exe"],
             [GraphicsApi.D3D11],
             GraphicsApi.D3D11,
-            "In game: Home opens ReShade, and AMD Neural Rendering is under Add-ons, or Ctrl+End. "
+            "In game: Home opens ReShade, and OpenNR is under Add-ons, or Ctrl+End. "
             + "FiveM has its own anti-cheat -- check your server's rules first.")
         { Route = Preset.FiveM, Markers = ["FiveM_Diag.exe"] },
 

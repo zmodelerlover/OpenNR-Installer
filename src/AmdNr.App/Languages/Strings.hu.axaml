@@ -5,7 +5,7 @@
 
   <!-- Magyar. The same keys as Strings.en.axaml, in its order. -->
 
-  <sys:String x:Key="Str.AppTitle">AMD-NR ReShade Installer</sys:String>
+  <sys:String x:Key="Str.AppTitle">OpenNR Installer</sys:String>
   <sys:String x:Key="Str.Subtitle">DLSS 5 neurális renderelés Radeonon, telepítve helyetted</sys:String>
   <sys:String x:Key="Str.Games">Játékok</sys:String>
   <sys:String x:Key="Str.RemoveGame">Eltávolítás a listáról</sys:String>
@@ -56,13 +56,13 @@
   <sys:String x:Key="Str.SupportKofiBody">Egy egyszeri kávé.</sys:String>
   <sys:String x:Key="Str.SupportVakinhaTitle">Vakinha</sys:String>
   <sys:String x:Key="Str.SupportVakinhaBody">A projekt brazil gyűjtése.</sys:String>
-  <sys:String x:Key="Str.SupportRail">AMD-NR támogatása</sys:String>
-  <sys:String x:Key="Str.SupportTitle">Tartsd életben az AMD-NR-t</sys:String>
+  <sys:String x:Key="Str.SupportRail">OpenNR támogatása</sys:String>
+  <sys:String x:Key="Str.SupportTitle">Tartsd életben az OpenNR-t</sys:String>
   <sys:String x:Key="Str.SupportBody">Ez a projekt csak a használói támogatásából él. Két ember, két videokártya és délutánnyi munka: se cég, se szponzor. Itt minden ingyenes, és az is marad. A támogatás semmit sem old fel; a munkát viszi tovább.</sys:String>
   <sys:String x:Key="Str.SupportBrazil">Brazíliában vagy? A Vakinha Pixet, kártyát vagy boletót fogad.</sys:String>
   <sys:String x:Key="Str.CreditRuntimeTitle">DLSS-NR-on-AMD — danielblnc munkája</sys:String>
   <sys:String x:Key="Str.CreditRuntimeBody">Maga a hálózat, és az oka annak, hogy mindez létezik: ennek köszönhetően indult el egyáltalán a DLSS 5 neurális renderelése Radeonon. A futtatókörnyezet és a súlyok, amelyeket ez az alkalmazás letölt, az ő munkája, nem a miénk. Köszönjük, danielblnc.</sys:String>
-  <sys:String x:Key="Str.CreditAddonTitle">dlss5-neural-amd — a kiegészítő</sys:String>
+  <sys:String x:Key="Str.CreditAddonTitle">OpenNR-ReShade — a kiegészítő</sys:String>
   <sys:String x:Key="Str.CreditAddonBody">Ami a hálózatot a ReShade-en keresztül a játékba köti: a kiegészítő, amelyet ez telepít, és a kiadások, amelyek közül választhatsz. MIT licenc, a telepítőtől külön tárolóban.</sys:String>
   <sys:String x:Key="Str.CreditDiscordTitle">Discord — itt van mindenki</sys:String>
   <sys:String x:Key="Str.CreditDiscordBody">Új buildek, mi melyik játékban működik, és hol kérdezz, ha valami elromlik.</sys:String>
@@ -403,7 +403,7 @@
   <sys:String x:Key="Str.SessionFrames">Feldolgozott képkockák: {0}</sys:String>
   <sys:String x:Key="Str.SessionGpu">Hálózat: {0} ms képkockánként</sys:String>
   <sys:String x:Key="Str.SessionRuntime">Futtatókörnyezet: {0}</sys:String>
-  <sys:String x:Key="Str.SessionNoFramesReShade">A játékban nyisd meg a ReShade overlayt a Home gombbal, és ellenőrizd, hogy az NR be van-e kapcsolva az AMD Neural Rendering panelen.</sys:String>
+  <sys:String x:Key="Str.SessionNoFramesReShade">A játékban nyisd meg a ReShade overlayt a Home gombbal, és ellenőrizd, hogy az NR be van-e kapcsolva az OpenNR panelen.</sys:String>
   <sys:String x:Key="Str.SessionNoFramesOpti">A játékban kapcsold be a DLSS-t, az FSR-t vagy az XeSS-t, majd nyomd meg az Insert gombot, nyisd meg a Neural lapot, és kapcsold be az Enable NR-t.</sys:String>
   <sys:String x:Key="Str.SessionNotLoadedHint">A játék mappájában lévő ReShade.log megmondja, melyik mappában kereste a ReShade a kiegészítőket. A „Probléma jelentése” a többivel együtt becsomagolja.</sys:String>
   <sys:String x:Key="Str.SessionReportHint">A „Probléma jelentése” ezeket a naplókat egy fájlba csomagolja, hogy megoszthasd a Discordon.</sys:String>
@@ -436,7 +436,7 @@
   <sys:String x:Key="Str.TransferExported">A beállítások mentve ide: {0}.</sys:String>
   <sys:String x:Key="Str.TransferImported">A beállítások betöltve innen: {0}. A lecseréltek ide kerültek: {1}.</sys:String>
   <sys:String x:Key="Str.TransferWrongRoute">Ezek a beállítások ehhez az útvonalhoz valók: {0}, ebben a játékban viszont ez van telepítve: {1}.</sys:String>
-  <sys:String x:Key="Str.TransferInvalid">Ez a fájl nem AMD-NR beállításexport.</sys:String>
+  <sys:String x:Key="Str.TransferInvalid">Ez a fájl nem OpenNR beállításexport.</sys:String>
   <sys:String x:Key="Str.Emulator.pcsx2">Settings &gt; Graphics &gt; Renderer: Direct3D 11. Figyelj a játék tulajdonságaiban lévő játékonkénti felülbírálásra — csendben felülírja a globális beállítást, és ez a leggyakoribb oka annak, hogy hibásnak tűnik, pedig nem az.</sys:String>
   <sys:String x:Key="Str.Emulator.rpcs3">Settings &gt; GPU &gt; Renderer: Vulkan. Itt egyáltalán nincs Direct3D, így ez az útvonal csak színt és becsült mozgást kap — mélységet nem.</sys:String>
   <sys:String x:Key="Str.Emulator.duckstation">Settings &gt; Graphics &gt; Renderer: Direct3D 11.</sys:String>
@@ -450,7 +450,7 @@
   <sys:String x:Key="Str.Emulator.vita3k">Az alapértelmezett háttérrendszer a Vulkan. Vulkanon nincs mélység.</sys:String>
   <sys:String x:Key="Str.Emulator.shadps4">Csak Vulkan. Vulkanon nincs mélység, és maga az emulátor is korai állapotú — számíts gondokra.</sys:String>
   <sys:String x:Key="Str.Emulator.kyty">Csak Vulkan. A kyty_emulator.exe mappáját add meg (a launcher.exe csak elindítja). Nincs mélység, és az emulátor még korai — számíts gondokra.</sys:String>
-  <sys:String x:Key="Str.Emulator.fivem">Játékban: a Home megnyitja a ReShade-et, az AMD Neural Rendering az Add-ons fülön van, vagy Ctrl+End. A FiveM-nek saját csalásvédelme van — előbb nézd meg a szerver szabályait.</sys:String>
+  <sys:String x:Key="Str.Emulator.fivem">Játékban: a Home megnyitja a ReShade-et, az OpenNR az Add-ons fülön van, vagy Ctrl+End. A FiveM-nek saját csalásvédelme van — előbb nézd meg a szerver szabályait.</sys:String>
   <sys:String x:Key="Str.Emulator.azahar">Emulation &gt; Configure &gt; Graphics &gt; Graphics API: Vulkan. Most már az OpenGL-nek is van útvonala, de itt a Vulkan a kipróbáltabb.</sys:String>
   <sys:String x:Key="Str.Emulator.xemu">Az xemu csak OpenGL-lel renderel, így itt az OpenGL útvonal az egyetlen. Ez a legújabb útvonal, és kísérleti: szín és becsült mozgás, mélység nélkül.</sys:String>
   <sys:String x:Key="Str.Emulator.melonds">Emu settings &gt; Video &gt; 3D renderer: OpenGL. A szoftveres renderelő a CPU-n rajzol, és ott nincs mit elérnie egy kiegészítőnek, ezért az OpenGL-esnek kell lennie — ez az útvonal pedig kísérleti: szín és becsült mozgás, mélység nélkül.</sys:String>

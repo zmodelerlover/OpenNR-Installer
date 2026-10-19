@@ -5,7 +5,7 @@
 
   <!-- Hrvatski. The same keys as Strings.en.axaml, in its order. -->
 
-  <sys:String x:Key="Str.AppTitle">AMD-NR ReShade Installer</sys:String>
+  <sys:String x:Key="Str.AppTitle">OpenNR Installer</sys:String>
   <sys:String x:Key="Str.Subtitle">Neuronsko renderiranje DLSS 5 na Radeonu, instalirano umjesto vas</sys:String>
   <sys:String x:Key="Str.Games">Igre</sys:String>
   <sys:String x:Key="Str.RemoveGame">Ukloni s popisa</sys:String>
@@ -56,13 +56,13 @@
   <sys:String x:Key="Str.SupportKofiBody">Jednokratna kava.</sys:String>
   <sys:String x:Key="Str.SupportVakinhaTitle">Vakinha</sys:String>
   <sys:String x:Key="Str.SupportVakinhaBody">Brazilsko prikupljanje sredstava za projekt.</sys:String>
-  <sys:String x:Key="Str.SupportRail">Podrži AMD-NR</sys:String>
-  <sys:String x:Key="Str.SupportTitle">Održi AMD-NR na životu</sys:String>
+  <sys:String x:Key="Str.SupportRail">Podrži OpenNR</sys:String>
+  <sys:String x:Key="Str.SupportTitle">Održi OpenNR na životu</sys:String>
   <sys:String x:Key="Str.SupportBody">Ovaj projekt živi samo od podrške onih koji ga koriste. To su dvije osobe, dvije grafičke kartice i poslijepodneva rada: bez tvrtke i sponzora. Sve je ovdje besplatno i tako će i ostati. Podrška ništa ne otključava; ona omogućuje da se radi dalje.</sys:String>
   <sys:String x:Key="Str.SupportBrazil">U Brazilu ste? Vakinha prima Pix, karticu ili boleto.</sys:String>
   <sys:String x:Key="Str.CreditRuntimeTitle">DLSS-NR-on-AMD — autor danielblnc</sys:String>
   <sys:String x:Key="Str.CreditRuntimeBody">Sama mreža i razlog zašto sve ovo postoji: zahvaljujući njoj neuronsko renderiranje DLSS 5 uopće je pokrenuto na Radeonu. Runtime i težine koje ova aplikacija preuzima njegov su rad, ne naš. Hvala, danielblnc.</sys:String>
-  <sys:String x:Key="Str.CreditAddonTitle">dlss5-neural-amd — dodatak</sys:String>
+  <sys:String x:Key="Str.CreditAddonTitle">OpenNR-ReShade — dodatak</sys:String>
   <sys:String x:Key="Str.CreditAddonBody">Ono što tu mrežu spaja s igrom preko ReShadea: dodatak koji ovo instalira i izdanja među kojima vam nudi izbor. Licenca MIT, zaseban repozitorij od ovog instalacijskog programa.</sys:String>
   <sys:String x:Key="Str.CreditDiscordTitle">Discord — tamo su svi</sys:String>
   <sys:String x:Key="Str.CreditDiscordBody">Nove verzije, što radi u kojoj igri i gdje pitati kad se nešto pokvari.</sys:String>
@@ -403,7 +403,7 @@
   <sys:String x:Key="Str.SessionFrames">Obrađeni okviri: {0}</sys:String>
   <sys:String x:Key="Str.SessionGpu">Mreža: {0} ms po okviru</sys:String>
   <sys:String x:Key="Str.SessionRuntime">Runtime {0}</sys:String>
-  <sys:String x:Key="Str.SessionNoFramesReShade">U igri otvorite ReShade overlay tipkom Home i provjerite je li NR uključen na ploči AMD Neural Rendering.</sys:String>
+  <sys:String x:Key="Str.SessionNoFramesReShade">U igri otvorite ReShade overlay tipkom Home i provjerite je li NR uključen na ploči OpenNR.</sys:String>
   <sys:String x:Key="Str.SessionNoFramesOpti">U igri uključite DLSS, FSR ili XeSS, zatim pritisnite Insert, otvorite karticu Neural i uključite Enable NR.</sys:String>
   <sys:String x:Key="Str.SessionNotLoadedHint">ReShade.log u mapi igre govori u kojoj je mapi ReShade tražio dodatke. „Prijavi problem” pakira ga s ostalim.</sys:String>
   <sys:String x:Key="Str.SessionReportHint">„Prijavi problem” pakira ove zapisnike u jednu datoteku za dijeljenje na Discordu.</sys:String>
@@ -436,7 +436,7 @@
   <sys:String x:Key="Str.TransferExported">Postavke su spremljene u {0}.</sys:String>
   <sys:String x:Key="Str.TransferImported">Postavke iz {0} su primijenjene. Zamijenjene postavke sačuvane su u {1}.</sys:String>
   <sys:String x:Key="Str.TransferWrongRoute">Ove su postavke za put {0}, a u ovoj je igri instaliran {1}.</sys:String>
-  <sys:String x:Key="Str.TransferInvalid">Ta datoteka nije izvoz postavki AMD-NR.</sys:String>
+  <sys:String x:Key="Str.TransferInvalid">Ta datoteka nije izvoz postavki OpenNR.</sys:String>
   <sys:String x:Key="Str.Emulator.pcsx2">Settings &gt; Graphics &gt; Renderer: Direct3D 11. Pazite na postavke za pojedinu igru u svojstvima igre — tiho nadjačavaju globalne i najčešći su razlog zašto izgleda pokvareno kad nije.</sys:String>
   <sys:String x:Key="Str.Emulator.rpcs3">Settings &gt; GPU &gt; Renderer: Vulkan. Ovdje uopće nema Direct3D-a, pa ovaj put dobiva samo boju i procijenjeno kretanje — bez dubine.</sys:String>
   <sys:String x:Key="Str.Emulator.duckstation">Settings &gt; Graphics &gt; Renderer: Direct3D 11.</sys:String>
@@ -450,7 +450,7 @@
   <sys:String x:Key="Str.Emulator.vita3k">Vulkan je zadani backend. Na Vulkanu nema dubine.</sys:String>
   <sys:String x:Key="Str.Emulator.shadps4">Samo Vulkan. Na Vulkanu nema dubine, a sam je emulator još u ranoj fazi — očekujte probleme.</sys:String>
   <sys:String x:Key="Str.Emulator.kyty">Samo Vulkan. Odaberite mapu kyty_emulator.exe (launcher.exe ga samo pokreće). Bez dubine, a sam emulator je još rani — očekujte probleme.</sys:String>
-  <sys:String x:Key="Str.Emulator.fivem">U igri: Home otvara ReShade, a AMD Neural Rendering je pod Add-ons, ili Ctrl+End. FiveM ima vlastiti anti-cheat — prvo provjerite pravila poslužitelja.</sys:String>
+  <sys:String x:Key="Str.Emulator.fivem">U igri: Home otvara ReShade, a OpenNR je pod Add-ons, ili Ctrl+End. FiveM ima vlastiti anti-cheat — prvo provjerite pravila poslužitelja.</sys:String>
   <sys:String x:Key="Str.Emulator.azahar">Emulation &gt; Configure &gt; Graphics &gt; Graphics API: Vulkan. I OpenGL sada ima put, ali Vulkan je ovdje najviše isproban.</sys:String>
   <sys:String x:Key="Str.Emulator.xemu">xemu renderira samo s OpenGL-om, pa je put OpenGL ovdje jedini. To je najnoviji put i eksperimentalan je: boja i procijenjeno kretanje, bez dubine.</sys:String>
   <sys:String x:Key="Str.Emulator.melonds">Emu settings &gt; Video &gt; 3D renderer: OpenGL. Softverski renderer crta na CPU-u i dodatak tamo nema do čega doći, pa mora biti OpenGL — a taj je put eksperimentalan: boja i procijenjeno kretanje, bez dubine.</sys:String>

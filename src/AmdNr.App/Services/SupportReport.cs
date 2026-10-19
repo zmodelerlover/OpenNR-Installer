@@ -206,7 +206,7 @@ public static class SupportReport
     private static string Summary(GameCard? card, string? installFolder, PayloadManifest? payload, SystemState state)
     {
         var o = new StringBuilder();
-        o.AppendLine("AMD-NR ReShade Installer -- problem report");
+        o.AppendLine("OpenNR Installer -- problem report");
         o.AppendLine(new string('=', 74));
         o.AppendLine($"made            {DateTimeOffset.Now:yyyy-MM-dd HH:mm:ss zzz}");
         o.AppendLine($"app             v{App.Version}  (language {App.CurrentLanguage})");

@@ -106,7 +106,7 @@ public partial class MainWindow : Window
     {
         var repo = Session.Config.App;
         var tag = $"v{version}";
-        ShowNotes($"AMD-NR ReShade Installer v{version}",
+        ShowNotes($"OpenNR Installer v{version}",
             known is not null ? Task.FromResult<string?>(known) : ReleaseNotes.GetAsync(Session.Http, repo.Owner, repo.Repo, tag),
             $"https://github.com/{repo.Owner}/{repo.Repo}/releases/tag/{tag}");
     }
