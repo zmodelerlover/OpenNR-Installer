@@ -28,9 +28,9 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <!-- What the file says about itself. An executable with no publisher, no description and no
          version reads to an antivirus the way a dropped payload does. -->
-    <Company>AMD-NR community</Company>
-    <Product>AMD-NR ReShade Installer</Product>
-    <Description>Installs the AMD-NR neural rendering add-on into PC games</Description>
+    <Company>OpenNR community</Company>
+    <Product>OpenNR Installer</Product>
+    <Description>Installs OpenNR neural rendering into PC games</Description>
     <Copyright>MIT License</Copyright>
     <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
     <!-- Skia and the GL loader are native, and without this they sit beside the exe instead of
