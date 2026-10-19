@@ -145,7 +145,8 @@ public static partial class Work
 
     /// <summary>What the mochizuki runtime writes beside its files while a game runs -- the pipeline
     /// cache, ACO's imported network, int4 mixed's own cache and binaries, the marker of a network build that never
-    /// finished (build.pending, or build.failed as the add-on renames it), and the temporary file a write cut short
+    /// finished (build.pending, or build.failed as the add-on renames it), the mark of a game whose colour switches float
+    /// formats (float-colour-shared), and the temporary file a write cut short
     /// leaves -- once the runtime itself is gone, and then its folders, deepest first, each only when nothing is left in it. With the runtime still
     /// here (the game has it open, or it was not this app's) nothing of it is touched.</summary>
     private static void AfterMochizukiUninstall(string dir, Report report)
@@ -164,7 +165,7 @@ public static partial class Work
                 var name = Path.GetFileName(file);
                 var folder = Path.GetDirectoryName(file);
                 var written = name == MochizukiPipelineCache
-                              || folder == root && name is "build.pending" or "build.failed"
+                              || folder == root && name is "build.pending" or "build.failed" or "float-colour-shared"
                               || folder == int4Binaries
                               || folder == acoCache
                               && (name.EndsWith(".nrb", StringComparison.OrdinalIgnoreCase)

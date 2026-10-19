@@ -144,7 +144,7 @@ public class Opti054Tests
         Assert.False(Work.Install(game, src, Preset.OptiScaler, pins).Failed);
         var data = Path.Combine(game, Engine.MochizukiFolder);
         Directory.CreateDirectory(Path.Combine(data, "int4", "pipeline-binaries"));
-        foreach (var f in new[] { "build.pending", "build.failed", "pipeline.cache", "int4/pipeline.cache", "int4/pipeline-binaries/a.bin" })
+        foreach (var f in new[] { "build.pending", "build.failed", "float-colour-shared", "pipeline.cache", "int4/pipeline.cache", "int4/pipeline-binaries/a.bin" })
             File.WriteAllText(Path.Combine(data, f), "written by the runtime");
         var report = Work.Uninstall(game, Preset.OptiScaler);
         Assert.False(report.Failed, report.ToLog("uninstall"));
