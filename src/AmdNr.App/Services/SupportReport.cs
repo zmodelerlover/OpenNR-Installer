@@ -81,6 +81,10 @@ public static class SupportReport
 
         Config(zip, "games.json", "settings.json", "config.json", "payload.json", "api-db.json");
 
+        // WrongGPU's setup log: why it refused to convert its model is only said there.
+        var wrongGpuLog = new FileInfo(Work.WrongGpuSetupLog);
+        if (wrongGpuLog.Exists) Copy(zip, wrongGpuLog, "wronggpu/setup.log");
+
         // The game folder itself: what is in it, and what the add-on and ReShade wrote there.
         if (installFolder is { Length: > 0 })
         {

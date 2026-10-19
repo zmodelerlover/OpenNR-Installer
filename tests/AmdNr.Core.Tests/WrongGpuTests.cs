@@ -112,9 +112,34 @@ public class WrongGpuTests
         FakeSetup("nomodel", converts: false);
         Assert.True(Work.WrongGpuNeedsDlss(fresh));
         var report = Work.Install(fresh, src, Preset.OptiScaler, pins, wrongGpu: true);
-        Assert.True(Fixture.HasErr(report, "could not convert"), report.ToLog("install"));
+        Assert.True(Fixture.HasErr(report, "setup stopped (exit code 3)"), report.ToLog("install"));
         Assert.False(File.Exists(Path.Combine(fresh, "dxgi.dll")));
         Assert.False(File.Exists(Path.Combine(fresh, "wronggpu_ffx_dx12.dll")));
+    }
+
+    /// <summary>WrongGPU's setup refuses a PC with an anti-cheat installed for another game (exit 4, WG-SETUP-4); the
+    /// report gives its reason from its log, not a missing DLSS.</summary>
+    [Fact]
+    public void ARefusalIsReportedWithTheReasonWrongGpuLogged()
+    {
+        var game = Game("wg-anticheat");
+        var (src, pins) = Payloads("wg-anticheat");
+        FakeSetup("anticheat", converts: false);
+        var setup = Work.RunWrongGpuSetup;
+        Work.RunWrongGpuSetup = (exe, arguments) =>
+        {
+            setup(exe, arguments);
+            File.WriteAllText(Work.WrongGpuSetupLog,
+                "[07:56:06]   FAIL  Anti-cheat found (BattlEye) - games with anti-cheat are never supported\r\n"
+                + "[07:56:06] ERROR: Anti-cheat found (BattlEye) - games with anti-cheat are never supported [WG-SETUP-4]\r\n");
+            return 4;
+        };
+        var report = Work.Install(game, src, Preset.OptiScaler, pins, wrongGpu: true);
+        Assert.True(Fixture.HasErr(report, "Anti-cheat found (BattlEye) - games with anti-cheat are never supported [WG-SETUP-4]"),
+            report.ToLog("install"));
+        Assert.True(Fixture.HasErr(report, "for every game"), report.ToLog("install"));
+        Assert.False(Fixture.HasErr(report, "310.5"), report.ToLog("install"));
+        Assert.False(File.Exists(Path.Combine(game, "wronggpu_ffx_dx12.dll")));
     }
 
     [Fact]

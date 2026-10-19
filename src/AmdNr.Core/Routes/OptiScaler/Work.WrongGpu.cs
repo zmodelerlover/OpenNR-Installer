@@ -164,9 +164,15 @@ public static partial class Work
             if (code == 0) RunWrongGpuSetup(exe, ["/silent", "/uninstall", $"/dir={game}"]);
             if (!converted)
             {
-                report.Err($"WrongGPU's setup could not convert its model (exit code {code}): it needs nvngx_dlss.dll 310.5 or "
-                           + "newer on this PC. Its log is %LOCALAPPDATA%\\WrongGPU\\setup.log. Nothing was installed; leave "
-                           + "WrongGPU off to install OptiScaler without it.");
+                // Its own log says why: every refusal had been put down to a missing DLSS, an anti-cheat installed
+                // for another game (WG-SETUP-4) too.
+                var why = WrongGpuSetupError() is { } error
+                    ? error + (error.Contains("anti-cheat", StringComparison.OrdinalIgnoreCase)
+                        ? " WrongGPU's setup refuses any PC with it installed, for every game, not only this one."
+                        : "")
+                    : dlss is null ? "it needs nvngx_dlss.dll 310.5 or newer on this PC." : "its log does not say why.";
+                report.Err($"WrongGPU's setup stopped (exit code {code}): {why} Its log is %LOCALAPPDATA%\\WrongGPU\\setup.log. "
+                           + "Nothing was installed; leave WrongGPU off to install OptiScaler without it.");
                 return false;
             }
             report.Ok($"WrongGPU's model is ready: {WrongGpuModel}");
@@ -182,6 +188,27 @@ public static partial class Work
             try { if (Directory.Exists(work)) Directory.Delete(work, recursive: true); }
             catch (Exception e) when (e is IOException or UnauthorizedAccessException) { }
         }
+    }
+
+    /// <summary>WrongGPU's setup log, beside its model folder.</summary>
+    public static string WrongGpuSetupLog =>
+        Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(WrongGpuModel)!)!, "setup.log");
+
+    /// <summary>The last error WrongGPU's setup logged ("ERROR: Anti-cheat found (BattlEye) - ... [WG-SETUP-4]"),
+    /// without its prefix, or null when there is none to read.</summary>
+    internal static string? WrongGpuSetupError()
+    {
+        try
+        {
+            using var stream = new FileStream(WrongGpuSetupLog, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            using var reader = new StreamReader(stream);
+            string? last = null;
+            while (reader.ReadLine() is { } line)
+                if (line.IndexOf("ERROR:", StringComparison.Ordinal) is var at and >= 0)
+                    last = line[(at + "ERROR:".Length)..].Trim();
+            return string.IsNullOrEmpty(last) ? null : last;
+        }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException) { return null; }
     }
 
     /// <summary>Whether this app installed WrongGPU in this game folder and it is still there.</summary>
