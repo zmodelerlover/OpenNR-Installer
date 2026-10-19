@@ -21,14 +21,24 @@ public static partial class GraphicsDetector
         "bootstrap", "startup", "splash", "vrmonitor", "handler", "service", "agent",
         // Dedicated servers and relays that sit beside the game they serve: GoldSrc's and Source's.
         "hlds", "hltv", "srcds",
-        // Ours: the 64-bit host the bridge route puts beside a 32-bit game.
-        "amd-nr",
     ];
+
+    /// <summary>What this app puts in a game folder: the bridge's 64-bit host, OptiScaler's 32-bit host,
+    /// person protection's worker and WrongGPU's setup. Never the game, not even as the last resort: a folder
+    /// a loader injects into (XXMI) holds no game executable, and person-model\person-worker.exe was taken for
+    /// one, so the next install went into person-model\.</summary>
+    private static readonly string[] Ours = ["amd-nr", "optiscalerdx9host", "person-worker", "wronggpu"];
+
+    internal static bool IsOurs(string exe)
+    {
+        var name = Path.GetFileName(exe).ToLowerInvariant();
+        return Ours.Any(name.Contains);
+    }
 
     internal static bool LooksLikeTheGame(string exe)
     {
         var name = Path.GetFileName(exe).ToLowerInvariant();
-        return !NotTheGame.Any(name.Contains);
+        return !NotTheGame.Any(name.Contains) && !IsOurs(exe);
     }
 
     /// <summary>Where executables are looked for, nearest first. Unreal keeps the real binary two
@@ -92,7 +102,7 @@ public static partial class GraphicsDetector
         try
         {
             return Directory.EnumerateFiles(root, "*.exe")
-                .Where(e => Engine.MachineOfFile(e) is not null)
+                .Where(e => !IsOurs(e) && Engine.MachineOfFile(e) is not null)
                 .OrderByDescending(e => Engine.SizeOf(e) ?? 0)
                 .FirstOrDefault();
         }

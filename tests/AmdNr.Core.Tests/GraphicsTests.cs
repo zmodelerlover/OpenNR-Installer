@@ -244,6 +244,18 @@ public class GraphicsTests
         Assert.Equal("Shooter.exe", Path.GetFileName(GraphicsDetector.FindExecutable(root)));
     }
 
+    /// <summary>An XXMI-style folder with no game in it, only what an earlier install put there.</summary>
+    [Fact]
+    public void OurOwnExecutablesAreNeverTakenForTheGame()
+    {
+        var root = Fixture.Temp("ours-only");
+        Directory.CreateDirectory(Path.Combine(root, "person-model"));
+        File.WriteAllBytes(Path.Combine(root, "person-model", "person-worker.exe"), Fixture.Pe(true));
+        File.WriteAllBytes(Path.Combine(root, "amd-nr-host64.exe"), Fixture.Pe(true));
+        File.WriteAllBytes(Path.Combine(root, "WrongGPU-Setup-0.5.5-ea.exe"), Fixture.Pe(true));
+        Assert.Null(GraphicsDetector.FindExecutable(root));
+    }
+
     [Fact]
     public void AFolderWhereEveryExecutableLooksLikeATool_StillAnswers()
     {

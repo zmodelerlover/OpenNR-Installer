@@ -219,7 +219,7 @@ public class Opti054Tests
         foreach (var path in pins.WrongGpuFiles.Keys)
             Assert.True(Work.WrongGpuDestination(path) is not { } at || Engine.IsAllowed(at), path);
         // The add-on and its 32-bit bridge move together.
-        Assert.Equal("0.7.13", pins.AddonVersion);
-        Assert.Equal("0.7.13", pins.BridgeVersion);
+        Assert.Equal("0.7.14", pins.AddonVersion);
+        Assert.Equal("0.7.14", pins.BridgeVersion);
     }
 }
