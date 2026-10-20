@@ -18,7 +18,7 @@
 
     .EXAMPLE
       ./tools/check-release.ps1
-      ./tools/check-release.ps1 -Exe publish-v0.8.4/OpenNR-Installer.exe
+      ./tools/check-release.ps1 -Exe publish-v0.8.5/OpenNR-Installer.exe
 #>
 param(
     [string]$Exe = '',
