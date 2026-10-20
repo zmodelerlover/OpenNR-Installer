@@ -198,13 +198,15 @@ public class Opti054Tests
     {
         var shipped = PayloadManifest.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "payload.json")));
         var newest = shipped.Offered(PayloadManifest.OptiScalerComponent)[0];
-        Assert.Equal("0.5.5-opennr", newest.Version);
+        Assert.Equal("0.5.6-opennr", newest.Version);
         var pins = shipped.With(newest).Pins();
         Assert.Equal("7e966e2639dbec6596aa0bac3b8761137d2c40ca8cb4aca30df7ca10043c6e33", pins.MochizukiFiles["dlssnr-amd/dlssnr-small.bin"]);
         Assert.Contains(pins.MochizukiFiles.Keys, k => k.StartsWith("dlssnr-amd.shaders.renodx/", StringComparison.Ordinal));
         foreach (var licence in new[] { "onnxruntime_LICENSE.txt", "YuNet_MIT.txt", "PPHumanSeg_Apache-2.0.txt", "YOLO11_AGPL-3.0.txt" })
             Assert.Contains($"person-model/{licence}", pins.OptiFiles.Keys);
         Assert.Contains("x86/opengl32.dll", pins.OptiFiles.Keys);
+        // lmxxf 0.44's Small model, from 0.5.6 on: the 93 weights and their manifest.
+        Assert.Equal(94, pins.OptiFiles.Keys.Count(k => k.StartsWith(Work.LmxxfSmallPayload, StringComparison.Ordinal)));
         Assert.Equal("0.5.5-ea", pins.WrongGpuVersion);
         Assert.Equal("f7b167b5ac1c9cff19984b520e85370119a8ccd12bf14f73b2d392e918bf6363",
             pins.WrongGpuFiles["wronggpu/WrongGPU-Setup-0.5.5-ea.exe"]);

@@ -156,4 +156,16 @@ public class DetectedWidthTests
             """<Game configVersion="1"><ExecutableList><Executable Name="runtime\media\YakuzaLikeADragon.exe" Id="Game" /></ExecutableList></Game>""");
         Assert.Equal(yakuza, GraphicsDetector.Detect(game, null, helper).Executable);
     }
+
+    /// <summary>An XXMI-style folder with no game in it, only what an earlier install put there.</summary>
+    [Fact]
+    public void OurOwnExecutablesAreNeverTakenForTheGame()
+    {
+        var root = Fixture.Temp("ours-only");
+        Directory.CreateDirectory(Path.Combine(root, "person-model"));
+        File.WriteAllBytes(Path.Combine(root, "person-model", "person-worker.exe"), Fixture.Pe(true));
+        File.WriteAllBytes(Path.Combine(root, "amd-nr-host64.exe"), Fixture.Pe(true));
+        File.WriteAllBytes(Path.Combine(root, "WrongGPU-Setup-0.5.5-ea.exe"), Fixture.Pe(true));
+        Assert.Null(GraphicsDetector.FindExecutable(root));
+    }
 }
