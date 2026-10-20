@@ -146,6 +146,43 @@ public static partial class GraphicsDetector
         return exes.OrderByDescending(e => Engine.SizeOf(e) ?? 0).First();
     }
 
+    /// <summary>The game behind an Xbox (GDK) package's gamelaunchhelper.exe. The helper sits at the package
+    /// root and the game further down (Yakuza: Like a Dragon keeps it in runtime\media); a proxy DLL beside
+    /// the helper still loads, since the package root is on the search path, but OptiScaler looks for its
+    /// own folder beside the game, so frame generation found none of its DLLs and the screen went black.
+    /// MicrosoftGame.Config names the executables first; failing that, the likeliest game below.</summary>
+    internal static string? GdkGame(string exe, string? gameName)
+    {
+        if (!Path.GetFileName(exe).Equals("gamelaunchhelper.exe", StringComparison.OrdinalIgnoreCase)) return null;
+        var root = Path.GetDirectoryName(exe)!;
+        try
+        {
+            var config = Path.Combine(root, "MicrosoftGame.Config");
+            if (File.Exists(config))
+            {
+                var named = System.Xml.Linq.XDocument.Load(config).Descendants()
+                    .Where(e => e.Name.LocalName == "Executable")
+                    .Select(e => e.Attribute("Name")?.Value)
+                    .OfType<string>()
+                    .Select(n => Path.Combine(root, n))
+                    .FirstOrDefault(p => File.Exists(p) && LooksLikeTheGame(p) && Engine.MachineOfFile(p) is not null);
+                if (named is not null) return named;
+            }
+
+            var hints = Hints(root, gameName);
+            return Directory.EnumerateFiles(root, "*.exe", new EnumerationOptions { RecurseSubdirectories = true, MaxRecursionDepth = 3 })
+                .Where(p => !string.Equals(Path.GetDirectoryName(p), root, StringComparison.OrdinalIgnoreCase))
+                .Where(p => LooksLikeTheGame(p) && Engine.MachineOfFile(p) is not null)
+                .OrderByDescending(p => Similarity(Path.GetFileNameWithoutExtension(p), hints))
+                .ThenByDescending(p => Engine.SizeOf(p) ?? 0)
+                .FirstOrDefault();
+        }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException or System.Xml.XmlException)
+        {
+            return null;
+        }
+    }
+
     /// <summary>Launchers named after their game, beside the executable they start. Assetto Corsa's
     /// AssettoCorsa.exe is a 32-bit WPF launcher; the game is acs.exe, 64-bit, in the same folder.</summary>
     private static readonly Dictionary<string, string> LauncherOf = new(StringComparer.OrdinalIgnoreCase)

@@ -272,6 +272,7 @@ public static partial class GraphicsDetector
         if (Emulators.Identify(root) is { } emulator)
             return ForEmulator(root, emulator, chosen);
         var exe = chosen ?? FindExecutable(root, gameName);
+        if (exe is not null) exe = GdkGame(exe, gameName) ?? exe;
         if (exe is null) return new GraphicsDetection(null, null, GraphicsApi.Unknown, false, "No executable found in that folder.");
 
         // A Source game answers from its renderer module, not from the launcher stub in the root.
