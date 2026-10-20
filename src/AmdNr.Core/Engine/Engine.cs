@@ -269,6 +269,9 @@ public static partial class Engine
             return inner is "OptiScaler.dll" or "OptiScalerDx9Host.exe" || inner.Length > 0 && IsAllowed(inner);
         }
         if (IsMochizukiData(name)) return true;
+        // lmxxf 0.44's Small model, one folder below its weights: native-game-tiled-assets\small\<file>.
+        if (name.StartsWith(LmxxfSmallFolder + "/", StringComparison.Ordinal))
+            name = "native-game-tiled-assets/" + name[(LmxxfSmallFolder.Length + 1)..];
         var slash = name.IndexOf('/');
         if (slash <= 0 || name.IndexOf('/', slash + 1) >= 0) return false;
         var folder = name[..slash];
@@ -292,6 +295,10 @@ public static partial class Engine
     /// shaders\ and one level of subfolders there, and its prewarm list. The name is the runtime's
     /// own (upstream DLSSNR-AMD's), and the names inside come from upstream and change with it.</summary>
     public const string MochizukiFolder = "dlssnr-amd";
+
+    /// <summary>Where lmxxf 0.44's Small model goes, beside the weights it is an alternative to (the runtime reads
+    /// its weights folder's small\).</summary>
+    public const string LmxxfSmallFolder = "native-game-tiled-assets/small";
 
     /// <summary>The folder of a 32-bit game's OptiScaler and its 64-bit host, with its slash.</summary>
     private const string OptiHostFolder = "OptiScaler64/";

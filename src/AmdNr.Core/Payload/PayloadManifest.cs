@@ -144,6 +144,13 @@ public sealed class PayloadManifest
     /// and optional: without it the runtime runs the 310.8 model.</summary>
     public const string MochizukiSmallModelComponent = "mochizuki-model-small";
 
+    /// <summary>lmxxf 0.44's Small model, the 31 blocks of NVIDIA's 310.9.16 DLL in native-game-tiled-assets\small\, which
+    /// the OptiScaler that carries lmxxf 0.44 runs by default with one pass when it is there. Versioned and optional like
+    /// <see cref="MochizukiSmallModelComponent"/>: without it lmxxf runs its 71-block model. Its payload folder is
+    /// native-game-tiled-assets.small (<see cref="Work.OptiDestination"/>): the installers already out there refuse a
+    /// whole manifest with a path three levels deep, and never ask for a component they do not know.</summary>
+    public const string LmxxfSmallWeightsComponent = "lmxxf-weights-small";
+
     /// <summary>OptiScaler 0.5.4's person protection: person-worker.exe, ONNX Runtime, the three person models and
     /// their licences, in person-model\ beside OptiScaler. Only lmxxf and mochizuki use it, so it goes where lmxxf's
     /// weights go (<see cref="WithoutLmxxf"/>).</summary>
@@ -164,8 +171,8 @@ public sealed class PayloadManifest
     public static readonly IReadOnlySet<string> OnDemand =
         new HashSet<string>(StringComparer.Ordinal)
         {
-            OptiScalerComponent, OptiRuntimeComponent, LmxxfWeightsComponent, LmxxfGfx1200Component, OptiX86Component,
-            MochizukiComponent, MochizukiModelComponent, MochizukiSmallModelComponent, PersonModelComponent,
+            OptiScalerComponent, OptiRuntimeComponent, LmxxfWeightsComponent, LmxxfSmallWeightsComponent, LmxxfGfx1200Component,
+            OptiX86Component, MochizukiComponent, MochizukiModelComponent, MochizukiSmallModelComponent, PersonModelComponent,
             WrongGpuComponent, WrongGpuDlssComponent,
         };
 
@@ -265,8 +272,8 @@ public sealed class PayloadManifest
         Owner = Owner,
         Repo = Repo,
         Tag = Tag,
-        Components = Components.Where(c => c.Key is not (LmxxfWeightsComponent or LmxxfGfx1200Component or PersonModelComponent
-                or WrongGpuComponent or WrongGpuDlssComponent))
+        Components = Components.Where(c => c.Key is not (LmxxfWeightsComponent or LmxxfSmallWeightsComponent or LmxxfGfx1200Component
+                or PersonModelComponent or WrongGpuComponent or WrongGpuDlssComponent))
             .ToDictionary(c => c.Key, c => c.Value, StringComparer.Ordinal),
         Releases = Releases,
         UserRuntimes = UserRuntimes,
@@ -415,7 +422,11 @@ public sealed class PayloadManifest
         // and the other routes must keep installing from it.
         // The lmxxf weights go in with OptiScaler itself, so they are pinned the same way.
         var optiFiles = new Dictionary<string, string>(StringComparer.Ordinal);
-        foreach (var name in new[] { OptiScalerComponent, LmxxfWeightsComponent, LmxxfGfx1200Component, OptiX86Component, PersonModelComponent })
+        foreach (var name in new[]
+                 {
+                     OptiScalerComponent, LmxxfWeightsComponent, LmxxfSmallWeightsComponent, LmxxfGfx1200Component, OptiX86Component,
+                     PersonModelComponent,
+                 })
             if (Components.TryGetValue(name, out var component))
                 foreach (var f in component.Installed)
                     optiFiles[f.RelativePath] = Engine.Lower(f.Sha256);

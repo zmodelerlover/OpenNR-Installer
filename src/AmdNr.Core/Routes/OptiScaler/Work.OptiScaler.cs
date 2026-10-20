@@ -33,7 +33,7 @@ public static partial class Work
     private static readonly string[] OptiFolders =
     [
         "OptiScaler/D3D12_OptiScaler", "OptiScaler", "experimental_lighting",
-        "lmxxf-modules", "lmxxf-modules-gfx1200", "native-game-tiled-assets", "shaders",
+        "lmxxf-modules", "lmxxf-modules-gfx1200", Engine.LmxxfSmallFolder, "native-game-tiled-assets", "shaders",
         // A 32-bit game's, after what is inside it (Work.Mochizuki takes dlssnr-amd).
         "OptiScaler64/OptiScaler/D3D12_OptiScaler", "OptiScaler64/OptiScaler", "OptiScaler64/experimental_lighting",
         "OptiScaler64/dlssnr-amd", "OptiScaler64/person-model", "OptiScaler64",
@@ -81,13 +81,18 @@ public static partial class Work
     };
 
     /// <summary>Where one payload file goes in the game folder. OptiScaler takes the proxy name, and
-    /// the Agility runtime sits one level deeper than a payload path may go.</summary>
+    /// the Agility runtime and lmxxf's Small model sit one level deeper than a payload path may go.</summary>
     internal static string OptiDestination(string payloadPath, string proxyName) => payloadPath switch
     {
         OptiScalerDllPayload => proxyName,
         "D3D12_OptiScaler/D3D12Core.dll" => "OptiScaler/D3D12_OptiScaler/D3D12Core.dll",
+        _ when payloadPath.StartsWith(LmxxfSmallPayload, StringComparison.Ordinal)
+            => Engine.LmxxfSmallFolder + payloadPath[(LmxxfSmallPayload.Length - 1)..],
         _ => payloadPath,
     };
+
+    /// <summary>The payload folder of lmxxf's Small model, with its slash: native-game-tiled-assets\small\ spelled with a dot.</summary>
+    internal const string LmxxfSmallPayload = "native-game-tiled-assets.small/";
 
     /// <summary>Launchers that sit beside the game they start and so load its proxy first. OptiScaler
     /// hooking inside Red Dead Redemption's PlayRDR.exe broke the Rockstar Games SDK (error 25D11006);
@@ -130,7 +135,7 @@ public static partial class Work
         payload = payload.Newest(PayloadManifest.OptiScalerComponent);
         var pinned = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         foreach (var name in new[] { PayloadManifest.OptiScalerComponent, PayloadManifest.LmxxfWeightsComponent,
-                                     PayloadManifest.LmxxfGfx1200Component, PayloadManifest.OptiX86Component,
+                                     PayloadManifest.LmxxfSmallWeightsComponent, PayloadManifest.LmxxfGfx1200Component, PayloadManifest.OptiX86Component,
                                      PayloadManifest.PersonModelComponent })
             if (payload.Has(name))
                 foreach (var file in payload.Component(name).Installed)

@@ -64,5 +64,6 @@ public static partial class Work
     /// <summary>What a 32-bit game's host never loads: lmxxf, which does not run without an upscaler, and its data.</summary>
     private static bool LmxxfOnly(string path) =>
         path == LmxxfRuntimeName || path.StartsWith("lmxxf-modules", StringComparison.Ordinal)
-        || path.StartsWith(LmxxfWeightsFolder, StringComparison.Ordinal) || path.StartsWith("shaders/", StringComparison.Ordinal);
+        || path.StartsWith(LmxxfWeightsFolder, StringComparison.Ordinal) || path.StartsWith(LmxxfSmallPayload, StringComparison.Ordinal)
+        || path.StartsWith("shaders/", StringComparison.Ordinal);
 }

@@ -31,7 +31,8 @@
   and their 64-bit host (x86\, OptiScaler 0.5.2 and later) go the same way, as optiscaler-x86.
 
   A release carrying LmxxfNrRuntime.dll gets the lmxxf weights component of the newest release that
-  has one, when it has none of its own. Nothing else in the release (the mochizuki components) is
+  has one, when it has none of its own, and the Small model's (lmxxf-weights-small, tools/pin-lmxxf-small.ps1) the same
+  way when a release has it. Nothing else in the release (the mochizuki components) is
   touched: tools/pin-mochizuki.ps1 writes those.
 
 .EXAMPLE
@@ -222,6 +223,13 @@ if (($extract | Where-Object { $_.path -eq 'LmxxfNrRuntime.dll' }) -and -not $re
     if (-not $donor) { Fail "$Version carries the lmxxf runtime and no release has its weights to lend" }
     $release.components | Add-Member -NotePropertyName 'lmxxf-weights' -NotePropertyValue $donor.components.'lmxxf-weights'
     Note "lmxxf weights taken from $($donor.version)"
+}
+if (($extract | Where-Object { $_.path -eq 'LmxxfNrRuntime.dll' }) -and -not $release.components.PSObject.Properties['lmxxf-weights-small']) {
+    $donor = $releases | Where-Object { $_.components.PSObject.Properties['lmxxf-weights-small'] } | Select-Object -First 1
+    if ($donor) {
+        $release.components | Add-Member -NotePropertyName 'lmxxf-weights-small' -NotePropertyValue $donor.components.'lmxxf-weights-small'
+        Note "lmxxf Small model taken from $($donor.version)"
+    }
 }
 
 # Newest first, the order the app offers them in.

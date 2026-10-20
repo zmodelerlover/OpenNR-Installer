@@ -394,7 +394,8 @@ public partial class GameSheet
     private static string[] ComponentsFor(Preset preset, bool mochizuki = false, bool wrongGpu = false, bool dlss = false) =>
         preset.IsOptiScaler()
             ? [PayloadManifest.OptiScalerComponent, PayloadManifest.OptiRuntimeComponent, PayloadManifest.RuntimeComponent,
-               PayloadManifest.LmxxfWeightsComponent, PayloadManifest.LmxxfGfx1200Component, PayloadManifest.OptiX86Component,
+               PayloadManifest.LmxxfWeightsComponent, PayloadManifest.LmxxfSmallWeightsComponent, PayloadManifest.LmxxfGfx1200Component,
+               PayloadManifest.OptiX86Component,
                PayloadManifest.PersonModelComponent, .. Mochizuki(mochizuki),
                .. wrongGpu ? [PayloadManifest.WrongGpuComponent] : Array.Empty<string>(),
                .. dlss ? [PayloadManifest.WrongGpuDlssComponent] : Array.Empty<string>()]
