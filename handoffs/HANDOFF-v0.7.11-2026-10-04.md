@@ -1,46 +1,46 @@
-# Handoff v0.7.11: versão do danielblnc por jogo, política RX 9000, OptiScaler 0.4.10, mochizuki 0.4.10 e add-on v0.7.10
+# Handoff v0.7.11: danielblnc version per game, RX 9000 policy, OptiScaler 0.4.10, mochizuki 0.4.10 and add-on v0.7.10
 
-04/10/2026. Leia depois de [HANDOFF-v0.7.10-2026-10-03.md](HANDOFF-v0.7.10-2026-10-03.md). O detalhe de tudo desta
-rodada (add-on, fork e a investigação do mochizuki no driver 32015) está em
+2026-10-04. Read after [HANDOFF-v0.7.10-2026-10-03.md](HANDOFF-v0.7.10-2026-10-03.md). The details of everything in this
+round (add-on, fork and the mochizuki investigation on driver 32015) are in
 `neural-amd-opti/handoff/HANDOFF-fixes-2026-10-03.md`.
 
-## Versão da runtime do danielblnc por jogo
+## danielblnc runtime version per game
 
-- `payload.json` ganhou `releases.runtime`: 0.6.0, 0.5.1, 0.5.0 e 0.4.3, cada uma com o `runtime` (pass1 patcheado +
-  pesos, para o add-on) e o `opti-runtime` (cru, para o OptiScaler). Os arquivos já estavam no HF.
-- `PayloadManifest.WithRuntime(version, async)`, `RuntimeVersions()`, `RuntimeChoice` (sobrevive a um `With()` de
-  versão do add-on/OptiScaler aplicado depois), `PayloadPins.RuntimeChosen` / `RuntimeAsync`.
-- `Work.RuntimeRunsOn` só oferece o que o add-on/OptiScaler escolhido roda.
-- Ficha: linha "Versão do danielblnc" (`DanielVersionRow`, `RuntimeOption.cs`), salva em `GameStore.DanielRuntime`.
-- Política (`Work.Runtimes.cs`): RX 9000 vê todas, **0.4.3 padrão** com selo verde Recomendado, as outras com selo
-  laranja Instável e instaladas em async (`Work.GoesInAsync`: `Inline=0` no `amd-nr.ini`, `AmdAsync=true` no
-  `OptiScaler.ini`, só essa chave). RX 6000/7000: só a 0.6.0, sem async.
+- `payload.json` gained `releases.runtime`: 0.6.0, 0.5.1, 0.5.0 and 0.4.3, each with the `runtime` (patched pass1 +
+  weights, for the add-on) and the `opti-runtime` (raw, for OptiScaler). The files were already on HF.
+- `PayloadManifest.WithRuntime(version, async)`, `RuntimeVersions()`, `RuntimeChoice` (survives an add-on/OptiScaler
+  version `With()` applied afterwards), `PayloadPins.RuntimeChosen` / `RuntimeAsync`.
+- `Work.RuntimeRunsOn` only offers what the chosen add-on/OptiScaler runs.
+- Sheet: "danielblnc version" row (`DanielVersionRow`, `RuntimeOption.cs`), saved in `GameStore.DanielRuntime`.
+- Policy (`Work.Runtimes.cs`): RX 9000 sees all of them, **0.4.3 default** with a green Recommended badge, the others with an
+  orange Unstable badge and installed in async (`Work.GoesInAsync`: `Inline=0` in `amd-nr.ini`, `AmdAsync=true` in
+  `OptiScaler.ini`, only that key). RX 6000/7000: only 0.6.0, no async.
 
-## RX 9000: mochizuki no add-on, lmxxf no OptiScaler
+## RX 9000: mochizuki in the add-on, lmxxf in OptiScaler
 
-Sem a caixa experimental: em RX 9000 o mochizuki entra sempre (`WantsMochizuki`). O add-on v0.7.10 roda o mochizuki
-quando não há `NrBackend`; um `OptiScaler.ini` novo/nosso recebe `NrBackend=lmxxf`. Só foi liberado agora porque o
-mochizuki 0.4.10 voltou a montar a rede no driver 32.0.32015 (o 0.4.9 fechava o jogo).
+No experimental checkbox: on RX 9000 mochizuki always goes in (`WantsMochizuki`). Add-on v0.7.10 runs mochizuki
+when there is no `NrBackend`; a new/our `OptiScaler.ini` gets `NrBackend=lmxxf`. It was only enabled now because
+mochizuki 0.4.10 builds the network again on driver 32.0.32015 (0.4.9 closed the game).
 
-## Outras
+## Other
 
-- Arquivo preso nomeia o processo (`Engine.Holders.cs`, Restart Manager), na instalação, no pré-check e na desinstalação.
-- Aviso de `d3d11.dll` de outro mod nas rotas D3D10/11 (`Work.CheckForeignD3d11`).
-- OptiScaler `0.4.10-amd-nr` (`pin-optiscaler.ps1`). O script não copia o `opti-runtime`: foi posto à mão, o da 0.4.9
-  (0.6.0, `195c4a89…`). Sem ele a release cairia na 0.3.1 do topo. `lmxxf-gfx1200` 0.4.10 (mesmos kernels, zip novo).
-- mochizuki `0.4.10-amd-nr` (`pin-mochizuki.ps1`, 68 arquivos): shaders corrigidos para o driver 32015, prewarm feito no
-  Cyberpunk com esses shaders. `mochizuki-model` continua o 1.
-- Add-on e ponte v0.7.10 (protocolo v6).
-- Testes: `RuntimeChoiceTests`, `HeldFilesTests`; `OptiScalerVersionTests` e `UserRuntimeTests` esperam a 0.4.10.
+- A locked file names the process (`Engine.Holders.cs`, Restart Manager), on install, pre-check and uninstall.
+- Warning about another mod's `d3d11.dll` on the D3D10/11 routes (`Work.CheckForeignD3d11`).
+- OptiScaler `0.4.10-amd-nr` (`pin-optiscaler.ps1`). The script does not copy the `opti-runtime`: it was put in by hand, 0.4.9's
+  (0.6.0, `195c4a89…`). Without it the release would fall back to the top-level 0.3.1. `lmxxf-gfx1200` 0.4.10 (same kernels, new zip).
+- mochizuki `0.4.10-amd-nr` (`pin-mochizuki.ps1`, 68 files): shaders fixed for driver 32015, prewarm done in
+  Cyberpunk with these shaders. `mochizuki-model` stays 1.
+- Add-on and bridge v0.7.10 (protocol v6).
+- Tests: `RuntimeChoiceTests`, `HeldFilesTests`; `OptiScalerVersionTests` and `UserRuntimeTests` expect 0.4.10.
 
-## Verificado
+## Verified
 
-`gate.ps1 -Ui`: build, testes, line-limit, ui e flows, 0 falhas.
+`gate.ps1 -Ui`: build, tests, line-limit, ui and flows, 0 failures.
 
-## Publicação (feita nesta ordem)
+## Publishing (done in this order)
 
-1. opti `v0.4.10-amd-nr` (zip) e add-on `v0.7.10` (seis arquivos).
-2. `hf upload` do `mochizuki-0.4.10-amd-nr.zip` e do `lmxxf-gfx1200-0.4.10-amd-nr.zip`.
-3. Release v0.7.11 do instalador (exe, `SHA256SUMS.txt`, 7z com os json e o LEIA-ME/README), `check-release.ps1`.
-4. `publish-payload.ps1 -From <pasta com os arquivos da v0.7.10>`; reverter a reescrita do `config.json`; espelho no
+1. opti `v0.4.10-amd-nr` (zip) and add-on `v0.7.10` (six files).
+2. `hf upload` of `mochizuki-0.4.10-amd-nr.zip` and `lmxxf-gfx1200-0.4.10-amd-nr.zip`.
+3. Installer release v0.7.11 (exe, `SHA256SUMS.txt`, 7z with the json files and the LEIA-ME/README), `check-release.ps1`.
+4. `publish-payload.ps1 -From <folder with the v0.7.10 files>`; revert the `config.json` rewrite; mirror on
    AMD-NR-Extras.

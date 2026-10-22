@@ -1,45 +1,45 @@
-# Handoff v0.7.7: OptiScaler 0.4.8, mochizuki 0.4.8, add-on v0.7.7 e a ponte 32-bit em dia
+# Handoff v0.7.7: OptiScaler 0.4.8, mochizuki 0.4.8, add-on v0.7.7 and the 32-bit bridge up to date
 
-01/10/2026. Leia depois de [HANDOFF-v0.7.6-2026-10-01.md](HANDOFF-v0.7.6-2026-10-01.md).
+2026-10-01. Read after [HANDOFF-v0.7.6-2026-10-01.md](HANDOFF-v0.7.6-2026-10-01.md).
 
-## A ponte 32-bit estava parada na 0.7.2
+## The 32-bit bridge was stuck on 0.7.2
 
-Um player viu a ponte 32-bit marcada como .7.2 e o jogo 32-bit recebendo o add-on 0.7.2. Os releases do add-on de
-0.7.3 a 0.7.6 publicaram o par 32-bit (`amd-nr.addon32`, `amd-nr-host64.exe`, `payload.sha256`), mas só o componente
-`addon` do `payload.json` foi atualizado: o `bridge` continuou em 0.7.2. Por isso a 0.6.0 de apoiador também não
-aparecia em jogos 32-bit (`addon_since` é comparado com a versão da ponte nessa rota).
+A player saw the 32-bit bridge labeled as .7.2 and the 32-bit game receiving add-on 0.7.2. The add-on releases from
+0.7.3 to 0.7.6 published the 32-bit pair (`amd-nr.addon32`, `amd-nr-host64.exe`, `payload.sha256`), but only the
+`addon` component of `payload.json` was updated: `bridge` stayed on 0.7.2. That is also why the 0.6.0 supporter build did not
+show up in 32-bit games (`addon_since` is compared with the bridge version on that route).
 
-- `bridge` agora é 0.7.7, com o par do mesmo release do add-on.
-- `PayloadTests.TheShippedManifestAgreesWithTheAddOnsOwnConstants` falha se `bridge` e `addon` tiverem versões
-  diferentes. Ao fixar um add-on novo, fixe a ponte do mesmo release.
+- `bridge` is now 0.7.7, with the pair from the same release as the add-on.
+- `PayloadTests.TheShippedManifestAgreesWithTheAddOnsOwnConstants` fails if `bridge` and `addon` have different
+  versions. When pinning a new add-on, pin the bridge from the same release.
 
 ## Add-on v0.7.7
 
-- O Style (Default, Natural, Cinematic) vai para a entrada de estilo da própria rede, como no overlay do danielblnc;
-  o colour grade que imitava o NVIDIA saiu.
-- Jogos OpenGL (Firestorm) quebravam ao criar os contextos: a thread do hook de `vkCreateDevice` segurava o add-on
-  depois do `FreeLibrary` do ReShade e o descarregava ao sair (`amd-nr.addon64_unloaded`, `__vcrt_freefls`). Ela só
-  existe agora quando o ReShade roda como layer Vulkan.
+- Style (Default, Natural, Cinematic) goes to the network's own style input, as in danielblnc's overlay;
+  the colour grade that imitated NVIDIA's was removed.
+- OpenGL games (Firestorm) crashed when creating contexts: the `vkCreateDevice` hook thread held the add-on
+  after ReShade's `FreeLibrary` and unloaded it on exit (`amd-nr.addon64_unloaded`, `__vcrt_freefls`). It now only
+  exists when ReShade runs as a Vulkan layer.
 
-## OptiScaler 0.4.8-amd-nr e mochizuki 0.4.8-amd-nr
+## OptiScaler 0.4.8-amd-nr and mochizuki 0.4.8-amd-nr
 
-- Cor do danielblnc como a dele: encoding Linear por padrão e o Style na rede. Um `OptiScaler.ini` de antes da 0.4.8
-  (tem `AmdColourGrade`, não tem `AmdStyle`) lê o `AmdEncoding=2` que o pacote antigo gravava como Linear até a pessoa
-  salvar as configurações. O app não precisou mudar: um ini mantido como configuração da pessoa migra sozinho.
-- Watch Dogs: Legion: tela verde (exposição só para entrada HDR) e NR abaixo de 100% (vetores TYPELESS).
-- mochizuki: exposição do jogo, `dlssnr-amd\` ao lado do exe (RE Engine e o `_storage_`), peso do histórico,
-  formatos de cor e o Preprocess do upstream. Componente `mochizuki` 0.4.8-amd-nr (`pin-mochizuki.ps1`, 62 arquivos,
-  `runtime_prep.spv` novo, lista de prewarm feita para estes 59 shaders). `mochizuki-model` continua o 1.
-- `opti-runtime` é o 0.5.1 da 0.4.7, copiado à mão.
+- danielblnc's colour like his own: Linear encoding by default and Style in the network. An `OptiScaler.ini` from before 0.4.8
+  (has `AmdColourGrade`, does not have `AmdStyle`) reads the `AmdEncoding=2` that the old package wrote as Linear until the user
+  saves the settings. The app did not need to change: an ini kept as the user's configuration migrates on its own.
+- Watch Dogs: Legion: green screen (exposure only for HDR input) and NR below 100% (TYPELESS vectors).
+- mochizuki: game exposure, `dlssnr-amd\` next to the exe (RE Engine and `_storage_`), history weight,
+  colour formats and upstream's Preprocess. Component `mochizuki` 0.4.8-amd-nr (`pin-mochizuki.ps1`, 62 files,
+  new `runtime_prep.spv`, prewarm list made for these 59 shaders). `mochizuki-model` stays 1.
+- `opti-runtime` is 0.4.7's 0.5.1, copied by hand.
 
-Testes: os do app (`dotnet test`) e o gate. Nada disso foi jogado depois de empacotado; os jogos citados são onde cada
-correção foi vista ou de onde veio o log.
+Tests: the app's (`dotnet test`) and the gate. None of this was played after packaging; the games mentioned are where each
+fix was seen or where the log came from.
 
-## Publicação
+## Publishing
 
-1. opti `v0.4.8-amd-nr` e add-on `v0.7.7` já publicados.
-2. Release v0.7.7 do instalador (exe, `SHA256SUMS.txt`, 7z com os json e LEIA-ME/README), `check-release.ps1`.
-3. `hf upload` do zip do mochizuki (`mochizuki/0.4.8-amd-nr/`), como o `pin-mochizuki.ps1` imprime.
-4. `publish-payload.ps1 -From <pasta com amd-nr.addon64, amd-nr.addon32, amd-nr-host64.exe e payload.sha256 da v0.7.7>`:
-   as URLs já apontam para `addon/0.7.7/` e `bridge/0.7.7/`. Reverter a reescrita do `config.json`; espelho no
+1. opti `v0.4.8-amd-nr` and add-on `v0.7.7` already published.
+2. Installer release v0.7.7 (exe, `SHA256SUMS.txt`, 7z with the json files and LEIA-ME/README), `check-release.ps1`.
+3. `hf upload` of the mochizuki zip (`mochizuki/0.4.8-amd-nr/`), as `pin-mochizuki.ps1` prints.
+4. `publish-payload.ps1 -From <folder with amd-nr.addon64, amd-nr.addon32, amd-nr-host64.exe and payload.sha256 from v0.7.7>`:
+   the URLs already point to `addon/0.7.7/` and `bridge/0.7.7/`. Revert the `config.json` rewrite; mirror on
    AMD-NR-Extras.

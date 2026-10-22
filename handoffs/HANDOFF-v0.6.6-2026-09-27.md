@@ -1,27 +1,27 @@
-# Handoff v0.6.6: a pasta com o setup do danielblnc não é mais "ReShade instalado"
+# Handoff v0.6.6: a folder with danielblnc's setup is no longer "ReShade installed"
 
-27/09/2026. Leia depois de [HANDOFF-v0.6.5-2026-09-27.md](HANDOFF-v0.6.5-2026-09-27.md). Só o app muda; o
-payload, o HF e o AMD-NR-Extras continuam os do v0.6.5.
+2026-09-27. Read after [HANDOFF-v0.6.5-2026-09-27.md](HANDOFF-v0.6.5-2026-09-27.md). Only the app changes; the
+payload, HF and AMD-NR-Extras stay as in v0.6.5.
 
-## O problema
+## The problem
 
-O runtime do danielblnc grava `dlssnr_on_amd_weights.bin` ao lado do `version.dll`. Esse nome é um dos
-`InstalledMarkers`, então uma pasta só com o setup dele (sem manifesto, sem add-on) aparecia como rota
-ReShade instalada. Escolher OptiScaler pedia a troca de rota, e o uninstall dessa troca apagava os pesos do
-autor pelo nome. O OptiScaler instalava depois e usava o `version.dll`, então parecia funcionar.
+danielblnc's runtime writes `dlssnr_on_amd_weights.bin` next to `version.dll`. That name is one of the
+`InstalledMarkers`, so a folder with only his setup (no manifest, no add-on) showed up as an installed
+ReShade route. Choosing OptiScaler asked for a route switch, and that switch's uninstall deleted the
+author's weights by name. OptiScaler then installed and used `version.dll`, so it seemed to work.
 
-Mesmo sem a troca, o uninstall do OptiScaler descartava o backup desses pesos, porque o nome é nosso.
+Even without the switch, the OptiScaler uninstall discarded the backup of those weights, because the name is ours.
 
-## Código
+## Code
 
-- `Work.IsAuthorsWeights`: os pesos ao lado de um `version.dll` não contam em `GameScanner.IsInstalled`.
-- `Work.Uninstall`: com o `version.dll` do autor na pasta ou no backup de um manifesto, os pesos não são
-  "nossos" (o backup é restaurado) e a varredura por nome não os apaga.
-- `AuthorRuntimeName` virou `internal`.
+- `Work.IsAuthorsWeights`: weights next to a `version.dll` do not count in `GameScanner.IsInstalled`.
+- `Work.Uninstall`: with the author's `version.dll` in the folder or in a manifest's backup, the weights are not
+  "ours" (the backup is restored) and the by-name sweep does not delete them.
+- `AuthorRuntimeName` became `internal`.
 
-## Testes
+## Tests
 
-- `LibraryStateTests.TheAuthorsOwnSetupIsNotAnInstallOfOurs`: pasta com `version.dll` e pesos do autor não é
-  instalação, instala o OptiScaler, desinstala, os pesos do autor voltam. 264 no total; `gate.ps1 -Ui` sem
-  falhas.
-- Testado pelo usuário no God of War com um build local antes do release.
+- `LibraryStateTests.TheAuthorsOwnSetupIsNotAnInstallOfOurs`: a folder with the author's `version.dll` and weights is not
+  an install, installs OptiScaler, uninstalls, the author's weights come back. 264 in total; `gate.ps1 -Ui` with no
+  failures.
+- Tested by the user in God of War with a local build before the release.

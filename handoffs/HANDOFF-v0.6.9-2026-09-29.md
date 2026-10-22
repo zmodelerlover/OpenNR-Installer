@@ -1,31 +1,31 @@
-# Handoff v0.6.9: danielblnc 0.5.0 como runtime padrão e OptiScaler 0.4.6
+# Handoff v0.6.9: danielblnc 0.5.0 as the default runtime and OptiScaler 0.4.6
 
-29/09/2026. Leia depois de [HANDOFF-v0.6.8-2026-09-28.md](HANDOFF-v0.6.8-2026-09-28.md). O danielblnc liberou a 0.5.0
-para todos ([Alpha 0.5.0](https://github.com/danielblnc/DLSS-NR-on-AMD/releases/tag/v0.5.0)); o setup público traz o
-mesmo `version.dll` da build de apoiador (`cddfb09e…`).
+2026-09-29. Read after [HANDOFF-v0.6.8-2026-09-28.md](HANDOFF-v0.6.8-2026-09-28.md). danielblnc released 0.5.0
+to everyone ([Alpha 0.5.0](https://github.com/danielblnc/DLSS-NR-on-AMD/releases/tag/v0.5.0)); the public setup ships the
+same `version.dll` as the supporter build (`cddfb09e…`).
 
-## O que mudou no payload
+## What changed in the payload
 
-| Componente | Antes | Agora | Onde no dataset |
+| Component | Before | Now | Where in the dataset |
 |---|---|---|---|
-| `runtime` (rota ReShade) | 0.4.3 corrigida (`f3d9f2e5…`) | 0.5.0 corrigida para o add-on (`c808cdb0…`, 38.703.616 bytes) | `runtime/0.5.0/dlssnr_amd_pass1.dll` |
-| release `0.4.6-amd-nr` | não existia | OptiScaler 0.4.6 (`125543e3…`, do GitHub), `opti-runtime` 0.5.0 (`cddfb09e…`), pesos do lmxxf, mochizuki e modelo da 0.4.4 | `opti-runtime/dlssnr_amd_runtime-0.5.0.dll` |
-| `user_runtimes` | 0.5.0 e 0.5.1 | só 0.5.1 | — |
+| `runtime` (ReShade route) | patched 0.4.3 (`f3d9f2e5…`) | 0.5.0 patched for the add-on (`c808cdb0…`, 38,703,616 bytes) | `runtime/0.5.0/dlssnr_amd_pass1.dll` |
+| release `0.4.6-amd-nr` | did not exist | OptiScaler 0.4.6 (`125543e3…`, from GitHub), `opti-runtime` 0.5.0 (`cddfb09e…`), lmxxf weights, mochizuki and model from 0.4.4 | `opti-runtime/dlssnr_amd_runtime-0.5.0.dll` |
+| `user_runtimes` | 0.5.0 and 0.5.1 | only 0.5.1 | — |
 
-O add-on (v0.7.2) e a ponte não mudam: o add-on aceita a 0.5.0 corrigida desde a v0.7.0. Os pesos são os mesmos.
+The add-on (v0.7.2) and the bridge do not change: the add-on has accepted the patched 0.5.0 since v0.7.0. The weights are the same.
 
-## Código
+## Code
 
-- `Engine.RuntimeSha` passa para a 0.5.0 corrigida; a 0.4.3 corrigida entra em `EarlierRuntimeShas`, então uma
-  instalação antiga continua reconhecida. `Work.RuntimeSize` 38.703.616.
-- Testes: o payload real com 0.4.6 e a 0.5.0 primeiro, e só a 0.5.1 como build de apoiador. 291 no total; o teste
-  com o setup real da 0.5.1 passou.
+- `Engine.RuntimeSha` moves to the patched 0.5.0; the patched 0.4.3 goes into `EarlierRuntimeShas`, so an
+  old install is still recognized. `Work.RuntimeSize` 38,703,616.
+- Tests: the real payload with 0.4.6 and 0.5.0 first, and only 0.5.1 as a supporter build. 291 in total; the test
+  with the real 0.5.1 setup passed.
 
-## Publicação
+## Publishing
 
-1. opti `v0.4.6-amd-nr` (zip `125543e3…`, baixado de volta e conferido).
-2. `pin-optiscaler.ps1` com o zip baixado; a 0.5.0 tirada do setup público com `extract_runtime.py` e corrigida com
-   `patch_runtime.py` do add-on (`c808cdb0…`, o `kSha256` dele).
-3. Release v0.6.9, `publish-payload.ps1`, espelho no AMD-NR-Extras.
+1. opti `v0.4.6-amd-nr` (zip `125543e3…`, downloaded back and verified).
+2. `pin-optiscaler.ps1` with the downloaded zip; 0.5.0 extracted from the public setup with `extract_runtime.py` and patched with
+   the add-on's `patch_runtime.py` (`c808cdb0…`, its `kSha256`).
+3. Release v0.6.9, `publish-payload.ps1`, mirror on AMD-NR-Extras.
 
-Nada disso foi testado em jogo com a 0.5.0 pela rota do instalador.
+None of this was tested in game with 0.5.0 through the installer route.

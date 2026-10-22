@@ -1,27 +1,27 @@
-# Handoff v0.5.0: versões do OptiScaler e o runtime lmxxf
+# Handoff v0.5.0: OptiScaler versions and the lmxxf runtime
 
-23/09/2026. Leia depois de [HANDOFF-2026-09-23.md](HANDOFF-2026-09-23.md), que cobre a rota OptiScaler
-da v0.4.0.
+2026-09-23. Read after [HANDOFF-2026-09-23.md](HANDOFF-2026-09-23.md), which covers the OptiScaler route
+of v0.4.0.
 
 ---
 
-## 1. O que entrou
+## 1. What went in
 
-- **Seletor de versão na rota OptiScaler.** A seção de versão, que antes sumia nessa rota, agora
-  se chama "Versão do OptiScaler" e lista todas as versões que o `payload.json` traz, da mais nova
-  para a mais antiga. A escolha fica gravada por jogo (`GameEntry.OptiScalerVersion`, separado do
-  `AddonVersion`) e segue a mesma regra do add-on (`AddonReleases.Preferred`): a versão com que o
-  jogo foi instalado, depois a da sessão, depois a mais nova.
-- **OptiScaler 0.2.0** (neural-amd-opti `v0.2.0-amd-nr`): runtime lmxxf, effect strength, colour
-  grade e multi frame generation do XeSS. É a versão padrão.
-- **Tudo o que o lmxxf precisa vai junto:** `LmxxfNrRuntime.dll`, `lmxxf-modules\` e `shaders\`
-  saem do zip do release; os pesos (`native-game-tiled-assets\`, 460 arquivos, 591 MB) saem de
-  `native-game-tiled-assets.zip` no dataset do HF. O lmxxf só roda em RDNA4 (gfx1201); o relatório
-  da instalação diz isso e diz como trocar o runtime no menu do OptiScaler.
+- **Version selector on the OptiScaler route.** The version section, which used to disappear on this route, is now
+  called "OptiScaler version" and lists every version that `payload.json` carries, from newest
+  to oldest. The choice is saved per game (`GameEntry.OptiScalerVersion`, separate from
+  `AddonVersion`) and follows the same rule as the add-on (`AddonReleases.Preferred`): the version the
+  game was installed with, then the session's, then the newest.
+- **OptiScaler 0.2.0** (neural-amd-opti `v0.2.0-amd-nr`): lmxxf runtime, effect strength, colour
+  grade and XeSS multi frame generation. It is the default version.
+- **Everything lmxxf needs goes along:** `LmxxfNrRuntime.dll`, `lmxxf-modules\` and `shaders\`
+  come out of the release zip; the weights (`native-game-tiled-assets\`, 460 files, 591 MB) come out of
+  `native-game-tiled-assets.zip` in the HF dataset. lmxxf only runs on RDNA4 (gfx1201); the installation
+  report says so and says how to switch the runtime in the OptiScaler menu.
 
-## 2. Como o payload guarda mais de uma versão
+## 2. How the payload stores more than one version
 
-O `payload.json` ganhou uma chave de topo, `releases`:
+`payload.json` gained a top-level key, `releases`:
 
 ```json
 "releases": { "optiscaler": [ { "version": "0.2.0-amd-nr", "components": {
@@ -29,84 +29,84 @@ O `payload.json` ganhou uma chave de topo, `releases`:
     "lmxxf-weights": { "version": "1", "files": [zip], "extract": [460] } } } ] }
 ```
 
-- `components.optiscaler` continua na 0.1.1. É o que a **v0.4.0** lê, e ela ignora `releases`
-  (chave desconhecida). Se a 0.2.0 fosse para `components`, a v0.4.0 tentaria instalá-la e o
-  `Transaction.Apply` dela recusaria os nomes do lmxxf; e os 228 MB dos pesos entrariam no
-  assistente de primeiro uso dela, que baixa todo componente fora de `OnDemand`.
-- `PayloadManifest.Offered(componente)` junta a versão de `components` e as de `releases`, ordena
-  pela parte numérica (`0.2.0-amd-nr` vira `0.2.0`). `With(release)` troca os componentes que a
-  versão traz e mantém o resto (runtime 0.3.1, pesos do danielblnc). `Newest(...)` é o padrão.
-- `Parse` valida os componentes de `releases` como os outros (https, SHA-256, caminho de no máximo
-  dois níveis) e exige que cada versão traga o próprio componente na própria versão.
-- "Desatualizado" (`PinnedForOptiScaler`) compara com a versão mais nova. Quem instalou a 0.1.1 de
-  propósito vê o aviso, igual a quem fixa um add-on antigo.
+- `components.optiscaler` stays at 0.1.1. It is what **v0.4.0** reads, and it ignores `releases`
+  (unknown key). If 0.2.0 went into `components`, v0.4.0 would try to install it and its
+  `Transaction.Apply` would reject the lmxxf names; and the 228 MB of weights would enter its
+  first-run wizard, which downloads every component outside `OnDemand`.
+- `PayloadManifest.Offered(component)` merges the version from `components` and the ones from `releases`, sorts
+  by the numeric part (`0.2.0-amd-nr` becomes `0.2.0`). `With(release)` swaps the components that the
+  version carries and keeps the rest (runtime 0.3.1, danielblnc's weights). `Newest(...)` is the default.
+- `Parse` validates the components in `releases` like the others (https, SHA-256, path of at most
+  two levels) and requires each version to carry its own component at its own version.
+- "Outdated" (`PinnedForOptiScaler`) compares against the newest version. Whoever installed 0.1.1 on
+  purpose sees the warning, same as someone who pins an old add-on.
 
-## 3. O que mudou no motor
+## 3. What changed in the engine
 
-- **`Engine.IsAllowed`** substitui `Engine.Allowed.Contains` na transação e no `Manifest.Decode`.
-  Além da lista fixa (que ganhou `LmxxfNrRuntime.dll`), aceita um arquivo simples direto dentro de
-  `lmxxf-modules/` e `native-game-tiled-assets/` (os nomes vêm do upstream e mudam), e só os
-  `shaders/native_*.hlsl` na pasta `shaders/`, que é um nome que outros programas usam. Nada mais
-  fundo, nada que suba.
-- O limite de entradas do manifesto deixou de ser `Allowed.Count` e virou `MaxManifestEntries`
-  (4096): uma instalação 0.2.0 tem 520 entradas.
-- **Extração:** `EnsureAsync` abre o zip uma vez para todas as entradas (antes, uma vez por
-  entrada, o que com 460 entradas de um zip de 228 MB eram minutos de disco). Cada entrada vai para
-  um `.part` com o hash calculado no caminho, sem passar pela memória (um peso tem 201 MB). A
-  entrada é achada primeiro pelo caminho em que fica guardada, depois pelo nome como caminho, e só
-  por último pelo nome solto: o pacote tem `README.md` na raiz e em `lmxxf-modules/`.
-- **Pesos sem `HIP\`:** o zip tem `native-game-tiled-assets/HIP/gfx120x/`, módulos que o runtime
-  nunca lê (os dele vêm de `lmxxf-modules`, que tem `SHA256SUMS`). Fora eles, tudo está a dois
-  níveis. O runtime lê de uma vez todo `.f32/.f16/.i32` da pasta, então o resto vai inteiro.
-- **Desinstalação:** leva `lmxxf-modules\`, `native-game-tiled-assets\` e `shaders\` quando ficam
-  vazias, e antes apaga `shaders\shader-cache\` se só houver `.dxbc` nela (o runtime compila isso
-  durante o jogo; nada registra).
-- **Memória:** o motor lê cada arquivo inteiro antes de gravar, então instalar a 0.2.0 chega a
-  1,1 GB de working set por uns 6 s. Não mexi na transação; se incomodar, o caminho é ela aceitar
-  arquivos em disco em vez de `byte[]`.
+- **`Engine.IsAllowed`** replaces `Engine.Allowed.Contains` in the transaction and in `Manifest.Decode`.
+  Besides the fixed list (which gained `LmxxfNrRuntime.dll`), it accepts a plain file directly inside
+  `lmxxf-modules/` and `native-game-tiled-assets/` (the names come from upstream and change), and only the
+  `shaders/native_*.hlsl` in the `shaders/` folder, which is a name other programs use. Nothing
+  deeper, nothing that goes up.
+- The manifest entry limit is no longer `Allowed.Count` and became `MaxManifestEntries`
+  (4096): a 0.2.0 installation has 520 entries.
+- **Extraction:** `EnsureAsync` opens the zip once for all entries (before, once per
+  entry, which with 460 entries from a 228 MB zip meant minutes of disk). Each entry goes to
+  a `.part` with the hash computed along the way, without passing through memory (one weight is 201 MB). The
+  entry is found first by the path it is stored under, then by the name as a path, and only
+  last by the bare name: the package has `README.md` at the root and in `lmxxf-modules/`.
+- **Weights without `HIP\`:** the zip has `native-game-tiled-assets/HIP/gfx120x/`, modules the runtime
+  never reads (its own come from `lmxxf-modules`, which has `SHA256SUMS`). Apart from those, everything is two
+  levels deep. The runtime reads every `.f32/.f16/.i32` in the folder at once, so the rest goes whole.
+- **Uninstall:** removes `lmxxf-modules\`, `native-game-tiled-assets\` and `shaders\` when they end up
+  empty, and before that deletes `shaders\shader-cache\` if it only contains `.dxbc` (the runtime compiles those
+  during gameplay; nothing records them).
+- **Memory:** the engine reads each whole file before writing, so installing 0.2.0 reaches
+  1.1 GB of working set for about 6 s. I did not touch the transaction; if it becomes a problem, the way forward is for it to accept
+  files on disk instead of `byte[]`.
 
-## 4. Provas
+## 4. Evidence
 
-- 195 testes verdes (eram 188). Os novos estão em `tests/AmdNr.Core.Tests/OptiScalerVersionTests.cs`:
-  versões oferecidas e trocadas, `releases` validado, `IsAllowed`, instalar e desinstalar a 0.2.0
-  inteira (com `shader-cache`), pasta `shaders\` de outro programa preservada, entrada de zip pelo
-  caminho, e o `payload.json` real: toda versão abre e todo arquivo dela passa por `IsAllowed`.
-- Ponta a ponta com os arquivos reais (harness em `opti/exports/installer-test/harness`, cache de
-  teste semeado com os dois zips): instalou a 0.1.1, atualizou para a 0.2.0 por cima (o
-  `OptiScaler.ini` intocado foi trocado pelo novo; o `dxgi.dll` também), não acusou
-  desatualização, desinstalou tudo e devolveu o `dxgi.dll` original.
-- A ficha do Cyberpunk renderizada sem janela (Avalonia headless): "OptiScaler version" com
-  `v0.2.0-amd-nr - 2026-09-23` e `v0.1.1-amd-nr - 2026-09-23`, a nota dos pesos lmxxf só na 0.2.0.
+- 195 green tests (there were 188). The new ones are in `tests/AmdNr.Core.Tests/OptiScalerVersionTests.cs`:
+  versions offered and swapped, `releases` validated, `IsAllowed`, installing and uninstalling the whole 0.2.0
+  (with `shader-cache`), another program's `shaders\` folder preserved, zip entry by
+  path, and the real `payload.json`: every version opens and every file in it passes `IsAllowed`.
+- End to end with the real files (harness in `opti/exports/installer-test/harness`, test cache
+  seeded with the two zips): installed 0.1.1, updated to 0.2.0 on top of it (the
+  untouched `OptiScaler.ini` was replaced by the new one; `dxgi.dll` too), did not flag it as
+  outdated, uninstalled everything and restored the original `dxgi.dll`.
+- The Cyberpunk card rendered without a window (Avalonia headless): "OptiScaler version" with
+  `v0.2.0-amd-nr - 2026-09-23` and `v0.1.1-amd-nr - 2026-09-23`, the lmxxf weights note only on 0.2.0.
 
-## 5. Publicar um OptiScaler novo daqui para frente
+## 5. Publishing a new OptiScaler from now on
 
-1. Release do neural-amd-opti com o zip (nunca re-suba um asset numa tag publicada).
-2. Um item novo em `releases.optiscaler`, com `components.optiscaler` na mesma versão, a URL do
-   zip e o `extract` recalculado do zip (nome, caminho de no máximo dois níveis, tamanho, SHA-256).
-   O script usado para a 0.2.0 fazia exatamente isso a partir do zip: listar o que o
-   `PACKAGE_RELEASE.ps1` põe fora de `Licenses/`, `README.md`, `Setup*` e `SHA256SUMS.txt`, e
-   mapear `OptiScaler/D3D12_OptiScaler/D3D12Core.dll` para `D3D12_OptiScaler/D3D12Core.dll`.
-3. Se a versão precisar de pesos novos, um componente novo dentro dela (versão nova, arquivo novo
-   no HF).
-4. `dotnet test`: o teste do `payload.json` real pega nome que a transação recusaria.
-5. `tools/publish-payload.ps1 -Repo zmodelerlover/amd-nr`, que agora percorre `releases` no upload
-   e na verificação, e recusa um componente de release cujo conteúdo mudou sem versão nova.
+1. neural-amd-opti release with the zip (never re-upload an asset under a published tag).
+2. A new item in `releases.optiscaler`, with `components.optiscaler` at the same version, the
+   zip URL and the `extract` recomputed from the zip (name, path of at most two levels, size, SHA-256).
+   The script used for 0.2.0 did exactly that from the zip: list what
+   `PACKAGE_RELEASE.ps1` puts outside `Licenses/`, `README.md`, `Setup*` and `SHA256SUMS.txt`, and
+   map `OptiScaler/D3D12_OptiScaler/D3D12Core.dll` to `D3D12_OptiScaler/D3D12Core.dll`.
+3. If the version needs new weights, a new component inside it (new version, new file
+   on HF).
+4. `dotnet test`: the test on the real `payload.json` catches names the transaction would reject.
+5. `tools/publish-payload.ps1 -Repo zmodelerlover/amd-nr`, which now walks `releases` on upload
+   and on verification, and rejects a release component whose content changed without a new version.
 
-Mover `components.optiscaler` para a 0.2.0 só faz sentido quando ninguém mais usar a v0.4.0.
+Moving `components.optiscaler` to 0.2.0 only makes sense once nobody uses v0.4.0 anymore.
 
 ## 6. Release v0.5.0
 
-Feito na ordem de sempre: instalador (exe, `SHA256SUMS.txt`) primeiro, depois
-`publish-payload.ps1` (com `-From` apontando para uma pasta só com `native-game-tiled-assets.zip`),
-depois o `payload.json` novo copiado para `publish-v0.5.0\` e o `.7z` montado e anexado. O
-`config.json` que o script reescreve foi revertido. O Extras recebeu o `payload.json` novo.
+Done in the usual order: installer (exe, `SHA256SUMS.txt`) first, then
+`publish-payload.ps1` (with `-From` pointing to a folder containing only `native-game-tiled-assets.zip`),
+then the new `payload.json` copied into `publish-v0.5.0\` and the `.7z` assembled and attached. The
+`config.json` that the script rewrites was reverted. Extras received the new `payload.json`.
 
-- O `.7z` leva uma pasta `AMD-NR-ReShade-Installer-v0.5.0\` com o exe, os três json e um
-  `LEIA-ME.txt`/`README.txt` reescritos para a v0.5.0 (os da v0.4.0 ainda eram do beta de 15/09).
-- `tools/check-release.ps1` tem que rodar no PowerShell 7: no 5.1 o `Get-FileHash` não carrega
-  quando o `PSModulePath` aponta para os módulos do 7. Deu "Versions agree".
-- Depois de publicado, o harness rodou de novo com o cache vazio e o manifesto lido do HF: baixou
-  o zip da 0.2.0 do GitHub e os pesos do HF, conferiu tudo, instalou a 0.1.1, atualizou para a
-  0.2.0 e desinstalou.
-- Falta a prova no jogo pela janela, como a da v0.4.0 no Cyberpunk. Lá a pasta tem uma
-  instalação manual de teste; `opti/exports/cyberpunk-test/remove-test.ps1` a desfaz antes.
+- The `.7z` carries an `AMD-NR-ReShade-Installer-v0.5.0\` folder with the exe, the three json files and a
+  `LEIA-ME.txt`/`README.txt` rewritten for v0.5.0 (the v0.4.0 ones were still from the 2026-09-15 beta).
+- `tools/check-release.ps1` has to run in PowerShell 7: in 5.1 `Get-FileHash` does not load
+  when `PSModulePath` points to the 7 modules. It gave "Versions agree".
+- After publishing, the harness ran again with an empty cache and the manifest read from HF: it downloaded
+  the 0.2.0 zip from GitHub and the weights from HF, checked everything, installed 0.1.1, updated to
+  0.2.0 and uninstalled.
+- The in-game proof through the window is still missing, like the v0.4.0 one in Cyberpunk. There the folder has a
+  manual test installation; `opti/exports/cyberpunk-test/remove-test.ps1` undoes it first.

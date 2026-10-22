@@ -1,63 +1,63 @@
-# Handoff v0.6.2: o mochizuki também na rota ReShade
+# Handoff v0.6.2: mochizuki on the ReShade route too
 
-26/09/2026. Leia depois de [HANDOFF-v0.6.0-2026-09-25.md](HANDOFF-v0.6.0-2026-09-25.md), que explica
-como o mochizuki entrou na rota OptiScaler. Este arquivo cobre só o que a v0.6.2 acrescenta.
+2026-09-26. Read after [HANDOFF-v0.6.0-2026-09-25.md](HANDOFF-v0.6.0-2026-09-25.md), which explains
+how mochizuki came into the OptiScaler route. This file covers only what v0.6.2 adds.
 
-## O que entrou
+## What went in
 
-- **Add-on v0.6.8** (`zmodelerlover/dlss5-neural-amd`, tag `v0.6.8`): o add-on roda a rede pelo
-  runtime do danielblnc (padrão) ou pelo mochizuki, escolhido no combo "NR runtime" do painel
-  (`NrBackend` no `amd-nr.ini`, vale no próximo início). Com `NrBackend=mochizuki` e os arquivos
-  ausentes, o add-on roda o danielblnc.
-- **Na ficha das rotas ReShade** (64-bit e ponte 32-bit), a mesma caixa do mochizuki da rota
-  OptiScaler, com o texto próprio (`Str.MochizukiCheckAddon`, `Str.MochizukiNoteAddon`). Aparece
-  quando o add-on escolhido é 0.6.8 ou mais novo (`GameSheet.MochizukiAddon`) e o payload tem um
-  build do mochizuki. Mesma trava de RDNA4 e mesma memória por jogo (`GameEntry.Mochizuki`).
-- **Marcada**, a instalação põe `MochizukiNrRuntime.dll` e `dlssnr-amd\` ao lado do add-on (na
-  ponte, ao lado do `amd-nr-host64.exe`, que roda a rede). **Desmarcada**, a próxima instalação tira
-  o que uma anterior pôs, na mesma transação, como na rota OptiScaler.
-- **O instalador não escreve o `amd-nr.ini`.** Ele é da pessoa e o add-on o regrava ao salvar, então
-  uma entrada de configuração registrada viraria "PRESERVED" na instalação seguinte. O relatório diz
-  para escolher mochizuki no painel. O fallback do add-on cobre o caso do ini que ainda nomeia o
-  mochizuki depois de desmarcado.
+- **Add-on v0.6.8** (`zmodelerlover/dlss5-neural-amd`, tag `v0.6.8`): the add-on runs the network through
+  danielblnc's runtime (default) or through mochizuki, chosen in the panel's "NR runtime" combo
+  (`NrBackend` in `amd-nr.ini`, takes effect on the next start). With `NrBackend=mochizuki` and the files
+  missing, the add-on runs danielblnc's.
+- **On the ReShade routes' sheet** (64-bit and the 32-bit bridge), the same mochizuki box as the
+  OptiScaler route, with its own text (`Str.MochizukiCheckAddon`, `Str.MochizukiNoteAddon`). It shows up
+  when the chosen add-on is 0.6.8 or newer (`GameSheet.MochizukiAddon`) and the payload has a
+  mochizuki build. Same RDNA4 lock and same per-game memory (`GameEntry.Mochizuki`).
+- **Checked**, the install puts `MochizukiNrRuntime.dll` and `dlssnr-amd\` next to the add-on (on the
+  bridge, next to `amd-nr-host64.exe`, which runs the network). **Unchecked**, the next install removes
+  what a previous one put there, in the same transaction, as on the OptiScaler route.
+- **The installer does not write `amd-nr.ini`.** It belongs to the user and the add-on rewrites it on save, so
+  a registered config entry would become "PRESERVED" on the following install. The report says
+  to pick mochizuki in the panel. The add-on's fallback covers the case of an ini that still names
+  mochizuki after it was unchecked.
 
-## De onde vem o mochizuki da rota ReShade
+## Where the ReShade route's mochizuki comes from
 
-`PayloadManifest.WithMochizuki()`: os componentes `mochizuki` e `mochizuki-model` do release mais
-novo do OptiScaler que os carrega (hoje o 0.4.1-amd-nr, mochizuki 0.4.0-amd-nr e modelo 1). **O
-formato do payload não mudou**: nenhum componente novo no topo, então os apps antigos não baixam
-nada a mais no "Baixar tudo" e o v0.6.1 continua lendo o payload como antes. O `Selected()` da ficha
-aplica isso às rotas ReShade, e o `PinnedFor` também, para o "desatualizado" comparar os arquivos do
-mochizuki numa pasta ReShade que os tem.
+`PayloadManifest.WithMochizuki()`: the `mochizuki` and `mochizuki-model` components of the newest
+OptiScaler release that carries them (today 0.4.1-amd-nr, mochizuki 0.4.0-amd-nr and model 1). **The
+payload format did not change**: no new top-level component, so old apps do not download
+anything extra on "Download all" and v0.6.1 keeps reading the payload as before. The sheet's `Selected()`
+applies this to the ReShade routes, and so does `PinnedFor`, so that "outdated" compares the
+mochizuki files in a ReShade folder that has them.
 
-Consequência: um OptiScaler novo com outro build do mochizuki troca também o da rota ReShade. Se um
-dia o add-on precisar de um build diferente do do OptiScaler, o caminho é um componente próprio
-dentro de um `releases` (onde os apps antigos não olham).
+Consequence: a new OptiScaler with a different mochizuki build also swaps the ReShade route's. If
+the add-on ever needs a build different from OptiScaler's, the way to go is a component of its own
+inside a `releases` (where old apps do not look).
 
-## Código
+## Code
 
-- Core: `Work.Preflight`/`Install` passam `mochizuki` às rotas ReShade (`PreflightReShade`,
-  `InstallReShade`, `InstallX86`); `X86Installer.Install` aceita `extra` e `retire`;
-  `InstalledManifest` e `HasMochizuki` olham os dois manifestos (x64 e x86); o uninstall chama
-  `AfterMochizukiUninstall` em toda rota.
-- App: `ComponentsFor` inclui os dois componentes nas rotas ReShade quando pedido;
-  `OffersMochizuki` decide a seção nas três rotas.
-- Testes: `ReShadeMochizukiTests` (6 casos, 260 no total).
+- Core: `Work.Preflight`/`Install` pass `mochizuki` to the ReShade routes (`PreflightReShade`,
+  `InstallReShade`, `InstallX86`); `X86Installer.Install` accepts `extra` and `retire`;
+  `InstalledManifest` and `HasMochizuki` look at both manifests (x64 and x86); uninstall calls
+  `AfterMochizukiUninstall` on every route.
+- App: `ComponentsFor` includes both components on the ReShade routes when requested;
+  `OffersMochizuki` decides the section on all three routes.
+- Tests: `ReShadeMochizukiTests` (6 cases, 260 in total).
 
-## Publicação
+## Publishing
 
-1. Add-on v0.6.8: release no GitHub com os seis assets de sempre, baixados de volta e conferidos.
-   `amd-nr.addon64` `7552204c…` (622.592 bytes), `amd-nr.addon32` `8bc7dd66…`, `amd-nr-host64.exe`
+1. Add-on v0.6.8: GitHub release with the usual six assets, downloaded back and verified.
+   `amd-nr.addon64` `7552204c…` (622,592 bytes), `amd-nr.addon32` `8bc7dd66…`, `amd-nr-host64.exe`
    `de44f95e…`, `payload.sha256` `a717b80c…`.
-2. Os quatro arquivos no HF em caminhos com versão (`addon/0.6.8/`, `bridge/0.6.8/`), com o release
-   do GitHub como espelho.
-3. Ponta a ponta com o motor desta versão, cache vazio, tudo baixado dos endereços do
-   `payload.json`: rota 64-bit com mochizuki, reinstalação, desmarcado (sai tudo), marcado de novo,
-   uninstall; ponte 32-bit com mochizuki, desmarcado, uninstall. Passou.
-4. `gate.ps1 -Ui` sem falhas.
-5. Release v0.6.2 do instalador, `publish-payload.ps1`, espelho no AMD-NR-Extras.
+2. The four files on HF in versioned paths (`addon/0.6.8/`, `bridge/0.6.8/`), with the GitHub
+   release as a mirror.
+3. End to end with this version's engine, empty cache, everything downloaded from the
+   `payload.json` addresses: 64-bit route with mochizuki, reinstall, unchecked (everything goes), checked again,
+   uninstall; 32-bit bridge with mochizuki, unchecked, uninstall. Passed.
+4. `gate.ps1 -Ui` with no failures.
+5. Installer release v0.6.2, `publish-payload.ps1`, mirror on AMD-NR-Extras.
 
-## O que ficou de fora
+## What was left out
 
-- A linha de status do mochizuki no painel da ponte 32-bit (não passa pelo protocolo da ponte).
-- Um flow de UI (`tools/uishot`) para a caixa na rota ReShade; o da rota OptiScaler continua.
+- The mochizuki status line in the 32-bit bridge panel (it does not go through the bridge protocol).
+- A UI flow (`tools/uishot`) for the box on the ReShade route; the OptiScaler route's one remains.

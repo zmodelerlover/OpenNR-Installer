@@ -1,63 +1,63 @@
-# Handoff v0.6.3: runtime 0.4.1 do danielblnc, e a caixa do mochizuki que não aparecia
+# Handoff v0.6.3: danielblnc's runtime 0.4.1, and the mochizuki box that did not show up
 
-26/09/2026. Leia depois de [HANDOFF-v0.6.2-2026-09-26.md](HANDOFF-v0.6.2-2026-09-26.md). Dois
-assuntos: o runtime novo do Daniel nas duas rotas, e a correção da v0.6.2, que nunca mostrou a
-caixa do mochizuki na rota ReShade.
+2026-09-26. Read after [HANDOFF-v0.6.2-2026-09-26.md](HANDOFF-v0.6.2-2026-09-26.md). Two
+subjects: Daniel's new runtime on both routes, and the fix for v0.6.2, which never showed the
+mochizuki box on the ReShade route.
 
-## O mochizuki na rota ReShade (bug da v0.6.2)
+## mochizuki on the ReShade route (v0.6.2 bug)
 
-Duas causas, as duas corrigidas:
+Two causes, both fixed:
 
-1. **A caixa estava dentro do `OptiPanel`** em `GameSheet.axaml`. Na rota ReShade esse painel fica
-   escondido, então `MochizukiSection.IsVisible = true` não mostrava nada. A seção agora fica
-   abaixo dos dois painéis de rota e serve às duas.
-2. **`AddonReleases.With` perdia os `Releases`.** A ficha escolhe o add-on pela lista do GitHub, e a
-   v0.6.8 está lá, então a escolha sempre passava por `With`, que remontava o manifesto sem
-   `Releases`. Aí o `WithMochizuki()` não achava o build (ele mora nos releases do OptiScaler). Agora
-   `With` mantém `Releases`.
+1. **The box was inside `OptiPanel`** in `GameSheet.axaml`. On the ReShade route that panel is
+   hidden, so `MochizukiSection.IsVisible = true` showed nothing. The section now sits
+   below both route panels and serves both.
+2. **`AddonReleases.With` dropped the `Releases`.** The sheet picks the add-on from the GitHub list, and
+   v0.6.8 is there, so the choice always went through `With`, which rebuilt the manifest without
+   `Releases`. Then `WithMochizuki()` could not find the build (it lives in the OptiScaler releases). Now
+   `With` keeps `Releases`.
 
-Testes: `ReShadeMochizukiTests.AnAddOnPickedFromItsReleasesStillCarriesTheMochizukiBuild` (falha sem
-a correção 2) e o flow `tools/uishot/Flows.Mochizuki.cs`, que agora troca para a rota ReShade e exige
-`IsEffectivelyVisible` (falha sem a correção 1: `IsVisible` sozinho não prova nada, que foi o que
-deixou o bug passar). O usuário confirmou num build de teste que a caixa aparece e instala.
+Tests: `ReShadeMochizukiTests.AnAddOnPickedFromItsReleasesStillCarriesTheMochizukiBuild` (fails without
+fix 2) and the flow `tools/uishot/Flows.Mochizuki.cs`, which now switches to the ReShade route and requires
+`IsEffectivelyVisible` (fails without fix 1: `IsVisible` alone proves nothing, which is what
+let the bug through). The user confirmed on a test build that the box shows up and installs.
 
-## O que mudou no payload
+## What changed in the payload
 
-| Componente | Antes | Agora | Onde no dataset |
+| Component | Before | Now | Where in the dataset |
 |---|---|---|---|
-| `runtime` (rota ReShade) | 0.4.0 com patches, `ff6feffa…` | 0.4.1 com patches, `c8808716…`, 9.916.928 bytes | `runtime/0.4.1/dlssnr_amd_pass1.dll` |
+| `runtime` (ReShade route) | patched 0.4.0, `ff6feffa…` | patched 0.4.1, `c8808716…`, 9,916,928 bytes | `runtime/0.4.1/dlssnr_amd_pass1.dll` |
 | `addon` | 0.6.8 | 0.6.9, `f5007509…` | `addon/0.6.9/amd-nr.addon64` |
 | `bridge` | 0.6.8 | 0.6.9: `633f8a30…`, `eb0577c4…`, `payload.sha256` `8e6f3799…` | `bridge/0.6.9/…` |
-| release `0.4.2-amd-nr` | não existia | OptiScaler 0.4.2 (`ea8aff0a…`) com `opti-runtime` 0.4.1 **próprio** (`823063eb…`), mochizuki e pesos do lmxxf iguais aos do 0.4.1 | `opti-runtime/dlssnr_amd_runtime-0.4.1.dll` |
+| release `0.4.2-amd-nr` | did not exist | OptiScaler 0.4.2 (`ea8aff0a…`) with its **own** `opti-runtime` 0.4.1 (`823063eb…`), mochizuki and lmxxf weights the same as 0.4.1's | `opti-runtime/dlssnr_amd_runtime-0.4.1.dll` |
 
-- O `opti-runtime` 0.4.1 fica dentro do release pelo mesmo motivo do 0.4.0 na v0.6.1: os OptiScaler
-  anteriores recusam o 0.4.1 pelo SHA. O 0.4.1-amd-nr continua com o 0.4.0.
-- O add-on 0.6.9 recusa o runtime 0.4.0 e o 0.6.8 recusa o 0.4.1, então add-on e runtime trocam
-  juntos, quando o `payload.json` novo sobe. Mesma limitação da v0.6.1: quem escolher um add-on
-  antigo no menu recebe o runtime novo e o painel diz qual runtime aquele add-on precisa.
-- A ponte 0.6.9 usa o protocolo v4 (o status leva a linha do runtime). `amd-nr.addon32` e
-  `amd-nr-host64.exe` vêm sempre do mesmo release, como antes.
+- The `opti-runtime` 0.4.1 lives inside the release for the same reason as 0.4.0 in v0.6.1: earlier
+  OptiScalers reject 0.4.1 by SHA. 0.4.1-amd-nr stays on 0.4.0.
+- Add-on 0.6.9 rejects runtime 0.4.0 and 0.6.8 rejects 0.4.1, so add-on and runtime switch
+  together, when the new `payload.json` goes up. Same limitation as v0.6.1: anyone who picks an old
+  add-on in the menu gets the new runtime, and the panel says which runtime that add-on needs.
+- Bridge 0.6.9 uses protocol v4 (the status carries the runtime line). `amd-nr.addon32` and
+  `amd-nr-host64.exe` always come from the same release, as before.
 
-## Código
+## Code
 
-- `Engine.RuntimeSha` é o 0.4.1 com patches (`c8808716…`).
-- `Work.OptiScaler.KnownRuntimePrefixes` reconhece o 0.4.1 (`823063eb…`) e o 0.4.1 com patches.
-- `OptiScalerVersionTests`: o 0.4.2 vem primeiro com `opti-runtime` 0.4.1; o 0.4.1 continua com 0.4.0.
+- `Engine.RuntimeSha` is the patched 0.4.1 (`c8808716…`).
+- `Work.OptiScaler.KnownRuntimePrefixes` recognizes 0.4.1 (`823063eb…`) and the patched 0.4.1.
+- `OptiScalerVersionTests`: 0.4.2 comes first with `opti-runtime` 0.4.1; 0.4.1 stays with 0.4.0.
 
-## Publicação
+## Publishing
 
-1. opti `v0.4.2-amd-nr` (zip `ea8aff0a…`), add-on `v0.6.9` (seis assets baixados de volta e conferidos).
-2. `tools/pin-optiscaler.ps1` com o zip baixado do release; o mochizuki copiado do 0.4.1.
-3. Os seis arquivos novos no HF em caminhos com versão, baixados de volta e conferidos, espelhos
-   do GitHub também.
-4. Ponta a ponta com o motor desta versão, cache vazio, tudo baixado dos endereços do `payload.json`:
-   rota 64-bit (runtime `c8808716…` no jogo) com e sem mochizuki, ponte 32-bit com e sem mochizuki,
-   OptiScaler 0.4.2 com mochizuki (os três pass com `823063eb…`) e os uninstalls. Passou.
-5. `gate.ps1 -Ui` sem falhas.
-6. Release v0.6.3 do instalador, `publish-payload.ps1`, espelho no AMD-NR-Extras.
+1. opti `v0.4.2-amd-nr` (zip `ea8aff0a…`), add-on `v0.6.9` (six assets downloaded back and verified).
+2. `tools/pin-optiscaler.ps1` with the zip downloaded from the release; mochizuki copied from 0.4.1.
+3. The six new files on HF in versioned paths, downloaded back and verified, the GitHub
+   mirrors too.
+4. End to end with this version's engine, empty cache, everything downloaded from the `payload.json` addresses:
+   64-bit route (runtime `c8808716…` in the game) with and without mochizuki, 32-bit bridge with and without mochizuki,
+   OptiScaler 0.4.2 with mochizuki (the three pass files with `823063eb…`) and the uninstalls. Passed.
+5. `gate.ps1 -Ui` with no failures.
+6. Installer release v0.6.3, `publish-payload.ps1`, mirror on AMD-NR-Extras.
 
-## Testado antes
+## Tested beforehand
 
-- OptiScaler 0.4.2 com o runtime 0.4.1 no Cyberpunk 2077; add-on 0.6.9 no ETS2 (64-bit) e no GTA IV
-  (ponte 32-bit), com a linha "danielblnc 0.4.1: rede X ms" conferida contra o log do runtime.
-- A caixa do mochizuki na rota ReShade, pelo usuário, num build de teste desta versão.
+- OptiScaler 0.4.2 with runtime 0.4.1 in Cyberpunk 2077; add-on 0.6.9 in ETS2 (64-bit) and in GTA IV
+  (32-bit bridge), with the "danielblnc 0.4.1: rede X ms" line checked against the runtime log.
+- The mochizuki box on the ReShade route, by the user, on a test build of this version.

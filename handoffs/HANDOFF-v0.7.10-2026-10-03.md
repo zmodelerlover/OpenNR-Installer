@@ -1,39 +1,39 @@
-# Handoff v0.7.10: RX 6000 com o HIP SDK, Assetto Corsa e add-on v0.7.9
+# Handoff v0.7.10: RX 6000 with the HIP SDK, Assetto Corsa and add-on v0.7.9
 
-03/10/2026. Leia depois de [HANDOFF-v0.7.9-2026-10-03.md](HANDOFF-v0.7.9-2026-10-03.md).
+2026-10-03. Read after [HANDOFF-v0.7.9-2026-10-03.md](HANDOFF-v0.7.9-2026-10-03.md).
 
-## RX 6000 (RDNA2) com o HIP SDK 7.2
+## RX 6000 (RDNA2) with HIP SDK 7.2
 
-Dois jogadores com RX 6600 instalaram o HIP SDK 7.2; o setup do danielblnc funcionava e o nosso não. O SDK instala em
-`C:\Program Files\AMD\ROCm\7.2\bin`, define `HIP_PATH` (e `HIP_PATH_72`) e não mexe no `PATH`.
+Two players with an RX 6600 installed HIP SDK 7.2; danielblnc's setup worked and ours did not. The SDK installs to
+`C:\Program Files\AMD\ROCm\7.2\bin`, sets `HIP_PATH` (and `HIP_PATH_72`) and does not touch `PATH`.
 
-- App: `GpuService.FindHip7` procura também em `HIP_PATH\bin`. Antes a tela dizia "hip 7: not found" e "ready: False".
-- Add-on v0.7.9 (`zmodelerlover/dlss5-neural-amd`, commit `551eea0`): `InitHip` carrega `amdhip64_7.dll` de
-  `HIP_PATH\bin` quando o sistema não tem um; a runtime depois encontra o mesmo módulo pelo nome (conferido com um
-  programa de teste: `devices=1`, mesmo módulo). O par 32-bit usa o mesmo código. O OptiScaler já procurava no
+- App: `GpuService.FindHip7` also looks in `HIP_PATH\bin`. Before, the screen said "hip 7: not found" and "ready: False".
+- Add-on v0.7.9 (`zmodelerlover/dlss5-neural-amd`, commit `551eea0`): `InitHip` loads `amdhip64_7.dll` from
+  `HIP_PATH\bin` when the system does not have one; the runtime then finds the same module by name (checked with a
+  test program: `devices=1`, same module). The 32-bit pair uses the same code. OptiScaler already looked in
   `HIP_PATH` (`HipRuntimeLoad.h`).
-- Nenhum jogador com RX 6000 testou ainda.
+- No player with an RX 6000 has tested it yet.
 
 ## Assetto Corsa
 
-`AssettoCorsa.exe`, na raiz, é o launcher WPF de 32 bits; o jogo é `acs.exe`, 64 bits, na mesma pasta. A detecção
-escolhia o launcher. `GraphicsDetector.LauncherOf` troca um launcher conhecido pelo executável que ele inicia, quando
-esse arquivo existe ao lado. Teste `AssettoCorsaIsTheGameBesideItsLauncher`.
+`AssettoCorsa.exe`, at the root, is the 32-bit WPF launcher; the game is `acs.exe`, 64-bit, in the same folder. Detection
+picked the launcher. `GraphicsDetector.LauncherOf` swaps a known launcher for the executable it starts, when
+that file exists next to it. Test `AssettoCorsaIsTheGameBesideItsLauncher`.
 
-The Witcher 3 (remaster) aponta para o launcher também; fica para a próxima, falta ver as pastas do jogo.
+The Witcher 3 (remaster) points to the launcher too; that is left for next time, the game folders still need checking.
 
-## Fora desta versão
+## Outside this version
 
-- Modo assíncrono da runtime para placas mais fracas: o add-on só funciona no mesmo quadro (com `Async` ele se
-  desliga: "the engine could not run same-frame"), e o OptiScaler força o inline. Precisa de trabalho no add-on
-  e no fork; outro projeto disse que o assíncrono ajuda pouco nas travadas.
-- NR/FG sem upscaler no OptiScaler: em testes (`wt\int`, branch `fi-int`).
+- The runtime's async mode for weaker cards: the add-on only works same-frame (with `Async` it turns
+  itself off: "the engine could not run same-frame"), and OptiScaler forces inline. It needs work in the add-on
+  and in the fork; another project said async helps little with stutters.
+- NR/FG without an upscaler in OptiScaler: in testing (`wt\int`, branch `fi-int`).
 
-## Publicação
+## Publishing
 
-1. Add-on `v0.7.9` (seis arquivos, `release/upload.txt`).
-2. Release v0.7.10 do instalador (exe, `SHA256SUMS.txt`, 7z com os json e o LEIA-ME/README), `check-release.ps1`.
-3. `publish-payload.ps1 -From <pasta com amd-nr.addon64, amd-nr.addon32, amd-nr-host64.exe e payload.sha256 da v0.7.9>`;
-   reverter a reescrita do `config.json`; espelho no AMD-NR-Extras.
+1. Add-on `v0.7.9` (six files, `release/upload.txt`).
+2. Installer release v0.7.10 (exe, `SHA256SUMS.txt`, 7z with the json files and the LEIA-ME/README), `check-release.ps1`.
+3. `publish-payload.ps1 -From <folder with amd-nr.addon64, amd-nr.addon32, amd-nr-host64.exe and payload.sha256 from v0.7.9>`;
+   revert the `config.json` rewrite; mirror on AMD-NR-Extras.
 
-`gate.ps1 -Ui`: 0 falhas, 330 testes.
+`gate.ps1 -Ui`: 0 failures, 330 tests.

@@ -1,14 +1,14 @@
-# Handoff v0.7.1: o idioma pirata derrubava o app
+# Handoff v0.7.1: the pirate language crashed the app
 
-30/09/2026. Leia depois de [HANDOFF-v0.7.0-2026-09-30.md](HANDOFF-v0.7.0-2026-09-30.md).
+2026-09-30. Read after [HANDOFF-v0.7.0-2026-09-30.md](HANDOFF-v0.7.0-2026-09-30.md).
 
-Com o idioma pirata, a "Última sessão" formatava números com `CultureInfo.GetCultureInfo("x-pirate", predefinedOnly: true)`.
-O .NET aceita a tag privada sem lançar, mas a cultura não tem dados, e `NumberFormat` dá `NullReferenceException`. No modo
-lista a página de um jogo fica sempre aberta, então o app caía a cada abertura, antes do atualizador rodar.
+With the pirate language, "Last session" formatted numbers with `CultureInfo.GetCultureInfo("x-pirate", predefinedOnly: true)`.
+.NET accepts the private tag without throwing, but the culture has no data, and `NumberFormat` gives `NullReferenceException`. In list
+mode a game's page is always open, so the app crashed on every launch, before the updater ran.
 
-- `GameSheet.Culture()`: tags `x-` usam `en-US`.
-- `ShowSession` (async void) passa por `ShowSessionAsync` dentro de um try: um erro ali esconde o bloco e vai para o log.
-- `SessionFlow` renderiza a sessão também em `x-pirate`; sem a correção o flow reproduz o crash.
+- `GameSheet.Culture()`: `x-` tags use `en-US`.
+- `ShowSession` (async void) goes through `ShowSessionAsync` inside a try: an error there hides the block and goes to the log.
+- `SessionFlow` also renders the session in `x-pirate`; without the fix the flow reproduces the crash.
 
-Quem travou na v0.7.0: baixar o exe da v0.7.1 à mão, ou apagar `"Language"` de `%APPDATA%\AmdNrInstaller\settings.json`.
-Payload sem mudança.
+Anyone stuck on v0.7.0: download the v0.7.1 exe by hand, or delete `"Language"` from `%APPDATA%\AmdNrInstaller\settings.json`.
+Payload unchanged.

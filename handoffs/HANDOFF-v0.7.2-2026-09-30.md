@@ -1,24 +1,24 @@
-# Handoff v0.7.2: tailandês, auto-update na abertura e o nome da wiki no Automático
+# Handoff v0.7.2: Thai, auto-update on launch and the wiki name in Automatic
 
-30/09/2026. Leia depois de [HANDOFF-v0.7.1-2026-09-30.md](HANDOFF-v0.7.1-2026-09-30.md). Payload sem mudança.
+2026-09-30. Read after [HANDOFF-v0.7.1-2026-09-30.md](HANDOFF-v0.7.1-2026-09-30.md). Payload unchanged.
 
-## Auto-update quebrava a abertura (desde a v0.7.0)
+## Auto-update broke the launch (since v0.7.0)
 
-O auto-update abre a página do jogo antes dela ter sido desenhada. O switch de auto-update, na coluna esquerda
-(`SheetSide`), achava o `GameSheet` subindo a árvore visual, que ainda não existe nessa hora: `NullReferenceException`
-dentro do handler, `TargetInvocationException` no `Run("startup")`, o jogo não atualizava e o resto da abertura parava.
-Agora o `GameSheet` se apresenta ao `SheetSide` no construtor (`Side.Sheet = this`). `AutoUpdateFlow` no uishot abre uma
-janela nova com um jogo desatualizado e o switch ligado; sem a correção ele falha com o mesmo erro do log do jogador.
+Auto-update opens the game page before it has been drawn. The auto-update switch, in the left column
+(`SheetSide`), found the `GameSheet` by walking up the visual tree, which does not exist yet at that point: `NullReferenceException`
+inside the handler, `TargetInvocationException` in `Run("startup")`, the game did not update and the rest of the launch stopped.
+Now the `GameSheet` introduces itself to the `SheetSide` in the constructor (`Side.Sheet = this`). `AutoUpdateFlow` in uishot opens a
+new window with an outdated game and the switch on; without the fix it fails with the same error as the player's log.
 
-## Automático: o primeiro nome da wiki do OptiScaler vence
+## Automatic: the first name from the OptiScaler wiki wins
 
-`Work.OptiProxyFor`: escolhido à mão, depois o primeiro nome da wiki, depois o nome já instalado, depois `dxgi.dll`. Antes o
-instalado vinha antes da wiki, então uma instalação feita antes do app ler a wiki ficava em `dxgi.dll` para sempre
-(Neverness to Everness, que a wiki manda por `version.dll`). A troca de nome já existia: o nome antigo volta ao que era.
-`ApiDatabase.OptiScalerNames` procura também pelo nome dado no app e pelo nome da pasta. O ⓘ do nome mudou nos 14 idiomas.
-Testado por um amigo do usuário em Neverness to Everness.
+`Work.OptiProxyFor`: chosen by hand, then the first name from the wiki, then the name already installed, then `dxgi.dll`. Before, the
+installed one came before the wiki, so an install made before the app read the wiki stayed on `dxgi.dll` forever
+(Neverness to Everness, which the wiki says to use via `version.dll`). The name switch already existed: the old name goes back to what it was.
+`ApiDatabase.OptiScalerNames` also searches by the name given in the app and by the folder name. The name's ⓘ changed in all 14 languages.
+Tested by a friend of the user in Neverness to Everness.
 
-## Tailandês
+## Thai
 
-`th`, 415 chaves, fonte Leelawadee UI. O app só quebra linha em espaço, e tailandês não separa palavras: as frases têm
-espaço entre trechos.
+`th`, 415 keys, Leelawadee UI font. The app only breaks lines at spaces, and Thai does not separate words: the phrases have
+spaces between segments.
