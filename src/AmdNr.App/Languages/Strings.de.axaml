@@ -12,6 +12,7 @@
   <sys:String x:Key="Str.RemoveGameHint">Entfernt das Spiel aus der Liste, und Spiele suchen lässt es ebenfalls aus. Keine Datei in seinem Ordner wird angerührt; über die Einstellungen holst du es zurück.</sys:String>
   <sys:String x:Key="Str.RemovedGame">{0} ist nicht mehr in der Liste, und Spiele suchen lässt es aus. In seinem Ordner wurde nichts angerührt; Einstellungen &gt; Ignorierte Spiele holt es zurück.</sys:String>
   <sys:String x:Key="Str.RemovedGameInstalled">{0} ist nicht mehr in der Liste, aber das Add-on ist noch in seinem Ordner installiert. Hol es über Einstellungen &gt; Ignorierte Spiele zurück, um es zu deinstallieren.</sys:String>
+  <sys:String x:Key="Str.RuntimesHint">Abgewählte Runtimes werden für dieses Spiel weder geladen noch installiert. danielblncs ist Closed Source; lmxxf und mochizuki sind Open Source.</sys:String>
   <sys:String x:Key="Str.IgnoredGames">Ignorierte Spiele</sys:String>
   <sys:String x:Key="Str.IgnoredGamesHint">Spiele, die du aus der Liste entfernt hast. Spiele suchen überspringt sie, sie bleiben also draußen, bis du sie hier zurückholst.</sys:String>
   <sys:String x:Key="Str.IgnoredNone">Keine ignorierten Spiele.</sys:String>

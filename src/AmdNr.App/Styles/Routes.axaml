@@ -51,6 +51,29 @@
     <Setter Property="Margin" Value="0,4,0,0" />
   </Style>
 
+  <!-- An NR runtime in the OptiScaler panel: a tick box drawn as a tile, lit like a chosen route while ticked. -->
+  <Style Selector="Border.runtimeTile">
+    <Setter Property="Background" Value="{DynamicResource Surface}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="10" />
+    <Setter Property="Padding" Value="12,8" />
+  </Style>
+  <Style Selector="Border.runtimeTile.on">
+    <Setter Property="Background" Value="{DynamicResource AccentSoft}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource AccentHover}" />
+  </Style>
+  <!-- The line from a runtime's tile down to what belongs to it (danielblnc's version). -->
+  <Style Selector="Border.branch">
+    <Setter Property="BorderBrush" Value="{DynamicResource BorderStrong}" />
+    <Setter Property="BorderThickness" Value="1,0,0,1" />
+    <Setter Property="CornerRadius" Value="0,0,0,6" />
+    <Setter Property="Width" Value="8" />
+    <Setter Property="Height" Value="22" />
+    <Setter Property="Margin" Value="8,0,4,0" />
+    <Setter Property="VerticalAlignment" Value="Top" />
+  </Style>
+
   <!-- What the route is read off: one quiet row, not a paragraph on every game. -->
   <Style Selector="Border.detect">
     <Setter Property="Background" Value="{DynamicResource SurfaceHigh}" />

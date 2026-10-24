@@ -12,6 +12,7 @@
   <sys:String x:Key="Str.RemoveGameHint">Retire le jeu de la liste, et Rechercher des jeux le laisse aussi de côté. Aucun fichier de son dossier n'est modifié ; les Paramètres permettent de le récupérer.</sys:String>
   <sys:String x:Key="Str.RemovedGame">{0} a été retiré de la liste et Rechercher des jeux le laissera de côté. Rien n'a été modifié dans son dossier ; Paramètres &gt; Jeux ignorés permet de le récupérer.</sys:String>
   <sys:String x:Key="Str.RemovedGameInstalled">{0} a été retiré de la liste, mais l'add-on est toujours installé dans son dossier. Récupérez-le depuis Paramètres &gt; Jeux ignorés pour le désinstaller.</sys:String>
+  <sys:String x:Key="Str.RuntimesHint">Les runtimes décochés ne sont ni téléchargés ni installés dans ce jeu. Celui de danielblnc est à code fermé ; lmxxf et mochizuki sont open source.</sys:String>
   <sys:String x:Key="Str.IgnoredGames">Jeux ignorés</sys:String>
   <sys:String x:Key="Str.IgnoredGamesHint">Les jeux que vous avez retirés de la liste. Rechercher des jeux les ignore, ils restent donc de côté jusqu'à ce que vous les récupériez ici.</sys:String>
   <sys:String x:Key="Str.IgnoredNone">Aucun jeu ignoré.</sys:String>

@@ -12,6 +12,7 @@
   <sys:String x:Key="Str.RemoveGameHint">गेम को सूची से हटा देता है, और “गेम खोजें” भी उसे छोड़ देगा। उसके फ़ोल्डर की किसी फ़ाइल को छुआ नहीं जाता; सेटिंग्स से उसे वापस लाया जा सकता है।</sys:String>
   <sys:String x:Key="Str.RemovedGame">{0} सूची से हट गया है और “गेम खोजें” उसे छोड़ देगा। उसके फ़ोल्डर में कुछ भी नहीं छुआ गया; “सेटिंग्स” &gt; “अनदेखे गेम” से उसे वापस लाएँ।</sys:String>
   <sys:String x:Key="Str.RemovedGameInstalled">{0} सूची से हट गया है, लेकिन ऐड-ऑन अब भी उसके फ़ोल्डर में इंस्टॉल है। उसे अनइंस्टॉल करने के लिए “सेटिंग्स” &gt; “अनदेखे गेम” से गेम वापस लाएँ।</sys:String>
+  <sys:String x:Key="Str.RuntimesHint">जिन रनटाइम पर निशान नहीं है वे इस गेम में न डाउनलोड होते हैं न इंस्टॉल। danielblnc का क्लोज़्ड सोर्स है; lmxxf और mochizuki ओपन सोर्स हैं।</sys:String>
   <sys:String x:Key="Str.IgnoredGames">अनदेखे गेम</sys:String>
   <sys:String x:Key="Str.IgnoredGamesHint">वे गेम जिन्हें आपने सूची से हटाया। “गेम खोजें” उन्हें छोड़ देता है, इसलिए वे तब तक बाहर रहते हैं जब तक आप उन्हें यहाँ से वापस न लाएँ।</sys:String>
   <sys:String x:Key="Str.IgnoredNone">कोई अनदेखा गेम नहीं।</sys:String>

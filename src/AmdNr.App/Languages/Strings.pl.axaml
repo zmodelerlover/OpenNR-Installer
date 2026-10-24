@@ -12,6 +12,7 @@
   <sys:String x:Key="Str.RemoveGameHint">Usuwa grę z listy, a „Skanuj gry” też ją pominie. Żaden plik w jej folderze nie zostaje ruszony; można ją przywrócić w Ustawieniach.</sys:String>
   <sys:String x:Key="Str.RemovedGame">Gra {0} zniknęła z listy, a „Skanuj gry” będzie ją pomijać. Nic w jej folderze nie zostało ruszone; przywrócisz ją w „Ustawienia” &gt; „Ignorowane gry”.</sys:String>
   <sys:String x:Key="Str.RemovedGameInstalled">Gra {0} zniknęła z listy, ale dodatek nadal jest zainstalowany w jej folderze. Przywróć ją w „Ustawienia” &gt; „Ignorowane gry”, aby go odinstalować.</sys:String>
+  <sys:String x:Key="Str.RuntimesHint">Odznaczone środowiska nie są pobierane ani instalowane w tej grze. Środowisko danielblnc ma zamknięty kod; lmxxf i mochizuki są otwarte.</sys:String>
   <sys:String x:Key="Str.IgnoredGames">Ignorowane gry</sys:String>
   <sys:String x:Key="Str.IgnoredGamesHint">Gry usunięte przez Ciebie z listy. „Skanuj gry” je pomija, więc pozostaną poza listą, dopóki ich tu nie przywrócisz.</sys:String>
   <sys:String x:Key="Str.IgnoredNone">Brak ignorowanych gier.</sys:String>

@@ -12,6 +12,7 @@
   <sys:String x:Key="Str.RemoveGameHint">Scoate jocul din listă, iar „Caută jocuri” îl va ocoli și el. Niciun fișier din folderul lui nu este atins; îl poți readuce din Setări.</sys:String>
   <sys:String x:Key="Str.RemovedGame">{0} a fost scos din listă, iar „Caută jocuri” îl va ocoli. Nimic din folderul lui nu a fost atins; îl readuci din „Setări” &gt; „Jocuri ignorate”.</sys:String>
   <sys:String x:Key="Str.RemovedGameInstalled">{0} a fost scos din listă, dar add-on-ul este încă instalat în folderul lui. Readu-l din „Setări” &gt; „Jocuri ignorate” ca să-l dezinstalezi.</sys:String>
+  <sys:String x:Key="Str.RuntimesHint">Runtime-urile debifate nu se descarcă și nu se instalează în acest joc. Cel al lui danielblnc are cod închis; lmxxf și mochizuki sunt open source.</sys:String>
   <sys:String x:Key="Str.IgnoredGames">Jocuri ignorate</sys:String>
   <sys:String x:Key="Str.IgnoredGamesHint">Jocurile pe care le-ai scos din listă. „Caută jocuri” le ocolește, așa că rămân în afara listei până le readuci de aici.</sys:String>
   <sys:String x:Key="Str.IgnoredNone">Niciun joc ignorat.</sys:String>

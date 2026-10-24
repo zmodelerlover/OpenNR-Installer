@@ -73,10 +73,10 @@ public partial class GameSheet
         {
             (report, staged, runtime) = await Task.Run(() =>
             {
-                var folder = CachedPayloadFolder(ComponentsFor(preset, mochizuki, wrongGpu, NeedsDlss(card, wrongGpu)));
+                var folder = CachedPayloadFolder(ComponentsFor(preset, mochizuki, wrongGpu, NeedsDlss(card, wrongGpu), !Skips(card, DanielRuntime)));
                 var own = wanted is null ? null : Work.FindUserRuntime(wanted, TargetFor(card));
                 return (Work.Preflight(TargetFor(card), folder ?? "", preset, pins, proxy, mochizuki, own,
-                    unoffered ? wanted : null, wiki, api, wrongGpu), folder, own);
+                    unoffered ? wanted : null, wiki, api, wrongGpu, !Skips(card, DanielRuntime)), folder, own);
             });
         }
         catch (Exception e)
@@ -146,7 +146,7 @@ public partial class GameSheet
 
             ResultBanner.IsVisible = false;
             ShowStep(StepDownload);
-            var folder = await EnsurePayloadsAsync(ComponentsFor(preset, mochizuki, wrongGpu, NeedsDlss(card, wrongGpu)));
+            var folder = await EnsurePayloadsAsync(ComponentsFor(preset, mochizuki, wrongGpu, NeedsDlss(card, wrongGpu), !Skips(card, DanielRuntime)));
             if (folder is null)
             {
                 ShowStep(StepDownload, failed: true);
@@ -161,7 +161,8 @@ public partial class GameSheet
             Report report;
             var wiki = WikiProxy(card);
             var api = OptiApi(card);
-            try { report = await WritingAsync(() => Work.Install(target, folder, preset, pins, proxy, mochizuki, runtime, wanted, wiki, api, wrongGpu)); }
+            try { report = await WritingAsync(() => Work.Install(target, folder, preset, pins, proxy, mochizuki, runtime, wanted, wiki, api, wrongGpu,
+                Rdna4 && !Skips(card, LmxxfRuntime), !Skips(card, DanielRuntime))); }
             catch (Exception ex)
             {
                 // The engine turns everything it expects into a report line, and rolls back before
@@ -391,9 +392,11 @@ public partial class GameSheet
     /// needs OptiScaler, the runtime build it drives, and the weights out of the runtime component --
     /// and the mochizuki runtime and its models only when it was asked for, and WrongGPU (with NVIDIA's DLSS for its
     /// setup when the PC has none it can use) only when it was ticked.</summary>
-    private static string[] ComponentsFor(Preset preset, bool mochizuki = false, bool wrongGpu = false, bool dlss = false) =>
+    private static string[] ComponentsFor(Preset preset, bool mochizuki = false, bool wrongGpu = false, bool dlss = false,
+        bool daniel = true) =>
         preset.IsOptiScaler()
-            ? [PayloadManifest.OptiScalerComponent, PayloadManifest.OptiRuntimeComponent, PayloadManifest.RuntimeComponent,
+            ? [PayloadManifest.OptiScalerComponent,
+               .. daniel ? [PayloadManifest.OptiRuntimeComponent, PayloadManifest.RuntimeComponent] : Array.Empty<string>(),
                PayloadManifest.LmxxfWeightsComponent, PayloadManifest.LmxxfSmallWeightsComponent, PayloadManifest.LmxxfGfx1200Component,
                PayloadManifest.OptiX86Component,
                PayloadManifest.PersonModelComponent, .. Mochizuki(mochizuki),
@@ -437,7 +440,12 @@ public partial class GameSheet
         var offer = RuntimeChoices(versioned);
         var runtime = Work.RuntimePick(offer, _card?.Entry.DanielRuntime, Rdna4);
         // lmxxf runs on RX 9070 and RX 9060 cards only: on a card read as anything else its weights stay out.
-        return Session.Machine?.Rdna4 == false ? versioned.WithRuntime(runtime).WithoutLmxxf() : versioned.WithRuntime(runtime);
+        var picked = Session.Machine?.Rdna4 == false ? versioned.WithRuntime(runtime).WithoutLmxxf() : versioned.WithRuntime(runtime);
+        // A runtime left out of this game is neither downloaded nor installed; person protection goes with the last of the two.
+        if (Skips(_card, LmxxfRuntime)) picked = picked.Without(PayloadManifest.LmxxfComponents);
+        return Skips(_card, LmxxfRuntime) && Skips(_card, MochizukiRuntime)
+            ? picked.Without(PayloadManifest.PersonModelComponent)
+            : picked;
     }
 
     private bool Rdna4 => Session.Machine?.Rdna4 == true;

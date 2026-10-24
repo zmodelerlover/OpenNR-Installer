@@ -442,10 +442,11 @@ public static partial class Work
     /// Left off, an install takes out what an earlier one put in of it.</param>
     public static Report Preflight(string gameDir, string payloadDir, Preset preset, PayloadPins pins,
         string? proxy = null, bool mochizuki = false, string? ownRuntime = null, UserRuntime? wantedRuntime = null,
-        string? suggestedProxy = null, GraphicsApi? api = null, bool wrongGpu = false)
+        string? suggestedProxy = null, GraphicsApi? api = null, bool wrongGpu = false, bool daniel = true)
     {
         var report = preset.IsOptiScaler()
-            ? PreflightOptiScaler(gameDir, payloadDir, pins, proxy, mochizuki, ownRuntime, wantedRuntime, suggestedProxy, api, wrongGpu)
+            ? PreflightOptiScaler(gameDir, payloadDir, pins, proxy, mochizuki, ownRuntime, wantedRuntime, suggestedProxy, api, wrongGpu,
+                daniel)
             : preset == Preset.FiveM ? PreflightFiveM(gameDir, payloadDir, pins, ownRuntime, wantedRuntime)
             : PreflightReShade(gameDir, payloadDir, preset, pins, proxy, mochizuki, ownRuntime, wantedRuntime);
         if (Running(gameDir, preset) is { } running) report.Err(running);
@@ -467,9 +468,13 @@ public static partial class Work
     /// <param name="suggestedProxy">See <see cref="Preflight"/>.</param>
     /// <param name="api">See <see cref="Preflight"/>.</param>
     /// <param name="wrongGpu">See <see cref="Preflight"/>.</param>
+    /// <param name="lmxxf">OptiScaler route: a fresh ini may run lmxxf (RX 9000, not left out); mochizuki implies it.</param>
+    /// <param name="daniel">On the OptiScaler route, false leaves danielblnc's runtime and weights out (closed source,
+    /// left out in Settings), takes out what an earlier install put in of them, and the ini runs one that is here.</param>
     public static Report Install(string gameDir, string payloadDir, Preset preset, PayloadPins pins,
         string? proxy = null, bool mochizuki = false, string? ownRuntime = null, UserRuntime? wantedRuntime = null,
-        string? suggestedProxy = null, GraphicsApi? api = null, bool wrongGpu = false)
+        string? suggestedProxy = null, GraphicsApi? api = null, bool wrongGpu = false, bool lmxxf = false,
+        bool daniel = true)
     {
         if (Running(gameDir, preset) is { } running)
         {
@@ -486,7 +491,8 @@ public static partial class Work
             return report;
         }
         report.Append(preset.Route() == Route.X86 ? InstallX86(gameDir, payloadDir, preset, pins, proxy, mochizuki, ownRuntime, wantedRuntime)
-            : preset.IsOptiScaler() ? InstallOptiScaler(gameDir, payloadDir, pins, proxy, mochizuki, ownRuntime, wantedRuntime, suggestedProxy, api, wrongGpu)
+            : preset.IsOptiScaler() ? InstallOptiScaler(gameDir, payloadDir, pins, proxy, mochizuki, ownRuntime, wantedRuntime, suggestedProxy, api, wrongGpu, lmxxf,
+                daniel)
             : preset == Preset.FiveM ? InstallFiveM(gameDir, payloadDir, pins, ownRuntime, wantedRuntime)
             : InstallReShade(gameDir, payloadDir, preset, pins, proxy, mochizuki, ownRuntime, wantedRuntime));
         return report;

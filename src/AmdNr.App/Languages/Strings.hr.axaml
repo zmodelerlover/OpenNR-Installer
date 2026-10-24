@@ -12,6 +12,7 @@
   <sys:String x:Key="Str.RemoveGameHint">Uklanja igru s popisa, a „Pretraži igre” je također preskače. Nijedna datoteka u njezinoj mapi ne dira se; vratiti je možete u Postavkama.</sys:String>
   <sys:String x:Key="Str.RemovedGame">Igra {0} uklonjena je s popisa i „Pretraži igre” će je preskakati. Ništa u njezinoj mapi nije dirano; vraćate je u „Postavke” &gt; „Zanemarene igre”.</sys:String>
   <sys:String x:Key="Str.RemovedGameInstalled">Igra {0} uklonjena je s popisa, ali dodatak je još instaliran u njezinoj mapi. Vratite je iz „Postavke” &gt; „Zanemarene igre” da biste ga deinstalirali.</sys:String>
+  <sys:String x:Key="Str.RuntimesHint">Neoznačena okruženja ne preuzimaju se niti instaliraju u ovu igru. danielblncovo je zatvorenog koda; lmxxf i mochizuki su otvorenog koda.</sys:String>
   <sys:String x:Key="Str.IgnoredGames">Zanemarene igre</sys:String>
   <sys:String x:Key="Str.IgnoredGamesHint">Igre koje ste uklonili s popisa. „Pretraži igre” ih preskače, pa ostaju izvan popisa dok ih ovdje ne vratite.</sys:String>
   <sys:String x:Key="Str.IgnoredNone">Nema zanemarenih igara.</sys:String>

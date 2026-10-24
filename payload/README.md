@@ -79,6 +79,13 @@ the lmxxf weights (`lmxxf-weights`) and the mochizuki runtime inside the version
 Older apps ignore that key. The add-on, bridge and shader files also carry the v0.6.6 GitHub release
 assets as `mirrors`.
 
+danielblnc's versions a person can pick are `releases.runtime`, each with both builds (`runtime`
+patched for the add-on, `opti-runtime` as OptiScaler runs it). A build only OptiScaler runs, 0.8.0
+(NeuralHub's `neuralhub_host.dll`, OptiScaler 0.5.7 on), goes under `releases.opti-runtime` with
+`opti-runtime` alone: every app published refuses the whole manifest over a `releases.runtime`
+entry without its `runtime`, and none of them reads `releases.opti-runtime`. It is never offered on
+the ReShade routes, and it installs as `dlssnr_amd_pass1.dll` only (it runs its passes itself).
+
 ### mochizuki: paths two levels deep for files three levels down
 
 The runtime reads `dlssnr-amd\shaders\runtime\x.spv`, and every app already published refuses a

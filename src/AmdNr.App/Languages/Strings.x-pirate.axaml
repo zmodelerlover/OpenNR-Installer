@@ -12,6 +12,7 @@
   <sys:String x:Key="Str.RemoveGameHint">Throws the game off the list, an' Scan the seas passes it by too. Not a file in its hold be touched; Settings hauls it back aboard.</sys:String>
   <sys:String x:Key="Str.RemovedGame">{0} walked the plank, an' Scan the seas will sail past it. Nothin' in its hold was touched; Settings &gt; Marooned games hauls it back.</sys:String>
   <sys:String x:Key="Str.RemovedGameInstalled">{0} walked the plank, but the add-on still be stowed in its hold. Haul it back from Settings &gt; Marooned games to scuttle it proper.</sys:String>
+  <sys:String x:Key="Str.RuntimesHint">Engines left unticked ain't fetched nor stowed in this game. danielblnc's be closed source; lmxxf an' mochizuki be open.</sys:String>
   <sys:String x:Key="Str.IgnoredGames">Marooned games</sys:String>
   <sys:String x:Key="Str.IgnoredGamesHint">Games ye threw off the list. Scan the seas sails right past 'em, so they stay marooned till ye fetch 'em back from here.</sys:String>
   <sys:String x:Key="Str.IgnoredNone">No games marooned, cap'n.</sys:String>

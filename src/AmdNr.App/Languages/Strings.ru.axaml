@@ -12,6 +12,7 @@
   <sys:String x:Key="Str.RemoveGameHint">Убирает игру из списка, и «Найти игры» тоже будет её пропускать. Файлы в её папке не затрагиваются; вернуть её можно в настройках.</sys:String>
   <sys:String x:Key="Str.RemovedGame">Игра {0} убрана из списка, и «Найти игры» будет её пропускать. В её папке ничего не тронуто; вернуть её можно в разделе «Настройки» &gt; «Скрытые игры».</sys:String>
   <sys:String x:Key="Str.RemovedGameInstalled">Игра {0} убрана из списка, но аддон всё ещё установлен в её папке. Чтобы удалить его, верните игру в разделе «Настройки» &gt; «Скрытые игры».</sys:String>
+  <sys:String x:Key="Str.RuntimesHint">Снятые среды не скачиваются и не устанавливаются в эту игру. Среда danielblnc — с закрытым кодом; lmxxf и mochizuki — открытые.</sys:String>
   <sys:String x:Key="Str.IgnoredGames">Скрытые игры</sys:String>
   <sys:String x:Key="Str.IgnoredGamesHint">Игры, которые вы убрали из списка. «Найти игры» их пропускает, поэтому они не появятся, пока вы не вернёте их здесь.</sys:String>
   <sys:String x:Key="Str.IgnoredNone">Скрытых игр нет.</sys:String>

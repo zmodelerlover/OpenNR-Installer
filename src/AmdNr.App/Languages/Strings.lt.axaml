@@ -12,6 +12,7 @@
   <sys:String x:Key="Str.RemoveGameHint">Išima žaidimą iš sąrašo, ir „Ieškoti žaidimų“ jį taip pat praleis. Jo aplanke neliečiamas joks failas; grąžinti galima nustatymuose.</sys:String>
   <sys:String x:Key="Str.RemovedGame">Žaidimas {0} išimtas iš sąrašo, ir „Ieškoti žaidimų“ jį praleis. Jo aplanke niekas nepaliesta; grąžinti galima skiltyje „Nustatymai“ &gt; „Nepaisomi žaidimai“.</sys:String>
   <sys:String x:Key="Str.RemovedGameInstalled">Žaidimas {0} išimtas iš sąrašo, bet priedas vis dar įdiegtas jo aplanke. Grąžinkite jį iš „Nustatymai“ &gt; „Nepaisomi žaidimai“, kad galėtumėte jį pašalinti.</sys:String>
+  <sys:String x:Key="Str.RuntimesHint">Nepažymėtos aplinkos į šį žaidimą neatsisiunčiamos ir nediegiamos. danielblnc aplinka yra uždaro kodo; lmxxf ir mochizuki – atviro kodo.</sys:String>
   <sys:String x:Key="Str.IgnoredGames">Nepaisomi žaidimai</sys:String>
   <sys:String x:Key="Str.IgnoredGamesHint">Žaidimai, kuriuos išėmėte iš sąrašo. „Ieškoti žaidimų“ juos praleidžia, todėl jie lieka už sąrašo ribų, kol jų čia negrąžinsite.</sys:String>
   <sys:String x:Key="Str.IgnoredNone">Nepaisomų žaidimų nėra.</sys:String>

@@ -12,6 +12,7 @@
   <sys:String x:Key="Str.RemoveGameHint">Oyunu listeden çıkarır; «Oyunları tara» da onu atlar. Klasöründeki hiçbir dosyaya dokunulmaz; Ayarlar'dan geri getirebilirsiniz.</sys:String>
   <sys:String x:Key="Str.RemovedGame">Listeden çıkarıldı ve «Oyunları tara» onu atlayacak: {0}. Klasöründeki hiçbir şeye dokunulmadı; Ayarlar &gt; Yok sayılan oyunlar bölümünden geri getirebilirsiniz.</sys:String>
   <sys:String x:Key="Str.RemovedGameInstalled">Listeden çıkarıldı, ancak eklenti klasöründe hâlâ kurulu: {0}. Kaldırmak için Ayarlar &gt; Yok sayılan oyunlar bölümünden geri getirin.</sys:String>
+  <sys:String x:Key="Str.RuntimesHint">İşareti kaldırılan çalışma zamanları bu oyuna indirilmez ve kurulmaz. danielblnc'inki kapalı kaynaktır; lmxxf ve mochizuki açık kaynaktır.</sys:String>
   <sys:String x:Key="Str.IgnoredGames">Yok sayılan oyunlar</sys:String>
   <sys:String x:Key="Str.IgnoredGamesHint">Listeden çıkardığınız oyunlar. «Oyunları tara» bunları atlar; buradan geri getirene kadar liste dışında kalırlar.</sys:String>
   <sys:String x:Key="Str.IgnoredNone">Yok sayılan oyun yok.</sys:String>

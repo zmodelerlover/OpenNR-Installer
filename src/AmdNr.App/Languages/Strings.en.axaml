@@ -14,6 +14,7 @@
   <sys:String x:Key="Str.RemoveGameHint">Takes the game out of the list, and Scan games leaves it out too. No file in its folder is touched; Settings brings it back.</sys:String>
   <sys:String x:Key="Str.RemovedGame">{0} is off the list and Scan games will leave it out. Nothing in its folder was touched; Settings > Ignored games brings it back.</sys:String>
   <sys:String x:Key="Str.RemovedGameInstalled">{0} is off the list, but the add-on is still installed in its folder. Bring it back from Settings > Ignored games to uninstall it.</sys:String>
+  <sys:String x:Key="Str.RuntimesHint">Unticked runtimes are neither downloaded nor installed in this game. danielblnc's is closed source; lmxxf and mochizuki are open source.</sys:String>
   <sys:String x:Key="Str.IgnoredGames">Ignored games</sys:String>
   <sys:String x:Key="Str.IgnoredGamesHint">Games you took out of the list. Scan games passes over them, so they stay out until you bring them back here.</sys:String>
   <sys:String x:Key="Str.IgnoredNone">No ignored games.</sys:String>

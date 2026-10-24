@@ -14,7 +14,7 @@ public class RuntimeChoiceTests
     [Fact]
     public void TheShippedListOffersFrom043ToTheNewestNewestFirst()
     {
-        Assert.Equal(["0.6.0", "0.5.1", "0.5.0", "0.4.3"], Shipped().RuntimeVersions().Select(r => r.Version));
+        Assert.Equal(["0.8.0", "0.6.0", "0.5.1", "0.5.0", "0.4.3"], Shipped().RuntimeVersions().Select(r => r.Version));
     }
 
     [Fact]
@@ -59,7 +59,7 @@ public class RuntimeChoiceTests
     [Fact]
     public void AnRx9000GetsEveryVersionWith043FirstAndOtherCardsTheNewestOnly()
     {
-        var runs = Shipped().RuntimeVersions();
+        var runs = Shipped().RuntimeVersions().Where(r => Work.RuntimeRunsOn(r, optiScaler: true, "0.5.6-opennr")).ToList();
         Assert.Equal(["0.6.0", "0.5.1", "0.5.0", "0.4.3"], Work.RuntimeOffer(runs, rdna4: true).Select(r => r.Version));
         Assert.Equal(["0.6.0"], Work.RuntimeOffer(runs, rdna4: false).Select(r => r.Version));
 

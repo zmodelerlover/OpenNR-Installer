@@ -11,6 +11,7 @@
   <sys:String x:Key="Str.RemoveGameHint">Tira o jogo da lista, e Procurar jogos também deixa ele de fora. Nenhum arquivo da pasta é tocado; ele volta pelas Configurações.</sys:String>
   <sys:String x:Key="Str.RemovedGame">{0} saiu da lista e Procurar jogos vai deixá-lo de fora. Nada na pasta dele foi tocado; ele volta em Configurações > Jogos ignorados.</sys:String>
   <sys:String x:Key="Str.RemovedGameInstalled">{0} saiu da lista, mas o add-on continua instalado na pasta dele. Traga de volta em Configurações > Jogos ignorados para desinstalar.</sys:String>
+  <sys:String x:Key="Str.RuntimesHint">Runtimes desmarcados não são baixados nem instalados neste jogo. O do danielblnc é de código fechado; lmxxf e mochizuki são de código aberto.</sys:String>
   <sys:String x:Key="Str.IgnoredGames">Jogos ignorados</sys:String>
   <sys:String x:Key="Str.IgnoredGamesHint">Jogos que você tirou da lista. Procurar jogos passa por cima deles, então ficam de fora até você trazer de volta por aqui.</sys:String>
   <sys:String x:Key="Str.IgnoredNone">Nenhum jogo ignorado.</sys:String>

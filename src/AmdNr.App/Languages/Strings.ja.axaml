@@ -12,6 +12,7 @@
   <sys:String x:Key="Str.RemoveGameHint">ゲームをリストから削除し、「ゲームをスキャン」でも除外します。フォルダー内のファイルには一切触れません。設定から元に戻せます。</sys:String>
   <sys:String x:Key="Str.RemovedGame">{0} をリストから削除しました。「ゲームをスキャン」でも除外されます。フォルダー内には何も触れていません。「設定 &gt; 除外したゲーム」から元に戻せます。</sys:String>
   <sys:String x:Key="Str.RemovedGameInstalled">{0} をリストから削除しましたが、アドオンはまだそのフォルダーにインストールされています。アンインストールするには「設定 &gt; 除外したゲーム」から元に戻してください。</sys:String>
+  <sys:String x:Key="Str.RuntimesHint">チェックを外したランタイムはこのゲームにダウンロードもインストールもされません。danielblnc のものはクローズドソース、lmxxf と mochizuki はオープンソースです。</sys:String>
   <sys:String x:Key="Str.IgnoredGames">除外したゲーム</sys:String>
   <sys:String x:Key="Str.IgnoredGamesHint">リストから削除したゲームです。「ゲームをスキャン」ではスキップされるので、ここで元に戻すまで表示されません。</sys:String>
   <sys:String x:Key="Str.IgnoredNone">除外したゲームはありません。</sys:String>

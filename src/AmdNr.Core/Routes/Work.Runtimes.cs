@@ -9,7 +9,7 @@ namespace AmdNr.Core;
 public static partial class Work
 {
     /// <summary>The runtime builds this project has seen, by the start of their SHA-256: danielblnc's
-    /// 0.2.14, 0.2.17, 0.3.0, 0.3.1, 0.3.3, 0.4.0, 0.4.1, 0.4.2, 0.4.3, 0.5.0, 0.5.1 and 0.6.0, and
+    /// 0.2.14, 0.2.17, 0.3.0, 0.3.1, 0.3.3, 0.4.0, 0.4.1, 0.4.2, 0.4.3, 0.5.0, 0.5.1, 0.6.0 and 0.8.0, and
     /// the 0.3.0, 0.4.0 and 0.4.1 the add-on pins. Any of them sitting in the game folder as version.dll is the
     /// author's own way of loading the runtime.</summary>
     private static readonly string[] KnownRuntimePrefixes =
@@ -18,8 +18,11 @@ public static partial class Work
         "8321cae728d28cb7", "70af3fb757f83f71", "b108d6407eb7f094",
         "907b30a61644a6d7", "d62be3d8b9fbb3c6", "ff6feffa41abccce",
         "823063eb4c76b133", "c8808716c286a34f", "8aa2dcc5b6596aca", "d1e320862a8763ac",
-        "cddfb09e01934795", "493b4a3b80a21f72", "195c4a891b6eac4c",
+        "cddfb09e01934795", "493b4a3b80a21f72", "195c4a891b6eac4c", "be9172b68d0e77f9",
     ];
+
+    /// <summary>Whether a file is the size of one of his builds: 0.3.0's 7 MB up to 0.8.0's 102 MB, with room above.</summary>
+    internal static bool RuntimeSized(ulong? size) => size is > 7_000_000 and < 128_000_000;
 
     /// <summary>The name the author's setup loads the runtime under.</summary>
     internal const string AuthorRuntimeName = "version.dll";
@@ -53,7 +56,18 @@ public static partial class Work
         ("cddfb09e019347957bf7b96c95c0e900e8d3062dfaed697a8a96b0a039aec31a", new(0, 5, 0), new(0, 4, 4)),
         ("493b4a3b80a21f7255109172ab7bb01ba08d35f2941718f441768f1abfc48acd", new(0, 5, 1), new(0, 4, 5)),
         ("195c4a891b6eac4c1cb7671e10ff62bbbe2b17f1dfae1344dc5a6714e4775721", new(0, 6, 0), new(0, 4, 7)),
+        ("be9172b68d0e77f98f04f941f4e2abe2c73eb01b8aafe94b26ee31eefefb5eb8", new(0, 8, 0), new(0, 5, 7)),
     ];
+
+    /// <summary>The first build NeuralHub hosts: one module that runs its passes itself, which OptiScaler loads as
+    /// dlssnr_amd_host\neuralhub_host.dll. OptiScaler runs it (0.5.7 on), the add-on never does.</summary>
+    private static readonly Version HostedRuntime = new(0, 8, 0);
+
+    private static bool Hosted(ComponentRelease runtime) => VersionOf(runtime.Version) >= HostedRuntime;
+
+    /// <summary>The pass files a build goes in as: pass 1 alone from <see cref="HostedRuntime"/> on, one copy per pass
+    /// before it.</summary>
+    internal static string[] RuntimePasses(Version? runtime) => runtime >= HostedRuntime ? [OptiPasses[0]] : OptiPasses;
 
     /// <summary>The builds patched for the add-on that the add-on and its 32-bit pair run, by the first release
     /// that does: danielblnc's 0.4.3, 0.5.0, 0.5.1 and 0.6.0, the versions a person can pick.</summary>
@@ -65,8 +79,6 @@ public static partial class Work
         ("430be589020685d03f0ad92194457bafe1a186bf658c8cfe2fb7a0bdb7592cc4", new(0, 7, 6)),
     ];
 
-    /// <summary>Whether a runtime version from the payload's list runs on this add-on (or bridge) version, or
-    /// on this OptiScaler release.</summary>
     /// <summary>On an RX 9000 card, the danielblnc build that has not frozen a game there; every other one is
     /// unstable on those cards (single jobs held for seconds, then a locked PC).</summary>
     public const string Rdna4Recommended = "0.4.3";
@@ -74,14 +86,17 @@ public static partial class Work
     public enum RuntimeBadge { None, Recommended, Unstable }
 
     /// <summary>The versions offered, from those the add-on or OptiScaler version runs (newest first): all of them
-    /// on an RX 9000 card, only the newest on any other.</summary>
+    /// on an RX 9000 card, and on any other the newest, with the hosted builds above it.</summary>
     public static IReadOnlyList<ComponentRelease> RuntimeOffer(IReadOnlyList<ComponentRelease> runs, bool rdna4) =>
-        rdna4 ? runs : runs.Take(1).ToList();
+        rdna4 ? runs : runs.Where(Hosted).Concat(runs.Where(r => !Hosted(r)).Take(1)).ToList();
 
     /// <summary>The version that goes in with nothing picked: <see cref="Rdna4Recommended"/> on an RX 9000 card when
-    /// it is offered, otherwise null, which keeps the one the release pins.</summary>
+    /// it is offered; on any other, the newest build before <see cref="HostedRuntime"/> when a hosted one is offered
+    /// too, so a game that had the hosted one goes back to it; otherwise null, which keeps the one the release pins.</summary>
     public static string? RuntimeDefault(IReadOnlyList<ComponentRelease> offer, bool rdna4) =>
-        rdna4 && offer.Any(r => r.Version == Rdna4Recommended) ? Rdna4Recommended : null;
+        rdna4 ? offer.Any(r => r.Version == Rdna4Recommended) ? Rdna4Recommended : null
+        : offer.Any(Hosted) ? offer.FirstOrDefault(r => !Hosted(r))?.Version
+        : null;
 
     /// <summary>The version that goes in: the one picked when it is offered, otherwise the default.</summary>
     public static string? RuntimePick(IReadOnlyList<ComponentRelease> offer, string? picked, bool rdna4) =>
@@ -100,6 +115,8 @@ public static partial class Work
               + $"{Rdna4Recommended} is the stable one there: pick it under danielblnc version."
             : null;
 
+    /// <summary>Whether a runtime version from the payload's list runs on this add-on (or bridge) version, or
+    /// on this OptiScaler release. One without a build patched for the add-on runs on OptiScaler only.</summary>
     public static bool RuntimeRunsOn(ComponentRelease runtime, bool optiScaler, string version)
     {
         var name = optiScaler ? PayloadManifest.OptiRuntimeComponent : PayloadManifest.RuntimeComponent;
@@ -131,7 +148,7 @@ public static partial class Work
         foreach (var name in new[] { AuthorRuntimeName, OptiPasses[0] })
         {
             var path = Path.Combine(dir, name);
-            if (Engine.SizeOf(path) is not (> 7_000_000 and < 80_000_000)) continue;
+            if (!RuntimeSized(Engine.SizeOf(path))) continue;
             var bytes = Engine.Read(path);
             if (AcceptedRuntime(Engine.Sha(bytes), pins.OptiScalerVersion) is not { } runtime) continue;
             if (name == AuthorRuntimeName || VersionOf(pins.OptiRuntimeVersion) is { } shipped && runtime > shipped)
@@ -178,7 +195,7 @@ public static partial class Work
     {
         var path = Path.Combine(dir, AuthorRuntimeName);
         // Size first, so this stays a stat() for every version.dll that is something else.
-        if (Engine.SizeOf(path) is not (> 7_000_000 and < 80_000_000)) return;
+        if (!RuntimeSized(Engine.SizeOf(path))) return;
         var sha = Engine.HashFile(path);
         if (AcceptedRuntime(sha, pins.OptiScalerVersion) is { } runtime)
         {
@@ -334,7 +351,7 @@ public static partial class Work
         {
             var name = Path.GetFileName(path);
             if (ours.Contains(name) || Engine.SizeOf(path) is not { } size
-                || !(size is > 7_000_000 and < 80_000_000 || pins.UserRuntimes.Any(b => b.OriginalSize == size)))
+                || !(RuntimeSized(size) || pins.UserRuntimes.Any(b => b.OriginalSize == size)))
                 continue;
             if (PayloadCache.HashOf(path) is { } sha && !patched.Contains(sha)
                 && (KnownRuntimePrefixes.Any(p => sha.StartsWith(p, StringComparison.Ordinal))

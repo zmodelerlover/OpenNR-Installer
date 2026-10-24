@@ -328,20 +328,21 @@
                             <ComboBox x:Name="OptiProxyBox" HorizontalAlignment="Stretch" SelectionChanged="OnProxyChanged" AutomationProperties.Name="{DynamicResource Str.ProxySectionOpti}" />
                           </StackPanel>
                           <StackPanel Grid.Column="2" x:Name="OptiVersionSection" Spacing="6">
-                            <StackPanel Orientation="Horizontal">
+                            <Grid ColumnDefinitions="Auto,Auto,*">
                               <TextBlock Text="{DynamicResource Str.VersionSectionOpti}" Classes="section" />
-                              <Border Classes="info" ToolTip.Tip="{Binding #OptiVersionNote.Text}" IsVisible="{Binding #OptiVersionNote.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
-                            </StackPanel>
+                              <Border Grid.Column="1" Classes="info" ToolTip.Tip="{Binding #OptiVersionNote.Text}" IsVisible="{Binding #OptiVersionNote.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
+                              <Button Grid.Column="2" Classes="link" Click="OnWhatsNew" HorizontalAlignment="Right" Content="{DynamicResource Str.WhatsNew}" />
+                            </Grid>
                             <ComboBox x:Name="OptiVersionBox" HorizontalAlignment="Stretch" SelectionChanged="OnAddonVersionChanged" AutomationProperties.Name="{DynamicResource Str.VersionSectionOpti}" />
                             <TextBlock x:Name="OptiVersionNote" IsVisible="False" />
-                            <Button Classes="link" Click="OnWhatsNew" HorizontalAlignment="Left"
-                                    Content="{DynamicResource Str.WhatsNew}" />
                           </StackPanel>
                         </Grid>
-                        <StackPanel x:Name="WrongGpuSection" Spacing="4" IsVisible="False"><!-- WrongGPU: off unless ticked, RX 9000, 64-bit -->
-                          <CheckBox x:Name="WrongGpuBox" Content="{DynamicResource Str.WrongGpuToggle}" Click="OnWrongGpuChanged" AutomationProperties.Name="{DynamicResource Str.WrongGpuToggle}" />
-                          <TextBlock Text="{DynamicResource Str.WrongGpuNote}" Classes="caption" TextWrapping="Wrap" />
-                        </StackPanel>
+                        <StackPanel x:Name="OptiRuntimes" Spacing="8" IsVisible="False"><StackPanel Orientation="Horizontal"><TextBlock Text="{DynamicResource Str.MochizukiSection}" Classes="section" /><!-- tiles: GameSheet.Runtimes.cs -->
+                          <Border Classes="info" ToolTip.Tip="{DynamicResource Str.RuntimesHint}"><PathIcon Data="{StaticResource IconInfo}" /></Border></StackPanel></StackPanel>
+                        <Border x:Name="WrongGpuSection" BorderBrush="{DynamicResource Border}" BorderThickness="0,1,0,0" Padding="0,12,0,0" IsVisible="False"><!-- WrongGPU: off unless ticked, RX 9000, 64-bit -->
+                          <StackPanel Orientation="Horizontal"><CheckBox x:Name="WrongGpuBox" Content="{DynamicResource Str.WrongGpuToggle}" Click="OnWrongGpuChanged" AutomationProperties.Name="{DynamicResource Str.WrongGpuToggle}" />
+                            <Border Classes="info" ToolTip.Tip="{DynamicResource Str.WrongGpuNote}"><PathIcon Data="{StaticResource IconInfo}" /></Border></StackPanel>
+                        </Border>
                       </StackPanel>
                     </Border>
 
@@ -405,9 +406,7 @@
 
                     <!-- The danielblnc version, and on RX 9000 what goes in beside it and runs by default. -->
                     <StackPanel x:Name="MochizukiSection" Spacing="6" IsVisible="False">
-                      <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{DynamicResource Str.MochizukiSection}" Classes="section" />
-                      </StackPanel>
+                      <StackPanel Orientation="Horizontal"><TextBlock Text="{DynamicResource Str.MochizukiSection}" Classes="section" /></StackPanel>
                       <Grid x:Name="DanielVersionRow" ColumnDefinitions="Auto,Auto,12,*">
                         <TextBlock Text="{DynamicResource Str.DanielVersion}" VerticalAlignment="Center" />
                         <Border Grid.Column="1" Classes="info" ToolTip.Tip="{DynamicResource Str.DanielVersionTip}"><PathIcon Data="{StaticResource IconInfo}" /></Border>

@@ -398,6 +398,7 @@ public partial class GameSheet
         MochizukiNote.Text = WantsMochizuki(card) ? Ui.Text(addon ? "Str.RuntimeRdna4Addon" : "Str.RuntimeRdna4Opti") : "";
         // Said under the section, not in a tooltip: people took the missing mochizuki tick box for mochizuki gone.
         MochizukiNote.IsVisible = MochizukiNote.Text.Length > 0;
+        ShowRuntimes();
     }
 
     /// <summary>The danielblnc versions <see cref="DanielVersionBox"/> lists, in its order.</summary>
@@ -406,7 +407,8 @@ public partial class GameSheet
     /// <summary>Whether an install from this sheet brings mochizuki: on an RX 9000 card, wherever the version
     /// chosen carries it. Any other card, or one this app could not read, gets none, and an install takes out
     /// what an earlier one put in.</summary>
-    private bool WantsMochizuki(GameCard card) => OffersMochizuki(card) && Session.Machine?.Rdna4 == true;
+    private bool WantsMochizuki(GameCard card) =>
+        OffersMochizuki(card) && Session.Machine?.Rdna4 == true && !Skips(card, MochizukiRuntime);
 
     /// <summary>The first add-on that can drive the mochizuki runtime (its NR runtime choice).</summary>
     private static readonly Version MochizukiAddon = new(0, 6, 8);

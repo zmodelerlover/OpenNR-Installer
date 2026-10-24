@@ -12,6 +12,7 @@
   <sys:String x:Key="Str.RemoveGameHint">Kiveszi a játékot a listából, és a „Játékok keresése” is kihagyja. A mappájában egy fájlhoz sem nyúl; a Beállításokban visszahozhatod.</sys:String>
   <sys:String x:Key="Str.RemovedGame">Lekerült a listáról, és a „Játékok keresése” kihagyja: {0}. A mappájában semmi sem változott; a „Beállítások” &gt; „Figyelmen kívül hagyott játékok” alatt visszahozhatod.</sys:String>
   <sys:String x:Key="Str.RemovedGameInstalled">Lekerült a listáról: {0}, de a kiegészítő még telepítve van a mappájában. Hozd vissza a „Beállítások” &gt; „Figyelmen kívül hagyott játékok” alól, hogy eltávolíthasd.</sys:String>
+  <sys:String x:Key="Str.RuntimesHint">A ki nem jelölt futtatókörnyezetek nem töltődnek le és nem települnek ebbe a játékba. A danielblnc-é zárt forrású; az lmxxf és a mochizuki nyílt forrású.</sys:String>
   <sys:String x:Key="Str.IgnoredGames">Figyelmen kívül hagyott játékok</sys:String>
   <sys:String x:Key="Str.IgnoredGamesHint">A játékok, amelyeket kivettél a listából. A „Játékok keresése” átugorja őket, így kimaradnak, amíg innen vissza nem hozod őket.</sys:String>
   <sys:String x:Key="Str.IgnoredNone">Nincs figyelmen kívül hagyott játék.</sys:String>

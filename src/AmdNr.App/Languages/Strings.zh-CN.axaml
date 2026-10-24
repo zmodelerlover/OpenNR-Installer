@@ -12,6 +12,7 @@
   <sys:String x:Key="Str.RemoveGameHint">将游戏从列表中移除，“扫描游戏”也会跳过它。不会改动其文件夹中的任何文件；可以在设置中恢复。</sys:String>
   <sys:String x:Key="Str.RemovedGame">{0} 已从列表中移除，“扫描游戏”会跳过它。其文件夹中的内容未被改动；可在“设置 &gt; 已忽略的游戏”中恢复。</sys:String>
   <sys:String x:Key="Str.RemovedGameInstalled">{0} 已从列表中移除，但插件仍安装在其文件夹中。请在“设置 &gt; 已忽略的游戏”中恢复它，然后再卸载。</sys:String>
+  <sys:String x:Key="Str.RuntimesHint">取消勾选的运行时不会下载或安装到此游戏。danielblnc 的是闭源的；lmxxf 和 mochizuki 是开源的。</sys:String>
   <sys:String x:Key="Str.IgnoredGames">已忽略的游戏</sys:String>
   <sys:String x:Key="Str.IgnoredGamesHint">你从列表中移除的游戏。“扫描游戏”会跳过它们，因此在你从这里恢复之前，它们不会再出现。</sys:String>
   <sys:String x:Key="Str.IgnoredNone">没有已忽略的游戏。</sys:String>

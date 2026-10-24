@@ -12,6 +12,7 @@
   <sys:String x:Key="Str.RemoveGameHint">تزيل اللعبة من القائمة، ويتجاهلها «البحث عن الألعاب» أيضًا. لا يُمَسّ أي ملف في مجلدها، ويمكن إعادتها من الإعدادات.</sys:String>
   <sys:String x:Key="Str.RemovedGame">أُزيلت {0} من القائمة وسيتجاهلها «البحث عن الألعاب». لم يُمَسّ شيء في مجلدها، ويمكن إعادتها من «الإعدادات &gt; الألعاب المتجاهَلة».</sys:String>
   <sys:String x:Key="Str.RemovedGameInstalled">أُزيلت {0} من القائمة، لكن الإضافة ما زالت مثبّتة في مجلدها. أعِدها من «الإعدادات &gt; الألعاب المتجاهَلة» لإزالة تثبيتها.</sys:String>
+  <sys:String x:Key="Str.RuntimesHint">بيئات التشغيل غير المحددة لا تُنزَّل ولا تُثبَّت في هذه اللعبة. بيئة danielblnc مغلقة المصدر؛ أما lmxxf وmochizuki فمفتوحتا المصدر.</sys:String>
   <sys:String x:Key="Str.IgnoredGames">الألعاب المتجاهَلة</sys:String>
   <sys:String x:Key="Str.IgnoredGamesHint">الألعاب التي أزلتها من القائمة. يتخطّاها «البحث عن الألعاب»، فتبقى خارج القائمة حتى تعيدها من هنا.</sys:String>
   <sys:String x:Key="Str.IgnoredNone">لا توجد ألعاب متجاهَلة.</sys:String>

@@ -12,6 +12,7 @@
   <sys:String x:Key="Str.RemoveGameHint">นำเกมออกจากรายการ และ «สแกนหาเกม» จะข้ามเกมนี้ด้วย ไม่มีไฟล์ใดในโฟลเดอร์ของเกมถูกแตะต้อง นำกลับมาได้จากการตั้งค่า</sys:String>
   <sys:String x:Key="Str.RemovedGame">นำ {0} ออกจากรายการแล้ว และ «สแกนหาเกม» จะข้ามเกมนี้ ไม่มีสิ่งใดในโฟลเดอร์ของเกมถูกแตะต้อง นำกลับมาได้จาก การตั้งค่า &gt; เกมที่ละเว้น</sys:String>
   <sys:String x:Key="Str.RemovedGameInstalled">นำ {0} ออกจากรายการแล้ว แต่ add-on ยังติดตั้งอยู่ในโฟลเดอร์ของเกม นำเกมกลับมาจาก การตั้งค่า &gt; เกมที่ละเว้น เพื่อถอนการติดตั้ง</sys:String>
+  <sys:String x:Key="Str.RuntimesHint">รันไทม์ที่ไม่ได้เลือกจะไม่ถูกดาวน์โหลดหรือติดตั้งในเกมนี้ ของ danielblnc เป็นโค้ดปิด ส่วน lmxxf และ mochizuki เป็นโอเพนซอร์ส</sys:String>
   <sys:String x:Key="Str.IgnoredGames">เกมที่ละเว้น</sys:String>
   <sys:String x:Key="Str.IgnoredGamesHint">เกมที่คุณนำออกจากรายการ «สแกนหาเกม» จะข้ามเกมเหล่านี้ จึงไม่กลับเข้ารายการจนกว่าคุณจะนำกลับจากที่นี่</sys:String>
   <sys:String x:Key="Str.IgnoredNone">ไม่มีเกมที่ละเว้น</sys:String>
