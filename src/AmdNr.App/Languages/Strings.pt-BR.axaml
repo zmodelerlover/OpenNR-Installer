@@ -1,7 +1,10 @@
-﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Portuguese">
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceInclude Source="/Languages/NrLive/NrLive.pt-BR.axaml" />
+  </ResourceDictionary.MergedDictionaries>
 
   <sys:String x:Key="Str.AppTitle">OpenNR Installer</sys:String>
   <sys:String x:Key="Str.Subtitle">DLSS 5 neural rendering em Radeon, instalado pra você</sys:String>

@@ -13,7 +13,7 @@ public class NrLiveTests
 
     /// <summary>A payload list with NRLive under releases: its zip, pinned or a placeholder, and the zip itself in
     /// the cache where the download would have put it.</summary>
-    private static (PayloadManifest Manifest, byte[] Zip) Payload(string version, bool placeholder, params (string Path, string Text)[] entries)
+    private static (PayloadManifest Manifest, string Dir) Payload(string version, bool placeholder, params (string Path, string Text)[] entries)
     {
         using var buffer = new MemoryStream();
         using (var zip = new ZipArchive(buffer, ZipArchiveMode.Create, leaveOpen: true))
@@ -23,7 +23,8 @@ public class NrLiveTests
                 w.Write(text);
             }
         var bytes = buffer.ToArray();
-        var cached = Path.Combine(PayloadCache.FolderFor(PayloadManifest.NrLiveComponent, version), "NRLiveUI.zip");
+        var dir = Fixture.Temp("nrlive-zip");
+        var cached = Path.Combine(dir, "NRLiveUI.zip");
         Directory.CreateDirectory(Path.GetDirectoryName(cached)!);
         File.WriteAllBytes(cached, bytes);
         var sha = placeholder ? PayloadManifest.PlaceholderSha : Sha(bytes);
@@ -32,7 +33,15 @@ public class NrLiveTests
                    + """}]}},"releases":{"nrlive":[{"version":""" + $"\"{version}\"" + ""","components":{"nrlive":{"version":""" + $"\"{version}\""
                    + ""","files":[{"name":"NRLiveUI.zip","url":"https://127.0.0.1:1/NRLiveUI.zip","size":""" + $"{bytes.Length},\"sha256\":\"{sha}\""
                    + "}]}}}]}}";
-        return (PayloadManifest.Parse(json), bytes);
+        return (PayloadManifest.Parse(json), dir);
+    }
+
+    /// <summary>What InstallAsync does once the cache has the files, from a folder of the test's own: the cache is
+    /// shared, and PayloadTests empties it while these run.</summary>
+    private static void Unpack(PayloadManifest manifest, string dir)
+    {
+        var release = manifest.NrLive()!;
+        NrLivePackage.Unpack(manifest.With(release), release, [(PayloadManifest.NrLiveComponent, dir)]);
     }
 
     [Fact]
@@ -52,16 +61,16 @@ public class NrLiveTests
     }
 
     [Fact]
-    public async Task UnpacksThePackageAndKeepsTheSettingsNrLiveWrote()
+    public void UnpacksThePackageAndKeepsTheSettingsNrLiveWrote()
     {
         var folder = NrLivePackage.Folder;
         File.WriteAllText(Path.Combine(folder, NrLiveConfig.FileName), "[FSR]\r\nsharpness=10\r\n");
-        var (manifest, _) = Payload("9.1.0", false, ("NRLive.exe", "v1"), ("version.txt", "9.1.0"),
+        var (manifest, manifestDir) = Payload("9.1.0", false, ("NRLive.exe", "v1"), ("version.txt", "9.1.0"),
             ("dlssnr-amd/shaders/a.spv", "spv"), ("scaleconfig.ini", "[FSR]\r\nsharpness=65\r\n"), ("profiles/Default.json", "{}"));
         var release = manifest.NrLive()!;
         Assert.False(NrLivePackage.IsCurrent(release));
 
-        await NrLivePackage.InstallAsync(new PayloadCache(new HttpClient()), manifest, release);
+        Unpack(manifest, manifestDir);
         Assert.Equal("v1", File.ReadAllText(NrLivePackage.Exe));
         Assert.Equal("spv", File.ReadAllText(Path.Combine(folder, "dlssnr-amd", "shaders", "a.spv")));
         Assert.Contains("sharpness=10", File.ReadAllText(Path.Combine(folder, NrLiveConfig.FileName)));
@@ -70,13 +79,12 @@ public class NrLiveTests
         Assert.True(NrLivePackage.IsCurrent(release));
 
         // A zip with one folder around everything is read as that folder; one that climbs out is refused.
-        var (wrapped, _) = Payload("9.2.0", false, ("NRLive-9.2.0/NRLive.exe", "v2"), ("NRLive-9.2.0/version.txt", "9.2.0"));
-        await NrLivePackage.InstallAsync(new PayloadCache(new HttpClient()), wrapped, wrapped.NrLive()!);
+        var (wrapped, wrappedDir) = Payload("9.2.0", false, ("NRLive-9.2.0/NRLive.exe", "v2"), ("NRLive-9.2.0/version.txt", "9.2.0"));
+        Unpack(wrapped, wrappedDir);
         Assert.Equal("v2", File.ReadAllText(NrLivePackage.Exe));
         Assert.False(NrLivePackage.IsCurrent(release));
-        var (climbing, _) = Payload("9.3.0", false, ("../outside.txt", "no"), ("NRLive.exe", "v3"));
-        await Assert.ThrowsAsync<InstallException>(() =>
-            NrLivePackage.InstallAsync(new PayloadCache(new HttpClient()), climbing, climbing.NrLive()!));
+        var (climbing, climbingDir) = Payload("9.3.0", false, ("../outside.txt", "no"), ("NRLive.exe", "v3"));
+        Assert.Throws<InstallException>(() => Unpack(climbing, climbingDir));
         Assert.False(File.Exists(Path.Combine(AppPaths.Root, "outside.txt")));
         Assert.Null(NrLivePackage.InstalledVersion());
     }

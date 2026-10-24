@@ -148,8 +148,9 @@
                   </Grid>
                 </StackPanel>
 
-                <!-- How the last session went: SessionBox.axaml, filled by GameSheet.Session.cs. -->
+                <!-- How the last session went (SessionBox, GameSheet.Session.cs); an anti-cheat in the folder (GameSheet.AntiCheat.cs). -->
                 <local:SessionBox x:Name="LastSession" IsVisible="False" />
+                <local:AntiCheatCard x:Name="AntiCheatWarning" IsVisible="False" />
 
                 <!-- Everything the person can change, locked as one while something is running. -->
                 <StackPanel x:Name="Options" Spacing="18">

@@ -84,6 +84,10 @@ public sealed class GameEntry
     /// <summary>Pinned by the person: shown first in the library, and on its own under the Favourites filter.</summary>
     public bool Favorite { get; set; }
 
+    /// <summary>The anti-cheat warning on the sheet set aside for this game (GameSheet.AntiCheat.cs): the person knows,
+    /// and the sheet stops saying it.</summary>
+    public bool AntiCheatIgnored { get; set; }
+
     [JsonIgnore]
     public string Display => CustomName ?? Name ?? System.IO.Path.GetFileName(Path.TrimEnd('\\', '/')) ?? Path;
 

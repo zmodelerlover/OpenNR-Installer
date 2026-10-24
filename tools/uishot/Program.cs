@@ -23,6 +23,7 @@ using static Seed;
 
 var outDir = args.Length > 0 ? args[0] : ".";
 MainWindow.WhatsNewOnUpdate = false;
+NrLivePage.GlobalHotkeys = false;
 Directory.CreateDirectory(outDir);
 var failures = 0;
 
@@ -279,6 +280,7 @@ void Flows()
         "nothing is left busy: a sheet opened afterwards can install");
     SheetFlow.Run(main, sheet, main.Library.Cards[0], Check, Until); LibraryFlow.Run(main, Pe64(), Check, Until);
     ListViewFlow.Run(main, Pe64(), Check, Until, Click);
+    NrLiveFlow.Run(main, Pe64(), Check, Until, Click, (w, n) => Save(w, n));
 
     // Closed while a game folder is being written: refused, and said. Any other time: closed.
     session.Writing = true;
@@ -433,9 +435,9 @@ void Main(int w, int h, string suffix = "")
     // lands between scrolling to the end and measuring, and the last row reads as cut off.
     Until(() => main.Session.Update.State != UpdateState.Checking, 20);
     Settle(4);
-    foreach (var page in new[] { "GamesPage", "SystemPage", "SettingsPage" })
+    foreach (var page in new[] { "GamesPage", "LivePage", "SystemPage", "SettingsPage" })
     {
-        foreach (var other in new[] { "GamesPage", "SystemPage", "SettingsPage" })
+        foreach (var other in new[] { "GamesPage", "LivePage", "SystemPage", "SettingsPage" })
             if (main.FindControl<Control>(other) is { } c) c.IsVisible = other == page;
         Settle(8);
         var name = $"{page.Replace("Page", "").ToLowerInvariant()}{suffix}-{w}x{h}";
@@ -445,7 +447,7 @@ void Main(int w, int h, string suffix = "")
     }
 
     // The sheet a tile opens, over the library, with its own scroller.
-    foreach (var other in new[] { "GamesPage", "SystemPage", "SettingsPage" })
+    foreach (var other in new[] { "GamesPage", "LivePage", "SystemPage", "SettingsPage" })
         if (main.FindControl<Control>(other) is { } c) c.IsVisible = other == "GamesPage";
     if (main.GetVisualDescendants().OfType<Button>().FirstOrDefault(b => b.Classes.Contains("card")) is { } card)
     {

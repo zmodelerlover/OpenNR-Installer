@@ -60,6 +60,7 @@ public partial class GameSheet : UserControl
     public void Attach(MainWindow shell)
     {
         _shell = shell;
+        WireAntiCheat();
         Session.BusyChanged += () =>
         {
             Lock(Session.Busy);
@@ -142,6 +143,7 @@ public partial class GameSheet : UserControl
 
         ShowRoutes(card, graphics);
         ShowSession(card);
+        ShowAntiCheat(card);
         _ = RefreshAsync();
     }
 

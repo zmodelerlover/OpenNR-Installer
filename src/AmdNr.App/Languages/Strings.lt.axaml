@@ -1,7 +1,10 @@
-﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Lithuanian">
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceInclude Source="/Languages/NrLive/NrLive.lt.axaml" />
+  </ResourceDictionary.MergedDictionaries>
 
   <!-- Lietuvių. The same keys as Strings.en.axaml, in its order. -->
 

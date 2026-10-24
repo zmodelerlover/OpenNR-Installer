@@ -43,6 +43,12 @@
                        AutomationProperties.Name="{DynamicResource Str.Games}" Checked="OnTabChanged">
             <PathIcon Data="{StaticResource IconGames}" />
           </RadioButton>
+          <!-- NRLive, beside the games: the way in for the ones whose anti-cheat rules out an install. -->
+          <RadioButton x:Name="TabNrLive" Classes="rail" GroupName="nav"
+                       ToolTip.Tip="NRLive" ToolTip.Placement="Right"
+                       AutomationProperties.Name="NRLive" Checked="OnTabChanged">
+            <PathIcon Data="{StaticResource IconScale}" />
+          </RadioButton>
           <RadioButton x:Name="TabSystem" Classes="rail" GroupName="nav"
                        ToolTip.Tip="{DynamicResource Str.System}" ToolTip.Placement="Right"
                        AutomationProperties.Name="{DynamicResource Str.System}" Checked="OnTabChanged">
@@ -94,6 +100,7 @@
 
       <Panel Grid.Row="1" x:Name="Pages">
         <local:LibraryPage x:Name="GamesPage" />
+        <local:NrLivePage x:Name="LivePage" />
         <local:MachinePage x:Name="SystemPage" IsVisible="False" />
         <local:SettingsPage x:Name="SettingsPage" IsVisible="False" />
         <local:GameSheet x:Name="Sheet" />

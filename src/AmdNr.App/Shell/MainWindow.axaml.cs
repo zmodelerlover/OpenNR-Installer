@@ -14,6 +14,7 @@ public partial class MainWindow : Window
     public enum Page
     {
         Games,
+        NrLive,
         Machine,
         Settings,
     }
@@ -49,6 +50,7 @@ public partial class MainWindow : Window
         };
         GamesPage.Attach(this);
         SystemPage.Attach(this);
+        LivePage.Attach(this);
         SettingsPage.Attach(this);
         Sheet.Attach(this);
         Session.UpdateChanged += ShowUpdate;
@@ -163,7 +165,7 @@ public partial class MainWindow : Window
 
     public void ShowPage(Page page)
     {
-        (page switch { Page.Machine => TabSystem, Page.Settings => TabSettings, _ => TabGames }).IsChecked = true;
+        (page switch { Page.Machine => TabSystem, Page.Settings => TabSettings, Page.NrLive => TabNrLive, _ => TabGames }).IsChecked = true;
     }
 
     private void OnTabChanged(object? sender, RoutedEventArgs e)
@@ -172,6 +174,7 @@ public partial class MainWindow : Window
         // Decided by the button just checked: the one it replaces is not unchecked yet when this runs.
         GamesPage.IsVisible = sender == TabGames;
         SystemPage.IsVisible = sender == TabSystem;
+        LivePage.IsVisible = sender == TabNrLive;
         SettingsPage.IsVisible = sender == TabSettings;
         // Docked, the sheet is part of the games page and goes out of sight with it.
         if (sender != TabGames && Sheet.IsOpen && !Sheet.Docked) Sheet.Close();
@@ -194,6 +197,13 @@ public partial class MainWindow : Window
         ShowPage(Page.Games);
         Sheet.Open(card);
         GamesPage.Select(card);
+    }
+
+    /// <summary>The NRLive page with this game picked to capture: what the anti-cheat warning on its sheet leads to.</summary>
+    public void ShowNrLive(GameCard card)
+    {
+        ShowPage(Page.NrLive);
+        LivePage.ShowGame(card);
     }
 
     /// <summary>Moves the sheet into <paramref name="host"/> -- the list view's page column -- or, with
@@ -251,6 +261,7 @@ public partial class MainWindow : Window
             e.Cancel = true;
             Toast(Ui.Text("Str.CloseWhileBusy"), Level.Warn);
         }
+        else LivePage.Shutdown();
         base.OnClosing(e);
     }
 
@@ -259,6 +270,7 @@ public partial class MainWindow : Window
     {
         GamesPage.Refresh();
         SettingsPage.ShowUpdate();
+        LivePage.Relabel();
         ShowUpdate();
         if (Session.Machine is { } machine) SystemPage.Show(machine);
         Run("files", SystemPage.RefreshAsync);

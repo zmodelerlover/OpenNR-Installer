@@ -1,7 +1,10 @@
-﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.English">
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceInclude Source="/Languages/NrLive/NrLive.en.axaml" />
+  </ResourceDictionary.MergedDictionaries>
 
   <!-- The fallback language. Every other Strings.*.axaml carries the same keys; one that is missing
        falls through to whatever this file says. -->

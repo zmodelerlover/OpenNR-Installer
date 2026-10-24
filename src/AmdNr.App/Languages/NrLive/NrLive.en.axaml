@@ -1,0 +1,130 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- The NRLive page and the anti-cheat warning, in a file of their own beside Strings.en.axaml, which merges
+       it: the language files are near the line limit. Every NrLive.*.axaml has these keys, in this order. -->
+
+  <!-- The page -->
+  <sys:String x:Key="Str.NrLiveSubtitle">Plays a game in a window of its own, scaled with FSR, with frame generation and NR on top, without changing a file of the game. For games with anti-cheat, where nothing may be injected.</sys:String>
+  <sys:String x:Key="Str.NrLiveNotDownloaded">NRLive {0} is not on this PC yet</sys:String>
+  <sys:String x:Key="Str.NrLiveDownloadHint">About {0}, downloaded once into this app's folder and checked like every other file. Nothing is installed in a game.</sys:String>
+  <sys:String x:Key="Str.NrLiveDownload">Download NRLive</sys:String>
+  <sys:String x:Key="Str.NrLiveReady">NRLive {0} is ready</sys:String>
+  <sys:String x:Key="Str.NrLiveUpdate">Update to {0}</sys:String>
+  <sys:String x:Key="Str.NrLiveUpdateHint">NRLive {0} is out.</sys:String>
+  <sys:String x:Key="Str.NrLiveUnavailable">NRLive is not published for OpenNR yet</sys:String>
+  <sys:String x:Key="Str.NrLiveUnavailableHint">It arrives with a payload update, with nothing to reinstall here. Until then, it runs from its own release.</sys:String>
+  <sys:String x:Key="Str.NrLiveOpenRelease">Its releases</sys:String>
+  <sys:String x:Key="Str.NrLiveDownloadFailed">NRLive could not be downloaded: {0}</sys:String>
+  <sys:String x:Key="Str.NrLiveSessionSection">Scaling session</sys:String>
+  <sys:String x:Key="Str.NrLiveTarget">What to capture</sys:String>
+  <sys:String x:Key="Str.NrLiveTargetPicker">The window in front when the countdown ends</sys:String>
+  <sys:String x:Key="Str.NrLiveTargetWindow">A window open now</sys:String>
+  <sys:String x:Key="Str.NrLiveTargetGame">A game from the library</sys:String>
+  <sys:String x:Key="Str.NrLiveNothingToPick">Nothing to pick</sys:String>
+  <sys:String x:Key="Str.NrLiveRefresh">Read the open windows again</sys:String>
+  <sys:String x:Key="Str.NrLiveCountdown">Countdown (s)</sys:String>
+  <sys:String x:Key="Str.NrLiveScale">Scale</sys:String>
+  <sys:String x:Key="Str.NrLiveStarting">Starting · {0}</sys:String>
+  <sys:String x:Key="Str.NrLiveStop">Stop</sys:String>
+  <sys:String x:Key="Str.NrLiveTitleReady">Ready when you are</sys:String>
+  <sys:String x:Key="Str.NrLiveTitleStarting">Switch to the game</sys:String>
+  <sys:String x:Key="Str.NrLiveTitleRunning">Scaling</sys:String>
+  <sys:String x:Key="Str.NrLiveStatusReady">Press Scale, then switch to the game before the countdown ends.</sys:String>
+  <sys:String x:Key="Str.NrLiveStatusStarting">NRLive takes the game's window when the countdown ends: switch to it now.</sys:String>
+  <sys:String x:Key="Str.NrLiveStatusRunning">Stop, or {0} from inside the game, ends it.</sys:String>
+  <sys:String x:Key="Str.NrLiveStatusStopped">Stopped.</sys:String>
+  <sys:String x:Key="Str.NrLiveStatusExited">NRLive closed. Why is in NRLive.log, in its folder.</sys:String>
+  <sys:String x:Key="Str.NrLiveStartFailed">NRLive did not start: {0}</sys:String>
+  <sys:String x:Key="Str.NrLiveStopFailed">NRLive runs as administrator, out of this app's reach: press {0} to stop it.</sys:String>
+  <sys:String x:Key="Str.NrLiveRunAsAdmin">Run as administrator</sys:String>
+  <sys:String x:Key="Str.NrLiveRunAsAdminHint">A game that runs as administrator, as most with anti-cheat do, only takes input through NRLive when NRLive runs as administrator too. Windows asks each time.</sys:String>
+  <sys:String x:Key="Str.NrLiveProblemConflict">The scale, stop and overlay hotkeys must all be different.</sys:String>
+  <sys:String x:Key="Str.NrLiveProblemHotkey">A hotkey is not one NRLive can read. It takes modifiers and one key, like ctrl+alt+s.</sys:String>
+  <sys:String x:Key="Str.NrLiveProblemBypass">The passthrough keys have to be keys NRLive can read, separated by commas, like home,insert.</sys:String>
+  <sys:String x:Key="Str.NrLiveProblemTarget">Pick what to capture first.</sys:String>
+  <sys:String x:Key="Str.NrLiveHotkeyTaken">Windows would not take {0}: another app has it. Pick another combination.</sys:String>
+  <sys:String x:Key="Str.NrLiveSettingsHint">Saved in NRLive's scaleconfig.ini, which its overlay edits too. A change counts from the next time Scale is pressed.</sys:String>
+  <sys:String x:Key="Str.NrLivePictureSection">Upscaling and frames</sys:String>
+  <sys:String x:Key="Str.NrLiveNrSection">Neural rendering</sys:String>
+  <sys:String x:Key="Str.NrLiveOverlaySection">Overlay</sys:String>
+  <sys:String x:Key="Str.NrLiveMore">More settings</sys:String>
+  <sys:String x:Key="Str.NrLiveModelMissing">NR needs NVIDIA's model in dlssnr-amd, and this NRLive came without it. DLSSNR-AMD-SETUP.txt in its folder says how to extract it from your own DLL.</sys:String>
+  <sys:String x:Key="Str.NrLiveOverlay">NRLive's overlay (bar and counter)</sys:String>
+  <sys:String x:Key="Str.NrLiveCaptureSection">Capture</sys:String>
+  <sys:String x:Key="Str.NrLiveCaptureSource">Capture source</sys:String>
+  <sys:String x:Key="Str.NrLiveCaptureWgc">Windows Graphics Capture (default)</sys:String>
+  <sys:String x:Key="Str.NrLiveCaptureDxgi">DXGI, cropped to the window</sys:String>
+  <sys:String x:Key="Str.NrLiveMotion">Motion vectors</sys:String>
+  <sys:String x:Key="Str.NrLiveMotionFast">FastMV (default)</sys:String>
+  <sys:String x:Key="Str.NrLiveMotionAmdof">AMD optical flow</sys:String>
+  <sys:String x:Key="Str.NrLiveHotkeysSection">Hotkeys</sys:String>
+  <sys:String x:Key="Str.NrLiveHotkeyHint">Click a box and press the combination. Scale and stop works anywhere, the game included, while this app is open.</sys:String>
+  <sys:String x:Key="Str.NrLiveHotkeyScale">Scale and stop</sys:String>
+  <sys:String x:Key="Str.NrLiveHotkeyStop">Force stop</sys:String>
+  <sys:String x:Key="Str.NrLiveHotkeyOverlay">Overlay</sys:String>
+  <sys:String x:Key="Str.NrLiveHotkeyBypass">Passthrough keys</sys:String>
+  <sys:String x:Key="Str.NrLiveHotkeyBypassHint">Keys passed on to OptiScaler or ReShade in the game instead of to NRLive, separated by commas.</sys:String>
+  <sys:String x:Key="Str.NrLiveCredit">NRLive is made by Caliel and is free software under the GPL-3.0. Its source code:</sys:String>
+  <sys:String x:Key="Str.CreditNrLiveTitle">NRLive, by Caliel</sys:String>
+  <sys:String x:Key="Str.CreditNrLiveBody">Plays a game scaled in a window of its own, for games with anti-cheat. Free software under the GPL-3.0; its source is on GitHub.</sys:String>
+
+  <!-- The anti-cheat warning on a game's sheet -->
+  <sys:String x:Key="Str.AntiCheatTitle">{0} found in this game</sys:String>
+  <sys:String x:Key="Str.AntiCheatBody">An anti-cheat can ban the account for a DLL put in the game, and both ways to install here put one in. NRLive scales the game's window from outside, with FSR, frame generation and NR, and changes nothing in its folder.</sys:String>
+  <sys:String x:Key="Str.AntiCheatUse">Use NRLive</sys:String>
+  <sys:String x:Key="Str.AntiCheatIgnore">Ignore for this game</sys:String>
+
+  <!-- NRLive's settings, one per key of scaleconfig.ini (NrLiveConfig.Settings), and the entries of each menu -->
+  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode">Upscaler</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.0">FSR 4</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.1">FSR 3.1</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.2">None</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FSR.sharpness">Sharpness</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled">Frame generation</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FrameLimiter.enabled">Frame limit</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FrameLimiter.fps">Limit to</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FrameLimiter.method">Limiter timing</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FrameLimiter.method.0">Smooth</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FrameLimiter.method.1">Low latency</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.enabled">NR</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime">NR runtime</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.0">NRLive's own</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.1">OpenNR (mochizuki)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.model">Model</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.model.0">Original</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.model.1">New, faster</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.style">Style</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.style.0">Neutral</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.style.1">Natural</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.style.2">Cinematic</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.scale">Resolution NR runs at</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.intensity">Intensity</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.RenoDX.enabled">RenoDX look</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.passes">Passes</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.structure">Structure</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.color_strength">Colour from NR</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.local_tone">Local tone</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.max_ratio">Maximum ratio</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.skin_structure">Skin structure</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.history_strength">History strength</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.automatic_skin_mask">Find skin by itself</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.stabilizer">Stabilizer</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.enabled">Frame counter</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.position">Counter position</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.position.0">Top left</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.position.1">Top right</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.position.2">Bottom left</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.position.3">Bottom right</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu">GPU load and temperature</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.fps">Frames per second</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.frametime">Frame time</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.frame_timing">Frame time graph</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.resolution">Resolution</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.background">Background</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.text_outline">Text outline</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.font_size">Text size</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.background_alpha">Background opacity</sys:String>
+
+</ResourceDictionary>
