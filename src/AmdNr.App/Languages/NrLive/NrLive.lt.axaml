@@ -158,5 +158,9 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.pipeline">FSR, NR ir FG būsena</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.gpu_times">Kiekvieno praėjimo GPU laikas</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.scale">HUD dydis</sys:String>
+  <sys:String x:Key="Str.NrLiveCaptureHint">Kaip skaitomi žaidimo kadrai ir judesys</sys:String>
+  <sys:String x:Key="Str.NrLiveHudItems">Rodoma ekrane (spustelėkite perjungti)</sys:String>
+  <sys:String x:Key="Str.NrLiveHudPreview">HUD peržiūra</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">Vienas kadras tarp kiekvienų dviejų, kuriuos piešia žaidimas</sys:String>
 
 </ResourceDictionary>

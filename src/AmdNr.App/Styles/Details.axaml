@@ -59,4 +59,80 @@
     <Setter Property="Padding" Value="10,0" />
     <Setter Property="FontSize" Value="12" />
   </Style>
+
+  <!-- The NRLive page's settings cards: a coloured mark before the title, a rule under the header, values in a
+       small badge, nested boxes a step darker than the card, and the HUD items as tiles tinted when on. -->
+  <Style Selector="Border.nrCard"><Setter Property="Padding" Value="16,12" /></Style>
+  <Style Selector="Border.nrCard ComboBox, Border.nrGroup ComboBox"><Setter Property="MinHeight" Value="32" /></Style>
+  <Style Selector="Border.nrHead">
+    <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
+    <Setter Property="BorderThickness" Value="0,0,0,1" />
+    <Setter Property="Padding" Value="0,0,0,8" />
+    <Setter Property="Margin" Value="0,0,0,10" />
+    <!-- Tall enough for a switch, so every card's rule sits at the same height whatever its header carries. -->
+    <Setter Property="MinHeight" Value="42" />
+  </Style>
+  <Style Selector="Border.nrBar">
+    <Setter Property="Width" Value="4" />
+    <Setter Property="Height" Value="16" />
+    <Setter Property="CornerRadius" Value="2" />
+    <Setter Property="Margin" Value="0,0,10,0" />
+    <Setter Property="Background" Value="{DynamicResource AccentHover}" />
+  </Style>
+  <Style Selector="Border.nrBar.ok"><Setter Property="Background" Value="{DynamicResource Ok}" /></Style>
+  <Style Selector="TextBlock.nrTitle">
+    <Setter Property="FontSize" Value="14" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+  </Style>
+  <Style Selector="Border.nrBadge, Border.nrValue">
+    <Setter Property="Background" Value="{DynamicResource Bg}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="6" />
+    <Setter Property="Padding" Value="7,2" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+  </Style>
+  <Style Selector="Border.nrBadge TextBlock">
+    <Setter Property="FontSize" Value="11" />
+    <Setter Property="Foreground" Value="{DynamicResource Muted}" />
+  </Style>
+  <Style Selector="Border.nrValue TextBlock">
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+  </Style>
+  <Style Selector="Border.nrPanel, Border.nrGroup">
+    <Setter Property="Background" Value="{DynamicResource Bg}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="10" />
+    <Setter Property="Padding" Value="12,10" />
+  </Style>
+  <Style Selector="Border.nrGroup"><Setter Property="Padding" Value="12,3,4,3" /></Style>
+  <Style Selector="TextBlock.keyName">
+    <Setter Property="Margin" Value="10,0,8,0" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+  </Style>
+  <Style Selector="Border.nrTile">
+    <Setter Property="Background" Value="{DynamicResource SurfaceHigh}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="8" />
+    <Setter Property="Padding" Value="10,2,6,2" />
+    <Setter Property="Cursor" Value="Hand" />
+  </Style>
+  <Style Selector="Border.nrTile.on">
+    <Setter Property="Background" Value="{DynamicResource AccentSoft}" />
+    <Setter Property="BorderBrush" Value="#99A61C22" />
+  </Style>
+  <Style Selector="Border.nrPreview">
+    <Setter Property="Background" Value="{DynamicResource Rail}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="8" />
+    <Setter Property="Padding" Value="12,7" />
+  </Style>
+  <Style Selector="Expander.nrMore"><Setter Property="Margin" Value="0,12,0,0" /></Style>
+  <Style Selector="Expander.nrMore /template/ ToggleButton#ExpanderHeader"><Setter Property="MinHeight" Value="36" /></Style>
 </Styles>

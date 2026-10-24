@@ -21,7 +21,7 @@ NRLive itself (`E:\Projetos\opti_rr_dlss5\NRLive`, main fa859d3, 2.2.0) was only
   - **Hotkeys**: scale-and-stop (registered with Windows by this app, works from inside the game while the app is open),
     force stop, overlay, passthrough keys. A box takes the combination pressed in it; conflicts and unreadable keys hold Scale
     back and say why.
-  - **Footer**: "NRLive is made by Caliel ... GPL-3.0", link to github.com/Caliel666/NRLive. Also a row in the credits panel
+  - **Credit**: "NRLive is made by Caliel ... GPL-3.0", link to github.com/Caliel666/NRLive, in the title row. Also a row in the credits panel
     (first-run wizard and Settings > About).
 - **Anti-cheat warning on the game sheet**: when the game folder (or the executable's folder, when outside it) has an
   anti-cheat, a warning card under the result banner: what was found, why an install risks the account, "Use NRLive" (opens the
@@ -121,12 +121,49 @@ Source: NRLive branch `nrlive-overlay-on-runtime` (`E:\Projetos\opti_rr_dlss5\wt
   flows all OK, 0 failed gates.
 - **Not tested**: the page against the real stacked NRLive.exe (it is not packaged as a release zip yet).
 
+## Layout (2026-10-24, three columns)
+
+From `handoff/mockup-nrlive-three-columns.png` (a concept the user liked). The page fits the default window
+(1240x800) without a scrollbar once NRLive is ready; the ScrollViewer (`PageScroll`) stays for smaller windows.
+
+- **Title row**: "NRLive" + an i with the old subtitle as tooltip, the GPL credit line (trims on narrow windows, the
+  github link never does), and, when NRLive is installed and current, a slim "NRLive x is ready" + Open folder
+  (`PackageSlim`). The full package card shows only for not published / download / downloading / update. The old
+  footer callout is gone (the credit moved up).
+- **Session + hotkeys card**: labels before the menus (not over them); the target menu spans the item menu's room
+  when there is nothing to pick; status is one line (small tile, title, text) with countdown and Scale at its end;
+  hotkey boxes carry their names inside (`TextBox.InnerLeftContent`), 4 across, 2 under 720 px.
+- **Capture strip**: icon tile, title + i (the old settings hint `Str.NrLiveSettingsHint` as its tooltip), subtitle
+  `Str.NrLiveCaptureHint`, and the two menus each in a bordered group (`nrGroup`) on the right; under the
+  three-column width they move under the title.
+- **Three cards** (`SettingsGrid`): Upscaling and frames | Neural rendering | Overlay, equal height (one Auto row),
+  "More settings" docked at each card's foot. Header: accent bar (`nrBar`, red; `.ok` green for Overlay), title, and
+  on the right the GPU badge (`ShowMachine`: "RDNA 4" or the adapter name, from the machine read at start), the
+  [DLSSNR] enabled switch, or the profile's overlay switch. `Arrange()` in NrLivePage.axaml.cs: 3 across at >= 1000 px
+  of page width, 2 across with Overlay under both at >= 620, else 1.
+- **Rows are still table-driven** (`NrLivePage.Rows.cs`, `Lay()`), from new init properties on `NrLiveSetting`:
+  `Layout` (`Row`, `Header` = the card's header switch, `Half` = menus two to a line with captions over them,
+  `Tile` = HUD item tiles, 2 across, the whole tile toggles, tinted when on), `Panel` (consecutive settings with the
+  same name share a nested `nrPanel`; a toggle first heads it and greys the rest while off: Frame limit, NR
+  intensity/passes or the bridge's scale/intensity), `Hint` (one muted line under a switch, `<LabelKey>.Hint`, full
+  text in its tooltip; only frame generation has one), `Sample` (what a HUD item draws, for the preview strip under
+  the tiles; the pipeline item is built from upscaler + NR + FG, everything empty when [FPS] enabled is off).
+  Sliders: label + value badge (`nrValue`) on one line, the slider full width under them. Choices: combo at the end
+  (180 px). The [FPS] rows were reordered (preset, position, then enabled + items) so the halves and tiles run together.
+- Each built control has `Tag = setting.Id` (and the upscaler `cli.upscaler`); the flow finds rows by it.
+- **Styles**: `Styles/Details.axaml` (`nrCard`, `nrHead`, `nrBar`, `nrTitle`, `nrBadge`, `nrValue`, `nrPanel`,
+  `nrGroup`, `nrTile`, `nrPreview`, `nrMore`, `keyName`); Base.axaml is at its 500 lines. `IconCapture` in Icons.axaml.
+- **Strings**: 4 new in all 21 languages: `Str.NrLiveCaptureHint`, `Str.NrLiveHudItems`, `Str.NrLiveHudPreview`,
+  `Str.NrLiveSet.FrameGeneration.enabled.Hint`; the strings test checks a `Hint` setting has its key.
+- **uishot**: `flow-nrlive-default` (1240x800, OpenNR stand-in with a model file, checks the page extent fits the
+  viewport and three cards across) and `flow-nrlive-narrow` (980x620, two across, Overlay under them). Known: at
+  1240 the overlay tiles trim long labels ("FSR, NR and F...", tooltip has the full name); at 1920 they fit.
 ## Files
 
 New:
 - `src/AmdNr.Core/Library/AntiCheat.cs`, `src/AmdNr.Core/NrLive/NrLivePackage.cs`, `NrLiveConfig.cs`, `NrLiveProfile.cs`,
   `src/AmdNr.Core/Payload/PayloadManifest.NrLive.cs`
-- `src/AmdNr.App/NrLive/NrLivePage.axaml(.cs)`, `NrLivePage.Session.cs`, `NrLivePage.Settings.cs`, `NrLiveNative.cs`
+- `src/AmdNr.App/NrLive/NrLivePage.axaml(.cs)`, `NrLivePage.Session.cs`, `NrLivePage.Settings.cs`, `NrLivePage.Rows.cs`, `NrLiveNative.cs`
   (window list, `GlobalHotkey` on its own thread, SendInput)
 - `src/AmdNr.App/Sheet/AntiCheatCard.axaml(.cs)`, `GameSheet.AntiCheat.cs`
 - `src/AmdNr.App/Languages/NrLive/NrLive.<code>.axaml` x21 (merged by each `Strings.<code>.axaml`, which are near the line limit)
@@ -164,6 +201,9 @@ settings: `Str.NrLiveSet.<Section>.<key>` for every row of `NrLiveConfig.Setting
   Screenshots: `C:\Users\matheus\AppData\Local\Temp\amdnr-gate-8f76cdc74a6d4c6e8fc7c7de2f31cfc3\shots` (temp folder; rerun the
   gate to regenerate). The page: `live-<size>.png` / `live-<size>-end.png` (also `-pt`); the flow: `flow-nrlive-unavailable`,
   `flow-nrlive-offered`, `flow-nrlive-ready`, `flow-nrlive-conflict`, `flow-anticheat-warning`, `flow-nrlive-game-picked`.
+- `tools\gate.ps1 -Ui` after the three-column layout (2026-10-24): all gates OK. Screenshots in
+  `C:\Users\matheus\AppData\Local\Temp\amdnr-gate-6dd0863a3f0843eba12664274a14a38d\shots` (`flow-nrlive-default.png`,
+  `flow-nrlive-narrow.png`, `live-*`).
 - Translations of the 20 other languages were written by sub-agents from each language's existing Strings file; worth a native
   read where possible (notes: "Scale" button wording, informal/formal "you" follows each Strings file, Pirate says "Belay" for Stop).
 - Not tested against a real NRLive.exe (no published build here): launching, the countdown, elevated stop via the stop key, and

@@ -158,5 +158,9 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.pipeline">FSR・NR・FG の状態</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.gpu_times">パスごとの GPU 時間</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.scale">HUD のサイズ</sys:String>
+  <sys:String x:Key="Str.NrLiveCaptureHint">ゲームのフレームと動きの読み取り方</sys:String>
+  <sys:String x:Key="Str.NrLiveHudItems">画面に表示（クリックで切り替え）</sys:String>
+  <sys:String x:Key="Str.NrLiveHudPreview">HUD のプレビュー</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">ゲームが描く 2 フレームごとの間に 1 フレームを生成</sys:String>
 
 </ResourceDictionary>

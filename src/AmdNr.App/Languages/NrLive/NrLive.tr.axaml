@@ -158,5 +158,9 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.pipeline">FSR, NR ve FG durumu</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.gpu_times">Her geçişin GPU süresi</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.scale">HUD boyutu</sys:String>
+  <sys:String x:Key="Str.NrLiveCaptureHint">Oyunun kareleri ve hareketi nasıl okunur</sys:String>
+  <sys:String x:Key="Str.NrLiveHudItems">Ekranda gösterilenler (değiştirmek için tıklayın)</sys:String>
+  <sys:String x:Key="Str.NrLiveHudPreview">HUD önizlemesi</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">Oyunun çizdiği her iki kare arasına bir kare</sys:String>
 
 </ResourceDictionary>

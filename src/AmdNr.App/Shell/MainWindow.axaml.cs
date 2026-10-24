@@ -76,6 +76,7 @@ public partial class MainWindow : Window
         var machine = await Session.ReadMachineAsync();
         GameCard.Rdna4 = machine.Rdna4 == true;
         GamesPage.ShowMachine(machine);
+        LivePage.ShowMachine(machine);
         SystemPage.Show(machine);
 
         await Session.LoadManifestAsync();

@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.Json.Nodes;
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.LogicalTree;
 using Avalonia.VisualTree;
 using AmdNr.App;
 using AmdNr.Core;
@@ -22,6 +23,8 @@ internal static class NrLiveFlow
         string S(string key) => main.FindResource(key) as string ?? key;
         var page = main.GetVisualDescendants().OfType<NrLivePage>().First();
         T Named<T>(string name) where T : Control => page.FindControl<T>(name)!;
+        // A setting's control, by the id the page tags it with; null while the setting is not laid out.
+        Control? Setting(string id) => page.GetLogicalDescendants().OfType<Control>().FirstOrDefault(c => c.Tag as string == id);
         var title = Named<TextBlock>("PackageTitle");
         var button = Named<Button>("PackageButton");
         var payload = Path.Combine(AppPaths.Root, "payload.json");
@@ -50,8 +53,7 @@ internal static class NrLiveFlow
         check(Named<Border>("ModelBox").IsVisible, "and says NR has no model without one");
 
         // A setting is a row, written to scaleconfig.ini when it changes.
-        var picture = Named<StackPanel>("PictureRows");
-        var frameGeneration = (ToggleSwitch)((Grid)picture.Children[1]).Children[1];
+        var frameGeneration = (ToggleSwitch)Setting("FrameGeneration.enabled")!;
         frameGeneration.IsChecked = true;
         until(() => false, 1);
         check(NrLiveConfig.Load(NrLivePackage.Folder).Get(NrLiveConfig.Settings.First(s => s.Id == "FrameGeneration.enabled")) == 1,
@@ -59,10 +61,10 @@ internal static class NrLiveFlow
         save(main, "flow-nrlive-ready");
 
         // A key only a newer NRLive reads shows up once the NRLive.exe in the folder reads it.
-        check(picture.Children.Count == 4, $"the upscaler choice is hidden while NRLive does not read it ({picture.Children.Count} rows)");
+        check(Setting(NrLiveConfig.UpscalerId) is null && Setting("FSR.sharpness") is Slider, "the upscaler choice is hidden while NRLive does not read it");
         File.WriteAllBytes(NrLivePackage.Exe, [.. exe, .. Encoding.Unicode.GetBytes("--upscaler\0")]);
         page.Show();
-        check(Named<StackPanel>("PictureRows").Children.Count == 5, "and appears once it does");
+        check(Setting(NrLiveConfig.UpscalerId) is ComboBox, "and appears once it does");
 
         // An NRLive with OpenNR's runtime beside it: the [OpenNR] rows in place of the bridge's, the HUD's preset, and
         // the model looked for where the runtime reads it.
@@ -72,11 +74,36 @@ internal static class NrLiveFlow
         Directory.CreateDirectory(Path.GetDirectoryName(runtime)!);
         File.WriteAllBytes(runtime, exe);
         page.Show();
-        var nr = Named<StackPanel>("NrRows");
-        check(nr.Children.Count == 6 && Named<TextBlock>("ModelText").Text == S("Str.NrLiveModelMissingOpenNr"),
-            $"with OpenNR's runtime the NR card has its rows and asks for the model in opennr ({nr.Children.Count} rows)");
-        check(Named<StackPanel>("OverlayRows").Children.Count == 7, "and the HUD has its preset, position and items");
+        string[] openNrRows = ["DLSSNR.runtime", "OpenNR.MochizukiOriginalModel", "OpenNR.MochizukiRenoStyle", "OpenNR.MochizukiRenoIntensity", "OpenNR.MochizukiRenoPasses"];
+        check(openNrRows.All(id => Setting(id) is not null) && Setting("DLSSNR.style") is null
+              && Named<TextBlock>("ModelText").Text == S("Str.NrLiveModelMissingOpenNr"),
+            "with OpenNR's runtime the NR card has its rows and asks for the model in opennr");
+        check(Named<ContentControl>("NrHead").Content is not null && Setting("DLSSNR.enabled")?.FindAncestorOfType<ContentControl>() == Named<ContentControl>("NrHead"),
+            "NR's own switch heads its card");
+        string[] tiles = ["FPS.enabled", "FPS.pipeline", "FPS.gpu_load", "FPS.gpu_temp"];
+        check(Setting("FPS.preset") is ComboBox && tiles.All(id => Setting(id)?.FindAncestorOfType<Border>() is { } b && b.Classes.Contains("nrTile")),
+            "and the HUD has its preset, position and items as tiles");
         save(main, "flow-nrlive-opennr");
+
+        // With the model in place, the whole page fits the window's default size, three cards across; narrower,
+        // two across with the overlay under them, and the page scrolls.
+        var models = Path.Combine(Path.GetDirectoryName(runtime)!, "dlssnr-amd");
+        Directory.CreateDirectory(models);
+        File.WriteAllBytes(Path.Combine(models, "dlssnr.bin"), [0]);
+        page.Show();
+        (main.Width, main.Height) = (1240, 800);
+        until(() => false, 1);
+        var scroll = Named<ScrollViewer>("PageScroll");
+        check(scroll.Extent.Height <= scroll.Viewport.Height + 1 && Grid.GetColumn(Named<Border>("OverlayCard")) == 4,
+            $"at 1240x800 the page fits without scrolling, three cards across (extent {scroll.Extent.Height:0}, viewport {scroll.Viewport.Height:0})");
+        save(main, "flow-nrlive-default");
+        (main.Width, main.Height) = (980, 620);
+        until(() => false, 1);
+        check(Grid.GetColumn(Named<Border>("OverlayCard")) == 0 && Grid.GetRow(Named<Border>("OverlayCard")) == 2,
+            "at the narrowest window the cards go two across, the overlay under them");
+        save(main, "flow-nrlive-narrow");
+        (main.Width, main.Height) = (1240, 820);
+        until(() => false, 1);
         Directory.Delete(Path.GetDirectoryName(runtime)!, recursive: true);
         page.Show();
 

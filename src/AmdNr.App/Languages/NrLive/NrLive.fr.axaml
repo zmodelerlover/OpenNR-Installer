@@ -158,5 +158,9 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.pipeline">État de FSR, NR et FG</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.gpu_times">Temps GPU de chaque passe</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.scale">Taille du HUD</sys:String>
+  <sys:String x:Key="Str.NrLiveCaptureHint">Comment les images et le mouvement du jeu sont lus</sys:String>
+  <sys:String x:Key="Str.NrLiveHudItems">À l&apos;écran (cliquez pour basculer)</sys:String>
+  <sys:String x:Key="Str.NrLiveHudPreview">Aperçu du HUD</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">Une image créée entre chaque paire que le jeu dessine</sys:String>
 
 </ResourceDictionary>

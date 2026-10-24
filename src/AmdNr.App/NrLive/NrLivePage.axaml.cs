@@ -1,7 +1,8 @@
 // The NRLive page: Caliel's window scaler, run from here instead of from its own launcher, for the games whose
 // anti-cheat rules out anything injected. Split like the game sheet: getting NRLive and the page itself here,
-// the session -- what to capture, the countdown, the process and its hotkey -- in NrLivePage.Session.cs, and
-// its settings and hotkey boxes in NrLivePage.Settings.cs. What it writes and runs is in AmdNr.Core\NrLive.
+// the session -- what to capture, the countdown, the process and its hotkey -- in NrLivePage.Session.cs, its
+// settings and hotkey boxes in NrLivePage.Settings.cs, and the pieces the settings are built of in
+// NrLivePage.Rows.cs. What it writes and runs is in AmdNr.Core\NrLive.
 
 using System.Diagnostics;
 using Avalonia.Controls;
@@ -28,6 +29,9 @@ public partial class NrLivePage : UserControl
         foreach (var seconds in new[] { 3, 5, 10, 15, 20, 30 }) DelayBox.Items.Add(seconds);
         foreach (var box in new[] { ScaleKeyBox, StopKeyBox, OverlayKeyBox })
             box.AddHandler(KeyDownEvent, OnHotkeyKey, Avalonia.Interactivity.RoutingStrategies.Tunnel);
+        // The four hotkey boxes across when each gets room for a combination, two by two when not.
+        HotkeyGrid.SizeChanged += (_, e) => HotkeyGrid.Columns = e.NewSize.Width >= 720 ? 4 : 2;
+        SettingsGrid.SizeChanged += (_, e) => Arrange(e.NewSize.Width);
         IsVisible = false;
         PropertyChanged += (_, e) =>
         {
@@ -42,6 +46,41 @@ public partial class NrLivePage : UserControl
         Session.ManifestChanged += ShowPackage;
         Session.BusyChanged += ShowPackage;
         Show();
+    }
+
+    /// <summary>The card the machine read found, on the upscaling card: FSR 4 is an RX 9000's.</summary>
+    public void ShowMachine(SystemState state)
+    {
+        GpuText.Text = state.Rdna4 == true ? "RDNA 4" : state.Gpu;
+        ToolTip.SetTip(GpuBadge, state.Gpu);
+        GpuBadge.IsVisible = state.Gpu != "unknown";
+    }
+
+    private int _columns;
+
+    /// <summary>The settings cards three across when each gets room for a menu beside its label, two across with
+    /// the overlay under both when not, one under another on a window narrower still. The capture strip's menus go
+    /// under its title at the same point, where they would no longer fit beside it.</summary>
+    private void Arrange(double width)
+    {
+        var columns = width >= 1000 ? 3 : width >= 620 ? 2 : 1;
+        if (columns == _columns) return;
+        _columns = columns;
+        SettingsGrid.ColumnDefinitions = new(columns switch { 3 => "*,16,*,16,*", 2 => "*,16,*", _ => "*" });
+        SettingsGrid.RowDefinitions = new(columns switch { 3 => "Auto", 2 => "Auto,16,Auto", _ => "Auto,16,Auto,16,Auto" });
+        Control[] cards = [PictureCard, NrCard, OverlayCard];
+        for (var i = 0; i < cards.Length; i++)
+        {
+            var (column, row, span) = columns switch { 3 => (i * 2, 0, 1), 2 => i < 2 ? (i * 2, 0, 1) : (0, 2, 3), _ => (0, i * 2, 1) };
+            Grid.SetColumn(cards[i], column);
+            Grid.SetRow(cards[i], row);
+            Grid.SetColumnSpan(cards[i], span);
+        }
+        var wide = columns == 3;
+        Grid.SetRow(CaptureGroup, wide ? 0 : 1);
+        Grid.SetRow(MotionGroup, wide ? 0 : 1);
+        Grid.SetColumn(CaptureGroup, wide ? 2 : 1);
+        CaptureGroup.Margin = MotionGroup.Margin = new Avalonia.Thickness(0, wide ? 0 : 10, 0, 0);
     }
 
     /// <summary>The installed release, or null.</summary>
@@ -77,6 +116,12 @@ public partial class NrLivePage : UserControl
         var installed = NrLivePackage.InstalledVersion();
         var current = release is not null && NrLivePackage.IsCurrent(release);
         Controls.IsEnabled = installed is not null;
+        // Here and current, it is one line beside the title; the card is for something to do.
+        var slim = installed is not null && (current || release is null) && !_downloading;
+        PackageCard.IsVisible = !slim;
+        PackageSlim.IsVisible = slim;
+        if (slim) PackageSlimText.Text = Ui.Format("Str.NrLiveReady", installed);
+        ToolTip.SetTip(PackageSlimText, NrLivePackage.Folder);
         FolderButton.IsVisible = installed is not null;
         ReleasesButton.IsVisible = release is null && installed is null;
         PackageButton.IsVisible = release is not null && !current;

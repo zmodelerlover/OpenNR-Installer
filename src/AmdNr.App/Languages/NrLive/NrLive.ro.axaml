@@ -158,5 +158,9 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.pipeline">Starea FSR, NR și FG</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.gpu_times">Timpul GPU al fiecărei treceri</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.scale">Mărime HUD</sys:String>
+  <sys:String x:Key="Str.NrLiveCaptureHint">Cum sunt citite cadrele și mișcarea jocului</sys:String>
+  <sys:String x:Key="Str.NrLiveHudItems">Pe ecran (clic pentru a comuta)</sys:String>
+  <sys:String x:Key="Str.NrLiveHudPreview">Previzualizare HUD</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">Un cadru creat între fiecare două desenate de joc</sys:String>
 
 </ResourceDictionary>

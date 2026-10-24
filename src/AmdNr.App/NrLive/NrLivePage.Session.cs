@@ -57,6 +57,8 @@ public partial class NrLivePage
         _setting = true;
         var mode = TargetModeBox.SelectedIndex;
         TargetItemSection.IsVisible = mode > 0;
+        // With nothing to pick, the first menu takes the second's room too: its entry is the longest of the three.
+        Grid.SetColumnSpan(TargetModeSection, mode > 0 ? 1 : 3);
         RefreshButton.IsVisible = mode == 1;
         TargetItemLabel.Text = Ui.Text(mode == 1 ? "Str.NrLiveTargetWindow" : "Str.NrLiveTargetGame");
         TargetItemBox.Items.Clear();

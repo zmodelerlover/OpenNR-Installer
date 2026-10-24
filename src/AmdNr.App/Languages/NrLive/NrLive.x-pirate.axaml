@@ -158,5 +158,9 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.pipeline">FSR, NR an' FG state</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.gpu_times">GPU time o' each pass</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.scale">HUD size</sys:String>
+  <sys:String x:Key="Str.NrLiveCaptureHint">How the game&apos;s frames an&apos; motion be read</sys:String>
+  <sys:String x:Key="Str.NrLiveHudItems">Shown on yer screen (click to hoist or strike)</sys:String>
+  <sys:String x:Key="Str.NrLiveHudPreview">Spyglass on the HUD</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">One frame forged betwixt every two the game draws</sys:String>
 
 </ResourceDictionary>

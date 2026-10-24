@@ -1,9 +1,8 @@
-// NRLive's settings, laid out from NrLiveConfig.Settings: a switch, a slider or a menu per key, written to
-// scaleconfig.ini the moment it changes. A key newer NRLive builds read shows up by itself once the NRLive.exe
+// NRLive's settings, laid out from NrLiveConfig.Settings into the three cards (the pieces are in NrLivePage.Rows.cs),
+// written to scaleconfig.ini the moment they change. A key newer NRLive builds read shows up by itself once the NRLive.exe
 // in the folder reads it, so nothing here changes when one lands. And the hotkey boxes, which take the
 // combination pressed in them, in the words NRLive reads ("ctrl+alt+s").
 
-using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -20,18 +19,21 @@ public partial class NrLivePage
     {
         var folder = NrLivePackage.Folder;
         _config = NrLiveConfig.Load(folder);
+        _preview = null;
         var supported = NrLiveConfig.Supported(NrLivePackage.Exe);
         foreach (var rows in new[] { PictureRows, PictureMoreRows, NrRows, NrMoreRows, OverlayRows, OverlayMoreRows }) rows.Children.Clear();
-        // NRLive's overlay as a whole, the bar and the counter, is a switch on its command line rather than a key.
-        OverlayRows.Children.Add(Row("Str.NrLiveOverlay", Switch(!_profile.NoOverlay, on =>
+        NrHead.Content = null;
+        // NRLive's overlay as a whole, the bar and the counter, is a switch on its command line rather than a key,
+        // and heads the overlay card: off, nothing else in it is drawn.
+        OverlayHead.Content = HeadSwitch("Str.NrLiveOverlay", Switch(!_profile.NoOverlay, on =>
         {
             _profile.NoOverlay = !on;
             SaveProfile();
-        })));
+        }));
         // The upscaler is a choice on NRLive's command line, kept in the profile as its launcher keeps it.
         if (supported.Contains(NrLiveConfig.UpscalerId))
         {
-            var upscaler = new ComboBox { Width = 240, HorizontalAlignment = HorizontalAlignment.Right };
+            var upscaler = new ComboBox { Width = 180, HorizontalAlignment = HorizontalAlignment.Right, Tag = NrLiveConfig.UpscalerId };
             for (var i = 0; i < NrLiveConfig.Upscalers.Length; i++) upscaler.Items.Add(Ui.Text($"Str.NrLiveUpscaler.{i}"));
             upscaler.SelectedIndex = Math.Max(0, Array.IndexOf(NrLiveConfig.Upscalers, _profile.Upscaler));
             upscaler.SelectionChanged += (_, _) =>
@@ -39,19 +41,22 @@ public partial class NrLivePage
                 if (upscaler.SelectedIndex < 0) return;
                 _profile.Upscaler = NrLiveConfig.Upscalers[upscaler.SelectedIndex];
                 SaveProfile();
+                ShowPreview();
             };
             PictureRows.Children.Add(Row("Str.NrLiveUpscaler", upscaler));
         }
         var tags = _config.Tags(folder, supported);
-        foreach (var setting in NrLiveConfig.Settings.Where(s => NrLiveConfig.Shown(s, supported, tags)))
+        var shown = NrLiveConfig.Settings.Where(s => NrLiveConfig.Shown(s, supported, tags)).ToList();
+        foreach (var (group, rows, more, head) in new[]
+                 { ("picture", PictureRows, PictureMoreRows, (ContentControl?)null), ("nr", NrRows, NrMoreRows, NrHead), ("overlay", OverlayRows, OverlayMoreRows, OverlayHead) })
         {
-            var rows = (setting.Group, setting.Advanced) switch
-            {
-                ("picture", false) => PictureRows, ("picture", true) => PictureMoreRows,
-                ("nr", false) => NrRows, ("nr", true) => NrMoreRows,
-                (_, false) => OverlayRows, _ => OverlayMoreRows,
-            };
-            rows.Children.Add(Row(setting.LabelKey, Control(setting)));
+            var mine = shown.Where(s => s.Group == group).ToList();
+            // A header switch where the card has room for one, a row where it has not.
+            var heading = mine.Where(s => s.Layout == NrLiveLayout.Header && head is not null && head.Content is null).Take(1).ToList();
+            foreach (var s in heading) head!.Content = HeadSwitch(s.LabelKey, Control(s));
+            Lay(rows, mine.Where(s => !s.Advanced && !heading.Contains(s)).ToList(), main: true);
+            Lay(more, mine.Where(s => s.Advanced).ToList(), main: false);
+            if (mine.Any(s => s.Sample is not null)) rows.Children.Add(Preview());
         }
         PictureMore.IsVisible = PictureMoreRows.Children.Count > 0;
         NrMore.IsVisible = NrMoreRows.Children.Count > 0;
@@ -64,64 +69,6 @@ public partial class NrLivePage
         ModelBox.IsVisible = Installed && !File.Exists(Path.Combine(model, "dlssnr.bin")) && !File.Exists(Path.Combine(model, "dlssnr-small.bin"));
         Ui.Localize(ModelText, openNr ? "Str.NrLiveModelMissingOpenNr" : "Str.NrLiveModelMissing");
     }
-
-    private Control Control(NrLiveSetting setting)
-    {
-        var value = _config!.Get(setting);
-        void Store(int v)
-        {
-            _config.Set(setting, v);
-            try { _config.Save(); }
-            catch (Exception e) when (e is IOException or UnauthorizedAccessException) { }
-            // The runtime decides which NR rows apply, and a preset rewrites the HUD items: lay the rows out again.
-            if (setting.Id is "DLSSNR.runtime" or "FPS.preset" || (setting.Section == "FPS" && setting.Kind == NrLiveKind.Toggle))
-                Avalonia.Threading.Dispatcher.UIThread.Post(ShowSettings);
-        }
-        switch (setting.Kind)
-        {
-            case NrLiveKind.Toggle:
-                return Switch(value != 0, on => Store(on ? 1 : 0));
-            case NrLiveKind.Choice:
-                var menu = new ComboBox { Width = 240, HorizontalAlignment = HorizontalAlignment.Right };
-                for (var i = 0; i < setting.Choices; i++) menu.Items.Add(Ui.Text(setting.ChoiceKey(i)));
-                menu.SelectedIndex = value;
-                menu.SelectionChanged += (_, _) => { if (menu.SelectedIndex >= 0) Store(menu.SelectedIndex); };
-                AutomationProperties.SetName(menu, Ui.Text(setting.LabelKey));
-                return menu;
-            default:
-                var shown = new TextBlock { Width = 64, TextAlignment = Avalonia.Media.TextAlignment.Right, VerticalAlignment = VerticalAlignment.Center };
-                var slider = new Slider
-                {
-                    Width = 200, Minimum = setting.Min, Maximum = setting.Max, Value = value,
-                    IsSnapToTickEnabled = true, TickFrequency = 1, VerticalAlignment = VerticalAlignment.Center,
-                };
-                AutomationProperties.SetName(slider, Ui.Text(setting.LabelKey));
-                shown.Text = value + setting.Unit;
-                // Written when the slider is let go of rather than on every step it passes through.
-                slider.ValueChanged += (_, e) => shown.Text = (int)e.NewValue + setting.Unit;
-                slider.AddHandler(PointerCaptureLostEvent, (_, _) => Store((int)slider.Value), RoutingStrategies.Bubble, true);
-                slider.AddHandler(KeyUpEvent, (_, _) => Store((int)slider.Value), RoutingStrategies.Bubble, true);
-                return new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8, Children = { slider, shown } };
-        }
-    }
-
-    private static ToggleSwitch Switch(bool on, Action<bool> changed)
-    {
-        var toggle = new ToggleSwitch { IsChecked = on, OnContent = "", OffContent = "", MinWidth = 0, HorizontalAlignment = HorizontalAlignment.Right };
-        toggle.IsCheckedChanged += (_, _) => changed(toggle.IsChecked == true);
-        return toggle;
-    }
-
-    /// <summary>A label at one end and its control at the other, as the settings page lays out its rows.</summary>
-    private static Grid Row(string labelKey, Control control)
-    {
-        var label = new TextBlock { TextWrapping = Avalonia.Media.TextWrapping.Wrap, VerticalAlignment = VerticalAlignment.Center, Margin = new Avalonia.Thickness(0, 0, 16, 0) };
-        Ui.Localize(label, labelKey);
-        if (control is ToggleSwitch or ComboBox) AutomationProperties.SetName(control, Ui.Text(labelKey));
-        Grid.SetColumn(control, 1);
-        return new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), Children = { label, control } };
-    }
-
     // -- Hotkeys -----------------------------------------------------------------------------------------
 
     /// <summary>The combination pressed in a hotkey box, in NRLive's words: modifiers, then one key it reads.</summary>

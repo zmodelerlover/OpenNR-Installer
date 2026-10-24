@@ -11,6 +11,10 @@ namespace AmdNr.Core;
 
 public enum NrLiveKind { Toggle, Range, Choice }
 
+/// <summary>Where a row sits in its card: a row of its own, the switch in the card's header, a menu sharing a
+/// line with the next one, or a tile in the grid of HUD items.</summary>
+public enum NrLiveLayout { Row, Header, Half, Tile }
+
 /// <summary>One key of scaleconfig.ini. <paramref name="Group"/> is the card it sits in ("picture", "nr",
 /// "overlay"); <paramref name="Choices"/> is how many entries a menu has, each labelled by
 /// <see cref="ChoiceKey"/>; an advanced one sits behind "More settings".
@@ -25,6 +29,20 @@ public sealed record NrLiveSetting(string Group, string Section, string Key, NrL
     public string Id => $"{Section}.{Key}";
     public string LabelKey => $"Str.NrLiveSet.{Section}.{Key}";
     public string ChoiceKey(int value) => $"{LabelKey}.{value}";
+
+    public NrLiveLayout Layout { get; init; }
+
+    /// <summary>Rows that share a panel sit together in a nested box; when the first of them is a switch, it heads
+    /// the box and the rest only apply while it is on.</summary>
+    public string? Panel { get; init; }
+
+    /// <summary>A line under the label, <see cref="HintKey"/>, for a switch whose name alone does not say enough.</summary>
+    public bool Hint { get; init; }
+
+    public string HintKey => $"{LabelKey}.Hint";
+
+    /// <summary>What a HUD item draws, for the page's preview of the HUD: made-up numbers in its shape.</summary>
+    public string? Sample { get; init; }
 }
 
 public sealed class NrLiveConfig
@@ -67,18 +85,18 @@ public sealed class NrLiveConfig
     public static readonly IReadOnlyList<NrLiveSetting> Settings =
     [
         new("picture", "FSR", "sharpness", NrLiveKind.Range, 65, 0, 100, Unit: "%"),
-        new("picture", "FrameGeneration", "enabled", NrLiveKind.Toggle, 0),
-        new("picture", "FrameLimiter", "enabled", NrLiveKind.Toggle, 0),
-        new("picture", "FrameLimiter", "fps", NrLiveKind.Range, 60, 15, 500, Unit: " fps"),
+        new("picture", "FrameGeneration", "enabled", NrLiveKind.Toggle, 0) { Hint = true },
+        new("picture", "FrameLimiter", "enabled", NrLiveKind.Toggle, 0) { Panel = "limit" },
+        new("picture", "FrameLimiter", "fps", NrLiveKind.Range, 60, 15, 500, Unit: " fps") { Panel = "limit" },
         new("picture", "FrameLimiter", "method", NrLiveKind.Choice, 0, Choices: 2, Advanced: true),
 
-        new("nr", "DLSSNR", "enabled", NrLiveKind.Toggle, 0),
+        new("nr", "DLSSNR", "enabled", NrLiveKind.Toggle, 0) { Layout = NrLiveLayout.Header },
         // auto: OpenNR's runtime when NRLive finds MochizukiNrRuntime.dll, else the 0.0.6 bridge.
         new("nr", "DLSSNR", "runtime", NrLiveKind.Choice, 0, Choices: 3, Pending: true, Values: ["auto", "opennr", "bridge"]),
         Mz("MochizukiOriginalModel", NrLiveKind.Toggle, 0),
         Mz("MochizukiRenoStyle", NrLiveKind.Choice, 0, choices: 3),
-        Mz("MochizukiRenoIntensity", NrLiveKind.Range, 100, 0, 200, scale: 100, unit: "%"),
-        Mz("MochizukiRenoPasses", NrLiveKind.Range, 1, 1, 4),
+        Mz("MochizukiRenoIntensity", NrLiveKind.Range, 100, 0, 200, scale: 100, unit: "%") with { Panel = "strength" },
+        Mz("MochizukiRenoPasses", NrLiveKind.Range, 1, 1, 4) with { Panel = "strength" },
         Mz("MochizukiRenoLocalTone", NrLiveKind.Range, 100, 0, 200, advanced: true, scale: 100, unit: "%"),
         Mz("MochizukiRenoLocalStructure", NrLiveKind.Range, 100, 0, 200, advanced: true, scale: 100, unit: "%"),
         Mz("MochizukiRenoSkinStructure", NrLiveKind.Range, -100, -100, 100, advanced: true, scale: 100, unit: "%"),
@@ -91,8 +109,8 @@ public sealed class NrLiveConfig
         Mz("MochizukiAco", NrLiveKind.Toggle, 1, advanced: true),
         Br("model", NrLiveKind.Choice, 0, choices: 2),
         Br("style", NrLiveKind.Choice, 0, choices: 3),
-        Br("scale", NrLiveKind.Range, 100, 25, 100, unit: "%"),
-        Br("intensity", NrLiveKind.Range, 100, 0, 200, unit: "%"),
+        Br("scale", NrLiveKind.Range, 100, 25, 100, unit: "%") with { Panel = "strength" },
+        Br("intensity", NrLiveKind.Range, 100, 0, 200, unit: "%") with { Panel = "strength" },
         Br("passes", NrLiveKind.Range, 1, 1, 3, advanced: true),
         Br("structure", NrLiveKind.Range, 100, 0, 200, advanced: true, unit: "%"),
         Br("color_strength", NrLiveKind.Range, 0, 0, 100, advanced: true, unit: "%"),
@@ -103,21 +121,22 @@ public sealed class NrLiveConfig
         Br("automatic_skin_mask", NrLiveKind.Toggle, 1, advanced: true),
         Br("stabilizer", NrLiveKind.Toggle, 1, advanced: true),
 
-        Fps("enabled", NrLiveKind.Toggle, 1),
-        Fps("preset", NrLiveKind.Choice, 3, choices: 5, pending: true, only: Hud),
-        Fps("position", NrLiveKind.Choice, 0, choices: 4, only: OldHud),
-        Fps("position", NrLiveKind.Choice, 0, choices: 6, pending: true, only: Hud),
-        Fps("pipeline", NrLiveKind.Toggle, 1, pending: true, only: Hud),
-        Fps("gpu_load", NrLiveKind.Toggle, 1, pending: true, only: Hud),
-        Fps("gpu_temp", NrLiveKind.Toggle, 1, pending: true, only: Hud),
-        Fps("fps", NrLiveKind.Toggle, 1, advanced: true),
-        Fps("frametime", NrLiveKind.Toggle, 1, advanced: true),
-        Fps("frame_timing", NrLiveKind.Toggle, 1, advanced: true),
-        Fps("lows", NrLiveKind.Toggle, 1, advanced: true, pending: true, only: Hud),
-        Fps("vram", NrLiveKind.Toggle, 1, advanced: true, pending: true, only: Hud),
-        Fps("cpu_load", NrLiveKind.Toggle, 1, advanced: true, pending: true, only: Hud),
-        Fps("gpu_times", NrLiveKind.Toggle, 0, advanced: true, pending: true, only: Hud),
-        Fps("resolution", NrLiveKind.Toggle, 1, advanced: true),
+        Fps("preset", NrLiveKind.Choice, 3, choices: 5, pending: true, only: Hud) with { Layout = NrLiveLayout.Half },
+        Fps("position", NrLiveKind.Choice, 0, choices: 4, only: OldHud) with { Layout = NrLiveLayout.Half },
+        Fps("position", NrLiveKind.Choice, 0, choices: 6, pending: true, only: Hud) with { Layout = NrLiveLayout.Half },
+        // The page's preview builds the pipeline item from the upscaler, NR and frame generation set above it.
+        Fps("enabled", NrLiveKind.Toggle, 1) with { Layout = NrLiveLayout.Tile },
+        Fps("pipeline", NrLiveKind.Toggle, 1, pending: true, only: Hud) with { Layout = NrLiveLayout.Tile, Sample = "FSR4 + NR" },
+        Fps("gpu_load", NrLiveKind.Toggle, 1, pending: true, only: Hud) with { Layout = NrLiveLayout.Tile, Sample = "GPU 97%" },
+        Fps("gpu_temp", NrLiveKind.Toggle, 1, pending: true, only: Hud) with { Layout = NrLiveLayout.Tile, Sample = "64°C" },
+        Fps("fps", NrLiveKind.Toggle, 1, advanced: true) with { Layout = NrLiveLayout.Tile, Sample = "142 FPS" },
+        Fps("frametime", NrLiveKind.Toggle, 1, advanced: true) with { Layout = NrLiveLayout.Tile, Sample = "6.9 ms" },
+        Fps("frame_timing", NrLiveKind.Toggle, 1, advanced: true) with { Layout = NrLiveLayout.Tile },
+        Fps("lows", NrLiveKind.Toggle, 1, advanced: true, pending: true, only: Hud) with { Layout = NrLiveLayout.Tile, Sample = "1% 118" },
+        Fps("vram", NrLiveKind.Toggle, 1, advanced: true, pending: true, only: Hud) with { Layout = NrLiveLayout.Tile, Sample = "VRAM 9.1 GB" },
+        Fps("cpu_load", NrLiveKind.Toggle, 1, advanced: true, pending: true, only: Hud) with { Layout = NrLiveLayout.Tile, Sample = "CPU 34%" },
+        Fps("gpu_times", NrLiveKind.Toggle, 0, advanced: true, pending: true, only: Hud) with { Layout = NrLiveLayout.Tile, Sample = "NR 2.1 ms" },
+        Fps("resolution", NrLiveKind.Toggle, 1, advanced: true) with { Layout = NrLiveLayout.Tile, Sample = "1440p → 4K" },
         Fps("background", NrLiveKind.Toggle, 1, advanced: true),
         Fps("text_outline", NrLiveKind.Toggle, 1, advanced: true),
         Fps("font_size", NrLiveKind.Range, 24, 12, 48, advanced: true, unit: " px", only: OldHud),

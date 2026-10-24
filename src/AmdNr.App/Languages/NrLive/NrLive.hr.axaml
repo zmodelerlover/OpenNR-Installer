@@ -158,5 +158,9 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.pipeline">Stanje FSR-a, NR-a i FG-a</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.gpu_times">GPU vrijeme svakog prolaza</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.scale">Veličina HUD-a</sys:String>
+  <sys:String x:Key="Str.NrLiveCaptureHint">Kako se čitaju sličice i pokret igre</sys:String>
+  <sys:String x:Key="Str.NrLiveHudItems">Na zaslonu (kliknite za uključivanje)</sys:String>
+  <sys:String x:Key="Str.NrLiveHudPreview">Pregled HUD-a</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">Jedna sličica između svake dvije koje igra iscrta</sys:String>
 
 </ResourceDictionary>

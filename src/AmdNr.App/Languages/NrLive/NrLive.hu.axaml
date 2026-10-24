@@ -158,5 +158,9 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.pipeline">FSR, NR és FG állapota</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.gpu_times">Menetenkénti GPU-idő</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.scale">HUD mérete</sys:String>
+  <sys:String x:Key="Str.NrLiveCaptureHint">Hogyan olvassa a játék képkockáit és mozgását</sys:String>
+  <sys:String x:Key="Str.NrLiveHudItems">A képernyőn (kattintson a váltáshoz)</sys:String>
+  <sys:String x:Key="Str.NrLiveHudPreview">HUD-előnézet</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">Egy képkocka a játék által rajzolt minden kettő között</sys:String>
 
 </ResourceDictionary>

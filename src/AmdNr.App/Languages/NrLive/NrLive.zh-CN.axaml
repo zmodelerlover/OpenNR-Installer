@@ -158,5 +158,9 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.pipeline">FSR、NR 和 FG 状态</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.gpu_times">每个处理阶段的 GPU 时间</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.scale">HUD 大小</sys:String>
+  <sys:String x:Key="Str.NrLiveCaptureHint">读取游戏画面与运动的方式</sys:String>
+  <sys:String x:Key="Str.NrLiveHudItems">屏幕上显示的项目（点击切换）</sys:String>
+  <sys:String x:Key="Str.NrLiveHudPreview">HUD 预览</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">在游戏每绘制的两帧之间生成一帧</sys:String>
 
 </ResourceDictionary>
