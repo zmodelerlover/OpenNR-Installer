@@ -198,7 +198,7 @@ public class Opti054Tests
     {
         var shipped = PayloadManifest.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "payload.json")));
         var newest = shipped.Offered(PayloadManifest.OptiScalerComponent)[0];
-        Assert.Equal("0.5.6-opennr", newest.Version);
+        Assert.Equal("0.5.7-opennr", newest.Version);
         var pins = shipped.With(newest).Pins();
         Assert.Equal("7e966e2639dbec6596aa0bac3b8761137d2c40ca8cb4aca30df7ca10043c6e33", pins.MochizukiFiles["dlssnr-amd/dlssnr-small.bin"]);
         Assert.Contains(pins.MochizukiFiles.Keys, k => k.StartsWith("dlssnr-amd.shaders.renodx/", StringComparison.Ordinal));
@@ -207,9 +207,10 @@ public class Opti054Tests
         Assert.Contains("x86/opengl32.dll", pins.OptiFiles.Keys);
         // lmxxf 0.44's Small model, from 0.5.6 on: the 93 weights and their manifest.
         Assert.Equal(94, pins.OptiFiles.Keys.Count(k => k.StartsWith(Work.LmxxfSmallPayload, StringComparison.Ordinal)));
-        Assert.Equal("0.5.5-ea", pins.WrongGpuVersion);
-        Assert.Equal("f7b167b5ac1c9cff19984b520e85370119a8ccd12bf14f73b2d392e918bf6363",
-            pins.WrongGpuFiles["wronggpu/WrongGPU-Setup-0.5.5-ea.exe"]);
+        // WrongGPU 0.5.5-ea2: the same WrongGPU, its setup no longer refuses a game for another game's anti-cheat.
+        Assert.Equal("0.5.5-ea2", pins.WrongGpuVersion);
+        Assert.Equal("fb557de8d305de73c3bcbf8b54440c6588575745a3fc0194bf8bb85cb7d71636",
+            pins.WrongGpuFiles["wronggpu/WrongGPU-Setup-0.5.5-ea2.exe"]);
         Assert.Equal("wronggpu/nvngx_dlss.dll", pins.WrongGpuDlss);
         Assert.StartsWith("https://raw.githubusercontent.com/NVIDIA/DLSS/", shipped.With(newest)
             .Component(PayloadManifest.WrongGpuDlssComponent).Files.Single().Url);
@@ -221,7 +222,7 @@ public class Opti054Tests
         foreach (var path in pins.WrongGpuFiles.Keys)
             Assert.True(Work.WrongGpuDestination(path) is not { } at || Engine.IsAllowed(at), path);
         // The add-on and its 32-bit bridge move together.
-        Assert.Equal("0.7.14", pins.AddonVersion);
-        Assert.Equal("0.7.14", pins.BridgeVersion);
+        Assert.Equal("0.7.15", pins.AddonVersion);
+        Assert.Equal("0.7.15", pins.BridgeVersion);
     }
 }
