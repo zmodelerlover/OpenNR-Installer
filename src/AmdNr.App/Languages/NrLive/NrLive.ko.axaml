@@ -162,5 +162,13 @@
   <sys:String x:Key="Str.NrLiveHudItems">화면에 표시(클릭하여 전환)</sys:String>
   <sys:String x:Key="Str.NrLiveHudPreview">HUD 미리 보기</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">게임이 그리는 두 프레임 사이마다 한 프레임을 생성</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileFor">설정 대상</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileGlobal">전역</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileShared">{0} (전역 설정)</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileReset">전역 설정 사용</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileResetHint">{0}의 설정을 삭제하고 전역 설정으로 돌아갑니다.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileHint">라이브러리의 게임은 여기에 표시된 상태에서 설정을 처음 바꿀 때 자체 설정을 갖게 됩니다. 카운트다운이 어떤 창에서 끝나면, 그 게임에 자체 설정이 있을 경우 그 설정이 쓰입니다. 캡처 대상, 카운트다운, 스케일링 단축키, 관리자 권한 실행은 모든 게임에 같습니다.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileInUse">설정: {0}</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileLaunchKept">설정: {0}. 업스케일러, 캡처, 키는 이 게임을 캡처 대상으로 고를 때 적용됩니다.</sys:String>
 
 </ResourceDictionary>

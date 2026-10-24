@@ -162,5 +162,13 @@
   <sys:String x:Key="Str.NrLiveHudItems">En pantalla (haz clic para alternar)</sys:String>
   <sys:String x:Key="Str.NrLiveHudPreview">Vista previa del HUD</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">Un fotograma creado entre cada dos que dibuja el juego</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileFor">Ajustes para</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileGlobal">Global</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileShared">{0} (ajustes globales)</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileReset">Usar ajustes globales</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileResetHint">Borra los ajustes de {0} y vuelve a los globales.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileHint">Un juego de la biblioteca recibe ajustes propios la primera vez que cambias uno mientras se muestra aquí. Si la cuenta atrás termina en una ventana, se usan los ajustes de su juego si los tiene. Qué capturar, la cuenta atrás, el atajo de Escalar y ejecutar como administrador son iguales para todos los juegos.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileInUse">Ajustes: {0}</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileLaunchKept">Ajustes: {0}. Su escalador, la captura y las teclas se aplican cuando se elige como objetivo.</sys:String>
 
 </ResourceDictionary>

@@ -162,5 +162,13 @@
   <sys:String x:Key="Str.NrLiveHudItems">ما يظهر على الشاشة (انقر للتبديل)</sys:String>
   <sys:String x:Key="Str.NrLiveHudPreview">معاينة الواجهة</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">إطار يُنشأ بين كل إطارين ترسمهما اللعبة</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileFor">إعدادات لـ</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileGlobal">عامة</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileShared">{0} (الإعدادات العامة)</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileReset">استخدام الإعدادات العامة</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileResetHint">يحذف إعدادات {0} ويعود إلى الإعدادات العامة.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileHint">تحصل لعبة من المكتبة على إعدادات خاصة بها أول مرة تغيّر فيها أحد الإعدادات وهي معروضة هنا. عندما ينتهي العدّ التنازلي على نافذة، تُستخدم إعدادات لعبتها إن كانت لها إعدادات خاصة. ما يُلتقط والعدّ التنازلي واختصار «تكبير» والتشغيل كمسؤول تبقى واحدة لكل الألعاب.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileInUse">الإعدادات: {0}</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileLaunchKept">الإعدادات: {0}. أداة الترقية والالتقاط والمفاتيح الخاصة بها تسري عند اختيارها هدفًا.</sys:String>
 
 </ResourceDictionary>

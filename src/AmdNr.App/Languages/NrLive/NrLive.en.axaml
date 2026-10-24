@@ -163,5 +163,13 @@
   <sys:String x:Key="Str.NrLiveHudItems">Shown on screen (click to switch)</sys:String>
   <sys:String x:Key="Str.NrLiveHudPreview">HUD preview</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">One frame made between every two the game draws</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileFor">Settings for</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileGlobal">Global</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileShared">{0} (global settings)</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileReset">Use global settings</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileResetHint">Deletes the settings of {0} and goes back to the global ones.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileHint">A library game gets settings of its own the first time you change one while it is shown here. When the countdown ends on a window, its game's settings are used if it has them. What to capture, the countdown, the scale hotkey and running as administrator stay the same for every game.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileInUse">Settings: {0}</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileLaunchKept">Settings: {0}. Its upscaler, capture and keys apply when it is picked as the target.</sys:String>
 
 </ResourceDictionary>

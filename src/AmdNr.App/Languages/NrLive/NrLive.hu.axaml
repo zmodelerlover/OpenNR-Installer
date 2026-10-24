@@ -162,5 +162,13 @@
   <sys:String x:Key="Str.NrLiveHudItems">A képernyőn (kattintson a váltáshoz)</sys:String>
   <sys:String x:Key="Str.NrLiveHudPreview">HUD-előnézet</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">Egy képkocka a játék által rajzolt minden kettő között</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileFor">Beállítások ehhez</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileGlobal">Globális</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileShared">{0} (globális beállítások)</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileReset">Globális beállítások használata</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileResetHint">Törli a(z) {0} beállításait, és visszatér a globálisakhoz.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileHint">A könyvtár egy játéka akkor kap saját beállításokat, amikor először módosítasz egyet, miközben itt látszik. Ha a visszaszámlálás egy ablakon ér véget, a játékának beállításai érvényesek, ha vannak neki. Hogy mit rögzít, a visszaszámlálás, a skálázás gyorsbillentyűje és a rendszergazdaként futtatás minden játékra ugyanaz.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileInUse">Beállítások: {0}</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileLaunchKept">Beállítások: {0}. A felskálázója, a rögzítés és a billentyűk akkor érvényesek, ha célként választod ki.</sys:String>
 
 </ResourceDictionary>

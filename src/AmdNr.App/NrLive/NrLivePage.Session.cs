@@ -24,6 +24,12 @@ public partial class NrLivePage
 
     private bool Running => _process is { HasExited: false };
 
+    /// <summary>The countdown runs here, NRLive not started yet: it starts when the countdown ends, on the window in
+    /// front then, with that game's settings. Only when no administrator prompt would come up over the game.</summary>
+    private bool _waiting;
+
+    private bool Active => Running || _waiting;
+
     /// <summary>The page with one game of the library picked to capture, from the warning on its sheet.</summary>
     public void ShowGame(GameCard card)
     {
@@ -32,6 +38,7 @@ public partial class NrLivePage
         SaveProfile();
         ShowSession();
         TargetItemBox.SelectedItem = TargetItemBox.Items.OfType<LibraryGame>().FirstOrDefault(g => g.Card == card);
+        UseContext(TargetGame());
     }
 
     private void ShowSession()
@@ -84,7 +91,7 @@ public partial class NrLivePage
         _profile.TargetText = "";
         SaveProfile();
         ShowTargetItems();
-        ShowState();
+        UseContext(TargetGame());
     }
 
     private void OnTargetItemChanged(object? sender, SelectionChangedEventArgs e)
@@ -97,7 +104,7 @@ public partial class NrLivePage
             _ => "",
         };
         SaveProfile();
-        ShowState();
+        UseContext(TargetGame());
     }
 
     private void OnRefreshWindows(object? sender, RoutedEventArgs e) => ShowTargetItems();
@@ -119,6 +126,7 @@ public partial class NrLivePage
     private void OnCaptureChanged(object? sender, SelectionChangedEventArgs e)
     {
         if (_setting || _shell is null) return;
+        Own();
         _profile.CaptureMode = CaptureBox.SelectedIndex == 1 ? "dxgi" : "wgc";
         _profile.Motion = MotionBox.SelectedIndex == 1 ? "amdof" : "fast";
         SaveProfile();
@@ -128,6 +136,7 @@ public partial class NrLivePage
     {
         try { _profile.Save(NrLivePackage.Folder); }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException) { }
+        Keep();
     }
 
     // -- The session -----------------------------------------------------------------------------------
@@ -136,7 +145,7 @@ public partial class NrLivePage
 
     private void Toggle()
     {
-        if (Running) Stop();
+        if (Active) Stop();
         else Start();
     }
 
@@ -148,13 +157,29 @@ public partial class NrLivePage
             SetState(Level.Warn, ProblemKey(problem));
             return;
         }
+        // The target's settings; for the window in front, the global ones until the countdown says which it is.
+        var picker = _profile.TargetMode == "picker";
+        UseContext(picker ? null : TargetGame());
+        _launchKept = false;
+        _secondsLeft = Math.Clamp(_profile.Delay, 1, 30);
+        _waiting = picker && (!_profile.RunAsAdmin || Environment.IsPrivilegedProcess);
+        if (!_waiting && !Launch(null)) return;
+        _tick.Start();
+        SetState(null, "Str.NrLiveStatusStarting");
+        ShowContext();
+        ShowPackage();
+    }
+
+    /// <summary>NRLive.exe started with the launch profile; <paramref name="pid"/> for the window already picked here.</summary>
+    private bool Launch(uint? pid)
+    {
         var start = new ProcessStartInfo(NrLivePackage.Exe)
         {
             WorkingDirectory = NrLivePackage.Folder,
             UseShellExecute = _profile.RunAsAdmin,
             Verb = _profile.RunAsAdmin ? "runas" : "",
         };
-        foreach (var arg in _profile.Arguments(NrLiveConfig.Supported(NrLivePackage.Exe).Contains(NrLiveConfig.UpscalerId))) start.ArgumentList.Add(arg);
+        foreach (var arg in _profile.Arguments(NrLiveConfig.Supported(NrLivePackage.Exe).Contains(NrLiveConfig.UpscalerId), pid)) start.ArgumentList.Add(arg);
         try
         {
             _process = Process.Start(start);
@@ -163,18 +188,15 @@ public partial class NrLivePage
         {
             // 1223: the person said no to Windows' administrator prompt, which is an answer and not a failure.
             SetState(Level.Warn, x.NativeErrorCode == 1223 ? "Str.NrLiveStatusReady" : "Str.NrLiveStartFailed", x.Message);
-            return;
+            return false;
         }
-        if (_process is null) return;
-        _secondsLeft = Math.Clamp(_profile.Delay, 1, 30);
-        _tick.Start();
-        SetState(null, "Str.NrLiveStatusStarting");
-        ShowPackage();
+        return _process is not null;
     }
 
     /// <summary>Ends NRLive. Elevated, it is out of this app's reach, so its own stop key is pressed instead.</summary>
     private void Stop()
     {
+        if (_waiting) Reset("Str.NrLiveStatusStopped", Level.Info);
         if (_process is null) return;
         try
         {
@@ -192,23 +214,52 @@ public partial class NrLivePage
     /// <summary>Once a second while NRLive runs: the countdown, then whether it is still there.</summary>
     private void Tick()
     {
+        if (_waiting)
+        {
+            if (--_secondsLeft > 0)
+            {
+                ShowState();
+                return;
+            }
+            _waiting = false;
+            var (pid, exe) = Foreground();
+            PickForeground(exe, started: false);
+            if (Launch(pid)) SetState(Level.Ok, "Str.NrLiveStatusRunning", _profile.ScaleHotkey);
+            else
+            {
+                // Launch said why on the status line.
+                _tick.Stop();
+                ShowContext();
+                ShowPackage();
+            }
+            return;
+        }
         if (_process is null || _process.HasExited)
         {
             Reset(_stateKey == "Str.NrLiveStatusStopped" ? "Str.NrLiveStatusStopped" : "Str.NrLiveStatusExited", Level.Info);
             return;
         }
-        if (_secondsLeft > 0 && --_secondsLeft == 0) SetState(Level.Ok, "Str.NrLiveStatusRunning", _profile.ScaleHotkey);
+        if (_secondsLeft > 0 && --_secondsLeft == 0)
+        {
+            if (_profile.TargetMode == "picker") PickForeground(Foreground().Exe, started: true);
+            SetState(Level.Ok, "Str.NrLiveStatusRunning", _profile.ScaleHotkey);
+        }
         else if (_secondsLeft > 0) ShowState();
     }
 
     private void Reset(string key, Level level)
     {
         _tick.Stop();
+        _waiting = false;
         _process?.Dispose();
         _process = null;
         _secondsLeft = 0;
+        // What NRLive's overlay saved during the session goes back into the settings it ran with.
+        Keep();
         SetState(level, key);
         ShowPackage();
+        ShowSettings();
+        ShowContext();
     }
 
     /// <summary>Stops a session the window is closing on: NRLive's own launcher does the same, and an elevated
@@ -216,7 +267,8 @@ public partial class NrLivePage
     public void Shutdown()
     {
         _hotkey?.Dispose();
-        if (Running) Stop();
+        if (Active) Stop();
+        Keep();
     }
 
     private string[] _stateArgs = [];
@@ -232,24 +284,28 @@ public partial class NrLivePage
     /// <summary>The status line and the button, from the state the session is in.</summary>
     private void ShowState()
     {
-        var starting = Running && _secondsLeft > 0;
-        var key = Running ? (starting ? "Str.NrLiveStatusStarting" : "Str.NrLiveStatusRunning")
+        var running = Active;
+        var starting = running && _secondsLeft > 0;
+        var key = running ? (starting ? "Str.NrLiveStatusStarting" : "Str.NrLiveStatusRunning")
             : _profile.Problem() is { } problem ? ProblemKey(problem)
             : _stateKey ?? "Str.NrLiveStatusReady";
-        var level = Running ? (starting ? (Level?)null : Level.Ok) : _profile.Problem() is not null ? Level.Warn : _stateLevel;
+        var level = running ? (starting ? (Level?)null : Level.Ok) : _profile.Problem() is not null ? Level.Warn : _stateLevel;
         Ui.SetLevel(StatusBox, level);
         Ui.SetLevel(StatusTile, level);
         StatusTile.Classes.Set("neutral", level is null);
-        StatusIcon.Data = Ui.Icon(Running ? "IconScale" : level is { } l ? l switch { Level.Ok => "IconOk", Level.Warn => "IconWarn", Level.Err => "IconErr", _ => "IconInfo" } : "IconInfo");
-        StatusTitle.Text = Ui.Text(Running ? (starting ? "Str.NrLiveTitleStarting" : "Str.NrLiveTitleRunning") : "Str.NrLiveTitleReady");
-        StatusText.Text = Ui.Format(key, key == "Str.NrLiveStatusRunning" ? [_profile.ScaleHotkey] : _stateArgs.Cast<object?>().ToArray());
-        ScaleLabel.Text = starting ? Ui.Format("Str.NrLiveStarting", _secondsLeft) : Ui.Text(Running ? "Str.NrLiveStop" : "Str.NrLiveScale");
-        ScaleIcon.Data = Ui.Icon(Running ? "IconStop" : "IconScale");
-        ScaleButton.Classes.Set("primary", !Running);
-        ScaleButton.Classes.Set("ghost", Running);
-        ScaleButton.Classes.Set("danger", Running);
-        ScaleButton.IsEnabled = Running || Installed && _profile.Problem() is null;
-        DelayBox.IsEnabled = TargetModeBox.IsEnabled = TargetItemBox.IsEnabled = !Running;
+        StatusIcon.Data = Ui.Icon(running ? "IconScale" : level is { } l ? l switch { Level.Ok => "IconOk", Level.Warn => "IconWarn", Level.Err => "IconErr", _ => "IconInfo" } : "IconInfo");
+        StatusTitle.Text = Ui.Text(running ? (starting ? "Str.NrLiveTitleStarting" : "Str.NrLiveTitleRunning") : "Str.NrLiveTitleReady");
+        // Whose settings are in use, after what is happening; for the window in front, once the countdown said which.
+        var text = Ui.Format(key, key == "Str.NrLiveStatusRunning" ? [_profile.ScaleHotkey] : _stateArgs.Cast<object?>().ToArray());
+        var inUse = Ui.Format(_launchKept && running ? "Str.NrLiveProfileLaunchKept" : "Str.NrLiveProfileInUse", ProfileInUse());
+        StatusText.Text = $"{text}  ·  {inUse}";
+        ScaleLabel.Text = starting ? Ui.Format("Str.NrLiveStarting", _secondsLeft) : Ui.Text(running ? "Str.NrLiveStop" : "Str.NrLiveScale");
+        ScaleIcon.Data = Ui.Icon(running ? "IconStop" : "IconScale");
+        ScaleButton.Classes.Set("primary", !running);
+        ScaleButton.Classes.Set("ghost", running);
+        ScaleButton.Classes.Set("danger", running);
+        ScaleButton.IsEnabled = running || Installed && _profile.Problem() is null;
+        DelayBox.IsEnabled = TargetModeBox.IsEnabled = TargetItemBox.IsEnabled = !running;
     }
 
     private static string ProblemKey(NrLiveProblem problem) => problem switch

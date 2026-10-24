@@ -2,7 +2,8 @@
 // anti-cheat rules out anything injected. Split like the game sheet: getting NRLive and the page itself here,
 // the session -- what to capture, the countdown, the process and its hotkey -- in NrLivePage.Session.cs, its
 // settings and hotkey boxes in NrLivePage.Settings.cs, and the pieces the settings are built of in
-// NrLivePage.Rows.cs. What it writes and runs is in AmdNr.Core\NrLive.
+// NrLivePage.Rows.cs, and whose settings they are -- the global ones or a game's -- in NrLivePage.Profiles.cs.
+// What it writes and runs is in AmdNr.Core\NrLive.
 
 using System.Diagnostics;
 using Avalonia.Controls;
@@ -66,7 +67,7 @@ public partial class NrLivePage : UserControl
         var columns = width >= 1000 ? 3 : width >= 620 ? 2 : 1;
         if (columns == _columns) return;
         _columns = columns;
-        SettingsGrid.ColumnDefinitions = new(columns switch { 3 => "*,16,*,16,*", 2 => "*,16,*", _ => "*" });
+        SettingsGrid.ColumnDefinitions = new(columns switch { 3 => "*,16,*,16,1.3*", 2 => "*,16,*", _ => "*" });
         SettingsGrid.RowDefinitions = new(columns switch { 3 => "Auto", 2 => "Auto,16,Auto", _ => "Auto,16,Auto,16,Auto" });
         Control[] cards = [PictureCard, NrCard, OverlayCard];
         for (var i = 0; i < cards.Length; i++)
@@ -93,7 +94,8 @@ public partial class NrLivePage : UserControl
         ShowPackage();
         _profile = NrLiveProfile.Load(NrLivePackage.Folder);
         ShowSession();
-        ShowSettings();
+        // Whose settings follow the target again; during a session, the session's stay.
+        UseContext(Active ? _context : TargetGame());
         RegisterHotkey();
     }
 
@@ -104,6 +106,7 @@ public partial class NrLivePage : UserControl
         ShowTargetItems();
         ShowState();
         ShowSettings();
+        ShowContext();
     }
 
     // -- Getting NRLive ------------------------------------------------------------------------------

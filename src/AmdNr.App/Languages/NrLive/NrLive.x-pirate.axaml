@@ -162,5 +162,13 @@
   <sys:String x:Key="Str.NrLiveHudItems">Shown on yer screen (click to hoist or strike)</sys:String>
   <sys:String x:Key="Str.NrLiveHudPreview">Spyglass on the HUD</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">One frame forged betwixt every two the game draws</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileFor">Settings fer</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileGlobal">The whole fleet</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileShared">{0} (fleet settings)</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileReset">Use the fleet's settings</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileResetHint">Throws {0}'s own settings overboard an' goes back to the fleet's.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileHint">A game from the list gets settings o' its own the first time ye change one while it be shown here. When the countdown ends on a window, its game's settings be used if it has any. What to capture, the countdown, the scale hotkey an' sailin' as administrator be the same fer every game.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileInUse">Settings: {0}</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileLaunchKept">Settings: {0}. Its upscaler, capture an' keys only count once it be picked as the target.</sys:String>
 
 </ResourceDictionary>

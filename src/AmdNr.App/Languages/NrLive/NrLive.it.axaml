@@ -162,5 +162,13 @@
   <sys:String x:Key="Str.NrLiveHudItems">Sullo schermo (clicca per attivare)</sys:String>
   <sys:String x:Key="Str.NrLiveHudPreview">Anteprima HUD</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">Un frame creato tra ogni due che il gioco disegna</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileFor">Impostazioni per</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileGlobal">Globali</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileShared">{0} (impostazioni globali)</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileReset">Usa impostazioni globali</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileResetHint">Elimina le impostazioni di {0} e torna a quelle globali.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileHint">Un gioco della libreria riceve impostazioni proprie la prima volta che ne cambi una mentre è mostrato qui. Se il conto alla rovescia finisce su una finestra, valgono le impostazioni del suo gioco, se ne ha. Cosa catturare, il conto alla rovescia, la scorciatoia di Scala e l'avvio come amministratore sono uguali per tutti i giochi.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileInUse">Impostazioni: {0}</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileLaunchKept">Impostazioni: {0}. Upscaler, cattura e tasti valgono quando è scelto come destinazione.</sys:String>
 
 </ResourceDictionary>

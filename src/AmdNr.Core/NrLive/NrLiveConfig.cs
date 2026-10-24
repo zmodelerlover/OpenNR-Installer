@@ -145,6 +145,11 @@ public sealed class NrLiveConfig
         Fps("background_alpha", NrLiveKind.Range, 80, 0, 100, advanced: true, pending: true, unit: "%", only: Hud),
     ];
 
+    /// <summary>The keys a per-game copy of the settings keeps (NrLiveProfiles): the table's, and the HUD items and
+    /// layout a preset writes besides them.</summary>
+    public static readonly IReadOnlyList<(string Section, string Key)> ProfileKeys =
+        Settings.Select(s => (s.Section, s.Key)).Concat(HudItems.Select(i => ("FPS", i.Key))).Append(("FPS", "layout")).Distinct().ToList();
+
     private readonly string _path;
     private readonly bool _unicode;
     private string _text;
@@ -209,6 +214,31 @@ public sealed class NrLiveConfig
             foreach (var (key, on) in HudItems) _text = Engine.SetIni(_text, "FPS", key, on.Contains(value) ? "1" : "0");
             _text = Engine.SetIni(_text, "FPS", "layout", value == 2 ? "1" : "0");
         }
+    }
+
+    /// <summary>A key as the file has it, or null when the file does not set it.</summary>
+    public string? Raw(string section, string key) => Engine.GetIni(_text, section, key).Trim() is { Length: > 0 } v ? v : null;
+
+    /// <summary>A key written as given, without the preset rules of <see cref="Set"/>; null takes its line out, so
+    /// NRLive's own default applies again.</summary>
+    public void SetRaw(string section, string key, string? value) =>
+        _text = value is not null ? Engine.SetIni(_text, section, key, value) : Without(_text, section, key);
+
+    private static string Without(string text, string section, string key)
+    {
+        var current = "";
+        for (var start = 0; start < text.Length;)
+        {
+            var newline = text.IndexOf('\n', start);
+            var end = newline >= 0 ? newline + 1 : text.Length;
+            var t = text[start..end].Trim();
+            if (t.Length > 1 && t[0] == '[' && t[^1] == ']') current = t[1..^1].Trim();
+            else if (current.Equals(section, StringComparison.OrdinalIgnoreCase) && t.IndexOf('=') is var eq and > 0
+                     && t[..eq].Trim().Equals(key, StringComparison.OrdinalIgnoreCase))
+                return text.Remove(start, end - start);
+            start = end;
+        }
+        return text;
     }
 
     public void Save()

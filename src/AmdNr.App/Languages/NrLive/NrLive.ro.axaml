@@ -162,5 +162,13 @@
   <sys:String x:Key="Str.NrLiveHudItems">Pe ecran (clic pentru a comuta)</sys:String>
   <sys:String x:Key="Str.NrLiveHudPreview">Previzualizare HUD</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">Un cadru creat între fiecare două desenate de joc</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileFor">Setări pentru</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileGlobal">Globale</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileShared">{0} (setări globale)</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileReset">Folosește setările globale</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileResetHint">Șterge setările pentru {0} și revine la cele globale.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileHint">Un joc din bibliotecă primește setări proprii prima dată când schimbi una în timp ce e afișat aici. Când numărătoarea se termină pe o fereastră, se folosesc setările jocului ei, dacă are. Ce se capturează, numărătoarea, scurtătura pentru scalare și rularea ca administrator sunt la fel pentru toate jocurile.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileInUse">Setări: {0}</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileLaunchKept">Setări: {0}. Upscalerul, captura și tastele lui se aplică atunci când e ales ca țintă.</sys:String>
 
 </ResourceDictionary>

@@ -86,11 +86,12 @@ public sealed class NrLiveProfile
     }
 
     /// <summary>NRLive.exe's command line, as NRLive's launcher builds it (target.cpp, parseTargetArgs).
-    /// --upscaler only for an NRLive that reads it: one that does not exits on it.</summary>
-    public IReadOnlyList<string> Arguments(bool upscaler = false)
+    /// --upscaler only for an NRLive that reads it: one that does not exits on it. <paramref name="pid"/> is the
+    /// window already picked when the countdown ran here (NrLivePage), taken at once: 0 when no process was in front.</summary>
+    public IReadOnlyList<string> Arguments(bool upscaler = false, uint? pid = null)
     {
         var delay = Math.Clamp(Delay, 1, 30).ToString();
-        List<string> args = TargetMode switch
+        List<string> args = pid is { } p ? (p != 0 ? ["-pid", p.ToString(), "-delay", "0"] : ["-front", "-delay", "0"]) : TargetMode switch
         {
             "front" => ["-front", "-delay", delay],
             "pid" => ["-pid", TargetText, "-delay", delay],
@@ -168,4 +169,5 @@ public static class NrLiveHotkey
 [JsonSourceGenerationOptions(WriteIndented = true, PropertyNameCaseInsensitive = true,
     PropertyNamingPolicy = JsonKnownNamingPolicy.SnakeCaseLower)]
 [JsonSerializable(typeof(NrLiveProfile))]
+[JsonSerializable(typeof(NrLiveProfileCopy))]
 internal sealed partial class NrLiveJson : JsonSerializerContext;

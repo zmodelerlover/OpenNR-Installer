@@ -162,5 +162,13 @@
   <sys:String x:Key="Str.NrLiveHudItems">À l&apos;écran (cliquez pour basculer)</sys:String>
   <sys:String x:Key="Str.NrLiveHudPreview">Aperçu du HUD</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">Une image créée entre chaque paire que le jeu dessine</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileFor">Réglages pour</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileGlobal">Global</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileShared">{0} (réglages globaux)</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileReset">Utiliser les réglages globaux</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileResetHint">Supprime les réglages de {0} et revient aux réglages globaux.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileHint">Un jeu de la bibliothèque obtient ses propres réglages la première fois que vous en changez un pendant qu'il est affiché ici. Quand le compte à rebours se termine sur une fenêtre, les réglages de son jeu s'appliquent s'il en a. Ce qui est capturé, le compte à rebours, le raccourci Mettre à l'échelle et l'exécution en tant qu'administrateur sont les mêmes pour tous les jeux.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileInUse">Réglages : {0}</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileLaunchKept">Réglages : {0}. Son upscaler, sa capture et ses touches s'appliquent quand il est choisi comme cible.</sys:String>
 
 </ResourceDictionary>

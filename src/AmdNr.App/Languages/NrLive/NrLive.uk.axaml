@@ -162,5 +162,13 @@
   <sys:String x:Key="Str.NrLiveHudItems">На екрані (натисніть, щоб перемкнути)</sys:String>
   <sys:String x:Key="Str.NrLiveHudPreview">Попередній перегляд HUD</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">Один кадр між кожними двома, які малює гра</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileFor">Налаштування для</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileGlobal">Загальні</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileShared">{0} (загальні налаштування)</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileReset">Використати загальні налаштування</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileResetHint">Видаляє налаштування для {0} і повертає загальні.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileHint">Гра з бібліотеки отримує власні налаштування, коли ви вперше змінюєте одне з них, поки вона тут показана. Якщо відлік закінчується на вікні, діють налаштування його гри, якщо вони є. Що захоплювати, відлік, гаряча клавіша масштабування й запуск від імені адміністратора — спільні для всіх ігор.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileInUse">Налаштування: {0}</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileLaunchKept">Налаштування: {0}. Її апскейлер, захоплення й клавіші застосуються, коли її вибрано ціллю.</sys:String>
 
 </ResourceDictionary>

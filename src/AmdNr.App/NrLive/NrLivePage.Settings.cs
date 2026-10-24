@@ -27,6 +27,7 @@ public partial class NrLivePage
         // and heads the overlay card: off, nothing else in it is drawn.
         OverlayHead.Content = HeadSwitch("Str.NrLiveOverlay", Switch(!_profile.NoOverlay, on =>
         {
+            Own();
             _profile.NoOverlay = !on;
             SaveProfile();
         }));
@@ -39,6 +40,7 @@ public partial class NrLivePage
             upscaler.SelectionChanged += (_, _) =>
             {
                 if (upscaler.SelectedIndex < 0) return;
+                Own();
                 _profile.Upscaler = NrLiveConfig.Upscalers[upscaler.SelectedIndex];
                 SaveProfile();
                 ShowPreview();
@@ -83,6 +85,8 @@ public partial class NrLivePage
         if (e.KeyModifiers.HasFlag(KeyModifiers.Shift)) parts.Add("shift");
         if (e.KeyModifiers.HasFlag(KeyModifiers.Meta)) parts.Add("win");
         parts.Add(name);
+        // The scale hotkey is this app's and one for all; NRLive's own keys are part of a game's settings.
+        if (box != ScaleKeyBox) Own();
         box.Text = string.Join("+", parts);
         _profile.ScaleHotkey = ScaleKeyBox.Text ?? "";
         _profile.StopKey = StopKeyBox.Text ?? "";
@@ -94,6 +98,8 @@ public partial class NrLivePage
 
     private void OnBypassDone(object? sender, RoutedEventArgs e)
     {
+        if ((BypassBox.Text ?? "").Trim() == _profile.BindBypass) return;
+        Own();
         _profile.BindBypass = (BypassBox.Text ?? "").Trim();
         SaveProfile();
         ShowState();

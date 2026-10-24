@@ -2,7 +2,8 @@
 // real build -- a placeholder is not -- and a stand-in package, already in the cache, is what gets "downloaded" and
 // unpacked into the data folder. Then a setting written to scaleconfig.ini, a key a newer NRLive reads showing up
 // by itself, a hotkey conflict that holds Scale back, and a game with Easy Anti-Cheat whose sheet says so, leads
-// to the page with the game picked, and stops saying it once told to. Nothing is started: Scale would run NRLive.
+// to the page with the game picked (its settings of its own in Flows.NrLiveProfiles.cs), and stops saying it once
+// told to. Nothing real is started: the one Scale pressed starts the stand-in exe, which fails.
 
 using System.IO.Compression;
 using System.Security.Cryptography;
@@ -111,7 +112,7 @@ internal static class NrLiveFlow
         var stop = Named<TextBox>("StopKeyBox");
         Press(stop, Key.S, KeyModifiers.Control | KeyModifiers.Alt);
         check(stop.Text == "ctrl+alt+s" && !Named<Button>("ScaleButton").IsEnabled
-              && Named<TextBlock>("StatusText").Text == S("Str.NrLiveProblemConflict"), "a hotkey conflict holds Scale back and says so");
+              && Named<TextBlock>("StatusText").Text?.StartsWith(S("Str.NrLiveProblemConflict")) == true, "a hotkey conflict holds Scale back and says so");
         save(main, "flow-nrlive-conflict");
         Press(stop, Key.A, KeyModifiers.Control | KeyModifiers.Shift);
         check(stop.Text == "ctrl+shift+a" && Named<Button>("ScaleButton").IsEnabled, "and a different key lets it go");
@@ -132,6 +133,7 @@ internal static class NrLiveFlow
         check(until(() => page.IsEffectivelyVisible && !sheet.IsVisible, 5) && Named<ComboBox>("TargetModeBox").SelectedIndex == 2
               && Named<ComboBox>("TargetItemBox").SelectedItem is LibraryGame { Card: var picked } && picked == card, "Use NRLive opens the page with that game picked to capture");
         save(main, "flow-nrlive-game-picked");
+        NrLiveProfilesFlow.Run(main, page, card, Path.Combine(game, "Guarded.exe"), check, until, click, save);
 
         main.OpenSheet(card);
         check(until(() => sheet.IsOpen && warning.IsVisible, 10), "the warning is there again until it is ignored");

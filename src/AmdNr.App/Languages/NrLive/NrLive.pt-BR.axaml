@@ -162,5 +162,13 @@
   <sys:String x:Key="Str.NrLiveHudItems">Exibido na tela (clique para alternar)</sys:String>
   <sys:String x:Key="Str.NrLiveHudPreview">Prévia do HUD</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">Um quadro criado entre cada dois que o jogo desenha</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileFor">Opções para</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileGlobal">Globais</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileShared">{0} (opções globais)</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileReset">Usar opções globais</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileResetHint">Apaga as opções de {0} e volta para as globais.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileHint">Um jogo da biblioteca ganha opções próprias na primeira vez que você muda uma delas enquanto ele aparece aqui. Quando a contagem acaba numa janela, valem as opções do jogo dela, se ele tiver. O que capturar, a contagem, o atalho de Escalar e rodar como administrador são iguais para todos os jogos.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileInUse">Opções: {0}</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileLaunchKept">Opções: {0}. O upscaler, a captura e as teclas dele valem quando ele é escolhido como alvo.</sys:String>
 
 </ResourceDictionary>

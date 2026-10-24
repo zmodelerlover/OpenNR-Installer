@@ -162,5 +162,13 @@
   <sys:String x:Key="Str.NrLiveHudItems">屏幕上显示的项目（点击切换）</sys:String>
   <sys:String x:Key="Str.NrLiveHudPreview">HUD 预览</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">在游戏每绘制的两帧之间生成一帧</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileFor">设置对象</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileGlobal">全局</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileShared">{0}（全局设置）</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileReset">使用全局设置</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileResetHint">删除 {0} 的设置，改回使用全局设置。</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileHint">游戏库中的游戏在此处显示时，第一次更改任一设置就会拥有自己的设置。倒计时在某个窗口上结束时，如果该窗口的游戏有自己的设置，就使用它们。捕获对象、倒计时、缩放快捷键和以管理员身份运行对所有游戏都相同。</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileInUse">设置：{0}</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileLaunchKept">设置：{0}。它的放大器、捕获方式和按键要在将它选为捕获对象时才生效。</sys:String>
 
 </ResourceDictionary>

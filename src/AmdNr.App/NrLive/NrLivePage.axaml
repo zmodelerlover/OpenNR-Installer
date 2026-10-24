@@ -7,7 +7,7 @@
        window's default size without scrolling: the settings are what people come back to, so none of them should
        sit below the fold. Wider than the other pages for the same reason. -->
   <ScrollViewer x:Name="PageScroll" HorizontalScrollBarVisibility="Disabled" ScrollViewer.AllowAutoHide="False">
-    <StackPanel Spacing="10" MaxWidth="1160" Margin="32,14,32,14" HorizontalAlignment="Stretch">
+    <StackPanel Spacing="8" MaxWidth="1480" Margin="32,12,32,10" HorizontalAlignment="Stretch">
       <!-- The title, whose NRLive is and where its source is, and NRLive's state once it is here: a whole card for a
            line that only says "ready" would push the settings down. NRLive is GPL-3.0, and the link to its source
            has to stay in sight: the sentence before it gives way on a narrow window, the link does not. -->
@@ -60,16 +60,31 @@
       </Border>
 
       <!-- Everything below needs NRLive, and is locked as one until it is here. -->
-      <StackPanel x:Name="Controls" Spacing="10">
-        <Border Classes="card" Padding="16,12">
+      <StackPanel x:Name="Controls" Spacing="8">
+        <Border Classes="card" Padding="16,10">
           <StackPanel Spacing="10">
-            <!-- The session and its hotkeys in one card, the hotkeys' hint behind the i. -->
-            <StackPanel Orientation="Horizontal" Spacing="6">
-              <TextBlock Text="{DynamicResource Str.NrLiveSessionSection}" Classes="section" />
-              <TextBlock Text="·" Classes="section" />
-              <TextBlock Text="{DynamicResource Str.NrLiveHotkeysSection}" Classes="section" />
-              <Border Classes="info" ToolTip.Tip="{DynamicResource Str.NrLiveHotkeyHint}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
-            </StackPanel>
+            <!-- The session and its hotkeys in one card, headed like the three cards below; the hotkeys' hint
+                 behind the i. Lower than theirs, with no switch to make room for: the page has to fit the default window. -->
+            <Border Classes="nrHead" MinHeight="0" Margin="0" Padding="0,0,0,6"><Grid ColumnDefinitions="Auto,Auto,*">
+              <Border Classes="nrBar" />
+              <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6">
+                <TextBlock Text="{DynamicResource Str.NrLiveSessionSection}" Classes="nrTitle" />
+                <TextBlock Text="·" Classes="nrTitle" />
+                <TextBlock Text="{DynamicResource Str.NrLiveHotkeysSection}" Classes="nrTitle" />
+                <Border Classes="info" VerticalAlignment="Center" ToolTip.Tip="{DynamicResource Str.NrLiveHotkeyHint}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
+              </StackPanel>
+              <!-- Whose settings the page shows and NRLive runs with: the global ones or a game's (NrLivePage.Profiles.cs).
+                   In the header, which is as tall as a menu already, so it costs the page no height. -->
+              <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="16,0,0,0">
+                <TextBlock Text="{DynamicResource Str.NrLiveProfileFor}" Classes="muted" VerticalAlignment="Center" />
+                <ComboBox x:Name="ProfileBox" MinWidth="200" MaxWidth="320" MinHeight="28" Padding="10,3,8,3" VerticalAlignment="Center" SelectionChanged="OnProfileChanged"
+                          AutomationProperties.Name="{DynamicResource Str.NrLiveProfileFor}" />
+                <Button x:Name="ResetProfileButton" Classes="ghost small" VerticalAlignment="Center" Click="OnResetProfile"
+                        Content="{DynamicResource Str.NrLiveProfileReset}" IsVisible="False" />
+                <Border Classes="info" VerticalAlignment="Center" ToolTip.Tip="{DynamicResource Str.NrLiveProfileHint}"
+                        AutomationProperties.Name="{DynamicResource Str.NrLiveProfileHint}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
+              </StackPanel>
+            </Grid></Border>
             <!-- Each menu's label before it rather than over it: a line saved here is a settings row in sight below. -->
             <Grid ColumnDefinitions="*,12,*,24,Auto">
               <Grid Grid.Column="0" x:Name="TargetModeSection" ColumnDefinitions="Auto,*">
@@ -190,7 +205,7 @@
         <!-- NRLive's own settings, one card per group, laid out from NrLiveConfig.Settings (NrLivePage.Settings.cs and
              .Rows.cs). Three across, the cards as tall as the tallest and each "More" at its card's foot; two and one
              across on a narrower window (Arrange in NrLivePage.axaml.cs). -->
-        <Grid x:Name="SettingsGrid" ColumnDefinitions="*,16,*,16,*">
+        <Grid x:Name="SettingsGrid" ColumnDefinitions="*,16,*,16,1.3*">
           <Border x:Name="PictureCard" Classes="card nrCard">
             <DockPanel>
               <Border DockPanel.Dock="Top" Classes="nrHead"><Grid ColumnDefinitions="Auto,Auto,*">

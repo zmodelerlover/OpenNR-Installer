@@ -162,5 +162,13 @@
   <sys:String x:Key="Str.NrLiveHudItems">Rodoma ekrane (spustelėkite perjungti)</sys:String>
   <sys:String x:Key="Str.NrLiveHudPreview">HUD peržiūra</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">Vienas kadras tarp kiekvienų dviejų, kuriuos piešia žaidimas</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileFor">Kieno nustatymai</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileGlobal">Bendri</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileShared">{0} (bendri nustatymai)</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileReset">Naudoti bendrus nustatymus</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileResetHint">Ištrina žaidimo „{0}“ nustatymus ir grįžta prie bendrų.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileHint">Žaidimas iš bibliotekos gauna savo nustatymus, kai pirmą kartą pakeičiate kurį nors iš jų, kol jis čia rodomas. Kai atgalinis skaičiavimas baigiasi ant lango, galioja jo žaidimo nustatymai, jei jis jų turi. Ką fiksuoti, atgalinis skaičiavimas, didinimo spartusis klavišas ir paleidimas administratoriaus teisėmis visiems žaidimams vienodi.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileInUse">Nustatymai: {0}</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileLaunchKept">Nustatymai: {0}. Jo didinimo algoritmas, fiksavimas ir klavišai galioja, kai jis pasirinktas kaip tikslas.</sys:String>
 
 </ResourceDictionary>

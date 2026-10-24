@@ -162,5 +162,13 @@
   <sys:String x:Key="Str.NrLiveHudItems">Ekranda gösterilenler (değiştirmek için tıklayın)</sys:String>
   <sys:String x:Key="Str.NrLiveHudPreview">HUD önizlemesi</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">Oyunun çizdiği her iki kare arasına bir kare</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileFor">Ayar profili</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileGlobal">Genel</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileShared">{0} (genel ayarlar)</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileReset">Genel ayarları kullan</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileResetHint">{0} için ayarları siler ve genel ayarlara döner.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileHint">Kitaplıktaki bir oyun, burada gösterilirken bir ayarı ilk kez değiştirdiğinizde kendi ayarlarını alır. Geri sayım bir pencerede biterse, oyununun kendi ayarları varsa onlar kullanılır. Neyin yakalanacağı, geri sayım, ölçekleme kısayolu ve yönetici olarak çalıştırma tüm oyunlar için aynıdır.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileInUse">Ayarlar: {0}</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileLaunchKept">Ayarlar: {0}. Ölçekleyicisi, yakalama ve tuşları, hedef olarak seçildiğinde geçerli olur.</sys:String>
 
 </ResourceDictionary>

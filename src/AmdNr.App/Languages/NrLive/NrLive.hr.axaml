@@ -162,5 +162,13 @@
   <sys:String x:Key="Str.NrLiveHudItems">Na zaslonu (kliknite za uključivanje)</sys:String>
   <sys:String x:Key="Str.NrLiveHudPreview">Pregled HUD-a</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">Jedna sličica između svake dvije koje igra iscrta</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileFor">Postavke za</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileGlobal">Globalno</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileShared">{0} (globalne postavke)</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileReset">Koristi globalne postavke</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileResetHint">Briše postavke za {0} i vraća globalne.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileHint">Igra iz biblioteke dobiva vlastite postavke kad prvi put promijenite neku dok je ovdje prikazana. Kad odbrojavanje završi na prozoru, vrijede postavke njegove igre ako ih ima. Što se snima, odbrojavanje, prečac za skaliranje i pokretanje kao administrator isti su za sve igre.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileInUse">Postavke: {0}</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileLaunchKept">Postavke: {0}. Njezin upscaler, snimanje i tipke vrijede kad je odabrana kao cilj.</sys:String>
 
 </ResourceDictionary>

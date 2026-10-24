@@ -162,5 +162,13 @@
   <sys:String x:Key="Str.NrLiveHudItems">स्क्रीन पर दिखता है (बदलने के लिए क्लिक करें)</sys:String>
   <sys:String x:Key="Str.NrLiveHudPreview">HUD पूर्वावलोकन</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">गेम के हर दो फ़्रेम के बीच एक नया फ़्रेम</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileFor">किसकी सेटिंग्स</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileGlobal">ग्लोबल</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileShared">{0} (ग्लोबल सेटिंग्स)</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileReset">ग्लोबल सेटिंग्स इस्तेमाल करें</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileResetHint">{0} की सेटिंग्स हटाकर ग्लोबल सेटिंग्स पर लौटता है।</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileHint">लाइब्रेरी के किसी गेम को अपनी सेटिंग्स तब मिलती हैं जब उसके यहाँ दिखाए जाने के दौरान आप पहली बार कोई सेटिंग बदलते हैं। उलटी गिनती किसी विंडो पर खत्म हो, तो उसके गेम की सेटिंग्स लागू होती हैं, अगर उसकी अपनी हों। क्या कैप्चर करना है, उलटी गिनती, स्केल हॉटकी और एडमिनिस्ट्रेटर के रूप में चलाना सभी गेम के लिए एक जैसे रहते हैं।</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileInUse">सेटिंग्स: {0}</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileLaunchKept">सेटिंग्स: {0}। इसका अपस्केलर, कैप्चर और कुंजियाँ तब लागू होती हैं जब इसे लक्ष्य के रूप में चुना जाए।</sys:String>
 
 </ResourceDictionary>

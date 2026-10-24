@@ -162,5 +162,13 @@
   <sys:String x:Key="Str.NrLiveHudItems">Auf dem Bildschirm (zum Umschalten klicken)</sys:String>
   <sys:String x:Key="Str.NrLiveHudPreview">HUD-Vorschau</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">Ein Bild zwischen je zwei, die das Spiel zeichnet</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileFor">Einstellungen für</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileGlobal">Global</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileShared">{0} (globale Einstellungen)</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileReset">Globale Einstellungen verwenden</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileResetHint">Löscht die Einstellungen für {0} und kehrt zu den globalen zurück.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileHint">Ein Spiel aus der Bibliothek bekommt eigene Einstellungen, sobald du eine davon änderst, während es hier gezeigt wird. Endet der Countdown auf einem Fenster, gelten die Einstellungen seines Spiels, falls es welche hat. Was aufgenommen wird, der Countdown, der Hotkey zum Skalieren und das Ausführen als Administrator gelten für alle Spiele gleich.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileInUse">Einstellungen: {0}</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileLaunchKept">Einstellungen: {0}. Upscaler, Aufnahme und Tasten gelten erst, wenn es als Ziel gewählt ist.</sys:String>
 
 </ResourceDictionary>

@@ -162,5 +162,13 @@
   <sys:String x:Key="Str.NrLiveHudItems">画面に表示（クリックで切り替え）</sys:String>
   <sys:String x:Key="Str.NrLiveHudPreview">HUD のプレビュー</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">ゲームが描く 2 フレームごとの間に 1 フレームを生成</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileFor">設定の対象</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileGlobal">全体</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileShared">{0}（全体の設定）</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileReset">全体の設定を使う</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileResetHint">{0} の設定を削除し、全体の設定に戻します。</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileHint">ライブラリのゲームは、ここに表示されている間に設定を初めて変更したときに専用の設定を持ちます。カウントダウンがあるウィンドウで終わると、そのゲームに専用の設定があればそれが使われます。キャプチャ対象、カウントダウン、スケーリングのホットキー、管理者として実行はすべてのゲームで共通です。</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileInUse">設定: {0}</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileLaunchKept">設定: {0}。アップスケーラー、キャプチャ、キーは、このゲームをキャプチャ対象に選んだときに反映されます。</sys:String>
 
 </ResourceDictionary>

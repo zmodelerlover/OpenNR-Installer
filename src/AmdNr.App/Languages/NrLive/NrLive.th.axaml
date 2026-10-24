@@ -162,5 +162,13 @@
   <sys:String x:Key="Str.NrLiveHudItems">แสดงบนหน้าจอ (คลิกเพื่อสลับ)</sys:String>
   <sys:String x:Key="Str.NrLiveHudPreview">ตัวอย่าง HUD</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">สร้างหนึ่งเฟรมระหว่างทุกสองเฟรมที่เกมวาด</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileFor">การตั้งค่าสำหรับ</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileGlobal">ทั่วไป</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileShared">{0} (การตั้งค่าทั่วไป)</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileReset">ใช้การตั้งค่าทั่วไป</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileResetHint">ลบการตั้งค่าของ {0} แล้วกลับไปใช้การตั้งค่าทั่วไป</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileHint">เกมในคลังจะมีการตั้งค่าของตัวเองเมื่อคุณเปลี่ยนค่าใดค่าหนึ่งครั้งแรกขณะที่เกมนั้นแสดงอยู่ที่นี่ เมื่อนับถอยหลังจบลงที่หน้าต่างใด จะใช้การตั้งค่าของเกมนั้นหากมี สิ่งที่จะจับภาพ การนับถอยหลัง ปุ่มลัดขยายภาพ และการเรียกใช้ในฐานะผู้ดูแลระบบ ใช้ร่วมกันทุกเกม</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileInUse">การตั้งค่า: {0}</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileLaunchKept">การตั้งค่า: {0} ตัวอัปสเกล การจับภาพ และปุ่มของเกมนี้จะมีผลเมื่อเลือกเกมนี้เป็นเป้าหมาย</sys:String>
 
 </ResourceDictionary>

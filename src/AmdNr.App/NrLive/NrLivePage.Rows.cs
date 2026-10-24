@@ -72,9 +72,13 @@ public partial class NrLivePage
 
     private void Store(NrLiveSetting setting, int value)
     {
-        _config!.Set(setting, value);
+        Own();
+        // Read again first: NRLive's overlay may have saved the file since the page read it.
+        _config = NrLiveConfig.Load(NrLivePackage.Folder);
+        _config.Set(setting, value);
         try { _config.Save(); }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException) { }
+        Keep();
         ShowPreview();
         // The runtime decides which NR rows apply, and a preset rewrites the HUD items: lay the rows out again.
         if (setting.Id is "DLSSNR.runtime" or "FPS.preset" || (setting.Section == "FPS" && setting.Kind == NrLiveKind.Toggle))

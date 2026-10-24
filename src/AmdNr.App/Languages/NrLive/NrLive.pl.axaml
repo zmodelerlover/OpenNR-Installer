@@ -162,5 +162,13 @@
   <sys:String x:Key="Str.NrLiveHudItems">Na ekranie (kliknij, aby przełączyć)</sys:String>
   <sys:String x:Key="Str.NrLiveHudPreview">Podgląd HUD</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled.Hint">Jedna klatka między każdymi dwiema, które rysuje gra</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileFor">Ustawienia dla</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileGlobal">Globalne</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileShared">{0} (ustawienia globalne)</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileReset">Użyj ustawień globalnych</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileResetHint">Usuwa ustawienia gry {0} i wraca do globalnych.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileHint">Gra z biblioteki dostaje własne ustawienia, gdy po raz pierwszy zmienisz któreś z nich, kiedy jest tu pokazana. Gdy odliczanie skończy się na oknie, obowiązują ustawienia jego gry, jeśli ma własne. To, co jest przechwytywane, odliczanie, skrót skalowania i uruchamianie jako administrator są wspólne dla wszystkich gier.</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileInUse">Ustawienia: {0}</sys:String>
+  <sys:String x:Key="Str.NrLiveProfileLaunchKept">Ustawienia: {0}. Jej upscaler, przechwytywanie i klawisze zadziałają, gdy zostanie wybrana jako cel.</sys:String>
 
 </ResourceDictionary>

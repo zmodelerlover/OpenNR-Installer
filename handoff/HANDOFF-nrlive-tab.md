@@ -158,13 +158,64 @@ From `handoff/mockup-nrlive-three-columns.png` (a concept the user liked). The p
 - **uishot**: `flow-nrlive-default` (1240x800, OpenNR stand-in with a model file, checks the page extent fits the
   viewport and three cards across) and `flow-nrlive-narrow` (980x620, two across, Overlay under them). Known: at
   1240 the overlay tiles trim long labels ("FSR, NR and F...", tooltip has the full name); at 1920 they fit.
+
+## Settings per game (2026-10-24)
+
+Option A as approved: a Global profile (what `scaleconfig.ini` / `profiles\Default.json` hold) plus one per library game.
+
+- **Storage** (`AmdNr.Core\NrLive\NrLiveProfiles.cs`): `nrlive\opennr-profiles\<id>.json` (`global.json` for Global),
+  id = folder name + 12 hex of the SHA-256 of the game folder's full path, lower case (`NrLiveGame.IdFor`). Each holds
+  `name`, `folder`, `launch` (upscaler, capture_mode, motion, no_overlay, stop_key, overlay_key, bind_bypass) and
+  `settings` ("Section.key" -> the text in the ini, for `NrLiveConfig.ProfileKeys` = the table's keys + the HUD items and
+  `FPS.layout` a preset writes; a key not in the file is not in the copy, and is taken out of the ini when the copy is
+  applied, so NRLive's default applies). Everything else in the ini (`[General] screenshot_path`...) is never touched.
+  `holder.txt` says whose copy NRLive's files hold now; switching first saves the files into the holder's copy
+  (`Use` -> `Capture`), so nothing NRLive's overlay saved is lost, even after a crash.
+- **Kept one for all**: target, countdown, scale hotkey (registered by this app before any game is known), Run as
+  administrator, the NRLive launcher's `exe_path`.
+- **Page** (`NrLivePage.Profiles.cs`): "Settings for" menu + "Use global settings" (only for a game with its own) + i,
+  on the right of the session card's header. Entries: Global, games with their own copy, the target's game and the one
+  shown; a game without its own reads "<name> (global settings)". The context follows the target: library game -> that
+  game; open window -> `QueryFullProcessImageNameW` of its pid matched against the library (`NrLiveProfiles.Match`:
+  exact executable, else the innermost game folder holding it); window in front -> Global until the countdown ends.
+  The menu can show another game or Global; Scale goes back to the target's. Menu and reset are locked in a session.
+- **First change** (`Own()` before every write of a copied field: settings rows, upscaler, overlay switch, capture,
+  motion, stop/overlay keys, passthrough keys): a game shown on the global settings gets `Fork` (its copy made from the
+  current files, holder = game). Every write is followed by `Capture` into the holder's copy. `Store` now reads
+  scaleconfig.ini again before writing, so a page edit does not overwrite what the overlay saved meanwhile.
+- **Window in front**: with Run as administrator off (or this app already elevated) NRLive is not started at Scale:
+  the countdown runs here, then `Foreground()` (pid + exe) -> `UseForeground` -> NRLive started with
+  `-pid <pid> -delay 0` (`-front -delay 0` when nothing was in front), so the game's launch fields apply too. With Run
+  as administrator on (the default) NRLive starts at Scale as before, so the UAC prompt stays in the app and never comes
+  up over the game; at the countdown end the game's ini values are written and NRLive follows them live (overlay.cpp
+  watches the file's time, opennr.cpp's `NrConfigWatcher` every 500 ms). **Gap**: its upscaler, capture, motion,
+  overlay and keys are on the command line and stay Global's for that session; the status line says so
+  (`Str.NrLiveProfileLaunchKept`). Picking the game as the target avoids it.
+- **Session end** (`Reset`: stopped, exited, or the app closing): `Capture` saves what the overlay changed into the
+  copy the session ran with, then the rows are read again.
+- **Status line**: "...  ·  Settings: <Global | game>".
+- **Strings**: 8 new in all 21 languages (`Str.NrLiveProfileFor`, `Global`, `Shared`, `Reset`, `ResetHint`, `Hint`,
+  `InUse`, `LaunchKept`), translated here; worth a native read.
+- **Layout**: the nrHead header on the session card had made the page 26 px too tall at 1240x800. That header is lower
+  now (no MinHeight/margin, 6 px rule gap, the menu 28 px high), the session card's padding is 16,10, the page spacing 8
+  and its margins 12/10. It fits again with the menu and the reset button shown.
+- **Tests**: `NrLiveProfilesTests` (copy made on the first change and the global one kept, exe matching with nested
+  folders and case, foreground at the countdown end with an injected reader, save-back of what the overlay wrote and
+  keys taken out, reset held and not held). uishot `Flows.NrLiveProfiles.cs` (inside the NRLive flow, on the Use NRLive
+  game): global until a change, copy made, Global and back, fits 1240x800 (`flow-nrlive-profiles`), countdown with
+  admin off and `NrLivePage.Foreground` stubbed applies the game's settings and names it on the status line (then the
+  stand-in exe fails to start: `flow-nrlive-profile-foreground`), reset to global. `tools\gate.ps1 -Ui`: all OK.
+- **Not tested**: a real NRLive following the ini switch at the countdown end; the `-pid <pid> -delay 0` launch.
+
 ## Files
 
 New:
 - `src/AmdNr.Core/Library/AntiCheat.cs`, `src/AmdNr.Core/NrLive/NrLivePackage.cs`, `NrLiveConfig.cs`, `NrLiveProfile.cs`,
-  `src/AmdNr.Core/Payload/PayloadManifest.NrLive.cs`
-- `src/AmdNr.App/NrLive/NrLivePage.axaml(.cs)`, `NrLivePage.Session.cs`, `NrLivePage.Settings.cs`, `NrLivePage.Rows.cs`, `NrLiveNative.cs`
-  (window list, `GlobalHotkey` on its own thread, SendInput)
+  `NrLiveProfiles.cs`, `src/AmdNr.Core/Payload/PayloadManifest.NrLive.cs`
+- `src/AmdNr.App/NrLive/NrLivePage.axaml(.cs)`, `NrLivePage.Session.cs`, `NrLivePage.Settings.cs`, `NrLivePage.Rows.cs`,
+  `NrLivePage.Profiles.cs`, `NrLiveNative.cs` (window list, `GlobalHotkey` on its own thread, SendInput, the window in
+  front and a process's executable)
+- `tests/AmdNr.Core.Tests/NrLiveProfilesTests.cs`, `tools/uishot/Flows.NrLiveProfiles.cs`
 - `src/AmdNr.App/Sheet/AntiCheatCard.axaml(.cs)`, `GameSheet.AntiCheat.cs`
 - `src/AmdNr.App/Languages/NrLive/NrLive.<code>.axaml` x21 (merged by each `Strings.<code>.axaml`, which are near the line limit)
 - `tests/AmdNr.Core.Tests/AntiCheatTests.cs`, `NrLiveTests.cs`, `NrLiveStringsTests.cs`

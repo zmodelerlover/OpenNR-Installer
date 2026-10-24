@@ -67,6 +67,31 @@ internal static class NrLiveNative
         return SendInput((uint)inputs.Length, inputs, Marshal.SizeOf<Input>()) == inputs.Length;
     }
 
+    /// <summary>The process behind the window in front and its executable, for the settings of the game it is;
+    /// (0, null) when there is none.</summary>
+    public static (uint Pid, string? Exe) Foreground()
+    {
+        var hwnd = GetForegroundWindow();
+        if (hwnd == 0) return (0, null);
+        GetWindowThreadProcessId(hwnd, out var pid);
+        return pid == (uint)Environment.ProcessId ? (0, null) : (pid, ProcessPath(pid));
+    }
+
+    /// <summary>A process's executable by its full path, or null. Asked with the least access there is, which
+    /// Windows grants even for a process that runs elevated, as games with anti-cheat do.</summary>
+    public static string? ProcessPath(uint pid)
+    {
+        var process = OpenProcess(0x1000, false, pid); // PROCESS_QUERY_LIMITED_INFORMATION
+        if (process == 0) return null;
+        try
+        {
+            var path = new StringBuilder(1024);
+            var size = path.Capacity;
+            return QueryFullProcessImageNameW(process, 0, path, ref size) ? path.ToString() : null;
+        }
+        finally { CloseHandle(process); }
+    }
+
     private static Input Key(ushort vk, bool up) => new() { Type = 1, Ki = new KeyboardInput { Vk = vk, Flags = up ? 2u : 0u } };
 
     private const int GwOwner = 4, GwlExStyle = -20, DwmwaCloaked = 14;
@@ -82,6 +107,10 @@ internal static class NrLiveNative
     [DllImport("user32.dll", CharSet = CharSet.Unicode)] private static extern int GetWindowTextW(nint hwnd, StringBuilder text, int max);
     [DllImport("user32.dll")] private static extern uint GetWindowThreadProcessId(nint hwnd, out uint pid);
     [DllImport("dwmapi.dll")] private static extern int DwmGetWindowAttribute(nint hwnd, int attribute, out int value, int size);
+    [DllImport("user32.dll")] private static extern nint GetForegroundWindow();
+    [DllImport("kernel32.dll")] private static extern nint OpenProcess(uint access, bool inherit, uint pid);
+    [DllImport("kernel32.dll")] private static extern bool CloseHandle(nint handle);
+    [DllImport("kernel32.dll", CharSet = CharSet.Unicode)] private static extern bool QueryFullProcessImageNameW(nint process, uint flags, StringBuilder path, ref int size);
     [DllImport("user32.dll")] private static extern uint SendInput(uint count, Input[] inputs, int size);
 
     [StructLayout(LayoutKind.Sequential)]
