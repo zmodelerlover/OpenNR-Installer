@@ -76,11 +76,23 @@ public static class NrLivePackage
                 if (name == PayloadManifest.NrLiveComponent && file.Name.EndsWith(".zip", StringComparison.OrdinalIgnoreCase))
                     ExtractAll(source);
                 else
-                    // Anything else the release carries goes where its path says: the models in dlssnr-amd\.
-                    File.Copy(source, Inside(file.RelativePath), overwrite: true);
+                    Place(source, file.RelativePath);
             }
         File.WriteAllLines(Marker, [release.Version, Fingerprint(release)]);
     }
+
+    /// <summary>Anything else the release carries, under opennr\: the mochizuki models, which NRLive's package
+    /// ships without and OpenNR's runtime reads from opennr\dlssnr-amd. Hard-linked to the verified copy in the
+    /// cache, so the 260 MB are not on disk twice; copied where the volume takes no links.</summary>
+    private static void Place(string source, string relative)
+    {
+        var target = Inside(Path.Combine(OpenNrFolder, relative));
+        if (File.Exists(target)) File.Delete(target);
+        if (!PayloadCache.TryHardLink(source, target)) File.Copy(source, target, overwrite: true);
+    }
+
+    /// <summary>Where NRLive keeps OpenNR's runtime, beside its exe.</summary>
+    public const string OpenNrFolder = "opennr";
 
     /// <summary>The SHA-256s of the release's NRLive files, which is what tells two builds of one version apart.</summary>
     private static string Fingerprint(ComponentRelease release) =>

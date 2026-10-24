@@ -76,10 +76,6 @@
   <sys:String x:Key="Str.AntiCheatIgnore">Kihagyás ennél a játéknál</sys:String>
 
   <!-- NRLive's settings, one per key of scaleconfig.ini (NrLiveConfig.Settings), and the entries of each menu -->
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode">Felskálázó</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.0">FSR 4</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.1">FSR 3.1</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.2">Nincs</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FSR.sharpness">Élesség</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled">Képkocka-generálás</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameLimiter.enabled">Képkockakorlát</sys:String>
@@ -89,8 +85,9 @@
   <sys:String x:Key="Str.NrLiveSet.FrameLimiter.method.1">Alacsony késleltetés</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.enabled">NR</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime">NR futtatókörnyezet</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.0">Az NRLive sajátja</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.0">Automatikus</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.1">OpenNR (mochizuki)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.2">Az NRLive 0.0.6-os hídja</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model">Modell</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model.0">Eredeti</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model.1">Új, gyorsabb</sys:String>
@@ -100,7 +97,6 @@
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.style.2">Filmszerű</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.scale">Az NR felbontása</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.intensity">Intenzitás</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.RenoDX.enabled">RenoDX megjelenés</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.passes">Menetek</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.structure">Struktúra</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.color_strength">Szín az NR-ből</sys:String>
@@ -116,7 +112,6 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.position.1">Jobb felső</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.position.2">Bal alsó</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.position.3">Jobb alsó</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.FPS.gpu">GPU terhelés és hőmérséklet</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.fps">Képkocka másodpercenként</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.frametime">Képkockaidő</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.frame_timing">Képkockaidő-grafikon</sys:String>
@@ -125,5 +120,43 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.text_outline">Szöveg körvonala</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.font_size">Szövegméret</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.background_alpha">Háttér átlátszatlansága</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler">Felskálázó</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.0">FSR 4</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.1">FSR 3.1</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.2">Nincs (natív skálázás)</sys:String>
+  <sys:String x:Key="Str.NrLiveModelMissingOpenNr">Az NR-hez az NVIDIA modellje kell az opennr mappában, de nincs ott. Töltsd le újra az NRLive-ot erről az oldalról, hogy visszakerüljön.</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiOriginalModel">Eredeti modell (310.8)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle">Stílus</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.0">Normál</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.1">Természetes</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.2">Filmszerű</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoIntensity">Intenzitás</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoPasses">Menetek</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoLocalTone">Helyi tónus</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoLocalStructure">Helyi struktúra</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoSkinStructure">Bőrstruktúra</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoAutoMask">Karaktermaszk</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoSkinIndependent">Bőr a struktúrától külön</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoColorStrength">Szín az NR-ből</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiHistoryStrength">Előzmények erőssége</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiTemporal">Időbeli előzmények</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiStyleGrade">Stílus színkorrekciója</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiAco">ACO shaderfordító (a következő indítástól)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset">HUD-előbeállítás</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.0">Egyéni</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.1">Minimális</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.2">Kompakt</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.3">Normál</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.4">Teljes</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.position.4">Felül középen</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.position.5">Alul középen</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.lows">1%-os és 0,1%-os mélypontok</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_load">GPU terhelés</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_temp">GPU hőmérséklet</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.vram">VRAM</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.cpu_load">CPU terhelés</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.pipeline">FSR, NR és FG állapota</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_times">Menetenkénti GPU-idő</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.scale">HUD mérete</sys:String>
 
 </ResourceDictionary>

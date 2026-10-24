@@ -152,7 +152,7 @@ public partial class NrLivePage
             UseShellExecute = _profile.RunAsAdmin,
             Verb = _profile.RunAsAdmin ? "runas" : "",
         };
-        foreach (var arg in _profile.Arguments()) start.ArgumentList.Add(arg);
+        foreach (var arg in _profile.Arguments(NrLiveConfig.Supported(NrLivePackage.Exe).Contains(NrLiveConfig.UpscalerId))) start.ArgumentList.Add(arg);
         try
         {
             _process = Process.Start(start);

@@ -60,9 +60,25 @@ internal static class NrLiveFlow
 
         // A key only a newer NRLive reads shows up once the NRLive.exe in the folder reads it.
         check(picture.Children.Count == 4, $"the upscaler choice is hidden while NRLive does not read it ({picture.Children.Count} rows)");
-        File.WriteAllBytes(NrLivePackage.Exe, [.. exe, .. Encoding.Unicode.GetBytes("Upscaler\0mode\0")]);
+        File.WriteAllBytes(NrLivePackage.Exe, [.. exe, .. Encoding.Unicode.GetBytes("--upscaler\0")]);
         page.Show();
         check(Named<StackPanel>("PictureRows").Children.Count == 5, "and appears once it does");
+
+        // An NRLive with OpenNR's runtime beside it: the [OpenNR] rows in place of the bridge's, the HUD's preset, and
+        // the model looked for where the runtime reads it.
+        File.WriteAllBytes(NrLivePackage.Exe, [.. exe, .. Encoding.Unicode.GetBytes("--upscaler\0DLSSNR\0runtime\0OpenNR\0FPS\0preset\0position\0pipeline\0gpu_load\0gpu_temp\0"),
+            .. "MochizukiOriginalModel\0MochizukiRenoStyle\0MochizukiRenoIntensity\0MochizukiRenoPasses\0"u8]);
+        var runtime = Path.Combine(NrLivePackage.Folder, "opennr", "MochizukiNrRuntime.dll");
+        Directory.CreateDirectory(Path.GetDirectoryName(runtime)!);
+        File.WriteAllBytes(runtime, exe);
+        page.Show();
+        var nr = Named<StackPanel>("NrRows");
+        check(nr.Children.Count == 6 && Named<TextBlock>("ModelText").Text == S("Str.NrLiveModelMissingOpenNr"),
+            $"with OpenNR's runtime the NR card has its rows and asks for the model in opennr ({nr.Children.Count} rows)");
+        check(Named<StackPanel>("OverlayRows").Children.Count == 7, "and the HUD has its preset, position and items");
+        save(main, "flow-nrlive-opennr");
+        Directory.Delete(Path.GetDirectoryName(runtime)!, recursive: true);
+        page.Show();
 
         // The stop key made the same as the scale key: Scale is held back, and the page says why.
         var stop = Named<TextBox>("StopKeyBox");

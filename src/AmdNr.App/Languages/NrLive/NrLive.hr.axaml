@@ -76,10 +76,6 @@
   <sys:String x:Key="Str.AntiCheatIgnore">Zanemari za ovu igru</sys:String>
 
   <!-- NRLive's settings, one per key of scaleconfig.ini (NrLiveConfig.Settings), and the entries of each menu -->
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode">Upscaler</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.0">FSR 4</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.1">FSR 3.1</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.2">Bez</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FSR.sharpness">Oštrina</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled">Generiranje sličica</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameLimiter.enabled">Ograničenje sličica</sys:String>
@@ -89,8 +85,9 @@
   <sys:String x:Key="Str.NrLiveSet.FrameLimiter.method.1">Niska latencija</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.enabled">NR</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime">NR runtime</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.0">NRLiveov vlastiti</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.0">Automatski</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.1">OpenNR (mochizuki)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.2">NRLiveov most 0.0.6</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model">Model</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model.0">Izvorni</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model.1">Novi, brži</sys:String>
@@ -100,7 +97,6 @@
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.style.2">Filmski</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.scale">Rezolucija u kojoj radi NR</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.intensity">Intenzitet</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.RenoDX.enabled">RenoDX izgled</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.passes">Prolazi</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.structure">Struktura</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.color_strength">Boja iz NR-a</sys:String>
@@ -116,7 +112,6 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.position.1">Gore desno</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.position.2">Dolje lijevo</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.position.3">Dolje desno</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.FPS.gpu">Opterećenje i temperatura GPU-a</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.fps">Sličice u sekundi</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.frametime">Vrijeme sličice</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.frame_timing">Graf vremena sličica</sys:String>
@@ -125,5 +120,43 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.text_outline">Obrub teksta</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.font_size">Veličina teksta</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.background_alpha">Neprozirnost pozadine</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler">Upscaler</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.0">FSR 4</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.1">FSR 3.1</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.2">Bez (izvorno skaliranje)</sys:String>
+  <sys:String x:Key="Str.NrLiveModelMissingOpenNr">NR treba NVIDIA model u mapi opennr, a njega tamo nema. Ponovno preuzmi NRLive s ove stranice da ga vratiš.</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiOriginalModel">Izvorni model (310.8)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle">Stil</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.0">Standardni</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.1">Prirodni</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.2">Filmski</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoIntensity">Intenzitet</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoPasses">Prolazi</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoLocalTone">Lokalni ton</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoLocalStructure">Lokalna struktura</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoSkinStructure">Struktura kože</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoAutoMask">Maska likova</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoSkinIndependent">Koža odvojena od strukture</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoColorStrength">Boja iz NR-a</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiHistoryStrength">Jačina povijesti</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiTemporal">Vremenska povijest</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiStyleGrade">Gradacija stila</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiAco">ACO prevoditelj shadera (od sljedećeg pokretanja)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset">HUD predložak</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.0">Prilagođeno</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.1">Minimalno</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.2">Kompaktno</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.3">Standardno</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.4">Potpuno</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.position.4">Gore u sredini</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.position.5">Dolje u sredini</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.lows">Najniži 1% i 0,1%</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_load">Opterećenje GPU-a</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_temp">Temperatura GPU-a</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.vram">VRAM</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.cpu_load">Opterećenje CPU-a</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.pipeline">Stanje FSR-a, NR-a i FG-a</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_times">GPU vrijeme svakog prolaza</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.scale">Veličina HUD-a</sys:String>
 
 </ResourceDictionary>

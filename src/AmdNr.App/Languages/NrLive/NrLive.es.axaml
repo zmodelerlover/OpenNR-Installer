@@ -76,10 +76,6 @@
   <sys:String x:Key="Str.AntiCheatIgnore">Ignorar en este juego</sys:String>
 
   <!-- NRLive's settings, one per key of scaleconfig.ini (NrLiveConfig.Settings), and the entries of each menu -->
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode">Escalador</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.0">FSR 4</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.1">FSR 3.1</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.2">Ninguno</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FSR.sharpness">Nitidez</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled">Generación de fotogramas</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameLimiter.enabled">Límite de fotogramas</sys:String>
@@ -89,8 +85,9 @@
   <sys:String x:Key="Str.NrLiveSet.FrameLimiter.method.1">Baja latencia</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.enabled">NR</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime">Runtime de NR</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.0">El de NRLive</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.0">Automático</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.1">OpenNR (mochizuki)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.2">Puente 0.0.6 de NRLive</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model">Modelo</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model.0">Original</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model.1">Nuevo, más rápido</sys:String>
@@ -100,7 +97,6 @@
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.style.2">Cinematográfico</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.scale">Resolución a la que funciona NR</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.intensity">Intensidad</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.RenoDX.enabled">Aspecto RenoDX</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.passes">Pasadas</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.structure">Estructura</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.color_strength">Color de NR</sys:String>
@@ -116,7 +112,6 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.position.1">Arriba a la derecha</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.position.2">Abajo a la izquierda</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.position.3">Abajo a la derecha</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.FPS.gpu">Uso y temperatura de la GPU</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.fps">Fotogramas por segundo</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.frametime">Tiempo de fotograma</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.frame_timing">Gráfico de tiempo de fotograma</sys:String>
@@ -125,5 +120,43 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.text_outline">Contorno del texto</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.font_size">Tamaño del texto</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.background_alpha">Opacidad del fondo</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler">Escalador</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.0">FSR 4</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.1">FSR 3.1</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.2">Ninguno (escalado nativo)</sys:String>
+  <sys:String x:Key="Str.NrLiveModelMissingOpenNr">NR necesita el modelo de NVIDIA en la carpeta opennr, y no está ahí. Vuelve a descargar NRLive desde esta página para recuperarlo.</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiOriginalModel">Modelo original (310.8)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle">Estilo</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.0">Estándar</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.1">Natural</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.2">Cinematográfico</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoIntensity">Intensidad</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoPasses">Pasadas</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoLocalTone">Tono local</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoLocalStructure">Estructura local</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoSkinStructure">Estructura de la piel</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoAutoMask">Máscara de personajes</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoSkinIndependent">Piel separada de la estructura</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoColorStrength">Color de NR</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiHistoryStrength">Fuerza del historial</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiTemporal">Historial temporal</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiStyleGrade">Gradación del estilo</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiAco">Compilador de shaders ACO (desde el próximo inicio)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset">Preajuste del HUD</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.0">Personalizado</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.1">Mínimo</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.2">Compacto</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.3">Estándar</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.4">Completo</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.position.4">Arriba en el centro</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.position.5">Abajo en el centro</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.lows">Mínimos del 1% y 0,1%</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_load">Uso de la GPU</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_temp">Temperatura de la GPU</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.vram">VRAM</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.cpu_load">Uso de la CPU</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.pipeline">Estado de FSR, NR y FG</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_times">Tiempo de GPU de cada pasada</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.scale">Tamaño del HUD</sys:String>
 
 </ResourceDictionary>

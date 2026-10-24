@@ -76,10 +76,6 @@
   <sys:String x:Key="Str.AntiCheatIgnore">Nepaisyti šiame žaidime</sys:String>
 
   <!-- NRLive's settings, one per key of scaleconfig.ini (NrLiveConfig.Settings), and the entries of each menu -->
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode">Didintuvas</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.0">FSR 4</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.1">FSR 3.1</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.2">Nėra</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FSR.sharpness">Ryškumas</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled">Kadrų generavimas</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameLimiter.enabled">Kadrų riba</sys:String>
@@ -89,8 +85,9 @@
   <sys:String x:Key="Str.NrLiveSet.FrameLimiter.method.1">Maža delsa</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.enabled">NR</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime">NR vykdymo aplinka</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.0">NRLive nuosava</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.0">Automatiškai</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.1">OpenNR (mochizuki)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.2">NRLive 0.0.6 tiltas</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model">Modelis</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model.0">Originalus</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model.1">Naujas, greitesnis</sys:String>
@@ -100,7 +97,6 @@
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.style.2">Kinematografinis</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.scale">NR raiška</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.intensity">Intensyvumas</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.RenoDX.enabled">RenoDX išvaizda</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.passes">Praėjimai</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.structure">Struktūra</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.color_strength">Spalva iš NR</sys:String>
@@ -116,7 +112,6 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.position.1">Viršuje dešinėje</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.position.2">Apačioje kairėje</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.position.3">Apačioje dešinėje</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.FPS.gpu">GPU apkrova ir temperatūra</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.fps">Kadrai per sekundę</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.frametime">Kadro laikas</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.frame_timing">Kadro laiko grafikas</sys:String>
@@ -125,5 +120,43 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.text_outline">Teksto kontūras</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.font_size">Teksto dydis</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.background_alpha">Fono nepermatomumas</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler">Didintuvas</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.0">FSR 4</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.1">FSR 3.1</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.2">Nėra (įprastas mastelis)</sys:String>
+  <sys:String x:Key="Str.NrLiveModelMissingOpenNr">NR reikia NVIDIA modelio aplanke opennr, o jo ten nėra. Atsisiųskite NRLive iš šio puslapio dar kartą, kad jis grįžtų.</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiOriginalModel">Originalus modelis (310.8)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle">Stilius</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.0">Standartinis</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.1">Natūralus</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.2">Kinematografinis</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoIntensity">Intensyvumas</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoPasses">Praėjimai</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoLocalTone">Vietinis tonas</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoLocalStructure">Vietinė struktūra</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoSkinStructure">Odos struktūra</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoAutoMask">Veikėjų kaukė</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoSkinIndependent">Oda atskirai nuo struktūros</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoColorStrength">Spalva iš NR</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiHistoryStrength">Istorijos stiprumas</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiTemporal">Laikinė istorija</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiStyleGrade">Stiliaus spalvinimas</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiAco">ACO šešėliuoklių kompiliatorius (nuo kito paleidimo)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset">HUD rinkinys</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.0">Pasirinktinis</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.1">Minimalus</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.2">Kompaktiškas</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.3">Standartinis</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.4">Pilnas</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.position.4">Viršuje centre</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.position.5">Apačioje centre</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.lows">1% ir 0,1% žemumos</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_load">GPU apkrova</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_temp">GPU temperatūra</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.vram">VRAM</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.cpu_load">CPU apkrova</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.pipeline">FSR, NR ir FG būsena</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_times">Kiekvieno praėjimo GPU laikas</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.scale">HUD dydis</sys:String>
 
 </ResourceDictionary>

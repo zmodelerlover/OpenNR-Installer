@@ -28,7 +28,22 @@ public partial class NrLivePage
             _profile.NoOverlay = !on;
             SaveProfile();
         })));
-        foreach (var setting in NrLiveConfig.Settings.Where(s => !s.Pending || supported.Contains(s.Id)))
+        // The upscaler is a choice on NRLive's command line, kept in the profile as its launcher keeps it.
+        if (supported.Contains(NrLiveConfig.UpscalerId))
+        {
+            var upscaler = new ComboBox { Width = 240, HorizontalAlignment = HorizontalAlignment.Right };
+            for (var i = 0; i < NrLiveConfig.Upscalers.Length; i++) upscaler.Items.Add(Ui.Text($"Str.NrLiveUpscaler.{i}"));
+            upscaler.SelectedIndex = Math.Max(0, Array.IndexOf(NrLiveConfig.Upscalers, _profile.Upscaler));
+            upscaler.SelectionChanged += (_, _) =>
+            {
+                if (upscaler.SelectedIndex < 0) return;
+                _profile.Upscaler = NrLiveConfig.Upscalers[upscaler.SelectedIndex];
+                SaveProfile();
+            };
+            PictureRows.Children.Add(Row("Str.NrLiveUpscaler", upscaler));
+        }
+        var tags = _config.Tags(folder, supported);
+        foreach (var setting in NrLiveConfig.Settings.Where(s => NrLiveConfig.Shown(s, supported, tags)))
         {
             var rows = (setting.Group, setting.Advanced) switch
             {
@@ -41,9 +56,13 @@ public partial class NrLivePage
         PictureMore.IsVisible = PictureMoreRows.Children.Count > 0;
         NrMore.IsVisible = NrMoreRows.Children.Count > 0;
         OverlayMore.IsVisible = OverlayMoreRows.Children.Count > 0;
-        // NR without NVIDIA's model does nothing, and NRLive only says so in its log.
-        var model = Path.Combine(folder, "dlssnr-amd");
+        // NR without NVIDIA's model does nothing, and NRLive only says so in its log. OpenNR's runtime reads it
+        // from opennr\dlssnr-amd, where the download puts it; the 0.0.6 bridge from dlssnr-amd beside NRLive.exe.
+        var runtime = tags.Contains(NrLiveConfig.OpenNr) ? NrLiveConfig.OpenNrRuntime(folder) : null;
+        var openNr = runtime is not null;
+        var model = Path.Combine(openNr ? Path.GetDirectoryName(runtime)! : folder, "dlssnr-amd");
         ModelBox.IsVisible = Installed && !File.Exists(Path.Combine(model, "dlssnr.bin")) && !File.Exists(Path.Combine(model, "dlssnr-small.bin"));
+        Ui.Localize(ModelText, openNr ? "Str.NrLiveModelMissingOpenNr" : "Str.NrLiveModelMissing");
     }
 
     private Control Control(NrLiveSetting setting)
@@ -54,6 +73,9 @@ public partial class NrLivePage
             _config.Set(setting, v);
             try { _config.Save(); }
             catch (Exception e) when (e is IOException or UnauthorizedAccessException) { }
+            // The runtime decides which NR rows apply, and a preset rewrites the HUD items: lay the rows out again.
+            if (setting.Id is "DLSSNR.runtime" or "FPS.preset" || (setting.Section == "FPS" && setting.Kind == NrLiveKind.Toggle))
+                Avalonia.Threading.Dispatcher.UIThread.Post(ShowSettings);
         }
         switch (setting.Kind)
         {

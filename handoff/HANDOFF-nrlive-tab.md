@@ -35,8 +35,8 @@ NRLive itself (`E:\Projetos\opti_rr_dlss5\NRLive`, main fa859d3, 2.2.0) was only
   "Download all" and the first-run wizard never fetch it. The shipped `payload.json` has `releases.nrlive[2.2.0]` with
   `PlaceholderSha` and size 1, so the page says "not published yet". The release also lists `mochizuki-model` and
   `mochizuki-model-small` (the pins OptiScaler 0.5.7 already uses); `NrLivePackage` copies every non-zip file of the release
-  to its path under the NRLive folder, i.e. `dlssnr-amd\dlssnr.bin` and `dlssnr-amd\dlssnr-small.bin`, because NRLive's own
-  package ships without the NVIDIA model.
+  into `opennr\dlssnr-amd\` under the NRLive folder (see "Aligned with NRLive's real interface"), because NRLive's
+  own package ships without the NVIDIA model.
 - **Important**: `tools/publish-payload.ps1` and `tools/check-release.ps1` refuse a payload with a placeholder pin. Before the
   next payload publish or installer release, run `tools/pin-nrlive.ps1 -Zip <NRLiveUI.zip> -Version <v>` (new; checks the
   zip's root has NRLive.exe and version.txt = -Version and no NVIDIA model, pins it with the HF address and NRLive's GitHub
@@ -74,25 +74,52 @@ NRLive itself (`E:\Projetos\opti_rr_dlss5\NRLive`, main fa859d3, 2.2.0) was only
   text_outline font_size background_alpha`. Ranges and defaults are NRLive's own.
 - Release asset `NRLiveUI.zip` (CI `windows-build.yml`), flat, with `version.txt`.
 
-## Open TODOs for the new NRLive keys (hooks in `src/AmdNr.Core/NrLive/NrLiveConfig.cs`)
+## Aligned with NRLive's real interface (2026-10-24)
 
-The names below are proposals; if the NRLive work settles on others, change that one row and its strings.
+Source: NRLive branch `nrlive-overlay-on-runtime` (`E:\Projetos\opti_rr_dlss5\wt-nrlive-stack`, = `nrlive-runtime` +
+`nrlive-overlay`, see its `handoff\HANDOFF-stack.md`). NRLive main 2.2.0 still has none of this, so every new row is
+`Pending` and appears only once the NRLive.exe in the folder reads its key.
 
-| Row (Pending) | Proposed key | Values | For |
-|---|---|---|---|
-| Upscaler | `[Upscaler] mode` | 0 FSR 4, 1 FSR 3.1, 2 none | upscaler choice (today FSR is on at start and toggled in the overlay, not persisted) |
-| NR runtime | `[DLSSNR] runtime` | 0 NRLive's bridge, 1 OpenNR mochizuki | the OpenNR mochizuki backend |
-| RenoDX look | `[RenoDX] enabled` | 0/1 | RenoDX look; add its strength/other keys as rows beside it |
-| GPU load and temperature | `[FPS] gpu` | 0/1 | first MangoHud-like overlay row; add the others the same way |
-
-Adding a key: one `new(group, section, key, kind, default, min, max, choices, advanced, pending)` row, plus
-`Str.NrLiveSet.<Section>.<key>` (and `.0`, `.1`, ... for a menu) in all 21 `Languages/NrLive/NrLive.*.axaml`
-(`NrLiveStringsTests` fails otherwise). Once the key exists in NRLive main, drop `Pending: true`.
-
-Also open: whether the mochizuki model pinned for OptiScaler (mochizuki 0.0.7 extractor) loads in NRLive's DLSSNR-AMD 0.0.6
-port (same network, likely the same file; verify on a real NRLive build before publishing, or pin with `-NoModels`). If the
-OpenNR mochizuki backend lands in NRLive, the release could carry `mochizuki` too, and `NrLivePackage` already copies any extra
-component to its path.
+- **Upscaler**: not an ini key. Kept in the profile (`profiles\Default.json`, `"upscaler": "fsr4" | "fsr31" | "none"`,
+  the same field NRLive's launcher writes) and passed as `--upscaler <id>` only when NRLive.exe contains the wide
+  literal `--upscaler` (an NRLive that does not know it exits on it). Row "Upscaler" at the top of the first card.
+- **`[DLSSNR] runtime`** = `auto | opennr | bridge` (written as the word; `NrLiveSetting.Values`).
+- **`[OpenNR]`** rows (OptiScaler key names, ranges/defaults from NRLive's opennr.cpp + MochizukiRenoKeys.inc):
+  MochizukiOriginalModel, MochizukiRenoStyle (0-2), MochizukiRenoIntensity (0-2), MochizukiRenoPasses (1-4, as the
+  launcher), advanced: MochizukiRenoLocalTone, MochizukiRenoLocalStructure, MochizukiRenoSkinStructure (-1..1),
+  MochizukiRenoAutoMask, MochizukiRenoSkinIndependent, MochizukiRenoColorStrength, MochizukiTemporal,
+  MochizukiHistoryStrength, MochizukiStyleGrade, MochizukiAco. Decimals are shown as percent and written as
+  `0.85` (`NrLiveSetting.Scale = 100`); booleans read true/false/on/off/1/0 and are written 1/0 (NRLive reads both).
+  Int4 is left out: the installer has no int4 weights for NRLive.
+- **Which NR rows show** (`NrLiveSetting.Only`, `NrLiveConfig.Tags`): the [OpenNR] set when the runtime is `opennr`,
+  or `auto` with `opennr\MochizukiNrRuntime.dll` (or the DLL beside NRLive.exe) present; the old `[DLSSNR]` set
+  (model, style, scale, ...) otherwise, and always for an NRLive without the runtime key. Changing the runtime lays
+  the card out again. `[RenoDX] enabled` is gone (it never existed; the RenoDX stage is the [OpenNR] Reno* keys).
+- **HUD** (`[FPS]`, from the overlay handoff): preset (0 custom, 1 minimal, 2 compact, 3 standard, 4 full),
+  position with 6 entries, pipeline, gpu_load, gpu_temp; advanced lows, vram, cpu_load, gpu_times, scale (50-250 %),
+  background_alpha (default 80). NRLive only applies a preset from its own UI, so choosing one here writes the
+  item toggles and `layout` the way its launcher's dialog does; changing an item sets `preset=0`. With an older
+  NRLive (no `preset` key) the old rows stay: 4 positions, font_size, background_alpha default 50.
+- **Detection** (`NrLiveConfig.Supported`): section wide + key wide, or for [OpenNR] the key narrow (NRLive
+  widens those names at run time), each with its terminator; plus `cli.upscaler`.
+- **Models**: the release's `mochizuki-model` / `mochizuki-model-small` files are now hard-linked from the verified
+  cache copy into `nrlive\opennr\dlssnr-amd\` (copied where links fail; `PayloadCache.TryHardLink` made internal),
+  not into `dlssnr-amd\` beside the exe: the 0.0.6 bridge reads that one and its 310.9.16 files are not the same
+  models. NRLive's own fallback (linking `<exe>\dlssnr-amd\*.bin` into `opennr\dlssnr-amd`) skips names already
+  there. The page's "no model" callout looks in `opennr\dlssnr-amd` when OpenNR is the runtime and says to download
+  NRLive again (`Str.NrLiveModelMissingOpenNr`), else in `dlssnr-amd` with the old text. The `nrlive` component is
+  still the placeholder.
+- **Strings**: 41 new/changed in all 21 languages (removed `Upscaler.mode*`, `RenoDX.enabled`, `FPS.gpu`; runtime
+  menu now Automatic / OpenNR (mochizuki) / NRLive's 0.0.6 bridge; `Str.NrLiveUpscaler*`, the [OpenNR] labels,
+  the HUD labels, `FPS.position.4/5`, `Str.NrLiveModelMissingOpenNr`). The 20 translations were written by two
+  sub-agents from each language's existing NrLive file; mochizuki's first Style is "Standard" (the bridge's is
+  "Neutral").
+- **Tests**: Supported/Tags/Shown for 2.2.0 and the stacked build, decimals/words/booleans/preset writing, models
+  linked into `opennr\dlssnr-amd`, `--upscaler` in the command line only when asked. uishot flow: the upscaler row
+  appears with `--upscaler`; new step `flow-nrlive-opennr` (stand-in exe with the new literals + a runtime DLL: 6 NR
+  rows, the OpenNR model callout, 7 overlay rows). `tools\gate.ps1 -Ui`: build, test, line-limit, publish, ui,
+  flows all OK, 0 failed gates.
+- **Not tested**: the page against the real stacked NRLive.exe (it is not packaged as a release zip yet).
 
 ## Files
 

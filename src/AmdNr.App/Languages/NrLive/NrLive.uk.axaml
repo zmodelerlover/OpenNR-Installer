@@ -76,10 +76,6 @@
   <sys:String x:Key="Str.AntiCheatIgnore">Не показувати для цієї гри</sys:String>
 
   <!-- NRLive's settings, one per key of scaleconfig.ini (NrLiveConfig.Settings), and the entries of each menu -->
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode">Апскейлер</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.0">FSR 4</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.1">FSR 3.1</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.2">Немає</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FSR.sharpness">Різкість</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled">Генерація кадрів</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameLimiter.enabled">Обмеження кадрів</sys:String>
@@ -89,8 +85,9 @@
   <sys:String x:Key="Str.NrLiveSet.FrameLimiter.method.1">Низька затримка</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.enabled">NR</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime">Рантайм NR</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.0">Вбудований у NRLive</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.0">Автоматично</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.1">OpenNR (mochizuki)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.2">Міст 0.0.6 з NRLive</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model">Модель</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model.0">Оригінальна</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model.1">Нова, швидша</sys:String>
@@ -100,7 +97,6 @@
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.style.2">Кінематографічний</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.scale">Роздільність для NR</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.intensity">Інтенсивність</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.RenoDX.enabled">Кольори RenoDX</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.passes">Проходи</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.structure">Структура</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.color_strength">Колір від NR</sys:String>
@@ -116,7 +112,6 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.position.1">Праворуч угорі</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.position.2">Ліворуч унизу</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.position.3">Праворуч унизу</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.FPS.gpu">Навантаження й температура GPU</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.fps">Кадри за секунду</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.frametime">Час кадру</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.frame_timing">Графік часу кадру</sys:String>
@@ -125,5 +120,43 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.text_outline">Обведення тексту</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.font_size">Розмір тексту</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.background_alpha">Непрозорість тла</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler">Апскейлер</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.0">FSR 4</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.1">FSR 3.1</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.2">Немає (нативне масштабування)</sys:String>
+  <sys:String x:Key="Str.NrLiveModelMissingOpenNr">Для NR потрібна модель NVIDIA в папці opennr, а її там немає. Завантажте NRLive з цієї сторінки ще раз, щоб повернути її.</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiOriginalModel">Оригінальна модель (310.8)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle">Стиль</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.0">Стандартний</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.1">Природний</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.2">Кінематографічний</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoIntensity">Інтенсивність</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoPasses">Проходи</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoLocalTone">Локальний тон</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoLocalStructure">Локальна структура</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoSkinStructure">Структура шкіри</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoAutoMask">Маска персонажів</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoSkinIndependent">Шкіра окремо від структури</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoColorStrength">Колір від NR</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiHistoryStrength">Сила історії</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiTemporal">Часова історія</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiStyleGrade">Кольорокорекція стилю</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiAco">Компілятор шейдерів ACO (з наступного запуску)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset">Пресет HUD</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.0">Власний</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.1">Мінімальний</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.2">Компактний</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.3">Стандартний</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.4">Повний</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.position.4">Угорі по центру</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.position.5">Унизу по центру</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.lows">1% і 0,1% low</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_load">Навантаження GPU</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_temp">Температура GPU</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.vram">VRAM</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.cpu_load">Навантаження CPU</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.pipeline">Стан FSR, NR і FG</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_times">Час GPU на кожен прохід</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.scale">Розмір HUD</sys:String>
 
 </ResourceDictionary>

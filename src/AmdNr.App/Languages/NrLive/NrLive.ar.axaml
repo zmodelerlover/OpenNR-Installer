@@ -76,10 +76,6 @@
   <sys:String x:Key="Str.AntiCheatIgnore">تجاهُل لهذه اللعبة</sys:String>
 
   <!-- NRLive's settings, one per key of scaleconfig.ini (NrLiveConfig.Settings), and the entries of each menu -->
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode">تقنية رفع الدقة</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.0">FSR 4</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.1">FSR 3.1</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.2">بلا</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FSR.sharpness">الحدّة</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled">توليد الإطارات</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameLimiter.enabled">حدّ الإطارات</sys:String>
@@ -89,8 +85,9 @@
   <sys:String x:Key="Str.NrLiveSet.FrameLimiter.method.1">زمن استجابة منخفض</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.enabled">NR</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime">بيئة تشغيل NR</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.0">الخاصة بـ NRLive</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.0">تلقائي</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.1">OpenNR (mochizuki)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.2">جسر NRLive بإصدار 0.0.6</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model">النموذج</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model.0">الأصلي</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model.1">الجديد، أسرع</sys:String>
@@ -100,7 +97,6 @@
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.style.2">سينمائي</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.scale">الدقة التي يعمل بها NR</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.intensity">الشدة</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.RenoDX.enabled">مظهر RenoDX</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.passes">التمريرات</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.structure">البنية</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.color_strength">اللون من NR</sys:String>
@@ -116,7 +112,6 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.position.1">أعلى اليمين</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.position.2">أسفل اليسار</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.position.3">أسفل اليمين</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.FPS.gpu">حمل GPU وحرارته</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.fps">الإطارات في الثانية</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.frametime">زمن الإطار</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.frame_timing">رسم بياني لزمن الإطار</sys:String>
@@ -125,5 +120,43 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.text_outline">إطار النص</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.font_size">حجم النص</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.background_alpha">عتامة الخلفية</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler">تقنية رفع الدقة</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.0">FSR 4</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.1">FSR 3.1</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.2">بلا (تحجيم أصلي)</sys:String>
+  <sys:String x:Key="Str.NrLiveModelMissingOpenNr">يحتاج NR إلى نموذج NVIDIA في مجلد opennr، وهو غير موجود فيه. نزّل NRLive مجددًا من هذه الصفحة لإعادته.</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiOriginalModel">النموذج الأصلي (310.8)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle">النمط</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.0">قياسي</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.1">طبيعي</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.2">سينمائي</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoIntensity">الشدة</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoPasses">التمريرات</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoLocalTone">النغمة المحلية</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoLocalStructure">البنية المحلية</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoSkinStructure">بنية البشرة</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoAutoMask">قناع الشخصيات</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoSkinIndependent">البشرة منفصلة عن البنية</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoColorStrength">اللون من NR</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiHistoryStrength">قوة السجل</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiTemporal">السجل الزمني</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiStyleGrade">تدريج ألوان النمط</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiAco">مترجم التظليل ACO (من التشغيل التالي)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset">إعداد HUD المسبق</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.0">مخصص</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.1">أدنى</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.2">مضغوط</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.3">قياسي</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.4">كامل</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.position.4">أعلى الوسط</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.position.5">أسفل الوسط</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.lows">أدنى 1% و0.1%</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_load">حمل GPU</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_temp">حرارة GPU</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.vram">VRAM</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.cpu_load">حمل CPU</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.pipeline">حالة FSR وNR وFG</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_times">زمن GPU لكل تمريرة</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.scale">حجم HUD</sys:String>
 
 </ResourceDictionary>

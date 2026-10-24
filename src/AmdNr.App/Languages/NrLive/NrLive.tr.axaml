@@ -76,10 +76,6 @@
   <sys:String x:Key="Str.AntiCheatIgnore">Bu oyun için yok say</sys:String>
 
   <!-- NRLive's settings, one per key of scaleconfig.ini (NrLiveConfig.Settings), and the entries of each menu -->
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode">Ölçekleyici</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.0">FSR 4</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.1">FSR 3.1</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.2">Yok</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FSR.sharpness">Keskinlik</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled">Kare oluşturma</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameLimiter.enabled">Kare sınırı</sys:String>
@@ -89,8 +85,9 @@
   <sys:String x:Key="Str.NrLiveSet.FrameLimiter.method.1">Düşük gecikme</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.enabled">NR</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime">NR çalışma zamanı</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.0">NRLive'ın kendisi</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.0">Otomatik</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.1">OpenNR (mochizuki)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.2">NRLive'ın 0.0.6 köprüsü</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model">Model</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model.0">Orijinal</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model.1">Yeni, daha hızlı</sys:String>
@@ -100,7 +97,6 @@
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.style.2">Sinematik</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.scale">NR'nin çalıştığı çözünürlük</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.intensity">Yoğunluk</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.RenoDX.enabled">RenoDX görünümü</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.passes">Geçişler</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.structure">Yapı</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.color_strength">NR'den gelen renk</sys:String>
@@ -116,7 +112,6 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.position.1">Sağ üst</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.position.2">Sol alt</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.position.3">Sağ alt</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.FPS.gpu">GPU yükü ve sıcaklığı</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.fps">Saniyedeki kare</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.frametime">Kare süresi</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.frame_timing">Kare süresi grafiği</sys:String>
@@ -125,5 +120,43 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.text_outline">Metin kenarlığı</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.font_size">Metin boyutu</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.background_alpha">Arka plan opaklığı</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler">Ölçekleyici</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.0">FSR 4</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.1">FSR 3.1</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.2">Yok (yerel ölçekleme)</sys:String>
+  <sys:String x:Key="Str.NrLiveModelMissingOpenNr">NR, opennr klasöründe NVIDIA'nın modeline ihtiyaç duyar ve model orada değil. Geri koymak için NRLive'ı bu sayfadan yeniden indirin.</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiOriginalModel">Orijinal model (310.8)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle">Stil</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.0">Standart</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.1">Doğal</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.2">Sinematik</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoIntensity">Yoğunluk</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoPasses">Geçişler</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoLocalTone">Yerel ton</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoLocalStructure">Yerel yapı</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoSkinStructure">Cilt yapısı</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoAutoMask">Karakter maskesi</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoSkinIndependent">Cilt yapıdan ayrı</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoColorStrength">NR'den gelen renk</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiHistoryStrength">Geçmiş gücü</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiTemporal">Zamansal geçmiş</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiStyleGrade">Stil renk düzenlemesi</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiAco">ACO gölgelendirici derleyicisi (bir sonraki başlatmadan itibaren)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset">HUD ön ayarı</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.0">Özel</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.1">En az</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.2">Kompakt</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.3">Standart</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.4">Tam</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.position.4">Üst orta</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.position.5">Alt orta</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.lows">%1 ve %0,1 düşükler</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_load">GPU yükü</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_temp">GPU sıcaklığı</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.vram">VRAM</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.cpu_load">CPU yükü</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.pipeline">FSR, NR ve FG durumu</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_times">Her geçişin GPU süresi</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.scale">HUD boyutu</sys:String>
 
 </ResourceDictionary>

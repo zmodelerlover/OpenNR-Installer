@@ -76,10 +76,6 @@
   <sys:String x:Key="Str.AntiCheatIgnore">इस गेम के लिए अनदेखा करें</sys:String>
 
   <!-- NRLive's settings, one per key of scaleconfig.ini (NrLiveConfig.Settings), and the entries of each menu -->
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode">अपस्केलर</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.0">FSR 4</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.1">FSR 3.1</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.2">कोई नहीं</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FSR.sharpness">शार्पनेस</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled">फ़्रेम जनरेशन</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameLimiter.enabled">फ़्रेम सीमा</sys:String>
@@ -89,8 +85,9 @@
   <sys:String x:Key="Str.NrLiveSet.FrameLimiter.method.1">कम लेटेंसी</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.enabled">NR</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime">NR रनटाइम</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.0">NRLive का अपना</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.0">ऑटोमैटिक</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.1">OpenNR (mochizuki)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.2">NRLive का 0.0.6 ब्रिज</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model">मॉडल</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model.0">मूल</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model.1">नया, तेज़</sys:String>
@@ -100,7 +97,6 @@
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.style.2">सिनेमैटिक</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.scale">NR किस रेज़ोल्यूशन पर चले</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.intensity">तीव्रता</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.RenoDX.enabled">RenoDX लुक</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.passes">पास</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.structure">स्ट्रक्चर</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.color_strength">NR से रंग</sys:String>
@@ -116,7 +112,6 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.position.1">ऊपर दाएँ</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.position.2">नीचे बाएँ</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.position.3">नीचे दाएँ</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.FPS.gpu">GPU लोड और तापमान</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.fps">फ़्रेम प्रति सेकंड</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.frametime">फ़्रेम टाइम</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.frame_timing">फ़्रेम टाइम ग्राफ़</sys:String>
@@ -125,5 +120,43 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.text_outline">टेक्स्ट आउटलाइन</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.font_size">टेक्स्ट का आकार</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.background_alpha">बैकग्राउंड की अपारदर्शिता</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler">अपस्केलर</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.0">FSR 4</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.1">FSR 3.1</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.2">कोई नहीं (नेटिव स्केलिंग)</sys:String>
+  <sys:String x:Key="Str.NrLiveModelMissingOpenNr">NR को opennr फ़ोल्डर में NVIDIA का मॉडल चाहिए, और वह वहाँ नहीं है। उसे वापस लाने के लिए इस पेज से NRLive फिर से डाउनलोड करें।</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiOriginalModel">ओरिजिनल मॉडल (310.8)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle">स्टाइल</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.0">स्टैंडर्ड</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.1">नेचुरल</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.2">सिनेमैटिक</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoIntensity">तीव्रता</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoPasses">पास</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoLocalTone">लोकल टोन</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoLocalStructure">लोकल स्ट्रक्चर</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoSkinStructure">त्वचा का स्ट्रक्चर</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoAutoMask">कैरेक्टर मास्क</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoSkinIndependent">त्वचा स्ट्रक्चर से अलग</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoColorStrength">NR से रंग</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiHistoryStrength">हिस्ट्री की ताकत</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiTemporal">टेम्पोरल हिस्ट्री</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiStyleGrade">स्टाइल ग्रेड</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiAco">ACO शेडर कंपाइलर (अगली शुरुआत से)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset">HUD प्रीसेट</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.0">कस्टम</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.1">मिनिमल</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.2">कॉम्पैक्ट</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.3">स्टैंडर्ड</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.4">फ़ुल</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.position.4">ऊपर बीच में</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.position.5">नीचे बीच में</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.lows">1% और 0.1% लो</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_load">GPU लोड</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_temp">GPU तापमान</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.vram">VRAM</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.cpu_load">CPU लोड</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.pipeline">FSR, NR और FG की स्थिति</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_times">हर पास का GPU समय</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.scale">HUD का आकार</sys:String>
 
 </ResourceDictionary>

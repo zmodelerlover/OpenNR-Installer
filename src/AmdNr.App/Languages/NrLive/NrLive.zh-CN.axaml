@@ -76,10 +76,6 @@
   <sys:String x:Key="Str.AntiCheatIgnore">此游戏不再提示</sys:String>
 
   <!-- NRLive's settings, one per key of scaleconfig.ini (NrLiveConfig.Settings), and the entries of each menu -->
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode">放大器</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.0">FSR 4</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.1">FSR 3.1</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.2">无</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FSR.sharpness">锐度</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled">帧生成</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameLimiter.enabled">帧率限制</sys:String>
@@ -89,8 +85,9 @@
   <sys:String x:Key="Str.NrLiveSet.FrameLimiter.method.1">低延迟</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.enabled">NR</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime">NR 运行时</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.0">NRLive 自带</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.0">自动</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.1">OpenNR (mochizuki)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.2">NRLive 的 0.0.6 桥接</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model">模型</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model.0">原版</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model.1">新版，更快</sys:String>
@@ -100,7 +97,6 @@
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.style.2">电影感</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.scale">NR 运行分辨率</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.intensity">强度</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.RenoDX.enabled">RenoDX 色彩</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.passes">处理次数</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.structure">结构</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.color_strength">NR 色彩</sys:String>
@@ -116,7 +112,6 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.position.1">右上</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.position.2">左下</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.position.3">右下</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.FPS.gpu">GPU 占用和温度</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.fps">每秒帧数</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.frametime">帧时间</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.frame_timing">帧时间图表</sys:String>
@@ -125,5 +120,43 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.text_outline">文字描边</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.font_size">文字大小</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.background_alpha">背景不透明度</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler">放大器</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.0">FSR 4</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.1">FSR 3.1</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.2">无（原生缩放）</sys:String>
+  <sys:String x:Key="Str.NrLiveModelMissingOpenNr">NR 需要 opennr 文件夹中的 NVIDIA 模型，但它不在那里。从本页面重新下载 NRLive 即可放回。</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiOriginalModel">原版模型 (310.8)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle">风格</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.0">标准</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.1">自然</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.2">电影感</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoIntensity">强度</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoPasses">处理次数</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoLocalTone">局部色调</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoLocalStructure">局部结构</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoSkinStructure">皮肤结构</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoAutoMask">角色遮罩</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoSkinIndependent">皮肤与结构分开处理</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoColorStrength">NR 色彩</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiHistoryStrength">历史强度</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiTemporal">时间历史</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiStyleGrade">风格调色</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiAco">ACO 着色器编译器（下次启动起生效）</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset">HUD 预设</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.0">自定义</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.1">极简</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.2">紧凑</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.3">标准</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.4">完整</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.position.4">顶部居中</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.position.5">底部居中</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.lows">1% 和 0.1% 低帧</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_load">GPU 占用</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_temp">GPU 温度</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.vram">VRAM</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.cpu_load">CPU 占用</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.pipeline">FSR、NR 和 FG 状态</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_times">每个处理阶段的 GPU 时间</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.scale">HUD 大小</sys:String>
 
 </ResourceDictionary>

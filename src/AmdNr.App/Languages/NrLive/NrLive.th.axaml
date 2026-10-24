@@ -76,10 +76,6 @@
   <sys:String x:Key="Str.AntiCheatIgnore">ละเว้นสำหรับเกมนี้</sys:String>
 
   <!-- NRLive's settings, one per key of scaleconfig.ini (NrLiveConfig.Settings), and the entries of each menu -->
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode">ตัวขยายภาพ</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.0">FSR 4</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.1">FSR 3.1</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.2">ไม่มี</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FSR.sharpness">ความคม</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled">การสร้างเฟรม</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameLimiter.enabled">จำกัดเฟรม</sys:String>
@@ -89,8 +85,9 @@
   <sys:String x:Key="Str.NrLiveSet.FrameLimiter.method.1">หน่วงต่ำ</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.enabled">NR</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime">รันไทม์ NR</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.0">ของ NRLive เอง</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.0">อัตโนมัติ</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.1">OpenNR (mochizuki)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.2">บริดจ์ 0.0.6 ของ NRLive</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model">โมเดล</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model.0">ต้นฉบับ</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model.1">ใหม่ เร็วกว่า</sys:String>
@@ -100,7 +97,6 @@
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.style.2">แบบภาพยนตร์</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.scale">ความละเอียดที่ NR ทำงาน</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.intensity">ความเข้ม</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.RenoDX.enabled">โทนสี RenoDX</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.passes">จำนวนรอบ</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.structure">โครงสร้าง</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.color_strength">สีจาก NR</sys:String>
@@ -116,7 +112,6 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.position.1">บนขวา</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.position.2">ล่างซ้าย</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.position.3">ล่างขวา</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.FPS.gpu">โหลดและอุณหภูมิ GPU</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.fps">เฟรมต่อวินาที</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.frametime">เวลาต่อเฟรม</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.frame_timing">กราฟเวลาต่อเฟรม</sys:String>
@@ -125,5 +120,43 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.text_outline">ขอบตัวอักษร</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.font_size">ขนาดตัวอักษร</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.background_alpha">ความทึบของพื้นหลัง</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler">ตัวขยายภาพ</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.0">FSR 4</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.1">FSR 3.1</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.2">ไม่มี (สเกลแบบเนทีฟ)</sys:String>
+  <sys:String x:Key="Str.NrLiveModelMissingOpenNr">NR ต้องใช้โมเดลของ NVIDIA ในโฟลเดอร์ opennr แต่ตอนนี้ไม่มีอยู่ ดาวน์โหลด NRLive จากหน้านี้อีกครั้งเพื่อใส่กลับเข้าไป</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiOriginalModel">โมเดลต้นฉบับ (310.8)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle">สไตล์</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.0">มาตรฐาน</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.1">เป็นธรรมชาติ</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.2">แบบภาพยนตร์</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoIntensity">ความเข้ม</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoPasses">จำนวนรอบ</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoLocalTone">โทนเฉพาะจุด</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoLocalStructure">โครงสร้างเฉพาะจุด</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoSkinStructure">โครงสร้างผิว</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoAutoMask">มาสก์ตัวละคร</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoSkinIndependent">แยกผิวออกจากโครงสร้าง</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoColorStrength">สีจาก NR</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiHistoryStrength">ความแรงของประวัติ</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiTemporal">ประวัติตามเวลา</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiStyleGrade">การเกรดสีตามสไตล์</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiAco">คอมไพเลอร์เชเดอร์ ACO (มีผลตั้งแต่การเปิดครั้งถัดไป)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset">พรีเซ็ต HUD</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.0">กำหนดเอง</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.1">น้อยที่สุด</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.2">กะทัดรัด</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.3">มาตรฐาน</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.4">เต็ม</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.position.4">บนกลาง</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.position.5">ล่างกลาง</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.lows">1% และ 0.1% low</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_load">โหลด GPU</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_temp">อุณหภูมิ GPU</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.vram">VRAM</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.cpu_load">โหลด CPU</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.pipeline">สถานะ FSR, NR และ FG</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_times">เวลา GPU ของแต่ละรอบ</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.scale">ขนาด HUD</sys:String>
 
 </ResourceDictionary>

@@ -124,10 +124,86 @@ public class NrLiveTests
     {
         var dir = Fixture.Temp("nrlive-exe");
         var exe = Path.Combine(dir, "NRLive.exe");
-        File.WriteAllBytes(exe, [.. "MZ"u8, .. Encoding.Unicode.GetBytes("DLSSNR\0model\0FSR\0")]);
-        Assert.Empty(NrLiveConfig.Supported(exe));
-        File.WriteAllBytes(exe, [.. "MZ"u8, .. Encoding.Unicode.GetBytes("Upscaler\0mode\0RenoDX\0enabled\0")]);
-        Assert.Equal(["RenoDX.enabled", "Upscaler.mode"], NrLiveConfig.Supported(exe).Order());
+        // NRLive 2.2.0 reads the old keys only.
+        File.WriteAllBytes(exe, [.. "MZ"u8, .. Encoding.Unicode.GetBytes("DLSSNR\0model\0FPS\0position\0background_alpha\0")]);
+        var old = NrLiveConfig.Supported(exe);
+        Assert.DoesNotContain("DLSSNR.runtime", old);
+        Assert.DoesNotContain(NrLiveConfig.UpscalerId, old);
+        var config = NrLiveConfig.Load(dir);
+        Assert.Equal([NrLiveConfig.Bridge, NrLiveConfig.OldHud], config.Tags(dir, old).Order());
+        var shown = NrLiveConfig.Settings.Where(s => NrLiveConfig.Shown(s, old, config.Tags(dir, old))).ToList();
+        Assert.Single(shown, s => s.Id == "FPS.position");
+        Assert.Equal(4, shown.Single(s => s.Id == "FPS.position").Choices);
+        Assert.DoesNotContain(shown, s => s.Section == "OpenNR");
+
+        // The stacked NRLive: [DLSSNR] runtime and the HUD keys wide, the [OpenNR] keys narrow, --upscaler.
+        File.WriteAllBytes(exe, [.. "MZ"u8, .. Encoding.Unicode.GetBytes("DLSSNR\0runtime\0OpenNR\0FPS\0preset\0position\0lows\0--upscaler\0"),
+            .. "MochizukiRenoIntensity\0"u8]);
+        var stack = NrLiveConfig.Supported(exe);
+        Assert.Contains("DLSSNR.runtime", stack);
+        Assert.Contains("OpenNR.MochizukiRenoIntensity", stack);
+        Assert.Contains("FPS.lows", stack);
+        Assert.Contains(NrLiveConfig.UpscalerId, stack);
+        Assert.DoesNotContain("OpenNR.MochizukiRenoStyle", stack);
+        // auto is the bridge until OpenNR's runtime is in the folder.
+        Assert.Contains(NrLiveConfig.Bridge, config.Tags(dir, stack));
+        Directory.CreateDirectory(Path.Combine(dir, "opennr"));
+        File.WriteAllText(Path.Combine(dir, "opennr", "MochizukiNrRuntime.dll"), "x");
+        Assert.Equal([NrLiveConfig.Hud, NrLiveConfig.OpenNr], config.Tags(dir, stack).Order());
+        config.Set(NrLiveConfig.Settings.First(s => s.Id == "DLSSNR.runtime"), 2);
+        Assert.Contains(NrLiveConfig.Bridge, config.Tags(dir, stack));
+    }
+
+    [Fact]
+    public void OpenNrDecimalsWordsAndHudPresetsAreWrittenAsNrLiveReadsThem()
+    {
+        var dir = Fixture.Temp("nrlive-opennr");
+        var setting = (string id) => NrLiveConfig.Settings.Last(s => s.Id == id);
+        File.WriteAllText(Path.Combine(dir, NrLiveConfig.FileName),
+            "[DLSSNR]\r\nruntime=OpenNR\r\n[OpenNR]\r\nMochizukiRenoIntensity=1.25\r\nMochizukiAco=false\r\nMochizukiRenoSkinStructure=-1\r\n");
+        var config = NrLiveConfig.Load(dir);
+        Assert.Equal(1, config.Get(setting("DLSSNR.runtime")));
+        Assert.Equal(125, config.Get(setting("OpenNR.MochizukiRenoIntensity")));
+        Assert.Equal(0, config.Get(setting("OpenNR.MochizukiAco")));
+        Assert.Equal(1, config.Get(setting("OpenNR.MochizukiTemporal")));
+        Assert.Equal(-100, config.Get(setting("OpenNR.MochizukiRenoSkinStructure")));
+        config.Set(setting("OpenNR.MochizukiRenoIntensity"), 85);
+        config.Set(setting("DLSSNR.runtime"), 0);
+        config.Set(setting("FPS.preset"), 4);
+        config.Save();
+        var text = File.ReadAllText(Path.Combine(dir, NrLiveConfig.FileName));
+        Assert.Contains("MochizukiRenoIntensity=0.85", text);
+        Assert.Contains("runtime=auto", text);
+        Assert.Contains("gpu_times=1", text);
+        Assert.Contains("layout=0", text);
+        // An item changed by hand makes the HUD custom.
+        config.Set(setting("FPS.gpu_times"), 0);
+        Assert.Equal(0, config.Get(setting("FPS.preset")));
+        config.Set(setting("FPS.preset"), 2);
+        Assert.Equal(0, config.Get(setting("FPS.gpu_times")));
+        Assert.Equal(1, config.Get(setting("FPS.pipeline")));
+    }
+
+    [Fact]
+    public void TheModelsAReleaseCarriesAreLinkedIntoOpenNrsFolder()
+    {
+        var (manifest, dir) = Payload("9.4.0", false, ("NRLive.exe", "v4"), ("opennr/dlssnr-amd/shaders/a.spv", "spv"));
+        var zip = manifest.NrLive()!.Components[PayloadManifest.NrLiveComponent].Files[0];
+        File.WriteAllText(Path.Combine(dir, "dlssnr-small.bin"), "small");
+        Directory.CreateDirectory(Path.Combine(dir, "dlssnr-amd"));
+        File.Move(Path.Combine(dir, "dlssnr-small.bin"), Path.Combine(dir, "dlssnr-amd", "dlssnr-small.bin"));
+        var addon = new string('a', 64);
+        var json = ($"{{'schema':1,'components':{{'addon':{{'version':'1','files':[{{'name':'amd-nr.addon64','size':1,'sha256':'{addon}'}}]}}}},"
+            + $"'releases':{{'nrlive':[{{'version':'9.4.0','components':{{'nrlive':{{'version':'9.4.0','files':[{{'name':'NRLiveUI.zip',"
+            + $"'url':'https://127.0.0.1:1/NRLiveUI.zip','size':{zip.Size},'sha256':'{zip.Sha256}'}}]}},"
+            + $"'mochizuki-model-small':{{'version':'1','files':[{{'name':'dlssnr-small.bin','path':'dlssnr-amd/dlssnr-small.bin',"
+            + $"'size':5,'sha256':'{Sha("small"u8.ToArray())}'}}]}}}}}}]}}}}").Replace('\'', '"');
+        var withModel = PayloadManifest.Parse(json);
+        var release = withModel.NrLive()!;
+        NrLivePackage.Unpack(withModel.With(release), release, [(PayloadManifest.NrLiveComponent, dir), ("mochizuki-model-small", dir)]);
+        Assert.Equal("small", File.ReadAllText(Path.Combine(NrLivePackage.Folder, "opennr", "dlssnr-amd", "dlssnr-small.bin")));
+        Assert.Equal("spv", File.ReadAllText(Path.Combine(NrLivePackage.Folder, "opennr", "dlssnr-amd", "shaders", "a.spv")));
+        Assert.False(File.Exists(Path.Combine(NrLivePackage.Folder, "dlssnr-amd", "dlssnr-small.bin")));
     }
 
     [Fact]
@@ -149,6 +225,9 @@ public class NrLiveTests
         profile.NoOverlay = true;
         Assert.Equal(@"^Game \(x64\)\.exe$", profile.TargetText);
         Assert.Equal(["-pname", profile.TargetText, "-delay", "7", "-nooverlay"], profile.Arguments().Take(5));
+        Assert.DoesNotContain("--upscaler", profile.Arguments());
+        profile.Upscaler = "fsr31";
+        Assert.Equal(["--upscaler", "fsr31"], profile.Arguments(upscaler: true).TakeLast(2));
         profile.Save(dir);
         Assert.Contains("\"target_mode\": \"pname\"", File.ReadAllText(Path.Combine(dir, "profiles", "Default.json")));
         Assert.Null(profile.Problem());

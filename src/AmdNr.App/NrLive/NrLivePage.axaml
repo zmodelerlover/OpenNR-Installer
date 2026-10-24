@@ -115,7 +115,7 @@
               <Grid ColumnDefinitions="Auto,*">
                 <PathIcon Data="{StaticResource IconWarn}" Width="16" Height="16" Foreground="{DynamicResource Warn}"
                           VerticalAlignment="Top" Margin="0,1,10,0" />
-                <TextBlock Grid.Column="1" Text="{DynamicResource Str.NrLiveModelMissing}" TextWrapping="Wrap" LineHeight="19"
+                <TextBlock x:Name="ModelText" Grid.Column="1" Text="{DynamicResource Str.NrLiveModelMissing}" TextWrapping="Wrap" LineHeight="19"
                            Foreground="{DynamicResource WarnText}" />
               </Grid>
             </Border>

@@ -25,6 +25,9 @@ public sealed class NrLiveProfile
     /// <summary>"wgc" (Windows Graphics Capture) or "dxgi" (desktop duplication, cropped to the window).</summary>
     public string CaptureMode { get; set; } = "wgc";
 
+    /// <summary>"fsr4", "fsr31" or "none" (native scaling), NRLive's --upscaler. Its launcher keeps it here too.</summary>
+    public string Upscaler { get; set; } = "fsr4";
+
     /// <summary>1 tells NRLive's launcher this profile needs no migration.</summary>
     public int? SchemaVersion { get; set; } = 1;
 
@@ -82,8 +85,9 @@ public sealed class NrLiveProfile
         return null;
     }
 
-    /// <summary>NRLive.exe's command line, as NRLive's launcher builds it (target.cpp, parseTargetArgs).</summary>
-    public IReadOnlyList<string> Arguments()
+    /// <summary>NRLive.exe's command line, as NRLive's launcher builds it (target.cpp, parseTargetArgs).
+    /// --upscaler only for an NRLive that reads it: one that does not exits on it.</summary>
+    public IReadOnlyList<string> Arguments(bool upscaler = false)
     {
         var delay = Math.Clamp(Delay, 1, 30).ToString();
         List<string> args = TargetMode switch
@@ -96,6 +100,7 @@ public sealed class NrLiveProfile
         };
         if (NoOverlay) args.Add("-nooverlay");
         args.AddRange(["--mv", Motion, "--capture", CaptureMode, "--key", StopKey, "--overlaykey", OverlayKey, "--bindbypass", BindBypass]);
+        if (upscaler) args.AddRange(["--upscaler", NrLiveConfig.Upscalers.Contains(Upscaler) ? Upscaler : NrLiveConfig.Upscalers[0]]);
         return args;
     }
 

@@ -76,10 +76,6 @@
   <sys:String x:Key="Str.AntiCheatIgnore">이 게임에서는 무시</sys:String>
 
   <!-- NRLive's settings, one per key of scaleconfig.ini (NrLiveConfig.Settings), and the entries of each menu -->
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode">업스케일러</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.0">FSR 4</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.1">FSR 3.1</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.Upscaler.mode.2">없음</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FSR.sharpness">선명도</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameGeneration.enabled">프레임 생성</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FrameLimiter.enabled">프레임 제한</sys:String>
@@ -89,8 +85,9 @@
   <sys:String x:Key="Str.NrLiveSet.FrameLimiter.method.1">저지연</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.enabled">NR</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime">NR 런타임</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.0">NRLive 자체</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.0">자동</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.1">OpenNR (mochizuki)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.DLSSNR.runtime.2">NRLive의 0.0.6 브리지</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model">모델</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model.0">원본</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.model.1">새 버전, 더 빠름</sys:String>
@@ -100,7 +97,6 @@
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.style.2">영화 같은</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.scale">NR 처리 해상도</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.intensity">강도</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.RenoDX.enabled">RenoDX 색감</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.passes">패스 수</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.structure">구조</sys:String>
   <sys:String x:Key="Str.NrLiveSet.DLSSNR.color_strength">NR 색 반영</sys:String>
@@ -116,7 +112,6 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.position.1">오른쪽 위</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.position.2">왼쪽 아래</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.position.3">오른쪽 아래</sys:String>
-  <sys:String x:Key="Str.NrLiveSet.FPS.gpu">GPU 사용률과 온도</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.fps">초당 프레임 수</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.frametime">프레임 타임</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.frame_timing">프레임 타임 그래프</sys:String>
@@ -125,5 +120,43 @@
   <sys:String x:Key="Str.NrLiveSet.FPS.text_outline">글자 외곽선</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.font_size">글자 크기</sys:String>
   <sys:String x:Key="Str.NrLiveSet.FPS.background_alpha">배경 불투명도</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler">업스케일러</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.0">FSR 4</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.1">FSR 3.1</sys:String>
+  <sys:String x:Key="Str.NrLiveUpscaler.2">없음 (네이티브 스케일링)</sys:String>
+  <sys:String x:Key="Str.NrLiveModelMissingOpenNr">NR에는 opennr 폴더 안의 NVIDIA 모델이 필요한데, 그 모델이 없습니다. 이 페이지에서 NRLive를 다시 다운로드하면 복구됩니다.</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiOriginalModel">원본 모델 (310.8)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle">스타일</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.0">표준</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.1">자연스럽게</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoStyle.2">영화 같은</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoIntensity">강도</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoPasses">패스 수</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoLocalTone">로컬 톤</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoLocalStructure">로컬 구조</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoSkinStructure">피부 구조</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoAutoMask">캐릭터 마스크</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoSkinIndependent">피부를 구조와 분리</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiRenoColorStrength">NR 색 반영</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiHistoryStrength">히스토리 강도</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiTemporal">시간적 히스토리</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiStyleGrade">스타일 그레이딩</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.OpenNR.MochizukiAco">ACO 셰이더 컴파일러 (다음 실행부터)</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset">HUD 프리셋</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.0">사용자 지정</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.1">최소</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.2">간결</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.3">표준</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.preset.4">전체</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.position.4">위쪽 가운데</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.position.5">아래쪽 가운데</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.lows">1% 및 0.1% 최저</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_load">GPU 사용률</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_temp">GPU 온도</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.vram">VRAM</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.cpu_load">CPU 사용률</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.pipeline">FSR, NR, FG 상태</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.gpu_times">패스별 GPU 시간</sys:String>
+  <sys:String x:Key="Str.NrLiveSet.FPS.scale">HUD 크기</sys:String>
 
 </ResourceDictionary>
