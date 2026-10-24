@@ -1,38 +1,38 @@
-# Handoff v0.7.9: danielblnc 0.6.0 pública como runtime das duas rotas
+# Handoff v0.7.9: public danielblnc 0.6.0 as the runtime of both routes
 
-03/10/2026. Leia depois de [HANDOFF-v0.7.8-2026-10-02.md](HANDOFF-v0.7.8-2026-10-02.md).
+2026-10-03. Read after [HANDOFF-v0.7.8-2026-10-02.md](HANDOFF-v0.7.8-2026-10-02.md).
 
-O danielblnc publicou a [Alpha 0.6.0](https://github.com/danielblnc/DLSS-NR-on-AMD/releases/tag/v0.6.0) em 03/10. O setup
-público (`20636c95…`, 59,841,536 bytes) é byte a byte o de apoiador, com o mesmo `version.dll` `195c4a89…` que o add-on
-(v0.7.6+) e o OptiScaler (0.4.7-amd-nr+) já rodavam.
+danielblnc published [Alpha 0.6.0](https://github.com/danielblnc/DLSS-NR-on-AMD/releases/tag/v0.6.0) on 2026-10-03. The public
+setup (`20636c95…`, 59,841,536 bytes) is byte for byte the supporter one, with the same `version.dll` `195c4a89…` that the add-on
+(v0.7.6+) and OptiScaler (0.4.7-amd-nr+) already ran.
 
 ## Payload
 
-- Rota ReShade (64-bit e ponte 32-bit): `runtime` 0.6.0, `dlssnr_amd_pass1.dll` com os patches de `runtime-patches.json`
-  (`430be589…`, 56,677,888 bytes), em `runtime/0.6.0/` no HF. Pesos iguais (`6bf8dc93…`).
-- Rota OptiScaler: `opti-runtime` 0.6.0 (`dlssnr_amd_runtime-0.6.0.dll`, o `version.dll` cru) nas releases 0.4.7, 0.4.8 e
-  0.4.9-amd-nr, as que aceitam a 0.6.0. A 0.4.6 continua com a 0.5.0.
-- `user_runtimes` vazio: o bloco "Runtime do danielblnc" some da ficha (`RuntimeSection.IsVisible = listed.Count > 0`).
-  Quem já tinha a 0.6.0 de apoiador instalada fica com o mesmo arquivo que o payload agora entrega.
-- Apps v0.7.6 a v0.7.8 já funcionam com esse payload: os pins vêm do manifesto e o add-on pinado (v0.7.8) aceita `430be589…`.
+- ReShade route (64-bit and 32-bit bridge): `runtime` 0.6.0, `dlssnr_amd_pass1.dll` with the patches from `runtime-patches.json`
+  (`430be589…`, 56,677,888 bytes), at `runtime/0.6.0/` on HF. Same weights (`6bf8dc93…`).
+- OptiScaler route: `opti-runtime` 0.6.0 (`dlssnr_amd_runtime-0.6.0.dll`, the raw `version.dll`) in releases 0.4.7, 0.4.8 and
+  0.4.9-amd-nr, the ones that accept 0.6.0. 0.4.6 stays on 0.5.0.
+- `user_runtimes` empty: the "danielblnc runtime" block disappears from the sheet (`RuntimeSection.IsVisible = listed.Count > 0`).
+  Anyone who already had the 0.6.0 supporter build installed keeps the same file the payload now delivers.
+- Apps v0.7.6 to v0.7.8 already work with this payload: the pins come from the manifest and the pinned add-on (v0.7.8) accepts `430be589…`.
 
 ## App
 
-- `Engine.RuntimeSha` = `430be589…`; o `af67f066…` (0.5.1 com patch) foi para `EarlierRuntimeShas`; `RuntimeSize` 56,677,888.
-- `Str.HipMissing` e `Str.NotRadeon` nos 21 idiomas falam de RDNA2 e do HIP SDK 7.2 para as RX 6000. O `FindHip7` não
-  mudou: procura `amdhip64_7.dll` na pasta do sistema e no PATH.
-- README: requisitos com RDNA2, e a seção de builds de apoiador diz que a lista está vazia.
+- `Engine.RuntimeSha` = `430be589…`; `af67f066…` (patched 0.5.1) went to `EarlierRuntimeShas`; `RuntimeSize` 56,677,888.
+- `Str.HipMissing` and `Str.NotRadeon` in all 21 languages mention RDNA2 and HIP SDK 7.2 for the RX 6000. `FindHip7` did not
+  change: it looks for `amdhip64_7.dll` in the system folder and on PATH.
+- README: requirements with RDNA2, and the supporter builds section says the list is empty.
 
-## Testes
+## Tests
 
-`gate.ps1 -Ui`: 0 falhas, 329 testes. `PayloadTests`, `OptiScalerVersionTests` (0.6.0 na 0.4.7 a 0.4.9, 0.5.0 na 0.4.6),
-`SupporterRoutesTests` (0.5.1 agora fica desatualizada) e `UserRuntimeTests` (lista vazia; o teste com setup real usa a
-entrada da 0.6.0 como estava na lista) acompanharam. Com `AMDNR_TEST_RUNTIME_SETUP` apontando para o setup público, o
-patch dá exatamente `430be589…`. No opti, a rota final-image do D3D11 rodou com a 0.6.0 numa RX 9070 XT
-(`AMD runtime 0.6.0`, smoke sem falhas).
+`gate.ps1 -Ui`: 0 failures, 329 tests. `PayloadTests`, `OptiScalerVersionTests` (0.6.0 on 0.4.7 to 0.4.9, 0.5.0 on 0.4.6),
+`SupporterRoutesTests` (0.5.1 is now outdated) and `UserRuntimeTests` (empty list; the real-setup test uses the
+0.6.0 entry as it was on the list) followed along. With `AMDNR_TEST_RUNTIME_SETUP` pointing to the public setup, the
+patch gives exactly `430be589…`. In opti, the D3D11 final-image route ran with 0.6.0 on an RX 9070 XT
+(`AMD runtime 0.6.0`, smoke with no failures).
 
-## Publicação
+## Publishing
 
-1. Release v0.7.9 do instalador (exe, `SHA256SUMS.txt`, 7z com os json e LEIA-ME/README), `check-release.ps1`.
-2. `publish-payload.ps1 -From <pasta com dlssnr_amd_pass1.dll (430be589) e dlssnr_amd_runtime-0.6.0.dll (195c4a89)>`.
-   Reverter a reescrita do `config.json`; espelho no AMD-NR-Extras.
+1. Installer release v0.7.9 (exe, `SHA256SUMS.txt`, 7z with the json files and LEIA-ME/README), `check-release.ps1`.
+2. `publish-payload.ps1 -From <folder with dlssnr_amd_pass1.dll (430be589) and dlssnr_amd_runtime-0.6.0.dll (195c4a89)>`.
+   Revert the `config.json` rewrite; mirror on AMD-NR-Extras.

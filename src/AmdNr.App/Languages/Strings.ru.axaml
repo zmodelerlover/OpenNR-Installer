@@ -12,6 +12,7 @@
   <sys:String x:Key="Str.RemoveGameHint">Убирает игру из списка, и «Найти игры» тоже будет её пропускать. Файлы в её папке не затрагиваются; вернуть её можно в настройках.</sys:String>
   <sys:String x:Key="Str.RemovedGame">Игра {0} убрана из списка, и «Найти игры» будет её пропускать. В её папке ничего не тронуто; вернуть её можно в разделе «Настройки» &gt; «Скрытые игры».</sys:String>
   <sys:String x:Key="Str.RemovedGameInstalled">Игра {0} убрана из списка, но аддон всё ещё установлен в её папке. Чтобы удалить его, верните игру в разделе «Настройки» &gt; «Скрытые игры».</sys:String>
+  <sys:String x:Key="Str.RuntimesHint">Снятые среды не скачиваются и не устанавливаются в эту игру. Среда danielblnc — с закрытым кодом; lmxxf и mochizuki — открытые.</sys:String>
   <sys:String x:Key="Str.IgnoredGames">Скрытые игры</sys:String>
   <sys:String x:Key="Str.IgnoredGamesHint">Игры, которые вы убрали из списка. «Найти игры» их пропускает, поэтому они не появятся, пока вы не вернёте их здесь.</sys:String>
   <sys:String x:Key="Str.IgnoredNone">Скрытых игр нет.</sys:String>
@@ -122,7 +123,6 @@
   <sys:String x:Key="Str.DanielVersionTip">Какая версия рантайма danielblnc ставится в эту игру. На картах RX 9000 рекомендуется 0.4.3: более новые вызывали на них зависания игр. Остальные карты получают самую новую.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Addon">RX 9000: mochizuki (Vulkan-порт от mochizuki0323, около 141 МБ) тоже устанавливается и запускает сеть. Рантайм danielblnc остаётся рядом: выберите его в NR runtime на панели аддона. Первый запуск каждой игры компилирует сеть до минуты.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Opti">RX 9000: новая установка запускает mochizuki, а lmxxf ставится рядом с рантаймом danielblnc. Выберите другой в NR runtime на вкладке Neural OptiScaler и перезапустите игру.</sys:String>
-  <sys:String x:Key="Str.MochizukiRdna3Toggle">mochizuki на RX 7000 (экспериментально)</sys:String>
   <sys:String x:Key="Str.MochizukiRdna3Note">Выключено, пока не отмечено. Экспериментально: у RX 7000 нет FP8, поэтому mochizuki запускает порт своей сети на матрицы FP16 от mauri870 — медленнее, чем на RX 9000, и примерно на 2 ГБ больше VRAM в 1080p. Перед первой сборкой рантайм проверяет видеокарту и один раз компилирует каждый pipeline; если что-то не так, NR остаётся выключенным, а страница mochizuki в OptiScaler объясняет почему. Если отмечено, новая установка запускает mochizuki; другой выберите в NR runtime на вкладке Neural OptiScaler.</sys:String>
   <sys:String x:Key="Str.WrongGpuToggle">WrongGPU (DLSS 4.5 Model M, RX 9000)</sys:String>
   <sys:String x:Key="Str.WrongGpuNote">Выключено, пока не отмечено. WrongGPU от phantoslayer21 ставится рядом с OptiScaler как его апскейлер FSR: Model M из DLSS 4.5 на RDNA4, модель конвертируется из файла DLSS на этом ПК (официальная загрузка NVIDIA, если такого нет). В игре выберите FSR, затем WrongGPU в списке версий FSR в OptiScaler.</sys:String>

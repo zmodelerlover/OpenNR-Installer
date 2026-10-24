@@ -47,6 +47,12 @@ public static partial class Work
                 Engine.SetIni(System.Text.Encoding.UTF8.GetString(ini), "DlssNr", "PresentWithoutUpscaler", "true"))
             : ini;
 
+    /// <summary>The runtime a fresh OptiScaler.ini runs when danielblnc's is left out; null leaves it as it is.</summary>
+    private static byte[] WithBackend(byte[] ini, string? backend) =>
+        backend is null
+            ? ini
+            : System.Text.Encoding.UTF8.GetBytes(Engine.SetIni(System.Text.Encoding.UTF8.GetString(ini), "DlssNr", "NrBackend", backend));
+
     private static byte[] OnlyInTheGame(string dir, byte[] ini, Report report)
     {
         if (LauncherBeside(dir) is not { } l) return ini;

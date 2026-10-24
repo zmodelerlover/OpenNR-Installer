@@ -135,4 +135,37 @@ public class DetectedWidthTests
         Assert.Equal(acs, found.Executable);
         Assert.Equal(Route.X64, found.Width);
     }
+
+    /// <summary>Yakuza: Like a Dragon from Game Pass: gamelaunchhelper.exe at the package root, the game in
+    /// runtime\media. A player picked the helper by hand and OptiScaler went in beside it, where frame
+    /// generation couldn't find its DLLs.</summary>
+    [Fact]
+    public void XboxPackageIsTheGameBehindItsLaunchHelper()
+    {
+        var game = Fixture.Temp("Content");
+        var helper = Path.Combine(game, "gamelaunchhelper.exe");
+        File.WriteAllBytes(helper, Fixture.Pe(x64: true));
+        var media = Directory.CreateDirectory(Path.Combine(game, "runtime", "media")).FullName;
+        var yakuza = Path.Combine(media, "YakuzaLikeADragon.exe");
+        File.WriteAllBytes(yakuza, Fixture.PeWithImports(x64: true, ["d3d11.dll"]));
+
+        Assert.Equal(yakuza, GraphicsDetector.Detect(game, "Yakuza- Like a Dragon").Executable);
+        Assert.Equal(yakuza, GraphicsDetector.Detect(game, "Yakuza- Like a Dragon", helper).Executable);
+
+        File.WriteAllText(Path.Combine(game, "MicrosoftGame.Config"),
+            """<Game configVersion="1"><ExecutableList><Executable Name="runtime\media\YakuzaLikeADragon.exe" Id="Game" /></ExecutableList></Game>""");
+        Assert.Equal(yakuza, GraphicsDetector.Detect(game, null, helper).Executable);
+    }
+
+    /// <summary>An XXMI-style folder with no game in it, only what an earlier install put there.</summary>
+    [Fact]
+    public void OurOwnExecutablesAreNeverTakenForTheGame()
+    {
+        var root = Fixture.Temp("ours-only");
+        Directory.CreateDirectory(Path.Combine(root, "person-model"));
+        File.WriteAllBytes(Path.Combine(root, "person-model", "person-worker.exe"), Fixture.Pe(true));
+        File.WriteAllBytes(Path.Combine(root, "amd-nr-host64.exe"), Fixture.Pe(true));
+        File.WriteAllBytes(Path.Combine(root, "WrongGPU-Setup-0.5.5-ea.exe"), Fixture.Pe(true));
+        Assert.Null(GraphicsDetector.FindExecutable(root));
+    }
 }

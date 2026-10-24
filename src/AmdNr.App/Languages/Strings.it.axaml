@@ -12,6 +12,7 @@
   <sys:String x:Key="Str.RemoveGameHint">Toglie il gioco dall'elenco, e anche «Cerca giochi» lo salterà. Nessun file nella sua cartella viene toccato; lo puoi ripristinare dalle Impostazioni.</sys:String>
   <sys:String x:Key="Str.RemovedGame">{0} è fuori dall'elenco e «Cerca giochi» lo salterà. Nella sua cartella non è stato toccato nulla; lo puoi ripristinare da Impostazioni &gt; Giochi ignorati.</sys:String>
   <sys:String x:Key="Str.RemovedGameInstalled">{0} è fuori dall'elenco, ma l'add-on è ancora installato nella sua cartella. Ripristinalo da Impostazioni &gt; Giochi ignorati per disinstallarlo.</sys:String>
+  <sys:String x:Key="Str.RuntimesHint">I runtime deselezionati non vengono scaricati né installati in questo gioco. Quello di danielblnc è a codice chiuso; lmxxf e mochizuki sono open source.</sys:String>
   <sys:String x:Key="Str.IgnoredGames">Giochi ignorati</sys:String>
   <sys:String x:Key="Str.IgnoredGamesHint">I giochi che hai tolto dall'elenco. «Cerca giochi» li salta, quindi restano fuori finché non li ripristini da qui.</sys:String>
   <sys:String x:Key="Str.IgnoredNone">Nessun gioco ignorato.</sys:String>
@@ -122,7 +123,6 @@
   <sys:String x:Key="Str.DanielVersionTip">Quale versione del runtime di danielblnc va in questo gioco. Sulle schede RX 9000 la 0.4.3 è quella consigliata: le più recenti vi hanno bloccato dei giochi. Le altre schede ricevono la più recente.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Addon">RX 9000: anche mochizuki (il port Vulkan di mochizuki0323, circa 141 MB) viene installato ed esegue la rete. Il runtime di danielblnc resta accanto: sceglilo in NR runtime nel pannello dell'add-on. Il primo avvio di ogni gioco compila la rete fino a un minuto.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Opti">RX 9000: una nuova installazione esegue mochizuki, e lmxxf va accanto al runtime di danielblnc. Scegline un altro in NR runtime nella scheda Neural di OptiScaler e riavvia il gioco.</sys:String>
-  <sys:String x:Key="Str.MochizukiRdna3Toggle">mochizuki sulla RX 7000 (sperimentale)</sys:String>
   <sys:String x:Key="Str.MochizukiRdna3Note">Disattivato se non spuntato. Sperimentale: la RX 7000 non ha FP8, quindi mochizuki esegue il port della sua rete su matrici FP16 fatto da mauri870, più lento che su una RX 9000 e con circa 2 GB di VRAM in più a 1080p. Prima del primo build il runtime controlla la scheda e compila ogni pipeline una volta; se qualcosa fallisce l'NR resta spento e la pagina di mochizuki in OptiScaler dice perché. Spuntato, una nuova installazione esegue mochizuki; scegline un altro in NR runtime nella scheda Neural di OptiScaler.</sys:String>
   <sys:String x:Key="Str.WrongGpuToggle">WrongGPU (DLSS 4.5 Model M, RX 9000)</sys:String>
   <sys:String x:Key="Str.WrongGpuNote">Disattivato se non spuntato. WrongGPU di phantoslayer21 va accanto a OptiScaler come suo upscaler FSR: il Model M di DLSS 4.5 su RDNA4, con il modello convertito da un file DLSS di questo PC (il download ufficiale di NVIDIA se non ce n'è uno). Nel gioco scegli FSR, poi WrongGPU nell'elenco delle versioni FSR di OptiScaler.</sys:String>

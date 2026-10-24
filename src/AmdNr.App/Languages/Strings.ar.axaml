@@ -12,6 +12,7 @@
   <sys:String x:Key="Str.RemoveGameHint">تزيل اللعبة من القائمة، ويتجاهلها «البحث عن الألعاب» أيضًا. لا يُمَسّ أي ملف في مجلدها، ويمكن إعادتها من الإعدادات.</sys:String>
   <sys:String x:Key="Str.RemovedGame">أُزيلت {0} من القائمة وسيتجاهلها «البحث عن الألعاب». لم يُمَسّ شيء في مجلدها، ويمكن إعادتها من «الإعدادات &gt; الألعاب المتجاهَلة».</sys:String>
   <sys:String x:Key="Str.RemovedGameInstalled">أُزيلت {0} من القائمة، لكن الإضافة ما زالت مثبّتة في مجلدها. أعِدها من «الإعدادات &gt; الألعاب المتجاهَلة» لإزالة تثبيتها.</sys:String>
+  <sys:String x:Key="Str.RuntimesHint">بيئات التشغيل غير المحددة لا تُنزَّل ولا تُثبَّت في هذه اللعبة. بيئة danielblnc مغلقة المصدر؛ أما lmxxf وmochizuki فمفتوحتا المصدر.</sys:String>
   <sys:String x:Key="Str.IgnoredGames">الألعاب المتجاهَلة</sys:String>
   <sys:String x:Key="Str.IgnoredGamesHint">الألعاب التي أزلتها من القائمة. يتخطّاها «البحث عن الألعاب»، فتبقى خارج القائمة حتى تعيدها من هنا.</sys:String>
   <sys:String x:Key="Str.IgnoredNone">لا توجد ألعاب متجاهَلة.</sys:String>
@@ -122,7 +123,6 @@
   <sys:String x:Key="Str.DanielVersionTip">أي إصدار من بيئة تشغيل danielblnc يُثبَّت في هذه اللعبة. على بطاقات RX 9000 الإصدار 0.4.3 هو الموصى به: الإصدارات الأحدث جمّدت ألعابًا عليها. البطاقات الأخرى تحصل على الأحدث.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Addon">RX 9000: يُثبَّت mochizuki أيضًا (نسخة Vulkan من mochizuki0323، نحو 141 ميغابايت) ويشغّل الشبكة. تبقى بيئة تشغيل danielblnc بجانبه: اخترها من NR runtime في لوحة الإضافة. أول تشغيل لكل لعبة يترجم الشبكة لمدة تصل إلى دقيقة.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Opti">RX 9000: التثبيت الجديد يشغّل mochizuki، ويُثبَّت lmxxf بجانب بيئة تشغيل danielblnc. اختر غيرها من NR runtime في تبويب Neural في OptiScaler ثم أعد تشغيل اللعبة.</sys:String>
-  <sys:String x:Key="Str.MochizukiRdna3Toggle">mochizuki على RX 7000 (تجريبي)</sys:String>
   <sys:String x:Key="Str.MochizukiRdna3Note">مُعطّل ما لم تحدده. تجريبي: لا يوجد FP8 في RX 7000، لذا يشغّل mochizuki نسخة mauri870 من شبكته على مصفوفات FP16، وهي أبطأ منها على RX 9000 وتستهلك نحو 2 GB إضافية من VRAM بدقة 1080p. قبل البناء الأول تفحص بيئة التشغيل البطاقة وتُصرّف كل pipeline مرة واحدة؛ إن فشل أي منهما يبقى NR مُعطّلاً وتذكر صفحة mochizuki في OptiScaler السبب. عند تحديده يشغّل التثبيت الجديد mochizuki؛ اختر غيره من NR runtime في تبويب Neural في OptiScaler.</sys:String>
   <sys:String x:Key="Str.WrongGpuToggle">WrongGPU (DLSS 4.5 Model M, RX 9000)</sys:String>
   <sys:String x:Key="Str.WrongGpuNote">مُعطّل ما لم تحدده. يُثبَّت WrongGPU من phantoslayer21 بجانب OptiScaler كمُكبِّر FSR الخاص به: Model M من DLSS 4.5 على RDNA4، ويُحوَّل نموذجه من ملف DLSS على هذا الحاسوب (أو من تنزيل NVIDIA الرسمي إن لم يوجد). في اللعبة اختر FSR، ثم WrongGPU من قائمة إصدارات FSR في OptiScaler.</sys:String>

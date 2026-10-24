@@ -14,6 +14,7 @@
   <sys:String x:Key="Str.RemoveGameHint">Takes the game out of the list, and Scan games leaves it out too. No file in its folder is touched; Settings brings it back.</sys:String>
   <sys:String x:Key="Str.RemovedGame">{0} is off the list and Scan games will leave it out. Nothing in its folder was touched; Settings > Ignored games brings it back.</sys:String>
   <sys:String x:Key="Str.RemovedGameInstalled">{0} is off the list, but the add-on is still installed in its folder. Bring it back from Settings > Ignored games to uninstall it.</sys:String>
+  <sys:String x:Key="Str.RuntimesHint">Unticked runtimes are neither downloaded nor installed in this game. danielblnc's is closed source; lmxxf and mochizuki are open source.</sys:String>
   <sys:String x:Key="Str.IgnoredGames">Ignored games</sys:String>
   <sys:String x:Key="Str.IgnoredGamesHint">Games you took out of the list. Scan games passes over them, so they stay out until you bring them back here.</sys:String>
   <sys:String x:Key="Str.IgnoredNone">No ignored games.</sys:String>
@@ -131,7 +132,6 @@
   <sys:String x:Key="Str.DanielVersionTip">Which version of danielblnc's runtime goes into this game. On RX 9000 cards 0.4.3 is the recommended one: the newer ones have frozen games there. Other cards get the newest.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Addon">RX 9000: mochizuki (mochizuki0323's Vulkan port, about 141 MB) goes in too and runs the network. danielblnc's runtime stays beside it: pick it under NR runtime in the add-on's panel. The first start in each game compiles the network for up to a minute.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Opti">RX 9000: a new install runs mochizuki, with ACO on, and lmxxf goes in beside it and danielblnc's runtime. Pick another under NR runtime in OptiScaler's Neural tab and restart the game.</sys:String>
-  <sys:String x:Key="Str.MochizukiRdna3Toggle">mochizuki on the RX 7000 (experimental)</sys:String>
   <sys:String x:Key="Str.MochizukiRdna3Note">Off unless ticked. Experimental: the RX 7000 has no FP8, so mochizuki runs mauri870's port of its network to FP16 matrices, slower than on an RX 9000 and with about 2 GB more VRAM at 1080p. Before its first build the runtime checks the card and compiles every pipeline once; if either fails NR stays off and OptiScaler's mochizuki page says why. Ticked, a new install runs mochizuki; pick another under NR runtime in OptiScaler's Neural tab.</sys:String>
   <sys:String x:Key="Str.WrongGpuToggle">WrongGPU (DLSS 4.5 Model M, RX 9000)</sys:String>
   <sys:String x:Key="Str.WrongGpuNote">Off unless ticked. phantoslayer21's WrongGPU goes in beside OptiScaler as its FSR upscaler: DLSS 4.5's Model M on RDNA4, its model converted from a DLSS file on this PC (NVIDIA's own download when there is none). In the game pick FSR, then WrongGPU in OptiScaler's FSR version list.</sys:String>

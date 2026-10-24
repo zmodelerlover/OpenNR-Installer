@@ -12,6 +12,7 @@
   <sys:String x:Key="Str.RemoveGameHint">Oyunu listeden çıkarır; «Oyunları tara» da onu atlar. Klasöründeki hiçbir dosyaya dokunulmaz; Ayarlar'dan geri getirebilirsiniz.</sys:String>
   <sys:String x:Key="Str.RemovedGame">Listeden çıkarıldı ve «Oyunları tara» onu atlayacak: {0}. Klasöründeki hiçbir şeye dokunulmadı; Ayarlar &gt; Yok sayılan oyunlar bölümünden geri getirebilirsiniz.</sys:String>
   <sys:String x:Key="Str.RemovedGameInstalled">Listeden çıkarıldı, ancak eklenti klasöründe hâlâ kurulu: {0}. Kaldırmak için Ayarlar &gt; Yok sayılan oyunlar bölümünden geri getirin.</sys:String>
+  <sys:String x:Key="Str.RuntimesHint">İşareti kaldırılan çalışma zamanları bu oyuna indirilmez ve kurulmaz. danielblnc'inki kapalı kaynaktır; lmxxf ve mochizuki açık kaynaktır.</sys:String>
   <sys:String x:Key="Str.IgnoredGames">Yok sayılan oyunlar</sys:String>
   <sys:String x:Key="Str.IgnoredGamesHint">Listeden çıkardığınız oyunlar. «Oyunları tara» bunları atlar; buradan geri getirene kadar liste dışında kalırlar.</sys:String>
   <sys:String x:Key="Str.IgnoredNone">Yok sayılan oyun yok.</sys:String>
@@ -122,7 +123,6 @@
   <sys:String x:Key="Str.DanielVersionTip">Bu oyuna danielblnc runtime'ının hangi sürümünün kurulacağı. RX 9000 kartlarda önerilen 0.4.3'tür: daha yenileri bu kartlarda oyunları dondurdu. Diğer kartlar en yenisini alır.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Addon">RX 9000: mochizuki (mochizuki0323'ün Vulkan portu, yaklaşık 141 MB) da kurulur ve ağı çalıştırır. danielblnc runtime'ı yanında kalır: eklenti panelindeki NR runtime'dan seçin. Her oyunun ilk açılışı ağı bir dakikaya kadar derler.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Opti">RX 9000: yeni bir kurulum mochizuki çalıştırır ve lmxxf danielblnc runtime'ının yanına kurulur. OptiScaler'ın Neural sekmesindeki NR runtime'dan başkasını seçip oyunu yeniden başlatın.</sys:String>
-  <sys:String x:Key="Str.MochizukiRdna3Toggle">RX 7000'de mochizuki (deneysel)</sys:String>
   <sys:String x:Key="Str.MochizukiRdna3Note">İşaretlenmedikçe kapalı. Deneysel: RX 7000'de FP8 yok, bu yüzden mochizuki ağının mauri870 tarafından FP16 matrislere taşınmış hâlini çalıştırır; RX 9000'den yavaştır ve 1080p'de yaklaşık 2 GB daha fazla VRAM kullanır. İlk derlemeden önce runtime kartı denetler ve her pipeline'ı bir kez derler; biri başarısız olursa NR kapalı kalır ve OptiScaler'ın mochizuki sayfası nedenini söyler. İşaretliyken yeni bir kurulum mochizuki çalıştırır; başkasını OptiScaler'ın Neural sekmesindeki NR runtime'dan seçin.</sys:String>
   <sys:String x:Key="Str.WrongGpuToggle">WrongGPU (DLSS 4.5 Model M, RX 9000)</sys:String>
   <sys:String x:Key="Str.WrongGpuNote">İşaretlenmedikçe kapalı. phantoslayer21'in WrongGPU'su OptiScaler'ın yanına FSR yükselticisi olarak kurulur: RDNA4'te DLSS 4.5'in Model M'i; model bu bilgisayardaki bir DLSS dosyasından dönüştürülür (yoksa NVIDIA'nın kendi indirmesinden). Oyunda FSR'yi, ardından OptiScaler'ın FSR sürüm listesinde WrongGPU'yu seçin.</sys:String>

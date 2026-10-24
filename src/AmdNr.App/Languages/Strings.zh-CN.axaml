@@ -12,6 +12,7 @@
   <sys:String x:Key="Str.RemoveGameHint">将游戏从列表中移除，“扫描游戏”也会跳过它。不会改动其文件夹中的任何文件；可以在设置中恢复。</sys:String>
   <sys:String x:Key="Str.RemovedGame">{0} 已从列表中移除，“扫描游戏”会跳过它。其文件夹中的内容未被改动；可在“设置 &gt; 已忽略的游戏”中恢复。</sys:String>
   <sys:String x:Key="Str.RemovedGameInstalled">{0} 已从列表中移除，但插件仍安装在其文件夹中。请在“设置 &gt; 已忽略的游戏”中恢复它，然后再卸载。</sys:String>
+  <sys:String x:Key="Str.RuntimesHint">取消勾选的运行时不会下载或安装到此游戏。danielblnc 的是闭源的；lmxxf 和 mochizuki 是开源的。</sys:String>
   <sys:String x:Key="Str.IgnoredGames">已忽略的游戏</sys:String>
   <sys:String x:Key="Str.IgnoredGamesHint">你从列表中移除的游戏。“扫描游戏”会跳过它们，因此在你从这里恢复之前，它们不会再出现。</sys:String>
   <sys:String x:Key="Str.IgnoredNone">没有已忽略的游戏。</sys:String>
@@ -122,7 +123,6 @@
   <sys:String x:Key="Str.DanielVersionTip">此游戏安装哪个版本的 danielblnc 运行时。在 RX 9000 显卡上推荐 0.4.3：更新的版本曾在这些显卡上让游戏卡死。其他显卡获得最新版本。</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Addon">RX 9000：mochizuki（mochizuki0323 的 Vulkan 移植版，约 141 MB）也会装入并运行网络。danielblnc 的运行时留在旁边：可在插件面板的 NR runtime 中选择。每个游戏首次启动会编译网络，最多一分钟。</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Opti">RX 9000：新安装运行 mochizuki，lmxxf装在 danielblnc 运行时旁边。在 OptiScaler 的 Neural 选项卡的 NR runtime 中选择其他运行时，然后重启游戏。</sys:String>
-  <sys:String x:Key="Str.MochizukiRdna3Toggle">在 RX 7000 上使用 mochizuki（实验性）</sys:String>
   <sys:String x:Key="Str.MochizukiRdna3Note">不勾选则关闭。实验性：RX 7000 没有 FP8，因此 mochizuki 运行 mauri870 将其网络移植到 FP16 矩阵的版本，比在 RX 9000 上慢，1080p 下多用约 2 GB 显存。首次构建前，运行时会检查显卡并将每个 pipeline 编译一次；任何一项失败，NR 都会保持关闭，OptiScaler 的 mochizuki 页面会说明原因。勾选后，新安装运行 mochizuki；可在 OptiScaler 的 Neural 选项卡的 NR runtime 中选择其他运行时。</sys:String>
   <sys:String x:Key="Str.WrongGpuToggle">WrongGPU (DLSS 4.5 Model M, RX 9000)</sys:String>
   <sys:String x:Key="Str.WrongGpuNote">勾选后才启用。phantoslayer21 的 WrongGPU 会作为 OptiScaler 的 FSR 超分装在它旁边：在 RDNA4 上运行 DLSS 4.5 的 Model M，模型由本机上的 DLSS 文件转换（没有时使用 NVIDIA 官方下载）。在游戏中选择 FSR，然后在 OptiScaler 的 FSR 版本列表里选择 WrongGPU。</sys:String>

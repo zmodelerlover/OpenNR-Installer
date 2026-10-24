@@ -57,6 +57,7 @@ ships an upscaler, that route is the one selected. Every ReShade route stays in 
 | `dlssnr_on_amd_weights.bin` | the same weights as the add-on |
 | `LmxxfNrRuntime.dll`, `lmxxf-modules\`, `shaders\` | the second runtime OptiScaler 0.2.0 can drive, lmxxf's open-source port (RDNA4) |
 | `native-game-tiled-assets\` | its weights, about 590 MB, on an RX 9070 or RX 9060 card only: elsewhere they are not downloaded, and the ini runs danielblnc |
+| `native-game-tiled-assets\small\` | with an OptiScaler that carries lmxxf 0.44, where the payload has it: lmxxf's Small model from NVIDIA's 310.9.16 DLL, about 240 MB (a 100 MB download), which lmxxf runs by default with one pass; on RX 9070 and RX 9060 cards only, as the weights |
 | `MochizukiNrRuntime.dll`, `dlssnr-amd\` | only when ticked: the third runtime OptiScaler 0.4.0 can drive, mochizuki's Vulkan port (RDNA4, experimental), with its shaders, prewarm list and model (`dlssnr.bin`, about 141 MB; from 0.5.4 also NVIDIA's 310.9.16 model, `dlssnr-small.bin`, about 109 MB) |
 | `person-model\` | 0.5.4 and later, on RX 9000: person protection's worker, ONNX Runtime and the three person models, with their licences in the same folder |
 | `x86\` proxies, `OptiScaler64\` | 32-bit games (0.5.2 and later; D3D11 and OpenGL from 0.5.4): the 32-bit `d3d9.dll`, `dxgi.dll` or `opengl32.dll` beside the game, OptiScaler and its 64-bit host in `OptiScaler64\` |

@@ -1,5 +1,5 @@
-// mochizuki as a person meets it: on an RX 9000 card a version of OptiScaler that carries it shows the NR
-// runtime section with a word on it, and Install puts the runtime and its dlssnr-amd folder beside OptiScaler
+// mochizuki as a person meets it: on an RX 9000 card a version of OptiScaler that carries it shows its tile in
+// the NR runtime row (the ReShade routes keep the section with a word on it), and Install puts the runtime and its dlssnr-amd folder beside OptiScaler
 // with no box to tick; from OptiScaler 0.5.2 on a fresh OptiScaler.ini runs mochizuki there. On any other card
 // nothing of it goes in. Run by the flows in Program.cs with OptiScaler 1.0.2
 // installed from "releases"; it leaves 1.0.3 installed with mochizuki, for the uninstall flow to take back.
@@ -18,6 +18,8 @@ internal static class MochizukiFlow
     {
         T Named<T>(string name) where T : Control => sheet.FindControl<T>(name)!;
         var section = Named<StackPanel>("MochizukiSection");
+        // The OptiScaler route names its runtimes in the tile row; the section is the ReShade routes'.
+        var runtimes = Named<StackPanel>("OptiRuntimes");
         var note = Named<TextBlock>("MochizukiNote");
         var versions = Named<ComboBox>("OptiVersionBox");
         var install = Named<Button>("InstallButton");
@@ -36,10 +38,13 @@ internal static class MochizukiFlow
                 $"not offered on a card that is not RX 9000 ({machine?.Gpu}, rdna4 {machine?.Rdna4?.ToString() ?? "unknown"})");
             return; // the rest needs a card it goes in on
         }
-        check(until(() => section.IsVisible && note.Text is { Length: > 0 }, 5), $"on RX 9000 the section says what goes in: {note.Text}");
+        check(until(() => runtimes.IsEffectivelyVisible && !section.IsVisible
+                          && runtimes.GetVisualDescendants().OfType<CheckBox>().Any(b => b.IsEffectivelyVisible
+                              && b.Content is string label && label.StartsWith("mochizuki") && b.IsChecked == true), 5),
+            "on RX 9000 the NR runtime row has mochizuki ticked");
         until(() => false, 1); // a second of layout and render ticks before the picture
-        if (section.FindAncestorOfType<ScrollViewer>() is { Content: Visual content } scroll
-            && section.TranslatePoint(new Point(0, 0), content) is { } at)
+        if (runtimes.FindAncestorOfType<ScrollViewer>() is { Content: Visual content } scroll
+            && runtimes.TranslatePoint(new Point(0, 0), content) is { } at)
             scroll.Offset = new Vector(0, Math.Max(0, at.Y - 160));
         until(() => false, 1);
         save(main, "flow-2-optiscaler-mochizuki");
@@ -65,7 +70,8 @@ internal static class MochizukiFlow
         until(() => false, 1);
         save(main, "flow-2-reshade-mochizuki");
         sheet.FindControl<RadioButton>("RouteOpti")!.IsChecked = true;
-        check(until(() => section.IsEffectivelyVisible, 5), "and back on OptiScaler it is still there");
+        check(until(() => runtimes.IsEffectivelyVisible && !section.IsVisible, 5),
+            "and back on OptiScaler the tile row takes its place again");
     }
 
     /// <summary>A newer OptiScaler under "releases" with the same OptiScaler files as <paramref name="from"/>

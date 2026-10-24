@@ -228,6 +228,11 @@ public partial class MochizukiTests
         var other = Game("lmxxf-other");
         Assert.False(Work.Install(other, src, Preset.OptiScaler, pins).Failed);
         Assert.Equal(Ini, File.ReadAllText(Path.Combine(other, Work.OptiScalerIni)));
+
+        // mochizuki left out of the downloads in Settings, lmxxf kept: the RX 9000 card still gets lmxxf.
+        var noMochizuki = Game("lmxxf-no-mochizuki");
+        Assert.False(Work.Install(noMochizuki, src, Preset.OptiScaler, pins, lmxxf: true).Failed);
+        Assert.Equal("lmxxf", Engine.Trim(Engine.GetIni(File.ReadAllText(Path.Combine(noMochizuki, Work.OptiScalerIni)), "DlssNr", "NrBackend")));
     }
 
     [Fact]

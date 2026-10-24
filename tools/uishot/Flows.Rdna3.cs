@@ -1,7 +1,7 @@
-// mochizuki's RX 7000 network as a person with an RX 7000 meets it: an OptiScaler version that carries it shows a box
-// in the NR runtime section, off until ticked, with what it costs; ticked, Install puts mochizuki in with
+// mochizuki's RX 7000 network as a person with an RX 7000 meets it: an OptiScaler version that carries it shows the
+// mochizuki tile, off until ticked, with what it costs; ticked, Install puts mochizuki in with
 // dlssnr-amd\shaders-rdna3 and a fresh OptiScaler.ini runs it. On the machine as it really is the box is not there
-// (it is an RX 7000 only for this flow), and an install takes the RX 7000 network back out. Run after the mochizuki
+// (it is an RX 7000 only for this flow), the tile is plain mochizuki, and an install takes the RX 7000 network back out. Run after the mochizuki
 // flow; it leaves 1.0.4 installed as the real card has it, for the uninstall flow to take back.
 
 using System.Reflection;
@@ -17,9 +17,15 @@ internal static class Rdna3Flow
         Action<bool, string> check, Func<Func<bool>, int, bool> until, Action<Button> click, Action<Window, string> save)
     {
         T Named<T>(string name) where T : Control => sheet.FindControl<T>(name)!;
-        var section = Named<StackPanel>("MochizukiSection");
-        var box = Named<CheckBox>("MochizukiRdna3Box");
-        var note = Named<TextBlock>("MochizukiNote");
+        var section = Named<StackPanel>("OptiRuntimes");
+        CheckBox box = null!;
+        TextBlock note = null!;
+        bool Tile()
+        {
+            box = section.GetVisualDescendants().OfType<CheckBox>().FirstOrDefault(b => (b.Content as string)?.StartsWith("mochizuki") == true)!;
+            note = section.GetVisualDescendants().OfType<TextBlock>().FirstOrDefault(t => t.Name == "MochizukiRdna3Note")!;
+            return box is not null && note is not null;
+        }
         var versions = Named<ComboBox>("OptiVersionBox");
         var install = Named<Button>("InstallButton");
         var rdna3 = Path.Combine(game, "dlssnr-amd", "shaders-rdna3", "g_attn.spv");
@@ -40,7 +46,7 @@ internal static class Rdna3Flow
         check(until(() => reload.IsCompleted && versions.ItemCount == count + 1, 10), $"the menu lists the version that carries it ({versions.ItemCount})");
         Machine(new SystemState("AMD Radeon RX 7900 XTX", real?.Driver ?? "unknown", true, true, Rdna4: false, Rx7000: true));
         Reselect();
-        check(until(() => section.IsVisible && box.IsVisible, 5), "on an RX 7000 the NR runtime section offers the RX 7000 network");
+        check(until(() => section.IsVisible && Tile() && box.IsEffectivelyVisible && note.IsVisible && (box.Content as string)!.Contains("experimental"), 5), "on an RX 7000 the mochizuki tile offers the RX 7000 network");
         check(box.IsChecked != true && note.Text == main.FindResource("Str.MochizukiRdna3Note") as string, $"off until ticked, with what it costs: {note.Text}");
         until(() => false, 1);
         if (section.FindAncestorOfType<ScrollViewer>() is { Content: Visual content } scroll
@@ -63,7 +69,7 @@ internal static class Rdna3Flow
         // The card as it really is: no box, and an install takes the RX 7000 network out again.
         Machine(real);
         Reselect();
-        check(until(() => !box.IsVisible, 5), $"on the real card ({real?.Gpu}) there is no box");
+        check(until(() => !note.IsVisible && box.Content as string == "mochizuki (350 MB)", 5), $"on the real card ({real?.Gpu}) the tile is plain mochizuki again");
         click(install);
         check(until(() => !main.Session.Busy, 30) && !File.Exists(rdna3), "and an install there takes the RX 7000 network out");
         card.Entry.MochizukiRdna3 = null;

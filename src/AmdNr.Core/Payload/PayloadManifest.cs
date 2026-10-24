@@ -144,11 +144,15 @@ public sealed class PayloadManifest
     /// and optional: without it the runtime runs the 310.8 model.</summary>
     public const string MochizukiSmallModelComponent = "mochizuki-model-small";
 
-    /// <summary>mochizuki's RX 7000 network (dlssnr-amd\shaders-rdna3), experimental, installed only when ticked on an
-    /// RX 7000 card. A component of its own for the same reason as <see cref="LmxxfGfx1200Component"/>: inside the
-    /// mochizuki archive, the installers already published would put its 32 MB in on every RX 9000 that takes
-    /// mochizuki, and they never ask for a component they do not know.</summary>
+    /// <summary>mochizuki's RX 7000 network (shaders-rdna3), ticked on an RX 7000 only; apart for <see cref="LmxxfGfx1200Component"/>'s reason.</summary>
     public const string MochizukiRdna3Component = "mochizuki-rdna3";
+
+    /// <summary>lmxxf 0.44's Small model, the 31 blocks of NVIDIA's 310.9.16 DLL in native-game-tiled-assets\small\, which
+    /// the OptiScaler that carries lmxxf 0.44 runs by default with one pass when it is there. Versioned and optional like
+    /// <see cref="MochizukiSmallModelComponent"/>: without it lmxxf runs its 71-block model. Its payload folder is
+    /// native-game-tiled-assets.small (<see cref="Work.OptiDestination"/>): the installers already out there refuse a
+    /// whole manifest with a path three levels deep, and never ask for a component they do not know.</summary>
+    public const string LmxxfSmallWeightsComponent = "lmxxf-weights-small";
 
     /// <summary>OptiScaler 0.5.4's person protection: person-worker.exe, ONNX Runtime, the three person models and
     /// their licences, in person-model\ beside OptiScaler. Only lmxxf and mochizuki use it, so it goes where lmxxf's
@@ -170,8 +174,8 @@ public sealed class PayloadManifest
     public static readonly IReadOnlySet<string> OnDemand =
         new HashSet<string>(StringComparer.Ordinal)
         {
-            OptiScalerComponent, OptiRuntimeComponent, LmxxfWeightsComponent, LmxxfGfx1200Component, OptiX86Component,
-            MochizukiComponent, MochizukiModelComponent, MochizukiSmallModelComponent, MochizukiRdna3Component,
+            OptiScalerComponent, OptiRuntimeComponent, LmxxfWeightsComponent, LmxxfSmallWeightsComponent, LmxxfGfx1200Component,
+            OptiX86Component, MochizukiComponent, MochizukiModelComponent, MochizukiSmallModelComponent, MochizukiRdna3Component,
             PersonModelComponent, WrongGpuComponent, WrongGpuDlssComponent,
         };
 
@@ -265,21 +269,21 @@ public sealed class PayloadManifest
     /// <summary>This manifest without lmxxf's weights and RX 9060 kernels, for a card lmxxf does not run on: about
     /// 590 MB nobody there can use. Neither is downloaded, pinned or installed then, and nor are person protection,
     /// which only lmxxf and mochizuki run, and WrongGPU, which runs on RX 9000 only.</summary>
-    public PayloadManifest WithoutLmxxf() =>
-        Without(c => c is LmxxfWeightsComponent or LmxxfGfx1200Component or PersonModelComponent or WrongGpuComponent
-            or WrongGpuDlssComponent);
+    public PayloadManifest WithoutLmxxf() => Without(LmxxfComponents.Append(PersonModelComponent)
+        .Append(WrongGpuComponent).Append(WrongGpuDlssComponent).ToArray());
 
-    /// <summary>This manifest without mochizuki's RX 7000 network, for every install but the RX 7000 opt-in: it is
-    /// neither downloaded, pinned nor installed then.</summary>
-    public PayloadManifest WithoutMochizukiRdna3() => Without(c => c == MochizukiRdna3Component);
+    /// <summary>lmxxf's weights, its Small model and its RX 9060 kernels: what leaving lmxxf out takes away.</summary>
+    public static readonly string[] LmxxfComponents = [LmxxfWeightsComponent, LmxxfSmallWeightsComponent, LmxxfGfx1200Component];
 
-    private PayloadManifest Without(Func<string, bool> dropped) => new()
+    /// <summary>This manifest without the components named: none of them is downloaded, pinned or installed.</summary>
+    public PayloadManifest Without(params string[] names) => new()
     {
         Schema = Schema,
         Owner = Owner,
         Repo = Repo,
         Tag = Tag,
-        Components = Components.Where(c => !dropped(c.Key)).ToDictionary(c => c.Key, c => c.Value, StringComparer.Ordinal),
+        Components = Components.Where(c => !names.Contains(c.Key))
+            .ToDictionary(c => c.Key, c => c.Value, StringComparer.Ordinal),
         Releases = Releases,
         UserRuntimes = UserRuntimes,
         RuntimeChoice = RuntimeChoice,
@@ -302,11 +306,12 @@ public sealed class PayloadManifest
         };
     }
 
-    /// <summary>danielblnc's runtime versions a person can pick, newest first: each carries the build patched
-    /// for the add-on (<see cref="RuntimeComponent"/>) and the one OptiScaler runs as it is
-    /// (<see cref="OptiRuntimeComponent"/>). Empty on a payload from before the choice.</summary>
+    /// <summary>danielblnc's runtime versions a person can pick, newest first: each carries the build OptiScaler runs as
+    /// it is (<see cref="OptiRuntimeComponent"/>), and under releases.runtime the one patched for the add-on too. A build
+    /// OptiScaler alone runs (0.8.0) is under releases.opti-runtime: every app published refuses the whole list over a
+    /// releases.runtime entry without its runtime. Empty on a payload from before the choice.</summary>
     public IReadOnlyList<ComponentRelease> RuntimeVersions() =>
-        (Releases?.GetValueOrDefault(RuntimeComponent) ?? [])
+        (Releases?.GetValueOrDefault(RuntimeComponent) ?? []).Concat(Releases?.GetValueOrDefault(OptiRuntimeComponent) ?? [])
         .Where(r => !IsPlaceholder(r) && r.Components.ContainsKey(OptiRuntimeComponent))
         .OrderByDescending(r => AddonReleases.Version(r.Version) ?? new Version())
         .ToList();
@@ -427,19 +432,20 @@ public sealed class PayloadManifest
         // and the other routes must keep installing from it.
         // The lmxxf weights go in with OptiScaler itself, so they are pinned the same way.
         var optiFiles = new Dictionary<string, string>(StringComparer.Ordinal);
-        foreach (var name in new[] { OptiScalerComponent, LmxxfWeightsComponent, LmxxfGfx1200Component, OptiX86Component, PersonModelComponent })
+        foreach (var name in new[]
+                 {
+                     OptiScalerComponent, LmxxfWeightsComponent, LmxxfSmallWeightsComponent, LmxxfGfx1200Component, OptiX86Component,
+                     PersonModelComponent,
+                 })
             if (Components.TryGetValue(name, out var component))
                 foreach (var f in component.Installed)
                     optiFiles[f.RelativePath] = Engine.Lower(f.Sha256);
         var optiRuntime = Components.TryGetValue(OptiRuntimeComponent, out var optiRt) ? optiRt.Files.FirstOrDefault() : null;
-        // Both halves or neither: the runtime without its model, or the model without the runtime,
-        // is nothing OptiScaler can run. The second model goes with them when there is one, and so does the RX 7000
-        // network when this manifest still has it (WithoutMochizukiRdna3).
+        // Both halves or neither (one without the other is nothing OptiScaler runs); the extras below go with them.
         var mochizuki = new Dictionary<string, string>(StringComparer.Ordinal);
         if (Components.TryGetValue(MochizukiComponent, out var mz) && Components.TryGetValue(MochizukiModelComponent, out var model))
-            foreach (var f in mz.Installed.Concat(model.Installed)
-                         .Concat(Components.TryGetValue(MochizukiSmallModelComponent, out var small) ? small.Installed : [])
-                         .Concat(Components.TryGetValue(MochizukiRdna3Component, out var rdna3) ? rdna3.Installed : []))
+            foreach (var f in mz.Installed.Concat(model.Installed).Concat(new[] { MochizukiSmallModelComponent, MochizukiRdna3Component }
+                         .Where(Components.ContainsKey).SelectMany(c => Components[c].Installed)))
                 mochizuki[f.RelativePath] = Engine.Lower(f.Sha256);
         var wrongGpu = new Dictionary<string, string>(StringComparer.Ordinal);
         if (Components.TryGetValue(WrongGpuComponent, out var wg))

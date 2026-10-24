@@ -59,6 +59,10 @@ public sealed class GameEntry
     /// then it follows the folder, like WrongGPU.</summary>
     public bool? MochizukiRdna3 { get; set; }
 
+    /// <summary>NR runtimes left out of this game's OptiScaler install ("lmxxf", "mochizuki", "daniel"): neither
+    /// downloaded nor installed. Null is none.</summary>
+    public List<string>? SkippedRuntimes { get; set; }
+
     /// <summary>The name the person gave the game in this app. Null keeps the launcher's, or the folder's.
     /// Kept apart from <see cref="Name"/> so going back to the original is always possible.</summary>
     public string? CustomName { get; set; }

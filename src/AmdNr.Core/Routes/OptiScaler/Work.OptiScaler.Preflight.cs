@@ -5,7 +5,8 @@ namespace AmdNr.Core;
 public static partial class Work
 {
     private static Report PreflightOptiScaler(string gameDir, string payloadDir, PayloadPins pins, string? proxy,
-        bool mochizuki, string? ownRuntime, UserRuntime? wantedRuntime, string? suggestedProxy, GraphicsApi? api, bool wrongGpu)
+        bool mochizuki, string? ownRuntime, UserRuntime? wantedRuntime, string? suggestedProxy, GraphicsApi? api, bool wrongGpu,
+        bool daniel = true)
     {
         var report = new Report();
         var dir = ResolveSource(gameDir);
@@ -25,7 +26,7 @@ public static partial class Work
         }
         else
         {
-            var missing = pins.OptiFiles.Keys.Append(pins.OptiRuntimeName).Append(WeightsName)
+            var missing = (daniel ? pins.OptiFiles.Keys.Append(pins.OptiRuntimeName).Append(WeightsName) : pins.OptiFiles.Keys)
                 .Where(n => !File.Exists(Path.Combine(src, n))).ToList();
             if (missing.Count > 0)
                 report.Err($"{Joined(missing)} {(missing.Count == 1 ? "is" : "are")} not in the payload folder.");
@@ -34,7 +35,7 @@ public static partial class Work
         }
         if (mochizuki) CheckMochizukiPayload(src, pins, report);
         if (wrongGpu) CheckWrongGpu(src, pins, Directory.Exists(dir) && GraphicsDetector.Detect(dir).Width == Route.X86, report);
-        CheckSupplied(ownRuntime, wantedRuntime, pins, Preset.OptiScaler, report);
+        if (daniel) CheckSupplied(ownRuntime, wantedRuntime, pins, Preset.OptiScaler, report);
 
         if (dir.Length == 0)
         {
@@ -72,7 +73,7 @@ public static partial class Work
 
         if (src.Length > 0 && Directory.Exists(src))
         {
-            var need = OptiPayloadSizes(src, pins)
+            var need = OptiPayloadSizes(src, pins, daniel)
                 .Where(f => Engine.SizeOf(Path.Combine(dir, OptiDestination(f.Name, proxyName))) != f.Size)
                 .Aggregate(0UL, (sum, f) => sum + f.Size)
                 + (mochizuki ? MochizukiNeed(src, dir, pins) : 0);

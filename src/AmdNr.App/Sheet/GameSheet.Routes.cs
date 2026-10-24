@@ -386,8 +386,7 @@ public partial class GameSheet
         if (_card is not { } card) return;
         var addon = !card.Entry.Preset.IsOptiScaler();
         _runtimeChoices = Session.Manifest is { } manifest ? RuntimeChoices(Versioned(manifest)) : [];
-        var rx7000 = OffersMochizukiRdna3(card);
-        MochizukiSection.IsVisible = _runtimeChoices.Count > 0 || WantsMochizuki(card) || rx7000;
+        MochizukiSection.IsVisible = _runtimeChoices.Count > 0 || WantsMochizuki(card);
         _setting = true;
         DanielVersionRow.IsVisible = _runtimeChoices.Count > 0;
         DanielVersionBox.ItemTemplate ??= RuntimeOption.Template;
@@ -395,13 +394,11 @@ public partial class GameSheet
             .ToList();
         var pick = Work.RuntimePick(_runtimeChoices, card.Entry.DanielRuntime, Rdna4);
         DanielVersionBox.SelectedIndex = _runtimeChoices.Count == 0 ? -1 : Math.Max(_runtimeChoices.FindIndex(r => r.Version == pick), 0);
-        MochizukiRdna3Box.IsVisible = rx7000;
-        MochizukiRdna3Box.IsChecked = WantsMochizukiRdna3(card);
         _setting = false;
-        MochizukiNote.Text = rx7000 ? Ui.Text("Str.MochizukiRdna3Note")
-            : WantsMochizuki(card) ? Ui.Text(addon ? "Str.RuntimeRdna4Addon" : "Str.RuntimeRdna4Opti") : "";
+        MochizukiNote.Text = WantsMochizuki(card) ? Ui.Text(addon ? "Str.RuntimeRdna4Addon" : "Str.RuntimeRdna4Opti") : "";
         // Said under the section, not in a tooltip: people took the missing mochizuki tick box for mochizuki gone.
         MochizukiNote.IsVisible = MochizukiNote.Text.Length > 0;
+        ShowRuntimes();
     }
 
     /// <summary>The danielblnc versions <see cref="DanielVersionBox"/> lists, in its order.</summary>
@@ -411,7 +408,8 @@ public partial class GameSheet
     /// chosen carries it, and on an RX 7000 with its network ticked. Any other card, or one this app could not read,
     /// gets none, and an install takes out what an earlier one put in.</summary>
     private bool WantsMochizuki(GameCard card) =>
-        OffersMochizuki(card) && (Session.Machine?.Rdna4 == true || WantsMochizukiRdna3(card));
+        OffersMochizuki(card) && (Session.Machine?.Rdna4 == true || WantsMochizukiRdna3(card)) &&
+        !Skips(card, MochizukiRuntime);
 
     /// <summary>The first add-on that can drive the mochizuki runtime (its NR runtime choice).</summary>
     private static readonly Version MochizukiAddon = new(0, 6, 8);

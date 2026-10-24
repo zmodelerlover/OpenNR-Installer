@@ -45,5 +45,9 @@ public class LmxxfCardTests
         var without = manifest.WithoutLmxxf();
         Assert.True(without.Has(PayloadManifest.OptiScalerComponent));
         Assert.False(without.Has(PayloadManifest.LmxxfWeightsComponent) || without.Has(PayloadManifest.LmxxfGfx1200Component));
+
+        // Left out in Settings on an RX 9000 card: lmxxf's components go and nothing else does.
+        var skipped = manifest.Without(PayloadManifest.LmxxfComponents);
+        Assert.Equal([PayloadManifest.OptiScalerComponent], skipped.Components.Keys);
     }
 }

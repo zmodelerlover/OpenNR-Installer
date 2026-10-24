@@ -33,7 +33,7 @@ public static partial class Work
     private static readonly string[] OptiFolders =
     [
         "OptiScaler/D3D12_OptiScaler", "OptiScaler", "experimental_lighting",
-        "lmxxf-modules", "lmxxf-modules-gfx1200", "native-game-tiled-assets", "shaders",
+        "lmxxf-modules", "lmxxf-modules-gfx1200", Engine.LmxxfSmallFolder, "native-game-tiled-assets", "shaders",
         // A 32-bit game's, after what is inside it (Work.Mochizuki takes dlssnr-amd).
         "OptiScaler64/OptiScaler/D3D12_OptiScaler", "OptiScaler64/OptiScaler", "OptiScaler64/experimental_lighting",
         "OptiScaler64/dlssnr-amd", "OptiScaler64/person-model", "OptiScaler64",
@@ -81,13 +81,18 @@ public static partial class Work
     };
 
     /// <summary>Where one payload file goes in the game folder. OptiScaler takes the proxy name, and
-    /// the Agility runtime sits one level deeper than a payload path may go.</summary>
+    /// the Agility runtime and lmxxf's Small model sit one level deeper than a payload path may go.</summary>
     internal static string OptiDestination(string payloadPath, string proxyName) => payloadPath switch
     {
         OptiScalerDllPayload => proxyName,
         "D3D12_OptiScaler/D3D12Core.dll" => "OptiScaler/D3D12_OptiScaler/D3D12Core.dll",
+        _ when payloadPath.StartsWith(LmxxfSmallPayload, StringComparison.Ordinal)
+            => Engine.LmxxfSmallFolder + payloadPath[(LmxxfSmallPayload.Length - 1)..],
         _ => payloadPath,
     };
+
+    /// <summary>The payload folder of lmxxf's Small model, with its slash: native-game-tiled-assets\small\ spelled with a dot.</summary>
+    internal const string LmxxfSmallPayload = "native-game-tiled-assets.small/";
 
     /// <summary>Launchers that sit beside the game they start and so load its proxy first. OptiScaler
     /// hooking inside Red Dead Redemption's PlayRDR.exe broke the Rockstar Games SDK (error 25D11006);
@@ -130,7 +135,7 @@ public static partial class Work
         payload = payload.Newest(PayloadManifest.OptiScalerComponent);
         var pinned = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         foreach (var name in new[] { PayloadManifest.OptiScalerComponent, PayloadManifest.LmxxfWeightsComponent,
-                                     PayloadManifest.LmxxfGfx1200Component, PayloadManifest.OptiX86Component,
+                                     PayloadManifest.LmxxfSmallWeightsComponent, PayloadManifest.LmxxfGfx1200Component, PayloadManifest.OptiX86Component,
                                      PayloadManifest.PersonModelComponent })
             if (payload.Has(name))
                 foreach (var file in payload.Component(name).Installed)
@@ -197,14 +202,13 @@ public static partial class Work
             report.Info($"OptiScaler goes in as {proxyName}, the name the OptiScaler wiki gives for this game.");
     }
 
-    private static IEnumerable<(string Name, ulong Size)> OptiPayloadSizes(string src, PayloadPins pins) =>
+    private static IEnumerable<(string Name, ulong Size)> OptiPayloadSizes(string src, PayloadPins pins, bool daniel = true) =>
         pins.OptiFiles.Keys.Select(p => (p, Engine.SizeOf(Path.Combine(src, p)) ?? 0))
-            .Concat(OptiPasses.Select(p => (p, pins.OptiRuntimeSize)))
-            .Append((WeightsName, pins.WeightsSize));
+            .Concat(daniel ? RuntimePasses(VersionOf(pins.OptiRuntimeVersion)).Select(p => (p, pins.OptiRuntimeSize)).Append((WeightsName, pins.WeightsSize)) : []);
 
     private static Report InstallOptiScaler(string gameDir, string payloadDir, PayloadPins pins, string? proxy,
         bool mochizuki, string? ownRuntime, UserRuntime? wantedRuntime, string? suggestedProxy, GraphicsApi? api,
-        bool wrongGpu = false)
+        bool wrongGpu = false, bool lmxxfCard = false, bool daniel = true)
     {
         var report = new Report();
         var dir = ResolveSource(gameDir);
@@ -283,7 +287,12 @@ public static partial class Work
         // fresh ini runs it there with or without an upscaler; other cards keep danielblnc.
         IReadOnlyList<string> upscalers = everywhere ? GraphicsDetector.UpscalersDeep(dir, null, GraphicsDetector.Detect(dir).Executable) : [];
         var runsMochizuki = mochizuki && OptiRunsBridged(pins.OptiScalerVersion);
-        var lmxxf = !runsMochizuki && mochizuki && LmxxfEverywhere(pins) && (!everywhere || upscalers.Count > 0);
+        var lmxxf = !runsMochizuki && (mochizuki || lmxxfCard) && LmxxfEverywhere(pins) && (!everywhere || upscalers.Count > 0);
+        // Without danielblnc's runtime (closed source, left out in Settings) a fresh ini names one that is here, or none.
+        var backend = daniel ? null
+            : runsMochizuki ? MochizukiBackend
+            : !x86 && (mochizuki || lmxxfCard) && LmxxfWeighted(pins) ? "lmxxf"
+            : "off";
         if (everywhere && upscalers.Count == 0)
             report.Info("No DLSS, FSR or XeSS found in this game: OptiScaler runs the network on its finished frame (NR without upscaling).");
         var files = new SortedDictionary<string, byte[]>(StringComparer.Ordinal);
@@ -308,23 +317,33 @@ public static partial class Work
             }
             if (VerifiedPayload(src, path, sha, report) is { } bytes)
                 files[destination] = destination != iniName ? bytes
-                    : WithoutUpscaler(RunsMochizuki(RunsLmxxf(OnlyInTheGame(dir, x86 ? NrOn(bytes) : bytes, report), lmxxf,
-                        !LmxxfWeighted(pins)), runsMochizuki), everywhere);
+                    : WithBackend(WithoutUpscaler(RunsMochizuki(RunsLmxxf(OnlyInTheGame(dir, x86 ? NrOn(bytes) : bytes, report),
+                        lmxxf, !LmxxfWeighted(pins)), runsMochizuki), everywhere), backend);
         }
+        // An ini this route wrote and somebody changed since stays as it is (the transaction keeps it): what it names
+        // is what runs, so the lines below go by it rather than by the package's.
+        var iniPath = Path.Combine(dir, iniName);
+        var iniWritten = files.TryGetValue(iniName, out var iniBytes)
+                         && !(File.Exists(iniPath) && Engine.HashFile(iniPath) is var onDisk && onDisk != Engine.Sha(iniBytes)
+                              && manifest?.Entries.FirstOrDefault(e => e.Name == iniName) is { } iniEntry && iniEntry.Hash != onDisk);
+        if (files.ContainsKey(iniName) && !iniWritten)
+            report.Info($"{OptiScalerIni} was changed since it was installed and stays as it is: its NR runtime is "
+                        + (KeptIniNames(homeDir) is { } named && named != "auto" ? named : "auto, which is danielblnc's")
+                        + ". Delete it before installing to start from the package's.");
         if (x86 && !files.ContainsKey(proxyName))
             report.Err($"This OptiScaler package has no 32-bit {proxyName}: a 32-bit game needs {OptiBridges} or a later one.");
-        if (!files.ContainsKey(iniName) && LauncherBeside(dir) is { } kept)
+        if (!iniWritten && LauncherBeside(dir) is { } kept)
             report.Warn($"{kept.Launcher} sits beside the game and loads OptiScaler first, which breaks {kept.Why}. "
                         + $"Set TargetProcessName={kept.Game} under [ProcessFilter] in your {OptiScalerIni}.");
         // A build the person supplied comes first; the author's version.dll goes to the backup either way.
-        var author = OwnRuntime(dir, pins);
-        var own = Supplied(ownRuntime, wantedRuntime, pins, Preset.OptiScaler, report) is { } supplied
+        var author = daniel ? OwnRuntime(dir, pins) : null;
+        var own = daniel && Supplied(ownRuntime, wantedRuntime, pins, Preset.OptiScaler, report) is { } supplied
             ? (supplied.Bytes, AcceptedRuntime(supplied.Build.OriginalSha256, pins.OptiScalerVersion)!, From: SuppliedFrom)
             : author;
-        if ((own?.Bytes ?? VerifiedPayload(src, pins.OptiRuntimeName, pins.OptiRuntimeSha, report)) is { } runtime)
-            foreach (var pass in OptiPasses)
+        if (daniel && (own?.Bytes ?? VerifiedPayload(src, pins.OptiRuntimeName, pins.OptiRuntimeSha, report)) is { } runtime)
+            foreach (var pass in RuntimePasses(own?.Runtime ?? VersionOf(pins.OptiRuntimeVersion)))
                 files[home + pass] = runtime;
-        if (VerifiedPayload(src, WeightsName, pins.WeightsSha, report) is { } weights)
+        if (daniel && VerifiedPayload(src, WeightsName, pins.WeightsSha, report) is { } weights)
             files[home + WeightsName] = weights;
         if (mochizuki)
         {
@@ -354,6 +373,9 @@ public static partial class Work
                         || e.Name.StartsWith(home + PersonModelFolder, StringComparison.Ordinal))).Select(e => e.Name) ?? [])
             // WrongGPU, when it is left off.
             .Concat(wrongGpu ? [] : WrongGpuRecorded(manifest))
+            // danielblnc's runtime and weights, when it is left out, and passes 2 and 3 under a build that runs as one module.
+            .Concat(manifest?.Entries.Where(e => e.Owned && !files.ContainsKey(e.Name)
+                    && (!daniel && e.Name == home + WeightsName || OptiPasses.Any(p => e.Name == home + p))).Select(e => e.Name) ?? [])
             .ToList();
         var log = new List<string>();
         try
@@ -373,7 +395,7 @@ public static partial class Work
             ? $"OptiScaler goes in {OptiHostFolder}\\ with its 64-bit host, and the 32-bit {proxyName} beside the game hands "
               + "the host every frame: NR, frame generation and the menu run there."
             : $"OptiScaler goes in as {proxyName}.");
-        NoPreExposure(dir, own?.Runtime ?? VersionOf(pins.OptiRuntimeVersion), report);
+        if (daniel) NoPreExposure(dir, own?.Runtime ?? VersionOf(pins.OptiRuntimeVersion), report);
         if (own is { } o)
             report.Info(o.From switch
             {
@@ -385,19 +407,19 @@ public static partial class Work
                 _ => $"The runtime stays danielblnc's {o.Runtime}, already here and newer than the "
                      + $"{pins.OptiRuntimeVersion} the download carries.",
             });
-        if (files.ContainsKey(iniName) && everywhere)
+        if (iniWritten && everywhere && (daniel || runsMochizuki))
             report.Info($"{OptiScalerIni} has NR without upscaling on: with no upscaler running, OptiScaler runs the network "
                         + $"on the finished frame, HUD included, on {(runsMochizuki ? "mochizuki" : "danielblnc's runtime")}. "
                         + "Where the game's DLSS, FSR or XeSS is on, the network runs inside it instead.");
-        if (files.ContainsKey(iniName) && runsMochizuki)
+        if (iniWritten && runsMochizuki)
             report.Info($"{OptiScalerIni} runs mochizuki (NrBackend=mochizuki), the default on RX 9000 cards, with ACO on. "
                         + "danielblnc and lmxxf are beside it: pick another under NR runtime in OptiScaler's Neural tab.");
-        else if (files.ContainsKey(iniName) && lmxxf)
+        else if (iniWritten && lmxxf)
             report.Info($"{OptiScalerIni} runs lmxxf (NrBackend=lmxxf), the default on RX 9000 cards. danielblnc and "
                         + "mochizuki are beside it: pick another under NR runtime in OptiScaler's Neural tab.");
         else if (!LmxxfWeighted(pins))
         {
-            if (!files.ContainsKey(iniName) && KeptIniNames(homeDir) == "lmxxf")
+            if (!iniWritten && KeptIniNames(homeDir) == "lmxxf")
                 report.Warn($"The {OptiScalerIni} kept here names lmxxf as the NR runtime, which runs on RX 9070 and RX 9060 "
                             + "series cards only and is not installed on this one: pick daniel under NR runtime in OptiScaler's "
                             + $"Neural tab, or delete {OptiScalerIni} and install again.");
@@ -411,7 +433,7 @@ public static partial class Work
                 + "to use it, pick lmxxf under NR runtime in OptiScaler's Neural tab and restart the game.");
         if (mochizuki)
             report.Info(MochizukiInstalled
-                        + (files.ContainsKey(iniName) && (lmxxf || runsMochizuki)
+                        + (iniWritten && (lmxxf || runsMochizuki)
                             ? ""
                             : $" {OptiScalerIni} keeps the NR runtime it names: to use mochizuki, pick it under NR runtime in "
                               + "OptiScaler's Neural tab and restart the game."));

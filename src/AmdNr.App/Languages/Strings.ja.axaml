@@ -12,6 +12,7 @@
   <sys:String x:Key="Str.RemoveGameHint">ゲームをリストから削除し、「ゲームをスキャン」でも除外します。フォルダー内のファイルには一切触れません。設定から元に戻せます。</sys:String>
   <sys:String x:Key="Str.RemovedGame">{0} をリストから削除しました。「ゲームをスキャン」でも除外されます。フォルダー内には何も触れていません。「設定 &gt; 除外したゲーム」から元に戻せます。</sys:String>
   <sys:String x:Key="Str.RemovedGameInstalled">{0} をリストから削除しましたが、アドオンはまだそのフォルダーにインストールされています。アンインストールするには「設定 &gt; 除外したゲーム」から元に戻してください。</sys:String>
+  <sys:String x:Key="Str.RuntimesHint">チェックを外したランタイムはこのゲームにダウンロードもインストールもされません。danielblnc のものはクローズドソース、lmxxf と mochizuki はオープンソースです。</sys:String>
   <sys:String x:Key="Str.IgnoredGames">除外したゲーム</sys:String>
   <sys:String x:Key="Str.IgnoredGamesHint">リストから削除したゲームです。「ゲームをスキャン」ではスキップされるので、ここで元に戻すまで表示されません。</sys:String>
   <sys:String x:Key="Str.IgnoredNone">除外したゲームはありません。</sys:String>
@@ -122,7 +123,6 @@
   <sys:String x:Key="Str.DanielVersionTip">このゲームに入れる danielblnc ランタイムのバージョン。RX 9000 では 0.4.3 が推奨です。新しいものはこのカードでゲームをフリーズさせたことがあります。ほかのカードには最新版が入ります。</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Addon">RX 9000: mochizuki（mochizuki0323 による Vulkan 移植、約 141 MB）も入り、ネットワークを実行します。danielblnc のランタイムも横に残り、アドオンのパネルの NR runtime で選べます。各ゲームの初回起動ではネットワークのコンパイルに最大 1 分かかります。</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Opti">RX 9000: 新規インストールでは mochizuki が動き、lmxxfが danielblnc のランタイムの横に入ります。OptiScaler の Neural タブの NR runtime で別のものを選び、ゲームを再起動してください。</sys:String>
-  <sys:String x:Key="Str.MochizukiRdna3Toggle">RX 7000 で mochizuki（実験的）</sys:String>
   <sys:String x:Key="Str.MochizukiRdna3Note">チェックしない限りオフ。実験的：RX 7000 には FP8 がないため、mochizuki は mauri870 によるネットワークの FP16 行列版を動かします。RX 9000 より遅く、1080p で VRAM を約 2 GB 多く使います。最初のビルドの前にランタイムがカードを確認し、すべての pipeline を一度コンパイルします。どちらかが失敗すると NR はオフのままで、OptiScaler の mochizuki ページに理由が出ます。チェックすると新規インストールで mochizuki が動きます。別のものは OptiScaler の Neural タブの NR runtime で選んでください。</sys:String>
   <sys:String x:Key="Str.WrongGpuToggle">WrongGPU (DLSS 4.5 Model M, RX 9000)</sys:String>
   <sys:String x:Key="Str.WrongGpuNote">チェックしない限りオフ。phantoslayer21 の WrongGPU が OptiScaler の FSR アップスケーラーとして横に入ります：RDNA4 で DLSS 4.5 の Model M。モデルはこの PC の DLSS ファイルから変換されます（無い場合は NVIDIA 公式のダウンロードから）。ゲームでは FSR を選び、OptiScaler の FSR バージョン一覧で WrongGPU を選んでください。</sys:String>

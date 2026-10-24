@@ -12,6 +12,7 @@
   <sys:String x:Key="Str.RemoveGameHint">Uklanja igru s popisa, a „Pretraži igre” je također preskače. Nijedna datoteka u njezinoj mapi ne dira se; vratiti je možete u Postavkama.</sys:String>
   <sys:String x:Key="Str.RemovedGame">Igra {0} uklonjena je s popisa i „Pretraži igre” će je preskakati. Ništa u njezinoj mapi nije dirano; vraćate je u „Postavke” &gt; „Zanemarene igre”.</sys:String>
   <sys:String x:Key="Str.RemovedGameInstalled">Igra {0} uklonjena je s popisa, ali dodatak je još instaliran u njezinoj mapi. Vratite je iz „Postavke” &gt; „Zanemarene igre” da biste ga deinstalirali.</sys:String>
+  <sys:String x:Key="Str.RuntimesHint">Neoznačena okruženja ne preuzimaju se niti instaliraju u ovu igru. danielblncovo je zatvorenog koda; lmxxf i mochizuki su otvorenog koda.</sys:String>
   <sys:String x:Key="Str.IgnoredGames">Zanemarene igre</sys:String>
   <sys:String x:Key="Str.IgnoredGamesHint">Igre koje ste uklonili s popisa. „Pretraži igre” ih preskače, pa ostaju izvan popisa dok ih ovdje ne vratite.</sys:String>
   <sys:String x:Key="Str.IgnoredNone">Nema zanemarenih igara.</sys:String>
@@ -122,7 +123,6 @@
   <sys:String x:Key="Str.DanielVersionTip">Koja verzija danielblncova runtimea ide u ovu igru. Na karticama RX 9000 preporučena je 0.4.3: novije su na njima zamrzavale igre. Ostale kartice dobivaju najnoviju.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Addon">RX 9000: mochizuki (mochizuki0323ov Vulkan port, oko 141 MB) također se instalira i pokreće mrežu. Danielblncov runtime ostaje pored njega: odaberi ga pod NR runtime u panelu dodatka. Prvo pokretanje svake igre kompajlira mrežu do minute.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Opti">RX 9000: nova instalacija pokreće mochizuki, a lmxxf ide pored danielblncova runtimea. Odaberi drugi pod NR runtime na kartici Neural u OptiScaleru i ponovno pokreni igru.</sys:String>
-  <sys:String x:Key="Str.MochizukiRdna3Toggle">mochizuki na RX 7000 (eksperimentalno)</sys:String>
   <sys:String x:Key="Str.MochizukiRdna3Note">Isključeno dok ne označiš. Eksperimentalno: RX 7000 nema FP8, pa mochizuki pokreće mauri870ov port svoje mreže na FP16 matrice, sporiji nego na RX 9000 i s oko 2 GB više VRAM-a na 1080p. Prije prve izgradnje runtime provjeri karticu i jednom kompajlira svaki pipeline; ako išta ne uspije, NR ostaje isključen, a stranica mochizukija u OptiScaleru kaže zašto. Označeno, nova instalacija pokreće mochizuki; odaberi drugi pod NR runtime na kartici Neural u OptiScaleru.</sys:String>
   <sys:String x:Key="Str.WrongGpuToggle">WrongGPU (DLSS 4.5 Model M, RX 9000)</sys:String>
   <sys:String x:Key="Str.WrongGpuNote">Isključeno dok ne označiš. WrongGPU od phantoslayer21 ide pokraj OptiScalera kao njegov FSR upscaler: Model M iz DLSS 4.5 na RDNA4, s modelom pretvorenim iz DLSS datoteke na ovom računalu (službeno NVIDIA preuzimanje ako je nema). U igri odaberi FSR, a zatim WrongGPU na popisu FSR verzija u OptiScaleru.</sys:String>

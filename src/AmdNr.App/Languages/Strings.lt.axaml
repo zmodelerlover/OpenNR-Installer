@@ -12,6 +12,7 @@
   <sys:String x:Key="Str.RemoveGameHint">Išima žaidimą iš sąrašo, ir „Ieškoti žaidimų“ jį taip pat praleis. Jo aplanke neliečiamas joks failas; grąžinti galima nustatymuose.</sys:String>
   <sys:String x:Key="Str.RemovedGame">Žaidimas {0} išimtas iš sąrašo, ir „Ieškoti žaidimų“ jį praleis. Jo aplanke niekas nepaliesta; grąžinti galima skiltyje „Nustatymai“ &gt; „Nepaisomi žaidimai“.</sys:String>
   <sys:String x:Key="Str.RemovedGameInstalled">Žaidimas {0} išimtas iš sąrašo, bet priedas vis dar įdiegtas jo aplanke. Grąžinkite jį iš „Nustatymai“ &gt; „Nepaisomi žaidimai“, kad galėtumėte jį pašalinti.</sys:String>
+  <sys:String x:Key="Str.RuntimesHint">Nepažymėtos aplinkos į šį žaidimą neatsisiunčiamos ir nediegiamos. danielblnc aplinka yra uždaro kodo; lmxxf ir mochizuki – atviro kodo.</sys:String>
   <sys:String x:Key="Str.IgnoredGames">Nepaisomi žaidimai</sys:String>
   <sys:String x:Key="Str.IgnoredGamesHint">Žaidimai, kuriuos išėmėte iš sąrašo. „Ieškoti žaidimų“ juos praleidžia, todėl jie lieka už sąrašo ribų, kol jų čia negrąžinsite.</sys:String>
   <sys:String x:Key="Str.IgnoredNone">Nepaisomų žaidimų nėra.</sys:String>
@@ -122,7 +123,6 @@
   <sys:String x:Key="Str.DanielVersionTip">Kuri danielblnc runtime versija įdiegiama šiam žaidimui. RX 9000 kortose rekomenduojama 0.4.3: naujesnės jose stabdė žaidimus. Kitos kortos gauna naujausią.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Addon">RX 9000: mochizuki (mochizuki0323 Vulkan prievadas, apie 141 MB) taip pat įdiegiamas ir paleidžia tinklą. danielblnc runtime lieka šalia: pasirinkite jį NR runtime priedo skydelyje. Pirmasis kiekvieno žaidimo paleidimas kompiliuoja tinklą iki minutės.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Opti">RX 9000: naujas diegimas paleidžia mochizuki, o lmxxf įdiegiamas šalia danielblnc runtime. Kitą pasirinkite NR runtime OptiScaler skirtuke Neural ir paleiskite žaidimą iš naujo.</sys:String>
-  <sys:String x:Key="Str.MochizukiRdna3Toggle">mochizuki su RX 7000 (eksperimentinis)</sys:String>
   <sys:String x:Key="Str.MochizukiRdna3Note">Išjungta, kol nepažymėta. Eksperimentinis: RX 7000 neturi FP8, todėl mochizuki paleidžia mauri870 savo tinklo perkėlimą į FP16 matricas – lėtesnį nei RX 9000 ir su maždaug 2 GB daugiau VRAM esant 1080p. Prieš pirmą kūrimą runtime patikrina plokštę ir vieną kartą sukompiliuoja kiekvieną pipeline; jei kas nepavyksta, NR lieka išjungtas, o OptiScaler mochizuki puslapyje parašyta kodėl. Pažymėjus naujas diegimas paleidžia mochizuki; kitą pasirinkite NR runtime OptiScaler skirtuke Neural.</sys:String>
   <sys:String x:Key="Str.WrongGpuToggle">WrongGPU (DLSS 4.5 Model M, RX 9000)</sys:String>
   <sys:String x:Key="Str.WrongGpuNote">Išjungta, kol nepažymėta. phantoslayer21 WrongGPU įdiegiamas šalia OptiScaler kaip jo FSR didintuvas: DLSS 4.5 Model M ant RDNA4, modelis konvertuojamas iš šio kompiuterio DLSS failo (jei tokio nėra, iš oficialaus NVIDIA atsisiuntimo). Žaidime pasirinkite FSR, tada WrongGPU OptiScaler FSR versijų sąraše.</sys:String>

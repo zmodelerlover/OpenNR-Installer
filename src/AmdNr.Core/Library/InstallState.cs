@@ -2,7 +2,7 @@
 // the runtime passes, what OptiScaler.ini sets for the network, and which ReShade the game actually loaded.
 // Every line is read off a file already there, and a file that is missing or unreadable is a "-", never a guess.
 //
-// The OptiScaler line is the one that diagnosed a stall: danielblnc 0.6.0 run inline (AmdAsync=auto) on an
+// The OptiScaler line is the one that diagnosed a stall: danielblnc 0.6.0, which OptiScaler runs inline, on an
 // RX 9070 XT held the GPU for seconds at a time until the driver reset it (DEVICE_HUNG).
 
 using System.Text;
@@ -55,7 +55,7 @@ public static class InstallState
         return $"unknown build {sha[..12]}";
     }
 
-    /// <summary>[DlssNr] NrBackend and AmdAsync from OptiScaler.ini, and a flag when danielblnc runs inline on an
+    /// <summary>[DlssNr] NrBackend from OptiScaler.ini, and a flag when danielblnc (always inline) runs on an
     /// RX 9000 at a version other than <see cref="Work.Rdna4Recommended"/>. Null without an OptiScaler.ini.</summary>
     internal static string? OptiNr(string dir, string? runtime, bool? rdna4)
     {
@@ -63,12 +63,9 @@ public static class InstallState
         try { text = File.ReadAllText(Path.Combine(dir, Work.OptiScalerIni)); }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException) { return null; }
         var backend = Engine.Trim(Engine.GetIni(text, "DlssNr", "NrBackend"));
-        var async = Engine.Trim(Engine.GetIni(text, "DlssNr", "AmdAsync"));
-        var inline = async is not ("true" or "1");
         var daniel = backend is not ("lmxxf" or Work.MochizukiBackend);
-        var line = $"NrBackend={(backend.Length == 0 ? "-" : backend)}, AmdAsync={(async.Length == 0 ? "-" : async)}"
-                   + (inline ? " (inline)" : " (async)");
-        if (rdna4 == true && daniel && inline && runtime is { } v && v != Work.Rdna4Recommended && !v.StartsWith("unknown"))
+        var line = $"NrBackend={(backend.Length == 0 ? "-" : backend)}";
+        if (rdna4 == true && daniel && runtime is { } v && v != Work.Rdna4Recommended && !v.StartsWith("unknown"))
             line += $" -- unstable runtime inline: danielblnc {v} on an RX 9000 can stall the GPU until the driver resets it";
         return line;
     }

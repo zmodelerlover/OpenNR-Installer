@@ -215,11 +215,17 @@ public partial class LibraryPage : UserControl
         // every one of them again: over a second for each key typed in the search with a few hundred
         // games, and the same again on every language switch. Only the tiles that come or go are.
         var keep = wanted.ToHashSet();
+        var changed = false;
         for (var i = _shown.Count - 1; i >= 0; i--)
-            if (!keep.Contains(_shown[i])) _shown.RemoveAt(i);
+            if (!keep.Contains(_shown[i])) { _shown.RemoveAt(i); changed = true; }
         for (var i = 0; i < wanted.Count; i++)
-            if (i >= _shown.Count || _shown[i] != wanted[i]) _shown.Insert(i, wanted[i]);
+            if (i >= _shown.Count || _shown[i] != wanted[i]) { _shown.Insert(i, wanted[i]); changed = true; }
         while (_shown.Count > wanted.Count) _shown.RemoveAt(_shown.Count - 1);
+        // A game that moved above the rows on screen (installed, pinned) leaves the list's panel without
+        // a position for its first row until it is measured again, and ScrollIntoView skips that measure
+        // while it arranges: Avalonia 11.3 then throws "Invalid Arrange rectangle" and every layout after
+        // it does too. Measured here, before the selection and its scroll, the panel has its rows back.
+        if (changed && _list) GameList.UpdateLayout();
         if (_shell is not null) KeepSelection();
 
         var all = Library.Cards.Count;

@@ -61,7 +61,7 @@ public partial class MochizukiTests
         var ticked = manifest.Pins().MochizukiFiles.Keys;
         foreach (var path in Rdna3Paths) Assert.Contains(path, ticked);
         Assert.Equal(MochizukiPaths.Append(ModelPath).Order(StringComparer.Ordinal),
-            manifest.WithoutMochizukiRdna3().Pins().MochizukiFiles.Keys.Order(StringComparer.Ordinal));
+            manifest.Without(PayloadManifest.MochizukiRdna3Component).Pins().MochizukiFiles.Keys.Order(StringComparer.Ordinal));
         // Kept apart from OptiScaler's own files, which go in whatever the card.
         Assert.DoesNotContain(manifest.Pins().OptiFiles.Keys, k => k.Contains("shaders-rdna3", StringComparison.Ordinal));
 
@@ -102,7 +102,7 @@ public partial class MochizukiTests
         Assert.True(Work.HasMochizuki(game));
 
         // Unticked on the next install: mochizuki stays, the RX 7000 network comes out.
-        var again = Work.Install(game, src, Preset.OptiScaler, manifest.WithoutMochizukiRdna3().Pins(), mochizuki: true);
+        var again = Work.Install(game, src, Preset.OptiScaler, manifest.Without(PayloadManifest.MochizukiRdna3Component).Pins(), mochizuki: true);
         Assert.False(again.Failed, again.ToLog("unticked"));
         Assert.False(Fixture.HasAny(again, "RX 7000 network went in too"), again.ToLog("unticked"));
         var rdna3 = Path.Combine(game, "dlssnr-amd", "shaders-rdna3");

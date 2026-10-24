@@ -1,25 +1,25 @@
-# Handoff — v0.5.1: os cinco defeitos, o instalador novo, e o que falta pra lançar
+# Handoff — v0.5.1: the five defects, the new installer, and what is left before launch
 
-15/09/2026. Duas branches `v0.5.1`, uma em cada repositório, **nada empurrado**.
+2026-09-15. Two `v0.5.1` branches, one in each repository, **nothing pushed**.
 
 | | |
 |---|---|
-| Add-on | `D:\dlss5-hotkey` (worktree), branch `v0.5.1`, base `origin/master` (`425ed4d`) — 3 commits, 8 arquivos, +503/−64 |
-| Instalador | `D:\AMD-NR-ReShade-Installer`, branch `v0.5.1`, base `master` (`46097a9`) — 10 commits, 39 arquivos, +4250/−171 |
-| Beta pro tester | `Desktop\AMD-NR-ReShade-Installer-beta-20260915.zip`, 41,4 MB, sha256 `9c6b9b9e4c83ab1e…` |
+| Add-on | `D:\dlss5-hotkey` (worktree), branch `v0.5.1`, base `origin/master` (`425ed4d`) — 3 commits, 8 files, +503/−64 |
+| Installer | `D:\AMD-NR-ReShade-Installer`, branch `v0.5.1`, base `master` (`46097a9`) — 10 commits, 39 files, +4250/−171 |
+| Beta for the tester | `Desktop\AMD-NR-ReShade-Installer-beta-20260915.zip`, 41.4 MB, sha256 `9c6b9b9e4c83ab1e…` |
 
 ---
 
-## 0. Em uma linha
+## 0. In one line
 
-O rebind do atalho não funcionava por **três** causas somadas, não uma; o Oblivion não rodava por
-uma quarta, que não tem nada a ver com atalho; e o instalador ganhou menu de versão lido do GitHub,
-pré-download, créditos e um conserto de layout que estava escondendo informação em três telas.
-**Nada disso foi testado em jogo ainda.**
+The hotkey rebind did not work because of **three** causes combined, not one; Oblivion did not run because of
+a fourth, which has nothing to do with the hotkey; and the installer gained a version menu read from GitHub,
+pre-download, credits and a layout fix that was hiding information on three screens.
+**None of this has been tested in game yet.**
 
 ---
 
-# PARTE I — O QUE FOI FEITO
+# PART I — WHAT WAS DONE
 
 ## 1. Add-on (`D:\dlss5-hotkey`, branch `v0.5.1`)
 
@@ -29,110 +29,110 @@ c134a9e Carry an X8R8G8B8 back buffer as its A8 twin, which has a typed UAV
 b6e0e4d Record the hotkey, ini and back-buffer format findings in the handoff
 ```
 
-### 1.1 Causa nº 3 do rebind — o ReShade zera o `GetAsyncKeyState`
+### 1.1 Rebind cause no. 3 — ReShade zeroes `GetAsyncKeyState`
 
-A que faltava, e a que fazia o log terminar em `rebind armed` e mais nada, para sempre.
+The missing one, and the one that made the log end at `rebind armed` and nothing more, forever.
 `reshade/source/input_windows.cpp`:
 
 ```cpp
 extern "C" auto WINAPI HookGetAsyncKeyState(int vKey) -> SHORT
 {
-    if ((vKey & 0xF8) != 0)                       // toda tecla de 8 pra cima
+    if ((vKey & 0xF8) != 0)                       // every key from 8 up
         if (reshade::input::is_blocking_any_keyboard_input())
             return 0;
     ...
 }
 ```
 
-O ReShade engancha `GetAsyncKeyState`, `GetKeyState` e `GetKeyboardState` e responde **0 para todas
-as teclas** enquanto o overlay bloqueia o teclado — que é exatamente o tempo em que o painel está
-aberto. A varredura lia um teclado vazio: não achava tecla, não desistia (o `overlayAt` era
-recarimbado a cada quadro do painel aberto) e não desarmava.
+ReShade hooks `GetAsyncKeyState`, `GetKeyState` and `GetKeyboardState` and answers **0 for every
+key** while the overlay is blocking the keyboard — which is exactly the time the panel is
+open. The scan was reading an empty keyboard: it found no key, did not give up (`overlayAt` was
+re-stamped on every frame of the open panel) and did not disarm.
 
-Também explica por que uma vez ela pegou `VK_HOME`: foi no primeiro quadro depois de abrir o
-overlay, antes do bloqueio valer. A correção da causa nº 2 (espera por soltura) fechou essa janela
-e o defeito virou 100% reprodutível.
+It also explains why it once picked up `VK_HOME`: that was on the first frame after opening the
+overlay, before the block took effect. The fix for cause no. 2 (wait for release) closed that window
+and the defect became 100% reproducible.
 
-**Correção:** a captura lê `effect_runtime::is_key_down()`, o estado de tecla do próprio ReShade,
-que vem das mensagens de janela e não passa pelo gancho — é o que o widget de atalho dele usa. O
-ponteiro do runtime é carimbado em `OnOverlay32` (único lugar onde o ReShade entrega um) e zerado
-em `OnDestroy`.
+**Fix:** the capture reads `effect_runtime::is_key_down()`, ReShade's own key state,
+which comes from window messages and does not go through the hook — it is what its hotkey widget uses. The
+runtime pointer is stamped in `OnOverlay32` (the only place where ReShade hands one over) and zeroed
+in `OnDestroy`.
 
-### 1.2 Causa nº 4 — a tecla capturada nunca chegava na cópia sincronizada
+### 1.2 Cause no. 4 — the captured key never reached the synchronized copy
 
-Escrevia em `g.toggleKey` e só. O painel lê `controls.shadow`, então **o rótulo do botão não
-mudava**; `SyncControls` só empurra quando `shadow.settings_revision` sobe, então o host nunca
-sabia; o Save é do host, então nada ia pro ini; e o próximo `GetState`/`SetState` chamava
-`OperationalSettings()`, que copia o shadow por cima de `g` — desfazendo a tecla nova.
+It wrote to `g.toggleKey` and that was it. The panel reads `controls.shadow`, so **the button label did not
+change**; `SyncControls` only pushes when `shadow.settings_revision` goes up, so the host never
+knew; Save belongs to the host, so nothing went to the ini; and the next `GetState`/`SetState` called
+`OperationalSettings()`, which copies the shadow over `g` — undoing the new key.
 
-Do ponto de vista de quem usa: "a bind não muda", mesmo nas vezes em que a tecla foi lida.
+From the user's point of view: "the bind does not change", even the times the key was read.
 
-**Correção:** escreve em `controls.shadow.toggleKey/toggleMods`, sobe `settings_revision` e chama
+**Fix:** writes to `controls.shadow.toggleKey/toggleMods`, bumps `settings_revision` and calls
 `OperationalSettings()`.
 
-### 1.3 O `ToggleKey=35` com o ini dizendo 120 — BOM de UTF-8
+### 1.3 `ToggleKey=35` with the ini saying 120 — UTF-8 BOM
 
-`bin\dlss5-neural.ini` do Half-Life 2 começa com **EF BB BF**. `GetPrivateProfileInt` lê o arquivo
-como bytes, a primeira linha vira `<BOM>[dlss5]`, que não casa com seção nenhuma: **o arquivo
-inteiro fica invisível e todo valor cai no default** (35 = `VK_END`). Sem aviso, sem log, e o
-arquivo parece certo em qualquer editor. Quem põe é `Set-Content -Encoding utf8` do PowerShell 5.1
-— foi uma edição manual durante a investigação anterior. O instalador escreve sem BOM.
+Half-Life 2's `bin\dlss5-neural.ini` starts with **EF BB BF**. `GetPrivateProfileInt` reads the file
+as bytes, the first line becomes `<BOM>[dlss5]`, which matches no section: **the whole file
+becomes invisible and every value falls back to the default** (35 = `VK_END`). No warning, no log, and the
+file looks right in any editor. What puts it there is PowerShell 5.1's `Set-Content -Encoding utf8`
+— it was a manual edit during the previous investigation. The installer writes without a BOM.
 
-**Correção:** `src/neural/ini_text.h`, chamado antes de ler o ini nos dois lados. Tira o BOM no
-lugar, por temporário + `MoveFileEx`, e registra no log. Instalação que já está com BOM se conserta
-sozinha ao abrir o jogo.
+**Fix:** `src/neural/ini_text.h`, called before reading the ini on both sides. It strips the BOM in
+place, via a temporary + `MoveFileEx`, and records it in the log. An installation that already has a BOM fixes itself
+when the game is opened.
 
-### 1.4 Causa nº 5 — `B8G8R8X8_UNORM` não tem UAV tipado (o Oblivion)
+### 1.4 Cause no. 5 — `B8G8R8X8_UNORM` has no typed UAV (Oblivion)
 
-Do relatório `amd-nr-report-20260915-014136.zip`:
+From the report `amd-nr-report-20260915-014136.zip`:
 
 ```
 this GPU/driver has no typed UAV store for the back buffer format (DXGI 88, read as 88),
 so there is no way to write the corrected image back. Stopping instead of drawing garbage.
 ```
 
-Medido nesta máquina (mesma GPU do relatório, RX 9070 XT, driver 32.0.31041), com uma sonda D3D12
-de `CheckFeatureSupport`:
+Measured on this machine (same GPU as the report, RX 9070 XT, driver 32.0.31041), with a D3D12
+`CheckFeatureSupport` probe:
 
-| Formato | texture2d | uav | typed_load | typed_store |
+| Format | texture2d | uav | typed_load | typed_store |
 |---|---|---|---|---|
 | `B8G8R8A8_UNORM` (87) | 1 | 1 | 1 | 1 |
 | `B8G8R8X8_UNORM` (88) | 1 | **0** | **0** | **0** |
 | `R8G8B8A8_UNORM` (28) | 1 | 1 | 1 | 1 |
 
-**Correção:** `D3D9CpuFormat()` passa a mapear `D3DFMT_X8R8G8B8` para `B8G8R8A8_UNORM` — os mesmos
-quatro bytes por pixel com um canal que o jogo não lê. O par `X8B8G8R8` já era carregado como
-`R8G8B8A8_UNORM` exatamente assim; o par BGRA é que era a exceção. Só a rota CPU muda: na rota
-compartilhada o formato vem da textura do D3D9 e os dois lados do `CopyResource` continuam iguais.
-Sem risco de alfa: `compose` escreve `float4(v, c.a)` e o destino é uma superfície X8.
+**Fix:** `D3D9CpuFormat()` now maps `D3DFMT_X8R8G8B8` to `B8G8R8A8_UNORM` — the same
+four bytes per pixel with a channel the game does not read. The `X8B8G8R8` pair was already carried as
+`R8G8B8A8_UNORM` exactly this way; the BGRA pair was the exception. Only the CPU route changes: on the
+shared route the format comes from the D3D9 texture and both sides of `CopyResource` stay the same.
+No alpha risk: `compose` writes `float4(v, c.a)` and the destination is an X8 surface.
 
-**O Half-Life 2 ia bater nisto também** assim que a bind funcionasse: mesmo back buffer X8R8G8B8.
+**Half-Life 2 was going to hit this too** as soon as the bind worked: same X8R8G8B8 back buffer.
 
-### 1.5 O que mudou no add-on
+### 1.5 What changed in the add-on
 
 ```
-src/neural/hotkey_capture.h     novo   máquina de estados da captura, compartilhada pelas duas pontas
-src/neural/ini_text.h           novo   remoção do BOM do ini
-src/x86bridge/capture_test.cpp  novo   teste da captura, roda no build x86 e x64
-src/x86bridge/frontend32.cpp           captura em OnPresent com is_key_down, shadow, formato
-src/x86bridge/overlay32.inc            o botão só arma; carimba o runtime
-src/neural/neural.cpp                  mesma captura no add-on 64-bit, e o BOM
-build-x86bridge.ps1                    compila e roda o capture_test nas duas arquiteturas
+src/neural/hotkey_capture.h     new    capture state machine, shared by both ends
+src/neural/ini_text.h           new    removal of the ini BOM
+src/x86bridge/capture_test.cpp  new    capture test, runs in the x86 and x64 builds
+src/x86bridge/frontend32.cpp           capture in OnPresent with is_key_down, shadow, format
+src/x86bridge/overlay32.inc            the button only arms; the runtime stamps
+src/neural/neural.cpp                  same capture in the 64-bit add-on, and the BOM
+build-x86bridge.ps1                    builds and runs capture_test on both architectures
 ```
 
-O add-on 64-bit tinha as **mesmas** causas nº 2 e nº 3, expostas (lá não há bridge). Agora as duas
-pontas usam o mesmo cabeçalho.
+The 64-bit add-on had the **same** causes no. 2 and no. 3, exposed (there is no bridge there). Now both
+ends use the same header.
 
-**Build:** `.\build-x86bridge.ps1` passa — x86 e x64, testes de protocolo, IPC e captura, PE,
-imports e o addon64 integrado. O par novo já está instalado em
-`D:\SteamLibrary\steamapps\common\Half-Life 2\bin\` (os antigos viraram `.bak`).
+**Build:** `.\build-x86bridge.ps1` passes — x86 and x64, protocol, IPC and capture tests, PE,
+imports and the integrated addon64. The new pair is already installed in
+`D:\SteamLibrary\steamapps\common\Half-Life 2\bin\` (the old ones became `.bak`).
 
 ---
 
-## 2. Instalador (`D:\AMD-NR-ReShade-Installer`, branch `v0.5.1`)
+## 2. Installer (`D:\AMD-NR-ReShade-Installer`, branch `v0.5.1`)
 
 ```
-7f19788 Add the first-run setup, emulator routes, install logs and problem reports   <- sessão anterior
+7f19788 Add the first-run setup, emulator routes, install logs and problem reports   <- previous session
 5e14701 Tell a remaster from the game it remade when reading the API database
 667bb15 Offer a menu of add-on versions read from the GitHub releases
 789d1fe Add a button that downloads every payload into the cache up front
@@ -144,28 +144,28 @@ c0d7555 Give the credits their own panel: the logos are the links, and each one 
 c20f311 Fix the page gutter that made wrapping content overflow and cut the scroll short
 ```
 
-O primeiro commit é o que já estava na árvore de trabalho da sessão anterior; separei por hunk pra
-não misturar, mas ele entra na mesma branch e no mesmo review.
+The first commit is what was already in the working tree from the previous session; I split it by hunk so as
+not to mix things up, but it goes into the same branch and the same review.
 
-### 2.1 Menu de versão, lido do GitHub
+### 2.1 Version menu, read from GitHub
 
-`src/AmdNr.Core/Releases.cs` (novo). Uma chamada à API de releases de `zmodelerlover/dlss5-neural-amd`
-por abertura, cacheada em `%AppData%\AmdNrInstaller\cache\releases.json` (offline usa a última
-lista). O caminho de download continua sem tocar a API: os arquivos vêm de endereço de asset.
+`src/AmdNr.Core/Releases.cs` (new). One call to the releases API of `zmodelerlover/dlss5-neural-amd`
+per launch, cached in `%AppData%\AmdNrInstaller\cache\releases.json` (offline uses the last
+list). The download path still does not touch the API: the files come from asset addresses.
 
-Uma versão só é oferecida quando publica **o que a pina**: `SHA256SUMS.txt` mais os arquivos que a
-rota instala. Tamanho vem do registro do asset na API, hash do `SHA256SUMS.txt` — então versão
-descoberta hoje fica pinada tão apertado quanto uma escrita no `payload.json` meses atrás.
+A version is only offered when it publishes **what pins it**: `SHA256SUMS.txt` plus the files the
+route installs. Size comes from the asset record in the API, hash from `SHA256SUMS.txt` — so a version
+discovered today is pinned just as tightly as one written into `payload.json` months ago.
 
-Conferido ao vivo contra o GitHub: lista a v0.5.0, e o hash que ele tira do `SHA256SUMS.txt`
-(`203f0278b64c…`) bate byte a byte com o que o `payload.json` já pinava.
+Checked live against GitHub: it lists v0.5.0, and the hash it takes from `SHA256SUMS.txt`
+(`203f0278b64c…`) matches byte for byte what `payload.json` was already pinning.
 
-**A v0.5.0 publicou o par 32-bit só dentro do zip**, então pra rota x86 ela vem do manifesto. Da
-v0.5.1 em diante, subindo os quatro soltos, o menu cresce sozinho (ver §5.4).
+**v0.5.0 published the 32-bit pair only inside the zip**, so for the x86 route it comes from the manifest. From
+v0.5.1 onward, uploading the four loose, the menu grows on its own (see §5.4).
 
-### 2.2 Oblivion — dois defeitos, não um
+### 2.2 Oblivion — two defects, not one
 
-O relatório do tester dizia:
+The tester's report said:
 
 ```
 apis          DX12
@@ -174,212 +174,212 @@ why           PCGamingWiki (The Elder Scrolls IV: Oblivion Remastered): DX12.
 platform      Gog
 ```
 
-`NormaliseTitle` tirava "Remastered", então "Oblivion" e "Oblivion Remastered" viravam a mesma
-chave e o índice por título ficava com o primeiro que aparecesse — D3D12, 64-bit. Cópia GOG não tem
-appid da Steam, então caía no título.
+`NormaliseTitle` stripped "Remastered", so "Oblivion" and "Oblivion Remastered" became the same
+key and the title index kept whichever appeared first — D3D12, 64-bit. A GOG copy has no
+Steam appid, so it fell through to the title.
 
-Varri o `api-db.json` que a gente distribui atrás de títulos que colidem com registros
-**discordantes**:
+I scanned the `api-db.json` we distribute for titles that collide with **disagreeing**
+records:
 
 ```
-antes:  9 títulos ambíguos
+before: 9 ambiguous titles
   Age of Empires III | : Definitive Edition          Mafia | Mafia: Definitive Edition
   BioShock | BioShock Remastered                     Mafia II | Mafia II: Definitive Edition
   BioShock 2 | BioShock 2 Remastered                 Mass Effect | Mass Effect Legendary Edition
   Oblivion | Oblivion Remastered                     Sleeping Dogs | : Definitive Edition
   Skyrim | Skyrim Special Edition
 
-depois: 6 (os três "Remastered" saíram da colisão)
+after:  6 (the three "Remastered" left the collision)
 ```
 
-Não era um jogo, eram nove — o Oblivion foi só o que alguém instalou. Três camadas agora:
+It was not one game, it was nine — Oblivion was just the one someone installed. Three layers now:
 
-1. remaster **não** é edição (saiu da regex de qualificadores);
-2. título que dois registros discordantes dividem **não responde nada** — cai na leitura do exe, que
-   foi medida no disco (os 6 que sobraram caem aqui);
-3. mesmo com registro na mão, se ele descreve uma arquitetura que o exe não é (x64-only contra um
-   exe de 32 bits), ele **não substitui** a leitura local, e a linha "Detectado" diz por quê.
+1. a remaster is **not** an edition (it left the qualifiers regex);
+2. a title that two disagreeing records share **answers nothing** — it falls through to the exe reading, which
+   was measured on disk (the 6 that remain fall here);
+3. even with a record in hand, if it describes an architecture the exe is not (x64-only against a
+   32-bit exe), it **does not replace** the local reading, and the "Detected" line says why.
 
-### 2.3 Pré-download e o cartão de arquivos
+### 2.3 Pre-download and the files card
 
-"Baixar tudo agora", na aba Esta máquina: confere o hash de tudo fora da thread da UI; se já está
-tudo lá, **diz que já estava** em vez de parecer que não fez nada; se falta, baixa só o que falta.
-Barra de progresso **do conjunto** (bytes baixados / total), não uma por arquivo indo de 0 a 100
-seis vezes. Linha de resumo ("5 de 5 componentes prontos — 161 MB no cache") e o tamanho de cada
-componente na linha dele.
+"Download everything now", in the This machine tab: checks the hash of everything off the UI thread; if everything is already
+there, **it says it already was** instead of looking like it did nothing; if something is missing, it downloads only what is missing.
+A progress bar **for the whole set** (bytes downloaded / total), not one per file going from 0 to 100
+six times. A summary line ("5 of 5 components ready — 161 MB in the cache") and the size of each
+component on its own line.
 
-A conferência do cache saiu da thread da UI: entrar nessa aba congelava a janela ~1s enquanto
-hasheava os 141 MB de pesos.
+The cache check moved off the UI thread: entering that tab froze the window for ~1s while it
+hashed the 141 MB of weights.
 
-### 2.4 Créditos, links e o aviso
+### 2.4 Credits, links and the notice
 
-`src/AmdNr.App/CreditsPanel.axaml` (novo controle, usado na **primeira tela** e em
-**Configurações** — uma definição só):
+`src/AmdNr.App/CreditsPanel.axaml` (new control, used on the **first screen** and in
+**Settings** — a single definition):
 
-1. **Discord** no topo de tudo, logo dele no azul #5865F2;
-2. faixa de aviso: *"Isto é de graça. Se você pagou por isto, estão te enganando"* + *"É open source
-   e vai continuar sendo: leia, modifique, compile a sua versão… a única coisa que a gente pede é
-   que ninguém transforme numa versão paga"*;
-3. **Créditos**: DLSS-NR-on-AMD do danielblnc (com o obrigado), depois o add-on (que é onde este
-   instalador também mora);
-4. **Apoiar · opcional, e não compra nada**: Ko-fi e Vakinha lado a lado.
+1. **Discord** at the very top, its logo in blue #5865F2;
+2. a notice strip: *"This is free. If you paid for this, you are being scammed"* + *"It is open source
+   and will stay that way: read it, modify it, build your own version… the only thing we ask is
+   that nobody turns it into a paid version"*;
+3. **Credits**: danielblnc's DLSS-NR-on-AMD (with the thank-you), then the add-on (which is where this
+   installer also lives);
+4. **Support · optional, and buys nothing**: Ko-fi and Vakinha side by side.
 
-Cada linha inteira é o link, então o logo é o que se clica. As seis URLs saem do `config.json`
-(`Addon`, `App`, `DiscordUrl`, `RuntimeUrl`, `KofiUrl`, `VakinhaUrl`) — convite rotacionado ou fork
-não exigem build novo.
+Each whole row is the link, so the logo is what gets clicked. The six URLs come from `config.json`
+(`Addon`, `App`, `DiscordUrl`, `RuntimeUrl`, `KofiUrl`, `VakinhaUrl`) — a rotated invite or a fork
+do not require a new build.
 
-> O texto do open source está escrito como **pedido do projeto**, não como cláusula: a MIT
-> tecnicamente deixa vender. Se quiser que seja proibição de verdade, é trocar a licença dos dois
-> repos — e a runtime do daniel tem termos próprios.
+> The open source text is written as **a request from the project**, not as a clause: MIT
+> technically allows selling. If you want it to be a real prohibition, that means changing the license of both
+> repos — and daniel's runtime has its own terms.
 
-### 2.5 O conserto de layout (o que estava escondendo informação)
+### 2.5 The layout fix (the thing that was hiding information)
 
-Montei um renderizador headless que abre a janela sem abrir janela e despeja a árvore visual com as
-medidas. Ele mostrou:
+I put together a headless renderer that opens the window without opening a window and dumps the visual tree with the
+measurements. It showed:
 
 ```
-StackPanel#PageLanguage   w=764      <- a página
-  Border.card             w=764      <- o cartão de idioma, certo
-  CreditsPanel            w=819      <- 55px mais largo que o pai
+StackPanel#PageLanguage   w=764      <- the page
+  Border.card             w=764      <- the language card, correct
+  CreditsPanel            w=819      <- 55px wider than its parent
 ```
 
-**`Padding` num `ScrollViewer` é descontado no arrange mas não no measure.** Conteúdo que quebra
-linha era medido contra a largura cheia: saía largo demais *e*, tendo quebrado em menos linhas do
-que precisa, **baixo demais** — a página reportava 688px quando precisava de 773. Daí os dois
-sintomas juntos: texto vazando à direita e **o scroll parando antes do fim**.
+**`Padding` on a `ScrollViewer` is subtracted in arrange but not in measure.** Content that wraps
+was measured against the full width: it came out too wide *and*, having wrapped into fewer lines
+than it needs, **too short** — the page reported 688px when it needed 773. Hence both
+symptoms together: text overflowing to the right and **the scroll stopping before the end**.
 
-Correção: a margem vai no conteúdo, não o padding no ScrollViewer — nas três páginas que rolam.
-Mais: barra de rolagem sempre visível (`AllowAutoHide=False`), janela do assistente redimensionável
-e 820×900, e `WindowFit.ToScreen` nas duas janelas, que mede a área útil **da tela em que a janela
-abriu**, respeita o DPI dela, encolhe só se não couber e recentraliza.
+Fix: the margin goes on the content, not padding on the ScrollViewer — on the three pages that scroll.
+Also: scrollbar always visible (`AllowAutoHide=False`), the wizard window resizable
+and 820×900, and `WindowFit.ToScreen` on both windows, which measures the work area **of the screen the window
+opened on**, respects its DPI, shrinks only if it does not fit, and recenters.
 
-Medido depois: 698px de conteúdo contra 740 de área útil — **cabe inteiro sem rolar** a 820×900; a
-700×640 rola, e agora rola até o fim.
+Measured afterwards: 698px of content against 740 of work area — **fits entirely without scrolling** at 820×900; at
+700×640 it scrolls, and now it scrolls all the way to the end.
 
-### 2.6 Ferramenta que ficou
+### 2.6 Tool that stayed
 
-`tools\uishot` — o renderizador headless, agora no repositório:
+`tools\uishot` — the headless renderer, now in the repository:
 
 ```powershell
-dotnet run --project tools\uishot -- <pasta de saída>
+dotnet run --project tools\uishot -- <output folder>
 ```
 
-Gera PNG das telas e um `.tree.txt` com posição e tamanho de cada controle. Foi a árvore, não o
-print, que achou o bug do §2.5.
+It generates PNGs of the screens and a `.tree.txt` with the position and size of every control. It was the tree, not the
+screenshot, that found the bug in §2.5.
 
-### 2.7 Testes
+### 2.7 Tests
 
-139 no instalador (`dotnet test tests\AmdNr.Core.Tests\AmdNr.Core.Tests.csproj`), incluindo 5 novos
-de release/versão e 3 do caso Oblivion. No add-on, protocolo + IPC + captura nas duas arquiteturas.
+139 in the installer (`dotnet test tests\AmdNr.Core.Tests\AmdNr.Core.Tests.csproj`), including 5 new
+ones for release/version and 3 for the Oblivion case. In the add-on, protocol + IPC + capture on both architectures.
 
 ---
 
-# PARTE II — O QUE FALTA
+# PART II — WHAT IS LEFT
 
-## 3. Antes de lançar (bloqueia a v0.5.1)
+## 3. Before launch (blocks v0.5.1)
 
-| # | O quê | Por quê |
+| # | What | Why |
 |---|---|---|
-| 1 | **Testar o bind no Half-Life 2** | É a razão da sessão inteira e nada disso foi visto rodando. Roteiro no §4.1 |
-| 2 | **Testar o Oblivion com o formato novo** | A correção do §1.4 é medida, não observada. É o tester do relatório que fecha isso |
-| 3 | **Conferir o Save** | Nunca se viu `settings saved to dlss5-neural.ini` em sessão nenhuma. Pode ser um sexto defeito |
-| 4 | **`/code-review ultra` nas duas branches** | Comando seu, cobrado. `master` como base no instalador, `origin/master` no add-on (§4.2) |
-| 5 | **Publicar a release v0.5.1 com os 4 assets soltos** | Sem isso o menu de versão não cresce sozinho (§5.4) |
-| 6 | **Decidir a fusão dos repositórios** | Os créditos já dizem que o instalador mora no `dlss5-neural-amd`. Se for isso, `config.App` (checagem de update) e o README precisam seguir |
-| 7 | **Falar com o danielblnc** | Pendência da sessão anterior: é a runtime dele, distribuída pelo nosso Hugging Face, e o README do projeto dele ainda diz que esses arquivos "nunca estarão num repo" |
+| 1 | **Test the bind in Half-Life 2** | It is the reason for the whole session and none of it has been seen running. Script in §4.1 |
+| 2 | **Test Oblivion with the new format** | The fix in §1.4 is measured, not observed. The tester from the report is the one who closes this |
+| 3 | **Check Save** | `settings saved to dlss5-neural.ini` has never been seen in any session. It may be a sixth defect |
+| 4 | **`/code-review ultra` on both branches** | Your command, requested. `master` as base in the installer, `origin/master` in the add-on (§4.2) |
+| 5 | **Publish the v0.5.1 release with the 4 loose assets** | Without that the version menu does not grow on its own (§5.4) |
+| 6 | **Decide on merging the repositories** | The credits already say the installer lives in `dlss5-neural-amd`. If that is the case, `config.App` (update check) and the README need to follow |
+| 7 | **Talk to danielblnc** | Pending from the previous session: it is his runtime, distributed through our Hugging Face, and his project's README still says these files "will never be in a repo" |
 
-## 4. Receitas
+## 4. Recipes
 
-### 4.1 O teste do bind (HL2, 10 minutos)
+### 4.1 The bind test (HL2, 10 minutes)
 
-O par novo já está instalado. Abrir o jogo, abrir o overlay (Home), clicar no botão do atalho,
-**soltar tudo**, apertar F9. Esperado em `bin\dlss5-neural-x86.log`:
+The new pair is already installed. Open the game, open the overlay (Home), click the hotkey button,
+**release everything**, press F9. Expected in `bin\dlss5-neural-x86.log`:
 
 ```
 x86bridge: removed a UTF-8 byte-order mark from dlss5-neural.ini; ...
-x86bridge native x86 ... ToggleKey=120 ToggleMods=1      <- 120, não 35
+x86bridge native x86 ... ToggleKey=120 ToggleMods=1      <- 120, not 35
 x86bridge: rebind armed (overlay stamp NN ms old)
 x86bridge: toggle bound to key NNN mods N
 ```
 
-Depois fechar o overlay e apertar a combinação nova: `x86bridge enabled=1`, e agora **a imagem tem
-de mudar** (era aqui que o formato do §1.4 parava tudo). Se voltar ao normal: `%LOCALAPPDATA%\Temp\
-hl2-bin-backup` tem o par oficial da v0.5.0, e cada arquivo tem um `.bak` ao lado.
+Then close the overlay and press the new combination: `x86bridge enabled=1`, and now **the image has
+to change** (this was where the format from §1.4 stopped everything). To go back to normal: `%LOCALAPPDATA%\Temp\
+hl2-bin-backup` has the official v0.5.0 pair, and each file has a `.bak` next to it.
 
-**Não testar com F10**: no Windows ela gera `WM_SYSKEYDOWN`. Use F9 (120) ou Insert (45).
+**Do not test with F10**: on Windows it generates `WM_SYSKEYDOWN`. Use F9 (120) or Insert (45).
 
-### 4.2 O review
+### 4.2 The review
 
-O `/ultrareview` olha o repositório da pasta onde a sessão abriu, e não acha base sozinho nestes
-dois. Abrir uma sessão dentro de cada um:
+`/ultrareview` looks at the repository of the folder where the session was opened, and does not find a base on its own in these
+two. Open a session inside each one:
 
 ```
 cd /d D:\AMD-NR-ReShade-Installer && claude     ->  /code-review ultra master
 cd /d D:\dlss5-hotkey && claude                 ->  /code-review ultra origin/master
 ```
 
-No add-on tem de ser `origin/master`: o `master` **local** está em `0a1fd9a`, 48 commits atrás, e
-está checado no outro worktree (`D:\dlss5`). Base errada = review de código velho.
+In the add-on it has to be `origin/master`: the **local** `master` is at `0a1fd9a`, 48 commits behind, and
+is checked out in the other worktree (`D:\dlss5`). Wrong base = review of old code.
 
 ### 4.3 Builds
 
 ```powershell
-# add-on: x86 + x64, protocolo, IPC, captura, PE, imports, addon64
+# add-on: x86 + x64, protocol, IPC, capture, PE, imports, addon64
 D:\dlss5-hotkey\build-x86bridge.ps1
 
-# instalador
+# installer
 dotnet test tests\AmdNr.Core.Tests\AmdNr.Core.Tests.csproj
 dotnet publish src\AmdNr.App\AmdNr.App.csproj -c Release -r win-x64 -o dist
-Copy-Item payload\api-db.json dist\api-db.json -Force     # o publish não leva este
+Copy-Item payload\api-db.json dist\api-db.json -Force     # publish does not include this one
 
-# ver a UI sem abrir janela
-dotnet run --project tools\uishot -- <pasta>
+# view the UI without opening a window
+dotnet run --project tools\uishot -- <folder>
 ```
 
-O exe fica **travado enquanto o app estiver aberto** — o publish falha com
-`UnauthorizedAccessException` e não é outra coisa.
+The exe stays **locked while the app is open** — publish fails with
+`UnauthorizedAccessException` and it is nothing else.
 
-### 4.4 Rodar o app do zero, sem as suas configurações
+### 4.4 Running the app from scratch, without your settings
 
 ```powershell
 $env:AMDNR_HOME = "$env:TEMP\amdnr-limpo"
 & "D:\AMD-NR-ReShade-Installer\dist\AMD-NR-ReShade-Installer.exe"
 ```
 
-Pasta vazia = assistente de primeira abertura, nenhum jogo, cache vazio. `%AppData%\AmdNrInstaller`
-não é tocado.
+Empty folder = first-run wizard, no games, empty cache. `%AppData%\AmdNrInstaller`
+is not touched.
 
 ## 5. Roadmap
 
-### 5.1 Agora (v0.5.1)
+### 5.1 Now (v0.5.1)
 
-Os sete itens do §3. O beta zip já está pronto pra circular enquanto isso.
+The seven items in §3. The beta zip is already ready to circulate in the meantime.
 
-### 5.2 Logo depois
+### 5.2 Right after
 
-- **Espera por soltura e `is_key_down` no add-on 64-bit — conferir em jogo.** O código está lá, mas
-  só a rota 32-bit foi exercitada nesta sessão.
-- **Rota compartilhada do D3D9.** O §1.4 conserta a rota CPU. Se um jogo D3D9Ex cair na rota
-  compartilhada com back buffer X8, o host vai parar pelo mesmo motivo e o remédio é outro: forçar a
-  rota CPU quando o formato compartilhado não tiver UAV tipado. Não medido, não implementado.
-- **ReShade em rota Vulkan** continua manual: lá ele é camada global registrada em
-  `HKCU\SOFTWARE\Khronos\Vulkan\ImplicitLayers` + `ReShadeApps.ini`, não um DLL na pasta.
-- **Os outros 12 idiomas.** Existem inglês e pt-BR completos; o mecanismo já está pronto.
-- **Cobertura do api-db**: rodar o gerador com `--steam-top 3000`. Os 6 títulos ambíguos que sobraram
-  respondem por appid (Steam) e por exe (resto) — uma cópia GOG de Mafia hoje não recebe resposta do
-  banco, e isso é de propósito.
+- **Wait for release and `is_key_down` in the 64-bit add-on — check in game.** The code is there, but
+  only the 32-bit route was exercised in this session.
+- **D3D9 shared route.** §1.4 fixes the CPU route. If a D3D9Ex game lands on the
+  shared route with an X8 back buffer, the host will stop for the same reason and the remedy is different: force the
+  CPU route when the shared format has no typed UAV. Not measured, not implemented.
+- **ReShade on the Vulkan route** is still manual: there it is a global layer registered in
+  `HKCU\SOFTWARE\Khronos\Vulkan\ImplicitLayers` + `ReShadeApps.ini`, not a DLL in the folder.
+- **The other 12 languages.** English and pt-BR are complete; the mechanism is already in place.
+- **api-db coverage**: run the generator with `--steam-top 3000`. The 6 ambiguous titles that remain
+  answer by appid (Steam) and by exe (the rest) — a GOG copy of Mafia today gets no answer from the
+  database, and that is on purpose.
 
-### 5.3 Ideias, não compromissos
+### 5.3 Ideas, not commitments
 
-- `StartOn=1` opcional na interface — hoje o add-on começa desligado de propósito.
-- O menu de versão guarda a escolha **por sessão do app**, não por jogo. Se isso incomodar, guardar
-  no `games.json`.
-- Um segundo zip "offline" com os payloads já no cache, pra tester com internet ruim
-  (`tools\seed-cache.ps1` já faz a parte difícil).
+- Optional `StartOn=1` in the interface — today the add-on starts off on purpose.
+- The version menu keeps the choice **per app session**, not per game. If that bothers anyone, store it
+  in `games.json`.
+- A second "offline" zip with the payloads already in the cache, for testers with bad internet
+  (`tools\seed-cache.ps1` already does the hard part).
 
-### 5.4 A receita da release v0.5.1
+### 5.4 The v0.5.1 release recipe
 
-O menu de versão só oferece uma release que publique **tudo solto, ao lado do zip**:
+The version menu only offers a release that publishes **everything loose, next to the zip**:
 
 ```powershell
 gh release upload v0.5.1 `
@@ -390,45 +390,45 @@ gh release upload v0.5.1 `
   SHA256SUMS.txt
 ```
 
-Sem `SHA256SUMS.txt` a versão não aparece — nada a pina, e o app não instala o que não pode
-conferir. Está documentado em `payload/README.md`, seção "The version menu".
+Without `SHA256SUMS.txt` the version does not appear — nothing pins it, and the app does not install what it cannot
+check. It is documented in `payload/README.md`, section "The version menu".
 
 ---
 
-## 6. Armadilhas pagas nesta sessão
+## 6. Traps paid for in this session
 
-- **Nunca leia tecla com `GetAsyncKeyState` dentro de um add-on de ReShade** quando o overlay pode
-  estar aberto. Use `effect_runtime::is_key_down`. Vale pra qualquer add-on.
-- **BOM em ini apaga o arquivo inteiro** para a API de perfil do Windows. `Set-Content -Encoding
-  utf8` e `Out-File -Encoding utf8` do PowerShell 5.1 põem BOM.
-- **`B8G8R8X8_UNORM` não é formato de UAV.** Se algo precisa escrever no back buffer, o par X8 tem
-  de virar A8.
-- **`Padding` em `ScrollViewer` não vale no measure.** Conteúdo que quebra linha sai largo demais e
-  baixo demais, e a rolagem para antes do fim. Ponha a margem no conteúdo.
-- **O gerador de nomes do Avalonia cria um campo por `x:Name`**: um método com o mesmo nome de um
-  controle é `error CS0102`. (`VersionNote` virou `VersionNoteText`.)
-- **Projeto self-contained só pode ser referenciado por outro self-contained** — foi o que travou o
-  `tools\uishot` até fixar `win-x64` nele.
-- **Comentário XML não pode conter `--`.** O XAML recusa o arquivo inteiro.
-- **`Start-Process -Environment` não existe no PowerShell 5.1.** Setar `$env:X` na mesma chamada
-  funciona: o filho herda.
-- **`vswhere` não achou o Visual Studio Insiders** desta máquina; o `build-x86bridge.ps1` tem
-  fallback próprio, script novo precisa do mesmo.
-- **`\x` em string Python não-raw** vira outro caractere (de novo).
-- **Os arquivos dos dois repositórios são CRLF.** Patch com padrão em LF não casa e falha calado.
+- **Never read keys with `GetAsyncKeyState` inside a ReShade add-on** when the overlay may
+  be open. Use `effect_runtime::is_key_down`. This applies to any add-on.
+- **A BOM in an ini erases the whole file** as far as the Windows profile API is concerned. PowerShell 5.1's `Set-Content -Encoding
+  utf8` and `Out-File -Encoding utf8` add a BOM.
+- **`B8G8R8X8_UNORM` is not a UAV format.** If something needs to write to the back buffer, the X8 pair has
+  to become A8.
+- **`Padding` on a `ScrollViewer` does not count in measure.** Content that wraps comes out too wide and
+  too short, and scrolling stops before the end. Put the margin on the content.
+- **Avalonia's name generator creates a field per `x:Name`**: a method with the same name as a
+  control is `error CS0102`. (`VersionNote` became `VersionNoteText`.)
+- **A self-contained project can only be referenced by another self-contained one** — that is what blocked
+  `tools\uishot` until `win-x64` was pinned in it.
+- **An XML comment cannot contain `--`.** XAML rejects the whole file.
+- **`Start-Process -Environment` does not exist in PowerShell 5.1.** Setting `$env:X` in the same call
+  works: the child inherits it.
+- **`vswhere` did not find Visual Studio Insiders** on this machine; `build-x86bridge.ps1` has
+  its own fallback, a new script needs the same.
+- **`\x` in a non-raw Python string** becomes a different character (again).
+- **Both repositories' files are CRLF.** A patch with an LF pattern does not match and fails silently.
 
 ---
 
-## 7. Onde está cada coisa
+## 7. Where everything is
 
 ```
-D:\dlss5-hotkey                      add-on, branch v0.5.1 (worktree; NÃO é o D:\dlss5)
-D:\AMD-NR-ReShade-Installer          instalador, branch v0.5.1
-  dist\                              build publicado (fora do git)
-  tools\uishot\                      renderizador headless da UI
-  payload\README.md                  manifesto, publicação e o contrato da release
-Desktop\AMD-NR-ReShade-Installer-beta-20260915.zip    o que mandar pro tester
-Desktop\HANDOFF-x86-hotkey-2026-09-15.md              o detalhe fino das cinco causas
-%AppData%\AmdNrInstaller\            cache, logs, games.json, settings.json do app
-%LOCALAPPDATA%\Temp\hl2-bin-backup\  o par oficial v0.5.0, pra voltar atrás no HL2
+D:\dlss5-hotkey                      add-on, branch v0.5.1 (worktree; NOT D:\dlss5)
+D:\AMD-NR-ReShade-Installer          installer, branch v0.5.1
+  dist\                              published build (outside git)
+  tools\uishot\                      headless UI renderer
+  payload\README.md                  manifest, publishing and the release contract
+Desktop\AMD-NR-ReShade-Installer-beta-20260915.zip    what to send to the tester
+Desktop\HANDOFF-x86-hotkey-2026-09-15.md              the fine detail of the five causes
+%AppData%\AmdNrInstaller\            the app's cache, logs, games.json, settings.json
+%LOCALAPPDATA%\Temp\hl2-bin-backup\  the official v0.5.0 pair, to roll back HL2
 ```

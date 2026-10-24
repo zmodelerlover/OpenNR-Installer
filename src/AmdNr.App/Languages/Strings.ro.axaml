@@ -12,6 +12,7 @@
   <sys:String x:Key="Str.RemoveGameHint">Scoate jocul din listă, iar „Caută jocuri” îl va ocoli și el. Niciun fișier din folderul lui nu este atins; îl poți readuce din Setări.</sys:String>
   <sys:String x:Key="Str.RemovedGame">{0} a fost scos din listă, iar „Caută jocuri” îl va ocoli. Nimic din folderul lui nu a fost atins; îl readuci din „Setări” &gt; „Jocuri ignorate”.</sys:String>
   <sys:String x:Key="Str.RemovedGameInstalled">{0} a fost scos din listă, dar add-on-ul este încă instalat în folderul lui. Readu-l din „Setări” &gt; „Jocuri ignorate” ca să-l dezinstalezi.</sys:String>
+  <sys:String x:Key="Str.RuntimesHint">Runtime-urile debifate nu se descarcă și nu se instalează în acest joc. Cel al lui danielblnc are cod închis; lmxxf și mochizuki sunt open source.</sys:String>
   <sys:String x:Key="Str.IgnoredGames">Jocuri ignorate</sys:String>
   <sys:String x:Key="Str.IgnoredGamesHint">Jocurile pe care le-ai scos din listă. „Caută jocuri” le ocolește, așa că rămân în afara listei până le readuci de aici.</sys:String>
   <sys:String x:Key="Str.IgnoredNone">Niciun joc ignorat.</sys:String>
@@ -122,7 +123,6 @@
   <sys:String x:Key="Str.DanielVersionTip">Ce versiune a runtime-ului danielblnc intră în acest joc. Pe plăcile RX 9000, 0.4.3 este cea recomandată: cele mai noi au blocat jocuri pe ele. Celelalte plăci primesc cea mai nouă.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Addon">RX 9000: mochizuki (portul Vulkan al lui mochizuki0323, cam 141 MB) se instalează și el și rulează rețeaua. Runtime-ul danielblnc rămâne alături: alege-l la NR runtime în panoul add-on-ului. Prima pornire a fiecărui joc compilează rețeaua până la un minut.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Opti">RX 9000: o instalare nouă rulează mochizuki, iar lmxxf intră lângă runtime-ul danielblnc. Alege altul la NR runtime în fila Neural a OptiScaler și repornește jocul.</sys:String>
-  <sys:String x:Key="Str.MochizukiRdna3Toggle">mochizuki pe RX 7000 (experimental)</sys:String>
   <sys:String x:Key="Str.MochizukiRdna3Note">Oprit dacă nu e bifat. Experimental: RX 7000 nu are FP8, așa că mochizuki rulează portarea rețelei sale pe matrice FP16 făcută de mauri870, mai lentă decât pe un RX 9000 și cu circa 2 GB VRAM în plus la 1080p. Înainte de primul build, runtime-ul verifică placa și compilează fiecare pipeline o dată; dacă ceva eșuează, NR rămâne oprit și pagina mochizuki din OptiScaler spune de ce. Bifat, o instalare nouă rulează mochizuki; alege altul la NR runtime în fila Neural a OptiScaler.</sys:String>
   <sys:String x:Key="Str.WrongGpuToggle">WrongGPU (DLSS 4.5 Model M, RX 9000)</sys:String>
   <sys:String x:Key="Str.WrongGpuNote">Oprit dacă nu e bifat. WrongGPU de la phantoslayer21 se instalează lângă OptiScaler ca upscaler FSR: Model M din DLSS 4.5 pe RDNA4, cu modelul convertit dintr-un fișier DLSS de pe acest PC (descărcarea oficială NVIDIA dacă nu există). În joc alege FSR, apoi WrongGPU în lista de versiuni FSR din OptiScaler.</sys:String>

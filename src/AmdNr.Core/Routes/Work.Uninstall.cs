@@ -336,7 +336,10 @@ public static partial class Work
     private static readonly string[] OptiHostDroppings =
         ["OptiScaler.previous.log", "dx9-host.log", "dx9-x86.log", "dxgi-x86.log", "opengl32-x86.log"];
 
-    internal static readonly string[] DroppingFolders =["amd-nr-runtime", "dlss5-runtime", "amd-nr-captures", "dlss5-captures"];
+    /// <summary>The folders written while a game runs. dlssnr_amd_host is OptiScaler's for danielblnc 0.8.0: a copy of
+    /// the runtime as neuralhub_host.dll, copies of NVIDIA's DLLs, neuralhub.ini and the runtime's log.</summary>
+    internal static readonly string[] DroppingFolders =
+        ["amd-nr-runtime", "dlss5-runtime", "amd-nr-captures", "dlss5-captures", "dlssnr_amd_host"];
 
     /// <summary>What the add-on itself writes while a game runs: the unpacked runtime, its logs,
     /// its capture folder. They are never in a manifest, because nothing here put them there, so
