@@ -227,6 +227,51 @@
     }
   },
   "releases": {
+    "nrlive": [
+      {
+        "version": "2.2.0",
+        "components": {
+          "nrlive": {
+            "version": "2.2.0",
+            "files": [
+              {
+                "name": "NRLiveUI.zip",
+                "size": 1,
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/nrlive/2.2.0/NRLiveUI.zip",
+                "mirrors": [
+                  "https://github.com/Caliel666/NRLive/releases/download/v2.2.0/NRLiveUI.zip"
+                ]
+              }
+            ]
+          },
+          "mochizuki-model": {
+            "version": "1",
+            "files": [
+              {
+                "name": "dlssnr.bin",
+                "path": "dlssnr-amd/dlssnr.bin",
+                "size": 147756560,
+                "sha256": "2b41c888cf4155b8958c665ba64018ab0bd25c85fc71a2b6db86d0d04d1f7fbd",
+                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/mochizuki/model-1/dlssnr.bin"
+              }
+            ]
+          },
+          "mochizuki-model-small": {
+            "version": "1",
+            "files": [
+              {
+                "name": "dlssnr-small.bin",
+                "path": "dlssnr-amd/dlssnr-small.bin",
+                "size": 113917248,
+                "sha256": "7e966e2639dbec6596aa0bac3b8761137d2c40ca8cb4aca30df7ca10043c6e33",
+                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/mochizuki/model-small-1/dlssnr-small.bin"
+              }
+            ]
+          }
+        }
+      }
+    ],
     "optiscaler": [
       {
         "version": "0.5.7-opennr",
