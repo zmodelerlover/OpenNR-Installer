@@ -1,4 +1,5 @@
-// The body of an NRLive settings card: its rows, then its "More" expander right under them. The cards on one line of
+// The body of an NRLive settings card: its rows, then its "More" expander, at the foot while closed and right under
+// the rows once open. The cards on one line of
 // the page share a grid row, so a card that grew when its More opened stretched the others with it, empty at the
 // bottom. The cards are top-aligned instead and each body asks for the tallest closed body of its line (Peers): with
 // every More closed they are as tall as one another, and an open More makes its own card taller and no other. Three
@@ -78,7 +79,9 @@ public sealed class CardBody : Panel
     {
         var rows = Rows.DesiredSize.Height;
         Rows.Arrange(new Rect(0, 0, final.Width, rows));
-        More.Arrange(new Rect(0, rows + Gap, final.Width, More.DesiredSize.Height));
+        // Closed, More sits at the foot of the body, so the three headers line up whatever each card's rows take.
+        var top = More.IsExpanded ? rows + Gap : Math.Max(rows + Gap, final.Height - More.DesiredSize.Height);
+        More.Arrange(new Rect(0, top, final.Width, More.DesiredSize.Height));
         return final;
     }
 }
