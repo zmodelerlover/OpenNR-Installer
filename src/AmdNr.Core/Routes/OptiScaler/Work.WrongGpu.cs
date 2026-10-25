@@ -159,6 +159,7 @@ public static partial class Work
             // Run from the work folder: the staged payload's path can be longer than CreateProcess takes.
             var exe = Path.Combine(work, Path.GetFileName(setup));
             File.Copy(setup, exe);
+            var logBefore = WrongGpuSetupLogText();
             var code = RunWrongGpuSetup(exe, ["/silent", $"/dir={game}", $"/optiscaler={package}", "/experimental"]);
             var converted = code == 0 && File.Exists(WrongGpuModel);
             if (code == 0) RunWrongGpuSetup(exe, ["/silent", "/uninstall", $"/dir={game}"]);
@@ -166,7 +167,7 @@ public static partial class Work
             {
                 // Its own log says why: every refusal had been put down to a missing DLSS, an anti-cheat installed
                 // for another game (WG-SETUP-4) too.
-                var why = WrongGpuSetupError() is { } error
+                var why = WrongGpuSetupError(logBefore) is { } error
                     ? error + (error.Contains("anti-cheat", StringComparison.OrdinalIgnoreCase)
                         ? " WrongGPU's setup refuses any PC with it installed, for every game, not only this one."
                         : "")
@@ -195,18 +196,26 @@ public static partial class Work
         Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(WrongGpuModel)!)!, "setup.log");
 
     /// <summary>The last error WrongGPU's setup logged ("ERROR: Anti-cheat found (BattlEye) - ... [WG-SETUP-4]"),
-    /// without its prefix, or null when there is none to read.</summary>
-    internal static string? WrongGpuSetupError()
+    /// without its prefix, or null when there is none to read. The log keeps every run: with the text it had before
+    /// this one, only what this run added counts, since an older setup's refusal is not this one's.</summary>
+    internal static string? WrongGpuSetupError(string? before = null)
+    {
+        var text = WrongGpuSetupLogText();
+        if (text is null) return null;
+        if (before is not null && text.StartsWith(before, StringComparison.Ordinal)) text = text[before.Length..];
+        string? last = null;
+        foreach (var line in text.Split('\n'))
+            if (line.IndexOf("ERROR:", StringComparison.Ordinal) is var at and >= 0)
+                last = line[(at + "ERROR:".Length)..].Trim();
+        return string.IsNullOrEmpty(last) ? null : last;
+    }
+
+    private static string? WrongGpuSetupLogText()
     {
         try
         {
             using var stream = new FileStream(WrongGpuSetupLog, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            using var reader = new StreamReader(stream);
-            string? last = null;
-            while (reader.ReadLine() is { } line)
-                if (line.IndexOf("ERROR:", StringComparison.Ordinal) is var at and >= 0)
-                    last = line[(at + "ERROR:".Length)..].Trim();
-            return string.IsNullOrEmpty(last) ? null : last;
+            return new StreamReader(stream).ReadToEnd();
         }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException) { return null; }
     }

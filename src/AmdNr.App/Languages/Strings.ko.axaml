@@ -57,6 +57,7 @@
   <sys:String x:Key="Str.SupportKofiBody">커피 한 잔, 한 번만.</sys:String>
   <sys:String x:Key="Str.SupportVakinhaTitle">Vakinha</sys:String>
   <sys:String x:Key="Str.SupportVakinhaBody">프로젝트의 브라질 모금.</sys:String>
+  <sys:String x:Key="Str.DiscordRail">OpenNR Discord 참여하기</sys:String>
   <sys:String x:Key="Str.SupportRail">OpenNR 후원</sys:String>
   <sys:String x:Key="Str.SupportTitle">OpenNR이 계속되도록</sys:String>
   <sys:String x:Key="Str.SupportBody">이 프로젝트는 사용하는 분들의 후원으로만 이어집니다. 두 사람, 그래픽카드 두 장, 그리고 오후의 작업 시간뿐입니다. 회사도 후원사도 없습니다. 여기 있는 모든 것은 무료이며 앞으로도 무료입니다. 후원으로 잠금 해제되는 것은 없고, 작업을 이어가게 해 줍니다.</sys:String>
@@ -120,7 +121,7 @@
   <sys:String x:Key="Str.DanielVersion">danielblnc 버전</sys:String>
   <sys:String x:Key="Str.RuntimeRecommended">권장</sys:String>
   <sys:String x:Key="Str.RuntimeUnstable">불안정</sys:String>
-  <sys:String x:Key="Str.DanielVersionTip">이 게임에 들어갈 danielblnc 런타임 버전입니다. RX 9000 카드에서는 0.4.3이 권장됩니다. 더 새로운 버전은 이 카드에서 게임을 멈추게 한 적이 있습니다. 다른 카드는 최신 버전을 받습니다.</sys:String>
+  <sys:String x:Key="Str.DanielVersionTip">이 게임에 들어갈 danielblnc 런타임 버전입니다. RX 9000 카드에서는 0.4.3이 권장됩니다. 더 새로운 버전은 이 카드에서 게임을 멈추게 한 적이 있습니다. 다른 카드는 0.6.0을 받습니다. 0.8.0(OptiScaler 전용)은 DLSS-SR, DLSS-RR, DLSS-FG도 제공합니다.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Addon">RX 9000: mochizuki(mochizuki0323의 Vulkan 이식판, 약 141MB)도 설치되어 네트워크를 실행합니다. danielblnc 런타임은 옆에 남으며 애드온 패널의 NR runtime에서 고를 수 있습니다. 각 게임의 첫 실행에서는 네트워크를 최대 1분간 컴파일합니다.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Opti">RX 9000: 새로 설치하면 mochizuki가 실행되고, lmxxf는 danielblnc 런타임 옆에 설치됩니다. OptiScaler의 Neural 탭 NR runtime에서 다른 것을 고른 뒤 게임을 다시 시작하세요.</sys:String>
   <sys:String x:Key="Str.WrongGpuToggle">WrongGPU (DLSS 4.5 Model M, RX 9000)</sys:String>

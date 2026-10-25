@@ -39,8 +39,9 @@ public static partial class Work
 
     private const string LmxxfWeightsFolder = "native-game-tiled-assets/";
 
-    /// <summary>From OptiScaler 0.5.0 on, a fresh OptiScaler.ini runs the network on the finished frame of a
-    /// game with no upscaler running. It stands aside by itself while the game's upscaler runs.</summary>
+    /// <summary>From OptiScaler 0.5.0 on, a fresh OptiScaler.ini of a game with no DLSS, FSR or XeSS of its own runs
+    /// the network on the finished frame, the only place it can run there. A game with one keeps it off: players
+    /// found it on in every game and took it for the default to turn off.</summary>
     private static byte[] WithoutUpscaler(byte[] ini, bool everywhere) =>
         everywhere
             ? System.Text.Encoding.UTF8.GetBytes(

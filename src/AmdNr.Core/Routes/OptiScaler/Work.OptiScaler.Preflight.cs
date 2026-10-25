@@ -83,6 +83,7 @@ public static partial class Work
 
         CheckOptiInTheWay(dir, proxyName, manifest, report, preflight: true);
         CheckForeignMod(dir, manifest, report);
+        CheckNeuralHubStub(dir, report);
         CheckRuntimeAsVersionDll(dir, pins, report);
         CheckLocalHip(dir, report);
         CheckRenamedStreamline(dir, report);

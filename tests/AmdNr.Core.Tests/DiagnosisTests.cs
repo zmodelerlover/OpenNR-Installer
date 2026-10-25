@@ -42,6 +42,11 @@ public class DiagnosisTests
         File.WriteAllText(Path.Combine(rtss, "OptiScaler.log"),
             "[16:05:11.444638] [W] FGHooks::FGPresent RTSS is hooked into the game while frame generation runs: it stalls frame generation's presents (stutter, lower base frame rate). Close RivaTuner Statistics Server, or turn its hooking off for this game\n");
         Assert.Contains(Diagnosis.Of(rtss, null, true), f => f.Cause.Contains("RivaTuner") && f.Evidence.StartsWith("OptiScaler.log"));
+        // 007 First Light: Windows refused MochizukiNrRuntime.dll with "Bad Image" 0xc0e90002.
+        var blocked = Fixture.Temp("diagnosis-blocked");
+        File.WriteAllText(Path.Combine(blocked, "OptiScaler.log"),
+            "[16:54:38.636853] [I] DlssNr::Backend::LmxxfBackend::SetStatus lmxxf status: mochizuki: Windows blocked MochizukiNrRuntime.dll (error 4551: Smart App Control or a code integrity policy); allow it or turn Smart App Control off (status change #2)\n");
+        Assert.Contains(Diagnosis.Of(blocked, null, true), f => f.Cause.Contains("Smart App Control") && f.Evidence.StartsWith("OptiScaler.log"));
         // Whole words only: "chip" and "relationship" beside a 719 are not a GPU reset.
         var quiet = Fixture.Temp("diagnosis-quiet");
         File.WriteAllText(Path.Combine(quiet, SessionLog.RuntimeLog), "chip temperature error 719\nrelationship error 719 frames\n");

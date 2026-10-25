@@ -57,6 +57,7 @@
   <sys:String x:Key="Str.SupportKofiBody">O cafea, o singură dată.</sys:String>
   <sys:String x:Key="Str.SupportVakinhaTitle">Vakinha</sys:String>
   <sys:String x:Key="Str.SupportVakinhaBody">Strângerea de fonduri braziliană a proiectului.</sys:String>
+  <sys:String x:Key="Str.DiscordRail">Intră pe Discordul OpenNR</sys:String>
   <sys:String x:Key="Str.SupportRail">Susține OpenNR</sys:String>
   <sys:String x:Key="Str.SupportTitle">Ține OpenNR în viață</sys:String>
   <sys:String x:Key="Str.SupportBody">Acest proiect rămâne în viață doar cu sprijinul celor care îl folosesc. Sunt două persoane, două plăci video și după-amiezi de muncă: nicio firmă, niciun sponsor. Totul aici e gratuit și așa rămâne. Sprijinul nu deblochează nimic; ține munca în mișcare.</sys:String>
@@ -120,7 +121,7 @@
   <sys:String x:Key="Str.DanielVersion">Versiunea danielblnc</sys:String>
   <sys:String x:Key="Str.RuntimeRecommended">Recomandată</sys:String>
   <sys:String x:Key="Str.RuntimeUnstable">Instabilă</sys:String>
-  <sys:String x:Key="Str.DanielVersionTip">Ce versiune a runtime-ului danielblnc intră în acest joc. Pe plăcile RX 9000, 0.4.3 este cea recomandată: cele mai noi au blocat jocuri pe ele. Celelalte plăci primesc cea mai nouă.</sys:String>
+  <sys:String x:Key="Str.DanielVersionTip">Ce versiune a runtime-ului danielblnc intră în acest joc. Pe plăcile RX 9000, 0.4.3 este cea recomandată: cele mai noi au blocat jocuri pe ele. Celelalte plăci primesc 0.6.0; 0.8.0 (doar OptiScaler) aduce și DLSS-SR, DLSS-RR și DLSS-FG.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Addon">RX 9000: mochizuki (portul Vulkan al lui mochizuki0323, cam 141 MB) se instalează și el și rulează rețeaua. Runtime-ul danielblnc rămâne alături: alege-l la NR runtime în panoul add-on-ului. Prima pornire a fiecărui joc compilează rețeaua până la un minut.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Opti">RX 9000: o instalare nouă rulează mochizuki, iar lmxxf intră lângă runtime-ul danielblnc. Alege altul la NR runtime în fila Neural a OptiScaler și repornește jocul.</sys:String>
   <sys:String x:Key="Str.WrongGpuToggle">WrongGPU (DLSS 4.5 Model M, RX 9000)</sys:String>

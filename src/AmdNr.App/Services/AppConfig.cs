@@ -48,7 +48,7 @@ public sealed class AppConfig
     /// <summary>The chat everyone is actually in, and the project the network comes from. Both are
     /// here rather than in the code because an invite can be rotated and a repository can move, and
     /// neither should need a new build of this.</summary>
-    public string DiscordUrl { get; set; } = "https://discord.gg/wYhvS3JSHM";
+    public string DiscordUrl { get; set; } = "https://discord.gg/neuralrendering";
 
     public string RuntimeUrl { get; set; } = "https://github.com/danielblnc/DLSS-NR-on-AMD";
 

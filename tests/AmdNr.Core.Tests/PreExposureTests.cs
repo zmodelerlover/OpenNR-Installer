@@ -25,12 +25,15 @@ public class PreExposureTests
         if (existing.Length > 0) Assert.Equal("0.5", Engine.Trim(Engine.GetIni(text, "DlssNrOnAmd", "Scale")));
     }
 
-    [Fact]
-    public void AnOlderRuntimeLeavesTheIniAlone()
+    /// <summary>0.5.1 never reads it; 0.8.0 runs hosted and reads its ini from dlssnr_amd_host\ only.</summary>
+    [Theory]
+    [InlineData("0.5.1")]
+    [InlineData("0.8.0")]
+    public void ARuntimeThatDoesNotReadItLeavesTheIniAlone(string version)
     {
-        var game = Fixture.Temp("pre-exposure-051");
+        var game = Fixture.Temp($"pre-exposure-{version}");
         File.WriteAllBytes(Path.Combine(game, "Game.exe"), Fixture.PeWithImports(true, ["d3d12.dll"]));
-        var (src, pins) = OptiScalerRouteTests.Payloads("pre-exposure-051", runtimeVersion: "0.5.1");
+        var (src, pins) = OptiScalerRouteTests.Payloads($"pre-exposure-{version}", runtimeVersion: version);
         var report = Work.Install(game, src, Preset.OptiScaler, pins);
         Assert.False(report.Failed, report.ToLog("install"));
         Assert.False(File.Exists(Path.Combine(game, "dlssnr_on_amd.ini")));

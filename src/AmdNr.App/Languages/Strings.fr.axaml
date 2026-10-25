@@ -57,6 +57,7 @@
   <sys:String x:Key="Str.SupportKofiBody">Un café, une seule fois.</sys:String>
   <sys:String x:Key="Str.SupportVakinhaTitle">Vakinha</sys:String>
   <sys:String x:Key="Str.SupportVakinhaBody">La cagnotte brésilienne du projet.</sys:String>
+  <sys:String x:Key="Str.DiscordRail">Rejoindre le Discord d'OpenNR</sys:String>
   <sys:String x:Key="Str.SupportRail">Soutenir OpenNR</sys:String>
   <sys:String x:Key="Str.SupportTitle">Gardez OpenNR en vie</sys:String>
   <sys:String x:Key="Str.SupportBody">Ce projet ne reste en vie que grâce au soutien de ceux qui l'utilisent. Ce sont deux personnes, deux cartes graphiques et des après-midi de travail : ni entreprise, ni sponsor. Tout ici est gratuit et le restera. Le soutien ne débloque rien ; il fait avancer le travail.</sys:String>
@@ -120,7 +121,7 @@
   <sys:String x:Key="Str.DanielVersion">Version de danielblnc</sys:String>
   <sys:String x:Key="Str.RuntimeRecommended">Recommandée</sys:String>
   <sys:String x:Key="Str.RuntimeUnstable">Instable</sys:String>
-  <sys:String x:Key="Str.DanielVersionTip">La version du runtime de danielblnc installée dans ce jeu. Sur les cartes RX 9000, la 0.4.3 est recommandée : les plus récentes y ont figé des jeux. Les autres cartes reçoivent la plus récente.</sys:String>
+  <sys:String x:Key="Str.DanielVersionTip">La version du runtime de danielblnc installée dans ce jeu. Sur les cartes RX 9000, la 0.4.3 est recommandée : les plus récentes y ont figé des jeux. Les autres cartes reçoivent la 0.6.0 ; la 0.8.0 (OptiScaler uniquement) apporte aussi DLSS-SR, DLSS-RR et DLSS-FG.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Addon">RX 9000 : mochizuki (le portage Vulkan de mochizuki0323, environ 141 Mo) est installé aussi et fait tourner le réseau. Le runtime de danielblnc reste à côté : choisissez-le sous NR runtime dans le panneau du module. Le premier lancement de chaque jeu compile le réseau jusqu'à une minute.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Opti">RX 9000 : une nouvelle installation fait tourner mochizuki, et lmxxf va à côté du runtime de danielblnc. Choisissez-en un autre sous NR runtime dans l'onglet Neural d'OptiScaler et redémarrez le jeu.</sys:String>
   <sys:String x:Key="Str.WrongGpuToggle">WrongGPU (DLSS 4.5 Model M, RX 9000)</sys:String>

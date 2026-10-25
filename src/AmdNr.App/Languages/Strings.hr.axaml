@@ -57,6 +57,7 @@
   <sys:String x:Key="Str.SupportKofiBody">Jednokratna kava.</sys:String>
   <sys:String x:Key="Str.SupportVakinhaTitle">Vakinha</sys:String>
   <sys:String x:Key="Str.SupportVakinhaBody">Brazilsko prikupljanje sredstava za projekt.</sys:String>
+  <sys:String x:Key="Str.DiscordRail">Pridruži se OpenNR Discordu</sys:String>
   <sys:String x:Key="Str.SupportRail">Podrži OpenNR</sys:String>
   <sys:String x:Key="Str.SupportTitle">Održi OpenNR na životu</sys:String>
   <sys:String x:Key="Str.SupportBody">Ovaj projekt živi samo od podrške onih koji ga koriste. To su dvije osobe, dvije grafičke kartice i poslijepodneva rada: bez tvrtke i sponzora. Sve je ovdje besplatno i tako će i ostati. Podrška ništa ne otključava; ona omogućuje da se radi dalje.</sys:String>
@@ -120,7 +121,7 @@
   <sys:String x:Key="Str.DanielVersion">Verzija danielblnc</sys:String>
   <sys:String x:Key="Str.RuntimeRecommended">Preporučeno</sys:String>
   <sys:String x:Key="Str.RuntimeUnstable">Nestabilno</sys:String>
-  <sys:String x:Key="Str.DanielVersionTip">Koja verzija danielblncova runtimea ide u ovu igru. Na karticama RX 9000 preporučena je 0.4.3: novije su na njima zamrzavale igre. Ostale kartice dobivaju najnoviju.</sys:String>
+  <sys:String x:Key="Str.DanielVersionTip">Koja verzija danielblncova runtimea ide u ovu igru. Na karticama RX 9000 preporučena je 0.4.3: novije su na njima zamrzavale igre. Ostale kartice dobivaju 0.6.0; 0.8.0 (samo OptiScaler) donosi i DLSS-SR, DLSS-RR i DLSS-FG.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Addon">RX 9000: mochizuki (mochizuki0323ov Vulkan port, oko 141 MB) također se instalira i pokreće mrežu. Danielblncov runtime ostaje pored njega: odaberi ga pod NR runtime u panelu dodatka. Prvo pokretanje svake igre kompajlira mrežu do minute.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Opti">RX 9000: nova instalacija pokreće mochizuki, a lmxxf ide pored danielblncova runtimea. Odaberi drugi pod NR runtime na kartici Neural u OptiScaleru i ponovno pokreni igru.</sys:String>
   <sys:String x:Key="Str.WrongGpuToggle">WrongGPU (DLSS 4.5 Model M, RX 9000)</sys:String>

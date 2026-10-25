@@ -41,6 +41,10 @@ public static partial class Diagnosis
             + "generation ran: it holds frame generation's presents back, which shows as stutter and a lower base frame "
             + "rate. Close it while playing, or turn its hooking off for this game. OptiScaler's FPS limit goes through "
             + "RTSS too and counts the generated frames."),
+        new(["OptiScaler.log"], l => l.Contains("Windows blocked", StringComparison.Ordinal) && l.Contains("NrRuntime.dll"),
+            "Windows refused to load the NR runtime's DLL (a code integrity block, \"Bad Image\" 0xc0e90002): usually "
+            + "Smart App Control (Windows Security > App & browser control), which blocks unsigned files. Allow the file or "
+            + "turn Smart App Control off; the file itself is fine."),
         new([SessionLog.RuntimeLog], l => l.StartsWith("CRASH:", StringComparison.Ordinal),
             "danielblnc's runtime caught the game crashing in several sessions: the first CRASH line is the evidence, and "
             + "the report's dlssnr_on_amd.log has them all.", AtLeast: 3),

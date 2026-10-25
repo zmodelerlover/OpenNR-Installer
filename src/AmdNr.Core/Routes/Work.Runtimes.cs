@@ -453,10 +453,11 @@ public static partial class Work
     /// UsePreExposure, on by default), and OptiScaler 0.5.0's record ends at 0x60: it read the stack there and the frame
     /// came out green noise (GTA V Enhanced). UsePreExposure=0 in the runtime's own ini is the pre-2026-10-01 behaviour,
     /// which ignores it; OptiScaler writes nothing to that file, and the rest of it is kept. An OptiScaler that sends 1
-    /// there (0.5.1) makes this redundant, not wrong. The file is swept by name on uninstall, as the runtime's.</summary>
+    /// there (0.5.1) makes this redundant, not wrong. The file is swept by name on uninstall, as the runtime's. Not for
+    /// <see cref="HostedRuntime"/> on: hosted, it reads its ini from dlssnr_amd_host\, never this one.</summary>
     internal static void NoPreExposure(string dir, Version? runtime, Report report)
     {
-        if (runtime is null || runtime < ReadsPreExposure) return;
+        if (runtime is null || runtime < ReadsPreExposure || runtime >= HostedRuntime) return;
         var path = Path.Combine(dir, RuntimeIni);
         try
         {

@@ -57,6 +57,7 @@
   <sys:String x:Key="Str.SupportKofiBody">Un café, una sola vez.</sys:String>
   <sys:String x:Key="Str.SupportVakinhaTitle">Vakinha</sys:String>
   <sys:String x:Key="Str.SupportVakinhaBody">La colecta brasileña del proyecto.</sys:String>
+  <sys:String x:Key="Str.DiscordRail">Únete al Discord de OpenNR</sys:String>
   <sys:String x:Key="Str.SupportRail">Apoyar OpenNR</sys:String>
   <sys:String x:Key="Str.SupportTitle">Mantén vivo OpenNR</sys:String>
   <sys:String x:Key="Str.SupportBody">Este proyecto solo sigue vivo con el apoyo de quienes lo usan. Son dos personas, dos tarjetas gráficas y tardes de trabajo: sin empresa ni patrocinio. Todo aquí es gratis y seguirá siéndolo. El apoyo no desbloquea nada; mantiene el trabajo en marcha.</sys:String>
@@ -120,7 +121,7 @@
   <sys:String x:Key="Str.DanielVersion">Versión de danielblnc</sys:String>
   <sys:String x:Key="Str.RuntimeRecommended">Recomendada</sys:String>
   <sys:String x:Key="Str.RuntimeUnstable">Inestable</sys:String>
-  <sys:String x:Key="Str.DanielVersionTip">Qué versión del runtime de danielblnc va en este juego. En las tarjetas RX 9000 la 0.4.3 es la recomendada: las más nuevas han congelado juegos en ellas. Las demás tarjetas reciben la más nueva.</sys:String>
+  <sys:String x:Key="Str.DanielVersionTip">Qué versión del runtime de danielblnc va en este juego. En las tarjetas RX 9000 la 0.4.3 es la recomendada: las más nuevas han congelado juegos en ellas. Las demás tarjetas reciben la 0.6.0; la 0.8.0 (solo OptiScaler) trae además DLSS-SR, DLSS-RR y DLSS-FG.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Addon">RX 9000: mochizuki (el port a Vulkan de mochizuki0323, unos 141 MB) también se instala y ejecuta la red. El runtime de danielblnc queda al lado: elígelo en NR runtime en el panel del add-on. El primer inicio de cada juego compila la red hasta un minuto.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Opti">RX 9000: una instalación nueva ejecuta mochizuki, y lmxxf se instala junto al runtime de danielblnc. Elige otro en NR runtime en la pestaña Neural de OptiScaler y reinicia el juego.</sys:String>
   <sys:String x:Key="Str.WrongGpuToggle">WrongGPU (DLSS 4.5 Model M, RX 9000)</sys:String>

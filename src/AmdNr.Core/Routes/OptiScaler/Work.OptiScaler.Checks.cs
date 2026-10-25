@@ -102,6 +102,21 @@ public static partial class Work
             + "uninstall puts them back; the rest of it stays, so remove that mod with its own uninstaller first.");
     }
 
+    /// <summary>danielblnc's NeuralHub installed in the game by its own app: its version.dll loader with its ini or log.
+    /// It takes over the game's DLSS/FSR and the swapchain as OptiScaler does, and with both a game went to a black
+    /// screen (God of War Ragnarök, 2026-10-24); OptiScaler's danielblnc then stays off as well.</summary>
+    internal static bool HasNeuralHubStub(string dir) =>
+        File.Exists(Path.Combine(dir, "version.dll"))
+        && (File.Exists(Path.Combine(dir, "neuralhub.ini")) || File.Exists(Path.Combine(dir, "neuralhub_stub.log")));
+
+    private static void CheckNeuralHubStub(string dir, Report report)
+    {
+        if (!HasNeuralHubStub(dir)) return;
+        report.Warn("danielblnc's NeuralHub is installed in this game (version.dll with neuralhub.ini). It takes over the "
+                    + "game's DLSS/FSR and the screen as OptiScaler does, and with both a game can stay on a black screen. "
+                    + "Remove the game from NeuralHub with NeuralHub first, or keep NeuralHub alone and leave this off.");
+    }
+
     /// <summary>A renamed copy of one of Streamline's own DLLs: Streamline loads every sl.*.dll beside it as a plugin,
     /// and a backup such as sl.common.bak.dll crashes it ("plugin 'sl.common.bak' with priority &lt;= 0"). Only once
     /// OptiScaler shows an NVIDIA GPU does the game start Streamline, so the ReShade route runs and this one closes on

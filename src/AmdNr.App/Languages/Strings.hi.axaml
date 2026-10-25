@@ -57,6 +57,7 @@
   <sys:String x:Key="Str.SupportKofiBody">एक बार की कॉफ़ी।</sys:String>
   <sys:String x:Key="Str.SupportVakinhaTitle">Vakinha</sys:String>
   <sys:String x:Key="Str.SupportVakinhaBody">प्रोजेक्ट का ब्राज़ीलियाई फ़ंडरेज़र।</sys:String>
+  <sys:String x:Key="Str.DiscordRail">OpenNR के Discord से जुड़ें</sys:String>
   <sys:String x:Key="Str.SupportRail">OpenNR को सपोर्ट करें</sys:String>
   <sys:String x:Key="Str.SupportTitle">OpenNR को ज़िंदा रखें</sys:String>
   <sys:String x:Key="Str.SupportBody">यह प्रोजेक्ट सिर्फ़ इस्तेमाल करने वालों के सपोर्ट से चलता है। दो लोग, दो ग्राफ़िक्स कार्ड और दोपहर भर का काम: न कोई कंपनी, न कोई स्पॉन्सर। यहाँ सब कुछ मुफ़्त है और मुफ़्त ही रहेगा। सपोर्ट से कुछ अनलॉक नहीं होता; इससे काम चलता रहता है।</sys:String>
@@ -120,7 +121,7 @@
   <sys:String x:Key="Str.DanielVersion">danielblnc संस्करण</sys:String>
   <sys:String x:Key="Str.RuntimeRecommended">अनुशंसित</sys:String>
   <sys:String x:Key="Str.RuntimeUnstable">अस्थिर</sys:String>
-  <sys:String x:Key="Str.DanielVersionTip">इस गेम में danielblnc रनटाइम का कौन-सा संस्करण जाएगा। RX 9000 कार्डों पर 0.4.3 अनुशंसित है: नए संस्करणों ने इन कार्डों पर गेम फ्रीज़ किए हैं। बाकी कार्डों को सबसे नया मिलता है।</sys:String>
+  <sys:String x:Key="Str.DanielVersionTip">इस गेम में danielblnc रनटाइम का कौन-सा संस्करण जाएगा। RX 9000 कार्डों पर 0.4.3 अनुशंसित है: नए संस्करणों ने इन कार्डों पर गेम फ्रीज़ किए हैं। बाकी कार्डों को 0.6.0 मिलता है; 0.8.0 (केवल OptiScaler) DLSS-SR, DLSS-RR और DLSS-FG भी देता है।</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Addon">RX 9000: mochizuki (mochizuki0323 का Vulkan पोर्ट, लगभग 141 MB) भी इंस्टॉल होता है और नेटवर्क चलाता है। danielblnc का रनटाइम साथ में रहता है: ऐड-ऑन के पैनल में NR runtime से उसे चुनें। हर गेम की पहली शुरुआत में नेटवर्क एक मिनट तक कंपाइल होता है।</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Opti">RX 9000: नया इंस्टॉल mochizuki चलाता है, और lmxxf danielblnc के रनटाइम के साथ जाता है। OptiScaler के Neural टैब में NR runtime से दूसरा चुनें और गेम फिर से शुरू करें।</sys:String>
   <sys:String x:Key="Str.WrongGpuToggle">WrongGPU (DLSS 4.5 Model M, RX 9000)</sys:String>

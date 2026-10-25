@@ -60,9 +60,14 @@
           </RadioButton>
         </StackPanel>
 
-        <!-- Support, one click from every page: a grey coffee above the version, quiet like the rest of
-             the rail. It opens a card that says why support matters and where it goes. -->
+        <!-- The Discord invite and support, one click from every page: grey icons above the version, quiet
+             like the rest of the rail. The coffee opens a card that says why support matters and where it goes. -->
         <StackPanel Grid.Row="2" Spacing="6" Margin="0,0,0,14">
+          <Button x:Name="DiscordButton" Classes="ghost icon" Click="OnDiscord" HorizontalAlignment="Center"
+                  ToolTip.Tip="{DynamicResource Str.DiscordRail}" ToolTip.Placement="Right"
+                  AutomationProperties.Name="{DynamicResource Str.DiscordRail}">
+            <PathIcon Data="{StaticResource IconDiscord}" Width="18" Height="18" Foreground="{DynamicResource Faint}" />
+          </Button>
           <Button x:Name="SupportButton" Classes="ghost icon" Click="OnSupport" HorizontalAlignment="Center"
                   ToolTip.Tip="{DynamicResource Str.SupportRail}" ToolTip.Placement="Right"
                   AutomationProperties.Name="{DynamicResource Str.SupportRail}">

@@ -144,6 +144,32 @@ public class OptiEverywhereTests
     }
 
     [Fact]
+    public void AGameWithItsOwnUpscalerKeepsNrWithoutUpscalingOff()
+    {
+        var game = Fixture.Temp("everywhere-own-upscaler");
+        File.WriteAllBytes(Path.Combine(game, "Game.exe"), Fixture.PeWithImports(true, ["d3d12.dll"]));
+        File.WriteAllText(Path.Combine(game, "nvngx_dlss.dll"), "dlss");
+        var (src, pins) = OptiScalerRouteTests.Payloads("everywhere-own-upscaler");
+        Assert.False(Work.Install(game, src, Preset.OptiScaler, pins).Failed);
+        var ini = File.ReadAllText(Path.Combine(game, Work.OptiScalerIni));
+        Assert.NotEqual("true", Engine.Trim(Engine.GetIni(ini, "DlssNr", "PresentWithoutUpscaler") ?? ""));
+    }
+
+    [Fact]
+    public void NeuralHubsOwnLoaderInTheGameIsSaid()
+    {
+        var game = Fixture.Temp("everywhere-neuralhub");
+        File.WriteAllBytes(Path.Combine(game, "Game.exe"), Fixture.PeWithImports(true, ["d3d12.dll"]));
+        var (src, pins) = OptiScalerRouteTests.Payloads("everywhere-neuralhub");
+        Assert.False(Fixture.HasAny(Work.Install(game, src, Preset.OptiScaler, pins), "NeuralHub is installed"));
+
+        File.WriteAllText(Path.Combine(game, "version.dll"), "stub");
+        File.WriteAllText(Path.Combine(game, "neuralhub_stub.log"), "log");
+        var report = Work.Install(game, src, Preset.OptiScaler, pins);
+        Assert.True(Fixture.HasAny(report, "NeuralHub is installed in this game"), report.ToLog("install"));
+    }
+
+    [Fact]
     public void UninstallTakesTheRuntimeCopiesNrWithoutUpscalingMakes()
     {
         var game = Fixture.Temp("everywhere-present-copies");

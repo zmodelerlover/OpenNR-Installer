@@ -57,6 +57,7 @@
   <sys:String x:Key="Str.SupportKofiBody">Jednorazowa kawa.</sys:String>
   <sys:String x:Key="Str.SupportVakinhaTitle">Vakinha</sys:String>
   <sys:String x:Key="Str.SupportVakinhaBody">Brazylijska zbiórka projektu.</sys:String>
+  <sys:String x:Key="Str.DiscordRail">Dołącz do Discorda OpenNR</sys:String>
   <sys:String x:Key="Str.SupportRail">Wesprzyj OpenNR</sys:String>
   <sys:String x:Key="Str.SupportTitle">Utrzymaj OpenNR przy życiu</sys:String>
   <sys:String x:Key="Str.SupportBody">Ten projekt żyje tylko dzięki wsparciu osób, które z niego korzystają. To dwie osoby, dwie karty graficzne i popołudnia pracy: bez firmy i sponsora. Wszystko tu jest darmowe i takie zostanie. Wsparcie niczego nie odblokowuje; pozwala pracować dalej.</sys:String>
@@ -120,7 +121,7 @@
   <sys:String x:Key="Str.DanielVersion">Wersja danielblnc</sys:String>
   <sys:String x:Key="Str.RuntimeRecommended">Zalecana</sys:String>
   <sys:String x:Key="Str.RuntimeUnstable">Niestabilna</sys:String>
-  <sys:String x:Key="Str.DanielVersionTip">Która wersja runtime'u danielblnc trafia do tej gry. Na kartach RX 9000 zalecana jest 0.4.3: nowsze zawieszały na nich gry. Inne karty dostają najnowszą.</sys:String>
+  <sys:String x:Key="Str.DanielVersionTip">Która wersja runtime'u danielblnc trafia do tej gry. Na kartach RX 9000 zalecana jest 0.4.3: nowsze zawieszały na nich gry. Inne karty dostają 0.6.0; 0.8.0 (tylko OptiScaler) daje też DLSS-SR, DLSS-RR i DLSS-FG.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Addon">RX 9000: mochizuki (port Vulkan od mochizuki0323, około 141 MB) też jest instalowany i uruchamia sieć. Runtime danielblnc zostaje obok: wybierz go w NR runtime w panelu dodatku. Pierwsze uruchomienie każdej gry kompiluje sieć do minuty.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Opti">RX 9000: nowa instalacja uruchamia mochizuki, a lmxxf trafia obok runtime'u danielblnc. Wybierz inny w NR runtime w zakładce Neural OptiScalera i uruchom grę ponownie.</sys:String>
   <sys:String x:Key="Str.WrongGpuToggle">WrongGPU (DLSS 4.5 Model M, RX 9000)</sys:String>

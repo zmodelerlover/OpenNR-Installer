@@ -265,6 +265,7 @@ public static partial class Work
         var foreign = ForeignNrMod(dir, manifest);
         CheckForeignMod(dir, manifest, report);
         CheckRuntimeAsVersionDll(dir, pins, report);
+        CheckNeuralHubStub(dir, report);
         CheckLocalHip(dir, report);
         CheckRenamedStreamline(dir, report);
         var moves = CheckAuthorsRuntime(dir, pins, Preset.OptiScaler, report);
@@ -318,7 +319,7 @@ public static partial class Work
             if (VerifiedPayload(src, path, sha, report) is { } bytes)
                 files[destination] = destination != iniName ? bytes
                     : WithBackend(WithoutUpscaler(RunsMochizuki(RunsLmxxf(OnlyInTheGame(dir, x86 ? NrOn(bytes) : bytes, report),
-                        lmxxf, !LmxxfWeighted(pins)), runsMochizuki), everywhere), backend);
+                        lmxxf, !LmxxfWeighted(pins)), runsMochizuki), everywhere && upscalers.Count == 0), backend);
         }
         // An ini this route wrote and somebody changed since stays as it is (the transaction keeps it): what it names
         // is what runs, so the lines below go by it rather than by the package's.

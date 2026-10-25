@@ -57,6 +57,7 @@
   <sys:String x:Key="Str.SupportKofiBody">فنجان قهوة لمرة واحدة.</sys:String>
   <sys:String x:Key="Str.SupportVakinhaTitle">Vakinha</sys:String>
   <sys:String x:Key="Str.SupportVakinhaBody">حملة جمع التبرعات البرازيلية للمشروع.</sys:String>
+  <sys:String x:Key="Str.DiscordRail">انضم إلى ديسكورد OpenNR</sys:String>
   <sys:String x:Key="Str.SupportRail">ادعم OpenNR</sys:String>
   <sys:String x:Key="Str.SupportTitle">حافظ على OpenNR حيًا</sys:String>
   <sys:String x:Key="Str.SupportBody">هذا المشروع لا يستمر إلا بدعم من يستخدمونه. إنهما شخصان وبطاقتا رسومات وساعات عمل بعد الظهر: لا شركة ولا راعٍ. كل شيء هنا مجاني وسيبقى مجانيًا. الدعم لا يفتح أي ميزة، بل يُبقي العمل مستمرًا.</sys:String>
@@ -120,7 +121,7 @@
   <sys:String x:Key="Str.DanielVersion">إصدار danielblnc</sys:String>
   <sys:String x:Key="Str.RuntimeRecommended">موصى به</sys:String>
   <sys:String x:Key="Str.RuntimeUnstable">غير مستقر</sys:String>
-  <sys:String x:Key="Str.DanielVersionTip">أي إصدار من بيئة تشغيل danielblnc يُثبَّت في هذه اللعبة. على بطاقات RX 9000 الإصدار 0.4.3 هو الموصى به: الإصدارات الأحدث جمّدت ألعابًا عليها. البطاقات الأخرى تحصل على الأحدث.</sys:String>
+  <sys:String x:Key="Str.DanielVersionTip">أي إصدار من بيئة تشغيل danielblnc يُثبَّت في هذه اللعبة. على بطاقات RX 9000 الإصدار 0.4.3 هو الموصى به: الإصدارات الأحدث جمّدت ألعابًا عليها. البطاقات الأخرى تحصل على 0.6.0؛ والإصدار 0.8.0 (في OptiScaler فقط) يوفّر أيضًا DLSS-SR وDLSS-RR وDLSS-FG.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Addon">RX 9000: يُثبَّت mochizuki أيضًا (نسخة Vulkan من mochizuki0323، نحو 141 ميغابايت) ويشغّل الشبكة. تبقى بيئة تشغيل danielblnc بجانبه: اخترها من NR runtime في لوحة الإضافة. أول تشغيل لكل لعبة يترجم الشبكة لمدة تصل إلى دقيقة.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Opti">RX 9000: التثبيت الجديد يشغّل mochizuki، ويُثبَّت lmxxf بجانب بيئة تشغيل danielblnc. اختر غيرها من NR runtime في تبويب Neural في OptiScaler ثم أعد تشغيل اللعبة.</sys:String>
   <sys:String x:Key="Str.WrongGpuToggle">WrongGPU (DLSS 4.5 Model M, RX 9000)</sys:String>

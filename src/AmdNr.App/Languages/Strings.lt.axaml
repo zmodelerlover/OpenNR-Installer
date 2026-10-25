@@ -57,6 +57,7 @@
   <sys:String x:Key="Str.SupportKofiBody">Vienkartinė kava.</sys:String>
   <sys:String x:Key="Str.SupportVakinhaTitle">Vakinha</sys:String>
   <sys:String x:Key="Str.SupportVakinhaBody">Projekto lėšų rinkimas Brazilijoje.</sys:String>
+  <sys:String x:Key="Str.DiscordRail">Prisijunk prie OpenNR Discord</sys:String>
   <sys:String x:Key="Str.SupportRail">Paremti OpenNR</sys:String>
   <sys:String x:Key="Str.SupportTitle">Išlaikykite OpenNR gyvą</sys:String>
   <sys:String x:Key="Str.SupportBody">Šis projektas gyvuoja tik jo naudotojų parama. Tai du žmonės, dvi vaizdo plokštės ir darbo popietės: jokios įmonės, jokio rėmėjo. Viskas čia nemokama ir tokia liks. Parama nieko neatrakina; ji leidžia darbui tęstis.</sys:String>
@@ -120,7 +121,7 @@
   <sys:String x:Key="Str.DanielVersion">danielblnc versija</sys:String>
   <sys:String x:Key="Str.RuntimeRecommended">Rekomenduojama</sys:String>
   <sys:String x:Key="Str.RuntimeUnstable">Nestabili</sys:String>
-  <sys:String x:Key="Str.DanielVersionTip">Kuri danielblnc runtime versija įdiegiama šiam žaidimui. RX 9000 kortose rekomenduojama 0.4.3: naujesnės jose stabdė žaidimus. Kitos kortos gauna naujausią.</sys:String>
+  <sys:String x:Key="Str.DanielVersionTip">Kuri danielblnc runtime versija įdiegiama šiam žaidimui. RX 9000 kortose rekomenduojama 0.4.3: naujesnės jose stabdė žaidimus. Kitos kortos gauna 0.6.0; 0.8.0 (tik OptiScaler) dar suteikia DLSS-SR, DLSS-RR ir DLSS-FG.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Addon">RX 9000: mochizuki (mochizuki0323 Vulkan prievadas, apie 141 MB) taip pat įdiegiamas ir paleidžia tinklą. danielblnc runtime lieka šalia: pasirinkite jį NR runtime priedo skydelyje. Pirmasis kiekvieno žaidimo paleidimas kompiliuoja tinklą iki minutės.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Opti">RX 9000: naujas diegimas paleidžia mochizuki, o lmxxf įdiegiamas šalia danielblnc runtime. Kitą pasirinkite NR runtime OptiScaler skirtuke Neural ir paleiskite žaidimą iš naujo.</sys:String>
   <sys:String x:Key="Str.WrongGpuToggle">WrongGPU (DLSS 4.5 Model M, RX 9000)</sys:String>

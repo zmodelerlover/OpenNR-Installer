@@ -95,6 +95,17 @@ public static class SupportReport
                 var file = Path.Combine(dir, name);
                 if (File.Exists(file)) Copy(zip, new FileInfo(file), $"game/{name}");
             }
+            // danielblnc 0.8.0 on the OptiScaler route runs from dlssnr_amd_host\ and writes its log and inis there.
+            var neuralHub = Path.Combine(dir, "dlssnr_amd_host");
+            if (Directory.Exists(neuralHub))
+            {
+                Text(zip, "game/dlssnr_amd_host/listing.txt", Listing(neuralHub));
+                foreach (var name in new[] { "dlssnr_on_amd.log", "dlssnr_on_amd.ini", "neuralhub.ini" })
+                {
+                    var file = Path.Combine(neuralHub, name);
+                    if (File.Exists(file)) Copy(zip, new FileInfo(file), $"game/dlssnr_amd_host/{name}");
+                }
+            }
             // A 32-bit game's OptiScaler, its 64-bit host and the proxy all write in OptiScaler64\.
             var host = Path.Combine(dir, "OptiScaler64");
             if (Directory.Exists(host))

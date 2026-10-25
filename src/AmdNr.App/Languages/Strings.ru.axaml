@@ -57,6 +57,7 @@
   <sys:String x:Key="Str.SupportKofiBody">Разовая чашка кофе.</sys:String>
   <sys:String x:Key="Str.SupportVakinhaTitle">Vakinha</sys:String>
   <sys:String x:Key="Str.SupportVakinhaBody">Бразильский сбор средств проекта.</sys:String>
+  <sys:String x:Key="Str.DiscordRail">Присоединиться к Discord OpenNR</sys:String>
   <sys:String x:Key="Str.SupportRail">Поддержать OpenNR</sys:String>
   <sys:String x:Key="Str.SupportTitle">Помогите OpenNR жить</sys:String>
   <sys:String x:Key="Str.SupportBody">Этот проект живёт только благодаря поддержке тех, кто им пользуется. Это два человека, две видеокарты и дни работы после обеда: ни компании, ни спонсора. Всё здесь бесплатно и останется бесплатным. Поддержка ничего не открывает — она позволяет продолжать работу.</sys:String>
@@ -120,7 +121,7 @@
   <sys:String x:Key="Str.DanielVersion">Версия danielblnc</sys:String>
   <sys:String x:Key="Str.RuntimeRecommended">Рекомендуется</sys:String>
   <sys:String x:Key="Str.RuntimeUnstable">Нестабильная</sys:String>
-  <sys:String x:Key="Str.DanielVersionTip">Какая версия рантайма danielblnc ставится в эту игру. На картах RX 9000 рекомендуется 0.4.3: более новые вызывали на них зависания игр. Остальные карты получают самую новую.</sys:String>
+  <sys:String x:Key="Str.DanielVersionTip">Какая версия рантайма danielblnc ставится в эту игру. На картах RX 9000 рекомендуется 0.4.3: более новые вызывали на них зависания игр. Остальные карты получают 0.6.0; 0.8.0 (только OptiScaler) даёт ещё DLSS-SR, DLSS-RR и DLSS-FG.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Addon">RX 9000: mochizuki (Vulkan-порт от mochizuki0323, около 141 МБ) тоже устанавливается и запускает сеть. Рантайм danielblnc остаётся рядом: выберите его в NR runtime на панели аддона. Первый запуск каждой игры компилирует сеть до минуты.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Opti">RX 9000: новая установка запускает mochizuki, а lmxxf ставится рядом с рантаймом danielblnc. Выберите другой в NR runtime на вкладке Neural OptiScaler и перезапустите игру.</sys:String>
   <sys:String x:Key="Str.WrongGpuToggle">WrongGPU (DLSS 4.5 Model M, RX 9000)</sys:String>

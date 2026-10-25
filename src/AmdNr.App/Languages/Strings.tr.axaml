@@ -57,6 +57,7 @@
   <sys:String x:Key="Str.SupportKofiBody">Tek seferlik bir kahve.</sys:String>
   <sys:String x:Key="Str.SupportVakinhaTitle">Vakinha</sys:String>
   <sys:String x:Key="Str.SupportVakinhaBody">Projenin Brezilya'daki bağış kampanyası.</sys:String>
+  <sys:String x:Key="Str.DiscordRail">OpenNR Discord'una katıl</sys:String>
   <sys:String x:Key="Str.SupportRail">OpenNR'ı destekle</sys:String>
   <sys:String x:Key="Str.SupportTitle">OpenNR'ı yaşat</sys:String>
   <sys:String x:Key="Str.SupportBody">Bu proje yalnızca kullananların desteğiyle ayakta kalıyor. İki kişi, iki ekran kartı ve öğleden sonraları süren bir emek: şirket yok, sponsor yok. Buradaki her şey ücretsiz ve öyle kalacak. Destek hiçbir şeyin kilidini açmaz; işin sürmesini sağlar.</sys:String>
@@ -120,7 +121,7 @@
   <sys:String x:Key="Str.DanielVersion">danielblnc sürümü</sys:String>
   <sys:String x:Key="Str.RuntimeRecommended">Önerilen</sys:String>
   <sys:String x:Key="Str.RuntimeUnstable">Kararsız</sys:String>
-  <sys:String x:Key="Str.DanielVersionTip">Bu oyuna danielblnc runtime'ının hangi sürümünün kurulacağı. RX 9000 kartlarda önerilen 0.4.3'tür: daha yenileri bu kartlarda oyunları dondurdu. Diğer kartlar en yenisini alır.</sys:String>
+  <sys:String x:Key="Str.DanielVersionTip">Bu oyuna danielblnc runtime'ının hangi sürümünün kurulacağı. RX 9000 kartlarda önerilen 0.4.3'tür: daha yenileri bu kartlarda oyunları dondurdu. Diğer kartlar 0.6.0 alır; 0.8.0 (yalnızca OptiScaler) DLSS-SR, DLSS-RR ve DLSS-FG de getirir.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Addon">RX 9000: mochizuki (mochizuki0323'ün Vulkan portu, yaklaşık 141 MB) da kurulur ve ağı çalıştırır. danielblnc runtime'ı yanında kalır: eklenti panelindeki NR runtime'dan seçin. Her oyunun ilk açılışı ağı bir dakikaya kadar derler.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Opti">RX 9000: yeni bir kurulum mochizuki çalıştırır ve lmxxf danielblnc runtime'ının yanına kurulur. OptiScaler'ın Neural sekmesindeki NR runtime'dan başkasını seçip oyunu yeniden başlatın.</sys:String>
   <sys:String x:Key="Str.WrongGpuToggle">WrongGPU (DLSS 4.5 Model M, RX 9000)</sys:String>

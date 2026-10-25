@@ -100,6 +100,13 @@ public partial class MainWindow : Window
 
     private void OnSupport(object? sender, RoutedEventArgs e) => Support.Show();
 
+    // https only, as the credits' links: the address comes from config.json, which can be edited.
+    private void OnDiscord(object? sender, RoutedEventArgs e)
+    {
+        if (Session.Config.DiscordUrl is { } url && url.StartsWith("https://", StringComparison.Ordinal))
+            AppUpdate.OpenInBrowser(url);
+    }
+
     /// <summary>This app's release notes for one version: the ones the update check already read, or
     /// GitHub's.</summary>
     public void ShowWhatsNew(string version, string? known = null)

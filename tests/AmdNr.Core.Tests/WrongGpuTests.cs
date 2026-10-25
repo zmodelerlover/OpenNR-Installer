@@ -125,6 +125,7 @@ public class WrongGpuTests
         var game = Game("wg-anticheat");
         var (src, pins) = Payloads("wg-anticheat");
         FakeSetup("anticheat", converts: false);
+        File.Delete(Work.WrongGpuSetupLog);   // an earlier run's identical log would read as nothing added
         var setup = Work.RunWrongGpuSetup;
         Work.RunWrongGpuSetup = (exe, arguments) =>
         {
@@ -140,6 +141,28 @@ public class WrongGpuTests
         Assert.True(Fixture.HasErr(report, "for every game"), report.ToLog("install"));
         Assert.False(Fixture.HasErr(report, "310.5"), report.ToLog("install"));
         Assert.False(File.Exists(Path.Combine(game, "wronggpu_ffx_dx12.dll")));
+    }
+
+    /// <summary>The setup's log keeps every run: an earlier run's refusal is not given as this one's reason.</summary>
+    [Fact]
+    public void AnOlderRunsRefusalIsNotThisRunsReason()
+    {
+        var game = Game("wg-stale");
+        var (src, pins) = Payloads("wg-stale");
+        FakeSetup("stale", converts: false);
+        Directory.CreateDirectory(Path.GetDirectoryName(Work.WrongGpuSetupLog)!);
+        File.WriteAllText(Work.WrongGpuSetupLog,
+            "[07:56:06] ERROR: Anti-cheat found (BattlEye) - games with anti-cheat are never supported [WG-SETUP-4]\r\n");
+        var setup = Work.RunWrongGpuSetup;
+        Work.RunWrongGpuSetup = (exe, arguments) =>
+        {
+            setup(exe, arguments);
+            File.AppendAllText(Work.WrongGpuSetupLog, "[08:10:00] ERROR: Cannot read OptiScaler's D3D12Core.dll [WG-SETUP-1]\r\n");
+            return 1;
+        };
+        var report = Work.Install(game, src, Preset.OptiScaler, pins, wrongGpu: true);
+        Assert.True(Fixture.HasErr(report, "[WG-SETUP-1]"), report.ToLog("install"));
+        Assert.False(Fixture.HasErr(report, "WG-SETUP-4"), report.ToLog("install"));
     }
 
     [Fact]
