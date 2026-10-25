@@ -70,14 +70,14 @@ public partial class NrLivePage : UserControl
         if (columns == _columns) return;
         _columns = columns;
         SettingsGrid.ColumnDefinitions = new(columns switch { 3 => "*,16,*,16,1.3*", 2 => "*,16,*", _ => "*" });
-        // Three across, the cards' row takes what the window has left under the strips above (Fill), so an open More
-        // gets that room too; on fewer columns the page scrolls, and the rows are as tall as their cards.
-        SettingsGrid.RowDefinitions = new(columns switch { 3 => "*", 2 => "Auto,16,Auto", _ => "Auto,16,Auto,16,Auto" });
+        SettingsGrid.RowDefinitions = new(columns switch { 3 => "Auto", 2 => "Auto,16,Auto", _ => "Auto,16,Auto,16,Auto" });
         Control[] cards = [PictureCard, NrCard, OverlayCard];
         CardBody[] bodies = [PictureBody, NrBody, OverlayBody];
         for (var i = 0; i < cards.Length; i++)
         {
-            bodies[i].Grows = columns == 1 || (columns == 2 && i == 2);
+            // The cards on one line match heights: all three, the first two over Overlay, or none.
+            bodies[i].Peers = columns switch { 3 => bodies, 2 when i < 2 => bodies[..2], _ => [bodies[i]] };
+            bodies[i].Room = double.PositiveInfinity;
             var (column, row, span) = columns switch { 3 => (i * 2, 0, 1), 2 => i < 2 ? (i * 2, 0, 1) : (0, 2, 3), _ => (0, i * 2, 1) };
             Grid.SetColumn(cards[i], column);
             Grid.SetRow(cards[i], row);
@@ -90,14 +90,17 @@ public partial class NrLivePage : UserControl
         CaptureGroup.Margin = MotionGroup.Margin = new Avalonia.Thickness(0, wide ? 0 : 10, 0, 0);
     }
 
-    /// <summary>Three across, the cards reach the foot of the window: the room under a card's rows is where its
-    /// More opens, and on a window taller than the page that room would otherwise sit under the cards, unused.
-    /// Never more than what is left, so the page itself does not scroll.</summary>
+    /// <summary>Three across, an open More may make its card reach the foot of the window and no further, so the
+    /// page itself does not scroll: each body gets the height from its top to there, less its card's padding.</summary>
     private void Fill()
     {
-        var top = SettingsGrid.TranslatePoint(default, PageStack)?.Y;
-        var room = _columns == 3 && top is { } y ? Math.Floor(PageScroll.Viewport.Height - PageStack.Margin.Top - PageStack.Margin.Bottom - y) : 0;
-        if (Math.Abs(SettingsGrid.MinHeight - Math.Max(0, room)) >= 1) SettingsGrid.MinHeight = Math.Max(0, room);
+        if (_columns != 3) return;
+        foreach (var (card, body) in new (Border, CardBody)[] { (PictureCard, PictureBody), (NrCard, NrBody), (OverlayCard, OverlayBody) })
+        {
+            if (body.TranslatePoint(default, PageStack) is not { } top || body.TranslatePoint(default, card) is not { } inCard) continue;
+            var below = card.Bounds.Height - inCard.Y - body.Bounds.Height;
+            body.Room = Math.Floor(PageScroll.Viewport.Height - PageStack.Margin.Top - PageStack.Margin.Bottom - top.Y - below);
+        }
     }
 
     /// <summary>The installed release, or null.</summary>

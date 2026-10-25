@@ -241,6 +241,53 @@ The user's list of visual fixes, all in one commit.
   under the pointer; shots `flow-nrlive-more-open`, `flow-nrlive-more-hover`, `flow-nrlive-dropdown` (popup on the
   overlay layer so the window shot carries it). `Flows.Session.cs`: stacked in the window's sheet, side by side and equal
   height docked at 1920x1040 (`flow-session-docked`).
+
+## Visual round 2 (2026-10-24)
+
+The user's second list (screenshots `handoff/user-round2-*.png`), one commit. It replaces parts of the round above.
+
+- **Hover colours** (`Styles/Palette.axaml`): `Well` is #110C0C now, and a new `WellEdge` = #454141. Fluent's dark
+  theme paints #99000000 / #CCFFFFFF under the pointer (#0A0908 / #D0CFCF on a card) on `ComboBox`, `TextBox`
+  (`TextControl*`, so the NumericUpDown/AutoCompleteBox family too) and the date/time pickers; found by dumping the
+  theme's resources from a throwaway probe. Overridden app-wide: `ComboBoxBackgroundPointerOver/Pressed`,
+  `TextControlBackgroundPointerOver`, the three pickers' = Well; their `BorderBrushPointerOver` (and the combo's
+  Pressed) = WellEdge; `ExpanderHeaderBorderBrushPointerOver/Pressed` = WellEdge, so a More header is the same pair.
+  The hotkey boxes' hover border is WellEdge too. Not changed: the search box (its own SurfaceHigh hover), and the
+  switch/check/radio strokes that are near white under the pointer (lines, not a background).
+- **Cards** (`NrLive/CardBody.cs` rewritten, `Arrange`/`Fill` in NrLivePage.axaml.cs): the cards are top-aligned in an
+  `Auto` row; each body knows the bodies on its line (`Peers`: all three, the first two, or itself) and asks for the
+  tallest one's `Closed` height (rows + gap + a closed More). So closed, the three are as tall as the tallest one's
+  rows, no taller, and each More sits 12 px under its rows (no more foot docking, no overlap, no `MinHeight` to the
+  window). An open More makes its own card taller: up to `Room` (three across, set by `Fill` = from the body's top to
+  the window's foot less the card's padding), then its content scrolls inside. When the window leaves less than
+  `MinMore` (80 px of content) under a card, it takes that much anyway and the page scrolls: at 1240x800 the cards
+  already reach nearly to the foot, so there each open More does that. On 2/1 across a card just grows (page scrolls).
+- **Scroll bars** (`Styles/Details.axaml`): the thin bar is global now, vertical and horizontal, every ScrollViewer with
+  auto-hide off. Fluent's template then gives the bar its own column only while it shows: a 10 px lane with the 4 px
+  thumb 2 px from the far edge. `Shared/ScrollGutter.cs` (attached `ScrollGutter.Size`): a scroller that reaches the
+  edge of its box keeps that much right margin on its content while there is no bar and gives it back when the bar
+  shows, so the content runs up to the bar. On each More (`nrMore` content padding 14,10,0,10, Size 14), the game
+  sheet's `ReportScroll` and the notes sheet.
+- **HUD tiles' switches**: `Store` re-laid every row after any [FPS] switch (a HUD item makes the preset custom), so the
+  switch being clicked was replaced by a new one mid-slide; plain switches never hit that. Now only the runtime and the
+  preset re-lay; a HUD item updates the preset menu in place (`ShowPreset`, `_quiet` keeps it from writing back).
+- **Game sheet**: the verdict's banner/steps sit straight in the report stack (an empty sub-stack still cost a spacing),
+  the report starts 12 px under the header instead of 18, "Last session" and "Detected" are the first line inside their
+  own boxes (`SessionBox.axaml`, `DetectedPart` is the `Border` now, the Choose button centred over both rows), 12 px
+  between them when stacked.
+- **Gate**: `tools/gate.ps1` lists a failed gate's `FAIL` lines before its last 30, which hid the flow's failures.
+- **uishot** (`Flows.NrLiveMore.cs` rewritten): closed equal heights = tallest `Closed`, each More right under its rows,
+  page fits (`flow-nrlive-closed`); each More opened alone grows only its card, to the foot or by `MinMore`, the bar at
+  the box's edge with the rows up to its lane or the padding kept without a bar (`flow-nrlive-more-picture/-nr/-overlay`);
+  More header hover pixel = Well (`flow-nrlive-more-hover`); at 1600x1000 the cards leave the room under them free and
+  NR's More takes its card alone to the foot, scrolling inside (`flow-nrlive-tall-closed`, `flow-nrlive-tall-nr`); a
+  menu under the pointer reads #110C0C inside and #454141 at its edge (`flow-nrlive-combo-hover`); a HUD tile switched
+  keeps its switch and the preset menu says Custom (`flow-nrlive-tiles`). `tools\gate.ps1 -Ui`: all gates OK; shots in
+  `C:\Users\matheus\AppData\Local\Temp\amdnr-gate-3ef418d08e684ca5b0e07fe05295986f\shots` (also `flow-session-ran`,
+  `flow-session-docked` for the sheet top).
+- **Not checked**: the switch animation itself (headless shows end states only; the cause is gone, the user's eye is the
+  test), and a real window's hover colours outside the shots taken.
+
 ## Files
 
 New:
@@ -249,7 +296,8 @@ New:
 - `src/AmdNr.App/NrLive/NrLivePage.axaml(.cs)`, `NrLivePage.Session.cs`, `NrLivePage.Settings.cs`, `NrLivePage.Rows.cs`,
   `NrLivePage.Profiles.cs`, `NrLiveNative.cs` (window list, `GlobalHotkey` on its own thread, SendInput, the window in
   front and a process's executable)
-- `tests/AmdNr.Core.Tests/NrLiveProfilesTests.cs`, `tools/uishot/Flows.NrLiveProfiles.cs`
+- `tests/AmdNr.Core.Tests/NrLiveProfilesTests.cs`, `tools/uishot/Flows.NrLiveProfiles.cs`, `src/AmdNr.App/NrLive/CardBody.cs`,
+  `src/AmdNr.App/Shared/ScrollGutter.cs`, `tools/uishot/Flows.NrLiveMore.cs`
 - `src/AmdNr.App/Sheet/AntiCheatCard.axaml(.cs)`, `GameSheet.AntiCheat.cs`
 - `src/AmdNr.App/Languages/NrLive/NrLive.<code>.axaml` x21 (merged by each `Strings.<code>.axaml`, which are near the line limit)
 - `tests/AmdNr.Core.Tests/AntiCheatTests.cs`, `NrLiveTests.cs`, `NrLiveStringsTests.cs`

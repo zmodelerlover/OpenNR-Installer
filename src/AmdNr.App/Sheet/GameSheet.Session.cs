@@ -97,7 +97,7 @@ public partial class GameSheet
         Grid.SetColumn(DetectedPart, two ? 2 : 0);
         Grid.SetRow(DetectedPart, two ? 0 : 1);
         Grid.SetColumnSpan(InfoRow.Children[^1], two ? 3 : 1);
-        DetectedPart.Margin = new Avalonia.Thickness(0, !two && LastSession.IsVisible ? 18 : 0, 0, 0);
+        DetectedPart.Margin = new Avalonia.Thickness(0, !two && LastSession.IsVisible ? 12 : 0, 0, 0);
     }
 
     /// <summary>Dates and numbers the way the language on screen writes them. A language .NET has no

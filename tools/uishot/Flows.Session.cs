@@ -42,7 +42,7 @@ internal static class SessionFlow
 
         // In the window's sheet, half its width is too narrow for a path: Detected under the last session. Docked
         // beside the list view on a large window, where the sheet is wider, the two side by side and as tall as each other.
-        var detected = Named<Grid>("DetectedPart");
+        var detected = Named<Border>("DetectedPart");
         check(Grid.GetRow(detected) == 1 && Grid.GetColumn(detected) == 0, "in the window's sheet Detected sits under the last session");
         var library = main.GetVisualDescendants().OfType<LibraryPage>().First();
         library.FindControl<Button>("ListViewButton")!.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));

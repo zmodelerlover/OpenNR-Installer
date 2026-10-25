@@ -17,7 +17,9 @@ function Gate($name, [scriptblock]$run, $okPattern) {
     $o = & $run 2>&1 | Out-String
     $ok = ($LASTEXITCODE -eq 0) -and ($o -match $okPattern)
     if (-not $ok) { $script:fail++ }
-    $verdict = if ($ok) { 'OK' } else { "FAIL`n" + (($o -split "`n") | Select-Object -Last 30 | Out-String) }
+    # The failed checks first: a flow's failure can sit far above its last 30 lines.
+    $lines = $o -split "`n"
+    $verdict = if ($ok) { 'OK' } else { "FAIL`n" + (($lines | Where-Object { $_ -match '^\s+FAIL ' }) + ($lines | Select-Object -Last 30) | Out-String) }
     '{0,-12} {1}' -f $name, $verdict
 }
 

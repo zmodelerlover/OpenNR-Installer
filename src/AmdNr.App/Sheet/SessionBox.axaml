@@ -3,25 +3,23 @@
              x:Class="AmdNr.App.SessionBox">
 
   <!-- How the last session went, read off the logs the add-on and the runtime leave beside the game.
-       GameSheet.Session.cs fills it in. -->
-  <!-- A grid rather than a stack: beside the Detected box on the sheet, the box stretches to the same height. -->
-  <Grid RowDefinitions="Auto,*" RowSpacing="8">
-    <StackPanel Orientation="Horizontal">
-      <TextBlock Text="{DynamicResource Str.SessionSection}" Classes="section" />
-      <Border Classes="info" ToolTip.Tip="{DynamicResource Str.SessionTip}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
-    </StackPanel>
-    <Border Grid.Row="1" Classes="detect">
-      <Grid ColumnDefinitions="Auto,*">
-        <PathIcon x:Name="SessionGlyph" x:FieldModifier="internal" Width="16" Height="16" VerticalAlignment="Top" Margin="0,2,10,0" />
-        <StackPanel Grid.Column="1" Spacing="4">
-          <TextBlock x:Name="SessionTitle" x:FieldModifier="internal" FontWeight="SemiBold" TextWrapping="Wrap" />
-          <TextBlock x:Name="SessionDetail" x:FieldModifier="internal" Classes="muted" TextWrapping="Wrap" />
-          <!-- The log's own words behind a crash or a failure, as written: what Discord asks for. -->
-          <SelectableTextBlock x:Name="SessionLine" x:FieldModifier="internal" Foreground="{DynamicResource TextSoft}" FontSize="12" FlowDirection="LeftToRight" TextWrapping="Wrap"
-                               FontFamily="Cascadia Mono, Consolas, monospace" IsVisible="False" />
-          <TextBlock x:Name="SessionHint" x:FieldModifier="internal" Classes="muted" TextWrapping="Wrap" IsVisible="False" />
-        </StackPanel>
-      </Grid>
-    </Border>
-  </Grid>
+       GameSheet.Session.cs fills it in. Its caption heads the box rather than sitting over it, a line less on the
+       sheet; the box stretches to the Detected box's height beside it. -->
+  <Border Classes="detect">
+    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto" RowSpacing="6">
+      <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal">
+        <TextBlock Text="{DynamicResource Str.SessionSection}" Classes="section" />
+        <Border Classes="info" ToolTip.Tip="{DynamicResource Str.SessionTip}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
+      </StackPanel>
+      <PathIcon Grid.Row="1" x:Name="SessionGlyph" x:FieldModifier="internal" Width="16" Height="16" VerticalAlignment="Top" Margin="0,2,10,0" />
+      <StackPanel Grid.Row="1" Grid.Column="1" Spacing="4">
+        <TextBlock x:Name="SessionTitle" x:FieldModifier="internal" FontWeight="SemiBold" TextWrapping="Wrap" />
+        <TextBlock x:Name="SessionDetail" x:FieldModifier="internal" Classes="muted" TextWrapping="Wrap" />
+        <!-- The log's own words behind a crash or a failure, as written: what Discord asks for. -->
+        <SelectableTextBlock x:Name="SessionLine" x:FieldModifier="internal" Foreground="{DynamicResource TextSoft}" FontSize="12" FlowDirection="LeftToRight" TextWrapping="Wrap"
+                             FontFamily="Cascadia Mono, Consolas, monospace" IsVisible="False" />
+        <TextBlock x:Name="SessionHint" x:FieldModifier="internal" Classes="muted" TextWrapping="Wrap" IsVisible="False" />
+      </StackPanel>
+    </Grid>
+  </Border>
 </UserControl>

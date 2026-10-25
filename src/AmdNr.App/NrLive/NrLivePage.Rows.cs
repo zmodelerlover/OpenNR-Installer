@@ -58,7 +58,7 @@ public partial class NrLivePage
         var menu = new ComboBox { Width = 180, HorizontalAlignment = HorizontalAlignment.Right };
         for (var i = 0; i < setting.Choices; i++) menu.Items.Add(Ui.Text(setting.ChoiceKey(i)));
         menu.SelectedIndex = value;
-        menu.SelectionChanged += (_, _) => { if (menu.SelectedIndex >= 0) Store(setting, menu.SelectedIndex); };
+        menu.SelectionChanged += (_, _) => { if (menu.SelectedIndex >= 0 && !_quiet) Store(setting, menu.SelectedIndex); };
         AutomationProperties.SetName(menu, Ui.Text(setting.LabelKey));
         return Tagged(menu, setting);
     }
@@ -81,8 +81,22 @@ public partial class NrLivePage
         Keep();
         ShowPreview();
         // The runtime decides which NR rows apply, and a preset rewrites the HUD items: lay the rows out again.
-        if (setting.Id is "DLSSNR.runtime" or "FPS.preset" || (setting.Section == "FPS" && setting.Kind == NrLiveKind.Toggle))
-            Avalonia.Threading.Dispatcher.UIThread.Post(ShowSettings);
+        if (setting.Id is "DLSSNR.runtime" or "FPS.preset") Avalonia.Threading.Dispatcher.UIThread.Post(ShowSettings);
+        // A HUD item switched by hand makes the preset custom (NrLiveConfig.Set). Only the preset menu says so: laying
+        // the rows out again, as this did, put a new switch in place of the one still sliding its knob, and the
+        // tiles' switches jumped instead of sliding.
+        else if (setting.Section == "FPS" && setting.Kind == NrLiveKind.Toggle) ShowPreset();
+    }
+
+    private bool _quiet;
+
+    private void ShowPreset()
+    {
+        if (this.GetVisualDescendants().OfType<ComboBox>().FirstOrDefault(c => c.Tag as string == "FPS.preset") is not { } menu) return;
+        var preset = NrLiveConfig.Settings.First(s => s.Id == "FPS.preset");
+        _quiet = true;
+        menu.SelectedIndex = _config!.Get(preset);
+        _quiet = false;
     }
 
     /// <summary>The label and the value in a badge on one line, the slider the card's width under them.</summary>

@@ -100,11 +100,10 @@
               </Button>
             </Grid>
 
-            <!-- The gutter for the scrollbar is the content's margin, not the scroller's padding. -->
-            <ScrollViewer Grid.Row="1" x:Name="ReportScroll" Margin="0,18,0,0" HorizontalScrollBarVisibility="Disabled">
+            <!-- The gutter for the scroll bar is the content's margin, given back while the bar shows (ScrollGutter). -->
+            <ScrollViewer Grid.Row="1" x:Name="ReportScroll" Margin="0,12,0,0" local:ScrollGutter.Size="14" HorizontalScrollBarVisibility="Disabled">
               <StackPanel Spacing="18" Margin="0,0,14,4">
-                <!-- The verdict, or what the running action is doing. -->
-                <StackPanel Spacing="12">
+                <!-- The verdict, or what the running action is doing: straight in the stack, so with none of it shown the stack adds no spacing for it. -->
                   <Border x:Name="ReportEmpty" Classes="result" IsVisible="False">
                     <StackPanel Orientation="Horizontal" Spacing="12">
                       <Arc Classes="spin" Stroke="{DynamicResource Muted}" />
@@ -132,7 +131,7 @@
                       </StackPanel>
                     </Grid>
                   </Border>
-                  <Grid x:Name="Steps" ColumnDefinitions="*,*,*,*" IsVisible="False" Margin="2,0">
+                  <Grid x:Name="Steps" ColumnDefinitions="*,*,*,*" IsVisible="False" Margin="2,-6,2,0">
                     <Border Grid.Column="0" Classes="step" Margin="0,0,6,0">
                       <StackPanel Spacing="6"><Border Classes="seg" /><TextBlock Text="{DynamicResource Str.StepDownload}" /></StackPanel>
                     </Border>
@@ -146,43 +145,40 @@
                       <StackPanel Spacing="6"><Border Classes="seg" /><TextBlock Text="{DynamicResource Str.StepDone}" /></StackPanel>
                     </Border>
                   </Grid>
-                </StackPanel>
 
                 <!-- Everything the person can change, locked as one while something is running. -->
                 <StackPanel x:Name="Options" Spacing="18">
                   <!-- The last session (GameSheet.Session.cs) beside what the route is read off and where it installs (LayInfo). -->
                   <Grid x:Name="InfoRow" ColumnDefinitions="*,12,*" RowDefinitions="Auto,Auto,Auto">
                     <local:SessionBox x:Name="LastSession" IsVisible="False" />
-                    <!-- What the route is read off: detection can pick a launcher instead of the game, so it is shown and can be changed. -->
-                    <Grid x:Name="DetectedPart" Grid.Column="2" RowDefinitions="Auto,*" RowSpacing="8">
-                      <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{DynamicResource Str.DetectedSection}" Classes="section" />
-                        <Border Classes="info" ToolTip.Tip="{Binding #ExeNote.Text}" IsVisible="{Binding #ExeNote.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
-                      </StackPanel>
-                      <Border Grid.Row="1" Classes="detect">
-                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
-                          <StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
-                            <TextBlock x:Name="ExeLine" FontWeight="SemiBold" TextWrapping="Wrap" />
-                            <WrapPanel>
-                              <TextBlock x:Name="DetectedHow" Classes="muted" TextWrapping="Wrap" Margin="0,0,8,0" VerticalAlignment="Center" />
-                              <Button Classes="link" Click="OnOpenWiki" ToolTip.Tip="{DynamicResource Str.CheckApiTip}"
-                                      AutomationProperties.Name="{DynamicResource Str.CheckWiki}">
-                                <StackPanel Orientation="Horizontal" Spacing="6">
-                                  <TextBlock Text="{DynamicResource Str.CheckWiki}" />
-                                  <PathIcon Data="{StaticResource IconExternal}" Width="12" Height="12" />
-                                </StackPanel>
-                              </Button>
-                            </WrapPanel>
-                            <!-- Where the files go: a launcher's build, FiveM and Unreal write outside the card's folder. -->
-                            <Grid ColumnDefinitions="Auto,*" Margin="0,2,0,0">
-                              <PathIcon Data="{StaticResource IconFolder}" Width="14" Height="14" Foreground="{DynamicResource Muted}" VerticalAlignment="Top" Margin="0,2,8,0" />
-                              <SelectableTextBlock Grid.Column="1" x:Name="InstallsInto" TextWrapping="Wrap" LineHeight="19" Foreground="{DynamicResource TextSoft}" />
-                            </Grid>
-                          </StackPanel>
-                          <Button Grid.Column="1" x:Name="ExeButton" Classes="ghost" Click="OnChooseExecutable" VerticalAlignment="Center" />
-                        </Grid>
-                      </Border>
-                    </Grid>
+                    <!-- What the route is read off: detection can pick a launcher instead of the game, so it is shown and can be changed. Its caption heads the box, a line less on the sheet than over it. -->
+                    <Border x:Name="DetectedPart" Grid.Column="2" Classes="detect">
+                      <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,*" ColumnSpacing="12" RowSpacing="6">
+                        <StackPanel Orientation="Horizontal">
+                          <TextBlock Text="{DynamicResource Str.DetectedSection}" Classes="section" />
+                          <Border Classes="info" ToolTip.Tip="{Binding #ExeNote.Text}" IsVisible="{Binding #ExeNote.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Spacing="4" VerticalAlignment="Center">
+                          <TextBlock x:Name="ExeLine" FontWeight="SemiBold" TextWrapping="Wrap" />
+                          <WrapPanel>
+                            <TextBlock x:Name="DetectedHow" Classes="muted" TextWrapping="Wrap" Margin="0,0,8,0" VerticalAlignment="Center" />
+                            <Button Classes="link" Click="OnOpenWiki" ToolTip.Tip="{DynamicResource Str.CheckApiTip}"
+                                    AutomationProperties.Name="{DynamicResource Str.CheckWiki}">
+                              <StackPanel Orientation="Horizontal" Spacing="6">
+                                <TextBlock Text="{DynamicResource Str.CheckWiki}" />
+                                <PathIcon Data="{StaticResource IconExternal}" Width="12" Height="12" />
+                              </StackPanel>
+                            </Button>
+                          </WrapPanel>
+                          <!-- Where the files go: a launcher's build, FiveM and Unreal write outside the card's folder. -->
+                          <Grid ColumnDefinitions="Auto,*" Margin="0,2,0,0">
+                            <PathIcon Data="{StaticResource IconFolder}" Width="14" Height="14" Foreground="{DynamicResource Muted}" VerticalAlignment="Top" Margin="0,2,8,0" />
+                            <SelectableTextBlock Grid.Column="1" x:Name="InstallsInto" TextWrapping="Wrap" LineHeight="19" Foreground="{DynamicResource TextSoft}" />
+                          </Grid>
+                        </StackPanel>
+                        <Button Grid.Column="1" Grid.RowSpan="2" x:Name="ExeButton" Classes="ghost" Click="OnChooseExecutable" VerticalAlignment="Center" />
+                      </Grid>
+                    </Border>
                     <!-- What detection warns of, under both boxes. -->
                     <StackPanel Grid.Row="2" Grid.ColumnSpan="3">
                       <Border x:Name="ElsewhereBox" Classes="callout" IsVisible="False" Margin="0,8,0,0">

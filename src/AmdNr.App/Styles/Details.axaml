@@ -134,6 +134,9 @@
     <Setter Property="Padding" Value="12,7" />
   </Style>
   <Style Selector="Expander.nrMore /template/ ToggleButton#ExpanderHeader"><Setter Property="MinHeight" Value="36" /></Style>
+  <!-- No right padding: the More's scroller reaches the box's edge, its bar there, and its rows keep the padding
+       themselves while there is no bar (ScrollGutter.Size). -->
+  <Style Selector="Expander.nrMore /template/ Border#ExpanderContent"><Setter Property="Padding" Value="14,10,0,10" /></Style>
   <!-- The hotkey boxes sit in the well, framed like the cards around them, rounder than Fluent's 4 px. -->
   <Style Selector="TextBox.hotkey">
     <Setter Property="CornerRadius" Value="8" />
@@ -142,16 +145,19 @@
   </Style>
   <Style Selector="TextBox.hotkey:pointerover /template/ Border#PART_BorderElement">
     <Setter Property="Background" Value="{DynamicResource Well}" />
-    <Setter Property="BorderBrush" Value="{DynamicResource BorderStrong}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource WellEdge}" />
   </Style>
   <Style Selector="TextBox.hotkey:focus /template/ Border#PART_BorderElement">
     <Setter Property="Background" Value="{DynamicResource Well}" />
   </Style>
 
-  <!-- A scroll bar that stays a thin line: Fluent's widens under the pointer and grows arrows, which inside a
-       card's More reads as a second control. A track and a thumb, nothing else; the track pages on a click. -->
-  <Style Selector="ScrollViewer.thin"><Setter Property="AllowAutoHide" Value="False" /></Style>
-  <Style Selector="ScrollViewer.thin /template/ ScrollBar:vertical">
+  <!-- Every scroll bar in the app is a thin line: Fluent's widens under the pointer and grows arrows, which inside a
+       card's More read as a second control. A track and a 4 px thumb at the far edge of a 10 px lane, nothing else;
+       the track pages on a click. With auto-hide off the lane is taken only while the bar shows (Fluent's template
+       gives the content the whole width otherwise), and ScrollGutter gives a content's own right margin back then,
+       so the content runs up to the bar. -->
+  <Style Selector="ScrollViewer"><Setter Property="AllowAutoHide" Value="False" /></Style>
+  <Style Selector="ScrollBar:vertical">
     <Setter Property="Width" Value="10" />
     <Setter Property="MinWidth" Value="10" />
     <Setter Property="Template">
@@ -159,12 +165,22 @@
         <Track Minimum="{TemplateBinding Minimum}" Maximum="{TemplateBinding Maximum}"
                Value="{TemplateBinding Value, Mode=TwoWay}" ViewportSize="{TemplateBinding ViewportSize}"
                Orientation="Vertical" IsDirectionReversed="True">
-          <Track.DecreaseButton>
-            <RepeatButton Name="PART_PageUpButton" Classes="thinPage" Focusable="False" />
-          </Track.DecreaseButton>
-          <Track.IncreaseButton>
-            <RepeatButton Name="PART_PageDownButton" Classes="thinPage" Focusable="False" />
-          </Track.IncreaseButton>
+          <Track.DecreaseButton><RepeatButton Name="PART_PageUpButton" Classes="thinPage" Focusable="False" /></Track.DecreaseButton>
+          <Track.IncreaseButton><RepeatButton Name="PART_PageDownButton" Classes="thinPage" Focusable="False" /></Track.IncreaseButton>
+          <Thumb Classes="thin" />
+        </Track>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="ScrollBar:horizontal">
+    <Setter Property="Height" Value="10" />
+    <Setter Property="MinHeight" Value="10" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Track Minimum="{TemplateBinding Minimum}" Maximum="{TemplateBinding Maximum}"
+               Value="{TemplateBinding Value, Mode=TwoWay}" ViewportSize="{TemplateBinding ViewportSize}" Orientation="Horizontal">
+          <Track.DecreaseButton><RepeatButton Name="PART_PageUpButton" Classes="thinPage" Focusable="False" /></Track.DecreaseButton>
+          <Track.IncreaseButton><RepeatButton Name="PART_PageDownButton" Classes="thinPage" Focusable="False" /></Track.IncreaseButton>
           <Thumb Classes="thin" />
         </Track>
       </ControlTemplate>
@@ -175,14 +191,22 @@
       <ControlTemplate><Border Background="Transparent" /></ControlTemplate>
     </Setter>
   </Style>
-  <Style Selector="Thumb.thin">
+  <Style Selector="Thumb.thin"><Setter Property="Background" Value="{DynamicResource BorderStrong}" /></Style>
+  <Style Selector="Thumb.thin:pointerover"><Setter Property="Background" Value="{DynamicResource Faint}" /></Style>
+  <Style Selector="ScrollBar:vertical Thumb.thin">
     <Setter Property="MinHeight" Value="24" />
-    <Setter Property="Background" Value="{DynamicResource BorderStrong}" />
     <Setter Property="Template">
       <ControlTemplate>
-        <Border Width="4" CornerRadius="2" HorizontalAlignment="Center" Background="{TemplateBinding Background}" />
+        <Border Width="4" CornerRadius="2" HorizontalAlignment="Right" Margin="0,0,2,0" Background="{TemplateBinding Background}" />
       </ControlTemplate>
     </Setter>
   </Style>
-  <Style Selector="Thumb.thin:pointerover"><Setter Property="Background" Value="{DynamicResource Faint}" /></Style>
+  <Style Selector="ScrollBar:horizontal Thumb.thin">
+    <Setter Property="MinWidth" Value="24" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Height="4" CornerRadius="2" VerticalAlignment="Bottom" Margin="0,0,0,2" Background="{TemplateBinding Background}" />
+      </ControlTemplate>
+    </Setter>
+  </Style>
 </Styles>
