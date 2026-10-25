@@ -345,7 +345,7 @@ public sealed partial class PayloadCache(HttpClient http, IReadOnlyList<string>?
     [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
     private static extern bool CreateHardLinkW(string link, string existing, IntPtr attributes);
 
-    private static bool TryHardLink(string source, string target)
+    internal static bool TryHardLink(string source, string target)
     {
         try { return CreateHardLinkW(target, source, IntPtr.Zero); }
         catch (EntryPointNotFoundException) { return false; }

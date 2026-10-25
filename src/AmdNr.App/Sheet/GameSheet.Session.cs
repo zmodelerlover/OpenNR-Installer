@@ -3,6 +3,7 @@
 // it, so the sheet reads them whenever it shows the game and whenever the window comes back to the front.
 
 using System.Globalization;
+using Avalonia.Controls;
 using AmdNr.Core;
 
 namespace AmdNr.App;
@@ -81,6 +82,22 @@ public partial class GameSheet
             LastSession.SessionHint.IsVisible = hintKey is not null;
             if (hintKey is not null) Ui.Localize(LastSession.SessionHint, hintKey);
         }
+    }
+
+    private (bool Two, bool Session)? _infoLaid;
+
+    /// <summary>The last session and the Detected box side by side, half the sheet each, both short; one under the
+    /// other where half the sheet is too narrow for a game's path, and Detected across alone with no session.</summary>
+    private void LayInfo()
+    {
+        var two = LastSession.IsVisible && InfoRow.Bounds.Width >= 620;
+        if (_infoLaid == (two, LastSession.IsVisible)) return;
+        _infoLaid = (two, LastSession.IsVisible);
+        InfoRow.ColumnDefinitions = new(two ? "*,12,*" : "*");
+        Grid.SetColumn(DetectedPart, two ? 2 : 0);
+        Grid.SetRow(DetectedPart, two ? 0 : 1);
+        Grid.SetColumnSpan(InfoRow.Children[^1], two ? 3 : 1);
+        DetectedPart.Margin = new Avalonia.Thickness(0, !two && LastSession.IsVisible ? 12 : 0, 0, 0);
     }
 
     /// <summary>Dates and numbers the way the language on screen writes them. A language .NET has no

@@ -100,11 +100,10 @@
               </Button>
             </Grid>
 
-            <!-- The gutter for the scrollbar is the content's margin, not the scroller's padding. -->
-            <ScrollViewer Grid.Row="1" x:Name="ReportScroll" Margin="0,18,0,0" HorizontalScrollBarVisibility="Disabled">
+            <!-- The gutter for the scroll bar is the content's margin, given back while the bar shows (ScrollGutter). -->
+            <ScrollViewer Grid.Row="1" x:Name="ReportScroll" Margin="0,12,0,0" local:ScrollGutter.Size="14" HorizontalScrollBarVisibility="Disabled">
               <StackPanel Spacing="18" Margin="0,0,14,4">
-                <!-- The verdict, or what the running action is doing. -->
-                <StackPanel Spacing="12">
+                <!-- The verdict, or what the running action is doing: straight in the stack, so with none of it shown the stack adds no spacing for it. -->
                   <Border x:Name="ReportEmpty" Classes="result" IsVisible="False">
                     <StackPanel Orientation="Horizontal" Spacing="12">
                       <Arc Classes="spin" Stroke="{DynamicResource Muted}" />
@@ -132,7 +131,7 @@
                       </StackPanel>
                     </Grid>
                   </Border>
-                  <Grid x:Name="Steps" ColumnDefinitions="*,*,*,*" IsVisible="False" Margin="2,0">
+                  <Grid x:Name="Steps" ColumnDefinitions="*,*,*,*" IsVisible="False" Margin="2,-6,2,0">
                     <Border Grid.Column="0" Classes="step" Margin="0,0,6,0">
                       <StackPanel Spacing="6"><Border Classes="seg" /><TextBlock Text="{DynamicResource Str.StepDownload}" /></StackPanel>
                     </Border>
@@ -146,27 +145,22 @@
                       <StackPanel Spacing="6"><Border Classes="seg" /><TextBlock Text="{DynamicResource Str.StepDone}" /></StackPanel>
                     </Border>
                   </Grid>
-                </StackPanel>
-
-                <!-- How the last session went: SessionBox.axaml, filled by GameSheet.Session.cs. -->
-                <local:SessionBox x:Name="LastSession" IsVisible="False" />
 
                 <!-- Everything the person can change, locked as one while something is running. -->
                 <StackPanel x:Name="Options" Spacing="18">
-                  <!-- What the route is read off. Detection picks the file out of the folder and can
-                       pick a launcher instead of the game, so it is shown and it can be changed. -->
-                  <StackPanel Spacing="8">
-                    <StackPanel Orientation="Horizontal">
-                      <TextBlock Text="{DynamicResource Str.DetectedSection}" Classes="section" />
-                      <Border Classes="info" ToolTip.Tip="{Binding #ExeNote.Text}" IsVisible="{Binding #ExeNote.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
-                    </StackPanel>
-                    <Border Classes="detect">
+                  <!-- The last session (GameSheet.Session.cs) beside what the route is read off and where it installs (LayInfo). -->
+                  <Grid x:Name="InfoRow" ColumnDefinitions="*,12,*" RowDefinitions="Auto,Auto,Auto">
+                    <local:SessionBox x:Name="LastSession" IsVisible="False" />
+                    <!-- What the route is read off: detection can pick a launcher instead of the game, so it is shown and can be changed. No caption; the (i) follows the executable's line. -->
+                    <Border x:Name="DetectedPart" Grid.Column="2" Classes="detect">
                       <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
-                        <StackPanel Grid.Column="0" Spacing="4" VerticalAlignment="Center">
-                          <TextBlock x:Name="ExeLine" FontWeight="SemiBold" TextWrapping="Wrap" />
+                        <StackPanel Spacing="4" VerticalAlignment="Center">
                           <WrapPanel>
-                            <TextBlock x:Name="DetectedHow" Classes="muted" TextWrapping="Wrap" Margin="0,0,8,0"
-                                       VerticalAlignment="Center" />
+                            <TextBlock x:Name="ExeLine" FontWeight="SemiBold" TextWrapping="Wrap" VerticalAlignment="Center" />
+                            <Border Classes="info" ToolTip.Tip="{Binding #ExeNote.Text}" IsVisible="{Binding #ExeNote.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
+                          </WrapPanel>
+                          <WrapPanel>
+                            <TextBlock x:Name="DetectedHow" Classes="muted" TextWrapping="Wrap" Margin="0,0,8,0" VerticalAlignment="Center" />
                             <Button Classes="link" Click="OnOpenWiki" ToolTip.Tip="{DynamicResource Str.CheckApiTip}"
                                     AutomationProperties.Name="{DynamicResource Str.CheckWiki}">
                               <StackPanel Orientation="Horizontal" Spacing="6">
@@ -175,31 +169,33 @@
                               </StackPanel>
                             </Button>
                           </WrapPanel>
+                          <!-- Where the files go: a launcher's build, FiveM and Unreal write outside the card's folder. -->
+                          <Grid ColumnDefinitions="Auto,*" Margin="0,2,0,0">
+                            <PathIcon Data="{StaticResource IconFolder}" Width="14" Height="14" Foreground="{DynamicResource Muted}" VerticalAlignment="Top" Margin="0,2,8,0" />
+                            <SelectableTextBlock Grid.Column="1" x:Name="InstallsInto" TextWrapping="Wrap" LineHeight="19" Foreground="{DynamicResource TextSoft}" />
+                          </Grid>
                         </StackPanel>
-                        <Button Grid.Column="1" x:Name="ExeButton" Classes="ghost" Click="OnChooseExecutable"
-                                VerticalAlignment="Center" />
+                        <Button Grid.Column="1" x:Name="ExeButton" Classes="ghost" Click="OnChooseExecutable" VerticalAlignment="Center" />
                       </Grid>
                     </Border>
-                    <!-- Where the files go: a launcher's build, FiveM and Unreal write outside the card's folder. -->
-                    <Grid ColumnDefinitions="Auto,*" Margin="2,0,0,0">
-                      <PathIcon Data="{StaticResource IconFolder}" Width="14" Height="14" Foreground="{DynamicResource Muted}" VerticalAlignment="Top" Margin="0,2,8,0" />
-                      <SelectableTextBlock Grid.Column="1" x:Name="InstallsInto" TextWrapping="Wrap" LineHeight="19" Foreground="{DynamicResource TextSoft}" />
-                    </Grid>
-                    <Border x:Name="ElsewhereBox" Classes="callout" IsVisible="False">
-                      <TextBlock x:Name="Elsewhere" TextWrapping="Wrap" LineHeight="19" Foreground="{DynamicResource WarnText}" />
-                    </Border>
-                    <!-- Read by the (i) above: this sheet explains itself in tooltips, not paragraphs. -->
-                    <TextBlock x:Name="ExeNote" IsVisible="False" />
-                    <Border x:Name="ApiHintBox" Classes="callout" IsVisible="False">
-                      <Grid ColumnDefinitions="Auto,*">
-                        <PathIcon Grid.Column="0" Data="{StaticResource IconWarn}" Width="16" Height="16"
-                                  Foreground="{DynamicResource Warn}" VerticalAlignment="Top" Margin="0,1,10,0" />
-                        <TextBlock Grid.Column="1" x:Name="ApiHint" TextWrapping="Wrap" LineHeight="19"
-                                   Foreground="{DynamicResource WarnText}" />
-                      </Grid>
-                    </Border>
-                  </StackPanel>
-
+                    <!-- What detection warns of, under both boxes. -->
+                    <StackPanel Grid.Row="2" Grid.ColumnSpan="3">
+                      <Border x:Name="ElsewhereBox" Classes="callout" IsVisible="False" Margin="0,8,0,0">
+                        <TextBlock x:Name="Elsewhere" TextWrapping="Wrap" LineHeight="19" Foreground="{DynamicResource WarnText}" />
+                      </Border>
+                      <!-- Read by the (i) above: this sheet explains itself in tooltips, not paragraphs. -->
+                      <TextBlock x:Name="ExeNote" IsVisible="False" />
+                      <Border x:Name="ApiHintBox" Classes="callout" IsVisible="False" Margin="0,8,0,0">
+                        <Grid ColumnDefinitions="Auto,*">
+                          <PathIcon Grid.Column="0" Data="{StaticResource IconWarn}" Width="16" Height="16"
+                                    Foreground="{DynamicResource Warn}" VerticalAlignment="Top" Margin="0,1,10,0" />
+                          <TextBlock Grid.Column="1" x:Name="ApiHint" TextWrapping="Wrap" LineHeight="19" Foreground="{DynamicResource WarnText}" />
+                        </Grid>
+                      </Border>
+                    </StackPanel>
+                  </Grid>
+                  <!-- An anti-cheat in the folder (GameSheet.AntiCheat.cs). -->
+                  <local:AntiCheatCard x:Name="AntiCheatWarning" IsVisible="False" />
                   <!-- The two ways in. They are alternatives, so the choice is two cards, not one list. -->
                   <StackPanel Spacing="8">
                     <TextBlock Text="{DynamicResource Str.InstallWith}" Classes="section" />
@@ -208,21 +204,19 @@
                                    IsCheckedChanged="OnRouteChanged" AutomationProperties.Name="ReShade">
                         <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto">
                           <Border Classes="iconTile small" Margin="0,0,10,0"><PathIcon Data="{StaticResource IconLayers}" /></Border>
-                          <StackPanel Grid.Column="1" Spacing="4" VerticalAlignment="Center">
-                            <StackPanel Orientation="Horizontal">
+                          <WrapPanel Grid.Column="1" ItemSpacing="6" LineSpacing="4" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                               <TextBlock Text="{DynamicResource Str.RouteReShade}" FontWeight="SemiBold" TextWrapping="Wrap" />
                               <Border Classes="info" ToolTip.Tip="{Binding #ReShadeSummary.Text}" IsVisible="{Binding #ReShadeSummary.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
                             </StackPanel>
-                            <WrapPanel ItemSpacing="4" LineSpacing="4">
-                              <Border x:Name="ReShadeRecommended" Classes="status ok"><TextBlock Text="{DynamicResource Str.Recommended}" /></Border>
-                              <Border x:Name="ReShadeInstalled" Classes="status ok">
-                                <StackPanel Orientation="Horizontal" Spacing="4">
-                                  <PathIcon Data="{StaticResource IconCheck}" />
-                                  <TextBlock Text="{DynamicResource Str.InstalledBadge}" />
-                                </StackPanel>
-                              </Border>
-                            </WrapPanel>
-                          </StackPanel>
+                            <Border x:Name="ReShadeRecommended" Classes="status ok"><TextBlock Text="{DynamicResource Str.Recommended}" /></Border>
+                            <Border x:Name="ReShadeInstalled" Classes="status ok">
+                              <StackPanel Orientation="Horizontal" Spacing="4">
+                                <PathIcon Data="{StaticResource IconCheck}" />
+                                <TextBlock Text="{DynamicResource Str.InstalledBadge}" />
+                              </StackPanel>
+                            </Border>
+                          </WrapPanel>
                           <TextBlock Grid.Row="1" x:Name="ReShadeSummary" IsVisible="False" />
                         </Grid>
                       </RadioButton>
@@ -230,21 +224,19 @@
                                    IsCheckedChanged="OnRouteChanged" AutomationProperties.Name="OptiScaler">
                         <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto">
                           <Border Classes="iconTile small" Margin="0,0,10,0"><PathIcon Data="{StaticResource IconSparkle}" /></Border>
-                          <StackPanel Grid.Column="1" Spacing="4" VerticalAlignment="Center">
-                            <StackPanel Orientation="Horizontal">
+                          <WrapPanel Grid.Column="1" ItemSpacing="6" LineSpacing="4" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                               <TextBlock Text="{DynamicResource Str.RouteOpti}" FontWeight="SemiBold" TextWrapping="Wrap" />
                               <Border Classes="info" ToolTip.Tip="{Binding #OptiSummary.Text}" IsVisible="{Binding #OptiSummary.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
                             </StackPanel>
-                            <WrapPanel ItemSpacing="4" LineSpacing="4">
-                              <Border x:Name="OptiRecommended" Classes="status ok"><TextBlock Text="{DynamicResource Str.Recommended}" /></Border>
-                              <Border x:Name="OptiInstalled" Classes="status ok">
-                                <StackPanel Orientation="Horizontal" Spacing="4">
-                                  <PathIcon Data="{StaticResource IconCheck}" />
-                                  <TextBlock Text="{DynamicResource Str.InstalledBadge}" />
-                                </StackPanel>
-                              </Border>
-                            </WrapPanel>
-                          </StackPanel>
+                            <Border x:Name="OptiRecommended" Classes="status ok"><TextBlock Text="{DynamicResource Str.Recommended}" /></Border>
+                            <Border x:Name="OptiInstalled" Classes="status ok">
+                              <StackPanel Orientation="Horizontal" Spacing="4">
+                                <PathIcon Data="{StaticResource IconCheck}" />
+                                <TextBlock Text="{DynamicResource Str.InstalledBadge}" />
+                              </StackPanel>
+                            </Border>
+                          </WrapPanel>
                           <TextBlock Grid.Row="1" x:Name="OptiSummary" IsVisible="False" />
                         </Grid>
                       </RadioButton>

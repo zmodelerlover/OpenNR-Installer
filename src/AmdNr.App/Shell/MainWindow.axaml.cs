@@ -14,6 +14,7 @@ public partial class MainWindow : Window
     public enum Page
     {
         Games,
+        NrLive,
         Machine,
         Settings,
     }
@@ -28,6 +29,13 @@ public partial class MainWindow : Window
     {
         Library = new Library(Session);
         InitializeComponent();
+        _lastTab = TabGames;
+        if (NrLivePage.ComingSoon)
+        {
+            // Greyed but still there: a click says it is coming rather than nothing happening.
+            TabNrLive.Opacity = 0.4;
+            ToolTip.SetTip(TabNrLive, Ui.Text("Str.NrLiveComingSoon"));
+        }
         // Two short lines in the rail: "v0.7.5" and, on a hotfix, "hotfix 1".
         VersionText.Text = AppVersion.Hotfix(App.Version) is > 0 and var hotfix
             ? $"v{AppVersion.Release(App.Version)}{Environment.NewLine}{Ui.Format("Str.HotfixShort", hotfix)}"
@@ -49,6 +57,7 @@ public partial class MainWindow : Window
         };
         GamesPage.Attach(this);
         SystemPage.Attach(this);
+        LivePage.Attach(this);
         SettingsPage.Attach(this);
         Sheet.Attach(this);
         Session.UpdateChanged += ShowUpdate;
@@ -74,6 +83,7 @@ public partial class MainWindow : Window
         var machine = await Session.ReadMachineAsync();
         GameCard.Rdna4 = machine.Rdna4 == true;
         GamesPage.ShowMachine(machine);
+        LivePage.ShowMachine(machine);
         SystemPage.Show(machine);
 
         await Session.LoadManifestAsync();
@@ -168,17 +178,29 @@ public partial class MainWindow : Window
         if (done > 0) Toast(Ui.Count("Str.AutoUpdated", done), Level.Ok);
     }
 
+    /// <summary>The rail button last checked, which a click on the not-yet-out NRLive goes back to.</summary>
+    private RadioButton _lastTab = null!;
+
     public void ShowPage(Page page)
     {
-        (page switch { Page.Machine => TabSystem, Page.Settings => TabSettings, _ => TabGames }).IsChecked = true;
+        (page switch { Page.Machine => TabSystem, Page.Settings => TabSettings, Page.NrLive => TabNrLive, _ => TabGames }).IsChecked = true;
     }
 
     private void OnTabChanged(object? sender, RoutedEventArgs e)
     {
         if (GamesPage is null) return; // Fires once while the window is still being built.
+        if (sender == TabNrLive && NrLivePage.ComingSoon)
+        {
+            // Not out yet: say so and stay on the page this came from.
+            Toast(Ui.Text("Str.NrLiveComingSoon"), Level.Info);
+            _lastTab.IsChecked = true;
+            return;
+        }
+        if (sender is RadioButton tab) _lastTab = tab;
         // Decided by the button just checked: the one it replaces is not unchecked yet when this runs.
         GamesPage.IsVisible = sender == TabGames;
         SystemPage.IsVisible = sender == TabSystem;
+        LivePage.IsVisible = sender == TabNrLive;
         SettingsPage.IsVisible = sender == TabSettings;
         // Docked, the sheet is part of the games page and goes out of sight with it.
         if (sender != TabGames && Sheet.IsOpen && !Sheet.Docked) Sheet.Close();
@@ -201,6 +223,18 @@ public partial class MainWindow : Window
         ShowPage(Page.Games);
         Sheet.Open(card);
         GamesPage.Select(card);
+    }
+
+    /// <summary>The NRLive page with this game picked to capture: what the anti-cheat warning on its sheet leads to.</summary>
+    public void ShowNrLive(GameCard card)
+    {
+        if (NrLivePage.ComingSoon)
+        {
+            Toast(Ui.Text("Str.NrLiveComingSoon"), Level.Info);
+            return;
+        }
+        ShowPage(Page.NrLive);
+        LivePage.ShowGame(card);
     }
 
     /// <summary>Moves the sheet into <paramref name="host"/> -- the list view's page column -- or, with
@@ -258,6 +292,7 @@ public partial class MainWindow : Window
             e.Cancel = true;
             Toast(Ui.Text("Str.CloseWhileBusy"), Level.Warn);
         }
+        else LivePage.Shutdown();
         base.OnClosing(e);
     }
 
@@ -266,6 +301,7 @@ public partial class MainWindow : Window
     {
         GamesPage.Refresh();
         SettingsPage.ShowUpdate();
+        LivePage.Relabel();
         ShowUpdate();
         if (Session.Machine is { } machine) SystemPage.Show(machine);
         Run("files", SystemPage.RefreshAsync);

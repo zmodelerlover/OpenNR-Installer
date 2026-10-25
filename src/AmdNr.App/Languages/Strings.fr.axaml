@@ -1,7 +1,10 @@
-﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.French">
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceInclude Source="/Languages/NrLive/NrLive.fr.axaml" />
+  </ResourceDictionary.MergedDictionaries>
 
   <!-- Français. The same keys as Strings.en.axaml, in its order. -->
 
@@ -308,7 +311,6 @@
   <sys:String x:Key="Str.GamesGone">{0} jeu n'est plus installé, il a donc quitté la liste.</sys:String>
   <sys:String x:Key="Str.GamesGone.Many">{0} jeux ne sont plus installés, ils ont donc quitté la liste.</sys:String>
   <sys:String x:Key="Str.ShowDetails">Afficher les détails</sys:String>
-  <sys:String x:Key="Str.DetectedSection">Détecté</sys:String>
   <sys:String x:Key="Str.InstallsInto">S'installe dans : {0}</sys:String>
   <sys:String x:Key="Str.InstallsElsewhere">C'est en dehors du dossier ajouté : c'est là que se trouve {0}, la version que le lanceur démarre. Si vous jouez avec une autre, choisissez son {0} ci-dessus.</sys:String>
   <sys:String x:Key="Str.CheckApiTip">Les fichiers indiquent avec quoi un jeu est lié, pas avec quoi il tourne : un même dossier peut contenir un exécutable D3D11 et un D3D12. Le wiki indique lequel le jeu utilise.</sys:String>
@@ -394,7 +396,6 @@
   <sys:String x:Key="Str.UpdateNow">Télécharger la mise à jour</sys:String>
   <sys:String x:Key="Str.UpdateOnGitHub">Télécharger depuis GitHub</sys:String>
   <sys:String x:Key="Str.UpdateCheck">Rechercher des mises à jour</sys:String>
-  <sys:String x:Key="Str.SessionSection">Dernière session</sys:String>
   <sys:String x:Key="Str.SessionTip">Lu dans les logs que l'add-on et le runtime écrivent dans le dossier du jeu. Relu quand vous revenez sur cette fenêtre après avoir joué.</sys:String>
   <sys:String x:Key="Str.SessionRan">NR a fonctionné lors de la dernière session</sys:String>
   <sys:String x:Key="Str.SessionCrashed">Le jeu a planté lors de la dernière session</sys:String>

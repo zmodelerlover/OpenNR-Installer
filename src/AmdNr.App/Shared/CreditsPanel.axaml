@@ -73,6 +73,23 @@
       </Grid>
     </Button>
 
+    <!-- NRLive is GPL-3.0 and ships from here, so where its source is stays one click away. -->
+    <Button x:Name="NrLiveLink" Classes="pick" Padding="14,13" Click="OnOpen"
+            HorizontalAlignment="Stretch">
+      <Grid ColumnDefinitions="Auto,*,Auto">
+        <Border Classes="iconTile neutral" Margin="0,0,13,0">
+          <PathIcon Data="{StaticResource IconGitHub}" Foreground="{DynamicResource Text}" />
+        </Border>
+        <StackPanel Grid.Column="1" Spacing="4">
+          <TextBlock Text="{DynamicResource Str.CreditNrLiveTitle}" FontWeight="SemiBold" TextWrapping="Wrap" />
+          <TextBlock Text="{DynamicResource Str.CreditNrLiveBody}" Classes="muted" TextWrapping="Wrap"
+                     LineHeight="18" />
+        </StackPanel>
+        <PathIcon Grid.Column="2" Data="{StaticResource IconExternal}" Width="13" Height="13"
+                  Foreground="{DynamicResource Faint}" VerticalAlignment="Center" Margin="12,0,0,0" />
+      </Grid>
+    </Button>
+
     <StackPanel Orientation="Horizontal" Spacing="9" Margin="2,4,0,0">
       <TextBlock Text="{DynamicResource Str.SupportSection}" Classes="section" VerticalAlignment="Center" />
       <TextBlock Text="{DynamicResource Str.SupportNote}" Classes="muted" VerticalAlignment="Center"

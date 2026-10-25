@@ -1,7 +1,10 @@
-﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Turkish">
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceInclude Source="/Languages/NrLive/NrLive.tr.axaml" />
+  </ResourceDictionary.MergedDictionaries>
 
   <!-- Türkçe. The same keys as Strings.en.axaml, in its order. -->
 
@@ -308,7 +311,6 @@
   <sys:String x:Key="Str.GamesGone">{0} oyun artık kurulu değil, bu yüzden listeden çıkarıldı.</sys:String>
   <sys:String x:Key="Str.GamesGone.Many">{0} oyun artık kurulu değil, bu yüzden listeden çıkarıldı.</sys:String>
   <sys:String x:Key="Str.ShowDetails">Ayrıntıları göster</sys:String>
-  <sys:String x:Key="Str.DetectedSection">Algılanan</sys:String>
   <sys:String x:Key="Str.InstallsInto">Şuraya kurulur: {0}</sys:String>
   <sys:String x:Key="Str.InstallsElsewhere">Bu, eklediğin klasörün dışında: başlatıcının açtığı sürümün {0} dosyası burada. Başka bir sürümle oynuyorsan yukarıdan onun {0} dosyasını seç.</sys:String>
   <sys:String x:Key="Str.CheckApiTip">Dosyalar bir oyunun neye bağlandığını söyler, ne üzerinde çalıştığını değil: bir klasörde hem D3D11 hem D3D12 çalıştırılabilir dosyası olabilir. Oyunun hangisini kullandığını wiki söyler.</sys:String>
@@ -394,7 +396,6 @@
   <sys:String x:Key="Str.UpdateNow">Güncellemeyi indir</sys:String>
   <sys:String x:Key="Str.UpdateOnGitHub">GitHub'dan indir</sys:String>
   <sys:String x:Key="Str.UpdateCheck">Güncellemeleri denetle</sys:String>
-  <sys:String x:Key="Str.SessionSection">Son oturum</sys:String>
   <sys:String x:Key="Str.SessionTip">Eklentinin ve çalışma zamanının oyun klasörüne yazdığı günlüklerden okunur. Oynadıktan sonra bu pencereye döndüğünüzde yeniden okunur.</sys:String>
   <sys:String x:Key="Str.SessionRan">NR son oturumda çalıştı</sys:String>
   <sys:String x:Key="Str.SessionCrashed">Oyun son oturumda çöktü</sys:String>

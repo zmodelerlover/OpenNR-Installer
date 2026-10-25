@@ -36,6 +36,11 @@ public partial class GameSheet : UserControl
             // A short window cannot fit the cover and the choice both, and the choice is the point. Docked,
             // the banner stands for the cover.
             Side.CoverBox.IsVisible = !Docked && e.NewSize.Height >= 640;
+        InfoRow.SizeChanged += (_, _) => LayInfo();
+        LastSession.PropertyChanged += (_, e) =>
+        {
+            if (e.Property == IsVisibleProperty) LayInfo();
+        };
     }
 
     private Session Session => _shell.Session;
@@ -60,6 +65,7 @@ public partial class GameSheet : UserControl
     public void Attach(MainWindow shell)
     {
         _shell = shell;
+        WireAntiCheat();
         Session.BusyChanged += () =>
         {
             Lock(Session.Busy);
@@ -142,6 +148,7 @@ public partial class GameSheet : UserControl
 
         ShowRoutes(card, graphics);
         ShowSession(card);
+        ShowAntiCheat(card);
         _ = RefreshAsync();
     }
 

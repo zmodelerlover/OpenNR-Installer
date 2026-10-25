@@ -1,0 +1,275 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:AmdNr.App"
+             x:Class="AmdNr.App.NrLivePage">
+
+  <!-- NRLive, run from here: getting it, the session with its hotkeys, what it captures, then its settings in
+       three cards side by side, rows built from NRLive's own keys (NrLiveConfig.Settings). Laid out to fit the
+       window's default size without scrolling: the settings are what people come back to, so none of them should
+       sit below the fold. Wider than the other pages for the same reason. -->
+  <ScrollViewer x:Name="PageScroll" HorizontalScrollBarVisibility="Disabled">
+    <StackPanel x:Name="PageStack" Spacing="8" MaxWidth="1480" Margin="32,12,32,10" HorizontalAlignment="Stretch">
+      <!-- The title, whose NRLive is and where its source is, and NRLive's state once it is here: a whole card for a
+           line that only says "ready" would push the settings down. NRLive is GPL-3.0, and the link to its source
+           has to stay in sight: the sentence before it gives way on a narrow window, the link does not. -->
+      <Grid ColumnDefinitions="Auto,*,Auto">
+        <StackPanel Orientation="Horizontal" Spacing="4" VerticalAlignment="Center">
+          <TextBlock Text="NRLive" Classes="page" VerticalAlignment="Center" />
+          <Border Classes="info" VerticalAlignment="Center" ToolTip.Tip="{DynamicResource Str.NrLiveSubtitle}"
+                  AutomationProperties.Name="{DynamicResource Str.NrLiveSubtitle}">
+            <PathIcon Data="{StaticResource IconInfo}" />
+          </Border>
+        </StackPanel>
+        <Grid Grid.Column="1" ColumnDefinitions="Auto,*,Auto" Margin="18,0,16,0" VerticalAlignment="Center">
+          <PathIcon Data="{StaticResource IconGitHub}" Width="14" Height="14" Foreground="{DynamicResource Muted}"
+                    VerticalAlignment="Center" Margin="0,0,8,0" />
+          <TextBlock Grid.Column="1" Text="{DynamicResource Str.NrLiveCredit}" Classes="muted" VerticalAlignment="Center"
+                     TextTrimming="CharacterEllipsis" ToolTip.Tip="{DynamicResource Str.NrLiveCredit}" />
+          <Button Grid.Column="2" Classes="link" Click="OnSource" VerticalAlignment="Center" Margin="6,0,0,0"
+                  AutomationProperties.Name="github.com/Caliel666/NRLive">
+            <StackPanel Orientation="Horizontal" Spacing="6">
+              <TextBlock Text="github.com/Caliel666/NRLive" />
+              <PathIcon Data="{StaticResource IconExternal}" Width="12" Height="12" />
+            </StackPanel>
+          </Button>
+        </Grid>
+        <StackPanel x:Name="PackageSlim" Grid.Column="2" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center" IsVisible="False">
+          <PathIcon Data="{StaticResource IconOk}" Width="16" Height="16" Foreground="{DynamicResource Ok}" VerticalAlignment="Center" />
+          <TextBlock x:Name="PackageSlimText" Classes="muted" VerticalAlignment="Center" />
+          <Button Classes="ghost small" Click="OnFolder" Content="{DynamicResource Str.OpenFolder}" />
+        </StackPanel>
+      </Grid>
+
+      <!-- Whether NRLive is here: not published yet, to download, downloading, or a newer one out. -->
+      <Border x:Name="PackageCard" Classes="card" Padding="16">
+        <Grid ColumnDefinitions="Auto,*,Auto">
+          <Border x:Name="PackageTile" Classes="iconTile" Margin="0,0,14,0" VerticalAlignment="Center">
+            <PathIcon x:Name="PackageIcon" />
+          </Border>
+          <StackPanel Grid.Column="1" Spacing="3" VerticalAlignment="Center" Margin="0,0,16,0">
+            <TextBlock x:Name="PackageTitle" Classes="subtitle" TextWrapping="Wrap" />
+            <TextBlock x:Name="PackageText" Classes="muted" TextWrapping="Wrap" />
+            <ProgressBar x:Name="PackageProgress" Height="4" MinHeight="4" CornerRadius="2" Margin="0,6,0,0" IsVisible="False"
+                         Foreground="{DynamicResource AccentHover}" Background="{DynamicResource SurfaceTop}" />
+          </StackPanel>
+          <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+            <Button x:Name="ReleasesButton" Classes="ghost" Click="OnReleases" Content="{DynamicResource Str.NrLiveOpenRelease}" />
+            <Button x:Name="FolderButton" Classes="ghost" Click="OnFolder" Content="{DynamicResource Str.OpenFolder}" />
+            <Button x:Name="PackageButton" Classes="primary" Click="OnPackage" />
+          </StackPanel>
+        </Grid>
+      </Border>
+
+      <!-- Everything below needs NRLive, and is locked as one until it is here. -->
+      <StackPanel x:Name="Controls" Spacing="8">
+        <Border Classes="card" Padding="16,10">
+          <StackPanel Spacing="10">
+            <!-- The session and its hotkeys in one card, headed like the three cards below; the hotkeys' hint
+                 behind the i. Lower than theirs, with no switch to make room for: the page has to fit the default window. -->
+            <Border Classes="nrHead" MinHeight="0" Margin="0" Padding="0,0,0,6"><Grid ColumnDefinitions="Auto,Auto,*">
+              <Border Classes="nrBar" />
+              <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6">
+                <TextBlock Text="{DynamicResource Str.NrLiveSessionSection}" Classes="nrTitle" />
+                <TextBlock Text="·" Classes="nrTitle" />
+                <TextBlock Text="{DynamicResource Str.NrLiveHotkeysSection}" Classes="nrTitle" />
+                <Border Classes="info" VerticalAlignment="Center" ToolTip.Tip="{DynamicResource Str.NrLiveHotkeyHint}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
+              </StackPanel>
+              <!-- Whose settings the page shows and NRLive runs with: the global ones or a game's (NrLivePage.Profiles.cs).
+                   In the header, which is as tall as a menu already, so it costs the page no height. -->
+              <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="16,0,0,0">
+                <TextBlock Text="{DynamicResource Str.NrLiveProfileFor}" Classes="muted" VerticalAlignment="Center" />
+                <ComboBox x:Name="ProfileBox" MinWidth="200" MaxWidth="320" MinHeight="28" Padding="10,3,8,3" VerticalAlignment="Center" SelectionChanged="OnProfileChanged"
+                          AutomationProperties.Name="{DynamicResource Str.NrLiveProfileFor}" />
+                <Button x:Name="ResetProfileButton" Classes="ghost small" VerticalAlignment="Center" Click="OnResetProfile"
+                        Content="{DynamicResource Str.NrLiveProfileReset}" IsVisible="False" />
+                <Border Classes="info" VerticalAlignment="Center" ToolTip.Tip="{DynamicResource Str.NrLiveProfileHint}"
+                        AutomationProperties.Name="{DynamicResource Str.NrLiveProfileHint}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
+              </StackPanel>
+            </Grid></Border>
+            <!-- Each menu's label before it rather than over it: a line saved here is a settings row in sight below. -->
+            <Grid ColumnDefinitions="*,12,*,24,Auto">
+              <Grid Grid.Column="0" x:Name="TargetModeSection" ColumnDefinitions="Auto,*">
+                <TextBlock Text="{DynamicResource Str.NrLiveTarget}" Classes="muted" VerticalAlignment="Center" Margin="0,0,10,0" />
+                <ComboBox Grid.Column="1" x:Name="TargetModeBox" HorizontalAlignment="Stretch" SelectionChanged="OnTargetModeChanged"
+                          AutomationProperties.Name="{DynamicResource Str.NrLiveTarget}">
+                  <ComboBoxItem Content="{DynamicResource Str.NrLiveTargetPicker}" />
+                  <ComboBoxItem Content="{DynamicResource Str.NrLiveTargetWindow}" />
+                  <ComboBoxItem Content="{DynamicResource Str.NrLiveTargetGame}" />
+                </ComboBox>
+              </Grid>
+              <Grid Grid.Column="2" x:Name="TargetItemSection" ColumnDefinitions="Auto,*,Auto">
+                <TextBlock x:Name="TargetItemLabel" Classes="muted" VerticalAlignment="Center" Margin="0,0,10,0" />
+                <ComboBox Grid.Column="1" x:Name="TargetItemBox" HorizontalAlignment="Stretch" SelectionChanged="OnTargetItemChanged"
+                          PlaceholderText="{DynamicResource Str.NrLiveNothingToPick}"
+                          AutomationProperties.Name="{Binding #TargetItemLabel.Text}" />
+                <Button Grid.Column="2" x:Name="RefreshButton" Classes="ghost icon" Margin="8,0,0,0" Click="OnRefreshWindows"
+                        ToolTip.Tip="{DynamicResource Str.NrLiveRefresh}" AutomationProperties.Name="{DynamicResource Str.NrLiveRefresh}">
+                  <PathIcon Data="{StaticResource IconRefresh}" />
+                </Button>
+              </Grid>
+              <!-- Beside what to capture: elevated or not decides whether the game takes input through it. -->
+              <Grid Grid.Column="4" ColumnDefinitions="Auto,*" MaxWidth="260" VerticalAlignment="Center"
+                    ToolTip.Tip="{DynamicResource Str.NrLiveRunAsAdminHint}">
+                <ToggleSwitch x:Name="AdminSwitch" OnContent="" OffContent="" MinWidth="0" VerticalAlignment="Center"
+                              IsCheckedChanged="OnAdminChanged" AutomationProperties.Name="{DynamicResource Str.NrLiveRunAsAdmin}" />
+                <TextBlock Grid.Column="1" Text="{DynamicResource Str.NrLiveRunAsAdmin}" FontWeight="SemiBold" VerticalAlignment="Center"
+                           TextWrapping="Wrap" Margin="4,0,0,0" />
+              </Grid>
+            </Grid>
+
+            <!-- The session: what is happening on one line, the countdown to switch to the game in, and the one button. -->
+            <Border x:Name="StatusBox" Classes="result" Padding="10,8">
+              <Grid ColumnDefinitions="Auto,*,Auto,Auto,Auto">
+                <Border x:Name="StatusTile" Classes="iconTile small" Margin="0,0,12,0" VerticalAlignment="Center">
+                  <PathIcon x:Name="StatusIcon" />
+                </Border>
+                <DockPanel Grid.Column="1" VerticalAlignment="Center" Margin="0,0,12,0">
+                  <TextBlock x:Name="StatusTitle" DockPanel.Dock="Left" FontWeight="SemiBold" Margin="0,0,10,0" VerticalAlignment="Center" />
+                  <TextBlock x:Name="StatusText" Classes="muted" TextWrapping="Wrap" VerticalAlignment="Center" />
+                </DockPanel>
+                <TextBlock Grid.Column="2" Text="{DynamicResource Str.NrLiveCountdown}" Classes="caption" VerticalAlignment="Center" Margin="0,0,8,0" />
+                <ComboBox Grid.Column="3" x:Name="DelayBox" Width="84" MinHeight="32" Margin="0,0,12,0" VerticalAlignment="Center"
+                          SelectionChanged="OnDelayChanged" AutomationProperties.Name="{DynamicResource Str.NrLiveCountdown}" />
+                <Button Grid.Column="4" x:Name="ScaleButton" Classes="primary" MinWidth="140" Click="OnScale"
+                        HorizontalContentAlignment="Center" VerticalAlignment="Center">
+                  <StackPanel Orientation="Horizontal" Spacing="8">
+                    <PathIcon x:Name="ScaleIcon" Data="{StaticResource IconScale}" />
+                    <TextBlock x:Name="ScaleLabel" VerticalAlignment="Center" />
+                  </StackPanel>
+                </Button>
+              </Grid>
+            </Border>
+            <!-- Four hotkeys across when they fit, two by two when not (HotkeyGrid's columns follow its width). The
+                 first is this app's, registered with Windows so it works from inside the game; the others are NRLive's. -->
+            <!-- Each box's name inside it, before the keys. -->
+            <UniformGrid x:Name="HotkeyGrid" Columns="4" Margin="0,0,-12,-8">
+              <TextBox x:Name="ScaleKeyBox" Classes="hotkey" IsReadOnly="True" Margin="0,0,12,8" AutomationProperties.Name="{DynamicResource Str.NrLiveHotkeyScale}">
+                <TextBox.InnerLeftContent><TextBlock Text="{DynamicResource Str.NrLiveHotkeyScale}" Classes="caption keyName" /></TextBox.InnerLeftContent>
+              </TextBox>
+              <TextBox x:Name="StopKeyBox" Classes="hotkey" IsReadOnly="True" Margin="0,0,12,8" AutomationProperties.Name="{DynamicResource Str.NrLiveHotkeyStop}">
+                <TextBox.InnerLeftContent><TextBlock Text="{DynamicResource Str.NrLiveHotkeyStop}" Classes="caption keyName" /></TextBox.InnerLeftContent>
+              </TextBox>
+              <TextBox x:Name="OverlayKeyBox" Classes="hotkey" IsReadOnly="True" Margin="0,0,12,8" AutomationProperties.Name="{DynamicResource Str.NrLiveHotkeyOverlay}">
+                <TextBox.InnerLeftContent><TextBlock Text="{DynamicResource Str.NrLiveHotkeyOverlay}" Classes="caption keyName" /></TextBox.InnerLeftContent>
+              </TextBox>
+              <TextBox x:Name="BypassBox" Classes="hotkey" LostFocus="OnBypassDone" Margin="0,0,12,8" AutomationProperties.Name="{DynamicResource Str.NrLiveHotkeyBypass}">
+                <TextBox.InnerLeftContent>
+                  <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="{DynamicResource Str.NrLiveHotkeyBypass}" Classes="caption keyName" Margin="10,0,0,0" />
+                    <Border Classes="info" ToolTip.Tip="{DynamicResource Str.NrLiveHotkeyBypassHint}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
+                  </StackPanel>
+                </TextBox.InnerLeftContent>
+              </TextBox>
+            </UniformGrid>
+            <TextBlock x:Name="HotkeyProblem" Foreground="{DynamicResource WarnText}" TextWrapping="Wrap" IsVisible="False" />
+          </StackPanel>
+        </Border>
+
+        <!-- How the window is captured and how motion is read: NRLive's command line, kept in its profile. A strip
+             rather than a card, two menus on one line; under the three-column width the menus go under the title. -->
+        <Border Classes="card" Padding="14,8">
+          <Grid x:Name="CaptureGrid" ColumnDefinitions="Auto,*,Auto,12,Auto" RowDefinitions="Auto,Auto">
+            <Border Classes="iconTile small" Margin="0,0,12,0" VerticalAlignment="Center">
+              <PathIcon Data="{StaticResource IconCapture}" />
+            </Border>
+            <StackPanel Grid.Column="1" Spacing="1" VerticalAlignment="Center" Margin="0,0,12,0">
+              <StackPanel Orientation="Horizontal" Spacing="2">
+                <TextBlock Text="{DynamicResource Str.NrLiveCaptureSection}" FontWeight="SemiBold" VerticalAlignment="Center" />
+                <!-- Where all the settings below are kept, behind the i: it is worth knowing once, not reading every visit. -->
+                <Border Classes="info" ToolTip.Tip="{DynamicResource Str.NrLiveSettingsHint}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
+              </StackPanel>
+              <TextBlock Text="{DynamicResource Str.NrLiveCaptureHint}" Classes="muted" TextTrimming="CharacterEllipsis" />
+            </StackPanel>
+            <Border x:Name="CaptureGroup" Grid.Column="2" Classes="nrGroup" HorizontalAlignment="Right">
+              <StackPanel Orientation="Horizontal" Spacing="10">
+                <TextBlock Text="{DynamicResource Str.NrLiveCaptureSource}" Classes="muted" VerticalAlignment="Center" />
+                <ComboBox x:Name="CaptureBox" Width="230" SelectionChanged="OnCaptureChanged"
+                          AutomationProperties.Name="{DynamicResource Str.NrLiveCaptureSource}">
+                  <ComboBoxItem Content="{DynamicResource Str.NrLiveCaptureWgc}" />
+                  <ComboBoxItem Content="{DynamicResource Str.NrLiveCaptureDxgi}" />
+                </ComboBox>
+              </StackPanel>
+            </Border>
+            <Border x:Name="MotionGroup" Grid.Column="4" Classes="nrGroup">
+              <StackPanel Orientation="Horizontal" Spacing="10">
+                <TextBlock Text="{DynamicResource Str.NrLiveMotion}" Classes="muted" VerticalAlignment="Center" />
+                <ComboBox x:Name="MotionBox" Width="190" SelectionChanged="OnCaptureChanged"
+                          AutomationProperties.Name="{DynamicResource Str.NrLiveMotion}">
+                  <ComboBoxItem Content="{DynamicResource Str.NrLiveMotionFast}" />
+                  <ComboBoxItem Content="{DynamicResource Str.NrLiveMotionAmdof}" />
+                </ComboBox>
+              </StackPanel>
+            </Border>
+          </Grid>
+        </Border>
+
+        <!-- NRLive's own settings, one card per group, laid out from NrLiveConfig.Settings (NrLivePage.Settings.cs and
+             .Rows.cs). The cards on a line as tall as the tallest one's rows, each "More" right under its rows; an open
+             More makes its own card taller and no other, down to the foot of the window and then scrolling inside
+             (CardBody, which is why the cards are top-aligned); two and one across on a narrower window (Arrange in
+             NrLivePage.axaml.cs). -->
+        <Grid x:Name="SettingsGrid" ColumnDefinitions="*,16,*,16,1.3*">
+          <Border x:Name="PictureCard" Classes="card nrCard" VerticalAlignment="Top">
+            <DockPanel>
+              <Border DockPanel.Dock="Top" Classes="nrHead"><Grid ColumnDefinitions="Auto,Auto,*">
+                <Border Classes="nrBar" />
+                <TextBlock Grid.Column="1" Text="{DynamicResource Str.NrLivePictureSection}" Classes="nrTitle" />
+                <!-- Which card it runs on: FSR 4 wants an RX 9000. Filled from the machine read at start. -->
+                <Border x:Name="GpuBadge" Grid.Column="2" Classes="nrBadge" HorizontalAlignment="Right" IsVisible="False">
+                  <TextBlock x:Name="GpuText" />
+                </Border>
+              </Grid></Border>
+              <local:CardBody x:Name="PictureBody">
+                <StackPanel x:Name="PictureRows" Spacing="10" />
+                <Expander x:Name="PictureMore" Classes="details nrMore" Header="{DynamicResource Str.NrLiveMore}">
+                  <ScrollViewer local:ScrollGutter.Size="14"><StackPanel x:Name="PictureMoreRows" Spacing="10" /></ScrollViewer>
+                </Expander>
+              </local:CardBody>
+            </DockPanel>
+          </Border>
+          <Border x:Name="NrCard" Grid.Column="2" Classes="card nrCard" VerticalAlignment="Top">
+            <DockPanel>
+              <Border DockPanel.Dock="Top" Classes="nrHead"><Grid ColumnDefinitions="Auto,Auto,*">
+                <Border Classes="nrBar" />
+                <TextBlock Grid.Column="1" Text="{DynamicResource Str.NrLiveNrSection}" Classes="nrTitle" />
+                <ContentControl x:Name="NrHead" Grid.Column="2" Margin="12,0,0,0" />
+              </Grid></Border>
+              <local:CardBody x:Name="NrBody">
+                <StackPanel Spacing="10">
+                  <Border x:Name="ModelBox" Classes="callout" IsVisible="False">
+                    <Grid ColumnDefinitions="Auto,*">
+                      <PathIcon Data="{StaticResource IconWarn}" Width="16" Height="16" Foreground="{DynamicResource Warn}"
+                                VerticalAlignment="Top" Margin="0,1,10,0" />
+                      <TextBlock x:Name="ModelText" Grid.Column="1" Text="{DynamicResource Str.NrLiveModelMissing}" TextWrapping="Wrap" LineHeight="19"
+                                 Foreground="{DynamicResource WarnText}" />
+                    </Grid>
+                  </Border>
+                  <StackPanel x:Name="NrRows" Spacing="10" />
+                </StackPanel>
+                <Expander x:Name="NrMore" Classes="details nrMore" Header="{DynamicResource Str.NrLiveMore}">
+                  <ScrollViewer local:ScrollGutter.Size="14"><StackPanel x:Name="NrMoreRows" Spacing="10" /></ScrollViewer>
+                </Expander>
+              </local:CardBody>
+            </DockPanel>
+          </Border>
+          <Border x:Name="OverlayCard" Grid.Column="4" Classes="card nrCard" VerticalAlignment="Top">
+            <DockPanel>
+              <Border DockPanel.Dock="Top" Classes="nrHead"><Grid ColumnDefinitions="Auto,Auto,*">
+                <Border Classes="nrBar ok" />
+                <TextBlock Grid.Column="1" Text="{DynamicResource Str.NrLiveOverlaySection}" Classes="nrTitle" />
+                <ContentControl x:Name="OverlayHead" Grid.Column="2" Margin="12,0,0,0" />
+              </Grid></Border>
+              <local:CardBody x:Name="OverlayBody">
+                <StackPanel x:Name="OverlayRows" Spacing="10" />
+                <Expander x:Name="OverlayMore" Classes="details nrMore" Header="{DynamicResource Str.NrLiveMore}">
+                  <ScrollViewer local:ScrollGutter.Size="14"><StackPanel x:Name="OverlayMoreRows" Spacing="10" /></ScrollViewer>
+                </Expander>
+              </local:CardBody>
+            </DockPanel>
+          </Border>
+        </Grid>
+      </StackPanel>
+
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

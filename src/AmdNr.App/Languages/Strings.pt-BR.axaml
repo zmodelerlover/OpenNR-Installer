@@ -1,7 +1,10 @@
-﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Portuguese">
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceInclude Source="/Languages/NrLive/NrLive.pt-BR.axaml" />
+  </ResourceDictionary.MergedDictionaries>
 
   <sys:String x:Key="Str.AppTitle">OpenNR Installer</sys:String>
   <sys:String x:Key="Str.Subtitle">DLSS 5 neural rendering em Radeon, instalado pra você</sys:String>
@@ -351,7 +354,6 @@
   <sys:String x:Key="Str.GamesGone">{0} jogo não está mais instalado e saiu da lista.</sys:String>
   <sys:String x:Key="Str.GamesGone.Many">{0} jogos não estão mais instalados e saíram da lista.</sys:String>
   <sys:String x:Key="Str.ShowDetails">Ver os detalhes</sys:String>
-  <sys:String x:Key="Str.DetectedSection">Detectado</sys:String>
   <sys:String x:Key="Str.InstallsInto">Instala em: {0}</sys:String>
   <sys:String x:Key="Str.InstallsElsewhere">Fica fora da pasta que você adicionou: é onde está o {0}, a build que o launcher abre. Se você joga outra build, escolha o {0} dela acima.</sys:String>
   <sys:String x:Key="Str.CheckApiTip">Os arquivos dizem com o que o jogo se liga, não no que ele roda: uma pasta pode ter um executável D3D11 e um D3D12. A wiki diz qual o jogo usa.</sys:String>
@@ -438,7 +440,6 @@
   <sys:String x:Key="Str.UpdateOnGitHub">Baixar no GitHub</sys:String>
   <sys:String x:Key="Str.UpdateCheck">Procurar atualizações</sys:String>
 
-  <sys:String x:Key="Str.SessionSection">Última sessão</sys:String>
   <sys:String x:Key="Str.SessionTip">Lido dos logs que o add-on e o runtime gravam na pasta do jogo. É lido de novo quando você volta para esta janela depois de jogar.</sys:String>
   <sys:String x:Key="Str.SessionRan">O NR rodou na última sessão</sys:String>
   <sys:String x:Key="Str.SessionCrashed">O jogo travou e fechou na última sessão</sys:String>

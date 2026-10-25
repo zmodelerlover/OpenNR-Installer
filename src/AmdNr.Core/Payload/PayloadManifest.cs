@@ -83,7 +83,7 @@ public sealed class ComponentRelease
     public required Dictionary<string, PayloadComponent> Components { get; init; }
 }
 
-public sealed class PayloadManifest
+public sealed partial class PayloadManifest
 {
     public int Schema { get; init; }
     public string? Owner { get; init; }
@@ -173,7 +173,7 @@ public sealed class PayloadManifest
         {
             OptiScalerComponent, OptiRuntimeComponent, LmxxfWeightsComponent, LmxxfSmallWeightsComponent, LmxxfGfx1200Component,
             OptiX86Component, MochizukiComponent, MochizukiModelComponent, MochizukiSmallModelComponent, PersonModelComponent,
-            WrongGpuComponent, WrongGpuDlssComponent,
+            WrongGpuComponent, WrongGpuDlssComponent, NrLiveComponent,
         };
 
     /// <summary>The SHA-256 a pin carries until the bytes it stands for exist: 64 zeros. A release

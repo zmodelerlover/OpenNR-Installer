@@ -47,6 +47,10 @@ internal static class MochizukiFlow
             && runtimes.TranslatePoint(new Point(0, 0), content) is { } at)
             scroll.Offset = new Vector(0, Math.Max(0, at.Y - 160));
         until(() => false, 1);
+        // The tiles lower than Fluent's 32 px tick box would make them, the box itself still 20 px.
+        foreach (var tile in runtimes.GetVisualDescendants().OfType<Border>().Where(b => b.Classes.Contains("runtimeTile") && b.IsEffectivelyVisible))
+            check(tile.Bounds.Height <= 40 && tile.GetVisualDescendants().OfType<Border>().First(b => b.Name == "NormalRectangle").Bounds.Height >= 20,
+                $"a runtime tile {tile.Bounds.Height:0} px tall, its box as large as before");
         save(main, "flow-2-optiscaler-mochizuki");
 
         click(install);

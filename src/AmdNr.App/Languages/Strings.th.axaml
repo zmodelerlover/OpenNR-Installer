@@ -1,7 +1,10 @@
-﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Thai">
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceInclude Source="/Languages/NrLive/NrLive.th.axaml" />
+  </ResourceDictionary.MergedDictionaries>
 
   <!-- ไทย. The same keys as Strings.en.axaml, in its order. -->
 
@@ -308,7 +311,6 @@
   <sys:String x:Key="Str.GamesGone">{0} เกมไม่ได้ติดตั้งอยู่แล้ว จึงถูกนำออกจากรายการ</sys:String>
   <sys:String x:Key="Str.GamesGone.Many">{0} เกมไม่ได้ติดตั้งอยู่แล้ว จึงถูกนำออกจากรายการ</sys:String>
   <sys:String x:Key="Str.ShowDetails">แสดงรายละเอียด</sys:String>
-  <sys:String x:Key="Str.DetectedSection">สิ่งที่ตรวจพบ</sys:String>
   <sys:String x:Key="Str.InstallsInto">ติดตั้งที่: {0}</sys:String>
   <sys:String x:Key="Str.InstallsElsewhere">ตำแหน่งนี้อยู่นอกโฟลเดอร์ที่คุณเพิ่มไว้ เป็นที่อยู่ของ {0} ซึ่งเป็นบิลด์ที่ตัวเปิดเรียกใช้ ถ้าคุณเล่นบิลด์อื่น ให้เลือก {0} ของบิลด์นั้นด้านบน</sys:String>
   <sys:String x:Key="Str.CheckApiTip">ไฟล์บอกว่าเกมลิงก์กับอะไร ไม่ได้บอกว่ารันบนอะไร โฟลเดอร์เดียวอาจมีไฟล์ปฏิบัติการทั้ง D3D11 และ D3D12 วิกิจะบอกว่าเกมใช้ตัวไหน</sys:String>
@@ -394,7 +396,6 @@
   <sys:String x:Key="Str.UpdateNow">ดาวน์โหลดอัปเดต</sys:String>
   <sys:String x:Key="Str.UpdateOnGitHub">ดาวน์โหลดจาก GitHub</sys:String>
   <sys:String x:Key="Str.UpdateCheck">ตรวจหาอัปเดต</sys:String>
-  <sys:String x:Key="Str.SessionSection">เซสชันล่าสุด</sys:String>
   <sys:String x:Key="Str.SessionTip">อ่านจาก log ที่ add-on และรันไทม์เขียนไว้ในโฟลเดอร์เกม อ่านใหม่เมื่อคุณกลับมาที่หน้าต่างนี้หลังเล่นเกม</sys:String>
   <sys:String x:Key="Str.SessionRan">NR ทำงานในเซสชันล่าสุด</sys:String>
   <sys:String x:Key="Str.SessionCrashed">เกมแครชในเซสชันล่าสุด</sys:String>

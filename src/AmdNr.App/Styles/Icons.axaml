@@ -47,4 +47,9 @@
   <StreamGeometry x:Key="IconChevronDown">M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z</StreamGeometry>
   <StreamGeometry x:Key="IconFolderOpen">M20 6h-8l-2-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zm0 12H4V8h16v10z</StreamGeometry>
   <StreamGeometry x:Key="IconSearchFolder">M20 6h-8l-2-2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zm-5.5 3a3.5 3.5 0 0 1 2.96 5.37L19.1 16 18 17.1l-1.63-1.64A3.5 3.5 0 1 1 14.5 9zm0 1.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4z</StreamGeometry>
+  <!-- Added with the NRLive page: a window scaled up, the stop square, a camera for the capture, and the shield of an anti-cheat. -->
+  <StreamGeometry x:Key="IconScale">M19 12h-2v3h-3v2h5v-5zM7 9h3V7H5v5h2V9zm14-6H3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm0 16.01H3V4.99h18v14.02z</StreamGeometry>
+  <StreamGeometry x:Key="IconStop">M6 6h12v12H6z</StreamGeometry>
+  <StreamGeometry x:Key="IconCapture">M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4zM15 16H5V8h10v8z</StreamGeometry>
+  <StreamGeometry x:Key="IconShield">F0 M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 6h2v6h-2V7zm0 8h2v2h-2v-2z</StreamGeometry>
 </ResourceDictionary>

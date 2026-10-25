@@ -59,4 +59,157 @@
     <Setter Property="Padding" Value="10,0" />
     <Setter Property="FontSize" Value="12" />
   </Style>
+
+  <!-- The NRLive page's settings cards: a coloured mark before the title, a rule under the header, values in a
+       small badge, nested boxes a step darker than the card, and the HUD items as tiles tinted when on. -->
+  <Style Selector="Border.nrCard"><Setter Property="Padding" Value="16,12" /></Style>
+  <Style Selector="Border.nrCard ComboBox, Border.nrGroup ComboBox"><Setter Property="MinHeight" Value="32" /></Style>
+  <Style Selector="Border.nrHead">
+    <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
+    <Setter Property="BorderThickness" Value="0,0,0,1" />
+    <Setter Property="Padding" Value="0,0,0,8" />
+    <Setter Property="Margin" Value="0,0,0,10" />
+    <!-- Tall enough for a switch, so every card's rule sits at the same height whatever its header carries. -->
+    <Setter Property="MinHeight" Value="42" />
+  </Style>
+  <Style Selector="Border.nrBar">
+    <Setter Property="Width" Value="4" />
+    <Setter Property="Height" Value="16" />
+    <Setter Property="CornerRadius" Value="2" />
+    <Setter Property="Margin" Value="0,0,10,0" />
+    <Setter Property="Background" Value="{DynamicResource AccentHover}" />
+  </Style>
+  <Style Selector="Border.nrBar.ok"><Setter Property="Background" Value="{DynamicResource Ok}" /></Style>
+  <Style Selector="TextBlock.nrTitle">
+    <Setter Property="FontSize" Value="14" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+  </Style>
+  <Style Selector="Border.nrBadge, Border.nrValue">
+    <Setter Property="Background" Value="{DynamicResource Bg}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="6" />
+    <Setter Property="Padding" Value="7,2" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+  </Style>
+  <Style Selector="Border.nrBadge TextBlock">
+    <Setter Property="FontSize" Value="11" />
+    <Setter Property="Foreground" Value="{DynamicResource Muted}" />
+  </Style>
+  <Style Selector="Border.nrValue TextBlock">
+    <Setter Property="FontSize" Value="12" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+  </Style>
+  <Style Selector="Border.nrPanel, Border.nrGroup">
+    <Setter Property="Background" Value="{DynamicResource Bg}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="10" />
+    <Setter Property="Padding" Value="12,10" />
+  </Style>
+  <Style Selector="Border.nrGroup"><Setter Property="Padding" Value="12,3,4,3" /></Style>
+  <Style Selector="TextBlock.keyName">
+    <Setter Property="Margin" Value="10,0,8,0" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+  </Style>
+  <Style Selector="Border.nrTile">
+    <Setter Property="Background" Value="{DynamicResource SurfaceHigh}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="8" />
+    <Setter Property="Padding" Value="10,2,6,2" />
+    <Setter Property="Cursor" Value="Hand" />
+  </Style>
+  <Style Selector="Border.nrTile.on">
+    <Setter Property="Background" Value="{DynamicResource AccentSoft}" />
+    <Setter Property="BorderBrush" Value="#99A61C22" />
+  </Style>
+  <Style Selector="Border.nrPreview">
+    <Setter Property="Background" Value="{DynamicResource Rail}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="8" />
+    <Setter Property="Padding" Value="12,7" />
+  </Style>
+  <Style Selector="Expander.nrMore /template/ ToggleButton#ExpanderHeader"><Setter Property="MinHeight" Value="36" /></Style>
+  <!-- No right padding: the More's scroller reaches the box's edge, its bar there, and its rows keep the padding
+       themselves while there is no bar (ScrollGutter.Size). -->
+  <Style Selector="Expander.nrMore /template/ Border#ExpanderContent"><Setter Property="Padding" Value="14,10,0,10" /></Style>
+  <!-- The hotkey boxes sit in the well, framed like the cards around them, rounder than Fluent's 4 px. -->
+  <Style Selector="TextBox.hotkey">
+    <Setter Property="CornerRadius" Value="8" />
+    <Setter Property="Background" Value="{DynamicResource Well}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
+  </Style>
+  <Style Selector="TextBox.hotkey:pointerover /template/ Border#PART_BorderElement">
+    <Setter Property="Background" Value="{DynamicResource Well}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource WellEdge}" />
+  </Style>
+  <Style Selector="TextBox.hotkey:focus /template/ Border#PART_BorderElement">
+    <Setter Property="Background" Value="{DynamicResource Well}" />
+  </Style>
+
+  <!-- Every scroll bar in the app is a thin line: Fluent's widens under the pointer and grows arrows, which inside a
+       card's More read as a second control. A track and a 4 px thumb at the far edge of a 10 px lane, nothing else;
+       the track pages on a click. With auto-hide off the lane is taken only while the bar shows (Fluent's template
+       gives the content the whole width otherwise), and ScrollGutter gives a content's own right margin back then,
+       so the content runs up to the bar. -->
+  <Style Selector="ScrollViewer"><Setter Property="AllowAutoHide" Value="False" /></Style>
+  <!-- A list's, a menu's and a text box's own scroller takes AllowAutoHide from its control by a template binding,
+       which outranks the style above: set there, its bar gets the lane too instead of lying over the rows. -->
+  <Style Selector="ListBox, ComboBox, TextBox"><Setter Property="ScrollViewer.AllowAutoHide" Value="False" /></Style>
+  <Style Selector="ScrollBar:vertical">
+    <Setter Property="Width" Value="10" />
+    <Setter Property="MinWidth" Value="10" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Track Minimum="{TemplateBinding Minimum}" Maximum="{TemplateBinding Maximum}"
+               Value="{TemplateBinding Value, Mode=TwoWay}" ViewportSize="{TemplateBinding ViewportSize}"
+               Orientation="Vertical" IsDirectionReversed="True">
+          <Track.DecreaseButton><RepeatButton Name="PART_PageUpButton" Classes="thinPage" Focusable="False" /></Track.DecreaseButton>
+          <Track.IncreaseButton><RepeatButton Name="PART_PageDownButton" Classes="thinPage" Focusable="False" /></Track.IncreaseButton>
+          <Thumb Classes="thin" />
+        </Track>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="ScrollBar:horizontal">
+    <Setter Property="Height" Value="10" />
+    <Setter Property="MinHeight" Value="10" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Track Minimum="{TemplateBinding Minimum}" Maximum="{TemplateBinding Maximum}"
+               Value="{TemplateBinding Value, Mode=TwoWay}" ViewportSize="{TemplateBinding ViewportSize}" Orientation="Horizontal">
+          <Track.DecreaseButton><RepeatButton Name="PART_PageUpButton" Classes="thinPage" Focusable="False" /></Track.DecreaseButton>
+          <Track.IncreaseButton><RepeatButton Name="PART_PageDownButton" Classes="thinPage" Focusable="False" /></Track.IncreaseButton>
+          <Thumb Classes="thin" />
+        </Track>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="RepeatButton.thinPage">
+    <Setter Property="Template">
+      <ControlTemplate><Border Background="Transparent" /></ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="Thumb.thin"><Setter Property="Background" Value="{DynamicResource BorderStrong}" /></Style>
+  <Style Selector="Thumb.thin:pointerover"><Setter Property="Background" Value="{DynamicResource Faint}" /></Style>
+  <Style Selector="ScrollBar:vertical Thumb.thin">
+    <Setter Property="MinHeight" Value="24" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Width="4" CornerRadius="2" HorizontalAlignment="Right" Margin="0,0,2,0" Background="{TemplateBinding Background}" />
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="ScrollBar:horizontal Thumb.thin">
+    <Setter Property="MinWidth" Value="24" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Height="4" CornerRadius="2" VerticalAlignment="Bottom" Margin="0,0,0,2" Background="{TemplateBinding Background}" />
+      </ControlTemplate>
+    </Setter>
+  </Style>
 </Styles>

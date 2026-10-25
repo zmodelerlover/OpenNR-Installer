@@ -1,5 +1,6 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:AmdNr.App"
              x:Class="AmdNr.App.NotesSheet"
              IsVisible="False">
 
@@ -27,7 +28,7 @@
             </Button>
           </Grid>
 
-          <ScrollViewer Grid.Row="1" Margin="0,22,0,0" HorizontalScrollBarVisibility="Disabled">
+          <ScrollViewer Grid.Row="1" Margin="0,22,0,0" local:ScrollGutter.Size="14" HorizontalScrollBarVisibility="Disabled">
             <Panel Margin="0,0,14,4">
               <StackPanel x:Name="NotesLoading" Orientation="Horizontal" Spacing="12">
                 <Arc Classes="spin" Stroke="{DynamicResource Muted}" />

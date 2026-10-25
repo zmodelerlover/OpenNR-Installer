@@ -1,7 +1,10 @@
-﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.German">
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceInclude Source="/Languages/NrLive/NrLive.de.axaml" />
+  </ResourceDictionary.MergedDictionaries>
 
   <!-- Deutsch. The same keys as Strings.en.axaml, in its order. -->
 
@@ -308,7 +311,6 @@
   <sys:String x:Key="Str.GamesGone">{0} Spiel ist nicht mehr installiert und wurde daher aus der Liste entfernt.</sys:String>
   <sys:String x:Key="Str.GamesGone.Many">{0} Spiele sind nicht mehr installiert und wurden daher aus der Liste entfernt.</sys:String>
   <sys:String x:Key="Str.ShowDetails">Details anzeigen</sys:String>
-  <sys:String x:Key="Str.DetectedSection">Erkannt</sys:String>
   <sys:String x:Key="Str.InstallsInto">Wird installiert in: {0}</sys:String>
   <sys:String x:Key="Str.InstallsElsewhere">Das liegt außerhalb des hinzugefügten Ordners: Dort ist {0}, der Build, den der Launcher startet. Spielst du einen anderen, wähle oben dessen {0}.</sys:String>
   <sys:String x:Key="Str.CheckApiTip">Dateien sagen, wogegen ein Spiel gelinkt ist, nicht, womit es läuft: Ein Ordner kann eine D3D11- und eine D3D12-ausführbare Datei enthalten. Das Wiki sagt, welche das Spiel nutzt.</sys:String>
@@ -394,7 +396,6 @@
   <sys:String x:Key="Str.UpdateNow">Update herunterladen</sys:String>
   <sys:String x:Key="Str.UpdateOnGitHub">Von GitHub herunterladen</sys:String>
   <sys:String x:Key="Str.UpdateCheck">Nach Updates suchen</sys:String>
-  <sys:String x:Key="Str.SessionSection">Letzte Sitzung</sys:String>
   <sys:String x:Key="Str.SessionTip">Aus den Logs gelesen, die das Add-on und die Runtime im Spielordner schreiben. Wird neu gelesen, wenn du nach dem Spielen zu diesem Fenster zurückkehrst.</sys:String>
   <sys:String x:Key="Str.SessionRan">NR lief in der letzten Sitzung</sys:String>
   <sys:String x:Key="Str.SessionCrashed">Das Spiel ist in der letzten Sitzung abgestürzt</sys:String>

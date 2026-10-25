@@ -1,7 +1,10 @@
-﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Pirate">
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceInclude Source="/Languages/NrLive/NrLive.x-pirate.axaml" />
+  </ResourceDictionary.MergedDictionaries>
 
   <!-- Pirate English. The same keys as Strings.en.axaml, in its order. -->
 
@@ -308,7 +311,6 @@
   <sys:String x:Key="Str.GamesGone">{0} game ain't aboard no more, so it left the list.</sys:String>
   <sys:String x:Key="Str.GamesGone.Many">{0} games ain't aboard no more, so they left the list.</sys:String>
   <sys:String x:Key="Str.ShowDetails">Show the ship's log</sys:String>
-  <sys:String x:Key="Str.DetectedSection">Spotted</sys:String>
   <sys:String x:Key="Str.InstallsInto">Stowed in: {0}</sys:String>
   <sys:String x:Key="Str.InstallsElsewhere">This be outside the folder ye added: 'tis where {0} lies, the build the launcher sets sail. If ye play another build, choose its {0} above.</sys:String>
   <sys:String x:Key="Str.CheckApiTip">Files say what a game links against, not what it sails on: one hold can carry a D3D11 an' a D3D12 executable. The wiki says which the game uses.</sys:String>
@@ -394,7 +396,6 @@
   <sys:String x:Key="Str.UpdateNow">Haul the update aboard</sys:String>
   <sys:String x:Key="Str.UpdateOnGitHub">Haul it from GitHub</sys:String>
   <sys:String x:Key="Str.UpdateCheck">Spyglass for updates</sys:String>
-  <sys:String x:Key="Str.SessionSection">Last voyage</sys:String>
   <sys:String x:Key="Str.SessionTip">Read from the logs the add-on an' the runtime scribble in the game's hold. Read again when ye come back to this window after sailin'.</sys:String>
   <sys:String x:Key="Str.SessionRan">NR sailed true on the last voyage</sys:String>
   <sys:String x:Key="Str.SessionCrashed">The game sank on the last voyage</sys:String>
