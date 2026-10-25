@@ -222,6 +222,8 @@ public static partial class Engine
         "OptiScaler/libxess_dx11.dll",
         "OptiScaler/libxess_fg.dll",
         "OptiScaler/libxell.dll",
+        // NVIDIA's DLSS 310 for danielblnc 0.8.0's DLSS-SR in a game whose own is older (Work.HostDlss.cs).
+        "OptiScaler/nvngx_dlss.dll",
         "OptiScaler/D3D12_OptiScaler/D3D12Core.dll",
         "experimental_lighting/GatherCS.cso",
         "experimental_lighting/ResolveCS.cso",

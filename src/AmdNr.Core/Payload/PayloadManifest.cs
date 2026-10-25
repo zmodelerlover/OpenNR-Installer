@@ -162,7 +162,8 @@ public sealed partial class PayloadManifest
     public const string WrongGpuComponent = "wronggpu";
 
     /// <summary>NVIDIA's nvngx_dlss.dll 310.9.1 from NVIDIA's own GitHub repository, for WrongGPU's setup to convert
-    /// the model from when the PC has no DLSS 310.5 or newer. Never installed in a game.</summary>
+    /// the model from when the PC has no DLSS 310.5 or newer, and for OptiScaler\ in a game whose own DLSS is too old
+    /// for danielblnc 0.8.0's DLSS-SR (Work.HostDlss.cs).</summary>
     public const string WrongGpuDlssComponent = "wronggpu-dlss";
 
     /// <summary>Components fetched only when a route that uses them is installed. The OptiScaler
@@ -265,9 +266,9 @@ public sealed partial class PayloadManifest
 
     /// <summary>This manifest without lmxxf's weights and RX 9060 kernels, for a card lmxxf does not run on: about
     /// 590 MB nobody there can use. Neither is downloaded, pinned or installed then, and nor are person protection,
-    /// which only lmxxf and mochizuki run, and WrongGPU, which runs on RX 9000 only.</summary>
-    public PayloadManifest WithoutLmxxf() => Without(LmxxfComponents.Append(PersonModelComponent)
-        .Append(WrongGpuComponent).Append(WrongGpuDlssComponent).ToArray());
+    /// which only lmxxf and mochizuki run, and WrongGPU, which runs on RX 9000 only. NVIDIA's DLSS stays: danielblnc
+    /// 0.8.0 reads it on every card.</summary>
+    public PayloadManifest WithoutLmxxf() => Without(LmxxfComponents.Append(PersonModelComponent).Append(WrongGpuComponent).ToArray());
 
     /// <summary>lmxxf's weights, its Small model and its RX 9060 kernels: what leaving lmxxf out takes away.</summary>
     public static readonly string[] LmxxfComponents = [LmxxfWeightsComponent, LmxxfSmallWeightsComponent, LmxxfGfx1200Component];

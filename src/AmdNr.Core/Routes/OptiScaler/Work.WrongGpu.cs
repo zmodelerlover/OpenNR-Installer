@@ -149,7 +149,7 @@ public static partial class Work
             File.Copy(Path.Combine(src, OptiScalerIni), Path.Combine(package, OptiScalerIni));
             // The setup looks in "this game" first: the game's own DLSS, else NVIDIA's download.
             string? dlss = null;
-            // NVIDIA's DLSS is staged only when WrongGpuNeedsDlss said so; otherwise it is simply not there.
+            // NVIDIA's DLSS is staged only when WrongGpuNeedsDlss or HostNeedsDlss said so; otherwise it is simply not there.
             if (pins.WrongGpuDlss.Length > 0 && File.Exists(Path.Combine(src, pins.WrongGpuDlss)) &&
                 VerifiedPayload(src, pins.WrongGpuDlss, pins.WrongGpuDlssSha, report) is not null)
                 dlss = Path.Combine(src, pins.WrongGpuDlss);

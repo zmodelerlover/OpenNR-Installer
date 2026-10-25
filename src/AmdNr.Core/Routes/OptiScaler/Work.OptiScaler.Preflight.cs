@@ -36,6 +36,10 @@ public static partial class Work
         if (mochizuki) CheckMochizukiPayload(src, pins, report);
         if (wrongGpu) CheckWrongGpu(src, pins, Directory.Exists(dir) && GraphicsDetector.Detect(dir).Width == Route.X86, report);
         if (daniel) CheckSupplied(ownRuntime, wantedRuntime, pins, Preset.OptiScaler, report);
+        if (daniel && HostDlssReason(dir, VersionOf(pins.OptiRuntimeVersion)) is { } why)
+            report.Info(UsersHostDlss(dir, InstalledManifest(dir))
+                ? $"{why}; OptiScaler hands it the OptiScaler\\nvngx_dlss.dll already here."
+                : $"{why}: installing puts NVIDIA's 310 in OptiScaler\\ for it.");
 
         if (dir.Length == 0)
         {

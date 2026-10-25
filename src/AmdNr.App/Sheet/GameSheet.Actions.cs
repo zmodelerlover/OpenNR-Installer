@@ -73,7 +73,7 @@ public partial class GameSheet
         {
             (report, staged, runtime) = await Task.Run(() =>
             {
-                var folder = CachedPayloadFolder(ComponentsFor(preset, mochizuki, wrongGpu, NeedsDlss(card, wrongGpu), !Skips(card, DanielRuntime)));
+                var folder = CachedPayloadFolder(ComponentsFor(preset, mochizuki, wrongGpu, NeedsDlss(card, wrongGpu, pins), !Skips(card, DanielRuntime)));
                 var own = wanted is null ? null : Work.FindUserRuntime(wanted, TargetFor(card));
                 return (Work.Preflight(TargetFor(card), folder ?? "", preset, pins, proxy, mochizuki, own,
                     unoffered ? wanted : null, wiki, api, wrongGpu, !Skips(card, DanielRuntime)), folder, own);
@@ -146,7 +146,7 @@ public partial class GameSheet
 
             ResultBanner.IsVisible = false;
             ShowStep(StepDownload);
-            var folder = await EnsurePayloadsAsync(ComponentsFor(preset, mochizuki, wrongGpu, NeedsDlss(card, wrongGpu), !Skips(card, DanielRuntime)));
+            var folder = await EnsurePayloadsAsync(ComponentsFor(preset, mochizuki, wrongGpu, NeedsDlss(card, wrongGpu, pins), !Skips(card, DanielRuntime)));
             if (folder is null)
             {
                 ShowStep(StepDownload, failed: true);
@@ -390,8 +390,8 @@ public partial class GameSheet
     /// <summary>What a route needs. Every ReShade route needs the add-on and the runtime; the bridge
     /// routes also need their own 32-bit pair and the pinned ReShade beside it. The OptiScaler route
     /// needs OptiScaler, the runtime build it drives, and the weights out of the runtime component --
-    /// and the mochizuki runtime and its models only when it was asked for, and WrongGPU (with NVIDIA's DLSS for its
-    /// setup when the PC has none it can use) only when it was ticked.</summary>
+    /// and the mochizuki runtime and its models only when it was asked for, and WrongGPU only when it was ticked; NVIDIA's
+    /// DLSS when WrongGPU's setup or danielblnc 0.8.0 needs it (NeedsDlss).</summary>
     private static string[] ComponentsFor(Preset preset, bool mochizuki = false, bool wrongGpu = false, bool dlss = false,
         bool daniel = true) =>
         preset.IsOptiScaler()
