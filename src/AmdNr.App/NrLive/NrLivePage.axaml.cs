@@ -6,6 +6,7 @@
 // What it writes and runs is in AmdNr.Core\NrLive.
 
 using System.Diagnostics;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using AmdNr.Core;
@@ -33,6 +34,7 @@ public partial class NrLivePage : UserControl
         // The four hotkey boxes across when each gets room for a combination, two by two when not.
         HotkeyGrid.SizeChanged += (_, e) => HotkeyGrid.Columns = e.NewSize.Width >= 720 ? 4 : 2;
         SettingsGrid.SizeChanged += (_, e) => Arrange(e.NewSize.Width);
+        PageScroll.LayoutUpdated += (_, _) => Fill();
         IsVisible = false;
         PropertyChanged += (_, e) =>
         {
@@ -68,10 +70,14 @@ public partial class NrLivePage : UserControl
         if (columns == _columns) return;
         _columns = columns;
         SettingsGrid.ColumnDefinitions = new(columns switch { 3 => "*,16,*,16,1.3*", 2 => "*,16,*", _ => "*" });
-        SettingsGrid.RowDefinitions = new(columns switch { 3 => "Auto", 2 => "Auto,16,Auto", _ => "Auto,16,Auto,16,Auto" });
+        // Three across, the cards' row takes what the window has left under the strips above (Fill), so an open More
+        // gets that room too; on fewer columns the page scrolls, and the rows are as tall as their cards.
+        SettingsGrid.RowDefinitions = new(columns switch { 3 => "*", 2 => "Auto,16,Auto", _ => "Auto,16,Auto,16,Auto" });
         Control[] cards = [PictureCard, NrCard, OverlayCard];
+        CardBody[] bodies = [PictureBody, NrBody, OverlayBody];
         for (var i = 0; i < cards.Length; i++)
         {
+            bodies[i].Grows = columns == 1 || (columns == 2 && i == 2);
             var (column, row, span) = columns switch { 3 => (i * 2, 0, 1), 2 => i < 2 ? (i * 2, 0, 1) : (0, 2, 3), _ => (0, i * 2, 1) };
             Grid.SetColumn(cards[i], column);
             Grid.SetRow(cards[i], row);
@@ -82,6 +88,16 @@ public partial class NrLivePage : UserControl
         Grid.SetRow(MotionGroup, wide ? 0 : 1);
         Grid.SetColumn(CaptureGroup, wide ? 2 : 1);
         CaptureGroup.Margin = MotionGroup.Margin = new Avalonia.Thickness(0, wide ? 0 : 10, 0, 0);
+    }
+
+    /// <summary>Three across, the cards reach the foot of the window: the room under a card's rows is where its
+    /// More opens, and on a window taller than the page that room would otherwise sit under the cards, unused.
+    /// Never more than what is left, so the page itself does not scroll.</summary>
+    private void Fill()
+    {
+        var top = SettingsGrid.TranslatePoint(default, PageStack)?.Y;
+        var room = _columns == 3 && top is { } y ? Math.Floor(PageScroll.Viewport.Height - PageStack.Margin.Top - PageStack.Margin.Bottom - y) : 0;
+        if (Math.Abs(SettingsGrid.MinHeight - Math.Max(0, room)) >= 1) SettingsGrid.MinHeight = Math.Max(0, room);
     }
 
     /// <summary>The installed release, or null.</summary>

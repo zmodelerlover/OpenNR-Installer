@@ -207,6 +207,40 @@ Option A as approved: a Global profile (what `scaleconfig.ini` / `profiles\Defau
   stand-in exe fails to start: `flow-nrlive-profile-foreground`), reset to global. `tools\gate.ps1 -Ui`: all OK.
 - **Not tested**: a real NRLive following the ini switch at the countdown end; the `-pid <pid> -delay 0` launch.
 
+## Visual round (2026-10-24)
+
+The user's list of visual fixes, all in one commit.
+
+- **More on the cards** (`NrLive\CardBody.cs`, new): each card's body is a panel of its rows plus its More expander. It asks
+  for the rows and a closed More whether More is open or not, so opening one no longer makes the row of cards taller.
+  Open, More takes the room under the rows and its content scrolls inside it (`ScrollViewer.thin`); it is measured again
+  in that room, or its scroller would not scroll. When the rows leave less than `MinRoom` (160 px, header included; the
+  tallest card has none), More rises over the last rows instead of showing a bare header. Two or one across, a card alone
+  on its line (`Grows`) just grows, since the page scrolls there anyway. Three across, the cards' row is `*` and
+  `Fill()` (on `PageScroll.LayoutUpdated`) gives the grid the window's remaining height as `MinHeight`, so the cards reach
+  the foot of the window and More gets that room too; the page still fits 1240x800.
+- **More order**: `ShowSettings` sorts each card's More by kind, sliders, then menus, then switches, table order within a kind.
+- **Thin scroll bar** (`Styles/Details.axaml`, `ScrollViewer.thin`): the vertical bar re-templated to a track, two
+  transparent page buttons and a 4 px thumb in a 10 px lane, `AllowAutoHide` off; it never widens under the pointer.
+  Used on the NRLive page's `PageScroll` and inside each More.
+- **The well** (`Styles/Palette.axaml`): new brush `Well` = #110C0D. The app has only the dark theme (`App.axaml`
+  RequestedThemeVariant="Dark", one palette), so there is no light counterpart. Fluent's keys overridden there, app-wide:
+  `ExpanderHeaderBackgroundPointerOver/Pressed` = Well, `ExpanderChevronBackground*` transparent (the grey square behind
+  the chevron), `ComboBoxDropDownBackground` = Well. That covers the `details` expanders and the NRLive `nrMore` ones,
+  and every ComboBox drop-down. Measured on the shots: header and chevron #110C0D under the pointer, popup #110C0D.
+- **Hotkey boxes**: `TextBox.hotkey` (Details.axaml): Well background, the cards' `Border` brush, corner radius 8;
+  `BorderStrong` under the pointer, the accent border on focus as before.
+- **Game sheet**: "Last session" (`SessionBox`, now a grid so its box stretches) and "Detected" sit in one grid
+  (`InfoRow`), two equal columns; "Installs into" moved inside the Detected box as its third line, so the last session and
+  the install location are side by side. `LayInfo()` (GameSheet.Session.cs) stacks them when the row is under 620 px
+  (the window's sheet is ~600 px wide, so it stacks there, as before) and gives Detected the whole row with no session.
+  Detection's callouts (elsewhere, API hint) span both columns under them; the anti-cheat card moved under this row,
+  inside `Options`.
+- **uishot**: `Flows.NrLiveMore.cs` (in the NRLive flow, 1240x800, the stand-in also reading NR's advanced keys): every
+  More open, cards keep their height, page fits, sliders before switches, NR's More scrolls, the bar is <= 10 px also
+  under the pointer; shots `flow-nrlive-more-open`, `flow-nrlive-more-hover`, `flow-nrlive-dropdown` (popup on the
+  overlay layer so the window shot carries it). `Flows.Session.cs`: stacked in the window's sheet, side by side and equal
+  height docked at 1920x1040 (`flow-session-docked`).
 ## Files
 
 New:

@@ -57,7 +57,9 @@ public partial class NrLivePage
             var heading = mine.Where(s => s.Layout == NrLiveLayout.Header && head is not null && head.Content is null).Take(1).ToList();
             foreach (var s in heading) head!.Content = HeadSwitch(s.LabelKey, Control(s));
             Lay(rows, mine.Where(s => !s.Advanced && !heading.Contains(s)).ToList(), main: true);
-            Lay(more, mine.Where(s => s.Advanced).ToList(), main: false);
+            // More is a list to adjust rather than to read in order: its sliders together first, then its menus and
+            // switches, each kind in table order (OrderBy keeps it).
+            Lay(more, mine.Where(s => s.Advanced).OrderBy(s => s.Kind switch { NrLiveKind.Range => 0, NrLiveKind.Choice => 1, _ => 2 }).ToList(), main: false);
             if (mine.Any(s => s.Sample is not null)) rows.Children.Add(Preview());
         }
         PictureMore.IsVisible = PictureMoreRows.Children.Count > 0;

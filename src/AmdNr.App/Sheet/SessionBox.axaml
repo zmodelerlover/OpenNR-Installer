@@ -4,12 +4,13 @@
 
   <!-- How the last session went, read off the logs the add-on and the runtime leave beside the game.
        GameSheet.Session.cs fills it in. -->
-  <StackPanel Spacing="8">
+  <!-- A grid rather than a stack: beside the Detected box on the sheet, the box stretches to the same height. -->
+  <Grid RowDefinitions="Auto,*" RowSpacing="8">
     <StackPanel Orientation="Horizontal">
       <TextBlock Text="{DynamicResource Str.SessionSection}" Classes="section" />
       <Border Classes="info" ToolTip.Tip="{DynamicResource Str.SessionTip}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
     </StackPanel>
-    <Border Classes="detect">
+    <Border Grid.Row="1" Classes="detect">
       <Grid ColumnDefinitions="Auto,*">
         <PathIcon x:Name="SessionGlyph" x:FieldModifier="internal" Width="16" Height="16" VerticalAlignment="Top" Margin="0,2,10,0" />
         <StackPanel Grid.Column="1" Spacing="4">
@@ -22,5 +23,5 @@
         </StackPanel>
       </Grid>
     </Border>
-  </StackPanel>
+  </Grid>
 </UserControl>

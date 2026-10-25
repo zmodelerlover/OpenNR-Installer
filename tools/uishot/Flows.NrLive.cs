@@ -98,6 +98,7 @@ internal static class NrLiveFlow
         check(scroll.Extent.Height <= scroll.Viewport.Height + 1 && Grid.GetColumn(Named<Border>("OverlayCard")) == 4,
             $"at 1240x800 the page fits without scrolling, three cards across (extent {scroll.Extent.Height:0}, viewport {scroll.Viewport.Height:0})");
         save(main, "flow-nrlive-default");
+        NrLiveMoreFlow.Run(main, page, check, until, save);
         (main.Width, main.Height) = (980, 620);
         until(() => false, 1);
         check(Grid.GetColumn(Named<Border>("OverlayCard")) == 0 && Grid.GetRow(Named<Border>("OverlayCard")) == 2,

@@ -40,6 +40,24 @@ internal static class SessionFlow
             $"a session that ran says so, with its frames, the network's time and the runtime ({detail.Text})");
         save(main, "flow-session-ran");
 
+        // In the window's sheet, half its width is too narrow for a path: Detected under the last session. Docked
+        // beside the list view on a large window, where the sheet is wider, the two side by side and as tall as each other.
+        var detected = Named<Grid>("DetectedPart");
+        check(Grid.GetRow(detected) == 1 && Grid.GetColumn(detected) == 0, "in the window's sheet Detected sits under the last session");
+        var library = main.GetVisualDescendants().OfType<LibraryPage>().First();
+        library.FindControl<Button>("ListViewButton")!.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        (main.Width, main.Height) = (1920, 1040);
+        main.OpenSheet(card);
+        sheet.ShowSession(card);
+        check(until(() => sheet.Docked && title.Text == S("Str.SessionRan") && Grid.GetColumn(detected) == 2, 10) && !until(() => false, 1)
+              && Math.Abs(section.Bounds.Height - detected.Bounds.Height) < 1,
+            $"docked beside the list, the last session and Detected side by side, as tall as each other ({section.Bounds.Height:0}/{detected.Bounds.Height:0})");
+        save(main, "flow-session-docked");
+        library.FindControl<Button>("GridViewButton")!.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        (main.Width, main.Height) = (1240, 820);
+        main.OpenSheet(card);
+        until(() => sheet.IsOpen && !sheet.Docked, 5);
+
         File.AppendAllText(runtime, "CRASH: exception 0xc0000005 at 0000 in Game.exe (thread 1, last job 1190, mode inline)\n");
         sheet.ShowSession(card);
         check(until(() => title.Text == S("Str.SessionCrashed"), 10) && line.IsVisible && line.Text!.StartsWith("CRASH:"),

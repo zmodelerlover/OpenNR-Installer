@@ -1,13 +1,14 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:AmdNr.App"
              x:Class="AmdNr.App.NrLivePage">
 
   <!-- NRLive, run from here: getting it, the session with its hotkeys, what it captures, then its settings in
        three cards side by side, rows built from NRLive's own keys (NrLiveConfig.Settings). Laid out to fit the
        window's default size without scrolling: the settings are what people come back to, so none of them should
        sit below the fold. Wider than the other pages for the same reason. -->
-  <ScrollViewer x:Name="PageScroll" HorizontalScrollBarVisibility="Disabled" ScrollViewer.AllowAutoHide="False">
-    <StackPanel Spacing="8" MaxWidth="1480" Margin="32,12,32,10" HorizontalAlignment="Stretch">
+  <ScrollViewer x:Name="PageScroll" Classes="thin" HorizontalScrollBarVisibility="Disabled">
+    <StackPanel x:Name="PageStack" Spacing="8" MaxWidth="1480" Margin="32,12,32,10" HorizontalAlignment="Stretch">
       <!-- The title, whose NRLive is and where its source is, and NRLive's state once it is here: a whole card for a
            line that only says "ready" would push the settings down. NRLive is GPL-3.0, and the link to its source
            has to stay in sight: the sentence before it gives way on a narrow window, the link does not. -->
@@ -142,16 +143,16 @@
                  first is this app's, registered with Windows so it works from inside the game; the others are NRLive's. -->
             <!-- Each box's name inside it, before the keys. -->
             <UniformGrid x:Name="HotkeyGrid" Columns="4" Margin="0,0,-12,-8">
-              <TextBox x:Name="ScaleKeyBox" IsReadOnly="True" Margin="0,0,12,8" AutomationProperties.Name="{DynamicResource Str.NrLiveHotkeyScale}">
+              <TextBox x:Name="ScaleKeyBox" Classes="hotkey" IsReadOnly="True" Margin="0,0,12,8" AutomationProperties.Name="{DynamicResource Str.NrLiveHotkeyScale}">
                 <TextBox.InnerLeftContent><TextBlock Text="{DynamicResource Str.NrLiveHotkeyScale}" Classes="caption keyName" /></TextBox.InnerLeftContent>
               </TextBox>
-              <TextBox x:Name="StopKeyBox" IsReadOnly="True" Margin="0,0,12,8" AutomationProperties.Name="{DynamicResource Str.NrLiveHotkeyStop}">
+              <TextBox x:Name="StopKeyBox" Classes="hotkey" IsReadOnly="True" Margin="0,0,12,8" AutomationProperties.Name="{DynamicResource Str.NrLiveHotkeyStop}">
                 <TextBox.InnerLeftContent><TextBlock Text="{DynamicResource Str.NrLiveHotkeyStop}" Classes="caption keyName" /></TextBox.InnerLeftContent>
               </TextBox>
-              <TextBox x:Name="OverlayKeyBox" IsReadOnly="True" Margin="0,0,12,8" AutomationProperties.Name="{DynamicResource Str.NrLiveHotkeyOverlay}">
+              <TextBox x:Name="OverlayKeyBox" Classes="hotkey" IsReadOnly="True" Margin="0,0,12,8" AutomationProperties.Name="{DynamicResource Str.NrLiveHotkeyOverlay}">
                 <TextBox.InnerLeftContent><TextBlock Text="{DynamicResource Str.NrLiveHotkeyOverlay}" Classes="caption keyName" /></TextBox.InnerLeftContent>
               </TextBox>
-              <TextBox x:Name="BypassBox" LostFocus="OnBypassDone" Margin="0,0,12,8" AutomationProperties.Name="{DynamicResource Str.NrLiveHotkeyBypass}">
+              <TextBox x:Name="BypassBox" Classes="hotkey" LostFocus="OnBypassDone" Margin="0,0,12,8" AutomationProperties.Name="{DynamicResource Str.NrLiveHotkeyBypass}">
                 <TextBox.InnerLeftContent>
                   <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <TextBlock Text="{DynamicResource Str.NrLiveHotkeyBypass}" Classes="caption keyName" Margin="10,0,0,0" />
@@ -203,8 +204,9 @@
         </Border>
 
         <!-- NRLive's own settings, one card per group, laid out from NrLiveConfig.Settings (NrLivePage.Settings.cs and
-             .Rows.cs). Three across, the cards as tall as the tallest and each "More" at its card's foot; two and one
-             across on a narrower window (Arrange in NrLivePage.axaml.cs). -->
+             .Rows.cs). Three across, the cards as tall as the tallest and each "More" at its card's foot, opening into
+             the room under its rows without making the cards taller (CardBody); two and one across on a narrower
+             window (Arrange in NrLivePage.axaml.cs). -->
         <Grid x:Name="SettingsGrid" ColumnDefinitions="*,16,*,16,1.3*">
           <Border x:Name="PictureCard" Classes="card nrCard">
             <DockPanel>
@@ -216,10 +218,12 @@
                   <TextBlock x:Name="GpuText" />
                 </Border>
               </Grid></Border>
-              <Expander x:Name="PictureMore" DockPanel.Dock="Bottom" Classes="details nrMore" Header="{DynamicResource Str.NrLiveMore}">
-                <StackPanel x:Name="PictureMoreRows" Spacing="10" />
-              </Expander>
-              <StackPanel x:Name="PictureRows" Spacing="10" />
+              <local:CardBody x:Name="PictureBody">
+                <StackPanel x:Name="PictureRows" Spacing="10" />
+                <Expander x:Name="PictureMore" Classes="details nrMore" Header="{DynamicResource Str.NrLiveMore}">
+                  <ScrollViewer Classes="thin"><StackPanel x:Name="PictureMoreRows" Spacing="10" /></ScrollViewer>
+                </Expander>
+              </local:CardBody>
             </DockPanel>
           </Border>
           <Border x:Name="NrCard" Grid.Column="2" Classes="card nrCard">
@@ -229,20 +233,22 @@
                 <TextBlock Grid.Column="1" Text="{DynamicResource Str.NrLiveNrSection}" Classes="nrTitle" />
                 <ContentControl x:Name="NrHead" Grid.Column="2" Margin="12,0,0,0" />
               </Grid></Border>
-              <Expander x:Name="NrMore" DockPanel.Dock="Bottom" Classes="details nrMore" Header="{DynamicResource Str.NrLiveMore}">
-                <StackPanel x:Name="NrMoreRows" Spacing="10" />
-              </Expander>
-              <StackPanel Spacing="10">
-                <Border x:Name="ModelBox" Classes="callout" IsVisible="False">
-                  <Grid ColumnDefinitions="Auto,*">
-                    <PathIcon Data="{StaticResource IconWarn}" Width="16" Height="16" Foreground="{DynamicResource Warn}"
-                              VerticalAlignment="Top" Margin="0,1,10,0" />
-                    <TextBlock x:Name="ModelText" Grid.Column="1" Text="{DynamicResource Str.NrLiveModelMissing}" TextWrapping="Wrap" LineHeight="19"
-                               Foreground="{DynamicResource WarnText}" />
-                  </Grid>
-                </Border>
-                <StackPanel x:Name="NrRows" Spacing="10" />
-              </StackPanel>
+              <local:CardBody x:Name="NrBody">
+                <StackPanel Spacing="10">
+                  <Border x:Name="ModelBox" Classes="callout" IsVisible="False">
+                    <Grid ColumnDefinitions="Auto,*">
+                      <PathIcon Data="{StaticResource IconWarn}" Width="16" Height="16" Foreground="{DynamicResource Warn}"
+                                VerticalAlignment="Top" Margin="0,1,10,0" />
+                      <TextBlock x:Name="ModelText" Grid.Column="1" Text="{DynamicResource Str.NrLiveModelMissing}" TextWrapping="Wrap" LineHeight="19"
+                                 Foreground="{DynamicResource WarnText}" />
+                    </Grid>
+                  </Border>
+                  <StackPanel x:Name="NrRows" Spacing="10" />
+                </StackPanel>
+                <Expander x:Name="NrMore" Classes="details nrMore" Header="{DynamicResource Str.NrLiveMore}">
+                  <ScrollViewer Classes="thin"><StackPanel x:Name="NrMoreRows" Spacing="10" /></ScrollViewer>
+                </Expander>
+              </local:CardBody>
             </DockPanel>
           </Border>
           <Border x:Name="OverlayCard" Grid.Column="4" Classes="card nrCard">
@@ -252,10 +258,12 @@
                 <TextBlock Grid.Column="1" Text="{DynamicResource Str.NrLiveOverlaySection}" Classes="nrTitle" />
                 <ContentControl x:Name="OverlayHead" Grid.Column="2" Margin="12,0,0,0" />
               </Grid></Border>
-              <Expander x:Name="OverlayMore" DockPanel.Dock="Bottom" Classes="details nrMore" Header="{DynamicResource Str.NrLiveMore}">
-                <StackPanel x:Name="OverlayMoreRows" Spacing="10" />
-              </Expander>
-              <StackPanel x:Name="OverlayRows" Spacing="10" />
+              <local:CardBody x:Name="OverlayBody">
+                <StackPanel x:Name="OverlayRows" Spacing="10" />
+                <Expander x:Name="OverlayMore" Classes="details nrMore" Header="{DynamicResource Str.NrLiveMore}">
+                  <ScrollViewer Classes="thin"><StackPanel x:Name="OverlayMoreRows" Spacing="10" /></ScrollViewer>
+                </Expander>
+              </local:CardBody>
             </DockPanel>
           </Border>
         </Grid>

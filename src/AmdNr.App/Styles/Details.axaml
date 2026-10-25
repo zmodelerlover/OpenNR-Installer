@@ -133,6 +133,56 @@
     <Setter Property="CornerRadius" Value="8" />
     <Setter Property="Padding" Value="12,7" />
   </Style>
-  <Style Selector="Expander.nrMore"><Setter Property="Margin" Value="0,12,0,0" /></Style>
   <Style Selector="Expander.nrMore /template/ ToggleButton#ExpanderHeader"><Setter Property="MinHeight" Value="36" /></Style>
+  <!-- The hotkey boxes sit in the well, framed like the cards around them, rounder than Fluent's 4 px. -->
+  <Style Selector="TextBox.hotkey">
+    <Setter Property="CornerRadius" Value="8" />
+    <Setter Property="Background" Value="{DynamicResource Well}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
+  </Style>
+  <Style Selector="TextBox.hotkey:pointerover /template/ Border#PART_BorderElement">
+    <Setter Property="Background" Value="{DynamicResource Well}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource BorderStrong}" />
+  </Style>
+  <Style Selector="TextBox.hotkey:focus /template/ Border#PART_BorderElement">
+    <Setter Property="Background" Value="{DynamicResource Well}" />
+  </Style>
+
+  <!-- A scroll bar that stays a thin line: Fluent's widens under the pointer and grows arrows, which inside a
+       card's More reads as a second control. A track and a thumb, nothing else; the track pages on a click. -->
+  <Style Selector="ScrollViewer.thin"><Setter Property="AllowAutoHide" Value="False" /></Style>
+  <Style Selector="ScrollViewer.thin /template/ ScrollBar:vertical">
+    <Setter Property="Width" Value="10" />
+    <Setter Property="MinWidth" Value="10" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Track Minimum="{TemplateBinding Minimum}" Maximum="{TemplateBinding Maximum}"
+               Value="{TemplateBinding Value, Mode=TwoWay}" ViewportSize="{TemplateBinding ViewportSize}"
+               Orientation="Vertical" IsDirectionReversed="True">
+          <Track.DecreaseButton>
+            <RepeatButton Name="PART_PageUpButton" Classes="thinPage" Focusable="False" />
+          </Track.DecreaseButton>
+          <Track.IncreaseButton>
+            <RepeatButton Name="PART_PageDownButton" Classes="thinPage" Focusable="False" />
+          </Track.IncreaseButton>
+          <Thumb Classes="thin" />
+        </Track>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="RepeatButton.thinPage">
+    <Setter Property="Template">
+      <ControlTemplate><Border Background="Transparent" /></ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="Thumb.thin">
+    <Setter Property="MinHeight" Value="24" />
+    <Setter Property="Background" Value="{DynamicResource BorderStrong}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Width="4" CornerRadius="2" HorizontalAlignment="Center" Background="{TemplateBinding Background}" />
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="Thumb.thin:pointerover"><Setter Property="Background" Value="{DynamicResource Faint}" /></Style>
 </Styles>
