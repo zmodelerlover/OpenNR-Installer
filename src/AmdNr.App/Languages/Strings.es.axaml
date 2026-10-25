@@ -310,7 +310,6 @@
   <sys:String x:Key="Str.GamesGone">{0} juego ya no está instalado, así que salió de la lista.</sys:String>
   <sys:String x:Key="Str.GamesGone.Many">{0} juegos ya no están instalados, así que salieron de la lista.</sys:String>
   <sys:String x:Key="Str.ShowDetails">Ver los detalles</sys:String>
-  <sys:String x:Key="Str.DetectedSection">Detectado</sys:String>
   <sys:String x:Key="Str.InstallsInto">Se instala en: {0}</sys:String>
   <sys:String x:Key="Str.InstallsElsewhere">Está fuera de la carpeta que añadiste: es donde está {0}, la versión que abre el launcher. Si juegas con otra, elige su {0} arriba.</sys:String>
   <sys:String x:Key="Str.CheckApiTip">Los archivos dicen con qué se enlaza un juego, no con qué se ejecuta: una carpeta puede tener un ejecutable D3D11 y otro D3D12. La wiki dice cuál usa el juego.</sys:String>
@@ -396,7 +395,6 @@
   <sys:String x:Key="Str.UpdateNow">Descargar actualización</sys:String>
   <sys:String x:Key="Str.UpdateOnGitHub">Descargar de GitHub</sys:String>
   <sys:String x:Key="Str.UpdateCheck">Buscar actualizaciones</sys:String>
-  <sys:String x:Key="Str.SessionSection">Última sesión</sys:String>
   <sys:String x:Key="Str.SessionTip">Se lee de los logs que el add-on y el runtime escriben en la carpeta del juego. Se vuelve a leer cuando regresas a esta ventana después de jugar.</sys:String>
   <sys:String x:Key="Str.SessionRan">NR funcionó en la última sesión</sys:String>
   <sys:String x:Key="Str.SessionCrashed">El juego se cerró por un fallo en la última sesión</sys:String>

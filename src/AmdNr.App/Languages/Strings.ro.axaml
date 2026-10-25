@@ -310,7 +310,6 @@
   <sys:String x:Key="Str.GamesGone">{0} joc nu mai este instalat, așa că a ieșit din listă.</sys:String>
   <sys:String x:Key="Str.GamesGone.Many">Jocuri care nu mai sunt instalate și au ieșit din listă: {0}.</sys:String>
   <sys:String x:Key="Str.ShowDetails">Arată detaliile</sys:String>
-  <sys:String x:Key="Str.DetectedSection">Detectat</sys:String>
   <sys:String x:Key="Str.InstallsInto">Se instalează în: {0}</sys:String>
   <sys:String x:Key="Str.InstallsElsewhere">Este în afara folderului adăugat: aici se află {0}, versiunea pe care o pornește launcherul. Dacă joci pe alta, alege mai sus {0} al ei.</sys:String>
   <sys:String x:Key="Str.CheckApiTip">Fișierele spun cu ce este legat un joc, nu pe ce rulează: un folder poate conține un executabil D3D11 și unul D3D12. Wiki-ul spune pe care îl folosește jocul.</sys:String>
@@ -396,7 +395,6 @@
   <sys:String x:Key="Str.UpdateNow">Descarcă actualizarea</sys:String>
   <sys:String x:Key="Str.UpdateOnGitHub">Descarcă de pe GitHub</sys:String>
   <sys:String x:Key="Str.UpdateCheck">Caută actualizări</sys:String>
-  <sys:String x:Key="Str.SessionSection">Ultima sesiune</sys:String>
   <sys:String x:Key="Str.SessionTip">Citit din jurnalele pe care add-on-ul și runtime-ul le scriu în folderul jocului. Se citește din nou când revii la această fereastră după ce ai jucat.</sys:String>
   <sys:String x:Key="Str.SessionRan">NR a rulat în ultima sesiune</sys:String>
   <sys:String x:Key="Str.SessionCrashed">Jocul s-a blocat în ultima sesiune</sys:String>

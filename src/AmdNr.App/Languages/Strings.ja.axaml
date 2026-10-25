@@ -310,7 +310,6 @@
   <sys:String x:Key="Str.GamesGone">{0} 本のゲームがもうインストールされていないため、リストから外れました。</sys:String>
   <sys:String x:Key="Str.GamesGone.Many">{0} 本のゲームがもうインストールされていないため、リストから外れました。</sys:String>
   <sys:String x:Key="Str.ShowDetails">詳細を表示</sys:String>
-  <sys:String x:Key="Str.DetectedSection">検出結果</sys:String>
   <sys:String x:Key="Str.InstallsInto">インストール先: {0}</sys:String>
   <sys:String x:Key="Str.InstallsElsewhere">追加したフォルダーの外です。ランチャーが起動するビルドの {0} がここにあります。別のビルドで遊ぶ場合は、上でそのビルドの {0} を選んでください。</sys:String>
   <sys:String x:Key="Str.CheckApiTip">ファイルから分かるのはゲームが何にリンクしているかで、実際に何で動くかではありません。1 つのフォルダーに D3D11 と D3D12 の実行ファイルが両方あることもあります。ゲームがどちらを使うかは Wiki に書かれています。</sys:String>
@@ -396,7 +395,6 @@
   <sys:String x:Key="Str.UpdateNow">アップデートをダウンロード</sys:String>
   <sys:String x:Key="Str.UpdateOnGitHub">GitHub からダウンロード</sys:String>
   <sys:String x:Key="Str.UpdateCheck">アップデートを確認</sys:String>
-  <sys:String x:Key="Str.SessionSection">前回のセッション</sys:String>
   <sys:String x:Key="Str.SessionTip">アドオンとランタイムがゲームフォルダーに書き込むログから読み取ります。プレイ後にこのウィンドウへ戻ると読み直します。</sys:String>
   <sys:String x:Key="Str.SessionRan">前回のセッションで NR が動作しました</sys:String>
   <sys:String x:Key="Str.SessionCrashed">前回のセッションでゲームがクラッシュしました</sys:String>

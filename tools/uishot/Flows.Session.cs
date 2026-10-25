@@ -53,10 +53,12 @@ internal static class SessionFlow
               && Math.Abs(section.Bounds.Height - detected.Bounds.Height) < 1,
             $"docked beside the list, the last session and Detected side by side, as tall as each other ({section.Bounds.Height:0}/{detected.Bounds.Height:0})");
         save(main, "flow-session-docked");
+        SheetLines.Chips(sheet, until, () => { SheetLines.Check(sheet, check); save(main, "flow-route-chips-docked"); });
         library.FindControl<Button>("GridViewButton")!.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
         (main.Width, main.Height) = (1240, 820);
         main.OpenSheet(card);
         until(() => sheet.IsOpen && !sheet.Docked, 5);
+        SheetLines.Chips(sheet, until, () => save(main, "flow-route-chips"));
 
         File.AppendAllText(runtime, "CRASH: exception 0xc0000005 at 0000 in Game.exe (thread 1, last job 1190, mode inline)\n");
         sheet.ShowSession(card);

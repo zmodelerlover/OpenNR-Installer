@@ -57,8 +57,11 @@
     <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
     <Setter Property="BorderThickness" Value="1" />
     <Setter Property="CornerRadius" Value="10" />
-    <Setter Property="Padding" Value="12,8" />
+    <Setter Property="Padding" Value="12,6" />
   </Style>
+  <!-- Fluent's tick box template is 32 px tall around its 20 px box, MinHeight or not: the tile takes 8 px of that
+       slack back, so it is lower and the box as large. -->
+  <Style Selector="Border.runtimeTile CheckBox"><Setter Property="Margin" Value="0,-4" /></Style>
   <Style Selector="Border.runtimeTile.on">
     <Setter Property="Background" Value="{DynamicResource AccentSoft}" />
     <Setter Property="BorderBrush" Value="{DynamicResource AccentHover}" />

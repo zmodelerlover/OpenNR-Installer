@@ -279,7 +279,7 @@ void Flows()
     Check(Until(() => sheet.IsOpen, 10) && !session.Busy && install.IsEnabled,
         "nothing is left busy: a sheet opened afterwards can install");
     SheetFlow.Run(main, sheet, main.Library.Cards[0], Check, Until); LibraryFlow.Run(main, Pe64(), Check, Until);
-    ListViewFlow.Run(main, Pe64(), Check, Until, Click);
+    ListViewFlow.Run(main, Pe64(), Check, Until, Click, (w, n) => Save(w, n));
     NrLiveFlow.Run(main, Pe64(), Check, Until, Click, (w, n) => Save(w, n));
 
     // Closed while a game folder is being written: refused, and said. Any other time: closed.

@@ -157,6 +157,9 @@
        gives the content the whole width otherwise), and ScrollGutter gives a content's own right margin back then,
        so the content runs up to the bar. -->
   <Style Selector="ScrollViewer"><Setter Property="AllowAutoHide" Value="False" /></Style>
+  <!-- A list's, a menu's and a text box's own scroller takes AllowAutoHide from its control by a template binding,
+       which outranks the style above: set there, its bar gets the lane too instead of lying over the rows. -->
+  <Style Selector="ListBox, ComboBox, TextBox"><Setter Property="ScrollViewer.AllowAutoHide" Value="False" /></Style>
   <Style Selector="ScrollBar:vertical">
     <Setter Property="Width" Value="10" />
     <Setter Property="MinWidth" Value="10" />

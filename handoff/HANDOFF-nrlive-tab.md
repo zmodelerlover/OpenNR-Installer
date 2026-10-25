@@ -288,6 +288,29 @@ The user's second list (screenshots `handoff/user-round2-*.png`), one commit. It
 - **Not checked**: the switch animation itself (headless shows end states only; the cause is gone, the user's eye is the
   test), and a real window's hover colours outside the shots taken.
 
+## Visual round 3 (2026-10-24)
+
+The user's third list (screenshots `handoff/user-round3-*.png`), one commit.
+
+- **List view's scroll bar** (`Styles/Details.axaml`): the game list is a `ListBox`, whose own scroller takes
+  `AllowAutoHide` from the ListBox by a template binding, which outranks the global `ScrollViewer` style; so it stayed
+  auto-hide and its bar lay over the rows (the open row's end and status dot). `ListBox, ComboBox, TextBox` now set
+  `ScrollViewer.AllowAutoHide` False themselves, so their bars get the 10 px lane like every other scroller and the rows
+  end where it starts. The plain ScrollViewers (grid, pages, sheet, More, notes) already had the lane.
+- **Route cards** (`Sheet/GameSheet.axaml`): name, (i), Recommended and Installed in one `WrapPanel`; the chips sit on the
+  name's line and wrap under it only when the card is too narrow (the window's sheet with both chips wraps Installed).
+- **No captions** on the last session and Detected boxes: `Str.SessionSection` and `Str.DetectedSection` removed from all
+  21 languages; the session's (i) follows its title ("NR ran in the last session"), Detected's follows the executable's
+  line (`SessionBox.axaml`, `DetectedPart`).
+- **Runtime tiles** (`Styles/Routes.axaml`): Fluent's CheckBox template is 32 px tall whatever MinHeight says, so the
+  tile's CheckBox has a -4 px vertical margin and the tile padding 12,6: 38 px instead of 50, the 20 px box unchanged.
+- **uishot**: list view scrolled to its last row, the row's right edge at or before the bar's lane (`flow-list-scrolled`);
+  `Flows.Lines.cs` (`SheetLines`): docked, each route's chips on its name's line and each box opening on its own line
+  with the (i) after it, with OptiScaler's Recommended shown beside Installed for the picture (`flow-route-chips-docked`,
+  `flow-route-chips` in the window's sheet); runtime tiles <= 40 px with a 20 px box (`flow-2-optiscaler-mochizuki`).
+  `tools\gate.ps1 -Ui`: all gates OK, shots in
+  `C:\Users\matheus\AppData\Local\Temp\amdnr-gate-1414cd0205ca4b529e215b7e8894ac0d\shots`.
+
 ## Files
 
 New:

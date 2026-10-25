@@ -310,7 +310,6 @@
   <sys:String x:Key="Str.GamesGone">{0} játék már nincs telepítve, ezért lekerült a listáról.</sys:String>
   <sys:String x:Key="Str.GamesGone.Many">{0} játék már nincs telepítve, ezért lekerültek a listáról.</sys:String>
   <sys:String x:Key="Str.ShowDetails">Részletek megjelenítése</sys:String>
-  <sys:String x:Key="Str.DetectedSection">Észlelve</sys:String>
   <sys:String x:Key="Str.InstallsInto">Ide települ: {0}</sys:String>
   <sys:String x:Key="Str.InstallsElsewhere">Ez a hozzáadott mappán kívül van: itt van a(z) {0}, az a build, amelyet a launcher indít. Ha másikkal játszol, fent válaszd annak a(z) {0} fájlját.</sys:String>
   <sys:String x:Key="Str.CheckApiTip">A fájlok azt mondják meg, mihez linkel egy játék, nem azt, min fut: egy mappában lehet D3D11-es és D3D12-es futtatható fájl is. A wiki megmondja, melyiket használja a játék.</sys:String>
@@ -396,7 +395,6 @@
   <sys:String x:Key="Str.UpdateNow">Frissítés letöltése</sys:String>
   <sys:String x:Key="Str.UpdateOnGitHub">Letöltés a GitHubról</sys:String>
   <sys:String x:Key="Str.UpdateCheck">Frissítések keresése</sys:String>
-  <sys:String x:Key="Str.SessionSection">Legutóbbi munkamenet</sys:String>
   <sys:String x:Key="Str.SessionTip">A naplókból olvasva, amelyeket a kiegészítő és a futtatókörnyezet a játék mappájába ír. Újra beolvassa, amikor játék után visszatérsz ebbe az ablakba.</sys:String>
   <sys:String x:Key="Str.SessionRan">Az NR futott a legutóbbi munkamenetben</sys:String>
   <sys:String x:Key="Str.SessionCrashed">A játék összeomlott a legutóbbi munkamenetben</sys:String>

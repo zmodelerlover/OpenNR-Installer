@@ -151,15 +151,14 @@
                   <!-- The last session (GameSheet.Session.cs) beside what the route is read off and where it installs (LayInfo). -->
                   <Grid x:Name="InfoRow" ColumnDefinitions="*,12,*" RowDefinitions="Auto,Auto,Auto">
                     <local:SessionBox x:Name="LastSession" IsVisible="False" />
-                    <!-- What the route is read off: detection can pick a launcher instead of the game, so it is shown and can be changed. Its caption heads the box, a line less on the sheet than over it. -->
+                    <!-- What the route is read off: detection can pick a launcher instead of the game, so it is shown and can be changed. No caption; the (i) follows the executable's line. -->
                     <Border x:Name="DetectedPart" Grid.Column="2" Classes="detect">
-                      <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,*" ColumnSpacing="12" RowSpacing="6">
-                        <StackPanel Orientation="Horizontal">
-                          <TextBlock Text="{DynamicResource Str.DetectedSection}" Classes="section" />
-                          <Border Classes="info" ToolTip.Tip="{Binding #ExeNote.Text}" IsVisible="{Binding #ExeNote.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
-                        </StackPanel>
-                        <StackPanel Grid.Row="1" Spacing="4" VerticalAlignment="Center">
-                          <TextBlock x:Name="ExeLine" FontWeight="SemiBold" TextWrapping="Wrap" />
+                      <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                        <StackPanel Spacing="4" VerticalAlignment="Center">
+                          <WrapPanel>
+                            <TextBlock x:Name="ExeLine" FontWeight="SemiBold" TextWrapping="Wrap" VerticalAlignment="Center" />
+                            <Border Classes="info" ToolTip.Tip="{Binding #ExeNote.Text}" IsVisible="{Binding #ExeNote.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
+                          </WrapPanel>
                           <WrapPanel>
                             <TextBlock x:Name="DetectedHow" Classes="muted" TextWrapping="Wrap" Margin="0,0,8,0" VerticalAlignment="Center" />
                             <Button Classes="link" Click="OnOpenWiki" ToolTip.Tip="{DynamicResource Str.CheckApiTip}"
@@ -176,7 +175,7 @@
                             <SelectableTextBlock Grid.Column="1" x:Name="InstallsInto" TextWrapping="Wrap" LineHeight="19" Foreground="{DynamicResource TextSoft}" />
                           </Grid>
                         </StackPanel>
-                        <Button Grid.Column="1" Grid.RowSpan="2" x:Name="ExeButton" Classes="ghost" Click="OnChooseExecutable" VerticalAlignment="Center" />
+                        <Button Grid.Column="1" x:Name="ExeButton" Classes="ghost" Click="OnChooseExecutable" VerticalAlignment="Center" />
                       </Grid>
                     </Border>
                     <!-- What detection warns of, under both boxes. -->
@@ -205,21 +204,19 @@
                                    IsCheckedChanged="OnRouteChanged" AutomationProperties.Name="ReShade">
                         <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto">
                           <Border Classes="iconTile small" Margin="0,0,10,0"><PathIcon Data="{StaticResource IconLayers}" /></Border>
-                          <StackPanel Grid.Column="1" Spacing="4" VerticalAlignment="Center">
-                            <StackPanel Orientation="Horizontal">
+                          <WrapPanel Grid.Column="1" ItemSpacing="6" LineSpacing="4" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                               <TextBlock Text="{DynamicResource Str.RouteReShade}" FontWeight="SemiBold" TextWrapping="Wrap" />
                               <Border Classes="info" ToolTip.Tip="{Binding #ReShadeSummary.Text}" IsVisible="{Binding #ReShadeSummary.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
                             </StackPanel>
-                            <WrapPanel ItemSpacing="4" LineSpacing="4">
-                              <Border x:Name="ReShadeRecommended" Classes="status ok"><TextBlock Text="{DynamicResource Str.Recommended}" /></Border>
-                              <Border x:Name="ReShadeInstalled" Classes="status ok">
-                                <StackPanel Orientation="Horizontal" Spacing="4">
-                                  <PathIcon Data="{StaticResource IconCheck}" />
-                                  <TextBlock Text="{DynamicResource Str.InstalledBadge}" />
-                                </StackPanel>
-                              </Border>
-                            </WrapPanel>
-                          </StackPanel>
+                            <Border x:Name="ReShadeRecommended" Classes="status ok"><TextBlock Text="{DynamicResource Str.Recommended}" /></Border>
+                            <Border x:Name="ReShadeInstalled" Classes="status ok">
+                              <StackPanel Orientation="Horizontal" Spacing="4">
+                                <PathIcon Data="{StaticResource IconCheck}" />
+                                <TextBlock Text="{DynamicResource Str.InstalledBadge}" />
+                              </StackPanel>
+                            </Border>
+                          </WrapPanel>
                           <TextBlock Grid.Row="1" x:Name="ReShadeSummary" IsVisible="False" />
                         </Grid>
                       </RadioButton>
@@ -227,21 +224,19 @@
                                    IsCheckedChanged="OnRouteChanged" AutomationProperties.Name="OptiScaler">
                         <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto">
                           <Border Classes="iconTile small" Margin="0,0,10,0"><PathIcon Data="{StaticResource IconSparkle}" /></Border>
-                          <StackPanel Grid.Column="1" Spacing="4" VerticalAlignment="Center">
-                            <StackPanel Orientation="Horizontal">
+                          <WrapPanel Grid.Column="1" ItemSpacing="6" LineSpacing="4" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                               <TextBlock Text="{DynamicResource Str.RouteOpti}" FontWeight="SemiBold" TextWrapping="Wrap" />
                               <Border Classes="info" ToolTip.Tip="{Binding #OptiSummary.Text}" IsVisible="{Binding #OptiSummary.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
                             </StackPanel>
-                            <WrapPanel ItemSpacing="4" LineSpacing="4">
-                              <Border x:Name="OptiRecommended" Classes="status ok"><TextBlock Text="{DynamicResource Str.Recommended}" /></Border>
-                              <Border x:Name="OptiInstalled" Classes="status ok">
-                                <StackPanel Orientation="Horizontal" Spacing="4">
-                                  <PathIcon Data="{StaticResource IconCheck}" />
-                                  <TextBlock Text="{DynamicResource Str.InstalledBadge}" />
-                                </StackPanel>
-                              </Border>
-                            </WrapPanel>
-                          </StackPanel>
+                            <Border x:Name="OptiRecommended" Classes="status ok"><TextBlock Text="{DynamicResource Str.Recommended}" /></Border>
+                            <Border x:Name="OptiInstalled" Classes="status ok">
+                              <StackPanel Orientation="Horizontal" Spacing="4">
+                                <PathIcon Data="{StaticResource IconCheck}" />
+                                <TextBlock Text="{DynamicResource Str.InstalledBadge}" />
+                              </StackPanel>
+                            </Border>
+                          </WrapPanel>
                           <TextBlock Grid.Row="1" x:Name="OptiSummary" IsVisible="False" />
                         </Grid>
                       </RadioButton>

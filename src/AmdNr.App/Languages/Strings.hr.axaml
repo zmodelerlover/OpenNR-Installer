@@ -310,7 +310,6 @@
   <sys:String x:Key="Str.GamesGone">{0} igra više nije instalirana, pa je uklonjena s popisa.</sys:String>
   <sys:String x:Key="Str.GamesGone.Many">Igre koje više nisu instalirane i uklonjene su s popisa: {0}.</sys:String>
   <sys:String x:Key="Str.ShowDetails">Prikaži pojedinosti</sys:String>
-  <sys:String x:Key="Str.DetectedSection">Otkriveno</sys:String>
   <sys:String x:Key="Str.InstallsInto">Instalira se u: {0}</sys:String>
   <sys:String x:Key="Str.InstallsElsewhere">To je izvan mape koju ste dodali: ondje je {0}, verzija koju pokreće launcher. Ako igrate drugu, gore odaberite njezin {0}.</sys:String>
   <sys:String x:Key="Str.CheckApiTip">Datoteke govore s čime je igra povezana, a ne na čemu radi: jedna mapa može sadržavati izvršnu datoteku za D3D11 i za D3D12. Wiki kaže što igra koristi.</sys:String>
@@ -396,7 +395,6 @@
   <sys:String x:Key="Str.UpdateNow">Preuzmi ažuriranje</sys:String>
   <sys:String x:Key="Str.UpdateOnGitHub">Preuzmi s GitHuba</sys:String>
   <sys:String x:Key="Str.UpdateCheck">Provjeri ažuriranja</sys:String>
-  <sys:String x:Key="Str.SessionSection">Zadnja sesija</sys:String>
   <sys:String x:Key="Str.SessionTip">Pročitano iz zapisnika koje dodatak i runtime pišu u mapu igre. Ponovno se čita kad se nakon igranja vratite u ovaj prozor.</sys:String>
   <sys:String x:Key="Str.SessionRan">NR je radio u zadnjoj sesiji</sys:String>
   <sys:String x:Key="Str.SessionCrashed">Igra se srušila u zadnjoj sesiji</sys:String>

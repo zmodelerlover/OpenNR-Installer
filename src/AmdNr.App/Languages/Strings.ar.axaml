@@ -310,7 +310,6 @@
   <sys:String x:Key="Str.GamesGone">الألعاب التي لم تعد مثبّتة وخرجت من القائمة: {0}.</sys:String>
   <sys:String x:Key="Str.GamesGone.Many">الألعاب التي لم تعد مثبّتة وخرجت من القائمة: {0}.</sys:String>
   <sys:String x:Key="Str.ShowDetails">عرض التفاصيل</sys:String>
-  <sys:String x:Key="Str.DetectedSection">ما تم اكتشافه</sys:String>
   <sys:String x:Key="Str.InstallsInto">يُثبَّت في: {0}</sys:String>
   <sys:String x:Key="Str.InstallsElsewhere">هذا خارج المجلد الذي أضفته: هنا يوجد {0}، الإصدار الذي يشغّله المشغّل. إذا كنت تلعب بإصدار آخر، فاختر ملف {0} الخاص به في الأعلى.</sys:String>
   <sys:String x:Key="Str.CheckApiTip">تخبرك الملفات بما ترتبط به اللعبة، لا بما تعمل عليه فعلًا: قد يحتوي مجلد واحد على ملف تنفيذي لـ D3D11 وآخر لـ D3D12. الويكي يخبرك بأيّهما تستخدم اللعبة.</sys:String>
@@ -396,7 +395,6 @@
   <sys:String x:Key="Str.UpdateNow">تنزيل التحديث</sys:String>
   <sys:String x:Key="Str.UpdateOnGitHub">التنزيل من GitHub</sys:String>
   <sys:String x:Key="Str.UpdateCheck">التحقق من التحديثات</sys:String>
-  <sys:String x:Key="Str.SessionSection">الجلسة الأخيرة</sys:String>
   <sys:String x:Key="Str.SessionTip">مقروءة من السجلات التي تكتبها الإضافة وبيئة التشغيل في مجلد اللعبة. تُقرأ من جديد عندما تعود إلى هذه النافذة بعد اللعب.</sys:String>
   <sys:String x:Key="Str.SessionRan">عمل NR في الجلسة الأخيرة</sys:String>
   <sys:String x:Key="Str.SessionCrashed">تعطّلت اللعبة وأُغلقت في الجلسة الأخيرة</sys:String>

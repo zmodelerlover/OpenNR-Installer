@@ -2,8 +2,12 @@
 // among the installed ones, above the rows on screen, and the list scrolls to it. Avalonia's panel had no
 // position for its first row then, and the scroll arranged it at NaN: "Invalid Arrange rectangle" at the
 // end of every install (BeamNG.drive, 2026-10-23), and on every layout after it.
+// Also the list's scroll bar in a lane of its own, beside the rows rather than over the open one's end.
 
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
+using Avalonia.Layout;
 using Avalonia.VisualTree;
 using AmdNr.App;
 using AmdNr.Core;
@@ -11,7 +15,7 @@ using AmdNr.Core;
 internal static class ListViewFlow
 {
     public static void Run(MainWindow main, byte[] exe, Action<bool, string> check, Func<Func<bool>, int, bool> until,
-        Action<Button> click)
+        Action<Button> click, Action<Window, string> save)
     {
         var page = main.GetVisualDescendants().OfType<LibraryPage>().First();
         var lib = Path.Combine(AppPaths.Root, "flow-list");
@@ -32,6 +36,12 @@ internal static class ListViewFlow
         main.OpenSheet(last);
         list.ScrollIntoView(last);
         until(() => false, 1);
+        var bar = list.GetVisualDescendants().OfType<ScrollBar>().First(b => b.Orientation == Orientation.Vertical);
+        var row = list.ContainerFromItem(last);
+        double Left(Visual v, double x) => v.TranslatePoint(new Point(x, 0), list)?.X ?? double.NaN;
+        check(bar.IsVisible && row is not null && Left(row, row.Bounds.Width) <= Left(bar, 0) + 0.5,
+            $"the list's bar runs beside the rows, not over them (row ends {Left(row!, row!.Bounds.Width):0}, bar from {Left(bar, 0):0})");
+        save(main, "flow-list-scrolled");
 
         // The app writes a UI exception down and carries on, so the crash log is what says it happened.
         string Crashes() => File.Exists(AppPaths.CrashLog) ? File.ReadAllText(AppPaths.CrashLog) : "";

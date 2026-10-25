@@ -310,7 +310,6 @@
   <sys:String x:Key="Str.GamesGone">{0} žaidimas nebeįdiegtas, todėl pašalintas iš sąrašo.</sys:String>
   <sys:String x:Key="Str.GamesGone.Many">Nebeįdiegti ir iš sąrašo pašalinti žaidimai: {0}.</sys:String>
   <sys:String x:Key="Str.ShowDetails">Rodyti išsamią informaciją</sys:String>
-  <sys:String x:Key="Str.DetectedSection">Aptikta</sys:String>
   <sys:String x:Key="Str.InstallsInto">Diegiama į: {0}</sys:String>
   <sys:String x:Key="Str.InstallsElsewhere">Tai už pridėto aplanko ribų: čia yra {0} – versija, kurią paleidžia paleidyklė. Jei žaidžiate kitą, viršuje pasirinkite jos {0}.</sys:String>
   <sys:String x:Key="Str.CheckApiTip">Failai rodo, su kuo žaidimas susietas, o ne su kuo jis veikia: viename aplanke gali būti D3D11 ir D3D12 vykdomasis failas. Wiki nurodo, kurią naudoja žaidimas.</sys:String>
@@ -396,7 +395,6 @@
   <sys:String x:Key="Str.UpdateNow">Atsisiųsti naujinį</sys:String>
   <sys:String x:Key="Str.UpdateOnGitHub">Atsisiųsti iš GitHub</sys:String>
   <sys:String x:Key="Str.UpdateCheck">Ieškoti naujinių</sys:String>
-  <sys:String x:Key="Str.SessionSection">Paskutinė sesija</sys:String>
   <sys:String x:Key="Str.SessionTip">Perskaityta iš žurnalų, kuriuos priedas ir vykdymo aplinka rašo žaidimo aplanke. Perskaitoma iš naujo, kai po žaidimo grįžtate į šį langą.</sys:String>
   <sys:String x:Key="Str.SessionRan">NR veikė paskutinėje sesijoje</sys:String>
   <sys:String x:Key="Str.SessionCrashed">Žaidimas nulūžo paskutinėje sesijoje</sys:String>
