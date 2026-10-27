@@ -92,7 +92,8 @@ public class ReShadeMochizukiTests
         foreach (var own in new[] { PayloadManifest.AddonComponent, PayloadManifest.BridgeComponent })
             Assert.True(AddonReleases.Version(shipped.Component(own).Version) >= new Version(0, 6, 8), own);
         var pins = shipped.WithMochizuki().Pins();
-        var newest = shipped.Newest(PayloadManifest.OptiScalerComponent).Pins();
+        // The RX 7000 network is the OptiScaler route's opt-in only; the add-on takes the rest of the newest build.
+        var newest = shipped.Newest(PayloadManifest.OptiScalerComponent).Without(PayloadManifest.MochizukiRdna3Component).Pins();
         Assert.NotEmpty(pins.MochizukiFiles);
         Assert.Equal(newest.MochizukiFiles.OrderBy(p => p.Key, StringComparer.Ordinal),
             pins.MochizukiFiles.OrderBy(p => p.Key, StringComparer.Ordinal));

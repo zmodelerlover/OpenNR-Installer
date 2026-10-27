@@ -237,8 +237,8 @@
             "files": [
               {
                 "name": "OptiScaler-0.5.8-opennr.zip",
-                "size": 154028622,
-                "sha256": "350fb72226963a6b2a16a25cfa270daedc033ac63244ab071cc864eac00eac6a",
+                "size": 154029423,
+                "sha256": "5a8486627723910c0dc42098b544a73edc68367964b221b3f7995e0a1365171f",
                 "url": "https://github.com/MatheusFerreiraS/OpenNR-OptiScaler/releases/download/v0.5.8-opennr/OptiScaler-0.5.8-opennr.zip"
               }
             ],
@@ -529,13 +529,13 @@
                 "name": "LmxxfNrRuntime.dll",
                 "path": "LmxxfNrRuntime.dll",
                 "size": 1616896,
-                "sha256": "197fe52687ca27b8228ea8c202aea3a8ed80d4887d5c5a60b93f6d19551971ae"
+                "sha256": "098ec4153345486ff17e20d7a2aadcf8a73d6eae40493b0e1e2608f5ee2352f5"
               },
               {
                 "name": "OptiScaler.dll",
                 "path": "OptiScaler.dll",
-                "size": 28683776,
-                "sha256": "bd31525a9c51d0504df3a4be16d559ac3128a10969dbfda7f1dc54078a7ceea4"
+                "size": 28685824,
+                "sha256": "332dc3683553b44f7c6106e0feeab199e85e82876844c4afeac9f9fcf5e22428"
               },
               {
                 "name": "OptiScaler.ini",
@@ -4338,21 +4338,21 @@
             ]
           },
           "mochizuki": {
-            "version": "0.5.7-opennr",
+            "version": "0.5.8-opennr",
             "files": [
               {
-                "name": "mochizuki-0.5.7-opennr.zip",
-                "size": 84050608,
-                "sha256": "d28c0090671f408bd1104e15ea66bcdce9c52e340d8537b346137dc0d81827e7",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/mochizuki/0.5.7-opennr/mochizuki-0.5.7-opennr.zip"
+                "name": "mochizuki-0.5.8-opennr.zip",
+                "size": 84117453,
+                "sha256": "f23456f06c2731d49439b73d2612b53fe52d381ec1db51a97f2023566bac25e7",
+                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/mochizuki/0.5.8-opennr/mochizuki-0.5.8-opennr.zip"
               }
             ],
             "extract": [
               {
                 "name": "MochizukiNrRuntime.dll",
                 "path": "MochizukiNrRuntime.dll",
-                "size": 1433600,
-                "sha256": "9e7c9baf57f47235107b7ed9e9464795a18811479db1f4dc3161ab35f659d019"
+                "size": 1565184,
+                "sha256": "7e7f82345ed4094da7e6dc1f505f5ddb8cadfce61afa8b79551b1daebe77bf39"
               },
               {
                 "name": "0401a3f73822ebd4.nrp",
@@ -9243,6 +9243,529 @@
                 "size": 113917248,
                 "sha256": "7e966e2639dbec6596aa0bac3b8761137d2c40ca8cb4aca30df7ca10043c6e33",
                 "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/mochizuki/model-small-1/dlssnr-small.bin"
+              }
+            ]
+          },
+          "mochizuki-rdna3": {
+            "version": "0.5.8-opennr",
+            "files": [
+              {
+                "name": "mochizuki-rdna3-0.5.8-opennr.zip",
+                "size": 9206443,
+                "sha256": "734e8b6ff36ec8101fbca824fd0a0046f5d6798cf17095069ac607ab500468b3",
+                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/mochizuki/0.5.8-opennr/mochizuki-rdna3-0.5.8-opennr.zip"
+              }
+            ],
+            "extract": [
+              {
+                "name": "FidelityFX-FSR1-LICENSE.txt",
+                "path": "dlssnr-amd.shaders-rdna3.runtime/FidelityFX-FSR1-LICENSE.txt",
+                "size": 1113,
+                "sha256": "84bb6af6a570cc2d737b1d530534139592c89f5a9114e4c6aabf0fb8e7762375"
+              },
+              {
+                "name": "cascade_blur.spv",
+                "path": "dlssnr-amd.shaders-rdna3.runtime/cascade_blur.spv",
+                "size": 4816,
+                "sha256": "1bc150f70cb0f044a53d10298b763556ce2abe181184b60ec0c1a43bc5d4c0f3"
+              },
+              {
+                "name": "cascade_feed.spv",
+                "path": "dlssnr-amd.shaders-rdna3.runtime/cascade_feed.spv",
+                "size": 4548,
+                "sha256": "0dae3eb0d4c95799704cbb47a926bcd5665a07b464e41f64e4c03466f484eecc"
+              },
+              {
+                "name": "cascade_lograt.spv",
+                "path": "dlssnr-amd.shaders-rdna3.runtime/cascade_lograt.spv",
+                "size": 3720,
+                "sha256": "62e04181f5f469747365de9132ad4db7c1eec14366542d1e010a1de5ff471f67"
+              },
+              {
+                "name": "runtime_alpha.spv",
+                "path": "dlssnr-amd.shaders-rdna3.runtime/runtime_alpha.spv",
+                "size": 2484,
+                "sha256": "389bd793e24d6c3a34c82f067d611c3ee190771882d1458dc57128a553523088"
+              },
+              {
+                "name": "runtime_dehalo.spv",
+                "path": "dlssnr-amd.shaders-rdna3.runtime/runtime_dehalo.spv",
+                "size": 6120,
+                "sha256": "a59401f993c73819f2b1fc9af6a4eb65729bcfad90777554a2588f67c1c548fb"
+              },
+              {
+                "name": "runtime_depth.spv",
+                "path": "dlssnr-amd.shaders-rdna3.runtime/runtime_depth.spv",
+                "size": 2700,
+                "sha256": "b087dec8c29831a80da5c3a81aaed93beed1184ba83b60ffb3b36c018455148d"
+              },
+              {
+                "name": "runtime_downscale.spv",
+                "path": "dlssnr-amd.shaders-rdna3.runtime/runtime_downscale.spv",
+                "size": 30768,
+                "sha256": "bed38982eff60ded6f7a6666f0cf5735065176d6edc8ff6097f0abea90cad24d"
+              },
+              {
+                "name": "runtime_encode.spv",
+                "path": "dlssnr-amd.shaders-rdna3.runtime/runtime_encode.spv",
+                "size": 4124,
+                "sha256": "62f71c1f8b248b135b47f37d9dcbd547f0c3cbf1a3c97eb0a4e4faa5f14a9939"
+              },
+              {
+                "name": "runtime_predict_apply.spv",
+                "path": "dlssnr-amd.shaders-rdna3.runtime/runtime_predict_apply.spv",
+                "size": 4096,
+                "sha256": "35986a489bc07e81dac4760907bde55119e1581f42592ec8113c68b4cc2cb3de"
+              },
+              {
+                "name": "runtime_predict_gain.spv",
+                "path": "dlssnr-amd.shaders-rdna3.runtime/runtime_predict_gain.spv",
+                "size": 5172,
+                "sha256": "1b14a3c9f7fe90a51bb982ef6bf980c210e8d87b923d1afe71f64458b60daba1"
+              },
+              {
+                "name": "runtime_prep.spv",
+                "path": "dlssnr-amd.shaders-rdna3.runtime/runtime_prep.spv",
+                "size": 34836,
+                "sha256": "f4e142b9a55e6b6179ef93e4205d6cba2d92eb379bea7751b65993b3f31bafc5"
+              },
+              {
+                "name": "runtime_taps.spv",
+                "path": "dlssnr-amd.shaders-rdna3.runtime/runtime_taps.spv",
+                "size": 3044,
+                "sha256": "f69bbca6b4e5746c309cd53d144b51c208f6057a76e387131993e58e3f4a8d11"
+              },
+              {
+                "name": "runtime_transfer.spv",
+                "path": "dlssnr-amd.shaders-rdna3.runtime/runtime_transfer.spv",
+                "size": 33640,
+                "sha256": "dfbda47d106cf7e2c3de6ecbd18f430fe44d98f24a36e3f061a6435134ff44fb"
+              },
+              {
+                "name": "runtime_transfer_store.spv",
+                "path": "dlssnr-amd.shaders-rdna3.runtime/runtime_transfer_store.spv",
+                "size": 34456,
+                "sha256": "c4d6f5346225c2193d165586320a40d079222747db2b1a424742d6e9ca448975"
+              },
+              {
+                "name": "runtime_upscale.spv",
+                "path": "dlssnr-amd.shaders-rdna3.runtime/runtime_upscale.spv",
+                "size": 45516,
+                "sha256": "9670f925933881fe54378e3a9b9bf36b8d8dd7e9ecc2a7a9c76d7c042223f52c"
+              },
+              {
+                "name": "motion_estimate.spv",
+                "path": "dlssnr-amd.shaders-rdna3.temporal/motion_estimate.spv",
+                "size": 14004,
+                "sha256": "a8dcb31e12f305d24bda56c6e2af35c7184ee7cc16f839dd271f3aff042bfdf8"
+              },
+              {
+                "name": "motion_luma.spv",
+                "path": "dlssnr-amd.shaders-rdna3.temporal/motion_luma.spv",
+                "size": 4144,
+                "sha256": "c447e242026ecaa04e79bd0255df31cd47844844f153f894c15f43909ee98b61"
+              },
+              {
+                "name": "shader-constants.txt",
+                "path": "dlssnr-amd.shaders-rdna3.temporal/shader-constants.txt",
+                "size": 491,
+                "sha256": "2b18023236dbad26a7f8d292d47b93a391b098ac0b1ce3468dcc5452002cfce2"
+              },
+              {
+                "name": "temporal_post_fp32.spv",
+                "path": "dlssnr-amd.shaders-rdna3.temporal/temporal_post_fp32.spv",
+                "size": 520948,
+                "sha256": "05bcdfaf97af0f8964409d0f660b5a021bab36dd4f593449a00ad1a030807920"
+              },
+              {
+                "name": "temporal_post_fp32_grade.spv",
+                "path": "dlssnr-amd.shaders-rdna3.temporal/temporal_post_fp32_grade.spv",
+                "size": 537556,
+                "sha256": "1ddcb3a73eae14d7b8e39dfcf9999f77c27a4165ef8d1159169b954d66ae167c"
+              },
+              {
+                "name": "temporal_post_fp32h16.spv",
+                "path": "dlssnr-amd.shaders-rdna3.temporal/temporal_post_fp32h16.spv",
+                "size": 520948,
+                "sha256": "5a76e62b6dc16fda9be1b38abb83f5cd08e9ad632809de70a72a887eaa19d907"
+              },
+              {
+                "name": "temporal_post_fp32h16_grade.spv",
+                "path": "dlssnr-amd.shaders-rdna3.temporal/temporal_post_fp32h16_grade.spv",
+                "size": 537556,
+                "sha256": "3b156bbdf430483cd7d9b9f80b8693d6efc9535139a36bce31ff0debbb9fe6b4"
+              },
+              {
+                "name": "temporal_post_fp32hp.spv",
+                "path": "dlssnr-amd.shaders-rdna3.temporal/temporal_post_fp32hp.spv",
+                "size": 515636,
+                "sha256": "1b4e72e5707df96e52f9c014e784bce1362a3552e64d86ec1389d977bf148490"
+              },
+              {
+                "name": "temporal_post_fp32hp_grade.spv",
+                "path": "dlssnr-amd.shaders-rdna3.temporal/temporal_post_fp32hp_grade.spv",
+                "size": 532244,
+                "sha256": "d73b9654bd903b52f8efb4df25171aea93cb76ff30cbf683789abc68753f312c"
+              },
+              {
+                "name": "temporal_pre_fp32.spv",
+                "path": "dlssnr-amd.shaders-rdna3.temporal/temporal_pre_fp32.spv",
+                "size": 411520,
+                "sha256": "e78db1b4fcb9887460d21bc79838a83727cc8c5845b2969878dcb768cbb09778"
+              },
+              {
+                "name": "temporal_pre_fp32nh.spv",
+                "path": "dlssnr-amd.shaders-rdna3.temporal/temporal_pre_fp32nh.spv",
+                "size": 396488,
+                "sha256": "bc6086418df337c37b9628537fb5b5e60e2360b03aee79348b952a63aeb55ce0"
+              },
+              {
+                "name": "temporal_pre_fp32nhhp.spv",
+                "path": "dlssnr-amd.shaders-rdna3.temporal/temporal_pre_fp32nhhp.spv",
+                "size": 398036,
+                "sha256": "e23e96f77a6c619d4ce9e0ae7377094aa981d5604ad56944b827f74eb9e86bf1"
+              },
+              {
+                "name": "accumulation.txt",
+                "path": "dlssnr-amd.shaders-rdna3/accumulation.txt",
+                "size": 6,
+                "sha256": "6f0ef2ee0e7ce4559e7a6741e5a16813f178d3a054ad0c1008c8d7f64eb47c96"
+              },
+              {
+                "name": "coherent-act.txt",
+                "path": "dlssnr-amd.shaders-rdna3/coherent-act.txt",
+                "size": 3,
+                "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+              },
+              {
+                "name": "g_attn.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_attn.spv",
+                "size": 986536,
+                "sha256": "00793b51bf041cc9062aed21595d298954393cfee08cb08c4883a98e6e4ff276"
+              },
+              {
+                "name": "g_decups.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_decups.spv",
+                "size": 11584,
+                "sha256": "96403047f22faac220370d6dd4ee7934d82d401aacd38f6edb1d603842eb7f48"
+              },
+              {
+                "name": "g_ffwd3.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_ffwd3.spv",
+                "size": 124352,
+                "sha256": "bb5be43daed3449380968cae82c8b02ba3c54a2e5708e6d530cd13bb178c11d1"
+              },
+              {
+                "name": "g_ffwd3w.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_ffwd3w.spv",
+                "size": 201816,
+                "sha256": "46c9b6866d6488ec4636da113c1de88c720cc423c9760a0ba7b1681a31f94379"
+              },
+              {
+                "name": "g_fswin128.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswin128.spv",
+                "size": 774016,
+                "sha256": "8bbe5fa5b81e7d50a6c819746f0845deb9a2cd715750d055481d8c405d00b4d0"
+              },
+              {
+                "name": "g_fswin256.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswin256.spv",
+                "size": 998128,
+                "sha256": "38b1713143cef0a7406b0325db91ef17d357b63532bd8422856584a49108e479"
+              },
+              {
+                "name": "g_fswin32.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswin32.spv",
+                "size": 325564,
+                "sha256": "efe32e277a53bba425eb7ba4f85d2f852a11664069644876b9bf788923bc0838"
+              },
+              {
+                "name": "g_fswin32nh.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswin32nh.spv",
+                "size": 325524,
+                "sha256": "fd324993e153ba53ebe9d7a5352b0fe5644dc750ece00abdddf68904c1cae0e2"
+              },
+              {
+                "name": "g_fswin64.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswin64.spv",
+                "size": 661904,
+                "sha256": "bb4f5fea1ef95baddf268e6d1e54cb40a5d8c005f2d028d515a8d46ebd8760ee"
+              },
+              {
+                "name": "g_fswinds128.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswinds128.spv",
+                "size": 842284,
+                "sha256": "4f0ca55926742802412884701f42dd0c9d07afac25b3df05e877ea2e864191a6"
+              },
+              {
+                "name": "g_fswinds256.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswinds256.spv",
+                "size": 1066076,
+                "sha256": "398891182cd8e087a7c0ab3c54205594009a920ce711bc7718588634ef1b285e"
+              },
+              {
+                "name": "g_fswinds32.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswinds32.spv",
+                "size": 718680,
+                "sha256": "d8289dc4bbaf53d2a8a5fc9c38b1bcae19a5529faa8de9dac3cf787209bb9554"
+              },
+              {
+                "name": "g_fswinds64.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswinds64.spv",
+                "size": 730332,
+                "sha256": "f29d89eed59ffd5e11e64ae6031fffe22ac14a56a67835e4afe5fd469007228c"
+              },
+              {
+                "name": "g_fswindsp128.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswindsp128.spv",
+                "size": 929076,
+                "sha256": "3d68766f4d6890bebfc1a0af9f75fe75fc76cad5e5a1ef2b912ede0412ac3821"
+              },
+              {
+                "name": "g_fswindsp256.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswindsp256.spv",
+                "size": 1162148,
+                "sha256": "f1f46f6ee23f59507d9bc2b935b1d565d06f5d3bdae600ace5066528e6ce2523"
+              },
+              {
+                "name": "g_fswindsp32.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswindsp32.spv",
+                "size": 407340,
+                "sha256": "c41b4313f418d536e9a2ff44c018c59c38716bca820473886480687f8e3a881a"
+              },
+              {
+                "name": "g_fswindsp32nh.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswindsp32nh.spv",
+                "size": 407300,
+                "sha256": "48abc06623363a5d1991c45a359073deaaac5b0d17182fabfea98625ea355389"
+              },
+              {
+                "name": "g_fswindsp64.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswindsp64.spv",
+                "size": 806116,
+                "sha256": "d65c66ce7e66f039aa34b30bdb98bcf01007fbc44a73a941020d91d01978d065"
+              },
+              {
+                "name": "g_fswinfusedup128.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswinfusedup128.spv",
+                "size": 1036972,
+                "sha256": "a6a602a45df05b59d91f347602599acb211d41e5f239f24469e3e37438419d51"
+              },
+              {
+                "name": "g_fswinfusedup256.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswinfusedup256.spv",
+                "size": 1339392,
+                "sha256": "b3ab7b61740e6aa4e20aed32b1170bce321c4cf876c9c7d57f8e81b189bde4e3"
+              },
+              {
+                "name": "g_fswinfusedup32.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswinfusedup32.spv",
+                "size": 483512,
+                "sha256": "22cebf2f2ed62ee8cf2938ba31be69093b31cbebbc654ad88c9de292daeb5248"
+              },
+              {
+                "name": "g_fswinfusedup32nh.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswinfusedup32nh.spv",
+                "size": 482060,
+                "sha256": "09aa084500f10f8a30210b9bc40d8ae6746591cad9084ca598e38054a8de4888"
+              },
+              {
+                "name": "g_fswinfusedup64.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswinfusedup64.spv",
+                "size": 881148,
+                "sha256": "8cb4a5521669b2fad395fbf651c8c260a34a1d2ee1be1dc5538c9559bd9f5686"
+              },
+              {
+                "name": "g_fswinimagepost32.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswinimagepost32.spv",
+                "size": 498012,
+                "sha256": "b88538c96127d47910113b2fb4adf286489b10ebd393b253fbf3b30e2243ee51"
+              },
+              {
+                "name": "g_fswinimagepost32_grade.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswinimagepost32_grade.spv",
+                "size": 514620,
+                "sha256": "4354015331c546bc1eec8ebccc46365ed49c62c9c1e593763db9a61516211295"
+              },
+              {
+                "name": "g_fswinimagepreds32.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswinimagepreds32.spv",
+                "size": 403308,
+                "sha256": "3225f6d6cf4c6ce305d3d4809b46b793bf2866c555593b64ca61288bb6df8fd6"
+              },
+              {
+                "name": "g_fswinimagepreds32nh.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswinimagepreds32nh.spv",
+                "size": 388276,
+                "sha256": "ddd28dcb8fecc4e84dd1664337f8332b6d122f3d8c49652a0aaf3663632ba1b5"
+              },
+              {
+                "name": "g_fswinp128.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswinp128.spv",
+                "size": 805572,
+                "sha256": "ff922916e171e7224002e81a14114f228eab5b9041cfaecb3b05b22ae55e91f3"
+              },
+              {
+                "name": "g_fswinp256.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswinp256.spv",
+                "size": 1011700,
+                "sha256": "abb8b7046ae542dbf20e0831c5b90389a195306206d12ff32535fa28a1140ad4"
+              },
+              {
+                "name": "g_fswinp64.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswinp64.spv",
+                "size": 688312,
+                "sha256": "9981eefbc679a6ec3c3e9a44827580bde30248d343ca10a18a1a42c6a3096b18"
+              },
+              {
+                "name": "g_fswinpds128.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswinpds128.spv",
+                "size": 978028,
+                "sha256": "117974b676a1d8b29eda24e80dc46fc4fc2e35c6508dedf1c138b92e230bef23"
+              },
+              {
+                "name": "g_fswinpds256.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswinpds256.spv",
+                "size": 1218748,
+                "sha256": "0b1831adc4a52d58b2c5891b1773d1706d7b14baa66b9916e7350e332be3c8e8"
+              },
+              {
+                "name": "g_fswinpds64.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswinpds64.spv",
+                "size": 849760,
+                "sha256": "84e32dfc41ad003b23df54016a8534416228b03575f770a8919e42251a42f9ad"
+              },
+              {
+                "name": "g_fswinpup128.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswinpup128.spv",
+                "size": 1083984,
+                "sha256": "890efd8ec0aa65e41894102d8ac2d9b79aac4d18494e4abeb3200de65fc262df"
+              },
+              {
+                "name": "g_fswinpup256.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswinpup256.spv",
+                "size": 1400912,
+                "sha256": "c21b8f98ac9f0f4078c314db0662fe494c241cf5cd0ee61edea0adfc3a4b1a7e"
+              },
+              {
+                "name": "g_fswinpup64.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_fswinpup64.spv",
+                "size": 921332,
+                "sha256": "191b545efbcf0cb8666d302b7df69383fb83a956f4396e953001b19b29f65cf6"
+              },
+              {
+                "name": "g_gemmnores.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_gemmnores.spv",
+                "size": 73892,
+                "sha256": "0f61edfb5fdb0d09423d9d59b5fdf73ddb52b51b5f71fb8735fd5b6d09ef17cf"
+              },
+              {
+                "name": "g_gemmpool.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_gemmpool.spv",
+                "size": 78388,
+                "sha256": "75604ebaba9446415645561a596cb860408fbe52b06da21041299d915910d03e"
+              },
+              {
+                "name": "g_gemmproj.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_gemmproj.spv",
+                "size": 267708,
+                "sha256": "c0320dbb3a7f809197f20187ea6ca1f2d33a485e26870a37089348cff0f89787"
+              },
+              {
+                "name": "g_gemmprojc.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_gemmprojc.spv",
+                "size": 271748,
+                "sha256": "8ce717bb2a7ec800f4f4f2c6bd646ff5830a3b54c1148f45f18022c0b9210f8a"
+              },
+              {
+                "name": "g_gemmprojt.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_gemmprojt.spv",
+                "size": 269296,
+                "sha256": "3531ac0fb65a9eac596d0e352ddb53ff8f9a3142d3d46b77b6bc7c5500bef5a6"
+              },
+              {
+                "name": "g_gemmprojw.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_gemmprojw.spv",
+                "size": 123492,
+                "sha256": "d7b1ba70e09ac2682f2598cd2214efb2833b32f544d7be2ef98a4bbe30c18920"
+              },
+              {
+                "name": "g_gemmvact.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_gemmvact.spv",
+                "size": 72508,
+                "sha256": "c77f8760111a8f14e8e34a4f1de2485144761c9928ba392760827ce8ecbbb93a"
+              },
+              {
+                "name": "g_gemmvnores.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_gemmvnores.spv",
+                "size": 50672,
+                "sha256": "4355c3a0e4861caed60b07f7b659a240f536d5c096bbef976ae602850eda8c06"
+              },
+              {
+                "name": "g_gemmvproj.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_gemmvproj.spv",
+                "size": 51240,
+                "sha256": "e2b6c12248e1fe52daaf9c15c7b4e739e08bce801b432e73ea0fbc4450ff0f39"
+              },
+              {
+                "name": "g_gemmvqkv.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_gemmvqkv.spv",
+                "size": 82540,
+                "sha256": "0c71db6f4784b5e0828123a414042d3916d3a7a645fe99d0f025e81364e977a6"
+              },
+              {
+                "name": "g_gemmvqkvnorm.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_gemmvqkvnorm.spv",
+                "size": 95236,
+                "sha256": "05d46a1f6168dbf46b013a67fa161e8328d0ab069484d5cc237995eace881737"
+              },
+              {
+                "name": "g_gemmvqkvnorms.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_gemmvqkvnorms.spv",
+                "size": 99780,
+                "sha256": "5711045c3c349e76e4c98f662f950409163ace8aa53ac3caed522af323cf6efc"
+              },
+              {
+                "name": "g_gemmvqkvs.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_gemmvqkvs.spv",
+                "size": 260388,
+                "sha256": "59db3246e631b46e6c8c7f214316eb49b4dbc7f40427f255ecda418240a28a8f"
+              },
+              {
+                "name": "g_noisefield.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_noisefield.spv",
+                "size": 5868,
+                "sha256": "fa081910e73356ed916ae30b059105e39aff5bb46e0468e0f910337e1544704a"
+              },
+              {
+                "name": "g_repack.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_repack.spv",
+                "size": 4320,
+                "sha256": "15f008acad330d76d95d2b8670717772b1f82bf9def057d24a232dca3c43fb14"
+              },
+              {
+                "name": "g_upsview.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_upsview.spv",
+                "size": 6652,
+                "sha256": "6394f9bf3b43741e346644a67e55e1bad4481f5541b240a8b5a31877a2f00dff"
+              },
+              {
+                "name": "g_vitattn.spv",
+                "path": "dlssnr-amd.shaders-rdna3/g_vitattn.spv",
+                "size": 229744,
+                "sha256": "9f7ba98201d817888dca4a6a6c3a8b3a141bf6bb63e0754017fa814b7ba079a4"
+              },
+              {
+                "name": "shader-constants.txt",
+                "path": "dlssnr-amd.shaders-rdna3/shader-constants.txt",
+                "size": 491,
+                "sha256": "2b18023236dbad26a7f8d292d47b93a391b098ac0b1ce3468dcc5452002cfce2"
+              },
+              {
+                "name": "swin-bias-storage.txt",
+                "path": "dlssnr-amd.shaders-rdna3/swin-bias-storage.txt",
+                "size": 6,
+                "sha256": "6f0ef2ee0e7ce4559e7a6741e5a16813f178d3a054ad0c1008c8d7f64eb47c96"
               }
             ]
           },

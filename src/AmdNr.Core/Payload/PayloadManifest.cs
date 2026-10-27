@@ -74,9 +74,8 @@ public sealed class PayloadComponent
     public IReadOnlyList<PayloadFile> Installed => Extract is { Count: > 0 } ? Extract : Files;
 }
 
-/// <summary>Another version of a component, with whatever else that version needs to install. The
-/// components listed here take the place of the manifest's own for as long as this version is the
-/// one chosen.</summary>
+/// <summary>Another version of a component, with whatever else that version needs to install. The components listed
+/// here take the place of the manifest's own for as long as this version is the one chosen.</summary>
 public sealed class ComponentRelease
 {
     public required string Version { get; init; }
