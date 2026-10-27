@@ -212,6 +212,8 @@ public class Opti054Tests
         Assert.Equal("fb557de8d305de73c3bcbf8b54440c6588575745a3fc0194bf8bb85cb7d71636",
             pins.WrongGpuFiles["wronggpu/WrongGPU-Setup-0.5.5-ea2.exe"]);
         Assert.Equal("wronggpu/nvngx_dlss.dll", pins.WrongGpuDlss);
+        // and stays on a card lmxxf does not run on, for danielblnc 0.8.0 (Work.HostDlss.cs).
+        Assert.Equal("wronggpu/nvngx_dlss.dll", shipped.With(newest).WithoutLmxxf().Pins().WrongGpuDlss);
         Assert.StartsWith("https://raw.githubusercontent.com/NVIDIA/DLSS/", shipped.With(newest)
             .Component(PayloadManifest.WrongGpuDlssComponent).Files.Single().Url);
         foreach (var path in pins.OptiFiles.Keys.Where(k => !k.StartsWith("x86/", StringComparison.Ordinal)))

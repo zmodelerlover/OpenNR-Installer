@@ -346,6 +346,7 @@ public static partial class Work
                 files[home + pass] = runtime;
         if (daniel && VerifiedPayload(src, WeightsName, pins.WeightsSha, report) is { } weights)
             files[home + WeightsName] = weights;
+        if (daniel) AddHostDlss(files, dir, src, pins, manifest, own?.Runtime ?? VersionOf(pins.OptiRuntimeVersion), report);
         if (mochizuki)
         {
             var mochizukiFiles = new SortedDictionary<string, byte[]>(StringComparer.Ordinal);
@@ -374,9 +375,10 @@ public static partial class Work
                         || e.Name.StartsWith(home + PersonModelFolder, StringComparison.Ordinal))).Select(e => e.Name) ?? [])
             // WrongGPU, when it is left off.
             .Concat(wrongGpu ? [] : WrongGpuRecorded(manifest))
-            // danielblnc's runtime and weights, when it is left out, and passes 2 and 3 under a build that runs as one module.
-            .Concat(manifest?.Entries.Where(e => e.Owned && !files.ContainsKey(e.Name)
-                    && (!daniel && e.Name == home + WeightsName || OptiPasses.Any(p => e.Name == home + p))).Select(e => e.Name) ?? [])
+            // danielblnc's runtime and weights, when it is left out, passes 2 and 3 under a build that runs as one module,
+            // and NVIDIA's DLSS in OptiScaler\ once the runtime or the game no longer needs it.
+            .Concat(manifest?.Entries.Where(e => e.Owned && !files.ContainsKey(e.Name) && (!daniel && e.Name == home + WeightsName
+                    || e.Name == HostDlss || OptiPasses.Any(p => e.Name == home + p))).Select(e => e.Name) ?? [])
             .ToList();
         var log = new List<string>();
         try

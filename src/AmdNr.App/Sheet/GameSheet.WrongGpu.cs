@@ -22,8 +22,11 @@ public partial class GameSheet
     private bool WantsWrongGpu(GameCard card) =>
         OffersWrongGpu(card) && (card.Entry.WrongGpu ?? Work.HasWrongGpu(TargetFor(card)));
 
-    /// <summary>Whether NVIDIA's DLSS file has to come down for WrongGPU's setup (Work.WrongGpuNeedsDlss).</summary>
-    private static bool NeedsDlss(GameCard card, bool wrongGpu) => wrongGpu && Work.WrongGpuNeedsDlss(TargetFor(card));
+    /// <summary>Whether NVIDIA's DLSS file has to come down: for WrongGPU's setup (Work.WrongGpuNeedsDlss), or for
+    /// OptiScaler\ under danielblnc 0.8.0 in a game whose own DLSS is too old (Work.HostNeedsDlss).</summary>
+    private static bool NeedsDlss(GameCard card, bool wrongGpu, PayloadPins pins) =>
+        wrongGpu && Work.WrongGpuNeedsDlss(TargetFor(card))
+        || !Skips(card, DanielRuntime) && card.Entry.Preset.IsOptiScaler() && Work.HostNeedsDlss(TargetFor(card), pins.OptiRuntimeVersion);
 
     private void ShowWrongGpu()
     {
