@@ -13,7 +13,7 @@ namespace AmdNr.Core;
 
 /// <summary>The hashes and sizes a payload set has to match. Defaults are the pinned v0.5.0 values
 /// from the add-on's own source; the app overrides them from payload.json.</summary>
-public sealed class PayloadPins
+public sealed partial class PayloadPins
 {
     public required string AddonSha { get; init; }
     public required ulong AddonSize { get; init; }

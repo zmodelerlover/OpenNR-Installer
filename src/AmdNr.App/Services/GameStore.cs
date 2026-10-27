@@ -55,6 +55,9 @@ public sealed class GameEntry
     /// then it follows the folder, like the mochizuki files do.</summary>
     public bool? WrongGpu { get; set; }
 
+    /// <summary>danielblnc's DLSS-FG for a game without its own ticked or unticked, as <see cref="WrongGpu"/>.</summary>
+    public bool? HostFg { get; set; }
+
     /// <summary>NR runtimes left out of this game's OptiScaler install ("lmxxf", "mochizuki", "daniel"): neither
     /// downloaded nor installed. Null is none.</summary>
     public List<string>? SkippedRuntimes { get; set; }

@@ -335,6 +335,11 @@
                           <StackPanel Orientation="Horizontal"><CheckBox x:Name="WrongGpuBox" Content="{DynamicResource Str.WrongGpuToggle}" Click="OnWrongGpuChanged" AutomationProperties.Name="{DynamicResource Str.WrongGpuToggle}" />
                             <Border Classes="info" ToolTip.Tip="{DynamicResource Str.WrongGpuNote}"><PathIcon Data="{StaticResource IconInfo}" /></Border></StackPanel>
                         </Border>
+                        <Border x:Name="HostFgSection" BorderBrush="{DynamicResource Border}" BorderThickness="0,1,0,0" Padding="0,12,0,0" IsVisible="False"><!-- danielblnc's DLSS-FG: GameSheet.HostFg.cs -->
+                          <StackPanel Spacing="4"><StackPanel Orientation="Horizontal"><CheckBox x:Name="HostFgBox" Content="{DynamicResource Str.HostFgToggle}" Click="OnHostFgChanged" AutomationProperties.Name="{DynamicResource Str.HostFgToggle}" />
+                            <Border Classes="info" ToolTip.Tip="{DynamicResource Str.HostFgNote}"><PathIcon Data="{StaticResource IconInfo}" /></Border></StackPanel>
+                            <TextBlock x:Name="HostFgLine" Classes="muted" TextWrapping="Wrap" IsVisible="False" /></StackPanel>
+                        </Border>
                       </StackPanel>
                     </Border>
 

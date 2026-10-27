@@ -35,6 +35,7 @@ public partial class GameSheet
         WrongGpuSection.IsVisible = OffersWrongGpu(card) && !RouteUndecided(card);
         WrongGpuBox.IsChecked = WantsWrongGpu(card);
         _setting = false;
+        ShowHostFg();
     }
 
     private void OnWrongGpuChanged(object? sender, RoutedEventArgs e)

@@ -129,6 +129,11 @@
   <sys:String x:Key="Str.RuntimeRdna4Opti">RX 9000: التثبيت الجديد يشغّل mochizuki، ويُثبَّت lmxxf بجانب بيئة تشغيل danielblnc. اختر غيرها من NR runtime في تبويب Neural في OptiScaler ثم أعد تشغيل اللعبة.</sys:String>
   <sys:String x:Key="Str.WrongGpuToggle">WrongGPU (DLSS 4.5 Model M, RX 9000)</sys:String>
   <sys:String x:Key="Str.WrongGpuNote">مُعطّل ما لم تحدده. يُثبَّت WrongGPU من phantoslayer21 بجانب OptiScaler كمُكبِّر FSR الخاص به: Model M من DLSS 4.5 على RDNA4، ويُحوَّل نموذجه من ملف DLSS على هذا الحاسوب (أو من تنزيل NVIDIA الرسمي إن لم يوجد). في اللعبة اختر FSR، ثم WrongGPU من قائمة إصدارات FSR في OptiScaler.</sys:String>
+  <sys:String x:Key="Str.HostFgToggle">DLSS-FG من danielblnc للألعاب التي لا تحوي DLSS-FG</sys:String>
+  <sys:String x:Key="Str.HostFgNote">مطفأ ما لم تحدده. تُوضع ملفات Streamline وDLSS-FG من NVIDIA (نحو 280 ميغابايت، تُنزّل مرة واحدة) في مجلد OptiScaler، فيولّد danielblnc 0.8.0 الإطارات في لعبة D3D12 لا تملك توليد إطارات DLSS خاصًا بها. في اللعبة شغّل DLSS أو FSR أو XeSS، ثم شغّل توليد الإطارات من قائمة OptiScaler (Insert). أثناء عمله يكون NR الخاص بـ danielblnc مطفأ: استخدم mochizuki أو lmxxf من أجل NR.</sys:String>
+  <sys:String x:Key="Str.HostFgOwnFg">لهذه اللعبة توليد إطارات DLSS خاص بها: يعمل FG من danielblnc عبره أصلًا، ولا حاجة لإضافة شيء.</sys:String>
+  <sys:String x:Key="Str.HostFgNoUpscaler">لم يُعثر على DLSS أو FSR أو XeSS في هذه اللعبة: يحتاج توليد الإطارات هذا إلى أداة الرفع في اللعبة.</sys:String>
+  <sys:String x:Key="Str.HostFgNrOff">يكون NR الخاص بـ danielblnc مطفأ أثناء عمل FG الخاص به: اختر mochizuki أو lmxxf كبيئة تشغيل NR.</sys:String>
   <sys:String x:Key="Str.PickRouteTitle">اختر طريقة التثبيت</sys:String>
   <sys:String x:Key="Str.PickRouteBody">لم يتمكن هذا التطبيق من معرفة واجهة الرسوميات البرمجية التي تستخدمها {0} في العرض، لذا لا يختار طريقة نيابةً عنك. OptiScaler هو المناسب للعبة D3D12 توفّر DLSS أو FSR أو XeSS في إعداداتها؛ وReShade على D3D11 أو D3D12 هو المناسب لغير ذلك. ينتظر زر «تثبيت» حتى تختار.</sys:String>
   <sys:String x:Key="Str.PickRouteBodyAll">لم يتمكن هذا التطبيق من معرفة واجهة الرسوميات التي يعمل بها {0}، لذلك لا يختار مسارًا نيابةً عنك. يعمل OptiScaler على ألعاب 64 بت بواجهات D3D9 وD3D11 وD3D12 وVulkan وOpenGL، داخل DLSS أو FSR أو XeSS في اللعبة عند توفرها؛ ويغطي ReShade أيضًا ألعاب 32 بت والمحاكيات وD3D10. ينتظر التثبيت حتى تختار.</sys:String>

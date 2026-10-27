@@ -61,4 +61,15 @@ public static partial class Work
         var text = System.Text.Encoding.UTF8.GetString(ini);
         return System.Text.Encoding.UTF8.GetBytes(Engine.SetIni(text, "ProcessFilter", "TargetProcessName", l.Game));
     }
+
+    /// <summary>The NR runtime the OptiScaler.ini kept here names, or null. Read after the install has committed, so a
+    /// file that cannot be read now is only not said about, never a failed install.</summary>
+    private static string? KeptIniNames(string dir)
+    {
+        try { return Engine.Trim(Engine.GetIni(File.ReadAllText(Path.Combine(dir, OptiScalerIni)), "DlssNr", "NrBackend")); }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+        {
+            return null;
+        }
+    }
 }

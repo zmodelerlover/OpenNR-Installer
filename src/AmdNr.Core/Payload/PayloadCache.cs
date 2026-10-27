@@ -202,8 +202,10 @@ public sealed partial class PayloadCache(HttpClient http, IReadOnlyList<string>?
     }
 
     /// <summary>The entry is found by the path it is kept under first, then by its name as a full
-    /// path, and only then by its bare name in any folder. The OptiScaler package holds README.md
-    /// both at its root and in lmxxf-modules, and a bare-name match took whichever came first.
+    /// path, then by its bare name and its size, and only then by its bare name in any folder. The
+    /// OptiScaler package holds README.md both at its root and in lmxxf-modules, and a bare-name match
+    /// took whichever came first; NVIDIA's Streamline SDK has a development sl.dlss_g.dll ahead of the
+    /// production one.
     ///
     /// It streams to a .part file and is hashed on the way, rather than held in memory: one lmxxf
     /// weight is 201 MB.</summary>
@@ -212,6 +214,7 @@ public sealed partial class PayloadCache(HttpClient http, IReadOnlyList<string>?
         static string Slashed(string s) => s.Replace('\\', '/');
         var item = zip.Entries.FirstOrDefault(e => string.Equals(Slashed(e.FullName), entry.RelativePath, StringComparison.OrdinalIgnoreCase))
                    ?? zip.Entries.FirstOrDefault(e => string.Equals(Slashed(e.FullName), entry.Name, StringComparison.OrdinalIgnoreCase))
+                   ?? zip.Entries.FirstOrDefault(e => string.Equals(e.Name, entry.Name, StringComparison.OrdinalIgnoreCase) && (ulong)e.Length == entry.Size)
                    ?? zip.Entries.FirstOrDefault(e => string.Equals(e.Name, entry.Name, StringComparison.OrdinalIgnoreCase));
         Engine.Require(item is not null, $"{entry.Name} is not inside {Path.GetFileName(archive)}.");
 

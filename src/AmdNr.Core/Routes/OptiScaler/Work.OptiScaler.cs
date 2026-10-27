@@ -32,7 +32,7 @@ public static partial class Work
     /// once it is empty and leave it alone when something else put files there too.</summary>
     private static readonly string[] OptiFolders =
     [
-        "OptiScaler/D3D12_OptiScaler", "OptiScaler", "experimental_lighting",
+        "OptiScaler/D3D12_OptiScaler", "OptiScaler/streamline", "OptiScaler", "experimental_lighting",
         "lmxxf-modules", "lmxxf-modules-gfx1200", Engine.LmxxfSmallFolder, "native-game-tiled-assets", "shaders",
         // A 32-bit game's, after what is inside it (Work.Mochizuki takes dlssnr-amd).
         "OptiScaler64/OptiScaler/D3D12_OptiScaler", "OptiScaler64/OptiScaler", "OptiScaler64/experimental_lighting",
@@ -347,6 +347,7 @@ public static partial class Work
         if (daniel && VerifiedPayload(src, WeightsName, pins.WeightsSha, report) is { } weights)
             files[home + WeightsName] = weights;
         if (daniel) AddHostDlss(files, dir, src, pins, manifest, own?.Runtime ?? VersionOf(pins.OptiRuntimeVersion), report);
+        if (daniel && !x86) AddHostFg(files, dir, src, pins, own?.Runtime ?? VersionOf(pins.OptiRuntimeVersion), api, report);
         if (mochizuki)
         {
             var mochizukiFiles = new SortedDictionary<string, byte[]>(StringComparer.Ordinal);
@@ -376,9 +377,9 @@ public static partial class Work
             // WrongGPU, when it is left off.
             .Concat(wrongGpu ? [] : WrongGpuRecorded(manifest))
             // danielblnc's runtime and weights, when it is left out, passes 2 and 3 under a build that runs as one module,
-            // and NVIDIA's DLSS in OptiScaler\ once the runtime or the game no longer needs it.
+            // NVIDIA's DLSS in OptiScaler\ once the runtime or the game no longer needs it, and Streamline and DLSS-FG with it.
             .Concat(manifest?.Entries.Where(e => e.Owned && !files.ContainsKey(e.Name) && (!daniel && e.Name == home + WeightsName
-                    || e.Name == HostDlss || OptiPasses.Any(p => e.Name == home + p))).Select(e => e.Name) ?? [])
+                    || e.Name == HostDlss || IsHostFgFile(e.Name) || OptiPasses.Any(p => e.Name == home + p))).Select(e => e.Name) ?? [])
             .ToList();
         var log = new List<string>();
         try
@@ -394,6 +395,8 @@ public static partial class Work
         }
 
         if (!x86 && (wrongGpu || recorded.Any(WrongGpuNames.Contains))) PointIniAtWrongGpu(dir, wrongGpu, report);
+        if (files.ContainsKey(HostFgDlssg) || recorded.Any(IsHostFgFile)) PointIniAtHostFg(dir, files.ContainsKey(HostFgDlssg), report);
+        if (!files.ContainsKey(HostFgDlssg) && recorded.Any(IsHostFgFile)) PruneEmpty(dir, ["OptiScaler/streamline"], report);
         report.Info(x86
             ? $"OptiScaler goes in {OptiHostFolder}\\ with its 64-bit host, and the 32-bit {proxyName} beside the game hands "
               + "the host every frame: NR, frame generation and the menu run there."
@@ -443,17 +446,6 @@ public static partial class Work
         else if (recorded.Count > 0) AfterMochizukiRetired(dir, report);
         report.Info(Preset.OptiScaler.Note());
         return report;
-    }
-
-    /// <summary>The NR runtime the OptiScaler.ini kept here names, or null. Read after the install has committed, so a
-    /// file that cannot be read now is only not said about, never a failed install.</summary>
-    private static string? KeptIniNames(string dir)
-    {
-        try { return Engine.Trim(Engine.GetIni(File.ReadAllText(Path.Combine(dir, OptiScalerIni)), "DlssNr", "NrBackend")); }
-        catch (Exception e) when (e is IOException or UnauthorizedAccessException)
-        {
-            return null;
-        }
     }
 
     /// <summary>The folders this route created, once uninstall has emptied them, and a word about an

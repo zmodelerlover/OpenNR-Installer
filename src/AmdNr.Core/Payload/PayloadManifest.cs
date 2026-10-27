@@ -174,7 +174,7 @@ public sealed partial class PayloadManifest
         {
             OptiScalerComponent, OptiRuntimeComponent, LmxxfWeightsComponent, LmxxfSmallWeightsComponent, LmxxfGfx1200Component,
             OptiX86Component, MochizukiComponent, MochizukiModelComponent, MochizukiSmallModelComponent, PersonModelComponent,
-            WrongGpuComponent, WrongGpuDlssComponent, NrLiveComponent,
+            WrongGpuComponent, WrongGpuDlssComponent, NrLiveComponent, StreamlineComponent, DlssgComponent,
         };
 
     /// <summary>The SHA-256 a pin carries until the bytes it stands for exist: 64 zeros. A release
@@ -451,7 +451,7 @@ public sealed partial class PayloadManifest
             foreach (var f in wg.Installed)
                 wrongGpu[f.RelativePath] = Engine.Lower(f.Sha256);
         var dlss = Components.TryGetValue(WrongGpuDlssComponent, out var dl) ? dl.Installed.FirstOrDefault() : null;
-        return new PayloadPins
+        return WithHostFg(new PayloadPins
         {
             AddonSha = addon.Sha256,
             AddonSize = addon.Size,
@@ -481,7 +481,7 @@ public sealed partial class PayloadManifest
             BridgeVersion = Components.TryGetValue(BridgeComponent, out var bridge) ? bridge.Version : string.Empty,
             UserRuntimes = UserRuntimes ?? [],
             RuntimeChosen = RuntimeChoice is not null,
-        };
+        });
     }
 
     /// <summary>The pin of one installed file of an optional component, or null without it.</summary>

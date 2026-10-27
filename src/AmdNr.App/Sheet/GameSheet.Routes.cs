@@ -438,6 +438,7 @@ public partial class GameSheet
             : version;
         Library.Save();
         ShowRuntime();
+        ShowHostFg();
         ShowInstallLabel();
         // A different runtime is a different file to download and to install: the pre-flight says so again.
         _ = RefreshAsync();

@@ -110,6 +110,7 @@ public partial class GameSheet
         card.Entry.SkippedRuntimes = skipped.Count > 0 ? skipped : null;
         Library.Save();
         ShowMochizuki();
+        ShowHostFg();
         ShowInstallLabel();
         // A different set of files: the pre-flight says so again.
         _ = RefreshAsync();

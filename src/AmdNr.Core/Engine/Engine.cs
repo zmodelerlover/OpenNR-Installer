@@ -224,6 +224,13 @@ public static partial class Engine
         "OptiScaler/libxell.dll",
         // NVIDIA's DLSS 310 for danielblnc 0.8.0's DLSS-SR in a game whose own is older (Work.HostDlss.cs).
         "OptiScaler/nvngx_dlss.dll",
+        // NVIDIA's Streamline and DLSS-FG for danielblnc 0.8.0's frame generation in a game without its own (Work.HostFg.cs).
+        "OptiScaler/nvngx_dlssg.dll",
+        "OptiScaler/streamline/sl.interposer.dll",
+        "OptiScaler/streamline/sl.common.dll",
+        "OptiScaler/streamline/sl.dlss_g.dll",
+        "OptiScaler/streamline/sl.reflex.dll",
+        "OptiScaler/streamline/sl.pcl.dll",
         "OptiScaler/D3D12_OptiScaler/D3D12Core.dll",
         "experimental_lighting/GatherCS.cso",
         "experimental_lighting/ResolveCS.cso",

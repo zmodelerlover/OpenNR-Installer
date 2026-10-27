@@ -129,6 +129,11 @@
   <sys:String x:Key="Str.RuntimeRdna4Opti">RX 9000：新安装运行 mochizuki，lmxxf装在 danielblnc 运行时旁边。在 OptiScaler 的 Neural 选项卡的 NR runtime 中选择其他运行时，然后重启游戏。</sys:String>
   <sys:String x:Key="Str.WrongGpuToggle">WrongGPU (DLSS 4.5 Model M, RX 9000)</sys:String>
   <sys:String x:Key="Str.WrongGpuNote">勾选后才启用。phantoslayer21 的 WrongGPU 会作为 OptiScaler 的 FSR 超分装在它旁边：在 RDNA4 上运行 DLSS 4.5 的 Model M，模型由本机上的 DLSS 文件转换（没有时使用 NVIDIA 官方下载）。在游戏中选择 FSR，然后在 OptiScaler 的 FSR 版本列表里选择 WrongGPU。</sys:String>
+  <sys:String x:Key="Str.HostFgToggle">为没有 DLSS-FG 的游戏启用 danielblnc 的 DLSS-FG</sys:String>
+  <sys:String x:Key="Str.HostFgNote">未勾选时关闭。NVIDIA 的 Streamline 和 DLSS-FG 文件（约 280 MB，只下载一次）放入 OptiScaler 的文件夹，让 danielblnc 0.8.0 在没有自带 DLSS 帧生成的 D3D12 游戏中生成帧。在游戏中打开它的 DLSS、FSR 或 XeSS，然后在 OptiScaler 菜单（Insert）中打开帧生成。运行时 danielblnc 自己的 NR 会关闭：NR 请用 mochizuki 或 lmxxf。</sys:String>
+  <sys:String x:Key="Str.HostFgOwnFg">这个游戏自带 DLSS 帧生成：danielblnc 的 FG 已经通过它运行，无需添加任何东西。</sys:String>
+  <sys:String x:Key="Str.HostFgNoUpscaler">这个游戏中没有找到 DLSS、FSR 或 XeSS：这种帧生成需要游戏的超分辨率。</sys:String>
+  <sys:String x:Key="Str.HostFgNrOff">danielblnc 的 FG 运行时，它自己的 NR 会关闭：请选择 mochizuki 或 lmxxf 作为 NR 运行时。</sys:String>
   <sys:String x:Key="Str.PickRouteTitle">选择一种安装方式</sys:String>
   <sys:String x:Key="Str.PickRouteBody">本应用无法判断 {0} 使用哪种图形 API 渲染，因此不会替你选择安装方式。OptiScaler 适用于在设置中提供 DLSS、FSR 或 XeSS 的 D3D12 游戏；ReShade（D3D11 或 D3D12）适用于其他所有游戏。在你选择之前，“安装”会一直等待。</sys:String>
   <sys:String x:Key="Str.PickRouteBodyAll">此应用无法判断 {0} 使用哪种图形 API，因此不会替你选择方案。OptiScaler 支持 64 位 D3D9、D3D11、D3D12、Vulkan 和 OpenGL 游戏，游戏有 DLSS、FSR 或 XeSS 时在其中运行；ReShade 还支持 32 位游戏、模拟器和 D3D10。安装会等你选择。</sys:String>

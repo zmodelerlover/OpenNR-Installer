@@ -109,6 +109,7 @@ public static partial class Work
             AfterMochizukiUninstall(hostDir, report);
         }
         if (opti) PointIniAtWrongGpu(dir, false, report);
+        if (opti && before.Any(IsHostFgFile)) PointIniAtHostFg(dir, false, report);
         if (opti) AfterOptiScalerUninstall(dir, recorded.Count > 0, report);
 
         if (gone == 0) report.Warn("Nothing of ours was in that folder.");
