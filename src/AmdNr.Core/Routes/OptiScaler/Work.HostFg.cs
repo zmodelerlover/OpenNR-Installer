@@ -67,23 +67,26 @@ public static partial class Work
              + "game's upscaler.",
     };
 
-    /// <summary>The DLLs of these names in the game's tree, four levels down as the upscaler detection looks. What this
-    /// app or the host put there is not the game's: OptiScaler\, OptiScaler64\, dlssnr_amd_host\ and the backups.</summary>
+    /// <summary>The DLLs of these names in the game's tree, eight levels down: an Unreal game keeps Streamline in
+    /// Engine\Plugins\Runtime\Nvidia\Streamline\Binaries\ThirdParty\Win64 (Hogwarts Legacy). What this app or the host
+    /// put there is not the game's (OptiScaler\, OptiScaler64\, dlssnr_amd_host\), and neither is a folder named as a
+    /// backup, ours or one made by hand: nothing loads from there.</summary>
     private static IEnumerable<string> GamesOwn(string dir, string[] names)
     {
         var wanted = new HashSet<string>(names, StringComparer.OrdinalIgnoreCase);
-        string[] ours = ["OptiScaler", OptiHostFolder, "dlssnr_amd_host", Engine.BackupDir, Engine.LegacyBackupDir];
+        string[] ours = ["OptiScaler", OptiHostFolder, "dlssnr_amd_host"];
         List<string> dlls;
         try
         {
             dlls = Directory.EnumerateFiles(dir, "*.dll", new EnumerationOptions
             {
-                RecurseSubdirectories = true, MaxRecursionDepth = 4, IgnoreInaccessible = true,
+                RecurseSubdirectories = true, MaxRecursionDepth = 8, IgnoreInaccessible = true,
             }).Take(20_000).ToList();
         }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException) { return []; }
         return dlls.Where(f => wanted.Contains(Path.GetFileName(f))).Select(f => Path.GetRelativePath(dir, f))
-            .Where(r => !ours.Any(o => r.StartsWith(o + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)));
+            .Where(r => !ours.Any(o => r.StartsWith(o + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase))
+                        && !Path.GetDirectoryName(r)!.Contains("backup", StringComparison.OrdinalIgnoreCase));
     }
 
     /// <summary>Whether this app put danielblnc's DLSS-FG in this game folder and it is still there.</summary>

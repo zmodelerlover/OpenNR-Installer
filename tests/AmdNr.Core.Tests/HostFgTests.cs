@@ -68,6 +68,12 @@ public class HostFgTests
         Assert.Equal(HostFgBlock.Api, Work.HostFgBlocked(Game("fg-api"), "0.8.0", GraphicsApi.Vulkan));
         Assert.Equal(HostFgBlock.OwnFg, Work.HostFgBlocked(Game("fg-own", more: "nvngx_dlssg.dll"), "0.8.0"));
         Assert.Equal(HostFgBlock.OwnFg, Work.HostFgBlocked(Game("fg-own-sl", more: Path.Combine("bin", "sl.dlss_g.dll")), "0.8.0"));
+        // Unreal's Streamline plugin sits eight folders down (Hogwarts Legacy).
+        var unreal = Path.Combine("Engine", "Plugins", "Runtime", "Nvidia", "Streamline", "Binaries", "ThirdParty", "Win64", "sl.dlss_g.dll");
+        Assert.Equal(HostFgBlock.OwnFg, Work.HostFgBlocked(Game("fg-own-ue", more: unreal), "0.8.0"));
+        // Copies kept in a backup folder are nobody's to load (Red Dead Redemption 2 after a test by hand).
+        var kept = Path.Combine("_optiscaler_backup_2026-10-24", "manual-copies", "dlssnr_amd_host", "nvngx_dlssg.dll");
+        Assert.Equal(HostFgBlock.None, Work.HostFgBlocked(Game("fg-backup", more: [kept, Path.Combine(".amd-nr-x86bridge-backups", "1", "nvngx_dlssg.dll")]), "0.8.0"));
         // What this app and the host put in are not the game's: no upscaler in OptiScaler\, no DLSS-FG in dlssnr_amd_host\.
         var bare = Game("fg-bare", dlss: false, more: [Path.Combine("OptiScaler", "nvngx_dlss.dll"),
             Path.Combine("OptiScaler", "amd_fidelityfx_upscaler_dx12.dll"), Path.Combine("dlssnr_amd_host", "nvngx_dlssg.dll")]);
