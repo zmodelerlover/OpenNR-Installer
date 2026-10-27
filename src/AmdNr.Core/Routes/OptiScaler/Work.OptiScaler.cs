@@ -262,6 +262,7 @@ public static partial class Work
         var proxyName = x86 ? OptiX86Proxy(X86Api(detected, api, pins.OptiScalerVersion))
             : OptiProxyFor(proxy, manifest, suggestedProxy, everywhere ? api : null);
         CheckOptiInTheWay(dir, proxyName, manifest, report);
+        CheckStrayOptiScaler(dir, manifest, proxyName, report);
         var foreign = ForeignNrMod(dir, manifest);
         CheckForeignMod(dir, manifest, report);
         CheckRuntimeAsVersionDll(dir, pins, report);

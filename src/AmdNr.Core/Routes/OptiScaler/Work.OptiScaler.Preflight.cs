@@ -87,6 +87,7 @@ public static partial class Work
         }
 
         CheckOptiInTheWay(dir, proxyName, manifest, report, preflight: true);
+        CheckStrayOptiScaler(dir, manifest, proxyName, report);
         CheckForeignMod(dir, manifest, report);
         CheckNeuralHubStub(dir, report);
         CheckRuntimeAsVersionDll(dir, pins, report);

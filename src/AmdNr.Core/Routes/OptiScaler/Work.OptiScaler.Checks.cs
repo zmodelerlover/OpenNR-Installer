@@ -102,19 +102,55 @@ public static partial class Work
             + "uninstall puts them back; the rest of it stays, so remove that mod with its own uninstaller first.");
     }
 
-    /// <summary>danielblnc's NeuralHub installed in the game by its own app: its version.dll loader with its ini or log.
-    /// It takes over the game's DLSS/FSR and the swapchain as OptiScaler does, and with both a game went to a black
-    /// screen (God of War Ragnarök, 2026-10-24); OptiScaler's danielblnc then stays off as well.</summary>
-    internal static bool HasNeuralHubStub(string dir) =>
-        File.Exists(Path.Combine(dir, "version.dll"))
-        && (File.Exists(Path.Combine(dir, "neuralhub.ini")) || File.Exists(Path.Combine(dir, "neuralhub_stub.log")));
+    /// <summary>An OpenNR OptiScaler under another name than the one this install writes, that no install recorded: one
+    /// an earlier uninstall left behind. The game then loads two OptiScalers and crashes (GTA San Andreas Definitive
+    /// Edition with dxgi.dll left over and version.dll installed, 2026-10-25).</summary>
+    internal static List<string> StrayOpenNrOptiScaler(string dir, Manifest? m, string proxyName) =>
+        ProxyChoicesFor(Preset.OptiScaler)
+            .Where(n => !string.Equals(n, proxyName, StringComparison.OrdinalIgnoreCase)
+                        && m?.Entries.Any(e => e.Owned && string.Equals(e.Name, n, StringComparison.OrdinalIgnoreCase)) != true
+                        && File.Exists(Path.Combine(dir, n)))
+            .Where(n => Identify(Path.Combine(dir, n)) is var (_, product, version)
+                        && product?.Contains("OptiScaler", StringComparison.OrdinalIgnoreCase) == true
+                        && OurOptiScalerTags.Any(t => version?.Contains(t, StringComparison.OrdinalIgnoreCase) == true))
+            .ToList();
+
+    private static void CheckStrayOptiScaler(string dir, Manifest? m, string proxyName, Report report)
+    {
+        if (StrayOpenNrOptiScaler(dir, m, proxyName) is not { Count: > 0 } stray) return;
+        report.Err($"An OpenNR OptiScaler is already here as {Joined(stray)}, left by an earlier install, and this one goes in "
+                   + $"as {proxyName}: a game with two OptiScalers crashes. Delete {Joined(stray)} from the game folder, or "
+                   + $"pick {stray[0]} as the name, and install again.");
+    }
+
+    /// <summary>The names NeuralHub's own loader goes in as.</summary>
+    private static readonly string[] NeuralHubStubNames =
+        ["version.dll", "winmm.dll", "dbghelp.dll", "dinput8.dll", "dxgi.dll", "d3d11.dll", "d3d12.dll"];
+
+    /// <summary>danielblnc's NeuralHub installed in the game by its own app: its loader, found by its neuralhub.ini or
+    /// neuralhub_stub.log beside the game, under whatever name it went in as (version.dll; winmm.dll in Metro 2033 and
+    /// dbghelp.dll in Wuthering Waves, 2026-10-25). It takes over the game's DLSS/FSR and the swapchain as OptiScaler
+    /// does, and with both a game went to a black screen (God of War Ragnarök, 2026-10-24) or crashed (Metro 2033);
+    /// OptiScaler's danielblnc then stays off as well. The loader's name, "its loader" when none is found, or null.</summary>
+    internal static string? NeuralHubStub(string dir)
+    {
+        if (!File.Exists(Path.Combine(dir, "neuralhub.ini")) && !File.Exists(Path.Combine(dir, "neuralhub_stub.log")))
+            return null;
+        return NeuralHubStubNames.FirstOrDefault(n => File.Exists(Path.Combine(dir, n))
+                                                      && Identify(Path.Combine(dir, n)) is var (isReShade, product, _)
+                                                      && !isReShade
+                                                      && product?.Contains("OptiScaler", StringComparison.OrdinalIgnoreCase) != true)
+               ?? "its loader";
+    }
+
+    internal static bool HasNeuralHubStub(string dir) => NeuralHubStub(dir) is not null;
 
     private static void CheckNeuralHubStub(string dir, Report report)
     {
-        if (!HasNeuralHubStub(dir)) return;
-        report.Warn("danielblnc's NeuralHub is installed in this game (version.dll with neuralhub.ini). It takes over the "
-                    + "game's DLSS/FSR and the screen as OptiScaler does, and with both a game can stay on a black screen. "
-                    + "Remove the game from NeuralHub with NeuralHub first, or keep NeuralHub alone and leave this off.");
+        if (NeuralHubStub(dir) is not { } stub) return;
+        report.Warn($"danielblnc's NeuralHub is installed in this game ({stub}, with its neuralhub files). It takes over the "
+                    + "game's DLSS/FSR and the screen as OptiScaler does, and with both a game can stay on a black screen or "
+                    + "crash. Remove the game from NeuralHub with NeuralHub first, or keep NeuralHub alone and leave this off.");
     }
 
     /// <summary>A renamed copy of one of Streamline's own DLLs: Streamline loads every sl.*.dll beside it as a plugin,

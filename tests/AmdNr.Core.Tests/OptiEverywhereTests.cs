@@ -170,6 +170,41 @@ public class OptiEverywhereTests
     }
 
     [Fact]
+    public void NeuralHubsLoaderIsFoundUnderAnyNameByItsFiles()
+    {
+        var game = Fixture.Temp("everywhere-neuralhub-names");
+        File.WriteAllText(Path.Combine(game, "winmm.dll"), "stub");
+        Assert.Null(Work.NeuralHubStub(game));
+
+        File.WriteAllText(Path.Combine(game, "neuralhub_stub.log"), "log");
+        Assert.Equal("winmm.dll", Work.NeuralHubStub(game));
+
+        File.Delete(Path.Combine(game, "winmm.dll"));
+        File.WriteAllText(Path.Combine(game, "dbghelp.dll"), "stub");
+        Assert.Equal("dbghelp.dll", Work.NeuralHubStub(game));
+
+        // Our OptiScaler under one of those names is not NeuralHub's loader.
+        File.Delete(Path.Combine(game, "dbghelp.dll"));
+        Versioned.Write(Path.Combine(game, "winmm.dll"), "OptiScaler", "0.5.8-opennr");
+        Assert.Equal("its loader", Work.NeuralHubStub(game));
+    }
+
+    [Fact]
+    public void AnOpenNrOptiScalerLeftUnderAnotherNameStopsTheInstall()
+    {
+        var game = Fixture.Temp("everywhere-stray-opti");
+        File.WriteAllBytes(Path.Combine(game, "Game.exe"), Fixture.PeWithImports(true, ["d3d12.dll"]));
+        Versioned.Write(Path.Combine(game, "dxgi.dll"), "OptiScaler", "0.5.7-opennr");
+        var (src, pins) = OptiScalerRouteTests.Payloads("everywhere-stray-opti");
+
+        Assert.Equal(["dxgi.dll"], Work.StrayOpenNrOptiScaler(game, null, "version.dll"));
+        Assert.Empty(Work.StrayOpenNrOptiScaler(game, null, "dxgi.dll"));
+        var report = Work.Install(game, src, Preset.OptiScaler, pins, proxy: "version.dll");
+        Assert.True(Fixture.HasErr(report, "An OpenNR OptiScaler is already here as dxgi.dll"), report.ToLog("install"));
+        Assert.False(File.Exists(Path.Combine(game, "version.dll")));
+    }
+
+    [Fact]
     public void UninstallTakesTheRuntimeCopiesNrWithoutUpscalingMakes()
     {
         var game = Fixture.Temp("everywhere-present-copies");
