@@ -198,7 +198,7 @@ public class Opti054Tests
     {
         var shipped = PayloadManifest.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "payload.json")));
         var newest = shipped.Offered(PayloadManifest.OptiScalerComponent)[0];
-        Assert.Equal("0.5.7-opennr", newest.Version);
+        Assert.Equal("0.5.8-opennr", newest.Version);
         var pins = shipped.With(newest).Pins();
         Assert.Equal("7e966e2639dbec6596aa0bac3b8761137d2c40ca8cb4aca30df7ca10043c6e33", pins.MochizukiFiles["dlssnr-amd/dlssnr-small.bin"]);
         Assert.Contains(pins.MochizukiFiles.Keys, k => k.StartsWith("dlssnr-amd.shaders.renodx/", StringComparison.Ordinal));
