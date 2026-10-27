@@ -25,11 +25,11 @@ public class HostDlssTests
         });
     }
 
-    /// <summary>A 64-bit D3D12 game with the DLSS named, or none.</summary>
-    private static string Game(string tag, string? dlss)
+    /// <summary>A 64-bit game (D3D12 unless named) with the DLSS named, or none.</summary>
+    private static string Game(string tag, string? dlss, string api = "d3d12.dll")
     {
         var game = Fixture.Temp(tag);
-        File.WriteAllBytes(Path.Combine(game, "Game.exe"), Fixture.PeWithImports(true, ["d3d12.dll"]));
+        File.WriteAllBytes(Path.Combine(game, "Game.exe"), Fixture.PeWithImports(true, [api]));
         if (dlss is not null) Versioned.Write(Path.Combine(game, "nvngx_dlss.dll"), "NVIDIA DLSS", dlss);
         return game;
     }
@@ -94,6 +94,20 @@ public class HostDlssTests
         var report = Work.Install(game, src080, Preset.OptiScaler, pins080, daniel: false);
         Assert.False(report.Failed, report.ToLog("install"));
         Assert.False(File.Exists(Path.Combine(game, Library)));
+    }
+
+    /// <summary>OptiScaler runs the hosted DLSS in D3D11 and Vulkan games too (as DLSS w/Dx12), so they need the 310 the
+    /// same way: God of War (2018) is D3D11 with DLSS 2.3.4.</summary>
+    [Theory]
+    [InlineData("d3d11.dll")]
+    [InlineData("vulkan-1.dll")]
+    public void D3D11AndVulkanGamesGet310Too(string api)
+    {
+        var game = Game("hd-" + api, "2.3.4.0", api);
+        var (src, pins) = Payloads("hd-" + api, "0.8.0");
+        Assert.True(Work.HostNeedsDlss(game, "0.8.0"));
+        Assert.True(Fixture.HasAny(Install(game, src, pins), "The game's DLSS 2.3.4 is too old"), "install");
+        Assert.True(File.Exists(Path.Combine(game, Library)));
     }
 
     [Fact]
