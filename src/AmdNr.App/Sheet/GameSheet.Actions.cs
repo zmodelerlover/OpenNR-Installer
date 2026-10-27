@@ -411,8 +411,10 @@ public partial class GameSheet
                 : [PayloadManifest.AddonComponent, PayloadManifest.RuntimeComponent,
                    PayloadManifest.ReShadeComponent, PayloadManifest.ShaderComponent, .. Mochizuki(mochizuki)];
 
+    /// <summary>The RX 7000 network among them is in the manifest only when it was ticked (Selected).</summary>
     private static string[] Mochizuki(bool wanted) =>
-        wanted ? [PayloadManifest.MochizukiComponent, PayloadManifest.MochizukiModelComponent, PayloadManifest.MochizukiSmallModelComponent] : [];
+        wanted ? [PayloadManifest.MochizukiComponent, PayloadManifest.MochizukiModelComponent, PayloadManifest.MochizukiSmallModelComponent,
+                  PayloadManifest.MochizukiRdna3Component] : [];
 
     /// <summary>The folder a route would install from, when it is already complete in the cache.</summary>
     private string? CachedPayloadFolder(string[] wanted)
@@ -446,6 +448,9 @@ public partial class GameSheet
         var picked = Session.Machine?.Rdna4 == false ? versioned.WithRuntime(runtime).WithoutLmxxf() : versioned.WithRuntime(runtime);
         // A runtime left out of this game is neither downloaded nor installed; person protection goes with the last of the two.
         if (Skips(_card, LmxxfRuntime)) picked = picked.Without(PayloadManifest.LmxxfComponents);
+        // The RX 7000 network goes nowhere it was not ticked, nor without mochizuki.
+        if (_card is not { } card || !WantsMochizukiRdna3(card) || Skips(_card, MochizukiRuntime))
+            picked = picked.Without(PayloadManifest.MochizukiRdna3Component);
         return Skips(_card, LmxxfRuntime) && Skips(_card, MochizukiRuntime)
             ? picked.Without(PayloadManifest.PersonModelComponent)
             : picked;

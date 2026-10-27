@@ -127,6 +127,7 @@
   <sys:String x:Key="Str.DanielVersionTip">此游戏安装哪个版本的 danielblnc 运行时。在 RX 9000 显卡上推荐 0.4.3：更新的版本曾在这些显卡上让游戏卡死。其他显卡获得 0.6.0；0.8.0（仅限 OptiScaler）还提供 DLSS-SR、DLSS-RR 和 DLSS-FG。</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Addon">RX 9000：mochizuki（mochizuki0323 的 Vulkan 移植版，约 141 MB）也会装入并运行网络。danielblnc 的运行时留在旁边：可在插件面板的 NR runtime 中选择。每个游戏首次启动会编译网络，最多一分钟。</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Opti">RX 9000：新安装运行 mochizuki，lmxxf装在 danielblnc 运行时旁边。在 OptiScaler 的 Neural 选项卡的 NR runtime 中选择其他运行时，然后重启游戏。</sys:String>
+  <sys:String x:Key="Str.MochizukiRdna3Note">不勾选则关闭。实验性：RX 7000 没有 FP8，因此 mochizuki 运行 mauri870 将其网络移植到 FP16 矩阵的版本，比在 RX 9000 上慢，1080p 下多用约 2 GB 显存。首次构建前，运行时会检查显卡并将每个 pipeline 编译一次；任何一项失败，NR 都会保持关闭，OptiScaler 的 mochizuki 页面会说明原因。勾选后，新安装运行 mochizuki；可在 OptiScaler 的 Neural 选项卡的 NR runtime 中选择其他运行时。</sys:String>
   <sys:String x:Key="Str.WrongGpuToggle">WrongGPU (DLSS 4.5 Model M, RX 9000)</sys:String>
   <sys:String x:Key="Str.WrongGpuNote">勾选后才启用。phantoslayer21 的 WrongGPU 会作为 OptiScaler 的 FSR 超分装在它旁边：在 RDNA4 上运行 DLSS 4.5 的 Model M，模型由本机上的 DLSS 文件转换（没有时使用 NVIDIA 官方下载）。在游戏中选择 FSR，然后在 OptiScaler 的 FSR 版本列表里选择 WrongGPU。</sys:String>
   <sys:String x:Key="Str.HostFgToggle">为没有 DLSS-FG 的游戏启用 danielblnc 的 DLSS-FG</sys:String>

@@ -58,6 +58,10 @@ public sealed class GameEntry
     /// <summary>danielblnc's DLSS-FG for a game without its own ticked or unticked, as <see cref="WrongGpu"/>.</summary>
     public bool? HostFg { get; set; }
 
+    /// <summary>mochizuki's RX 7000 network ticked or unticked for this game on an RX 7000 card; null until then, and
+    /// then it follows the folder, like WrongGPU.</summary>
+    public bool? MochizukiRdna3 { get; set; }
+
     /// <summary>NR runtimes left out of this game's OptiScaler install ("lmxxf", "mochizuki", "daniel"): neither
     /// downloaded nor installed. Null is none.</summary>
     public List<string>? SkippedRuntimes { get; set; }

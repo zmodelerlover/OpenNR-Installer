@@ -13,6 +13,7 @@
       dlssnr-amd\prewarm\manifest.txt        the prewarm list, made for these shaders
       dlssnr-amd\shaders\...                 files, and one level of folders under it
       dlssnr-amd\aco\...                     ACO's network (optional), two folder levels
+      dlssnr-amd\shaders-rdna3\...           the RX 7000 network (optional), one level of folders under it
 
   Anything else at the top of -From (OptiScaler.dll, notes, a build's .lib, .exp and obj\) is ignored.
 
@@ -31,6 +32,10 @@
     4. rewrites releases.optiscaler[<version>].components.mochizuki (the archive and every file in it),
        mochizuki-model (dlssnr.bin, loose) and, when -From has it, mochizuki-model-small (dlssnr-small.bin,
        loose) in payload.json;
+       the RX 7000 network (shaders-rdna3) goes in an archive and a component of its own,
+       mochizuki-rdna3-<version>.zip and releases.optiscaler[<version>].components.mochizuki-rdna3: the installers
+       already published install every file of the mochizuki component on every RX 9000, and never ask for a
+       component they do not know, so only those with the RX 7000 opt-in fetch it;
     5. prints the upload command for each file it pinned, at the path its url names.
 
   The model has an address of its own per model version, because published addresses are
@@ -101,7 +106,7 @@ function Written($name) { $name -eq 'pipeline.cache' -or $name -like '*.tmp' -or
 
 $top = Get-ChildItem -LiteralPath $data -Force
 foreach ($item in $top) {
-    $ok = ($item.PSIsContainer -and $item.Name -in 'prewarm', 'shaders', 'aco', 'int4') -or
+    $ok = ($item.PSIsContainer -and $item.Name -in 'prewarm', 'shaders', 'shaders-rdna3', 'aco', 'int4') -or
           (-not $item.PSIsContainer -and $item.Name -in 'dlssnr.bin', 'dlssnr-int4.bin', 'dlssnr-small.bin')
     if (-not $ok) { Fail "dlssnr-amd\$($item.Name) is not part of a release$(if (Written $item.Name) { ': the runtime wrote it while a game ran' })" }
 }
@@ -157,10 +162,14 @@ if (Test-Path -LiteralPath $int4) {
     AddTree $int4 'dlssnr-amd.int4' 2
     $files.Add([pscustomobject]@{ Path = 'dlssnr-amd/dlssnr-int4.bin'; File = $int4Weights })
 }
+# The RX 7000 network: its shaders, runtime\ and temporal\, in an archive of their own (see 4.).
+$rdna3 = Join-Path $data 'shaders-rdna3'
+if (Test-Path -LiteralPath $rdna3) { AddTree $rdna3 'dlssnr-amd.shaders-rdna3' 1 }
 foreach ($f in $files) { if ($f.Path.Length -gt 128) { Fail "payload path over 128 characters: $($f.Path)" } }
 # Ordinal, not Sort-Object's culture order: the archive's bytes must not depend on the machine's language.
 $files.Sort([Comparison[object]] { param($a, $b) [string]::CompareOrdinal($a.Path, $b.Path) })
-$files = @($files)
+$rdna3Files = @($files | Where-Object { $_.Path.StartsWith('dlssnr-amd.shaders-rdna3', [StringComparison]::Ordinal) })
+$files = @($files | Where-Object { -not $_.Path.StartsWith('dlssnr-amd.shaders-rdna3', [StringComparison]::Ordinal) })
 
 # --- 2. the prewarm list is for these shaders ----------------------------------------------------
 $head = (Get-Content -LiteralPath $prewarm -TotalCount 4) -join "`n"
@@ -174,26 +183,32 @@ Good "prewarm list made for these $shaderCount shader files"
 # --- 3. the archive --------------------------------------------------------------------------------
 Add-Type -AssemblyName System.IO.Compression, System.IO.Compression.FileSystem
 New-Item -ItemType Directory -Force -Path $Out | Out-Null
-$zipName = "mochizuki-$Version.zip"
-$zipPath = Join-Path $Out $zipName
-if (Test-Path -LiteralPath $zipPath) { Remove-Item -LiteralPath $zipPath -Force }
 $stamp = [DateTimeOffset]::new(2026, 1, 1, 0, 0, 0, [TimeSpan]::Zero)
-$extract = [System.Collections.Generic.List[object]]::new()
-$stream = [IO.File]::Open($zipPath, [IO.FileMode]::CreateNew)
-$zip = [IO.Compression.ZipArchive]::new($stream, [IO.Compression.ZipArchiveMode]::Create)
-try {
-    foreach ($f in $files) {
-        $entry = $zip.CreateEntry($f.Path, [IO.Compression.CompressionLevel]::Optimal)
-        $entry.LastWriteTime = $stamp
-        $sink = $entry.Open()
-        $source = [IO.File]::OpenRead($f.File)
-        try { $source.CopyTo($sink) } finally { $source.Dispose(); $sink.Dispose() }
-        $extract.Add([ordered]@{ name = [IO.Path]::GetFileName($f.Path); path = $f.Path; size = (Get-Item -LiteralPath $f.File).Length; sha256 = Sha256File $f.File })
-    }
-} finally { $zip.Dispose(); $stream.Dispose() }
-$zipSha = Sha256File $zipPath
-$zipSize = (Get-Item -LiteralPath $zipPath).Length
+# One archive: the files in the order given, a fixed timestamp, and its extract list.
+function Archive($zipName, $list) {
+    $zipPath = Join-Path $Out $zipName
+    if (Test-Path -LiteralPath $zipPath) { Remove-Item -LiteralPath $zipPath -Force }
+    $extract = [System.Collections.Generic.List[object]]::new()
+    $stream = [IO.File]::Open($zipPath, [IO.FileMode]::CreateNew)
+    $zip = [IO.Compression.ZipArchive]::new($stream, [IO.Compression.ZipArchiveMode]::Create)
+    try {
+        foreach ($f in $list) {
+            $entry = $zip.CreateEntry($f.Path, [IO.Compression.CompressionLevel]::Optimal)
+            $entry.LastWriteTime = $stamp
+            $sink = $entry.Open()
+            $source = [IO.File]::OpenRead($f.File)
+            try { $source.CopyTo($sink) } finally { $source.Dispose(); $sink.Dispose() }
+            $extract.Add([ordered]@{ name = [IO.Path]::GetFileName($f.Path); path = $f.Path; size = (Get-Item -LiteralPath $f.File).Length; sha256 = Sha256File $f.File })
+        }
+    } finally { $zip.Dispose(); $stream.Dispose() }
+    return [pscustomobject]@{ Name = $zipName; Path = $zipPath; Sha = (Sha256File $zipPath); Size = (Get-Item -LiteralPath $zipPath).Length; Extract = $extract.ToArray() }
+}
+$zipName = "mochizuki-$Version.zip"
+$main = Archive $zipName $files
+$zipPath = $main.Path; $zipSha = $main.Sha; $zipSize = $main.Size; $extract = $main.Extract
 Good "$zipPath  ($($files.Count) files, $zipSize bytes)"
+$rdna3Zip = if ($rdna3Files.Count) { Archive "mochizuki-rdna3-$Version.zip" $rdna3Files }
+if ($rdna3Zip) { Good "$($rdna3Zip.Path)  ($($rdna3Files.Count) files, $($rdna3Zip.Size) bytes)" }
 
 # --- 4. payload.json -------------------------------------------------------------------------------
 $m = [IO.File]::ReadAllText($Manifest) | ConvertFrom-Json
@@ -232,18 +247,30 @@ if ($old -and ($old.Value.files | Where-Object { $_.sha256 -ne $zero -and $_.sha
 $component = [ordered]@{
     version = $Version
     files   = @([ordered]@{ name = $zipName; size = $zipSize; sha256 = $zipSha; url = "$base/mochizuki/$Version/$zipName" })
-    extract = $extract.ToArray()
+    extract = $extract
 }
 $release.components | Add-Member -NotePropertyName mochizuki -NotePropertyValue $component -Force
 $release.components | Add-Member -NotePropertyName 'mochizuki-model' -NotePropertyValue $modelComponent -Force
 if ($smallComponent) { $release.components | Add-Member -NotePropertyName 'mochizuki-model-small' -NotePropertyValue $smallComponent -Force }
 elseif ($release.components.PSObject.Properties['mochizuki-model-small']) { $release.components.PSObject.Properties.Remove('mochizuki-model-small') }
+if ($rdna3Zip) {
+    $release.components | Add-Member -NotePropertyName 'mochizuki-rdna3' -NotePropertyValue ([ordered]@{
+        version = $Version
+        files   = @([ordered]@{ name = $rdna3Zip.Name; size = $rdna3Zip.Size; sha256 = $rdna3Zip.Sha; url = "$base/mochizuki/$Version/$($rdna3Zip.Name)" })
+        extract = $rdna3Zip.Extract
+    }) -Force
+}
+elseif ($release.components.PSObject.Properties['mochizuki-rdna3']) { $release.components.PSObject.Properties.Remove('mochizuki-rdna3') }
 [IO.File]::WriteAllText($Manifest, ($m | ConvertTo-Json -Depth 20), [Text.UTF8Encoding]::new($false))
 Good "$Manifest"
 Note "mochizuki $Version`: $zipName $zipSha"
 Note "mochizuki-model $($modelComponent.version): dlssnr.bin $modelSize bytes $modelSha"
 
 $sums = @("$zipSha *$zipName", "$modelSha *dlssnr.bin")
+if ($rdna3Zip) {
+    Note "mochizuki-rdna3 $Version`: $($rdna3Zip.Name) $($rdna3Zip.Sha)"
+    $sums += "$($rdna3Zip.Sha) *$($rdna3Zip.Name)"
+}
 if ($smallComponent) {
     Note "mochizuki-model-small $($smallComponent.version): dlssnr-small.bin $($smallComponent.files[0].size) bytes $($smallComponent.files[0].sha256)"
     $sums += "$($smallComponent.files[0].sha256) *dlssnr-small.bin"
@@ -254,6 +281,9 @@ if ($smallComponent) {
 $modelInRepo = $modelComponent.files[0].url.Substring($base.Length + 1)
 Write-Host "`nUpload, before payload.json:" -ForegroundColor Cyan
 Write-Host "  hf upload $Repo `"$zipPath`" mochizuki/$Version/$zipName --repo-type dataset --commit-message `"mochizuki $Version`: runtime, shaders, prewarm list and licence`""
+if ($rdna3Zip) {
+    Write-Host "  hf upload $Repo `"$($rdna3Zip.Path)`" mochizuki/$Version/$($rdna3Zip.Name) --repo-type dataset --commit-message `"mochizuki $Version`: the RX 7000 network (experimental)`""
+}
 Write-Host "  hf upload $Repo `"$model`" $modelInRepo --repo-type dataset --commit-message `"mochizuki model $($modelComponent.version)`""
 if ($smallComponent) {
     $smallInRepo = $smallComponent.files[0].url.Substring($base.Length + 1)

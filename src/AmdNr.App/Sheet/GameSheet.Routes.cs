@@ -405,10 +405,11 @@ public partial class GameSheet
     private List<ComponentRelease> _runtimeChoices = [];
 
     /// <summary>Whether an install from this sheet brings mochizuki: on an RX 9000 card, wherever the version
-    /// chosen carries it. Any other card, or one this app could not read, gets none, and an install takes out
-    /// what an earlier one put in.</summary>
+    /// chosen carries it, and on an RX 7000 with its network ticked. Any other card, or one this app could not read,
+    /// gets none, and an install takes out what an earlier one put in.</summary>
     private bool WantsMochizuki(GameCard card) =>
-        OffersMochizuki(card) && Session.Machine?.Rdna4 == true && !Skips(card, MochizukiRuntime);
+        OffersMochizuki(card) && (Session.Machine?.Rdna4 == true || WantsMochizukiRdna3(card)) &&
+        !Skips(card, MochizukiRuntime);
 
     /// <summary>The first add-on that can drive the mochizuki runtime (its NR runtime choice).</summary>
     private static readonly Version MochizukiAddon = new(0, 6, 8);

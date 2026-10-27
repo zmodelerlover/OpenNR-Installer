@@ -127,6 +127,7 @@
   <sys:String x:Key="Str.DanielVersionTip">이 게임에 들어갈 danielblnc 런타임 버전입니다. RX 9000 카드에서는 0.4.3이 권장됩니다. 더 새로운 버전은 이 카드에서 게임을 멈추게 한 적이 있습니다. 다른 카드는 0.6.0을 받습니다. 0.8.0(OptiScaler 전용)은 DLSS-SR, DLSS-RR, DLSS-FG도 제공합니다.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Addon">RX 9000: mochizuki(mochizuki0323의 Vulkan 이식판, 약 141MB)도 설치되어 네트워크를 실행합니다. danielblnc 런타임은 옆에 남으며 애드온 패널의 NR runtime에서 고를 수 있습니다. 각 게임의 첫 실행에서는 네트워크를 최대 1분간 컴파일합니다.</sys:String>
   <sys:String x:Key="Str.RuntimeRdna4Opti">RX 9000: 새로 설치하면 mochizuki가 실행되고, lmxxf는 danielblnc 런타임 옆에 설치됩니다. OptiScaler의 Neural 탭 NR runtime에서 다른 것을 고른 뒤 게임을 다시 시작하세요.</sys:String>
+  <sys:String x:Key="Str.MochizukiRdna3Note">체크하지 않으면 꺼져 있습니다. 실험적: RX 7000에는 FP8이 없어서 mochizuki는 mauri870이 만든 네트워크의 FP16 행렬 포트를 실행합니다. RX 9000보다 느리고 1080p에서 VRAM을 약 2 GB 더 씁니다. 첫 빌드 전에 런타임이 카드를 확인하고 모든 pipeline을 한 번 컴파일하며, 하나라도 실패하면 NR은 꺼진 채로 있고 OptiScaler의 mochizuki 페이지에 이유가 나옵니다. 체크하면 새로 설치할 때 mochizuki가 실행됩니다. 다른 것은 OptiScaler의 Neural 탭 NR runtime에서 고르세요.</sys:String>
   <sys:String x:Key="Str.WrongGpuToggle">WrongGPU (DLSS 4.5 Model M, RX 9000)</sys:String>
   <sys:String x:Key="Str.WrongGpuNote">체크하지 않으면 꺼져 있습니다. phantoslayer21의 WrongGPU가 OptiScaler 옆에 FSR 업스케일러로 설치됩니다: RDNA4에서 DLSS 4.5의 Model M이며, 모델은 이 PC의 DLSS 파일에서 변환됩니다(없으면 NVIDIA 공식 다운로드에서). 게임에서 FSR을 고른 뒤 OptiScaler의 FSR 버전 목록에서 WrongGPU를 고르세요.</sys:String>
   <sys:String x:Key="Str.HostFgToggle">DLSS-FG가 없는 게임용 danielblnc의 DLSS-FG</sys:String>

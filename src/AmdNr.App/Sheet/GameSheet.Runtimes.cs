@@ -17,6 +17,8 @@ public partial class GameSheet
     // and danielblnc's version on a branch under its own tile.
     private CheckBox? _lmxxfBox, _mochizukiBox, _danielBox;
     private Grid? _danielBranch, _runtimeRow;
+    // On an RX 7000 the mochizuki tile is the opt-in to its RX 7000 network (GameSheet.Rdna3.cs), with what that costs.
+    private TextBlock? _rdna3Note;
     // lmxxf, mochizuki, danielblnc: each label on one line, and room under danielblnc's for its version and badge.
     private static readonly double[] Weights = [1, 1.15, 1.25];
 
@@ -58,6 +60,9 @@ public partial class GameSheet
         _danielBranch.Children.Add(line);
         daniel.Children.Add(_danielBranch);
         OptiRuntimes.Children.Add(row);
+        _rdna3Note = new TextBlock { Name = "MochizukiRdna3Note", TextWrapping = Avalonia.Media.TextWrapping.Wrap, IsVisible = false };
+        _rdna3Note.Classes.Add("caption");
+        OptiRuntimes.Children.Add(_rdna3Note);
     }
 
     /// <summary>danielblnc's version box, under its tile on the OptiScaler route and in its own row on the ReShade ones.</summary>
@@ -78,15 +83,20 @@ public partial class GameSheet
         if (_lmxxfBox is null) BuildRuntimeTiles();
         var opti = card.Entry.Preset.IsOptiScaler() && !RouteUndecided(card);
         _setting = true;
-        // lmxxf and mochizuki run on RX 9000 only, and are not downloaded anywhere else either.
-        var offered = new[] { Rdna4, Rdna4 && OffersMochizuki(card), true };
+        // lmxxf and mochizuki run on RX 9000 only, and are not downloaded anywhere else either; mochizuki also on an
+        // RX 7000 where the version carries its RX 7000 network, off until ticked.
+        var rx7000 = OffersMochizukiRdna3(card);
+        var offered = new[] { Rdna4, Rdna4 && OffersMochizuki(card) || rx7000, true };
         for (var i = 0; i < offered.Length; i++)
         {
             _runtimeRow!.Children[i].IsVisible = offered[i];
             _runtimeRow.ColumnDefinitions[i].Width = offered[i] ? new GridLength(Weights[i], GridUnitType.Star) : new GridLength(0);
         }
         _lmxxfBox!.IsChecked = !Skips(card, LmxxfRuntime);
-        _mochizukiBox!.IsChecked = !Skips(card, MochizukiRuntime);
+        _mochizukiBox!.Content = rx7000 ? "mochizuki, experimental (380 MB)" : "mochizuki (350 MB)";
+        _mochizukiBox.IsChecked = rx7000 ? WantsMochizukiRdna3(card) : !Skips(card, MochizukiRuntime);
+        _rdna3Note!.Text = Ui.Text("Str.MochizukiRdna3Note");
+        _rdna3Note.IsVisible = rx7000;
         _danielBox!.IsChecked = !Skips(card, DanielRuntime);
         _setting = false;
         OptiRuntimes.IsVisible = opti;
@@ -108,6 +118,7 @@ public partial class GameSheet
         if (Rdna4 && _mochizukiBox.IsChecked != true) skipped.Add(MochizukiRuntime);
         if (_danielBox.IsChecked != true) skipped.Add(DanielRuntime);
         card.Entry.SkippedRuntimes = skipped.Count > 0 ? skipped : null;
+        if (OffersMochizukiRdna3(card)) card.Entry.MochizukiRdna3 = _mochizukiBox.IsChecked == true;
         Library.Save();
         ShowMochizuki();
         ShowHostFg();
