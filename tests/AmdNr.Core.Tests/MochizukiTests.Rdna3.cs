@@ -144,8 +144,13 @@ public partial class MochizukiTests
     [InlineData(0x1002u, 0x7448u, "AMD Radeon PRO W7900", true)]
     [InlineData(0x1002u, 0x7550u, "AMD Radeon RX 9070 XT", false)]
     [InlineData(0x1002u, 0x73BFu, "AMD Radeon RX 6900 XT", false)]
-    [InlineData(0x1002u, 0x15BFu, "AMD Radeon 780M Graphics", false)]
+    [InlineData(0x1002u, 0x15BFu, "AMD Radeon 780M Graphics", true)]
+    [InlineData(0x1002u, 0x1586u, "AMD Radeon(TM) 8060S Graphics", true)]
+    [InlineData(0x1002u, 0x150Eu, "AMD Radeon 890M Graphics", true)]
+    [InlineData(0x1002u, 0x0000u, "AMD Radeon 760M Graphics", true)]
+    [InlineData(0x1002u, 0x1681u, "AMD Radeon 680M", false)]
+    [InlineData(0x1002u, 0x164Eu, "AMD Radeon(TM) Graphics", false)]
     [InlineData(0x10DEu, 0x2684u, "NVIDIA GeForce RTX 4090", false)]
-    public void TheRx7000NetworkIsOfferedOnRx7000CardsOnly(uint vendor, uint device, string name, bool rx7000) =>
+    public void TheRx7000NetworkIsOfferedOnRx7000CardsAndRdna3Apus(uint vendor, uint device, string name, bool rx7000) =>
         Assert.Equal(rx7000, Work.IsRx7000(vendor, device, name));
 }

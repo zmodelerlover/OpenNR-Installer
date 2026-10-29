@@ -51,14 +51,19 @@ public static partial class Work
     /// <summary>Where the RX 7000 network's shaders go: dlssnr-amd\shaders-rdna3\, its runtime\ and temporal\ inside.</summary>
     internal const string MochizukiRdna3Folder = Engine.MochizukiFolder + "/shaders-rdna3/";
 
-    /// <summary>An RX 7000 card (RDNA3, Navi 31, 32 and 33: device ids 0x74xx), by device id or by its name: the
-    /// cards mochizuki's RX 7000 network is offered on, experimental and off unless ticked. Integrated RDNA3 graphics
-    /// (Radeon 780M and the like) are not among them: nobody has run it there.</summary>
+    /// <summary>An RX 7000 card (RDNA3, Navi 31, 32 and 33: device ids 0x74xx) or an RDNA3 / RDNA 3.5 APU (Radeon
+    /// 740M-780M, 820M-890M, 8040S-8060S), by device id or by its name: the GPUs mochizuki's RX 7000 network is offered
+    /// on, experimental and off unless ticked. The Radeon 8060S runs it as an RX 7000 does. RDNA2 APUs (610M, 660M,
+    /// 680M) are not among them.</summary>
     public static bool IsRx7000(uint vendor, uint device, string name) =>
         vendor == 0x1002
-        && ((device & 0xFF00) == 0x7400
-            || System.Text.RegularExpressions.Regex.IsMatch(name, @"\bRX\s*7\d{3}\b|\bPRO\s*W7\d{3}\b",
+        && ((device & 0xFF00) == 0x7400 || Rdna3Apus.Contains(device)
+            || System.Text.RegularExpressions.Regex.IsMatch(name,
+                @"\bRX\s*7\d{3}\b|\bPRO\s*W7\d{3}\b|\bRadeon(\s*\(TM\))?\s*(7[4-8]0M|8[2-9]0M|80[4-6]0S)\b",
                 System.Text.RegularExpressions.RegexOptions.IgnoreCase));
+
+    /// <summary>Phoenix, Phoenix 2, Hawk Point, Strix Point, Krackan Point and Strix Halo.</summary>
+    private static readonly uint[] Rdna3Apus = [0x15BF, 0x15C8, 0x1900, 0x150E, 0x1114, 0x1586];
 
     /// <summary>Whether this app installed mochizuki's RX 7000 network in this game folder: what the sheet goes by
     /// when nobody has said, on this machine, whether they want it.</summary>
