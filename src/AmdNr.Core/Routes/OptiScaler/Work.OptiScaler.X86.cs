@@ -61,7 +61,8 @@ public static partial class Work
     private static byte[] NrOn(byte[] ini) =>
         System.Text.Encoding.UTF8.GetBytes(Engine.SetIni(System.Text.Encoding.UTF8.GetString(ini), "DlssNr", "Enabled", "true"));
 
-    /// <summary>What a 32-bit game's host never loads: lmxxf, which does not run without an upscaler, and its data.</summary>
+    /// <summary>lmxxf and its data: what a 32-bit game's host never loads (lmxxf does not run without an upscaler), and
+    /// what stays out where lmxxf's weights do.</summary>
     private static bool LmxxfOnly(string path) =>
         path == LmxxfRuntimeName || path.StartsWith("lmxxf-modules", StringComparison.Ordinal)
         || path.StartsWith(LmxxfWeightsFolder, StringComparison.Ordinal) || path.StartsWith(LmxxfSmallPayload, StringComparison.Ordinal)

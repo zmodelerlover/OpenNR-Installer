@@ -203,7 +203,7 @@ public partial class MochizukiTests
     {
         var (src, staged) = Staged("lmxxf");
         var opti = new Dictionary<string, string>(staged.OptiFiles, StringComparer.Ordinal);
-        foreach (var path in new[] { "LmxxfNrRuntime.dll", "lmxxf-modules-gfx1200/block0.hsaco" })
+        foreach (var path in new[] { "LmxxfNrRuntime.dll", "lmxxf-modules-gfx1200/block0.hsaco", "native-game-tiled-assets/noise.f32" })
         {
             var full = Path.Combine(src, path);
             Directory.CreateDirectory(Path.GetDirectoryName(full)!);
@@ -233,6 +233,41 @@ public partial class MochizukiTests
         var noMochizuki = Game("lmxxf-no-mochizuki");
         Assert.False(Work.Install(noMochizuki, src, Preset.OptiScaler, pins, lmxxf: true).Failed);
         Assert.Equal("lmxxf", Engine.Trim(Engine.GetIni(File.ReadAllText(Path.Combine(noMochizuki, Work.OptiScalerIni)), "DlssNr", "NrBackend")));
+
+        // RE Requiem, 2026-10-31: lmxxf left out of the game (its components dropped, as GameSheet.Selected does), mochizuki
+        // ticked. lmxxf's runtime and kernels rode in OptiScaler's own component and went in anyway.
+        var lean = new Dictionary<string, string>(opti, StringComparer.Ordinal);
+        lean.Remove("lmxxf-modules-gfx1200/block0.hsaco");
+        lean.Remove("native-game-tiled-assets/noise.f32");
+        foreach (var path in new[] { "lmxxf-modules/c32_fast.hsaco", "shaders/nr.hlsl" })
+        {
+            var full = Path.Combine(src, path);
+            Directory.CreateDirectory(Path.GetDirectoryName(full)!);
+            File.WriteAllText(full, $"stand-in {path}");
+            lean[path] = Engine.HashFile(full);
+        }
+        var skipped = new PayloadPins
+        {
+            AddonSha = pins.AddonSha, AddonSize = pins.AddonSize, WeightsSha = pins.WeightsSha, WeightsSize = pins.WeightsSize,
+            OptiFiles = lean, OptiRuntimeName = pins.OptiRuntimeName, OptiRuntimeSha = pins.OptiRuntimeSha,
+            OptiRuntimeSize = pins.OptiRuntimeSize, OptiScalerVersion = pins.OptiScalerVersion,
+            OptiRuntimeVersion = pins.OptiRuntimeVersion, MochizukiFiles = pins.MochizukiFiles,
+        };
+        var noLmxxf = Game("lmxxf-left-out");
+        var r = Work.Install(noLmxxf, src, Preset.OptiScaler, skipped, mochizuki: true, daniel: false);
+        Assert.False(r.Failed, r.ToLog("install"));
+        Assert.False(File.Exists(Path.Combine(noLmxxf, "LmxxfNrRuntime.dll")));
+        Assert.False(Directory.Exists(Path.Combine(noLmxxf, "lmxxf-modules")));
+        Assert.False(Directory.Exists(Path.Combine(noLmxxf, "shaders")));
+        Assert.True(File.Exists(Path.Combine(noLmxxf, "MochizukiNrRuntime.dll")));
+        Assert.NotEqual("lmxxf", Engine.Trim(Engine.GetIni(File.ReadAllText(Path.Combine(noLmxxf, Work.OptiScalerIni)), "DlssNr", "NrBackend")));
+
+        // Over an install that had lmxxf, the same choice takes it back out.
+        r = Work.Install(rx9000, src, Preset.OptiScaler, skipped, mochizuki: true, daniel: false);
+        Assert.False(r.Failed, r.ToLog("install"));
+        Assert.False(File.Exists(Path.Combine(rx9000, "LmxxfNrRuntime.dll")));
+        Assert.False(Directory.Exists(Path.Combine(rx9000, "lmxxf-modules-gfx1200")));
+        Assert.False(Directory.Exists(Path.Combine(rx9000, "native-game-tiled-assets")));
     }
 
     [Fact]

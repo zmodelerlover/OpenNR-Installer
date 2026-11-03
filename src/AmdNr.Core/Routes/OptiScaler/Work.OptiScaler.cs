@@ -289,7 +289,7 @@ public static partial class Work
         // fresh ini runs it there with or without an upscaler; other cards keep danielblnc.
         IReadOnlyList<string> upscalers = everywhere ? GraphicsDetector.UpscalersDeep(dir, null, GraphicsDetector.Detect(dir).Executable) : [];
         var runsMochizuki = mochizuki && OptiRunsBridged(pins.OptiScalerVersion);
-        var lmxxf = !runsMochizuki && (mochizuki || lmxxfCard) && LmxxfEverywhere(pins) && (!everywhere || upscalers.Count > 0);
+        var lmxxf = !runsMochizuki && (mochizuki || lmxxfCard) && LmxxfEverywhere(pins) && LmxxfWeighted(pins) && (!everywhere || upscalers.Count > 0);
         // Without danielblnc's runtime (closed source, left out in Settings) a fresh ini names one that is here, or none.
         var backend = daniel ? null
             : runsMochizuki ? MochizukiBackend
@@ -309,7 +309,9 @@ public static partial class Work
                     files[to] = x86Bytes;
                 continue;
             }
-            if (x86 && LmxxfOnly(path)) continue;
+            // lmxxf's runtime, kernels and shaders ride in OptiScaler's own component: without its weights (left out of
+            // this game, or a card it does not run on) none of it goes in.
+            if ((x86 || !LmxxfWeighted(pins)) && LmxxfOnly(path)) continue;
             var destination = home + OptiDestination(path, x86 ? OptiScalerDllPayload : proxyName);
             if (destination == iniName && File.Exists(Path.Combine(dir, iniName)) && !iniIsOurs && !iniIsForeign)
             {
@@ -369,11 +371,10 @@ public static partial class Work
         // So does OptiScaler under the name it had, when it now goes in under another: two of it would
         // both load, and whatever that name displaced comes back.
         var recorded = MochizukiRecorded(manifest).Concat(InstalledOptiProxies(manifest).Where(n => n != proxyName))
-            // lmxxf's weights and RX 9060 kernels an earlier install put in, on a card that has no use for them, and
-            // person protection with them.
+            // lmxxf (runtime, kernels, shaders, weights) an earlier install put in, when it is left out or the card has no
+            // use for it, and person protection with it.
             .Concat(LmxxfWeighted(pins) ? [] : manifest?.Entries.Where(e => e.Owned && !files.ContainsKey(e.Name)
-                    && (e.Name.StartsWith(LmxxfWeightsFolder, StringComparison.Ordinal)
-                        || e.Name.StartsWith("lmxxf-modules-gfx1200/", StringComparison.Ordinal)
+                    && (LmxxfOnly(e.Name)
                         || e.Name.StartsWith(home + PersonModelFolder, StringComparison.Ordinal))).Select(e => e.Name) ?? [])
             // WrongGPU, when it is left off.
             .Concat(wrongGpu ? [] : WrongGpuRecorded(manifest))
@@ -398,6 +399,8 @@ public static partial class Work
         if (!x86 && (wrongGpu || recorded.Any(WrongGpuNames.Contains))) PointIniAtWrongGpu(dir, wrongGpu, report);
         if (files.ContainsKey(HostFgDlssg) || recorded.Any(IsHostFgFile)) PointIniAtHostFg(dir, files.ContainsKey(HostFgDlssg), report);
         if (!files.ContainsKey(HostFgDlssg) && recorded.Any(IsHostFgFile)) PruneEmpty(dir, ["OptiScaler/streamline"], report);
+        if (!x86 && recorded.Any(LmxxfOnly))
+            PruneEmpty(dir, ["lmxxf-modules", "lmxxf-modules-gfx1200", Engine.LmxxfSmallFolder, "native-game-tiled-assets", "shaders"], report);
         report.Info(x86
             ? $"OptiScaler goes in {OptiHostFolder}\\ with its 64-bit host, and the 32-bit {proxyName} beside the game hands "
               + "the host every frame: NR, frame generation and the menu run there."
