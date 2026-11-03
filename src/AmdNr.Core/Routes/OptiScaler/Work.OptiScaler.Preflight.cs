@@ -92,6 +92,7 @@ public static partial class Work
         CheckNeuralHubStub(dir, report);
         CheckRuntimeAsVersionDll(dir, pins, report);
         CheckLocalHip(dir, report);
+        CheckRtss(report);
         CheckRenamedStreamline(dir, report);
         CheckAuthorsRuntime(dir, pins, Preset.OptiScaler, report);
         CheckUpscaler(dir, report, everywhere, GraphicsDetector.Detect(dir).Executable);

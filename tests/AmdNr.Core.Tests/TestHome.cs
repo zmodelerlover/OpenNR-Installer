@@ -14,6 +14,8 @@ internal static class TestHome
         Environment.SetEnvironmentVariable("AMDNR_HOME", Path.Combine(Path.GetTempPath(), "amdnr-tests", run));
         // The same for the Vulkan layers: a key of this run's, never the loader's own.
         Environment.SetEnvironmentVariable("AMDNR_LAYER_KEY", $@"SOFTWARE\AmdNrTests\{run}\ImplicitLayers");
+        // An RTSS on the machine running the tests is no part of any folder's report.
+        Environment.SetEnvironmentVariable("AMDNR_NO_RTSS", "1");
         AppDomain.CurrentDomain.ProcessExit += (_, _) =>
         {
             using var tests = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\AmdNrTests", writable: true);

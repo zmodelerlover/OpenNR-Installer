@@ -90,6 +90,7 @@ public static partial class Work
 
         CheckDisabledAddons(dir, report);
         CheckLocalHip(dir, report);
+        CheckRtss(report);
         if (retiring) report.Info(MochizukiComesOut);
 
         var dead = DeadFiles().Where(n => File.Exists(Path.Combine(dir, n))).ToList();
