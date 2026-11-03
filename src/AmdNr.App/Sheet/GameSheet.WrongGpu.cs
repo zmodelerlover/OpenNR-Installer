@@ -36,6 +36,7 @@ public partial class GameSheet
         WrongGpuBox.IsChecked = WantsWrongGpu(card);
         _setting = false;
         ShowHostFg();
+        ShowOpenRr();
     }
 
     private void OnWrongGpuChanged(object? sender, RoutedEventArgs e)

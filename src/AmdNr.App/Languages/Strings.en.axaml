@@ -144,6 +144,12 @@
   <sys:String x:Key="Str.HostFgOwnFg">This game has its own DLSS frame generation: danielblnc's FG already runs through it, with nothing to add.</sys:String>
   <sys:String x:Key="Str.HostFgNoUpscaler">No DLSS, FSR or XeSS found in this game: this frame generation needs the game's upscaler.</sys:String>
   <sys:String x:Key="Str.HostFgNrOff">danielblnc's own NR is off while its FG runs: pick mochizuki or lmxxf as the NR runtime.</sys:String>
+  <sys:String x:Key="Str.OpenRrToggle">OpenRR (Ray Reconstruction, RX 9000)</sys:String>
+  <sys:String x:Key="Str.OpenRrNote">On unless unticked. OpenRR, our own DLSS Ray Reconstruction runtime, goes in beside OptiScaler (OpenNrRrRuntime.dll and opennr-rr\shaders\). It builds its network from nvngx_dlssd.dll 310.9.1: a game with another version, or none, gets NVIDIA's 310.9.1, its own kept in the backup. In the game turn DLSS Ray Reconstruction on and OptiScaler's menu (Insert) shows OpenRR. Unticked, it stays out and OptiScaler.ini gets Enabled=false under [OpenNR-RR].</sys:String>
+  <sys:String x:Key="Str.OpenRrHint">For games with DLSS Ray Reconstruction: no nvngx_dlssd.dll was found in this one.</sys:String>
+  <sys:String x:Key="Str.OpenRrReady">nvngx_dlssd.dll 310.9.1 found: OpenRR builds its network from it.</sys:String>
+  <sys:String x:Key="Str.OpenRrOtherDlssd">{0} is version {1}. OpenRR runs on 310.9.1 only: with this one Ray Reconstruction stays on FSR-RR.</sys:String>
+  <sys:String x:Key="Str.OpenRrSupplied">{0} is version {1}, and OpenRR runs on 310.9.1 only: installing puts NVIDIA's 310.9.1 beside OptiScaler and keeps the game's in the backup.</sys:String>
   <sys:String x:Key="Str.PickRouteTitle">Pick a route to install with</sys:String>
   <sys:String x:Key="Str.PickRouteBody">This app could not tell which graphics API {0} renders with, so it does not pick a route for you. OptiScaler is the one for a D3D12 game that offers DLSS, FSR or XeSS in its settings; ReShade, on D3D11 or D3D12, is the one for any other. Install waits until you pick.</sys:String>
   <sys:String x:Key="Str.PickRouteBodyAll">This app could not tell which graphics API {0} renders with, so it does not pick a route for you. OptiScaler runs on 64-bit D3D9, D3D11, D3D12, Vulkan and OpenGL games, inside the game's DLSS, FSR or XeSS when it has one; ReShade also covers 32-bit games, emulators and D3D10. Install waits until you pick.</sys:String>

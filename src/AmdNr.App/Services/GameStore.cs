@@ -58,6 +58,9 @@ public sealed class GameEntry
     /// <summary>danielblnc's DLSS-FG for a game without its own ticked or unticked, as <see cref="WrongGpu"/>.</summary>
     public bool? HostFg { get; set; }
 
+    /// <summary>OpenRR ticked or unticked for this game; null until then, which is ticked, as [OpenNR-RR] is on by default.</summary>
+    public bool? OpenRr { get; set; }
+
     /// <summary>mochizuki's RX 7000 network ticked or unticked for this game on an RX 7000 card; null until then, and
     /// then it follows the folder, like WrongGPU.</summary>
     public bool? MochizukiRdna3 { get; set; }

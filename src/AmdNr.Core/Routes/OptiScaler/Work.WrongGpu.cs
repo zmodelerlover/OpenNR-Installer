@@ -69,6 +69,14 @@ public static partial class Work
         return name == "WrongGPU.asi" ? WrongGpuAsi : name;
     }
 
+    /// <summary>The pins an install of WrongGPU is compared against, by its path in the game.</summary>
+    private static IEnumerable<(string Name, string Sha)> WrongGpuPins(PayloadManifest payload) =>
+        payload.Has(PayloadManifest.WrongGpuComponent)
+            ? payload.Component(PayloadManifest.WrongGpuComponent).Installed
+                .Select(f => (WrongGpuDestination(f.RelativePath), Engine.Lower(f.Sha256)))
+                .Where(p => p.Item1 is not null).Select(p => (p.Item1!, p.Item2))
+            : [];
+
     private static string? WrongGpuSetup(PayloadPins pins) =>
         pins.WrongGpuFiles.Keys.FirstOrDefault(k => k.StartsWith(WrongGpuPayload + WrongGpuSetupPrefix, StringComparison.OrdinalIgnoreCase));
 

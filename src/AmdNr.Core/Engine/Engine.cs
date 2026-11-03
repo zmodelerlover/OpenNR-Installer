@@ -245,6 +245,10 @@ public static partial class Engine
         "wronggpu.ini",
         "wronggpu-license.txt",
         "wronggpu-notices.txt",
+        // OpenRR (only when ticked), its kernels matched by IsAllowed below, and NVIDIA's 310.9.1 nvngx_dlssd.dll it
+        // builds its network from, in place of the game's own when that is another version.
+        "OpenNrRrRuntime.dll",
+        "nvngx_dlssd.dll",
         // The author's setup loads danielblnc's runtime under this name, and the OptiScaler route
         // moves that file to the backup when it takes it as its runtime; uninstall puts it back.
         // OptiScaler itself goes in under it when that is the name picked for it.
@@ -275,6 +279,12 @@ public static partial class Engine
             return inner is "OptiScaler.dll" or "OptiScalerDx9Host.exe" || inner.Length > 0 && IsAllowed(inner);
         }
         if (IsMochizukiData(name)) return true;
+        if (name.StartsWith(OpenRrShaders, StringComparison.Ordinal))
+        {
+            var spv = name[OpenRrShaders.Length..];
+            return spv.Length is > 4 and <= 96 && spv.EndsWith(".spv", StringComparison.Ordinal)
+                   && spv.IndexOfAny(Path.GetInvalidFileNameChars()) < 0;
+        }
         // lmxxf 0.44's Small model, one folder below its weights: native-game-tiled-assets\small\<file>.
         if (name.StartsWith(LmxxfSmallFolder + "/", StringComparison.Ordinal))
             name = "native-game-tiled-assets/" + name[(LmxxfSmallFolder.Length + 1)..];
@@ -305,6 +315,9 @@ public static partial class Engine
     /// <summary>Where lmxxf 0.44's Small model goes, beside the weights it is an alternative to (the runtime reads
     /// its weights folder's small\).</summary>
     public const string LmxxfSmallFolder = "native-game-tiled-assets/small";
+
+    /// <summary>Where OpenRR's kernels go, beside OpenNrRrRuntime.dll, with its slash.</summary>
+    public const string OpenRrShaders = "opennr-rr/shaders/";
 
     /// <summary>The folder of a 32-bit game's OptiScaler and its 64-bit host, with its slash.</summary>
     private const string OptiHostFolder = "OptiScaler64/";

@@ -37,8 +37,8 @@ public static partial class Work
         // A 32-bit game's, after what is inside it (Work.Mochizuki takes dlssnr-amd).
         "OptiScaler64/OptiScaler/D3D12_OptiScaler", "OptiScaler64/OptiScaler", "OptiScaler64/experimental_lighting",
         "OptiScaler64/dlssnr-amd", "OptiScaler64/person-model", "OptiScaler64",
-        // Person protection, and WrongGPU's plugin folder.
-        "person-model", "plugins",
+        // Person protection, WrongGPU's plugin folder and OpenRR's kernels.
+        "person-model", "plugins", "opennr-rr/shaders", "opennr-rr",
     ];
 
     /// <summary>Person protection's folder beside OptiScaler (0.5.4 on), with its slash.</summary>
@@ -153,10 +153,7 @@ public static partial class Work
             foreach (var name in MochizukiComponents.Where(payload.Has))
                 foreach (var file in payload.Component(name).Installed)
                     pinned[MochizukiDestination(file.RelativePath)] = Engine.Lower(file.Sha256);
-        if (payload.Has(PayloadManifest.WrongGpuComponent))
-            foreach (var file in payload.Component(PayloadManifest.WrongGpuComponent).Installed)
-                if (WrongGpuDestination(file.RelativePath) is { } at)
-                    pinned[at] = Engine.Lower(file.Sha256);
+        foreach (var (at, sha) in WrongGpuPins(payload).Concat(OpenRrPins(payload))) pinned[at] = sha;
         // A 32-bit game's install keeps all of it in OptiScaler64\ with the host; its proxies are left out of the
         // comparison, as OptiScaler under its proxy name is on a 64-bit game.
         foreach (var (name, sha) in pinned.ToList())
@@ -359,6 +356,7 @@ public static partial class Work
         }
         if (wrongGpu && x86) report.Err("WrongGPU runs in 64-bit games only. Leave it off for this one.");
         else if (wrongGpu && !report.Failed) AddWrongGpu(files, dir, src, pins, report);
+        AddOpenRr(files, dir, src, pins, x86, iniName, report);
 
         if (report.Failed)
         {
@@ -376,8 +374,8 @@ public static partial class Work
             .Concat(LmxxfWeighted(pins) ? [] : manifest?.Entries.Where(e => e.Owned && !files.ContainsKey(e.Name)
                     && (LmxxfOnly(e.Name)
                         || e.Name.StartsWith(home + PersonModelFolder, StringComparison.Ordinal))).Select(e => e.Name) ?? [])
-            // WrongGPU, when it is left off.
-            .Concat(wrongGpu ? [] : WrongGpuRecorded(manifest))
+            // WrongGPU when it is left off, and OpenRR's files this install does not write again.
+            .Concat(wrongGpu ? [] : WrongGpuRecorded(manifest)).Concat(OpenRrRecorded(manifest).Where(n => !files.ContainsKey(n)))
             // danielblnc's runtime and weights, when it is left out, passes 2 and 3 under a build that runs as one module,
             // NVIDIA's DLSS in OptiScaler\ once the runtime or the game no longer needs it, and Streamline and DLSS-FG with it.
             .Concat(manifest?.Entries.Where(e => e.Owned && !files.ContainsKey(e.Name) && (!daniel && e.Name == home + WeightsName
@@ -397,6 +395,7 @@ public static partial class Work
         }
 
         if (!x86 && (wrongGpu || recorded.Any(WrongGpuNames.Contains))) PointIniAtWrongGpu(dir, wrongGpu, report);
+        PointIniAtOpenRr(dir, pins, x86, recorded, report);
         if (files.ContainsKey(HostFgDlssg) || recorded.Any(IsHostFgFile)) PointIniAtHostFg(dir, files.ContainsKey(HostFgDlssg), report);
         if (!files.ContainsKey(HostFgDlssg) && recorded.Any(IsHostFgFile)) PruneEmpty(dir, ["OptiScaler/streamline"], report);
         if (!x86 && recorded.Any(LmxxfOnly))

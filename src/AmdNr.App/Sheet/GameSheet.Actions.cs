@@ -74,7 +74,7 @@ public partial class GameSheet
         {
             (report, staged, runtime) = await Task.Run(() =>
             {
-                var folder = CachedPayloadFolder(ComponentsFor(preset, mochizuki, wrongGpu, NeedsDlss(card, wrongGpu, pins), !Skips(card, DanielRuntime), pins.HostFg));
+                var folder = CachedPayloadFolder(ComponentsFor(preset, mochizuki, wrongGpu, NeedsDlss(card, wrongGpu, pins), !Skips(card, DanielRuntime), pins.HostFg, OpenRrComponents(card, pins)));
                 var own = wanted is null ? null : Work.FindUserRuntime(wanted, TargetFor(card));
                 return (Work.Preflight(TargetFor(card), folder ?? "", preset, pins, proxy, mochizuki, own,
                     unoffered ? wanted : null, wiki, api, wrongGpu, !Skips(card, DanielRuntime)), folder, own);
@@ -147,7 +147,7 @@ public partial class GameSheet
 
             ResultBanner.IsVisible = false;
             ShowStep(StepDownload);
-            var folder = await EnsurePayloadsAsync(ComponentsFor(preset, mochizuki, wrongGpu, NeedsDlss(card, wrongGpu, pins), !Skips(card, DanielRuntime), pins.HostFg));
+            var folder = await EnsurePayloadsAsync(ComponentsFor(preset, mochizuki, wrongGpu, NeedsDlss(card, wrongGpu, pins), !Skips(card, DanielRuntime), pins.HostFg, OpenRrComponents(card, pins)));
             if (folder is null)
             {
                 ShowStep(StepDownload, failed: true);
@@ -395,7 +395,7 @@ public partial class GameSheet
     /// DLSS when WrongGPU's setup or danielblnc 0.8.0 needs it (NeedsDlss), and NVIDIA's Streamline and DLSS-FG when
     /// danielblnc's DLSS-FG is ticked.</summary>
     private static string[] ComponentsFor(Preset preset, bool mochizuki = false, bool wrongGpu = false, bool dlss = false,
-        bool daniel = true, bool hostFg = false) =>
+        bool daniel = true, bool hostFg = false, string[]? more = null) =>
         preset.IsOptiScaler()
             ? [PayloadManifest.OptiScalerComponent,
                .. daniel ? [PayloadManifest.OptiRuntimeComponent, PayloadManifest.RuntimeComponent] : Array.Empty<string>(),
@@ -404,7 +404,8 @@ public partial class GameSheet
                PayloadManifest.PersonModelComponent, .. Mochizuki(mochizuki),
                .. wrongGpu ? [PayloadManifest.WrongGpuComponent] : Array.Empty<string>(),
                .. dlss ? [PayloadManifest.WrongGpuDlssComponent] : Array.Empty<string>(),
-               .. hostFg ? [PayloadManifest.StreamlineComponent, PayloadManifest.DlssgComponent] : Array.Empty<string>()]
+               .. hostFg ? [PayloadManifest.StreamlineComponent, PayloadManifest.DlssgComponent] : Array.Empty<string>(),
+               .. more ?? []]
             : preset.Route() == Route.X86
                 ? [PayloadManifest.BridgeComponent, PayloadManifest.X86ExtrasComponent,
                    PayloadManifest.RuntimeComponent, PayloadManifest.ShaderComponent, .. Mochizuki(mochizuki)]

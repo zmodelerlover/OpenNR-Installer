@@ -31,6 +31,7 @@ public partial class GameSheet
     {
         var pins = Pins();
         pins.HostFg = WantsHostFg(card, pins);
+        pins.OpenRr = WantsOpenRr(card);
         return pins;
     }
 

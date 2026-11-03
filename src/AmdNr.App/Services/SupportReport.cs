@@ -40,7 +40,7 @@ public static class SupportReport
         // through its dxgi hooks, is only in these.
         "OptiScaler.log", "OptiScaler.ini", "amd_bridge.log", "amd_presr.log",
         // WrongGPU's, when it is installed beside OptiScaler, and person protection's worker.
-        "wronggpu-fsr.log", "wronggpu-asi.log", "wronggpu.ini", "person-model/person-worker.log",
+        "wronggpu-fsr.log", "wronggpu-asi.log", "wronggpu.ini", "person-model/person-worker.log", "opennr_rr.log",
     ];
 
     /// <summary>What a 32-bit game's OptiScaler host and its proxies write beside OptiScaler.log.</summary>
