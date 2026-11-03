@@ -258,7 +258,7 @@ an OptiScaler fork (GPL-3.0) that carries the bridge into the same runtime. Its 
 downloaded as published; none of its code is part of this app. The lmxxf runtime it ships is
 [lmxxf/dlss5-on-amd-9070xt-porting](https://github.com/lmxxf/dlss5-on-amd-9070xt-porting) (MIT);
 its weights are NVIDIA-derived and, like the others, are not in this repository. The mochizuki
-runtime is neural-amd-opti's build of [mochizuki0323/DLSSNR-AMD](https://github.com/mochizuki0323/DLSSNR-AMD)
+runtime is neural-amd-opti's build of [mochizuki0323/DLSSNR-AMD](https://gitlab.com/mochizuki0323/DLSSNR-AMD)
 (MIT), and its licence goes into the game folder with it, as `dlssnr-amd\LICENSE-DLSSNR-AMD.txt`;
 its model is NVIDIA-derived too, and is not in this repository either.
 
