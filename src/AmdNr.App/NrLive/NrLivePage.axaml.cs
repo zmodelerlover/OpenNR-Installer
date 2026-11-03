@@ -22,9 +22,9 @@ public partial class NrLivePage : UserControl
     /// should not take a key combination from the machine they run on.</summary>
     public static bool GlobalHotkeys { get; set; } = true;
 
-    /// <summary>NRLive is not out yet: its rail button is greyed and says so, nothing leads to the page, and the page
-    /// keeps its controls off should anything still show it. The ui flows turn it off to see the page.</summary>
-    public static bool ComingSoon { get; set; } = true;
+    /// <summary>Set, NRLive is held back: its rail button is greyed and says so, nothing leads to the page, and the
+    /// page keeps its controls off should anything still show it. Off now that the page ships.</summary>
+    public static bool ComingSoon { get; set; }
 
     public const string SourceUrl = "https://github.com/Caliel666/NRLive";
 
