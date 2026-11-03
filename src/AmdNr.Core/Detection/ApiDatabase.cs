@@ -45,7 +45,7 @@ public sealed class RouteAvoidance
     [JsonPropertyName("note")] public string Note { get; set; } = "";
 }
 
-public sealed class ApiDatabase
+public sealed partial class ApiDatabase
 {
     // Settable, not init: the compile-time reader would hand a property the file leaves out its
     // type's default (0, null) instead of the one written here.
