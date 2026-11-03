@@ -18,7 +18,7 @@ public static partial class Transaction
     /// Adds the writes to <paramref name="changes"/> and returns the entries to drop once everything is
     /// written, and the backups that are spent by then.</summary>
     private static (HashSet<Entry> Retired, List<string> Spent) PlanRetire(string dir, Manifest m,
-        SortedDictionary<string, byte[]> desired, IEnumerable<string> retire, List<Change> changes, List<string> log)
+        SortedDictionary<string, Blob> desired, IEnumerable<string> retire, List<Change> changes, List<string> log)
     {
         var retired = new HashSet<Entry>(ReferenceEqualityComparer.Instance);
         var spent = new List<string>();
@@ -46,7 +46,7 @@ public static partial class Transaction
 
             // What the runtime rewrites has nothing of anybody's in its backup either: uninstall
             // discards that copy too (Work.Uninstall's Ours).
-            byte[]? original = null;
+            Blob? original = null;
             if (entry.Backup.Length > 0)
             {
                 var backup = Path.Combine(dir, entry.Backup);
@@ -55,13 +55,9 @@ public static partial class Transaction
                 {
                     if (!maintained)
                     {
-                        original = Engine.Read(backup);
                         // Damaged since: nothing to put back, and not a reason to stop the install.
-                        if (Engine.Sha(original) != entry.BackupHash)
-                        {
-                            log.Add($"WARNING {name}: {NoBackup}");
-                            original = null;
-                        }
+                        if (Engine.HashFile(backup) == entry.BackupHash) original = Blob.OfFile(backup, entry.BackupHash);
+                        else log.Add($"WARNING {name}: {NoBackup}");
                     }
                     spent.Add(backup);
                 }
@@ -69,24 +65,47 @@ public static partial class Transaction
 
             retired.Add(entry);
             if (!exists && original is null) continue;
-            changes.Add(new Change { Name = name, Before = exists ? Engine.Read(dst) : [], After = original, Existed = exists });
+            changes.Add(new Change { Name = name, After = original, Existed = exists });
             log.Add(original is null ? $"REMOVED: {name}" : $"RESTORED: {name}");
         }
         return (retired, spent);
     }
 
-    /// <summary>Takes one file out, as an install write: a failure is the transaction's, and rolls
-    /// back everything before it.</summary>
-    private static void Remove(string path)
+    /// <summary>Takes one file out of the way, as an install write: a failure is the transaction's, and
+    /// rolls back everything before it. Returns where it went.</summary>
+    private static string MoveAside(string path, string to)
     {
         try
         {
-            Engine.Writable(path);
-            File.Delete(path);
+            Engine.SafePath(to);
+            Engine.MakeParent(to);
+            File.Move(path, to, overwrite: true);
+            return to;
+        }
+        catch (IOException) when (Engine.IsLocked(path))
+        {
+            throw new InstallException(Engine.OpenElsewhere(Path.GetDirectoryName(path)!, [Path.GetFileName(path)]));
         }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException)
         {
-            throw new InstallException($"Cannot remove {path}: {e.Message}");
+            throw new InstallException($"Cannot replace {path}: {e.Message}");
+        }
+    }
+
+    /// <summary>The files moved aside, once they are not needed, and the backup folder when that leaves it empty.</summary>
+    private static void DropAside(string dir, string aside)
+    {
+        try
+        {
+            if (!Directory.Exists(aside)) return;
+            foreach (var f in Directory.EnumerateFiles(aside, "*", SearchOption.AllDirectories)) Engine.Writable(f);
+            Directory.Delete(aside, recursive: true);
+            var backups = Path.Combine(dir, Engine.BackupDir);
+            if (!Directory.EnumerateFileSystemEntries(backups).Any()) Directory.Delete(backups);
+        }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+        {
+            // Left behind: the install itself is done or rolled back either way.
         }
     }
 }

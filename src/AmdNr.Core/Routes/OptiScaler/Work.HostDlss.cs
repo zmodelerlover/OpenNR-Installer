@@ -55,7 +55,7 @@ public static partial class Work
     }
 
     /// <summary>NVIDIA's 310 for OptiScaler\ when this runtime and game need it, with the reason in the report.</summary>
-    private static void AddHostDlss(SortedDictionary<string, byte[]> files, string dir, string src, PayloadPins pins,
+    private static void AddHostDlss(SortedDictionary<string, Blob> files, string dir, string src, PayloadPins pins,
         Manifest? manifest, Version? runtime, Report report)
     {
         if (HostDlssReason(dir, runtime) is not { } why) return;

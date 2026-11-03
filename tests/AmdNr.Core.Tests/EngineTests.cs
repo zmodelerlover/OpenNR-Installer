@@ -329,7 +329,7 @@ public class EngineTests
 
         using (var _ = File.Open(target, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
         {
-            var files = new SortedDictionary<string, byte[]>(StringComparer.Ordinal)
+            var files = new SortedDictionary<string, Blob>(StringComparer.Ordinal)
             {
                 ["amd-nr.addon64"] = "the new one"u8.ToArray(),
             };
@@ -350,7 +350,7 @@ public class EngineTests
     public void AFolderThatIsNotThereIsNamedRatherThanFailingMidway()
     {
         var root = Path.Combine(Fixture.Temp("guard-missing"), "no-such-subfolder");
-        var files = new SortedDictionary<string, byte[]>(StringComparer.Ordinal)
+        var files = new SortedDictionary<string, Blob>(StringComparer.Ordinal)
         {
             ["amd-nr.addon64"] = "x"u8.ToArray(),
         };
@@ -366,7 +366,7 @@ public class EngineTests
         // A file that will be displaced: the transaction needs room for the new bytes and for the
         // copy of the old ones, which is what the old check did not account for.
         File.WriteAllBytes(Path.Combine(root, "amd-nr.addon64"), new byte[2048]);
-        var files = new SortedDictionary<string, byte[]>(StringComparer.Ordinal)
+        var files = new SortedDictionary<string, Blob>(StringComparer.Ordinal)
         {
             ["amd-nr.addon64"] = Enumerable.Repeat((byte)1, 4096).ToArray(),
         };
@@ -381,7 +381,7 @@ public class EngineTests
         var root = Fixture.Temp("displace");
         var author = "the author's own runtime"u8.ToArray();
         File.WriteAllBytes(Path.Combine(root, "version.dll"), author);
-        var files = new SortedDictionary<string, byte[]>(StringComparer.Ordinal)
+        var files = new SortedDictionary<string, Blob>(StringComparer.Ordinal)
         {
             ["dlssnr_amd_pass1.dll"] = author,
         };
@@ -411,7 +411,7 @@ public class EngineTests
     public void ApplyRefusesAFilenameItDoesNotManage()
     {
         var root = Fixture.Temp("unmanaged");
-        var files = new SortedDictionary<string, byte[]>(StringComparer.Ordinal)
+        var files = new SortedDictionary<string, Blob>(StringComparer.Ordinal)
         {
             ["something-else.dll"] = "x"u8.ToArray(),
         };

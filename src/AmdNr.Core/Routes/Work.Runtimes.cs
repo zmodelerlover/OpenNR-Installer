@@ -142,17 +142,18 @@ public static partial class Work
     /// version.dll when the chosen OptiScaler runs that build, or else the pass 1 an earlier install put in,
     /// when it is a build that OptiScaler runs and newer than the payload's (a build of the author's kept
     /// across updates). Null when the payload's is the one.</summary>
-    private static (byte[] Bytes, Version Runtime, string From)? OwnRuntime(string dir, PayloadPins pins)
+    private static (Blob Bytes, Version Runtime, string From)? OwnRuntime(string dir, PayloadPins pins)
     {
         if (pins.RuntimeChosen) return null;
         foreach (var name in new[] { AuthorRuntimeName, OptiPasses[0] })
         {
             var path = Path.Combine(dir, name);
             if (!RuntimeSized(Engine.SizeOf(path))) continue;
-            var bytes = Engine.Read(path);
-            if (AcceptedRuntime(Engine.Sha(bytes), pins.OptiScalerVersion) is not { } runtime) continue;
+            var sha = Engine.HashFile(path);
+            if (AcceptedRuntime(sha, pins.OptiScalerVersion) is not { } runtime) continue;
+            // version.dll goes to the backup in the same transaction, so its bytes are taken now; pass 1 stays put.
             if (name == AuthorRuntimeName || VersionOf(pins.OptiRuntimeVersion) is { } shipped && runtime > shipped)
-                return (bytes, runtime, name);
+                return (name == AuthorRuntimeName ? (Blob)Engine.Read(path) : Blob.OfFile(path, sha), runtime, name);
         }
         return null;
     }
@@ -384,7 +385,7 @@ public static partial class Work
                 || Engine.SizeOf(path) is not < 8_000_000) continue;
             try
             {
-                if (Engine.Mentions(File.ReadAllBytes(path), runtime)) return Path.GetFileName(path);
+                if (Engine.ScanFile(path, b => Engine.Mentions(b, runtime), 2 * runtime.Length)) return Path.GetFileName(path);
             }
             catch (Exception e) when (e is IOException or UnauthorizedAccessException)
             {

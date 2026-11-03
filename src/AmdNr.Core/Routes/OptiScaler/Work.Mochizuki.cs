@@ -160,7 +160,7 @@ public static partial class Work
         + "switches to danielblnc, from the next start of the game.";
 
     /// <summary>Every mochizuki file, verified against its pin, under the name it takes in the game.</summary>
-    private static void AddMochizuki(SortedDictionary<string, byte[]> files, string src, PayloadPins pins, Report report)
+    private static void AddMochizuki(SortedDictionary<string, Blob> files, string src, PayloadPins pins, Report report)
     {
         foreach (var (path, sha) in pins.MochizukiFiles)
             if (VerifiedPayload(src, path, sha, report) is { } bytes)

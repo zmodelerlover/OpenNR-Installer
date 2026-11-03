@@ -15,7 +15,7 @@ public static partial class Transaction
     /// rather than leaving it as advice on one screen. The common case by far is the third one: the
     /// game is still open, and the old failure for that was an access-denied error from somewhere
     /// inside a copy.</summary>
-    public static void Guard(string dir, SortedDictionary<string, byte[]> desired, IEnumerable<string>? displace = null)
+    public static void Guard(string dir, SortedDictionary<string, Blob> desired, IEnumerable<string>? displace = null)
     {
         Engine.Require(Directory.Exists(dir), $"{dir} is not a folder.");
         Engine.Require(Engine.FolderIsWritable(dir),
@@ -33,7 +33,7 @@ public static partial class Transaction
         foreach (var (name, data) in desired)
         {
             var existing = Engine.SizeOf(Path.Combine(dir, name));
-            if (existing != (ulong)data.LongLength) need += (ulong)data.LongLength + (existing ?? 0);
+            if (existing != (ulong)data.Length) need += (ulong)data.Length + (existing ?? 0);
         }
         foreach (var name in (displace ?? []).Where(n => !desired.ContainsKey(n)))
             need += Engine.SizeOf(Path.Combine(dir, name)) ?? 0;
@@ -50,10 +50,11 @@ public static partial class Transaction
     private sealed class Change
     {
         public required string Name { get; init; }
-        public required byte[] Before { get; init; }
         /// <summary>What goes there, or null when the file comes out (see <see cref="PlanRetire"/>).</summary>
-        public required byte[]? After { get; init; }
+        public required Blob? After { get; init; }
         public required bool Existed { get; init; }
+        /// <summary>Where the file that was there waits while the rest is written, for a rollback to move back.</summary>
+        public string? Aside { get; set; }
     }
 
     /// <summary>Carries a manifest written before v0.6.5 over to the name this version reads.
@@ -91,7 +92,7 @@ public static partial class Transaction
     /// goes to the backup, and uninstall puts it back. <paramref name="reShade"/> is what the manifest records
     /// as the ReShade in use, the pinned build unless told.</summary>
     public static void Apply(string dir, string preset, Route route,
-        SortedDictionary<string, byte[]> desired, List<string> log, IEnumerable<string>? retire = null,
+        SortedDictionary<string, Blob> desired, List<string> log, IEnumerable<string>? retire = null,
         IEnumerable<string>? displace = null, string? reShade = null)
     {
         Guard(dir, desired, displace);
@@ -131,7 +132,7 @@ public static partial class Transaction
             var dst = Path.Combine(dir, name);
             Engine.SafePath(dst);
             var exists = File.Exists(dst);
-            var wanted = Engine.Sha(data);
+            var wanted = data.Sha;
             var old = exists ? Engine.HashFile(dst) : string.Empty;
             var index = m.Entries.FindIndex(x => x.Name == name);
 
@@ -185,13 +186,11 @@ public static partial class Transaction
                     var bp = Path.Combine(dir, entry.Backup);
                     Engine.SafePath(bp);
                     Engine.MakeParent(bp);
-                    Engine.Write(bp, Engine.Read(dst));
-                    Engine.HashIs(Engine.Read(bp), old, "Backup");
+                    Engine.CopyVerified(dst, bp, old, "Backup");
                     log.Add($"REPLACED changed since the install, backed up: {name}");
                 }
             }
 
-            var before = exists ? Engine.Read(dst) : [];
             if (index < 0)
             {
                 var item = new Entry
@@ -208,8 +207,7 @@ public static partial class Transaction
                     var bp = Path.Combine(dir, item.Backup);
                     Engine.SafePath(bp);
                     Engine.MakeParent(bp);
-                    Engine.Write(bp, before);
-                    Engine.HashIs(Engine.Read(bp), old, "Backup");
+                    Engine.CopyVerified(dst, bp, old, "Backup");
                     log.Add($"EXTERNAL backed up: {name}");
                 }
                 else
@@ -226,8 +224,7 @@ public static partial class Transaction
                     var bp = Path.Combine(dir, backup);
                     Engine.SafePath(bp);
                     Engine.MakeParent(bp);
-                    Engine.Write(bp, before);
-                    Engine.HashIs(Engine.Read(bp), old, "Upgrade backup");
+                    Engine.CopyVerified(dst, bp, old, "Upgrade backup");
                     m.Entries[index].Backup = backup;
                     m.Entries[index].BackupHash = old;
                 }
@@ -235,7 +232,7 @@ public static partial class Transaction
                 m.Entries[index].Owned = true;
             }
 
-            changes.Add(new Change { Name = name, Before = before, After = data, Existed = exists });
+            changes.Add(new Change { Name = name, After = data, Existed = exists });
         }
 
         // Taken out the way a write displaces a file, with nothing written in its place: the entry owns
@@ -246,14 +243,12 @@ public static partial class Transaction
             var dst = Path.Combine(dir, name);
             Engine.SafePath(dst);
             if (!File.Exists(dst)) continue;
-            var before = Engine.Read(dst);
-            var old = Engine.Sha(before);
+            var old = Engine.HashFile(dst);
             var backup = $"{Engine.BackupDir}/{stamp}/{name}";
             var bp = Path.Combine(dir, backup);
             Engine.SafePath(bp);
             Engine.MakeParent(bp);
-            Engine.Write(bp, before);
-            Engine.HashIs(Engine.Read(bp), old, "Backup");
+            Engine.CopyVerified(dst, bp, old, "Backup");
             // Put back by the person after an earlier install took theirs out: this one is the original now.
             if (m.Entries.Find(x => x.Name == name) is { } earlier)
             {
@@ -262,7 +257,7 @@ public static partial class Transaction
             }
             // The hash of nothing: no file is written under the name.
             m.Entries.Add(new Entry { Name = name, Hash = Engine.Sha([]), Owned = true, Backup = backup, BackupHash = old });
-            changes.Add(new Change { Name = name, Before = before, After = null, Existed = true });
+            changes.Add(new Change { Name = name, After = null, Existed = true });
             log.Add($"MOVED to the backup: {name}");
         }
 
@@ -277,6 +272,9 @@ public static partial class Transaction
         m.State = "installing";
         Manifest.WriteAtomic(dir, m);
 
+        // What was there is moved aside rather than held in memory for the rollback: a reinstall over an
+        // older version replaces hundreds of MB.
+        var aside = Path.Combine(dir, Engine.BackupDir, stamp + ".rollback");
         InstallException? failure = null;
         foreach (var c in changes)
         {
@@ -285,13 +283,10 @@ public static partial class Transaction
                 // Not every destination is in the game's root any more: the companion effect
                 // goes into reshade-shaders\Shaders, which may not exist yet.
                 var dst = Path.Combine(dir, c.Name);
-                if (c.After is null)
-                {
-                    Remove(dst);
-                    continue;
-                }
+                if (c.Existed && File.Exists(dst)) c.Aside = MoveAside(dst, Path.Combine(aside, c.Name));
+                if (c.After is null) continue;
                 Engine.MakeParent(dst);
-                Engine.Write(dst, c.After);
+                c.After.WriteTo(dst);
             }
             catch (InstallException e)
             {
@@ -312,6 +307,7 @@ public static partial class Transaction
         {
             // The originals are back where they were; their copies are not needed any more.
             foreach (var backup in spent) TryDelete(backup);
+            DropAside(dir, aside);
             return;
         }
 
@@ -320,11 +316,16 @@ public static partial class Transaction
             var c = changes[i];
             try
             {
-                if (c.Existed) Engine.Write(Path.Combine(dir, c.Name), c.Before);
-                else
+                var dst = Path.Combine(dir, c.Name);
+                if (c.Aside is { } was)
                 {
-                    Engine.Writable(Path.Combine(dir, c.Name));
-                    File.Delete(Path.Combine(dir, c.Name));
+                    Engine.Writable(dst);
+                    File.Move(was, dst, overwrite: true);
+                }
+                else if (!c.Existed)
+                {
+                    Engine.Writable(dst);
+                    File.Delete(dst);
                 }
             }
             catch
@@ -342,6 +343,7 @@ public static partial class Transaction
         {
             // Same: the failure that matters is the one being rethrown.
         }
+        DropAside(dir, aside);
         throw failure;
     }
 }

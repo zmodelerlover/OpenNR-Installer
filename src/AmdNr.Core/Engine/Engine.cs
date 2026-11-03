@@ -135,9 +135,6 @@ public static partial class Engine
         }
     }
 
-    internal static void HashIs(ReadOnlySpan<byte> bytes, string expected, string what) =>
-        Require(Sha(bytes) == expected, $"{what} SHA256 mismatch");
-
     internal static bool IsHex(string s, int len)
     {
         if (s.Length != len) return false;

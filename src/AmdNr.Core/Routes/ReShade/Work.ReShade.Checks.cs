@@ -40,7 +40,7 @@ public static partial class Work
     /// motion-vector shader such as iMMERSE Launchpad and does nothing without one, and each of
     /// those brings ReShade.fxh -- so the header is the sign the effect has something to read.
     /// Returns whether it was added.</summary>
-    public static bool AddCompanionEffect(IDictionary<string, byte[]> files, string payloadDir, string gameDir)
+    public static bool AddCompanionEffect(IDictionary<string, Blob> files, string payloadDir, string gameDir)
     {
         var nested = Path.Combine(payloadDir, "files", ShaderName);
         var flat = Path.Combine(payloadDir, ShaderName);

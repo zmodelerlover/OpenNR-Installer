@@ -114,7 +114,7 @@ public static partial class Transaction
 
             if (restore)
             {
-                Engine.Write(dst, Engine.Read(backupPath));
+                Engine.CopyVerified(backupPath, dst, e.BackupHash, e.Name);
                 TryDelete(backupPath);
                 log.Add($"RESTORED: {e.Name}");
             }

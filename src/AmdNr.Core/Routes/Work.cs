@@ -309,7 +309,7 @@ public static partial class Work
     /// <summary>Verify a payload in the folder given and hand back its bytes. Whether it then gets
     /// written is <see cref="Transaction.Apply"/>'s decision, because that is what records ownership
     /// and takes the backup.</summary>
-    private static byte[]? VerifiedPayload(string srcDir, string name, string wantSha, Report report)
+    private static Blob? VerifiedPayload(string srcDir, string name, string wantSha, Report report)
     {
         var src = Path.Combine(srcDir, name);
         if (!File.Exists(src))
@@ -318,16 +318,16 @@ public static partial class Work
             return null;
         }
 
-        byte[] bytes;
-        try { bytes = File.ReadAllBytes(src); }
-        catch (Exception e)
+        // Hashed from disk and left there: the transaction copies it when it writes.
+        string got;
+        try { got = Engine.HashFile(src); }
+        catch (InstallException e)
         {
             report.Err($"could not read {name}: {e.Message}");
             return null;
         }
 
-        var got = Engine.Sha(bytes);
-        if (got == wantSha) return bytes;
+        if (got == wantSha) return Blob.OfFile(src, got);
 
         var old = Array.Find(OldRuntimes, r => got.StartsWith(r.Prefix, StringComparison.Ordinal));
         if (name == RuntimeName && old.Version is not null)

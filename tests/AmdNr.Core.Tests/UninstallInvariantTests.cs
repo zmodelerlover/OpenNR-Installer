@@ -198,7 +198,7 @@ public class UninstallInvariantTests
         var exe = Path.Combine(game, "Game.exe");
         var (installer, pinned) = X86Release("opengl-name");
         var plan = installer.Plan(exe, Preset.X86OpenGL.ManifestPreset());
-        Assert.Equal(pinned[0], Engine.Sha(plan["opengl32.dll"]));
+        Assert.Equal(pinned[0], plan["opengl32.dll"].Sha);
         Assert.DoesNotContain("dxgi.dll", plan.Keys);
         Assert.DoesNotContain("d3d9.dll", plan.Keys);
     }

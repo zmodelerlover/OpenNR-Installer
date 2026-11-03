@@ -297,7 +297,7 @@ public static partial class Work
             : "off";
         if (everywhere && upscalers.Count == 0)
             report.Info("No DLSS, FSR or XeSS found in this game: OptiScaler runs the network on its finished frame (NR without upscaling).");
-        var files = new SortedDictionary<string, byte[]>(StringComparer.Ordinal);
+        var files = new SortedDictionary<string, Blob>(StringComparer.Ordinal);
         foreach (var (path, sha) in pins.OptiFiles)
         {
             // The package's 32-bit proxies and their host: for a 32-bit game, the host and the proxy for its API.
@@ -321,14 +321,14 @@ public static partial class Work
             }
             if (VerifiedPayload(src, path, sha, report) is { } bytes)
                 files[destination] = destination != iniName ? bytes
-                    : WithBackend(WithoutUpscaler(RunsMochizuki(RunsLmxxf(OnlyInTheGame(dir, x86 ? NrOn(bytes) : bytes, report),
+                    : WithBackend(WithoutUpscaler(RunsMochizuki(RunsLmxxf(OnlyInTheGame(dir, x86 ? NrOn(bytes.ToArray()) : bytes.ToArray(), report),
                         lmxxf, !LmxxfWeighted(pins)), runsMochizuki), everywhere && upscalers.Count == 0), backend);
         }
         // An ini this route wrote and somebody changed since stays as it is (the transaction keeps it): what it names
         // is what runs, so the lines below go by it rather than by the package's.
         var iniPath = Path.Combine(dir, iniName);
         var iniWritten = files.TryGetValue(iniName, out var iniBytes)
-                         && !(File.Exists(iniPath) && Engine.HashFile(iniPath) is var onDisk && onDisk != Engine.Sha(iniBytes)
+                         && !(File.Exists(iniPath) && Engine.HashFile(iniPath) is var onDisk && onDisk != iniBytes.Sha
                               && manifest?.Entries.FirstOrDefault(e => e.Name == iniName) is { } iniEntry && iniEntry.Hash != onDisk);
         if (files.ContainsKey(iniName) && !iniWritten)
             report.Info($"{OptiScalerIni} was changed since it was installed and stays as it is: its NR runtime is "
@@ -342,7 +342,7 @@ public static partial class Work
         // A build the person supplied comes first; the author's version.dll goes to the backup either way.
         var author = daniel ? OwnRuntime(dir, pins) : null;
         var own = daniel && Supplied(ownRuntime, wantedRuntime, pins, Preset.OptiScaler, report) is { } supplied
-            ? (supplied.Bytes, AcceptedRuntime(supplied.Build.OriginalSha256, pins.OptiScalerVersion)!, From: SuppliedFrom)
+            ? ((Blob)supplied.Bytes, AcceptedRuntime(supplied.Build.OriginalSha256, pins.OptiScalerVersion)!, From: SuppliedFrom)
             : author;
         if (daniel && (own?.Bytes ?? VerifiedPayload(src, pins.OptiRuntimeName, pins.OptiRuntimeSha, report)) is { } runtime)
             foreach (var pass in RuntimePasses(own?.Runtime ?? VersionOf(pins.OptiRuntimeVersion)))
@@ -353,7 +353,7 @@ public static partial class Work
         if (daniel && !x86) AddHostFg(files, dir, src, pins, own?.Runtime ?? VersionOf(pins.OptiRuntimeVersion), api, report);
         if (mochizuki)
         {
-            var mochizukiFiles = new SortedDictionary<string, byte[]>(StringComparer.Ordinal);
+            var mochizukiFiles = new SortedDictionary<string, Blob>(StringComparer.Ordinal);
             AddMochizuki(mochizukiFiles, src, pins, report);
             foreach (var (name, bytes) in mochizukiFiles) files[home + name] = bytes;
         }

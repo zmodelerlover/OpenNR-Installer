@@ -194,7 +194,7 @@ public static partial class Work
         if (ForeignLayerProblem(layer) is { } problem) report.Err(problem);
         var moves = CheckAuthorsRuntime(dir, pins, preset, report);
 
-        var files = new SortedDictionary<string, byte[]>(StringComparer.Ordinal);
+        var files = new SortedDictionary<string, Blob>(StringComparer.Ordinal);
         if (src.Length == 0)
         {
             report.Err("No payload folder given, and every file this installs comes out of one.");
@@ -237,7 +237,7 @@ public static partial class Work
         // someone to run a second installer and pick the right API is the step people get wrong. On
         // Vulkan it is a layer, registered once the files are in (Work.VulkanLayer.cs).
         var shipsReShade = false;
-        byte[]? vulkanReShade = null;
+        Blob? vulkanReShade = null;
         if (preset.IsVulkan() && File.Exists(Path.Combine(payloads, "ReShade64.dll")) && layer is not { Ours: false })
             vulkanReShade = VerifiedPayload(payloads, "ReShade64.dll", pins.ReShade64Sha, report);
         if (File.Exists(Path.Combine(payloads, "ReShade64.dll"))
@@ -290,7 +290,7 @@ public static partial class Work
             return report;
         }
 
-        if (vulkanReShade is not null) EnsureVulkanLayer(vulkanReShade, report);
+        if (vulkanReShade is not null) EnsureVulkanLayer(vulkanReShade.ToArray(), report);
 
         if (SweepDead(dir, report.Warn) is { Count: > 0 } swept)
             report.Ok($"removed {swept.Count} file(s) an older install left behind: {string.Join(", ", swept)}");

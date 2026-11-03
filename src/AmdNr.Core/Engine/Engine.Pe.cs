@@ -34,6 +34,22 @@ public static partial class Engine
         return m;
     }
 
+    /// <summary>The first 64 KB of a file, where its PE headers are.</summary>
+    public static byte[] Head(string path)
+    {
+        try
+        {
+            using var f = File.OpenRead(path);
+            var head = new byte[Math.Min(f.Length, 64 * 1024)];
+            f.ReadExactly(head);
+            return head;
+        }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+        {
+            throw new InstallException($"Cannot read {path}: {e.Message}");
+        }
+    }
+
     /// <summary>Read only enough of a file to answer the machine question. Scanning a game folder
     /// means opening every executable in it, and the header sits in the first few hundred bytes.</summary>
     public static ushort? MachineOfFile(string path)

@@ -386,8 +386,7 @@ public static partial class GraphicsDetector
         try
         {
             if (new FileInfo(exe).Length > 128L << 20) return false;
-            var bytes = File.ReadAllBytes(exe);
-            return Contains(bytes, "d3d10.dll"u8) || Contains(bytes, "d3d10_1.dll"u8);
+            return Engine.ScanFile(exe, b => Contains(b, "d3d10.dll"u8) || Contains(b, "d3d10_1.dll"u8), 16);
         }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException)
         {
@@ -395,7 +394,7 @@ public static partial class GraphicsDetector
         }
 
         // ASCII case-insensitive, as an import name or a LoadLibrary argument can be spelled.
-        static bool Contains(byte[] hay, ReadOnlySpan<byte> needle)
+        static bool Contains(ReadOnlySpan<byte> hay, ReadOnlySpan<byte> needle)
         {
             static byte Lower(byte c) => c is >= (byte)'A' and <= (byte)'Z' ? (byte)(c + 32) : c;
             for (var i = 0; i + needle.Length <= hay.Length; ++i)

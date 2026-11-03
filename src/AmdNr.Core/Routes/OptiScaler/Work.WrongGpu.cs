@@ -114,11 +114,11 @@ public static partial class Work
 
     /// <summary>WrongGPU's files, verified, under the names they take in the game; the model converted first. Nothing is
     /// added when the conversion fails, and the report says why.</summary>
-    private static void AddWrongGpu(SortedDictionary<string, byte[]> files, string dir, string src, PayloadPins pins, Report report)
+    private static void AddWrongGpu(SortedDictionary<string, Blob> files, string dir, string src, PayloadPins pins, Report report)
     {
         CheckWrongGpu(src, pins, false, report);
         if (report.Failed) return;
-        var wanted = new SortedDictionary<string, byte[]>(StringComparer.Ordinal);
+        var wanted = new SortedDictionary<string, Blob>(StringComparer.Ordinal);
         foreach (var (path, sha) in pins.WrongGpuFiles)
             if (WrongGpuDestination(path) is { } to && VerifiedPayload(src, path, sha, report) is { } bytes)
                 wanted[to] = bytes;

@@ -62,7 +62,7 @@ public class ManifestProtocolTests
         File.WriteAllText(Path.Combine(dir, Engine.ManifestName), WrittenByAnOlderInstall);
         var log = new List<string>();
 
-        var desired = new SortedDictionary<string, byte[]>(StringComparer.Ordinal)
+        var desired = new SortedDictionary<string, Blob>(StringComparer.Ordinal)
         {
             ["amd-nr.addon32"] = Encoding.UTF8.GetBytes("the rebuilt panel"),
         };

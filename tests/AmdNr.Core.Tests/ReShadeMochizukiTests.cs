@@ -166,7 +166,7 @@ public class ReShadeMochizukiTests
         var exe = Path.Combine(game, "game.exe");
         File.WriteAllBytes(exe, Fixture.Pe(false));
         var app = UninstallInvariantTests.X86Release("mochizuki").Installer;
-        var extra = new Dictionary<string, byte[]>
+        var extra = new Dictionary<string, Blob>
         {
             ["MochizukiNrRuntime.dll"] = "runtime"u8.ToArray(),
             ["dlssnr-amd/dlssnr.bin"] = "model"u8.ToArray(),

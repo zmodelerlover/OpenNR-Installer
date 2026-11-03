@@ -114,7 +114,7 @@ public static partial class Work
 
     /// <summary>Streamline and nvngx_dlssg.dll, verified, when ticked and the game can use them; the ini about to be
     /// written takes the two keys too.</summary>
-    private static void AddHostFg(SortedDictionary<string, byte[]> files, string dir, string src, PayloadPins pins,
+    private static void AddHostFg(SortedDictionary<string, Blob> files, string dir, string src, PayloadPins pins,
         Version? runtime, GraphicsApi? api, Report report)
     {
         if (!pins.HostFg) return;
@@ -133,7 +133,7 @@ public static partial class Work
                 files["OptiScaler/" + path] = bytes;
         if (VerifiedPayload(src, pins.Dlssg, pins.DlssgSha, report) is { } dlssg) files[HostFgDlssg] = dlssg;
         if (files.TryGetValue(OptiScalerIni, out var ini))
-            files[OptiScalerIni] = System.Text.Encoding.UTF8.GetBytes(HostFgIni(System.Text.Encoding.UTF8.GetString(ini), true));
+            files[OptiScalerIni] = System.Text.Encoding.UTF8.GetBytes(HostFgIni(System.Text.Encoding.UTF8.GetString(ini.ToArray()), true));
     }
 
     /// <summary>The two keys set (<paramref name="on"/>), or back to auto while they still hold what this set.</summary>

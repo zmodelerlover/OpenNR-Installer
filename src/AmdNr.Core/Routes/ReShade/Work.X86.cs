@@ -71,7 +71,7 @@ public static partial class Work
         CheckDoubleReShade(installDir, preset, report, proxyName, ShippedReShade(release, preset));
 
         // The mochizuki runtime runs in the 64-bit helper, beside it, as it does beside a 64-bit game.
-        var extra = new SortedDictionary<string, byte[]>(StringComparer.Ordinal);
+        var extra = new SortedDictionary<string, Blob>(StringComparer.Ordinal);
         if (mochizuki)
         {
             if (pins.MochizukiFiles.Count == 0) report.Err(NoMochizuki);

@@ -54,7 +54,7 @@ public class UninstallTests
         Assert.False(Work.Install(game, src, Preset.Dx11, pins).Failed);
 
         // An x86 install into the same folder must journal separately rather than collide.
-        var files = new SortedDictionary<string, byte[]>(StringComparer.Ordinal)
+        var files = new SortedDictionary<string, Blob>(StringComparer.Ordinal)
         {
             ["amd-nr.addon32"] = Fixture.Pe(false),
         };

@@ -28,12 +28,12 @@ public sealed class X86Installer(string release)
     /// <summary>The release zip keeps every payload under files\; a staged folder built out of the
     /// cache keeps the runtime and weights at its root, beside payload.sha256. Both are the same
     /// bytes checked against the same hash, so both shapes are read.</summary>
-    private byte[] Payload(string name, string expected)
+    private Blob Payload(string name, string expected)
     {
         var nested = Path.Combine(Release, "files", name);
-        var bytes = Engine.Read(File.Exists(nested) ? nested : Path.Combine(Release, name));
-        Engine.HashIs(bytes, expected, name);
-        return bytes;
+        var blob = Blob.OfFile(File.Exists(nested) ? nested : Path.Combine(Release, name));
+        Engine.Require(blob.Sha == expected, $"{name} SHA256 mismatch");
+        return blob;
     }
 
     /// <summary>Reads the release's own checksum list so the bridge pair is pinned to the build it
@@ -54,14 +54,14 @@ public sealed class X86Installer(string release)
     /// <summary>Everything that would be written, with nothing written. Every payload hash, the PE
     /// machine type and the chaining rule are decided here, so a refusal happens before any file
     /// moves.</summary>
-    public SortedDictionary<string, byte[]> Plan(string target, string preset, string? proxyName = null)
+    public SortedDictionary<string, Blob> Plan(string target, string preset, string? proxyName = null)
     {
         Engine.Require(preset is "D3D11" or "D3D9" or "D3D8" or "OpenGL", "Unsupported x86 preset");
         Engine.SafePath(target);
-        Engine.Require(Engine.Machine(Engine.Read(target)) == Engine.MachineX86,
+        Engine.Require(Engine.Machine(Engine.Head(target)) == Engine.MachineX86,
             "Target must be PE32/x86; x64 targets are not supported");
         var dir = Engine.InstallDirectory(target);
-        var p = new SortedDictionary<string, byte[]>(StringComparer.Ordinal);
+        var p = new SortedDictionary<string, Blob>(StringComparer.Ordinal);
 
         // Say what the folder is, not that a file could not be read. Getting field 1 wrong is the
         // ordinary mistake here, and "Cannot read ...\payload.sha256" tells nobody what to do.
@@ -77,7 +77,7 @@ public sealed class X86Installer(string release)
             var want = name.Contains("addon32", StringComparison.Ordinal)
                 ? Engine.MachineX86
                 : Engine.MachineX64;
-            Engine.Require(Engine.Machine(bytes) == want, "Wrong bridge architecture");
+            Engine.Require(Engine.Machine(bytes.ToArray()) == want, "Wrong bridge architecture");
             p[name] = bytes;
         }
 
@@ -87,7 +87,7 @@ public sealed class X86Installer(string release)
         if (preset == "D3D8")
         {
             var translator = Payload("d3d8to9.dll", D3d8To9Sha);
-            Engine.Require(Engine.Machine(translator) == Engine.MachineX86, "d3d8to9 must be x86");
+            Engine.Require(Engine.Machine(translator.ToArray()) == Engine.MachineX86, "d3d8to9 must be x86");
             var name = "d3d8.dll";
             var existing = Path.Combine(dir, name);
             Engine.SafePath(existing);
@@ -108,7 +108,7 @@ public sealed class X86Installer(string release)
         byte[] reShade;
         if (File.Exists(Path.Combine(Release, "files", "dxgi.dll")))
         {
-            reShade = Payload("dxgi.dll", ReShadeSha);
+            reShade = Payload("dxgi.dll", ReShadeSha).ToArray();
         }
         else
         {
@@ -152,13 +152,13 @@ public sealed class X86Installer(string release)
     /// <param name="retire">Recorded names the route no longer wants here: see Transaction.Apply.</param>
     /// <param name="displace">Somebody else's files the route takes to the backup: see Transaction.Apply.</param>
     public void Install(string target, string preset, string? proxyName = null,
-        IReadOnlyDictionary<string, byte[]>? extra = null, IEnumerable<string>? retire = null,
+        IReadOnlyDictionary<string, Blob>? extra = null, IEnumerable<string>? retire = null,
         IEnumerable<string>? displace = null)
     {
         var dir = Engine.InstallDirectory(target);
         Engine.SafePath(dir);
         var desired = Plan(Engine.Absolute(target), preset, proxyName);
-        foreach (var (name, bytes) in extra ?? new Dictionary<string, byte[]>()) desired[name] = bytes;
+        foreach (var (name, bytes) in extra ?? new Dictionary<string, Blob>()) desired[name] = bytes;
         Transaction.Apply(dir, preset, Route.X86, desired, Log, retire, displace);
         if (GameQuirks.Seal(Engine.Absolute(target), dir, proxyName is { Length: > 0 } ? proxyName : Engine.X86ProxyName(preset)) is { } sealedLine)
             Note(sealedLine);

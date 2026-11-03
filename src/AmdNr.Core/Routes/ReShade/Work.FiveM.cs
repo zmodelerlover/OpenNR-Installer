@@ -83,7 +83,7 @@ public static partial class Work
         var reshade = CheckFiveM(app, src, report);
         var payloads = PayloadDir(src);
         var plugins = Path.Combine(app, FiveMPlugins);
-        var files = new SortedDictionary<string, byte[]>(StringComparer.Ordinal);
+        var files = new SortedDictionary<string, Blob>(StringComparer.Ordinal);
 
         var supplied = Supplied(ownRuntime, wantedRuntime, pins, Preset.FiveM, report);
         if (VerifiedPayload(payloads, AddonName, pins.AddonSha, report) is { } addon)
@@ -108,7 +108,7 @@ public static partial class Work
 
         if (pins.ShaderSha.Length > 0)
         {
-            var effect = new Dictionary<string, byte[]>();
+            var effect = new Dictionary<string, Blob>();
             if (AddCompanionEffect(effect, payloads, plugins))
                 files[$"{FiveMPlugins}/{ShaderPath}"] = effect[ShaderPath];
             else
