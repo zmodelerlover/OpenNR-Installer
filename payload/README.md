@@ -71,6 +71,8 @@ GitHub release asset remains a valid place to put one of these without any code 
 | `optiscaler` | the neural-amd-opti release archive, with every file taken out of it pinned | its GitHub release |
 | `opti-runtime` | the runtime build OptiScaler drives | the dataset repo |
 | `lmxxf-weights` | `native-game-tiled-assets.zip`, the lmxxf runtime's weights (0.2.0 and later) | the dataset repo |
+| `lmxxf-runtime` | `lmxxf-runtime-<version>.zip`: `LmxxfNrRuntime.dll`, `lmxxf-modules/`, `shaders/`, also left in `optiscaler` for older apps | the dataset repo |
+| `optiscaler-lean` | `optiscaler-lean-<version>.zip`: the `optiscaler` files without lmxxf's, which this app downloads in its place | the dataset repo |
 | `mochizuki` | `mochizuki-<version>.zip`: `MochizukiNrRuntime.dll`, its shaders, its prewarm list and DLSSNR-AMD's licence (`dlssnr-amd/LICENSE-DLSSNR-AMD.txt`), every file pinned (0.4.0 and later) | its `url` |
 | `mochizuki-model` | `dlssnr.bin`, the mochizuki runtime's model, one version per model | its `url` |
 

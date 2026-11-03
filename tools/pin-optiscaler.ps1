@@ -30,6 +30,12 @@
   component, which only installers that know it ask for. The upload command is printed. The 32-bit proxies
   and their 64-bit host (x86\, OptiScaler 0.5.2 and later) go the same way, as optiscaler-x86.
 
+  lmxxf's runtime, kernels and shaders (LmxxfNrRuntime.dll, lmxxf-modules\, shaders\) go the same way as
+  lmxxf-runtime, and stay in the optiscaler component too: the published installers take them from there.
+  The rest of the package is zipped again as optiscaler-lean-<version>.zip and pinned as optiscaler-lean,
+  which the apps that know lmxxf-runtime download in place of the full archive, so a game without lmxxf
+  does not fetch it.
+
   A release carrying LmxxfNrRuntime.dll gets the lmxxf weights component of the newest release that
   has one, when it has none of its own, and the Small model's (lmxxf-weights-small, tools/pin-lmxxf-small.ps1) the same
   way when a release has it. Nothing else in the release (the mochizuki components) is
@@ -103,10 +109,13 @@ $invalid = [IO.Path]::GetInvalidFileNameChars()
 $extract = [System.Collections.Generic.List[object]]::new()
 # Folders of the archive the published installers refuse, each pinned as a component of its own that only the
 # installers that know it ask for: (path, bytes) of each file, by component.
+# Keep: also left in the optiscaler component, for the installers already published.
 $sides = [ordered]@{
-    'lmxxf-gfx1200'  = @{ Prefix = 'lmxxf-modules-gfx1200/'; Label = 'lmxxf RX 9060 kernels'; Files = [System.Collections.Generic.List[object]]::new() }
-    'optiscaler-x86' = @{ Prefix = 'x86/'; Label = 'OptiScaler 32-bit proxies and host'; Files = [System.Collections.Generic.List[object]]::new() }
+    'lmxxf-gfx1200'  = @{ Prefixes = @('lmxxf-modules-gfx1200/'); Label = 'lmxxf RX 9060 kernels'; Files = [System.Collections.Generic.List[object]]::new() }
+    'optiscaler-x86' = @{ Prefixes = @('x86/'); Label = 'OptiScaler 32-bit proxies and host'; Files = [System.Collections.Generic.List[object]]::new() }
+    'lmxxf-runtime'  = @{ Prefixes = @('LmxxfNrRuntime.dll', 'lmxxf-modules/', 'shaders/'); Keep = $true; Label = 'lmxxf runtime, kernels and shaders'; Files = [System.Collections.Generic.List[object]]::new() }
 }
+$sourceOf = @{}
 $sums = @{}
 $unknown = @()
 $archive = [IO.Compression.ZipFile]::OpenRead($Zip)
@@ -133,21 +142,21 @@ try {
         foreach ($s in $segments) {
             if ($s.Length -eq 0 -or $s.Length -gt 96 -or $s -in '.', '..' -or $s.IndexOfAny($invalid) -ge 0) { Fail "unusable name in the archive: $full" }
         }
-        $side = $sides.Keys | Where-Object { $full.StartsWith($sides[$_].Prefix, [StringComparison]::Ordinal) } | Select-Object -First 1
+        $side = $sides.Keys | Where-Object { $sides[$_].Prefixes | Where-Object { $full.StartsWith($_, [StringComparison]::Ordinal) } } | Select-Object -First 1
         if (-not $side -and -not (KnownToOlderApps $full)) { $unknown += $full }
 
         $stream = $entry.Open()
         try { $sha = Sha256Stream $stream } finally { $stream.Dispose() }
         if ($sums.ContainsKey($full) -and $sums[$full] -ne $sha) { Fail "$full hashes to $sha, and the archive's SHA256SUMS.txt says $($sums[$full])" }
         $pin = [ordered]@{ name = $segments[-1]; path = $path; size = $entry.Length; sha256 = $sha }
+        $sourceOf[$path] = $entry.FullName
         if ($side) {
             $ms = [IO.MemoryStream]::new()
             $s2 = $entry.Open()
             try { $s2.CopyTo($ms) } finally { $s2.Dispose() }
             $sides[$side].Files.Add([pscustomobject]@{ Pin = $pin; Bytes = $ms.ToArray() })
-        } else {
-            $extract.Add($pin)
         }
+        if (-not $side -or $sides[$side].Keep) { $extract.Add($pin) }
     }
 } finally { $archive.Dispose() }
 
@@ -216,6 +225,39 @@ foreach ($sideName in $sides.Keys) {
     $release.components | Add-Member -NotePropertyName $sideName -NotePropertyValue $gComponent -Force
     Good "${sideName}: $($sideFiles.Count) files in $gZip"
     Note "hf upload $Repo `"$gZip`" $sideName/$Version/$gName --repo-type dataset --commit-message `"$($sides[$sideName].Label) $Version`""
+}
+
+# The package without lmxxf, which the apps that know lmxxf-runtime download instead of the full one.
+$lmxxfPaths = @($sides['lmxxf-runtime'].Files | ForEach-Object { $_.Pin.path })
+if ($lmxxfPaths.Count -gt 0) {
+    $leanName = 'optiscaler-lean'
+    $lean = @($extract | Where-Object { $lmxxfPaths -cnotcontains $_.path })
+    $leanOut = if ($Out) { $Out } else { Join-Path $root "publish-$leanName-$Version" }
+    New-Item -ItemType Directory -Force -Path $leanOut | Out-Null
+    $lName = "$leanName-$Version.zip"
+    $lZip = Join-Path $leanOut $lName
+    if (Test-Path -LiteralPath $lZip) { Remove-Item -LiteralPath $lZip -Force }
+    $source = [IO.Compression.ZipFile]::OpenRead($Zip)
+    $fs = [IO.File]::Open($lZip, [IO.FileMode]::CreateNew)
+    $zipOut = [IO.Compression.ZipArchive]::new($fs, [IO.Compression.ZipArchiveMode]::Create)
+    try {
+        foreach ($pin in $lean) {
+            $e = $zipOut.CreateEntry($pin.path, [IO.Compression.CompressionLevel]::Optimal)
+            $e.LastWriteTime = [DateTimeOffset]::new(2026, 1, 1, 0, 0, 0, [TimeSpan]::Zero)
+            $r = $source.GetEntry($sourceOf[$pin.path]).Open()
+            $w = $e.Open()
+            try { $r.CopyTo($w) } finally { $w.Dispose(); $r.Dispose() }
+        }
+    } finally { $zipOut.Dispose(); $fs.Dispose(); $source.Dispose() }
+    $release.components | Add-Member -NotePropertyName $leanName -NotePropertyValue ([ordered]@{
+        version   = $Version
+        published = $Published
+        files     = @([ordered]@{ name = $lName; size = (Get-Item -LiteralPath $lZip).Length; sha256 = (Sha256File $lZip)
+                                 url = "https://huggingface.co/datasets/$Repo/resolve/main/$leanName/$Version/$lName" })
+        extract   = $lean
+    }) -Force
+    Good "${leanName}: $($lean.Count) files in $lZip"
+    Note "hf upload $Repo `"$lZip`" $leanName/$Version/$lName --repo-type dataset --commit-message `"OptiScaler $Version without lmxxf`""
 }
 
 if (($extract | Where-Object { $_.path -eq 'LmxxfNrRuntime.dll' }) -and -not $release.components.PSObject.Properties['lmxxf-weights']) {

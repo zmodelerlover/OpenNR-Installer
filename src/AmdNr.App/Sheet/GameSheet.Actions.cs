@@ -400,7 +400,7 @@ public partial class GameSheet
             ? [PayloadManifest.OptiScalerComponent,
                .. daniel ? [PayloadManifest.OptiRuntimeComponent, PayloadManifest.RuntimeComponent] : Array.Empty<string>(),
                PayloadManifest.LmxxfWeightsComponent, PayloadManifest.LmxxfSmallWeightsComponent, PayloadManifest.LmxxfGfx1200Component,
-               PayloadManifest.OptiX86Component,
+               PayloadManifest.LmxxfRuntimeComponent, PayloadManifest.OptiX86Component,
                PayloadManifest.PersonModelComponent, .. Mochizuki(mochizuki),
                .. wrongGpu ? [PayloadManifest.WrongGpuComponent] : Array.Empty<string>(),
                .. dlss ? [PayloadManifest.WrongGpuDlssComponent] : Array.Empty<string>(),

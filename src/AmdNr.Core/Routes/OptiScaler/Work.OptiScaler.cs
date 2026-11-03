@@ -136,7 +136,7 @@ public static partial class Work
         var pinned = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         foreach (var name in new[] { PayloadManifest.OptiScalerComponent, PayloadManifest.LmxxfWeightsComponent,
                                      PayloadManifest.LmxxfSmallWeightsComponent, PayloadManifest.LmxxfGfx1200Component, PayloadManifest.OptiX86Component,
-                                     PayloadManifest.PersonModelComponent })
+                                     PayloadManifest.PersonModelComponent, PayloadManifest.LmxxfRuntimeComponent })
             if (payload.Has(name))
                 foreach (var file in payload.Component(name).Installed)
                     pinned[OptiDestination(file.RelativePath, OptiScalerDllPayload)] = Engine.Lower(file.Sha256);

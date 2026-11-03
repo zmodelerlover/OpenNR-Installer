@@ -177,6 +177,7 @@ public sealed partial class PayloadManifest
             OptiScalerComponent, OptiRuntimeComponent, LmxxfWeightsComponent, LmxxfSmallWeightsComponent, LmxxfGfx1200Component,
             OptiX86Component, MochizukiComponent, MochizukiModelComponent, MochizukiSmallModelComponent, MochizukiRdna3Component,
             PersonModelComponent, WrongGpuComponent, WrongGpuDlssComponent, NrLiveComponent, StreamlineComponent, DlssgComponent,
+            LmxxfRuntimeComponent, OptiScalerLeanComponent,
         };
 
     /// <summary>The SHA-256 a pin carries until the bytes it stands for exist: 64 zeros. A release
@@ -214,6 +215,7 @@ public sealed partial class PayloadManifest
                 foreach (var (inner, component) in release.Components) Check(inner, component);
             }
         foreach (var build in m.UserRuntimes ?? []) build.Check();
+        Lean(m.Components);
         return m;
     }
 
@@ -266,15 +268,6 @@ public sealed partial class PayloadManifest
         return RuntimeRelease(RuntimeChoice) is { } runtime ? merged.Merge(runtime) : merged;
     }
 
-    /// <summary>This manifest without lmxxf's weights and RX 9060 kernels, for a card lmxxf does not run on: about
-    /// 590 MB nobody there can use. Neither is downloaded, pinned or installed then, and nor are person protection,
-    /// which only lmxxf and mochizuki run, and WrongGPU, which runs on RX 9000 only. NVIDIA's DLSS stays: danielblnc
-    /// 0.8.0 reads it on every card.</summary>
-    public PayloadManifest WithoutLmxxf() => Without(LmxxfComponents.Append(PersonModelComponent).Append(WrongGpuComponent).ToArray());
-
-    /// <summary>lmxxf's weights, its Small model and its RX 9060 kernels: what leaving lmxxf out takes away.</summary>
-    public static readonly string[] LmxxfComponents = [LmxxfWeightsComponent, LmxxfSmallWeightsComponent, LmxxfGfx1200Component];
-
     /// <summary>This manifest without the components named: none of them is downloaded, pinned or installed.</summary>
     public PayloadManifest Without(params string[] names) => new()
     {
@@ -292,6 +285,8 @@ public sealed partial class PayloadManifest
     private PayloadManifest Merge(ComponentRelease release)
     {
         var components = new Dictionary<string, PayloadComponent>(Components, StringComparer.Ordinal);
+        // An OptiScaler release from before the split carries lmxxf in its own package: no other version's goes with it.
+        if (release.Components.ContainsKey(OptiScalerComponent)) components.Remove(LmxxfRuntimeComponent);
         foreach (var (name, component) in release.Components) components[name] = component;
         return new PayloadManifest
         {
@@ -299,7 +294,7 @@ public sealed partial class PayloadManifest
             Owner = Owner,
             Repo = Repo,
             Tag = Tag,
-            Components = components,
+            Components = Lean(components),
             Releases = Releases,
             UserRuntimes = UserRuntimes,
             RuntimeChoice = RuntimeChoice,
@@ -435,7 +430,7 @@ public sealed partial class PayloadManifest
         foreach (var name in new[]
                  {
                      OptiScalerComponent, LmxxfWeightsComponent, LmxxfSmallWeightsComponent, LmxxfGfx1200Component, OptiX86Component,
-                     PersonModelComponent,
+                     PersonModelComponent, LmxxfRuntimeComponent,
                  })
             if (Components.TryGetValue(name, out var component))
                 foreach (var f in component.Installed)
