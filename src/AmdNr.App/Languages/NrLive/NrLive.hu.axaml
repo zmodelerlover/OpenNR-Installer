@@ -33,6 +33,9 @@
   <sys:String x:Key="Str.NrLiveTitleRunning">Skálázás folyamatban</sys:String>
   <sys:String x:Key="Str.NrLiveStatusReady">Nyomd meg a „Skálázás” gombot, majd válts a játékra a visszaszámlálás vége előtt.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusStarting">A visszaszámlálás végén az NRLive átveszi a játék ablakát: válts rá most.</sys:String>
+  <sys:String x:Key="Str.NrLiveTitleWaiting">Waiting for the game</sys:String>
+  <sys:String x:Key="Str.NrLiveStatusWaiting">Waiting for {0} to start… NRLive starts once its window is up.</sys:String>
+  <sys:String x:Key="Str.NrLiveWaitGaveUp">{0} did not start in 5 minutes. Start the game, then press Scale again.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusRunning">A „Leállítás” gombbal vagy a játékból a(z) {0} billentyűkombinációval állítható le.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusStopped">Leállítva.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusExited">Az NRLive bezárult. Az okát a mappájában lévő NRLive.log tartalmazza.</sys:String>

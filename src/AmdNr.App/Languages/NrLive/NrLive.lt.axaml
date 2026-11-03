@@ -33,6 +33,9 @@
   <sys:String x:Key="Str.NrLiveTitleRunning">Didinama</sys:String>
   <sys:String x:Key="Str.NrLiveStatusReady">Paspauskite „Didinti“, tada persijunkite į žaidimą, kol nesibaigė atgalinis skaičiavimas.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusStarting">Pasibaigus atgaliniam skaičiavimui, NRLive perims žaidimo langą: persijunkite į jį dabar.</sys:String>
+  <sys:String x:Key="Str.NrLiveTitleWaiting">Waiting for the game</sys:String>
+  <sys:String x:Key="Str.NrLiveStatusWaiting">Waiting for {0} to start… NRLive starts once its window is up.</sys:String>
+  <sys:String x:Key="Str.NrLiveWaitGaveUp">{0} did not start in 5 minutes. Start the game, then press Scale again.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusRunning">Sustabdykite mygtuku „Stabdyti“ arba žaidime paspaudę {0}.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusStopped">Sustabdyta.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusExited">NRLive užsidarė. Priežastis – faile NRLive.log jos aplanke.</sys:String>

@@ -33,6 +33,9 @@
   <sys:String x:Key="Str.NrLiveTitleRunning">Scaling attivo</sys:String>
   <sys:String x:Key="Str.NrLiveStatusReady">Premi Scala, poi passa al gioco prima che finisca il conto alla rovescia.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusStarting">NRLive prende la finestra del gioco quando finisce il conto alla rovescia: passaci adesso.</sys:String>
+  <sys:String x:Key="Str.NrLiveTitleWaiting">Waiting for the game</sys:String>
+  <sys:String x:Key="Str.NrLiveStatusWaiting">Waiting for {0} to start… NRLive starts once its window is up.</sys:String>
+  <sys:String x:Key="Str.NrLiveWaitGaveUp">{0} did not start in 5 minutes. Start the game, then press Scale again.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusRunning">Ferma, oppure {0} dall'interno del gioco, lo termina.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusStopped">Fermato.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusExited">NRLive si è chiuso. Il motivo è in NRLive.log, nella sua cartella.</sys:String>

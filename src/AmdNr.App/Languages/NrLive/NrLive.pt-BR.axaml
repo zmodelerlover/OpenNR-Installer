@@ -33,6 +33,9 @@
   <sys:String x:Key="Str.NrLiveTitleRunning">Escalando</sys:String>
   <sys:String x:Key="Str.NrLiveStatusReady">Aperte Escalar e vá para o jogo antes de a contagem acabar.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusStarting">O NRLive pega a janela do jogo quando a contagem acabar: vá para ela agora.</sys:String>
+  <sys:String x:Key="Str.NrLiveTitleWaiting">Esperando o jogo</sys:String>
+  <sys:String x:Key="Str.NrLiveStatusWaiting">Esperando o {0} abrir… O NRLive começa quando a janela dele aparecer.</sys:String>
+  <sys:String x:Key="Str.NrLiveWaitGaveUp">O {0} não abriu em 5 minutos. Abra o jogo e aperte Escalar de novo.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusRunning">Parar, ou {0} de dentro do jogo, encerra.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusStopped">Parado.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusExited">O NRLive fechou. O motivo está no NRLive.log, na pasta dele.</sys:String>

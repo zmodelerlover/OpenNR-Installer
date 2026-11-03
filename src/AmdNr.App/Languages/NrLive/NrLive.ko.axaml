@@ -33,6 +33,9 @@
   <sys:String x:Key="Str.NrLiveTitleRunning">스케일링 중</sys:String>
   <sys:String x:Key="Str.NrLiveStatusReady">스케일링을 누른 뒤, 카운트다운이 끝나기 전에 게임으로 전환하세요.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusStarting">카운트다운이 끝나면 NRLive가 게임 창을 가져옵니다. 지금 게임으로 전환하세요.</sys:String>
+  <sys:String x:Key="Str.NrLiveTitleWaiting">Waiting for the game</sys:String>
+  <sys:String x:Key="Str.NrLiveStatusWaiting">Waiting for {0} to start… NRLive starts once its window is up.</sys:String>
+  <sys:String x:Key="Str.NrLiveWaitGaveUp">{0} did not start in 5 minutes. Start the game, then press Scale again.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusRunning">중지를 누르거나 게임 안에서 {0}을(를) 누르면 끝납니다.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusStopped">중지되었습니다.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusExited">NRLive가 종료되었습니다. 이유는 NRLive 폴더의 NRLive.log에 있습니다.</sys:String>

@@ -33,6 +33,9 @@
   <sys:String x:Key="Str.NrLiveTitleRunning">Skaliranje</sys:String>
   <sys:String x:Key="Str.NrLiveStatusReady">Pritisnite „Skaliraj”, a zatim se prebacite na igru prije kraja odbrojavanja.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusStarting">NRLive preuzima prozor igre kad odbrojavanje završi: prebacite se na nju sada.</sys:String>
+  <sys:String x:Key="Str.NrLiveTitleWaiting">Waiting for the game</sys:String>
+  <sys:String x:Key="Str.NrLiveStatusWaiting">Waiting for {0} to start… NRLive starts once its window is up.</sys:String>
+  <sys:String x:Key="Str.NrLiveWaitGaveUp">{0} did not start in 5 minutes. Start the game, then press Scale again.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusRunning">Završava se tipkom „Zaustavi” ili prečacem {0} iz igre.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusStopped">Zaustavljeno.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusExited">NRLive se zatvorio. Razlog je u NRLive.log u njegovoj mapi.</sys:String>

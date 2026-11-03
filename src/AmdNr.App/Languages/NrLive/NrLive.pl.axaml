@@ -33,6 +33,9 @@
   <sys:String x:Key="Str.NrLiveTitleRunning">Skalowanie</sys:String>
   <sys:String x:Key="Str.NrLiveStatusReady">Naciśnij „Skaluj”, a potem przełącz się na grę, zanim skończy się odliczanie.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusStarting">NRLive przejmie okno gry po końcu odliczania: przełącz się na nie teraz.</sys:String>
+  <sys:String x:Key="Str.NrLiveTitleWaiting">Waiting for the game</sys:String>
+  <sys:String x:Key="Str.NrLiveStatusWaiting">Waiting for {0} to start… NRLive starts once its window is up.</sys:String>
+  <sys:String x:Key="Str.NrLiveWaitGaveUp">{0} did not start in 5 minutes. Start the game, then press Scale again.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusRunning">Zakończysz to przyciskiem „Zatrzymaj” albo skrótem {0} z poziomu gry.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusStopped">Zatrzymano.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusExited">NRLive zostało zamknięte. Przyczyna jest w NRLive.log w jego folderze.</sys:String>

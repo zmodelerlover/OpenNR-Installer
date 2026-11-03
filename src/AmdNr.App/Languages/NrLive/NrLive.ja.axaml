@@ -33,6 +33,9 @@
   <sys:String x:Key="Str.NrLiveTitleRunning">スケーリング中</sys:String>
   <sys:String x:Key="Str.NrLiveStatusReady">「スケーリング」を押し、カウントダウンが終わる前にゲームに切り替えてください。</sys:String>
   <sys:String x:Key="Str.NrLiveStatusStarting">カウントダウンが終わると NRLive がゲームのウィンドウを取り込みます。今すぐ切り替えてください。</sys:String>
+  <sys:String x:Key="Str.NrLiveTitleWaiting">Waiting for the game</sys:String>
+  <sys:String x:Key="Str.NrLiveStatusWaiting">Waiting for {0} to start… NRLive starts once its window is up.</sys:String>
+  <sys:String x:Key="Str.NrLiveWaitGaveUp">{0} did not start in 5 minutes. Start the game, then press Scale again.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusRunning">「停止」を押すか、ゲーム内で {0} を押すと終了します。</sys:String>
   <sys:String x:Key="Str.NrLiveStatusStopped">停止しました。</sys:String>
   <sys:String x:Key="Str.NrLiveStatusExited">NRLive が終了しました。理由は NRLive のフォルダーにある NRLive.log に記録されています。</sys:String>

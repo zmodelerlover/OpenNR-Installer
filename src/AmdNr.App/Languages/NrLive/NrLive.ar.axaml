@@ -33,6 +33,9 @@
   <sys:String x:Key="Str.NrLiveTitleRunning">جارٍ التكبير</sys:String>
   <sys:String x:Key="Str.NrLiveStatusReady">اضغط «تكبير»، ثم انتقل إلى اللعبة قبل انتهاء العدّ التنازلي.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusStarting">يأخذ NRLive نافذة اللعبة عند انتهاء العدّ التنازلي: انتقل إليها الآن.</sys:String>
+  <sys:String x:Key="Str.NrLiveTitleWaiting">Waiting for the game</sys:String>
+  <sys:String x:Key="Str.NrLiveStatusWaiting">Waiting for {0} to start… NRLive starts once its window is up.</sys:String>
+  <sys:String x:Key="Str.NrLiveWaitGaveUp">{0} did not start in 5 minutes. Start the game, then press Scale again.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusRunning">لإنهائه اضغط «إيقاف»، أو {0} من داخل اللعبة.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusStopped">توقّف.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusExited">أُغلق NRLive. السبب في NRLive.log داخل مجلده.</sys:String>

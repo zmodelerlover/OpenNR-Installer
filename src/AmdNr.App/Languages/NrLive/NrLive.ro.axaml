@@ -33,6 +33,9 @@
   <sys:String x:Key="Str.NrLiveTitleRunning">Se scalează</sys:String>
   <sys:String x:Key="Str.NrLiveStatusReady">Apasă „Scalează”, apoi treci la joc înainte să se termine numărătoarea.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusStarting">NRLive preia fereastra jocului când se termină numărătoarea: treci la ea acum.</sys:String>
+  <sys:String x:Key="Str.NrLiveTitleWaiting">Waiting for the game</sys:String>
+  <sys:String x:Key="Str.NrLiveStatusWaiting">Waiting for {0} to start… NRLive starts once its window is up.</sys:String>
+  <sys:String x:Key="Str.NrLiveWaitGaveUp">{0} did not start in 5 minutes. Start the game, then press Scale again.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusRunning">Îl oprești cu „Oprește” sau cu {0} din joc.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusStopped">Oprit.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusExited">NRLive s-a închis. Motivul e în NRLive.log, în folderul lui.</sys:String>

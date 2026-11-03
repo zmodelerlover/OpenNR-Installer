@@ -33,6 +33,9 @@
   <sys:String x:Key="Str.NrLiveTitleRunning">Mise à l'échelle en cours</sys:String>
   <sys:String x:Key="Str.NrLiveStatusReady">Cliquez sur Mettre à l'échelle, puis passez au jeu avant la fin du compte à rebours.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusStarting">NRLive prend la fenêtre du jeu à la fin du compte à rebours : passez-y maintenant.</sys:String>
+  <sys:String x:Key="Str.NrLiveTitleWaiting">Waiting for the game</sys:String>
+  <sys:String x:Key="Str.NrLiveStatusWaiting">Waiting for {0} to start… NRLive starts once its window is up.</sys:String>
+  <sys:String x:Key="Str.NrLiveWaitGaveUp">{0} did not start in 5 minutes. Start the game, then press Scale again.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusRunning">Arrêter, ou {0} depuis le jeu, y met fin.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusStopped">Arrêté.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusExited">NRLive s'est fermé. La raison est dans NRLive.log, dans son dossier.</sys:String>

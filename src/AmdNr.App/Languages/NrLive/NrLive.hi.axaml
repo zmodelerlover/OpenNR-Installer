@@ -33,6 +33,9 @@
   <sys:String x:Key="Str.NrLiveTitleRunning">स्केल हो रहा है</sys:String>
   <sys:String x:Key="Str.NrLiveStatusReady">“स्केल करें” दबाएँ, फिर उलटी गिनती खत्म होने से पहले गेम पर जाएँ।</sys:String>
   <sys:String x:Key="Str.NrLiveStatusStarting">उलटी गिनती खत्म होते ही NRLive गेम की विंडो ले लेता है: अभी उस पर जाएँ।</sys:String>
+  <sys:String x:Key="Str.NrLiveTitleWaiting">Waiting for the game</sys:String>
+  <sys:String x:Key="Str.NrLiveStatusWaiting">Waiting for {0} to start… NRLive starts once its window is up.</sys:String>
+  <sys:String x:Key="Str.NrLiveWaitGaveUp">{0} did not start in 5 minutes. Start the game, then press Scale again.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusRunning">“रोकें” दबाकर, या गेम के अंदर से {0} दबाकर, इसे बंद करें।</sys:String>
   <sys:String x:Key="Str.NrLiveStatusStopped">रुक गया।</sys:String>
   <sys:String x:Key="Str.NrLiveStatusExited">NRLive बंद हो गया। वजह उसके फ़ोल्डर में NRLive.log में है।</sys:String>

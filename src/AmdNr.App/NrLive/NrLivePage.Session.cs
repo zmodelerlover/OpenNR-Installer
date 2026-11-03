@@ -28,7 +28,11 @@ public partial class NrLivePage
     /// front then, with that game's settings. Only when no administrator prompt would come up over the game.</summary>
     private bool _waiting;
 
-    private bool Active => Running || _waiting;
+    /// <summary>A library game picked and not running yet: the page waits for its window before NRLive starts, which
+    /// would otherwise exit at once with "No process name matches regex".</summary>
+    private NrLiveWait? _gameWait;
+
+    private bool Active => Running || _waiting || _gameWait is not null;
 
     /// <summary>The page with one game of the library picked to capture, from the warning on its sheet.</summary>
     public void ShowGame(GameCard card)
@@ -160,6 +164,16 @@ public partial class NrLivePage
         // The target's settings; for the window in front, the global ones until the countdown says which it is.
         var picker = _profile.TargetMode == "picker";
         UseContext(picker ? null : TargetGame());
+        if (_profile.TargetMode == "pname" && new NrLiveWait(_profile.TargetText, () => NrLiveNative.Windows().Select(w => w.Process)) is var wait
+            && wait.Poll() != NrLiveWaitState.Ready)
+        {
+            _gameWait = wait;
+            _tick.Start();
+            ShowState();
+            ShowContext();
+            ShowPackage();
+            return;
+        }
         _launchKept = false;
         _secondsLeft = Math.Clamp(_profile.Delay, 1, 30);
         _waiting = picker && (!_profile.RunAsAdmin || Environment.IsPrivilegedProcess);
@@ -196,7 +210,7 @@ public partial class NrLivePage
     /// <summary>Ends NRLive. Elevated, it is out of this app's reach, so its own stop key is pressed instead.</summary>
     private void Stop()
     {
-        if (_waiting) Reset("Str.NrLiveStatusStopped", Level.Info);
+        if (_waiting || _gameWait is not null) Reset("Str.NrLiveStatusStopped", Level.Info);
         if (_process is null) return;
         try
         {
@@ -214,6 +228,24 @@ public partial class NrLivePage
     /// <summary>Once a second while NRLive runs: the countdown, then whether it is still there.</summary>
     private void Tick()
     {
+        if (_gameWait is { } game)
+        {
+            switch (game.Poll())
+            {
+                case NrLiveWaitState.Waiting:
+                    return;
+                case NrLiveWaitState.GaveUp:
+                    Reset("Str.NrLiveWaitGaveUp", Level.Warn);
+                    SetState(Level.Warn, "Str.NrLiveWaitGaveUp", game.Exe);
+                    return;
+                default:
+                    // Its window is up: NRLive starts as it does for a game already running.
+                    _tick.Stop();
+                    _gameWait = null;
+                    Start();
+                    return;
+            }
+        }
         if (_waiting)
         {
             if (--_secondsLeft > 0)
@@ -251,6 +283,7 @@ public partial class NrLivePage
     {
         _tick.Stop();
         _waiting = false;
+        _gameWait = null;
         _process?.Dispose();
         _process = null;
         _secondsLeft = 0;
@@ -285,8 +318,10 @@ public partial class NrLivePage
     private void ShowState()
     {
         var running = Active;
-        var starting = running && _secondsLeft > 0;
-        var key = running ? (starting ? "Str.NrLiveStatusStarting" : "Str.NrLiveStatusRunning")
+        var awaiting = _gameWait is not null;
+        var starting = running && (_secondsLeft > 0 || awaiting);
+        var key = awaiting ? "Str.NrLiveStatusWaiting"
+            : running ? (starting ? "Str.NrLiveStatusStarting" : "Str.NrLiveStatusRunning")
             : _profile.Problem() is { } problem ? ProblemKey(problem)
             : _stateKey ?? "Str.NrLiveStatusReady";
         var level = running ? (starting ? (Level?)null : Level.Ok) : _profile.Problem() is not null ? Level.Warn : _stateLevel;
@@ -294,12 +329,15 @@ public partial class NrLivePage
         Ui.SetLevel(StatusTile, level);
         StatusTile.Classes.Set("neutral", level is null);
         StatusIcon.Data = Ui.Icon(running ? "IconScale" : level is { } l ? l switch { Level.Ok => "IconOk", Level.Warn => "IconWarn", Level.Err => "IconErr", _ => "IconInfo" } : "IconInfo");
-        StatusTitle.Text = Ui.Text(running ? (starting ? "Str.NrLiveTitleStarting" : "Str.NrLiveTitleRunning") : "Str.NrLiveTitleReady");
+        StatusTitle.Text = Ui.Text(awaiting ? "Str.NrLiveTitleWaiting"
+            : running ? (starting ? "Str.NrLiveTitleStarting" : "Str.NrLiveTitleRunning") : "Str.NrLiveTitleReady");
         // Whose settings are in use, after what is happening; for the window in front, once the countdown said which.
-        var text = Ui.Format(key, key == "Str.NrLiveStatusRunning" ? [_profile.ScaleHotkey] : _stateArgs.Cast<object?>().ToArray());
+        var text = Ui.Format(key, key == "Str.NrLiveStatusRunning" ? [_profile.ScaleHotkey]
+            : awaiting ? [_gameWait!.Exe] : _stateArgs.Cast<object?>().ToArray());
         var inUse = Ui.Format(_launchKept && running ? "Str.NrLiveProfileLaunchKept" : "Str.NrLiveProfileInUse", ProfileInUse());
         StatusText.Text = $"{text}  ·  {inUse}";
-        ScaleLabel.Text = starting ? Ui.Format("Str.NrLiveStarting", _secondsLeft) : Ui.Text(running ? "Str.NrLiveStop" : "Str.NrLiveScale");
+        ScaleLabel.Text = awaiting ? Ui.Text("Str.Cancel")
+            : starting ? Ui.Format("Str.NrLiveStarting", _secondsLeft) : Ui.Text(running ? "Str.NrLiveStop" : "Str.NrLiveScale");
         ScaleIcon.Data = Ui.Icon(running ? "IconStop" : "IconScale");
         ScaleButton.Classes.Set("primary", !running);
         ScaleButton.Classes.Set("ghost", running);

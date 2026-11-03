@@ -33,6 +33,9 @@
   <sys:String x:Key="Str.NrLiveTitleRunning">Масштабування</sys:String>
   <sys:String x:Key="Str.NrLiveStatusReady">Натисніть «Масштабувати» й перейдіть у гру до кінця відліку.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusStarting">Наприкінці відліку NRLive захопить вікно гри: перейдіть у нього зараз.</sys:String>
+  <sys:String x:Key="Str.NrLiveTitleWaiting">Waiting for the game</sys:String>
+  <sys:String x:Key="Str.NrLiveStatusWaiting">Waiting for {0} to start… NRLive starts once its window is up.</sys:String>
+  <sys:String x:Key="Str.NrLiveWaitGaveUp">{0} did not start in 5 minutes. Start the game, then press Scale again.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusRunning">Завершити можна кнопкою «Зупинити» або сполученням {0} просто в грі.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusStopped">Зупинено.</sys:String>
   <sys:String x:Key="Str.NrLiveStatusExited">NRLive закрився. Причина — у NRLive.log у його папці.</sys:String>
