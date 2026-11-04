@@ -6,7 +6,8 @@
 // it changes; left off again, the two keys go back to auto while they still say that.
 //
 // Only when ticked, and never where it cannot work. A game with its own nvngx_dlssg.dll (Cyberpunk 2077, Crimson
-// Desert, RE9) runs danielblnc's FG through its own DLSS-FG with nothing added. A game with no DLSS, FSR or XeSS has
+// Desert, RE9) runs danielblnc's FG through its own DLSS-FG with nothing added, while mochizuki or lmxxf is the NR
+// runtime; with danielblnc's NR OptiScaler leaves it off there, so the NR runs. A game with no DLSS, FSR or XeSS has
 // no upscaler call to take the frames from; OptiScaler 0.5.8's final-image NR can feed DLSSG its optical flow instead,
 // but that was never tried in a game, so it stays out. Off D3D12 the host has no FG at all (Vulkan), or it was never
 // tried (D3D11). Armed, the host computes on D3D12 instead of HIP and danielblnc's
@@ -62,7 +63,8 @@ public static partial class Work
         HostFgBlock.Runtime => "it needs danielblnc 0.8.0 or newer as the NR runtime.",
         HostFgBlock.Width => "it runs in 64-bit games only.",
         HostFgBlock.Api => "it runs in D3D12 games only.",
-        HostFgBlock.OwnFg => "the game has its own DLSS frame generation, which runs danielblnc's FG with nothing added.",
+        HostFgBlock.OwnFg => "the game has its own DLSS frame generation, which runs danielblnc's FG with nothing added "
+                             + "while mochizuki or lmxxf is the NR runtime (with danielblnc's NR it stays off, for the NR).",
         _ => "no DLSS, FSR or XeSS was found in this game, and OptiScaler's DLSS-FG output takes its frames from the "
              + "game's upscaler.",
     };

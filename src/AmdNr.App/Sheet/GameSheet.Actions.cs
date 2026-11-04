@@ -474,7 +474,7 @@ public partial class GameSheet
         var pins = versioned.Pins();
         var version = opti ? pins.OptiScalerVersion
                       : card.Entry.Preset.Route() == Route.X86 ? pins.BridgeVersion : pins.AddonVersion;
-        return Work.RuntimeOffer(versioned.RuntimeVersions().Where(r => Work.RuntimeRunsOn(r, opti, version)).ToList(), Rdna4)
+        return Work.RuntimeOffer(versioned.RuntimeVersions().Where(r => Work.RuntimeRunsOn(r, opti, version)).ToList(), Rdna4, BeforeRdna3)
             .ToList();
     }
 

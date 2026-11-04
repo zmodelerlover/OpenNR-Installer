@@ -86,9 +86,12 @@ public static partial class Work
     public enum RuntimeBadge { None, Recommended, Unstable }
 
     /// <summary>The versions offered, from those the add-on or OptiScaler version runs (newest first): all of them
-    /// on an RX 9000 card, and on any other the newest, with the hosted builds above it.</summary>
-    public static IReadOnlyList<ComponentRelease> RuntimeOffer(IReadOnlyList<ComponentRelease> runs, bool rdna4) =>
-        rdna4 ? runs : runs.Where(Hosted).Concat(runs.Where(r => !Hosted(r)).Take(1)).ToList();
+    /// on an RX 9000 card, and on any other the newest, with the hosted builds above it. A Radeon before the RX 7000
+    /// (<paramref name="beforeRdna3"/>, RX 6000 and older) gets no hosted build: NeuralHub's DLSS-SR/RR are RX 7000 and
+    /// RX 9000 only, and its D3D12 runtime has no code the driver takes there (0x887a0005, the game crashes at start).</summary>
+    public static IReadOnlyList<ComponentRelease> RuntimeOffer(IReadOnlyList<ComponentRelease> runs, bool rdna4,
+        bool beforeRdna3 = false) =>
+        rdna4 ? runs : runs.Where(r => Hosted(r) && !beforeRdna3).Concat(runs.Where(r => !Hosted(r)).Take(1)).ToList();
 
     /// <summary>The version that goes in with nothing picked: <see cref="Rdna4Recommended"/> on an RX 9000 card when
     /// it is offered; on any other, the newest build before <see cref="HostedRuntime"/> when a hosted one is offered

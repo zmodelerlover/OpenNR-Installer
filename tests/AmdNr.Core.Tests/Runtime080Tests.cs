@@ -48,6 +48,11 @@ public class Runtime080Tests
         Assert.Equal("0.8.0", Work.RuntimePick(other, "0.8.0", rdna4: false));
         Assert.Equal(Work.RuntimeBadge.None, Work.BadgeFor("0.8.0", rdna4: false));
 
+        // An RX 6000 or older: no 0.8.0 (its D3D12 host crashed Cyberpunk at start there), a pick of it falls back.
+        var rdna2 = Work.RuntimeOffer(Runs(true, "0.5.7-opennr"), rdna4: false, beforeRdna3: true);
+        Assert.Equal(["0.6.0"], rdna2.Select(r => r.Version));
+        Assert.NotEqual("0.8.0", Work.RuntimePick(rdna2, "0.8.0", rdna4: false));
+
         // Before 0.5.7, and on the add-on, nothing changes: the newest only, and the release's own pin.
         var older = Work.RuntimeOffer(Runs(true, "0.5.6-opennr"), rdna4: false);
         Assert.Equal(["0.6.0"], older.Select(r => r.Version));

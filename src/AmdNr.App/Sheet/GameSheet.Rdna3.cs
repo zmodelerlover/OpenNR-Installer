@@ -23,4 +23,8 @@ public partial class GameSheet
     /// folder holds -- so a game added again does not lose it on the next update.</summary>
     private bool WantsMochizukiRdna3(GameCard card) =>
         OffersMochizukiRdna3(card) && (card.Entry.MochizukiRdna3 ?? Work.HasMochizukiRdna3(TargetFor(card)));
+
+    /// <summary>A Radeon read as neither RX 9000 nor RX 7000: RX 6000 and older, where danielblnc 0.8.0 is not offered
+    /// (Work.RuntimeOffer). Unknown counts as not.</summary>
+    private bool BeforeRdna3 => Session.Machine is { LooksLikeRadeon: true, Rdna4: false, Rx7000: false };
 }
