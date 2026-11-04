@@ -229,9 +229,9 @@ public class OpenRrTests
     [Fact]
     public void ThePayloadPinsItAndAnInstallComparesAgainstIt()
     {
-        // The published list has no OpenRR yet: nothing of it is pinned or offered from there.
+        // The shipped list pins it in the newest release, and both of its components come on demand.
         var manifest = PayloadManifest.Parse(PayloadCache.Embedded("payload.json"));
-        Assert.Empty(manifest.Newest(PayloadManifest.OptiScalerComponent).Pins().OpenRrFiles);
+        Assert.NotEmpty(manifest.Newest(PayloadManifest.OptiScalerComponent).Pins().OpenRrFiles);
         Assert.Contains(PayloadManifest.OpenRrComponent, PayloadManifest.OnDemand);
         Assert.Contains(PayloadManifest.OpenRrDlssdComponent, PayloadManifest.OnDemand);
     }
