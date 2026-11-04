@@ -186,11 +186,20 @@ public class NrLiveTests
         Assert.Contains("MochizukiPreprocessBias=-1.5", text);
         Assert.Contains("MochizukiPreprocessCurve=6", text);
         Assert.Equal(-150, NrLiveConfig.Load(dir).Get(setting("OpenNR.MochizukiPreprocessBias")));
+        // The encoding rows wait for a Source encoding, the fast ones for Fast, with a tooltip each group shares.
+        Assert.Equal("OpenNR.MochizukiRenoSourceEncoding", setting("OpenNR.MochizukiWhitePoint").Needs);
+        Assert.Equal("Str.NrLiveNeedsEncoding", setting("OpenNR.MochizukiRenoCodecMode").OffKey);
+        Assert.Null(setting("OpenNR.MochizukiRenoSourceEncoding").Needs);
+        Assert.Equal("Str.NrLiveNeedsFast", setting("OpenNR.MochizukiRenoFastMethod").OffKey);
+        config.Set(setting("OpenNR.MochizukiHistoryPrecision"), 1);
+        config.Save();
+        Assert.Contains("MochizukiHistoryPrecision=32", File.ReadAllText(Path.Combine(dir, NrLiveConfig.FileName)));
+        Assert.Equal(1, NrLiveConfig.Load(dir).Get(setting("OpenNR.MochizukiHistoryPrecision")));
         // A slider's badge: a percentage as a whole number, anything else in its own unit.
         Assert.Equal("125%", setting("OpenNR.MochizukiRenoLookBrighten").Shown(125));
         Assert.Equal("1.5 stops", setting("OpenNR.MochizukiRenoLookMaxDarken").Shown(150));
         Assert.Equal("-1.5 EV", setting("OpenNR.MochizukiPreprocessBias").Shown(-150));
-        Assert.Equal("60 ms", setting("OpenNR.MochizukiRenoLookStabilizeMs").Shown(60));
+        Assert.Equal("400 nits", setting("OpenNR.MochizukiRenoLinearUnitNits").Shown(400));
     }
 
     [Fact]
@@ -205,7 +214,8 @@ public class NrLiveTests
         Assert.Equal(125, config.Get(setting("OpenNR.MochizukiRenoIntensity")));
         Assert.Equal(0, config.Get(setting("OpenNR.MochizukiAco")));
         Assert.Equal(1, config.Get(setting("OpenNR.MochizukiTemporal")));
-        Assert.Equal(-100, config.Get(setting("OpenNR.MochizukiRenoSkinStructure")));
+        // Skin structure saved as -1 before 0.6.0 meant the model's own, which is 1 now.
+        Assert.Equal(100, config.Get(setting("OpenNR.MochizukiRenoSkinStructure")));
         config.Set(setting("OpenNR.MochizukiRenoIntensity"), 85);
         config.Set(setting("DLSSNR.runtime"), 0);
         config.Set(setting("FPS.preset"), 4);

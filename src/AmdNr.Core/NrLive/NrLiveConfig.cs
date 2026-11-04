@@ -58,7 +58,10 @@ public sealed record NrLiveSetting(string Group, string Section, string Key, NrL
     /// (<see cref="OffKey"/>) says why, and the value stays as it was stored.</summary>
     public string? Needs { get; init; }
 
-    public string OffKey => $"{LabelKey}.Off";
+    public string OffKey => SharedOffKey ?? $"{LabelKey}.Off";
+
+    /// <summary>A tooltip several rows share, in place of one of their own.</summary>
+    public string? SharedOffKey { get; init; }
 
     /// <summary>The value as a slider's badge shows it: a percentage as a whole number, anything else in its own
     /// unit (150 as 1.5 stops).</summary>
@@ -96,7 +99,13 @@ public sealed class NrLiveConfig
         Mz(key, kind, def, min, max, choices, advanced: true, scale, unit) with { Heading = "look", Panel = "look" };
 
     private static NrLiveSetting Enc(string key, NrLiveKind kind, int def, int min = 0, int max = 1, int choices = 0, int scale = 1, string unit = "") =>
-        Mz(key, kind, def, min, max, choices, advanced: true, scale, unit) with { Heading = "encoding" };
+        Mz(key, kind, def, min, max, choices, advanced: true, scale, unit) with { Heading = "encoding", Needs = SourceEncoding, SharedOffKey = "Str.NrLiveNeedsEncoding" };
+
+    private static NrLiveSetting Fast(string key, NrLiveKind kind, int def, int min = 0, int max = 1, int choices = 0, int scale = 1, string unit = "") =>
+        Mz(key, kind, def, min, max, choices, advanced: true, scale, unit) with { Heading = "fast", Needs = "OpenNR.MochizukiRenoPassesMode", SharedOffKey = "Str.NrLiveNeedsFast" };
+
+    /// <summary>A capture stays on the runtime's SDR codec, which reads no encoding key, until this is set.</summary>
+    private const string SourceEncoding = "OpenNR.MochizukiRenoSourceEncoding";
 
     private static NrLiveSetting Comp(string key, NrLiveKind kind, int def, int min = 0, int max = 1, int choices = 0, int scale = 1, string unit = "") =>
         Mz(key, kind, def, min, max, choices, advanced: true, scale, unit) with { Heading = "composition" };
@@ -131,29 +140,27 @@ public sealed class NrLiveConfig
         Mz("MochizukiRenoStyle", NrLiveKind.Choice, 0, choices: 3),
         Mz("MochizukiRenoIntensity", NrLiveKind.Range, 100, 0, 200, scale: 100, unit: "%") with { Panel = "strength" },
         Mz("MochizukiRenoPasses", NrLiveKind.Range, 1, 1, 4) with { Panel = "strength" },
+        Mz("MochizukiRenoPassesMode", NrLiveKind.Choice, 0, choices: 2, advanced: true) with { Heading = "fast" },
         Mz("MochizukiRenoLocalTone", NrLiveKind.Range, 100, 0, 200, advanced: true, scale: 100, unit: "%"),
         Mz("MochizukiRenoLocalStructure", NrLiveKind.Range, 100, 0, 200, advanced: true, scale: 100, unit: "%"),
-        Mz("MochizukiRenoSkinStructure", NrLiveKind.Range, -100, -100, 100, advanced: true, scale: 100, unit: "%"),
+        Mz("MochizukiRenoSkinStructure", NrLiveKind.Range, 100, 0, 200, advanced: true, scale: 100, unit: "%"),
         Mz("MochizukiRenoAutoMask", NrLiveKind.Toggle, 0, advanced: true),
         Mz("MochizukiRenoSkinIndependent", NrLiveKind.Toggle, 1, advanced: true),
         Mz("MochizukiTemporal", NrLiveKind.Toggle, 1, advanced: true),
         Mz("MochizukiHistoryStrength", NrLiveKind.Range, 100, 0, 100, advanced: true, scale: 100, unit: "%"),
         Mz("MochizukiStyleGrade", NrLiveKind.Toggle, 1, advanced: true),
+        Mz("MochizukiHistoryPrecision", NrLiveKind.Choice, 0, choices: 2, advanced: true) with { Values = ["16", "32"] },
         Mz("MochizukiNoiseEveryFrame", NrLiveKind.Toggle, 0, advanced: true),
         Mz("MochizukiAco", NrLiveKind.Toggle, 1, advanced: true),
         Mz("MochizukiInt4", NrLiveKind.Toggle, 0, advanced: true) with { Needs = "OpenNR.MochizukiOriginalModel" },
         // The groups OptiScaler's menu has for the same keys, with its names, defaults and limits (MochizukiRenoKeys.inc):
         // Composition with its look details, Encoding, Preprocess.
         Comp("MochizukiRenoColorStrength", NrLiveKind.Range, 100, 0, 100, scale: 100, unit: "%"),
-        Comp("MochizukiRenoTransferStrength", NrLiveKind.Range, 100, 0, 100, scale: 100, unit: "%"),
-        Comp("MochizukiRenoChromaClamp", NrLiveKind.Range, 100, 25, 200, scale: 100, unit: " stops"),
-        Comp("MochizukiRenoStyleHighlightGuard", NrLiveKind.Range, 0, 0, 200, scale: 100, unit: " stops"),
-        Comp("MochizukiRenoTransferMode", NrLiveKind.Choice, 0, choices: 2),
-        Comp("MochizukiRenoDetailStability", NrLiveKind.Choice, 0, choices: 3),
+        Comp("MochizukiRenoTransferStrength", NrLiveKind.Range, 100, 0, 100, scale: 100, unit: "%") with { Needs = SourceEncoding, SharedOffKey = "Str.NrLiveNeedsEncoding" },
+        Comp("MochizukiRenoChromaClamp", NrLiveKind.Range, 100, 25, 200, scale: 100, unit: " stops") with { Needs = SourceEncoding, SharedOffKey = "Str.NrLiveNeedsEncoding" },
+        Comp("MochizukiRenoTransferMode", NrLiveKind.Choice, 0, choices: 2) with { Needs = SourceEncoding, SharedOffKey = "Str.NrLiveNeedsEncoding" },
         Comp("MochizukiRenoSdrBlackRestore", NrLiveKind.Choice, 0, choices: 3),
-        Comp("MochizukiRenoDisplayPedestal", NrLiveKind.Choice, 0, choices: 3),
-        Comp("MochizukiRenoCodecMode", NrLiveKind.Choice, 2, choices: 4),
-        Comp("MochizukiRenoNeuralFloorGuard", NrLiveKind.Toggle, 1),
+        Comp("MochizukiRenoCodecMode", NrLiveKind.Choice, 2, choices: 4) with { Needs = SourceEncoding, SharedOffKey = "Str.NrLiveNeedsEncoding" },
         Look("MochizukiRenoLookMode", NrLiveKind.Toggle, 0, max: 1, scale: 1, unit: ""),
         Look("MochizukiRenoLookStrength", NrLiveKind.Range, 100),
         Look("MochizukiRenoLookBrighten", NrLiveKind.Range, 100),
@@ -171,21 +178,14 @@ public sealed class NrLiveConfig
         Look("MochizukiRenoLookDetailRadius", NrLiveKind.Range, 100, 25, 400, unit: " %"),
         Look("MochizukiRenoLookHalo", NrLiveKind.Range, 0, 0, 100),
         Look("MochizukiRenoLookHaloBrightSide", NrLiveKind.Range, 0, 0, 100),
-        Look("MochizukiRenoLookStabilize", NrLiveKind.Choice, 0, max: 1, choices: 3, scale: 1, unit: ""),
-        Look("MochizukiRenoLookStabilizeMs", NrLiveKind.Range, 60, 10, 250, scale: 1, unit: " ms"),
-        Look("MochizukiRenoLookStabilizeDetail", NrLiveKind.Toggle, 0, max: 1, scale: 1, unit: ""),
-        Enc("MochizukiRenoSourceEncoding", NrLiveKind.Choice, 0, choices: 4),
+        Enc("MochizukiRenoSourceEncoding", NrLiveKind.Choice, 0, choices: 4) with { Needs = null, SharedOffKey = null },
+        Enc("MochizukiWhitePoint", NrLiveKind.Range, 0, 0, 1600, scale: 100),
         Enc("MochizukiRenoLinearUnitNits", NrLiveKind.Range, 0, 0, 10000, unit: " nits"),
         Enc("MochizukiRenoProxyAnchor", NrLiveKind.Range, 40, 5, 320, scale: 10, unit: " nits"),
         Enc("MochizukiRenoPaperWhiteScale", NrLiveKind.Range, 25375, 50, 160000, scale: 10000),
         Enc("MochizukiRenoDiffuseWhiteNits", NrLiveKind.Range, 203, 80, 1000, unit: " nits"),
         Enc("MochizukiRenoPQCalibration", NrLiveKind.Range, 1000, 5, 16000, scale: 1000),
         Enc("MochizukiRenoFeedMode", NrLiveKind.Choice, 0, choices: 3),
-        Enc("MochizukiRenoNormGovernor", NrLiveKind.Choice, 2, choices: 3),
-        Enc("MochizukiRenoNormCutAware", NrLiveKind.Toggle, 1),
-        Enc("MochizukiRenoNormAttackStops", NrLiveKind.Range, 40, 1, 640, scale: 10, unit: " stops/s"),
-        Enc("MochizukiRenoNormReleaseStops", NrLiveKind.Range, 50, 5, 1600, scale: 100, unit: " stops/s"),
-        Enc("MochizukiRenoNormSlewStops", NrLiveKind.Range, 20, 0, 500, scale: 1000, unit: " stops/frame"),
         Prep("MochizukiPreprocess", NrLiveKind.Toggle, 0),
         Prep("MochizukiPreprocessExposure", NrLiveKind.Choice, 1, choices: 3),
         // -3..3 as in OptiScaler's menu: far from 0 the network's answer comes back blotchy (the key itself takes -8..8).
@@ -193,6 +193,18 @@ public sealed class NrLiveConfig
         Prep("MochizukiPreprocessCurve", NrLiveKind.Choice, 3, choices: 7),
         Prep("MochizukiPreprocessContrast", NrLiveKind.Range, 100, 50, 200, scale: 100, unit: "%"),
         Prep("MochizukiPreprocessSaturation", NrLiveKind.Range, 100, 5, 200, scale: 100, unit: "%"),
+        Prep("MochizukiPreprocessInverse", NrLiveKind.Toggle, 1),
+        Fast("MochizukiRenoFastMethod", NrLiveKind.Choice, 0, choices: 4),
+        Fast("MochizukiRenoFastExtrapolationPasses", NrLiveKind.Range, 300, 100, 800, scale: 100),
+        Fast("MochizukiRenoFastExtrapolationHaloLimit", NrLiveKind.Toggle, 0),
+        Fast("MochizukiRenoFastExtrapolationFine", NrLiveKind.Range, 0, 0, 200, scale: 100, unit: "%"),
+        Fast("MochizukiRenoFastFeedbackPasses", NrLiveKind.Range, 300, 100, 800, scale: 100),
+        Fast("MochizukiRenoFastFeedbackHaloLimit", NrLiveKind.Toggle, 0),
+        Fast("MochizukiRenoFastFeedbackFine", NrLiveKind.Range, 100, 0, 200, scale: 100, unit: "%"),
+        Fast("MochizukiRenoFastHybridPasses", NrLiveKind.Range, 300, 100, 800, scale: 100),
+        Fast("MochizukiRenoFastHybridHaloLimit", NrLiveKind.Toggle, 0),
+        Fast("MochizukiRenoFastHybridFine", NrLiveKind.Range, 100, 0, 200, scale: 100, unit: "%"),
+        Fast("MochizukiRenoFastEditStrength", NrLiveKind.Range, 200, 0, 400, scale: 100, unit: "%"),
         Br("model", NrLiveKind.Choice, 0, choices: 2),
         Br("style", NrLiveKind.Choice, 0, choices: 3),
         Br("scale", NrLiveKind.Range, 100, 25, 100, unit: "%") with { Panel = "strength" },
@@ -287,6 +299,8 @@ public sealed class NrLiveConfig
         if (!double.TryParse(raw.AsSpan(0, digits), System.Globalization.NumberStyles.Float,
                 System.Globalization.CultureInfo.InvariantCulture, out var number)) return s.Default;
         var value = (int)Math.Round(s.Scale > 1 ? number * s.Scale : Math.Truncate(number));
+        // A decimal key that stopped taking negatives: skin structure's -1 was "the model's own", now its default.
+        if (s.Kind == NrLiveKind.Range && s.Scale > 1 && s.Min >= 0 && value < 0) return s.Default;
         return s.Kind switch
         {
             NrLiveKind.Toggle => value != 0 ? 1 : 0,

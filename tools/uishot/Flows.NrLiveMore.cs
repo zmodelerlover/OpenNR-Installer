@@ -49,8 +49,8 @@ internal static class NrLiveMoreFlow
         check(lastSlider < firstSwitch, "NR's More lists its sliders first, then its switches");
         // Under them, closed, the groups OptiScaler's menu has for the same keys, and a group's rows are its own.
         string?[] groups = [.. nrMore.OfType<Expander>().Select(e => e.Tag as string)];
-        check(groups.SequenceEqual(["composition", "look", "encoding", "preprocess"]) && nrMore.OfType<Expander>().All(e => !e.IsExpanded),
-            $"and then its groups, closed: composition, look, encoding, preprocess ({string.Join(", ", groups)})");
+        check(groups.SequenceEqual(["fast", "composition", "look", "encoding", "preprocess"]) && nrMore.OfType<Expander>().All(e => !e.IsExpanded),
+            $"and then its groups, closed: fast, composition, look, encoding, preprocess ({string.Join(", ", groups)})");
         var groupOf = (string id) => nrMore.OfType<Expander>().FirstOrDefault(e => e.GetLogicalDescendants().OfType<Control>().Any(c => c.Tag as string == id))?.Tag as string;
         check(groupOf("OpenNR.MochizukiPreprocessCurve") == "preprocess" && groupOf("OpenNR.MochizukiRenoLookBrighten") == "look"
               && groupOf("OpenNR.MochizukiRenoSourceEncoding") == "encoding" && groupOf("OpenNR.MochizukiRenoCodecMode") == "composition",
@@ -58,6 +58,17 @@ internal static class NrLiveMoreFlow
         // A switch that heads its group: off, the rest of the group is grey.
         var prepBody = ((Control)Setting("OpenNR.MochizukiPreprocessCurve")!).GetLogicalAncestors().OfType<StackPanel>().First(p => p.Parent is StackPanel);
         check(!prepBody.IsEnabled, "preprocess off leaves its rows grey");
+        // The encoding rows wait for a Source encoding, which itself stays free.
+        check(!((Control)Setting("OpenNR.MochizukiRenoFeedMode")!).IsEnabled && !((Control)Setting("OpenNR.MochizukiWhitePoint")!).IsEnabled
+              && ((Control)Setting("OpenNR.MochizukiRenoSourceEncoding")!).IsEnabled,
+            "with Source encoding at From the format the rest of its group is grey");
+        ((ComboBox)Setting("OpenNR.MochizukiRenoSourceEncoding")!).SelectedIndex = 2;
+        until(() => false, 1);
+        check(((Control)Setting("OpenNR.MochizukiRenoFeedMode")!).IsEnabled && ((Control)Setting("OpenNR.MochizukiWhitePoint")!).IsEnabled
+              && ((Control)Setting("OpenNR.MochizukiRenoCodecMode")!).IsEnabled,
+            "and Linear takes the grey off it and off Codec under Composition");
+        ((ComboBox)Setting("OpenNR.MochizukiRenoSourceEncoding")!).SelectedIndex = 0;
+        until(() => false, 1);
 
         // int4 mixed: grey with the reason on its row while the Small model is in use, what is stored untouched.
         var folder = NrLivePackage.Folder;
