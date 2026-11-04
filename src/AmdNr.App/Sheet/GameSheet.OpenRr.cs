@@ -49,39 +49,51 @@ public partial class GameSheet
         var shown = OpenRrCardFor(card);
         var offered = shown == OpenRrCard.Offered;
         var listed = ListedRr(card);
+        var (chip, kind, line) = shown switch
+        {
+            OpenRrCard.Vulkan or OpenRrCard.NotCompatible => (Ui.Text("Str.OpenRrBlockedChip"), "err", Ui.Format("Str.OpenRrNotCompatible", listed!.Title)),
+            OpenRrCard.Remix => (Ui.Text("Str.OpenRrBlockedChip"), "err", Ui.Format("Str.OpenRrRemix", listed!.Title)),
+            OpenRrCard.Offered => OpenRrLineFor(TargetFor(card), OptiApi(card)),
+            _ => ("", "", ""),
+        };
         _setting = true;
         OpenRrSection.IsVisible = shown != OpenRrCard.Hidden;
-        OpenRrBox.IsEnabled = offered;
-        OpenRrBox.IsChecked = offered && card.Entry.OpenRr != false;
-        OpenRrLine.Text = shown switch
-        {
-            OpenRrCard.Vulkan or OpenRrCard.NotCompatible => Ui.Format("Str.OpenRrNotCompatible", listed!.Title),
-            OpenRrCard.Remix => Ui.Format("Str.OpenRrRemix", listed!.Title),
-            OpenRrCard.Offered when listed is not null =>
-                Ui.Format("Str.OpenRrListed", listed.Title) + "\n" + OpenRrLineFor(TargetFor(card), OptiApi(card)),
-            OpenRrCard.Offered => OpenRrLineFor(TargetFor(card), OptiApi(card)),
-            _ => "",
-        };
-        OpenRrLine.IsVisible = OpenRrLine.Text.Length > 0;
+        OpenRrSection.BoxEnabled = offered;
+        OpenRrSection.IsChecked = offered && card.Entry.OpenRr != false;
+        // A listed game says so on the chip's tooltip.
+        OpenRrSection.Chip(chip, kind, offered && listed is not null ? Ui.Format("Str.OpenRrListed", listed.Title) : null);
+        OpenRrSection.Line = line;
         _setting = false;
+        ShowExtras();
     }
 
-    /// <summary>What the game's nvngx_dlssd.dll means for OpenRR. None is a listed game: 310.9.1 is supplied.</summary>
-    private static string OpenRrLineFor(string target, GraphicsApi? api)
+    /// <summary>The opt-ins' divider and the row of two show while any tile in them does.</summary>
+    private void ShowExtras()
+    {
+        OptiPair.IsVisible = WrongGpuSection.IsVisible || OpenRrSection.IsVisible;
+        OptiExtras.IsVisible = OptiPair.IsVisible || HostFgSection.IsVisible;
+    }
+
+    /// <summary>What the game's nvngx_dlssd.dll means for OpenRR, as the chip, its colour and the line beside it. None
+    /// is a listed game: 310.9.1 is supplied.</summary>
+    private static (string Chip, string Kind, string Line) OpenRrLineFor(string target, GraphicsApi? api)
     {
         var found = Work.OpenRrDlssd(target);
-        if (found.Count == 0) return Ui.Text("Str.OpenRrHint");
+        if (found.Count == 0) return (Ui.Text("Str.OpenRrMissingChip"), "", Ui.Text("Str.OpenRrHint"));
         // A Vulkan game: opennr-rr\'s copy is read first and the game keeps its own
         var vulkan = Work.OpenRrVulkan(target, api);
-        if (vulkan && found[0].Works || found.FirstOrDefault(d => !d.Works) is not { } off) return Ui.Text("Str.OpenRrReady");
-        return Ui.Format(!Work.SupplyOpenRrDlssd ? "Str.OpenRrOtherDlssd" : vulkan ? "Str.OpenRrSuppliedVulkan" : "Str.OpenRrSupplied",
-            off.Path, off.Version?.ToString() ?? "?");
+        if (vulkan && found[0].Works || found.FirstOrDefault(d => !d.Works) is not { } off)
+            return (Ui.Text("Str.OpenRrFoundChip"), "ok", Ui.Text("Str.OpenRrFoundLine"));
+        var version = off.Version?.ToString() ?? "?";
+        return (Ui.Format("Str.OpenRrVersionChip", version), "warn",
+            Ui.Format(!Work.SupplyOpenRrDlssd ? "Str.OpenRrOtherDlssd" : vulkan ? "Str.OpenRrSuppliedVulkan" : "Str.OpenRrSupplied",
+                off.Path, version));
     }
 
     private void OnOpenRrChanged(object? sender, RoutedEventArgs e)
     {
         if (_setting || _card is not { } card) return;
-        card.Entry.OpenRr = OpenRrBox.IsChecked == true;
+        card.Entry.OpenRr = OpenRrSection.IsChecked == true;
         Library.Save();
         ShowInstallLabel();
         // A different set of files: the pre-flight says so again.

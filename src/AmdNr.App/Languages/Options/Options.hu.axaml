@@ -1,0 +1,15 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Hungarian. The same keys as Options.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.OffByDefault">Alapból kikapcsolva</sys:String>
+  <sys:String x:Key="Str.WrongGpuLine">A DLSS 4.5 Model M-et FSR-ré alakítja RDNA 4-en</sys:String>
+  <sys:String x:Key="Str.HostFgLine">danielblnc 0.8.0 képkocka-generálása D3D12-es játékokban</sys:String>
+  <sys:String x:Key="Str.OpenRrFoundChip">nvngx_dlssd.dll 310.9.1 megtalálva</sys:String>
+  <sys:String x:Key="Str.OpenRrFoundLine">Az OpenRR ebből építi a hálózatát</sys:String>
+  <sys:String x:Key="Str.OpenRrMissingChip">Nincs nvngx_dlssd.dll</sys:String>
+  <sys:String x:Key="Str.OpenRrVersionChip">nvngx_dlssd.dll {0}</sys:String>
+  <sys:String x:Key="Str.OpenRrBlockedChip">Nem kompatibilis</sys:String>
+</ResourceDictionary>

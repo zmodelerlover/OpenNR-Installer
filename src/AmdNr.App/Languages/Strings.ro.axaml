@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Romanian">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.ro.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.ro.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.ro.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.ro.axaml" /><ResourceInclude Source="/Languages/Options/Options.ro.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- Română. The same keys as Strings.en.axaml, in its order. -->

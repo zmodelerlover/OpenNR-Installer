@@ -1,0 +1,15 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Thai. The same keys as Options.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.OffByDefault">ปิดไว้เป็นค่าเริ่มต้น</sys:String>
+  <sys:String x:Key="Str.WrongGpuLine">แปลง DLSS 4.5 Model M เป็น FSR บน RDNA 4</sys:String>
+  <sys:String x:Key="Str.HostFgLine">การสร้างเฟรมจาก danielblnc 0.8.0 ในเกม D3D12</sys:String>
+  <sys:String x:Key="Str.OpenRrFoundChip">พบ nvngx_dlssd.dll 310.9.1</sys:String>
+  <sys:String x:Key="Str.OpenRrFoundLine">OpenRR สร้างเครือข่ายจากไฟล์นี้</sys:String>
+  <sys:String x:Key="Str.OpenRrMissingChip">ไม่มี nvngx_dlssd.dll</sys:String>
+  <sys:String x:Key="Str.OpenRrVersionChip">nvngx_dlssd.dll {0}</sys:String>
+  <sys:String x:Key="Str.OpenRrBlockedChip">ใช้ร่วมกันไม่ได้</sys:String>
+</ResourceDictionary>

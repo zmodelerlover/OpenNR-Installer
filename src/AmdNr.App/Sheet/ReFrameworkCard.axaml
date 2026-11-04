@@ -3,15 +3,25 @@
              x:Class="AmdNr.App.ReFrameworkCard">
 
   <!-- REFramework on an RE Engine game's sheet, on either route (GameSheet.ReFramework.cs): a box, unticked unless the
-       list says the game needs it; a game that plays online gets the warning and stays unticked; the line under the
-       box says what is in the way or what is here, and the credit links to REFramework's source. -->
-  <Border Classes="routePanel">
-    <StackPanel Spacing="6">
-      <StackPanel Orientation="Horizontal">
-        <CheckBox x:Name="Box" Content="{DynamicResource Str.ReFwToggle}" Click="OnClick"
-                  AutomationProperties.Name="{DynamicResource Str.ReFwToggle}" />
-        <Border Classes="info" ToolTip.Tip="{DynamicResource Str.ReFwNote}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
-      </StackPanel>
+       list says the game needs it, with the build that fits the game and the credit, which links to REFramework's
+       source, on the right; a game that plays online gets the warning and stays unticked; the line under the box says
+       what is in the way or what is here. -->
+  <Border Classes="routePanel" Padding="14,10">
+    <StackPanel Spacing="8">
+      <Grid ColumnDefinitions="Auto,*">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+          <CheckBox x:Name="Box" Click="OnClick" AutomationProperties.Name="{DynamicResource Str.ReFwToggle}">
+            <TextBlock Text="{DynamicResource Str.ReFwToggle}" FontWeight="SemiBold" TextWrapping="Wrap" />
+          </CheckBox>
+          <Border Classes="info" ToolTip.Tip="{DynamicResource Str.ReFwNote}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
+        </StackPanel>
+        <WrapPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="12,0,0,0">
+          <Border x:Name="BuildChip" Classes="tag" Margin="0,2,12,2" VerticalAlignment="Center">
+            <TextBlock><Run Text="RE Engine • " FontWeight="Normal" /><Run x:Name="BuildText" /></TextBlock>
+          </Border>
+          <Button Classes="link" Click="OnCredit" VerticalAlignment="Center" Content="{DynamicResource Str.ReFwCredit}" />
+        </WrapPanel>
+      </Grid>
       <Border x:Name="RiskBox" Classes="callout" IsVisible="False">
         <Grid ColumnDefinitions="Auto,*">
           <PathIcon Data="{StaticResource IconWarn}" Width="16" Height="16" Foreground="{DynamicResource Warn}"
@@ -20,7 +30,6 @@
         </Grid>
       </Border>
       <TextBlock x:Name="Line" Classes="muted" TextWrapping="Wrap" IsVisible="False" />
-      <Button Classes="link" Click="OnCredit" HorizontalAlignment="Left" Content="{DynamicResource Str.ReFwCredit}" />
     </StackPanel>
   </Border>
 </UserControl>

@@ -393,6 +393,7 @@ if (args.Length > 1 && args[1] == "routes")
     return 0;
 }
 
+if (args.Length > 2 && args[1] == "options") { OptionsShots.Run(args[2], Until, (w, n) => Save(w, n)); return 0; }
 if (args.Length > 1 && args[1] == "flows")
 {
     Flows();

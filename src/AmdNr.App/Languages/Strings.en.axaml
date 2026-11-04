@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.English">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.en.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.en.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.en.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.en.axaml" /><ResourceInclude Source="/Languages/Options/Options.en.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- The fallback language. Every other Strings.*.axaml carries the same keys; one that is missing
@@ -148,7 +148,6 @@
   <sys:String x:Key="Str.OpenRrToggle">OpenRR (Ray Reconstruction, RX 9000)</sys:String>
   <sys:String x:Key="Str.OpenRrNote">On unless unticked. OpenRR, our own DLSS Ray Reconstruction runtime, goes in beside OptiScaler (OpenNrRrRuntime.dll and opennr-rr\shaders\). It builds its network from nvngx_dlssd.dll 310.9.1: a game with another version, or none, gets NVIDIA's 310.9.1, its own kept in the backup (a Vulkan game keeps its own, and 310.9.1 goes in opennr-rr\). In the game turn DLSS Ray Reconstruction on and OptiScaler's menu (Insert) shows OpenRR. Unticked, it stays out and OptiScaler.ini gets Enabled=false under [OpenNR-RR].</sys:String>
   <sys:String x:Key="Str.OpenRrHint">No nvngx_dlssd.dll in this game: installing puts NVIDIA's 310.9.1 beside OptiScaler.</sys:String>
-  <sys:String x:Key="Str.OpenRrReady">nvngx_dlssd.dll 310.9.1 found: OpenRR builds its network from it.</sys:String>
   <sys:String x:Key="Str.OpenRrOtherDlssd">{0} is version {1}. OpenRR runs on 310.9.1 only: with this one Ray Reconstruction stays on FSR-RR.</sys:String>
   <sys:String x:Key="Str.OpenRrSupplied">{0} is version {1}, and OpenRR runs on 310.9.1 only: installing puts NVIDIA's 310.9.1 beside OptiScaler and keeps the game's in the backup.</sys:String>
   <sys:String x:Key="Str.OpenRrSuppliedVulkan">{0} is version {1}, and OpenRR runs on 310.9.1 only: installing puts NVIDIA's 310.9.1 in opennr-rr\ beside OptiScaler, and the game keeps its own.</sys:String>

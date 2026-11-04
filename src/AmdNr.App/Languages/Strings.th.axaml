@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Thai">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.th.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.th.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.th.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.th.axaml" /><ResourceInclude Source="/Languages/Options/Options.th.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- ไทย. The same keys as Strings.en.axaml, in its order. -->

@@ -1,0 +1,16 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- The opt-in tiles under the NR runtimes on the OptiScaler route (OptionTile): their chips and short lines, in a file
+       of their own beside Strings.en.axaml, which merges it. Every Options.*.axaml has these keys, in this order. -->
+
+  <sys:String x:Key="Str.OffByDefault">Disabled by default</sys:String>
+  <sys:String x:Key="Str.WrongGpuLine">Converts DLSS 4.5 Model M to FSR on RDNA 4</sys:String>
+  <sys:String x:Key="Str.HostFgLine">Frame generation from danielblnc 0.8.0 in D3D12 games</sys:String>
+  <sys:String x:Key="Str.OpenRrFoundChip">nvngx_dlssd.dll 310.9.1 found</sys:String>
+  <sys:String x:Key="Str.OpenRrFoundLine">OpenRR builds its network from it</sys:String>
+  <sys:String x:Key="Str.OpenRrMissingChip">No nvngx_dlssd.dll</sys:String>
+  <sys:String x:Key="Str.OpenRrVersionChip">nvngx_dlssd.dll {0}</sys:String>
+  <sys:String x:Key="Str.OpenRrBlockedChip">Not compatible</sys:String>
+</ResourceDictionary>

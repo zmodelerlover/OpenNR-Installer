@@ -1,0 +1,15 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Simplified Chinese. The same keys as Options.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.OffByDefault">默认关闭</sys:String>
+  <sys:String x:Key="Str.WrongGpuLine">在 RDNA 4 上把 DLSS 4.5 Model M 转为 FSR</sys:String>
+  <sys:String x:Key="Str.HostFgLine">在 D3D12 游戏中使用 danielblnc 0.8.0 的帧生成</sys:String>
+  <sys:String x:Key="Str.OpenRrFoundChip">已找到 nvngx_dlssd.dll 310.9.1</sys:String>
+  <sys:String x:Key="Str.OpenRrFoundLine">OpenRR 以它构建网络</sys:String>
+  <sys:String x:Key="Str.OpenRrMissingChip">没有 nvngx_dlssd.dll</sys:String>
+  <sys:String x:Key="Str.OpenRrVersionChip">nvngx_dlssd.dll {0}</sys:String>
+  <sys:String x:Key="Str.OpenRrBlockedChip">不兼容</sys:String>
+</ResourceDictionary>

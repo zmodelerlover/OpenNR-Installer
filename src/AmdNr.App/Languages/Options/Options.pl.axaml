@@ -1,0 +1,15 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Polish. The same keys as Options.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.OffByDefault">Domyślnie wyłączone</sys:String>
+  <sys:String x:Key="Str.WrongGpuLine">Zamienia DLSS 4.5 Model M na FSR na RDNA 4</sys:String>
+  <sys:String x:Key="Str.HostFgLine">Generowanie klatek z danielblnc 0.8.0 w grach D3D12</sys:String>
+  <sys:String x:Key="Str.OpenRrFoundChip">Znaleziono nvngx_dlssd.dll 310.9.1</sys:String>
+  <sys:String x:Key="Str.OpenRrFoundLine">OpenRR buduje z niego swoją sieć</sys:String>
+  <sys:String x:Key="Str.OpenRrMissingChip">Brak nvngx_dlssd.dll</sys:String>
+  <sys:String x:Key="Str.OpenRrVersionChip">nvngx_dlssd.dll {0}</sys:String>
+  <sys:String x:Key="Str.OpenRrBlockedChip">Niezgodne</sys:String>
+</ResourceDictionary>

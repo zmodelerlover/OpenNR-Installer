@@ -44,22 +44,23 @@ public partial class GameSheet
         var on = block == HostFgBlock.None && WantsHostFg(card, pins);
         _setting = true;
         HostFgSection.IsVisible = block is HostFgBlock.None or HostFgBlock.OwnFg or HostFgBlock.NoUpscaler;
-        HostFgBox.IsEnabled = block == HostFgBlock.None;
-        HostFgBox.IsChecked = on;
-        HostFgLine.Text = block switch
+        HostFgSection.BoxEnabled = block == HostFgBlock.None;
+        HostFgSection.IsChecked = on;
+        HostFgSection.Chip(block == HostFgBlock.None ? Ui.Text("Str.OffByDefault") : "", "off");
+        HostFgSection.Line = block switch
         {
             HostFgBlock.OwnFg => Ui.Text("Str.HostFgOwnFg"),
             HostFgBlock.NoUpscaler => Ui.Text("Str.HostFgNoUpscaler"),
-            _ => on ? Ui.Text("Str.HostFgNrOff") : "",
+            _ => on ? Ui.Text("Str.HostFgNrOff") : Ui.Text("Str.HostFgLine"),
         };
-        HostFgLine.IsVisible = HostFgLine.Text.Length > 0;
         _setting = false;
+        ShowExtras();
     }
 
     private void OnHostFgChanged(object? sender, RoutedEventArgs e)
     {
         if (_setting || _card is not { } card) return;
-        card.Entry.HostFg = HostFgBox.IsChecked == true;
+        card.Entry.HostFg = HostFgSection.IsChecked == true;
         Library.Save();
         ShowHostFg();
         ShowInstallLabel();

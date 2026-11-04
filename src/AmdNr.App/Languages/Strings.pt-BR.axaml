@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Portuguese">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.pt-BR.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.pt-BR.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.pt-BR.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.pt-BR.axaml" /><ResourceInclude Source="/Languages/Options/Options.pt-BR.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <sys:String x:Key="Str.AppTitle">OpenNR Installer</sys:String>
@@ -145,7 +145,6 @@
   <sys:String x:Key="Str.OpenRrToggle">OpenRR (Ray Reconstruction, RX 9000)</sys:String>
   <sys:String x:Key="Str.OpenRrNote">Ligado até ser desmarcado. O OpenRR, nosso runtime de DLSS Ray Reconstruction, vai ao lado do OptiScaler (OpenNrRrRuntime.dll e opennr-rr\shaders\). Ele monta a rede a partir do nvngx_dlssd.dll 310.9.1: um jogo com outra versão, ou sem nenhuma, recebe o 310.9.1 da NVIDIA, e o dele fica no backup (um jogo Vulkan fica com o dele, e o 310.9.1 vai em opennr-rr\). No jogo ligue o DLSS Ray Reconstruction e o menu do OptiScaler (Insert) mostra o OpenRR. Desmarcado, ele fica de fora e o OptiScaler.ini recebe Enabled=false em [OpenNR-RR].</sys:String>
   <sys:String x:Key="Str.OpenRrHint">Nenhum nvngx_dlssd.dll neste jogo: a instalação põe o 310.9.1 da NVIDIA ao lado do OptiScaler.</sys:String>
-  <sys:String x:Key="Str.OpenRrReady">nvngx_dlssd.dll 310.9.1 encontrado: o OpenRR monta a rede a partir dele.</sys:String>
   <sys:String x:Key="Str.OpenRrOtherDlssd">{0} é a versão {1}. O OpenRR só roda com a 310.9.1: com esta, o Ray Reconstruction fica no FSR-RR.</sys:String>
   <sys:String x:Key="Str.OpenRrSupplied">{0} é a versão {1}, e o OpenRR só roda com a 310.9.1: a instalação põe o 310.9.1 da NVIDIA ao lado do OptiScaler e guarda o do jogo no backup.</sys:String>
   <sys:String x:Key="Str.OpenRrSuppliedVulkan">{0} é a versão {1}, e o OpenRR só roda com a 310.9.1: a instalação põe o 310.9.1 da NVIDIA em opennr-rr\ ao lado do OptiScaler, e o jogo fica com o dele.</sys:String>

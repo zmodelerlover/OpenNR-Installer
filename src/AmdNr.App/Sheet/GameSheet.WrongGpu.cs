@@ -33,7 +33,9 @@ public partial class GameSheet
         if (_card is not { } card) return;
         _setting = true;
         WrongGpuSection.IsVisible = OffersWrongGpu(card) && !RouteUndecided(card);
-        WrongGpuBox.IsChecked = WantsWrongGpu(card);
+        WrongGpuSection.IsChecked = WantsWrongGpu(card);
+        WrongGpuSection.Chip(Ui.Text("Str.OffByDefault"), "off");
+        WrongGpuSection.Line = Ui.Text("Str.WrongGpuLine");
         _setting = false;
         ShowHostFg();
         ShowOpenRr();
@@ -43,7 +45,7 @@ public partial class GameSheet
     private void OnWrongGpuChanged(object? sender, RoutedEventArgs e)
     {
         if (_setting || _card is not { } card) return;
-        card.Entry.WrongGpu = WrongGpuBox.IsChecked == true;
+        card.Entry.WrongGpu = WrongGpuSection.IsChecked == true;
         Library.Save();
         ShowInstallLabel();
         // A different set of files: the pre-flight says so again.

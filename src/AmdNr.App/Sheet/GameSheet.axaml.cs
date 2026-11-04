@@ -67,6 +67,9 @@ public partial class GameSheet : UserControl
         _shell = shell;
         WireAntiCheat();
         ReFrameworkPanel.Changed += OnReFrameworkChanged;
+        WrongGpuSection.Click += OnWrongGpuChanged;
+        OpenRrSection.Click += OnOpenRrChanged;
+        HostFgSection.Click += OnHostFgChanged;
         Session.BusyChanged += () =>
         {
             Lock(Session.Busy);

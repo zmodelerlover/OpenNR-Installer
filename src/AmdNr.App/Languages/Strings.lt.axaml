@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Lithuanian">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.lt.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.lt.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.lt.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.lt.axaml" /><ResourceInclude Source="/Languages/Options/Options.lt.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- Lietuvių. The same keys as Strings.en.axaml, in its order. -->

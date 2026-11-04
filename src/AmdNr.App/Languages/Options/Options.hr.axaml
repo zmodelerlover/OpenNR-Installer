@@ -1,0 +1,15 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Croatian. The same keys as Options.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.OffByDefault">Zadano isključeno</sys:String>
+  <sys:String x:Key="Str.WrongGpuLine">Pretvara DLSS 4.5 Model M u FSR na RDNA 4</sys:String>
+  <sys:String x:Key="Str.HostFgLine">Generiranje sličica iz danielblnc 0.8.0 u D3D12 igrama</sys:String>
+  <sys:String x:Key="Str.OpenRrFoundChip">nvngx_dlssd.dll 310.9.1 pronađen</sys:String>
+  <sys:String x:Key="Str.OpenRrFoundLine">OpenRR iz njega gradi svoju mrežu</sys:String>
+  <sys:String x:Key="Str.OpenRrMissingChip">Nema nvngx_dlssd.dll</sys:String>
+  <sys:String x:Key="Str.OpenRrVersionChip">nvngx_dlssd.dll {0}</sys:String>
+  <sys:String x:Key="Str.OpenRrBlockedChip">Nije kompatibilno</sys:String>
+</ResourceDictionary>

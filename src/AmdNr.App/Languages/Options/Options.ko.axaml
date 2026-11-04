@@ -1,0 +1,15 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Korean. The same keys as Options.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.OffByDefault">기본값은 꺼짐</sys:String>
+  <sys:String x:Key="Str.WrongGpuLine">RDNA 4에서 DLSS 4.5 Model M을 FSR로 변환</sys:String>
+  <sys:String x:Key="Str.HostFgLine">D3D12 게임에서 danielblnc 0.8.0 프레임 생성</sys:String>
+  <sys:String x:Key="Str.OpenRrFoundChip">nvngx_dlssd.dll 310.9.1 찾음</sys:String>
+  <sys:String x:Key="Str.OpenRrFoundLine">OpenRR이 이 파일로 네트워크를 구성</sys:String>
+  <sys:String x:Key="Str.OpenRrMissingChip">nvngx_dlssd.dll 없음</sys:String>
+  <sys:String x:Key="Str.OpenRrVersionChip">nvngx_dlssd.dll {0}</sys:String>
+  <sys:String x:Key="Str.OpenRrBlockedChip">호환되지 않음</sys:String>
+</ResourceDictionary>

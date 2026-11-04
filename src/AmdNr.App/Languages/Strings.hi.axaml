@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Hindi">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.hi.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.hi.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.hi.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.hi.axaml" /><ResourceInclude Source="/Languages/Options/Options.hi.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- हिन्दी. The same keys as Strings.en.axaml, in its order. -->

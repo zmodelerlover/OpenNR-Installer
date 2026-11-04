@@ -330,19 +330,11 @@
                         </Grid>
                         <StackPanel x:Name="OptiRuntimes" Spacing="8" IsVisible="False"><StackPanel Orientation="Horizontal"><TextBlock Text="{DynamicResource Str.MochizukiSection}" Classes="section" /><!-- tiles: GameSheet.Runtimes.cs -->
                           <Border Classes="info" ToolTip.Tip="{DynamicResource Str.RuntimesHint}"><PathIcon Data="{StaticResource IconInfo}" /></Border></StackPanel></StackPanel>
-                        <Border x:Name="WrongGpuSection" BorderBrush="{DynamicResource Border}" BorderThickness="0,1,0,0" Padding="0,12,0,0" IsVisible="False"><!-- WrongGPU: off unless ticked, RX 9000, 64-bit -->
-                          <StackPanel Orientation="Horizontal"><CheckBox x:Name="WrongGpuBox" Content="{DynamicResource Str.WrongGpuToggle}" Click="OnWrongGpuChanged" AutomationProperties.Name="{DynamicResource Str.WrongGpuToggle}" />
-                            <Border Classes="info" ToolTip.Tip="{DynamicResource Str.WrongGpuNote}"><PathIcon Data="{StaticResource IconInfo}" /></Border></StackPanel>
-                        </Border>
-                        <Border x:Name="OpenRrSection" BorderBrush="{DynamicResource Border}" BorderThickness="0,1,0,0" Padding="0,12,0,0" IsVisible="False"><!-- OpenRR: GameSheet.OpenRr.cs -->
-                          <StackPanel Spacing="4"><StackPanel Orientation="Horizontal"><CheckBox x:Name="OpenRrBox" Content="{DynamicResource Str.OpenRrToggle}" Click="OnOpenRrChanged" AutomationProperties.Name="{DynamicResource Str.OpenRrToggle}" />
-                            <Border Classes="info" ToolTip.Tip="{DynamicResource Str.OpenRrNote}"><PathIcon Data="{StaticResource IconInfo}" /></Border></StackPanel>
-                            <TextBlock x:Name="OpenRrLine" Classes="muted" TextWrapping="Wrap" IsVisible="False" /></StackPanel></Border>
-                        <Border x:Name="HostFgSection" BorderBrush="{DynamicResource Border}" BorderThickness="0,1,0,0" Padding="0,12,0,0" IsVisible="False"><!-- danielblnc's DLSS-FG: GameSheet.HostFg.cs -->
-                          <StackPanel Spacing="4"><StackPanel Orientation="Horizontal"><CheckBox x:Name="HostFgBox" Content="{DynamicResource Str.HostFgToggle}" Click="OnHostFgChanged" AutomationProperties.Name="{DynamicResource Str.HostFgToggle}" />
-                            <Border Classes="info" ToolTip.Tip="{DynamicResource Str.HostFgNote}"><PathIcon Data="{StaticResource IconInfo}" /></Border></StackPanel>
-                            <TextBlock x:Name="HostFgLine" Classes="muted" TextWrapping="Wrap" IsVisible="False" /></StackPanel>
-                        </Border>
+                        <Border x:Name="OptiExtras" BorderBrush="{DynamicResource Border}" BorderThickness="0,1,0,0" Padding="0,12,0,0" IsVisible="False"><!-- opt-ins, tiles like the runtimes' -->
+                          <StackPanel Spacing="8"><UniformGrid x:Name="OptiPair" Rows="1" Margin="-4,0"><!-- WrongGPU and OpenRR side by side, one alone full width -->
+                            <local:OptionTile x:Name="WrongGpuSection" Margin="4,0" IsVisible="False" Title="{DynamicResource Str.WrongGpuToggle}" Note="{DynamicResource Str.WrongGpuNote}" /><!-- GameSheet.WrongGpu.cs -->
+                            <local:OptionTile x:Name="OpenRrSection" Margin="4,0" IsVisible="False" Title="{DynamicResource Str.OpenRrToggle}" Note="{DynamicResource Str.OpenRrNote}" /></UniformGrid><!-- GameSheet.OpenRr.cs -->
+                            <local:OptionTile x:Name="HostFgSection" IsVisible="False" Title="{DynamicResource Str.HostFgToggle}" Note="{DynamicResource Str.HostFgNote}" /></StackPanel></Border><!-- GameSheet.HostFg.cs -->
                       </StackPanel>
                     </Border>
                     <local:ReFrameworkCard x:Name="ReFrameworkPanel" IsVisible="False" /><!-- either route: GameSheet.ReFramework.cs -->

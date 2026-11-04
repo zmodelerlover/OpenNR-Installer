@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="AmdNr.App.OptionTile">
+
+  <!-- An opt-in under the NR runtime tiles (WrongGPU, OpenRR, danielblnc's DLSS-FG), drawn like them and lit the same
+       way while ticked: the box and its name, the (i) at the right edge, and under them a chip with the state and a
+       short line. -->
+  <Border x:Name="Tile" Classes="runtimeTile" Padding="12,8">
+    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+      <CheckBox x:Name="Box" Click="OnClick">
+        <TextBlock x:Name="Label" FontWeight="SemiBold" TextWrapping="Wrap" />
+      </CheckBox>
+      <Border x:Name="Info" Grid.Column="1" Classes="info" VerticalAlignment="Top" Margin="6,1,0,0">
+        <PathIcon Data="{StaticResource IconInfo}" />
+      </Border>
+      <WrapPanel x:Name="Under" Grid.Row="1" Grid.ColumnSpan="2" Margin="28,4,0,0">
+        <Border x:Name="StateChip" Margin="0,0,8,2" VerticalAlignment="Center">
+          <StackPanel Orientation="Horizontal" Spacing="4">
+            <PathIcon x:Name="Dot" Data="{StaticResource IconDot}" Width="10" Height="10" VerticalAlignment="Center" />
+            <TextBlock x:Name="ChipText" />
+          </StackPanel>
+        </Border>
+        <TextBlock x:Name="LineText" Classes="muted" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,0,2" />
+      </WrapPanel>
+    </Grid>
+  </Border>
+</UserControl>

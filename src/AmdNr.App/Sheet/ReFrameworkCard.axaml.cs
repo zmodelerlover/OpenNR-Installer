@@ -13,9 +13,13 @@ public partial class ReFrameworkCard : UserControl
     /// <summary>The box was clicked, with its new state.</summary>
     public event Action<bool>? Changed;
 
-    /// <summary>Draws the card: the box, the warning for a game that plays online (empty for none) and the line.</summary>
-    public void Show(bool on, bool enabled, string risk, string line)
+    /// <summary>Draws the card: the box, the build that fits the game on its chip (null for none) with what it means
+    /// on the chip's tooltip, the warning for a game that plays online (empty for none) and the line.</summary>
+    public void Show(bool on, bool enabled, string? build, string buildTip, string risk, string line)
     {
+        BuildText.Text = build;
+        BuildChip.IsVisible = build is not null;
+        ToolTip.SetTip(BuildChip, buildTip.Length > 0 ? buildTip : null);
         Box.IsChecked = on;
         Box.IsEnabled = enabled;
         RiskText.Text = risk;

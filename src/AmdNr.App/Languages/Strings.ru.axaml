@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Russian">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.ru.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.ru.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.ru.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.ru.axaml" /><ResourceInclude Source="/Languages/Options/Options.ru.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- Русский. The same keys as Strings.en.axaml, in its order. -->

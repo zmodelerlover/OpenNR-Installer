@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Hungarian">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.hu.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.hu.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.hu.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.hu.axaml" /><ResourceInclude Source="/Languages/Options/Options.hu.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- Magyar. The same keys as Strings.en.axaml, in its order. -->

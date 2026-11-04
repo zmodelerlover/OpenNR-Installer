@@ -52,9 +52,10 @@ public partial class GameSheet
             : version is null ? Ui.Format("Str.ReFwNoBuild", listed?.Title ?? card.Name)
             : blocked is not null ? Ui.Text("Str.ReFwBlocked")
             : listed is { Needed: true } ? Ui.Format("Str.ReFwNeeded", listed.Title)
-            : Ui.Format("Str.ReFwListed", listed!.Title, version);
+            : ""; // the build's chip says it fits
         _setting = true;
-        ReFrameworkPanel.Show(WantsReFramework(card), version is not null || here,
+        ReFrameworkPanel.Show(WantsReFramework(card), version is not null || here, version,
+            version is null ? "" : Ui.Format("Str.ReFwListed", listed!.Title, version),
             listed is { Risky: true } ? Ui.Format("Str.ReFwRisk", listed.Title) : "", line);
         _setting = false;
     }
