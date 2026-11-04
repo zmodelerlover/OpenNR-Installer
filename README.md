@@ -6,6 +6,8 @@ installs it, and takes it all back out again.
 
 Discord: <https://discord.gg/wYhvS3JSHM>
 
+Ko-fi: <https://ko-fi.com/T6T213OVFE>
+
 ## Download
 
 Get `OpenNR-Installer.exe` from [Releases](https://github.com/zmodelerlover/OpenNR-Installer/releases). It's one file
@@ -18,7 +20,7 @@ so older copies can still update themselves, and a `.7z` with the exe and its li
 |---|---|
 | danielblnc runtime | RX 6000, RX 7000, RX 9000 with HIP 7 (RX 6000 needs AMD's HIP SDK 7.2) |
 | lmxxf runtime | RX 9070 and RX 9060 series |
-| mochizuki runtime | RX 9000; RX 7000 and RDNA3 APUs on an experimental network |
+| mochizuki runtime | RX 9000; RX 7000, RDNA3 APUs and RX 6000 on experimental networks |
 | OpenRR (Ray Reconstruction) | RX 9000 |
 
 The first-run wizard checks your card and driver, and the **This machine** page keeps showing them.
