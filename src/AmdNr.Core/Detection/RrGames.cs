@@ -19,11 +19,18 @@ public sealed class RrGame
     /// <summary>What its Ray Reconstruction runs on: "D3D12", "Vulkan", or "Remix" for RTX Remix.</summary>
     [JsonPropertyName("api")] public string Api { get; set; } = "D3D12";
 
+    /// <summary>"no" for a game OpenRR does not work in whatever its API, with a short note on why in "why" (for
+    /// whoever keeps the list, not shown).</summary>
+    [JsonPropertyName("openrr")] public string? OpenRr { get; set; }
+    [JsonPropertyName("why")] public string? Why { get; set; }
+
+    [JsonIgnore] public bool NotForOpenRr => string.Equals(OpenRr, "no", StringComparison.OrdinalIgnoreCase);
+
     public bool Is(string api) => string.Equals(Api, api, StringComparison.OrdinalIgnoreCase);
 }
 
 /// <summary>What the OpenRR card shows: nothing, the box, or a line saying why this game cannot have it.</summary>
-public enum OpenRrCard { Hidden, Offered, Vulkan, Remix }
+public enum OpenRrCard { Hidden, Offered, Vulkan, Remix, NotCompatible }
 
 public sealed partial class ApiDatabase
 {
@@ -46,14 +53,26 @@ public sealed partial class ApiDatabase
 
 public static partial class Work
 {
-    /// <summary>The OpenRR card for a game: a listed one gets the box, or the reason it cannot have it (Vulkan, RTX
-    /// Remix); an unlisted one only when it has an nvngx_dlssd.dll. A listed D3D12 game the files show on another API
-    /// still gets it when it renders D3D12 as well (<paramref name="hasD3D12"/>).</summary>
-    public static OpenRrCard OpenRrCardFor(RrGame? listed, OpenRrBlock block, bool hasDlssd, bool hasD3D12) =>
-        listed?.Is("Vulkan") == true ? OpenRrCard.Vulkan
-        : listed?.Is("Remix") == true ? OpenRrCard.Remix
-        : block == OpenRrBlock.Width ? OpenRrCard.Hidden
+    /// <summary>Flip when OpenRR's Vulkan runtime ships: listed Vulkan games then get the box like D3D12 ones.</summary>
+    public const bool OpenRrVulkanSupported = false;
+
+    /// <summary>The line a listed game gets whatever its files say, or null when the files decide.</summary>
+    public static OpenRrCard? OpenRrRefusal(RrGame? listed, bool vulkan = OpenRrVulkanSupported) =>
+        listed is null ? null
+        : listed.NotForOpenRr ? OpenRrCard.NotCompatible
+        : listed.Is("Remix") ? OpenRrCard.Remix
+        : listed.Is("Vulkan") && !vulkan ? OpenRrCard.Vulkan
+        : null;
+
+    /// <summary>The OpenRR card for a game: a listed one gets the box, or the reason it cannot have it (marked not
+    /// compatible, RTX Remix, Vulkan until <see cref="OpenRrVulkanSupported"/>); an unlisted one only when it has an
+    /// nvngx_dlssd.dll. A listed game the files show on another API still gets it when it renders D3D12 as well
+    /// (<paramref name="hasD3D12"/>), or when the list says Vulkan.</summary>
+    public static OpenRrCard OpenRrCardFor(RrGame? listed, OpenRrBlock block, bool hasDlssd, bool hasD3D12,
+        bool vulkan = OpenRrVulkanSupported) =>
+        OpenRrRefusal(listed, vulkan)
+        ?? (block == OpenRrBlock.Width ? OpenRrCard.Hidden
         : block == OpenRrBlock.None && (listed is not null || hasDlssd) ? OpenRrCard.Offered
-        : listed is not null && hasD3D12 ? OpenRrCard.Offered
-        : OpenRrCard.Hidden;
+        : listed is not null && (hasD3D12 || listed.Is("Vulkan")) ? OpenRrCard.Offered
+        : OpenRrCard.Hidden);
 }

@@ -3,7 +3,7 @@ using AmdNr.Core;
 namespace AmdNr.Core.Tests;
 
 /// <summary>NVIDIA's Ray Reconstruction games in api-db.json ("rr"): how a game is matched, and what the OpenRR card
-/// shows for listed, unlisted, Vulkan and RTX Remix games.</summary>
+/// shows for listed, unlisted, Vulkan, RTX Remix and not compatible games.</summary>
 public class RrGamesTests
 {
     private static ApiDatabase Shipped() => ApiDatabase.Parse(PayloadCache.Embedded("api-db.json")!);
@@ -29,6 +29,8 @@ public class RrGamesTests
         Assert.Equal("Marvel's Spider-Man 2", db.RrGameFor(null, null, "Marvels Spider-Man 2")?.Title);
 
         Assert.True(db.RrGameFor("3017860", null)!.Is("Vulkan"));
+        Assert.Equal(new[] { "DOOM: The Dark Ages" }, db.RayReconstruction.Where(g => g.NotForOpenRr).Select(g => g.Title));
+        Assert.False(db.RrGameFor(null, "TheGreatCircle.exe")!.NotForOpenRr);
         Assert.True(db.RrGameFor(null, "TheGreatCircle.exe")!.Is("Vulkan"));
         Assert.True(db.RrGameFor("2012840", null, "Portal with RTX")!.Is("Remix"));
 
@@ -62,6 +64,38 @@ public class RrGamesTests
     }
 
     [Fact]
+    public void AGameMarkedNotCompatibleNeverGetsTheBox()
+    {
+        var no = ApiDatabase.Parse("{\"schema\":1,\"games\":{},\"rr\":[{\"t\":\"No\",\"exe\":[\"no.exe\"],\"api\":\"D3D12\","
+            + "\"openrr\":\"no\",\"why\":\"engine drops RR\"}]}").RrGameFor(null, "no.exe")!;
+        Assert.True(no.NotForOpenRr);
+        Assert.Equal("engine drops RR", no.Why);
+        Assert.Equal(OpenRrCard.NotCompatible, Work.OpenRrCardFor(no, OpenRrBlock.None, hasDlssd: true, hasD3D12: true));
+        Assert.Equal(OpenRrCard.NotCompatible, Work.OpenRrCardFor(no, OpenRrBlock.Width, hasDlssd: false, hasD3D12: false));
+        var doom = new RrGame { Title = "Doom", Api = "Vulkan", OpenRr = "No" };
+        Assert.Equal(OpenRrCard.NotCompatible, Work.OpenRrCardFor(doom, OpenRrBlock.Api, false, false, vulkan: true));
+        // Kept when the app writes the file back.
+        Assert.Contains("\"openrr\":\"no\"", Shipped().Serialise());
+        Assert.False(new RrGame { Title = "Yes", OpenRr = "yes" }.NotForOpenRr);
+    }
+
+    [Fact]
+    public void AListedVulkanGameWaitsForTheFlag()
+    {
+        Assert.False(Work.OpenRrVulkanSupported);
+        var vulkan = new RrGame { Title = "Vk", Api = "Vulkan" };
+        Assert.Equal(OpenRrCard.Vulkan, Work.OpenRrRefusal(vulkan));
+        Assert.Equal(OpenRrCard.Vulkan, Work.OpenRrCardFor(vulkan, OpenRrBlock.Api, hasDlssd: false, hasD3D12: false));
+        // Once Vulkan ships it is offered like a D3D12 game, still not in a 32-bit one.
+        Assert.Null(Work.OpenRrRefusal(vulkan, vulkan: true));
+        Assert.Equal(OpenRrCard.Offered, Work.OpenRrCardFor(vulkan, OpenRrBlock.Api, hasDlssd: false, hasD3D12: false, vulkan: true));
+        Assert.Equal(OpenRrCard.Offered, Work.OpenRrCardFor(vulkan, OpenRrBlock.None, hasDlssd: false, hasD3D12: false, vulkan: true));
+        Assert.Equal(OpenRrCard.Hidden, Work.OpenRrCardFor(vulkan, OpenRrBlock.Width, hasDlssd: false, hasD3D12: false, vulkan: true));
+        // RTX Remix stays out either way.
+        Assert.Equal(OpenRrCard.Remix, Work.OpenRrCardFor(new RrGame { Title = "R", Api = "Remix" }, OpenRrBlock.None, true, true, vulkan: true));
+    }
+
+    [Fact]
     public void AGameFolderGetsTheCardItsFilesAndTheListSay()
     {
         var db = Shipped();
@@ -79,7 +113,8 @@ public class RrGamesTests
         Assert.Equal(OpenRrCard.Offered, Card("rrlist-hogwarts", "HogwartsLegacy.exe", "d3d12.dll"));
         Assert.Equal(OpenRrCard.Hidden, Card("rrlist-plain", "Game.exe", "d3d12.dll"));
         Assert.Equal(OpenRrCard.Offered, Card("rrlist-dlssd", "Game.exe", "d3d12.dll", dlssd: "310.3.0.0"));
-        Assert.Equal(OpenRrCard.Vulkan, Card("rrlist-doom", "DOOMTheDarkAges.exe", "vulkan-1.dll"));
+        Assert.Equal(OpenRrCard.NotCompatible, Card("rrlist-doom", "DOOMTheDarkAges.exe", "vulkan-1.dll"));
+        Assert.Equal(OpenRrCard.Vulkan, Card("rrlist-indy", "TheGreatCircle.exe", "vulkan-1.dll"));
         Assert.Equal(OpenRrCard.Hidden, Card("rrlist-32", "Game.exe", "d3d9.dll", x64: false, dlssd: "310.9.1.0"));
     }
 }

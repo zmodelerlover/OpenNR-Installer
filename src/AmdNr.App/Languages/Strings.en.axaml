@@ -153,6 +153,7 @@
   <sys:String x:Key="Str.OpenRrListed">{0} supports DLSS Ray Reconstruction.</sys:String>
   <sys:String x:Key="Str.OpenRrVulkan">{0} uses Vulkan: OpenRR is D3D12 only for now.</sys:String>
   <sys:String x:Key="Str.OpenRrRemix">{0} runs on RTX Remix (D3D9 turned into Vulkan): OpenRR does not support it.</sys:String>
+  <sys:String x:Key="Str.OpenRrNotCompatible">{0} is not compatible with OpenRR.</sys:String>
   <sys:String x:Key="Str.PickRouteTitle">Pick a route to install with</sys:String>
   <sys:String x:Key="Str.PickRouteBody">This app could not tell which graphics API {0} renders with, so it does not pick a route for you. OptiScaler is the one for a D3D12 game that offers DLSS, FSR or XeSS in its settings; ReShade, on D3D11 or D3D12, is the one for any other. Install waits until you pick.</sys:String>
   <sys:String x:Key="Str.PickRouteBodyAll">This app could not tell which graphics API {0} renders with, so it does not pick a route for you. OptiScaler runs on 64-bit D3D9, D3D11, D3D12, Vulkan and OpenGL games, inside the game's DLSS, FSR or XeSS when it has one; ReShade also covers 32-bit games, emulators and D3D10. Install waits until you pick.</sys:String>

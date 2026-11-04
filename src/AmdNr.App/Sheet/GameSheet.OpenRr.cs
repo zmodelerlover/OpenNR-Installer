@@ -1,6 +1,6 @@
 // OpenRR on the OptiScaler route, on an RX 9000 card: a box, ticked unless unticked, in a 64-bit D3D12 game NVIDIA lists
-// with Ray Reconstruction (api-db.json's "rr", RrGames.cs) or one with an nvngx_dlssd.dll; a listed game on Vulkan or
-// RTX Remix gets the line saying why it cannot have it, every other game no card at all. The line under the box says
+// with Ray Reconstruction (api-db.json's "rr", RrGames.cs) or one with an nvngx_dlssd.dll; a listed game marked not
+// compatible, on RTX Remix or (for now) on Vulkan gets the line saying why it cannot have it, every other game no card at all. The line under the box says
 // what the game's nvngx_dlssd.dll means for it. What it installs is Work.OpenRr.cs.
 
 using Avalonia.Interactivity;
@@ -23,8 +23,9 @@ public partial class GameSheet
     {
         if (!card.Entry.Preset.IsOptiScaler() || RouteUndecided(card) || !Rdna4) return OpenRrCard.Hidden;
         var listed = ListedRr(card);
-        // The Vulkan and Remix lines do not depend on the version chosen.
-        if (listed?.Is("D3D12") != false && (_version?.Opti is not { } opti || !CarriesOpenRr(opti))) return OpenRrCard.Hidden;
+        // The lines saying why a listed game cannot have it do not depend on the version chosen.
+        if (Work.OpenRrRefusal(listed) is { } refused) return refused;
+        if (_version?.Opti is not { } opti || !CarriesOpenRr(opti)) return OpenRrCard.Hidden;
         var target = TargetFor(card);
         var block = Work.OpenRrBlocked(target, OptiApi(card));
         // The dlssd scan only decides an unlisted game.
@@ -55,6 +56,7 @@ public partial class GameSheet
         {
             OpenRrCard.Vulkan => Ui.Format("Str.OpenRrVulkan", listed!.Title),
             OpenRrCard.Remix => Ui.Format("Str.OpenRrRemix", listed!.Title),
+            OpenRrCard.NotCompatible => Ui.Format("Str.OpenRrNotCompatible", listed!.Title),
             OpenRrCard.Offered when listed is not null =>
                 Ui.Format("Str.OpenRrListed", listed.Title) + "\n" + OpenRrLineFor(TargetFor(card)),
             OpenRrCard.Offered => OpenRrLineFor(TargetFor(card)),
