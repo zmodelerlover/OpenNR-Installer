@@ -43,6 +43,9 @@ public sealed record NrLiveSetting(string Group, string Section, string Key, NrL
 
     /// <summary>What a HUD item draws, for the page's preview of the HUD: made-up numbers in its shape.</summary>
     public string? Sample { get; init; }
+
+    /// <summary>Read and written, never a row on the page.</summary>
+    public bool Hidden { get; init; }
 }
 
 public sealed class NrLiveConfig
@@ -91,8 +94,9 @@ public sealed class NrLiveConfig
         new("picture", "FrameLimiter", "method", NrLiveKind.Choice, 0, Choices: 2, Advanced: true),
 
         new("nr", "DLSSNR", "enabled", NrLiveKind.Toggle, 0) { Layout = NrLiveLayout.Header },
-        // auto: OpenNR's runtime when NRLive finds MochizukiNrRuntime.dll, else the 0.0.6 bridge.
-        new("nr", "DLSSNR", "runtime", NrLiveKind.Choice, 0, Choices: 3, Pending: true, Values: ["auto", "opennr", "bridge"]),
+        // auto: OpenNR's runtime when NRLive finds MochizukiNrRuntime.dll, else the 0.0.6 bridge. No row: the package
+        // has only OpenNR's, and Load takes a bridge chosen earlier back to auto.
+        new("nr", "DLSSNR", "runtime", NrLiveKind.Choice, 0, Choices: 3, Pending: true, Values: ["auto", "opennr", "bridge"]) { Hidden = true },
         Mz("MochizukiOriginalModel", NrLiveKind.Toggle, 0),
         Mz("MochizukiRenoStyle", NrLiveKind.Choice, 0, choices: 3),
         Mz("MochizukiRenoIntensity", NrLiveKind.Range, 100, 0, 200, scale: 100, unit: "%") with { Panel = "strength" },
@@ -172,7 +176,15 @@ public sealed class NrLiveConfig
         catch (Exception e) when (e is IOException or UnauthorizedAccessException) { bytes = []; }
         var unicode = bytes is [0xFF, 0xFE, ..];
         var text = unicode ? Encoding.Unicode.GetString(bytes, 2, bytes.Length - 2) : Encoding.Latin1.GetString(bytes);
-        return new NrLiveConfig(path, text, unicode);
+        var config = new NrLiveConfig(path, text, unicode);
+        var runtime = Settings.First(s => s.Id == "DLSSNR.runtime");
+        if (runtime.Values![config.Get(runtime)] == Bridge)
+        {
+            config.Set(runtime, 0);
+            try { config.Save(); }
+            catch (Exception e) when (e is IOException or UnauthorizedAccessException) { }
+        }
+        return config;
     }
 
     /// <summary>The value NRLive would run with: what the file says, as NRLive reads it (a whole number, a decimal
@@ -267,7 +279,7 @@ public sealed class NrLiveConfig
     /// <summary>Whether the page shows this row: a pending key only once NRLive reads it, a tagged one only with
     /// its runtime or HUD.</summary>
     public static bool Shown(NrLiveSetting s, IReadOnlySet<string> supported, IReadOnlySet<string> tags) =>
-        (!s.Pending || supported.Contains(s.Id)) && (s.Only is null || tags.Contains(s.Only));
+        !s.Hidden && (!s.Pending || supported.Contains(s.Id)) && (s.Only is null || tags.Contains(s.Only));
 
     /// <summary>The pending keys the NRLive.exe at <paramref name="exe"/> reads: those whose section and key are both
     /// in it, the section as the wide string GetPrivateProfile*W is called with and the key wide or, for the

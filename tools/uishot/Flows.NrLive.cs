@@ -75,7 +75,7 @@ internal static class NrLiveFlow
         Directory.CreateDirectory(Path.GetDirectoryName(runtime)!);
         File.WriteAllBytes(runtime, exe);
         page.Show();
-        string[] openNrRows = ["DLSSNR.runtime", "OpenNR.MochizukiOriginalModel", "OpenNR.MochizukiRenoStyle", "OpenNR.MochizukiRenoIntensity", "OpenNR.MochizukiRenoPasses"];
+        string[] openNrRows = ["OpenNR.MochizukiOriginalModel", "OpenNR.MochizukiRenoStyle", "OpenNR.MochizukiRenoIntensity", "OpenNR.MochizukiRenoPasses"];
         check(openNrRows.All(id => Setting(id) is not null) && Setting("DLSSNR.style") is null
               && Named<TextBlock>("ModelText").Text == S("Str.NrLiveModelMissingOpenNr"),
             "with OpenNR's runtime the NR card has its rows and asks for the model in opennr");

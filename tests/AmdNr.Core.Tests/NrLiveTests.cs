@@ -156,6 +156,17 @@ public class NrLiveTests
     }
 
     [Fact]
+    public void TheRuntimeIsNoRowAndABridgeChosenEarlierGoesBackToAuto()
+    {
+        var dir = Fixture.Temp("nrlive-no-bridge");
+        var runtime = NrLiveConfig.Settings.First(s => s.Id == "DLSSNR.runtime");
+        File.WriteAllText(Path.Combine(dir, NrLiveConfig.FileName), "[DLSSNR]\r\nruntime=bridge\r\n");
+        Assert.Equal(0, NrLiveConfig.Load(dir).Get(runtime));
+        Assert.Contains("runtime=auto", File.ReadAllText(Path.Combine(dir, NrLiveConfig.FileName)));
+        Assert.False(NrLiveConfig.Shown(runtime, new HashSet<string> { runtime.Id }, new HashSet<string>()));
+    }
+
+    [Fact]
     public void OpenNrDecimalsWordsAndHudPresetsAreWrittenAsNrLiveReadsThem()
     {
         var dir = Fixture.Temp("nrlive-opennr");
