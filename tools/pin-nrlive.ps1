@@ -59,7 +59,7 @@ if (-not $previous) { $previous = @($m.releases.optiscaler) | Select-Object -Fir
 $components = [ordered]@{ nrlive = [ordered]@{ version = $Version; files = @([ordered]@{
     name = 'NRLiveUI.zip'; size = $size; sha256 = $sha
     url = "https://huggingface.co/datasets/$Repo/resolve/main/nrlive/$Version/NRLiveUI.zip"
-    mirrors = @("https://github.com/Caliel666/NRLive/releases/download/v$Version/NRLiveUI.zip") }) } }
+    mirrors = @("https://github.com/Caliel666/NRLive/releases/download/$Version/NRLiveUI.zip") }) } }
 if (-not $NoModels -and $previous) {
     foreach ($model in 'mochizuki-model', 'mochizuki-model-small') {
         if ($previous.components.$model) { $components[$model] = $previous.components.$model }
