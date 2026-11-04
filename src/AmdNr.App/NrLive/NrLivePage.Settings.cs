@@ -22,6 +22,7 @@ public partial class NrLivePage
         _preview = null;
         var supported = NrLiveConfig.Supported(NrLivePackage.Exe);
         foreach (var rows in new[] { PictureRows, PictureMoreRows, NrRows, NrMoreRows, OverlayRows, OverlayMoreRows }) rows.Children.Clear();
+        _needs.Clear();
         NrHead.Content = null;
         // NRLive's overlay as a whole, the bar and the counter, is a switch on its command line rather than a key,
         // and heads the overlay card: off, nothing else in it is drawn.
@@ -59,7 +60,10 @@ public partial class NrLivePage
             Lay(rows, mine.Where(s => !s.Advanced && !heading.Contains(s)).ToList(), main: true);
             // More is a list to adjust rather than to read in order: its sliders together first, then its menus and
             // switches, each kind in table order (OrderBy keeps it).
-            Lay(more, mine.Where(s => s.Advanced).OrderBy(s => s.Kind switch { NrLiveKind.Range => 0, NrLiveKind.Choice => 1, _ => 2 }).ToList(), main: false);
+            var advanced = mine.Where(s => s.Advanced).ToList();
+            Lay(more, advanced.Where(s => s.Heading is null).OrderBy(s => s.Kind switch { NrLiveKind.Range => 0, NrLiveKind.Choice => 1, _ => 2 }).ToList(), main: false);
+            // After them, the groups OptiScaler's menu has for the same keys, each closed until opened.
+            foreach (var part in advanced.Where(s => s.Heading is not null).GroupBy(s => s.Heading)) more.Children.Add(Group(part.ToList()));
             if (mine.Any(s => s.Sample is not null)) rows.Children.Add(Preview());
         }
         PictureMore.IsVisible = PictureMoreRows.Children.Count > 0;

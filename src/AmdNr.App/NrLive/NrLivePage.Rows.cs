@@ -43,8 +43,47 @@ public partial class NrLivePage
     }
 
     /// <summary>A setting as a whole row: a slider under its label, anything else at the end of it.</summary>
-    private Control Element(NrLiveSetting setting) =>
-        setting.Kind == NrLiveKind.Range ? SliderRow(setting) : Row(setting.LabelKey, Control(setting), setting.Hint ? setting.HintKey : null);
+    private Control Element(NrLiveSetting setting)
+    {
+        var row = setting.Kind == NrLiveKind.Range ? SliderRow(setting) : Row(setting.LabelKey, Control(setting), setting.Hint ? setting.HintKey : null);
+        if (setting.Needs is not null)
+        {
+            _needs.Add((setting, (Grid)row));
+            ShowNeeds();
+        }
+        return row;
+    }
+
+    private readonly List<(NrLiveSetting Setting, Grid Row)> _needs = [];
+
+    /// <summary>The rows whose switch is off go grey and say why on their tooltip; what is stored stays. The row
+    /// carries the tooltip with a background to catch the pointer, since a disabled control takes none.</summary>
+    private void ShowNeeds()
+    {
+        foreach (var (setting, row) in _needs)
+        {
+            var on = _config!.Get(NrLiveConfig.Settings.First(s => s.Id == setting.Needs)) != 0;
+            foreach (var child in row.Children) if (child is not TextBlock and not StackPanel) child.IsEnabled = on;
+            row.Children[0].Opacity = on ? 1 : 0.45;
+            row.Background = Brushes.Transparent;
+            ToolTip.SetTip(row, on ? null : Ui.Text(setting.OffKey));
+        }
+    }
+
+    /// <summary>A group inside "More settings": its heading and what it is about, its rows when opened.</summary>
+    private Expander Group(List<NrLiveSetting> run)
+    {
+        var heading = new TextBlock { FontWeight = FontWeight.SemiBold };
+        Ui.Localize(heading, run[0].HeadingKey);
+        var hint = Caption(run[0].HeadingHintKey);
+        var rows = new StackPanel { Spacing = 10 };
+        Lay(rows, run, main: false);
+        return new Expander
+        {
+            Classes = { "details" }, Tag = run[0].Heading, HorizontalAlignment = HorizontalAlignment.Stretch,
+            Header = heading, Content = new StackPanel { Spacing = 10, Children = { hint, rows } },
+        };
+    }
 
     private Control Control(NrLiveSetting setting, Action<bool>? switched = null)
     {
@@ -80,6 +119,7 @@ public partial class NrLivePage
         catch (Exception e) when (e is IOException or UnauthorizedAccessException) { }
         Keep();
         ShowPreview();
+        ShowNeeds();
         // The runtime decides which NR rows apply, and a preset rewrites the HUD items: lay the rows out again.
         if (setting.Id is "DLSSNR.runtime" or "FPS.preset") Avalonia.Threading.Dispatcher.UIThread.Post(ShowSettings);
         // A HUD item switched by hand makes the preset custom (NrLiveConfig.Set). Only the preset menu says so: laying
@@ -103,7 +143,7 @@ public partial class NrLivePage
     private Control SliderRow(NrLiveSetting setting)
     {
         var value = _config!.Get(setting);
-        var shown = new TextBlock { Text = value + setting.Unit };
+        var shown = new TextBlock { Text = setting.Shown(value) };
         var slider = new Slider
         {
             Minimum = setting.Min, Maximum = setting.Max, Value = value, IsSnapToTickEnabled = true, TickFrequency = 1,
@@ -111,7 +151,7 @@ public partial class NrLivePage
         };
         AutomationProperties.SetName(slider, Ui.Text(setting.LabelKey));
         // Written when the slider is let go of rather than on every step it passes through.
-        slider.ValueChanged += (_, e) => shown.Text = (int)e.NewValue + setting.Unit;
+        slider.ValueChanged += (_, e) => shown.Text = setting.Shown((int)e.NewValue);
         slider.AddHandler(PointerCaptureLostEvent, (_, _) => Store(setting, (int)slider.Value), RoutingStrategies.Bubble, true);
         slider.AddHandler(KeyUpEvent, (_, _) => Store(setting, (int)slider.Value), RoutingStrategies.Bubble, true);
         var label = Label(setting.LabelKey);

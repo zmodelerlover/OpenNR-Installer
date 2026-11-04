@@ -53,6 +53,12 @@ public partial class NrLiveStringsTests
             Assert.Contains(setting.LabelKey, english);
             for (var i = 0; i < setting.Choices; i++) Assert.Contains(setting.ChoiceKey(i), english);
             if (setting.Hint) Assert.Contains(setting.HintKey, english);
+            if (setting.Needs is not null) Assert.Contains(setting.OffKey, english);
+            if (setting.Heading is not null)
+            {
+                Assert.Contains(setting.HeadingKey, english);
+                Assert.Contains(setting.HeadingHintKey, english);
+            }
         }
     }
 }

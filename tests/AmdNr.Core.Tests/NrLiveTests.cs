@@ -167,6 +167,33 @@ public class NrLiveTests
     }
 
     [Fact]
+    public void LookAndEncodingKeysStartAtTheirDefaultsAndKeepTheirDecimals()
+    {
+        var dir = Fixture.Temp("nrlive-look");
+        var setting = (string id) => NrLiveConfig.Settings.First(s => s.Id == id);
+        var config = NrLiveConfig.Load(dir);
+        foreach (var s in NrLiveConfig.Settings.Where(s => s.Heading is not null)) Assert.Equal(s.Default, config.Get(s));
+        // int4 mixed is the Original model's: the switch it needs is that one, and it is grey with a reason of its own.
+        Assert.Equal("OpenNR.MochizukiOriginalModel", setting("OpenNR.MochizukiInt4").Needs);
+        // A default with more decimals than two survives the round trip, so moving a slider back lands on it exactly.
+        var paper = setting("OpenNR.MochizukiRenoPaperWhiteScale");
+        config.Set(paper, paper.Default);
+        config.Set(setting("OpenNR.MochizukiPreprocessBias"), -150);
+        config.Set(setting("OpenNR.MochizukiPreprocessCurve"), 6);
+        config.Save();
+        var text = File.ReadAllText(Path.Combine(dir, NrLiveConfig.FileName));
+        Assert.Contains("MochizukiRenoPaperWhiteScale=2.5375", text);
+        Assert.Contains("MochizukiPreprocessBias=-1.5", text);
+        Assert.Contains("MochizukiPreprocessCurve=6", text);
+        Assert.Equal(-150, NrLiveConfig.Load(dir).Get(setting("OpenNR.MochizukiPreprocessBias")));
+        // A slider's badge: a percentage as a whole number, anything else in its own unit.
+        Assert.Equal("125%", setting("OpenNR.MochizukiRenoLookBrighten").Shown(125));
+        Assert.Equal("1.5 stops", setting("OpenNR.MochizukiRenoLookMaxDarken").Shown(150));
+        Assert.Equal("-1.5 EV", setting("OpenNR.MochizukiPreprocessBias").Shown(-150));
+        Assert.Equal("60 ms", setting("OpenNR.MochizukiRenoLookStabilizeMs").Shown(60));
+    }
+
+    [Fact]
     public void OpenNrDecimalsWordsAndHudPresetsAreWrittenAsNrLiveReadsThem()
     {
         var dir = Fixture.Temp("nrlive-opennr");

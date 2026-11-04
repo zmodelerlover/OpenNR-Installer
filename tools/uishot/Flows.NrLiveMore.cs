@@ -20,6 +20,8 @@ using AmdNr.Core;
 
 internal static class NrLiveMoreFlow
 {
+    private static string S(string key) => Application.Current!.FindResource(key) as string ?? key;
+
     public static void Run(MainWindow main, NrLivePage page, Action<bool, string> check,
         Func<Func<bool>, int, bool> until, Action<Window, string> save)
     {
@@ -41,9 +43,48 @@ internal static class NrLiveMoreFlow
         check(mores.All(m => m.IsVisible), "with NR's advanced keys every card has a More");
 
         var nrMore = Named<StackPanel>("NrMoreRows").Children;
-        var lastSlider = nrMore.Select((c, i) => (c, i)).Where(x => x.c.GetVisualDescendants().OfType<Slider>().Any()).Max(x => x.i);
-        var firstSwitch = nrMore.Select((c, i) => (c, i)).Where(x => x.c.GetVisualDescendants().OfType<ToggleSwitch>().Any()).Min(x => x.i);
+        var ungrouped = nrMore.Where(c => c is not Expander).ToList();
+        var lastSlider = ungrouped.Select((c, i) => (c, i)).Where(x => x.c.GetVisualDescendants().OfType<Slider>().Any()).Max(x => x.i);
+        var firstSwitch = ungrouped.Select((c, i) => (c, i)).Where(x => x.c.GetVisualDescendants().OfType<ToggleSwitch>().Any()).Min(x => x.i);
         check(lastSlider < firstSwitch, "NR's More lists its sliders first, then its switches");
+        // Under them, closed, the groups OptiScaler's menu has for the same keys, and a group's rows are its own.
+        string?[] groups = [.. nrMore.OfType<Expander>().Select(e => e.Tag as string)];
+        check(groups.SequenceEqual(["composition", "look", "encoding", "preprocess"]) && nrMore.OfType<Expander>().All(e => !e.IsExpanded),
+            $"and then its groups, closed: composition, look, encoding, preprocess ({string.Join(", ", groups)})");
+        var groupOf = (string id) => nrMore.OfType<Expander>().FirstOrDefault(e => e.GetLogicalDescendants().OfType<Control>().Any(c => c.Tag as string == id))?.Tag as string;
+        check(groupOf("OpenNR.MochizukiPreprocessCurve") == "preprocess" && groupOf("OpenNR.MochizukiRenoLookBrighten") == "look"
+              && groupOf("OpenNR.MochizukiRenoSourceEncoding") == "encoding" && groupOf("OpenNR.MochizukiRenoCodecMode") == "composition",
+            "with AgX's curve under preprocess, brightening under the look, source encoding under encoding");
+        // A switch that heads its group: off, the rest of the group is grey.
+        var prepBody = ((Control)Setting("OpenNR.MochizukiPreprocessCurve")!).GetLogicalAncestors().OfType<StackPanel>().First(p => p.Parent is StackPanel);
+        check(!prepBody.IsEnabled, "preprocess off leaves its rows grey");
+
+        // int4 mixed: grey with the reason on its row while the Small model is in use, what is stored untouched.
+        var folder = NrLivePackage.Folder;
+        var model = NrLiveConfig.Settings.First(s => s.Id == "OpenNR.MochizukiOriginalModel");
+        var int4Setting = NrLiveConfig.Settings.First(s => s.Id == "OpenNR.MochizukiInt4");
+        var stored = NrLiveConfig.Load(folder);
+        stored.Set(int4Setting, 1);
+        stored.Set(model, 0);
+        stored.Save();
+        page.Show();
+        until(() => false, 1);
+        var int4 = (ToggleSwitch)Setting(int4Setting.Id)!;
+        var int4Row = (Grid)int4.Parent!;
+        check(!int4.IsEnabled && int4.IsChecked == true && Equals(ToolTip.GetTip(int4Row), S(int4Setting.OffKey)) && int4Row.Children[0].Opacity < 1,
+            "with the Small model int4 mixed is grey, says why on its tooltip and keeps its stored value");
+        ((ToggleSwitch)Setting(model.Id)!).IsChecked = true;
+        until(() => false, 1);
+        check(int4.IsEnabled && ToolTip.GetTip(int4Row) is null && NrLiveConfig.Load(folder).Get(int4Setting) == 1,
+            "the Original model takes the grey off, the value as it was");
+        ((ToggleSwitch)Setting(model.Id)!).IsChecked = false;
+        until(() => false, 1);
+        check(!int4.IsEnabled && NrLiveConfig.Load(folder).Get(int4Setting) == 1, "and the Small model again puts it back");
+        stored = NrLiveConfig.Load(folder);
+        stored.Set(int4Setting, 0);
+        stored.Save();
+        page.Show();
+        until(() => false, 1);
 
         // All closed: one height, the tallest body's own, and the three More headers on one line at the foot.
         var heights = cards.Select(c => c.Bounds.Height).ToArray();
@@ -85,6 +126,19 @@ internal static class NrLiveMoreFlow
             save(main, $"flow-nrlive-more-{names[i]}");
             if (i == 1)
             {
+                // Each group of NR's More opened, shot to be looked at, and scrolling to its last row.
+                foreach (var group in nrMore.OfType<Expander>())
+                {
+                    group.IsExpanded = true;
+                    until(() => false, 1);
+                    inner.Offset = new Vector(0, inner.Extent.Height);
+                    until(() => false, 1);
+                    check(inner.Offset.Y + inner.Viewport.Height >= inner.Extent.Height - 1, $"the {group.Tag} group scrolls to its end ({inner.Extent.Height:0})");
+                    save(main, $"flow-nrlive-group-{group.Tag}");
+                    group.IsExpanded = false;
+                    until(() => false, 1);
+                    inner.Offset = default;
+                }
                 // The pointer on NR's More header: the well and its edge; and the bar under it stays as thin.
                 var header = mores[1].GetVisualDescendants().OfType<ToggleButton>().First();
                 main.MouseMove(header.TranslatePoint(new Point(header.Bounds.Width - 60, header.Bounds.Height / 2), main) ?? default);
@@ -121,6 +175,20 @@ internal static class NrLiveMoreFlow
               && Math.Abs(cards[0].Bounds.Height - tall[0]) < 1 && Math.Abs(cards[2].Bounds.Height - tall[2]) < 1,
             $"and NR's More open takes its card alone to the window's foot, scrolling inside ({Bottom(cards[1]):0} of {foot:0}, {nrInner.Viewport.Height:0} of {nrInner.Extent.Height:0})");
         save(main, "flow-nrlive-tall-nr");
+        // With the room to see them: the grey int4 row, and the look and preprocess groups opened.
+        Setting("OpenNR.MochizukiInt4")!.BringIntoView();
+        until(() => false, 1);
+        save(main, "flow-nrlive-tall-int4");
+        foreach (var group in nrMore.OfType<Expander>().Where(e => e.Tag as string is "look" or "preprocess"))
+        {
+            group.IsExpanded = true;
+            until(() => false, 1);
+            group.BringIntoView();
+            until(() => false, 1);
+            save(main, $"flow-nrlive-tall-{group.Tag}");
+            group.IsExpanded = false;
+            until(() => false, 1);
+        }
         mores[1].IsExpanded = false;
         (main.Width, main.Height) = (1240, 800);
         until(() => false, 1);

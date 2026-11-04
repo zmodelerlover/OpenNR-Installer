@@ -46,6 +46,24 @@ public sealed record NrLiveSetting(string Group, string Section, string Key, NrL
 
     /// <summary>Read and written, never a row on the page.</summary>
     public bool Hidden { get; init; }
+
+    /// <summary>A group of its own inside "More settings", as OptiScaler's menu groups the same keys, closed until
+    /// opened: <see cref="HeadingKey"/> and, under it, <see cref="HeadingHintKey"/> say what the group is.</summary>
+    public string? Heading { get; init; }
+
+    public string HeadingKey => $"Str.NrLiveGroup.{Heading}";
+    public string HeadingHintKey => $"{HeadingKey}.Hint";
+
+    /// <summary>The id of a switch this row only applies with: while that is off the row is grey, its tooltip
+    /// (<see cref="OffKey"/>) says why, and the value stays as it was stored.</summary>
+    public string? Needs { get; init; }
+
+    public string OffKey => $"{LabelKey}.Off";
+
+    /// <summary>The value as a slider's badge shows it: a percentage as a whole number, anything else in its own
+    /// unit (150 as 1.5 stops).</summary>
+    public string Shown(int value) =>
+        Scale > 1 && Unit != "%" ? (value / (double)Scale).ToString("0.####", System.Globalization.CultureInfo.InvariantCulture) + Unit : value + Unit;
 }
 
 public sealed class NrLiveConfig
@@ -73,6 +91,18 @@ public sealed class NrLiveConfig
     private static NrLiveSetting Mz(string key, NrLiveKind kind, int def, int min = 0, int max = 1, int choices = 0,
         bool advanced = false, int scale = 1, string unit = "") =>
         new("nr", "OpenNR", key, kind, def, min, max, choices, advanced, Pending: true, unit, OpenNr, scale);
+
+    private static NrLiveSetting Look(string key, NrLiveKind kind, int def, int min = 0, int max = 200, int choices = 0, int scale = 100, string unit = "%") =>
+        Mz(key, kind, def, min, max, choices, advanced: true, scale, unit) with { Heading = "look", Panel = "look" };
+
+    private static NrLiveSetting Enc(string key, NrLiveKind kind, int def, int min = 0, int max = 1, int choices = 0, int scale = 1, string unit = "") =>
+        Mz(key, kind, def, min, max, choices, advanced: true, scale, unit) with { Heading = "encoding" };
+
+    private static NrLiveSetting Comp(string key, NrLiveKind kind, int def, int min = 0, int max = 1, int choices = 0, int scale = 1, string unit = "") =>
+        Mz(key, kind, def, min, max, choices, advanced: true, scale, unit) with { Heading = "composition" };
+
+    private static NrLiveSetting Prep(string key, NrLiveKind kind, int def, int min = 0, int max = 1, int choices = 0, int scale = 1, string unit = "") =>
+        Mz(key, kind, def, min, max, choices, advanced: true, scale, unit) with { Heading = "preprocess", Panel = "preprocess" };
 
     private static NrLiveSetting Br(string key, NrLiveKind kind, int def, int min = 0, int max = 1, int choices = 0,
         bool advanced = false, string unit = "") =>
@@ -106,11 +136,63 @@ public sealed class NrLiveConfig
         Mz("MochizukiRenoSkinStructure", NrLiveKind.Range, -100, -100, 100, advanced: true, scale: 100, unit: "%"),
         Mz("MochizukiRenoAutoMask", NrLiveKind.Toggle, 0, advanced: true),
         Mz("MochizukiRenoSkinIndependent", NrLiveKind.Toggle, 1, advanced: true),
-        Mz("MochizukiRenoColorStrength", NrLiveKind.Range, 100, 0, 100, advanced: true, scale: 100, unit: "%"),
         Mz("MochizukiTemporal", NrLiveKind.Toggle, 1, advanced: true),
         Mz("MochizukiHistoryStrength", NrLiveKind.Range, 100, 0, 100, advanced: true, scale: 100, unit: "%"),
         Mz("MochizukiStyleGrade", NrLiveKind.Toggle, 1, advanced: true),
+        Mz("MochizukiNoiseEveryFrame", NrLiveKind.Toggle, 0, advanced: true),
         Mz("MochizukiAco", NrLiveKind.Toggle, 1, advanced: true),
+        Mz("MochizukiInt4", NrLiveKind.Toggle, 0, advanced: true) with { Needs = "OpenNR.MochizukiOriginalModel" },
+        // The groups OptiScaler's menu has for the same keys, with its names, defaults and limits (MochizukiRenoKeys.inc):
+        // Composition with its look details, Encoding, Preprocess.
+        Comp("MochizukiRenoColorStrength", NrLiveKind.Range, 100, 0, 100, scale: 100, unit: "%"),
+        Comp("MochizukiRenoTransferStrength", NrLiveKind.Range, 100, 0, 100, scale: 100, unit: "%"),
+        Comp("MochizukiRenoChromaClamp", NrLiveKind.Range, 100, 25, 200, scale: 100, unit: " stops"),
+        Comp("MochizukiRenoStyleHighlightGuard", NrLiveKind.Range, 0, 0, 200, scale: 100, unit: " stops"),
+        Comp("MochizukiRenoTransferMode", NrLiveKind.Choice, 0, choices: 2),
+        Comp("MochizukiRenoDetailStability", NrLiveKind.Choice, 0, choices: 3),
+        Comp("MochizukiRenoSdrBlackRestore", NrLiveKind.Choice, 0, choices: 3),
+        Comp("MochizukiRenoDisplayPedestal", NrLiveKind.Choice, 0, choices: 3),
+        Comp("MochizukiRenoCodecMode", NrLiveKind.Choice, 2, choices: 4),
+        Comp("MochizukiRenoNeuralFloorGuard", NrLiveKind.Toggle, 1),
+        Look("MochizukiRenoLookMode", NrLiveKind.Toggle, 0, max: 1, scale: 1, unit: ""),
+        Look("MochizukiRenoLookStrength", NrLiveKind.Range, 100),
+        Look("MochizukiRenoLookBrighten", NrLiveKind.Range, 100),
+        Look("MochizukiRenoLookDarken", NrLiveKind.Range, 100),
+        Look("MochizukiRenoLookColour", NrLiveKind.Range, 100),
+        Look("MochizukiRenoLookHue", NrLiveKind.Range, 100),
+        Look("MochizukiRenoLookShadows", NrLiveKind.Range, 100),
+        Look("MochizukiRenoLookMidtones", NrLiveKind.Range, 100),
+        Look("MochizukiRenoLookHighlights", NrLiveKind.Range, 100),
+        Look("MochizukiRenoLookMaxBrighten", NrLiveKind.Range, 0, 0, 400, unit: " stops"),
+        Look("MochizukiRenoLookMaxDarken", NrLiveKind.Range, 0, 0, 400, unit: " stops"),
+        Look("MochizukiRenoLookMaxColour", NrLiveKind.Range, 0),
+        Look("MochizukiRenoLookTone", NrLiveKind.Range, 100),
+        Look("MochizukiRenoLookDetail", NrLiveKind.Range, 100),
+        Look("MochizukiRenoLookDetailRadius", NrLiveKind.Range, 100, 25, 400, unit: " %"),
+        Look("MochizukiRenoLookHalo", NrLiveKind.Range, 0, 0, 100),
+        Look("MochizukiRenoLookHaloBrightSide", NrLiveKind.Range, 0, 0, 100),
+        Look("MochizukiRenoLookStabilize", NrLiveKind.Choice, 0, max: 1, choices: 3, scale: 1, unit: ""),
+        Look("MochizukiRenoLookStabilizeMs", NrLiveKind.Range, 60, 10, 250, scale: 1, unit: " ms"),
+        Look("MochizukiRenoLookStabilizeDetail", NrLiveKind.Toggle, 0, max: 1, scale: 1, unit: ""),
+        Enc("MochizukiRenoSourceEncoding", NrLiveKind.Choice, 0, choices: 4),
+        Enc("MochizukiRenoLinearUnitNits", NrLiveKind.Range, 0, 0, 10000, unit: " nits"),
+        Enc("MochizukiRenoProxyAnchor", NrLiveKind.Range, 40, 5, 320, scale: 10, unit: " nits"),
+        Enc("MochizukiRenoPaperWhiteScale", NrLiveKind.Range, 25375, 50, 160000, scale: 10000),
+        Enc("MochizukiRenoDiffuseWhiteNits", NrLiveKind.Range, 203, 80, 1000, unit: " nits"),
+        Enc("MochizukiRenoPQCalibration", NrLiveKind.Range, 1000, 5, 16000, scale: 1000),
+        Enc("MochizukiRenoFeedMode", NrLiveKind.Choice, 0, choices: 3),
+        Enc("MochizukiRenoNormGovernor", NrLiveKind.Choice, 2, choices: 3),
+        Enc("MochizukiRenoNormCutAware", NrLiveKind.Toggle, 1),
+        Enc("MochizukiRenoNormAttackStops", NrLiveKind.Range, 40, 1, 640, scale: 10, unit: " stops/s"),
+        Enc("MochizukiRenoNormReleaseStops", NrLiveKind.Range, 50, 5, 1600, scale: 100, unit: " stops/s"),
+        Enc("MochizukiRenoNormSlewStops", NrLiveKind.Range, 20, 0, 500, scale: 1000, unit: " stops/frame"),
+        Prep("MochizukiPreprocess", NrLiveKind.Toggle, 0),
+        Prep("MochizukiPreprocessExposure", NrLiveKind.Choice, 1, choices: 3),
+        // -3..3 as in OptiScaler's menu: far from 0 the network's answer comes back blotchy (the key itself takes -8..8).
+        Prep("MochizukiPreprocessBias", NrLiveKind.Range, 0, -300, 300, scale: 100, unit: " EV"),
+        Prep("MochizukiPreprocessCurve", NrLiveKind.Choice, 3, choices: 7),
+        Prep("MochizukiPreprocessContrast", NrLiveKind.Range, 100, 50, 200, scale: 100, unit: "%"),
+        Prep("MochizukiPreprocessSaturation", NrLiveKind.Range, 100, 5, 200, scale: 100, unit: "%"),
         Br("model", NrLiveKind.Choice, 0, choices: 2),
         Br("style", NrLiveKind.Choice, 0, choices: 3),
         Br("scale", NrLiveKind.Range, 100, 25, 100, unit: "%") with { Panel = "strength" },
@@ -216,7 +298,7 @@ public sealed class NrLiveConfig
     public void Set(NrLiveSetting s, int value)
     {
         var text = s.Values is { } words ? words[Math.Clamp(value, 0, words.Length - 1)]
-            : s.Scale > 1 ? (value / (double)s.Scale).ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)
+            : s.Scale > 1 ? (value / (double)s.Scale).ToString("0.####", System.Globalization.CultureInfo.InvariantCulture)
             : value.ToString(System.Globalization.CultureInfo.InvariantCulture);
         _text = Engine.SetIni(_text, s.Section, s.Key, text);
         // A HUD item changed by hand is no preset any more; a preset sets the items, as NRLive's own settings do.
