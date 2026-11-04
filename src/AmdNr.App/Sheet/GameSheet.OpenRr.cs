@@ -1,7 +1,8 @@
-// OpenRR on the OptiScaler route, on an RX 9000 card: a box, ticked unless unticked, in a 64-bit D3D12 game NVIDIA lists
-// with Ray Reconstruction (api-db.json's "rr", RrGames.cs) or one with an nvngx_dlssd.dll; a listed game marked not
-// compatible, on RTX Remix or (for now) on Vulkan gets the line saying why it cannot have it, every other game no card at all. The line under the box says
-// what the game's nvngx_dlssd.dll means for it. What it installs is Work.OpenRr.cs.
+// OpenRR on the OptiScaler route, on an RX 9000 card: a box, ticked unless unticked, in a 64-bit D3D12 or Vulkan game
+// NVIDIA lists with Ray Reconstruction (api-db.json's "rr", RrGames.cs) or a D3D12 one with an nvngx_dlssd.dll; a
+// listed game marked not compatible or on RTX Remix gets the line saying why it cannot have it, every other game no
+// card at all. The line under the box says what the game's nvngx_dlssd.dll means for it. What it installs is
+// Work.OpenRr.cs.
 
 using Avalonia.Interactivity;
 using AmdNr.Core;
@@ -37,9 +38,9 @@ public partial class GameSheet
     private bool? WantsOpenRr(GameCard card) => OffersOpenRr(card) ? card.Entry.OpenRr ?? true : null;
 
     /// <summary>OpenRR's download when ticked, and NVIDIA's nvngx_dlssd.dll 310.9.1 when the game needs it.</summary>
-    private static string[] OpenRrComponents(GameCard card, PayloadPins pins) =>
+    private string[] OpenRrComponents(GameCard card, PayloadPins pins) =>
         pins.OpenRr != true ? []
-        : Work.OpenRrNeedsDlssd(TargetFor(card)) ? [PayloadManifest.OpenRrComponent, PayloadManifest.OpenRrDlssdComponent]
+        : Work.OpenRrNeedsDlssd(TargetFor(card), OptiApi(card)) ? [PayloadManifest.OpenRrComponent, PayloadManifest.OpenRrDlssdComponent]
         : [PayloadManifest.OpenRrComponent];
 
     private void ShowOpenRr()
@@ -54,12 +55,11 @@ public partial class GameSheet
         OpenRrBox.IsChecked = offered && card.Entry.OpenRr != false;
         OpenRrLine.Text = shown switch
         {
-            OpenRrCard.Vulkan => Ui.Format("Str.OpenRrVulkan", listed!.Title),
+            OpenRrCard.Vulkan or OpenRrCard.NotCompatible => Ui.Format("Str.OpenRrNotCompatible", listed!.Title),
             OpenRrCard.Remix => Ui.Format("Str.OpenRrRemix", listed!.Title),
-            OpenRrCard.NotCompatible => Ui.Format("Str.OpenRrNotCompatible", listed!.Title),
             OpenRrCard.Offered when listed is not null =>
-                Ui.Format("Str.OpenRrListed", listed.Title) + "\n" + OpenRrLineFor(TargetFor(card)),
-            OpenRrCard.Offered => OpenRrLineFor(TargetFor(card)),
+                Ui.Format("Str.OpenRrListed", listed.Title) + "\n" + OpenRrLineFor(TargetFor(card), OptiApi(card)),
+            OpenRrCard.Offered => OpenRrLineFor(TargetFor(card), OptiApi(card)),
             _ => "",
         };
         OpenRrLine.IsVisible = OpenRrLine.Text.Length > 0;
@@ -67,12 +67,15 @@ public partial class GameSheet
     }
 
     /// <summary>What the game's nvngx_dlssd.dll means for OpenRR. None is a listed game: 310.9.1 is supplied.</summary>
-    private static string OpenRrLineFor(string target)
+    private static string OpenRrLineFor(string target, GraphicsApi? api)
     {
         var found = Work.OpenRrDlssd(target);
         if (found.Count == 0) return Ui.Text("Str.OpenRrHint");
-        if (found.FirstOrDefault(d => !d.Works) is not { } off) return Ui.Text("Str.OpenRrReady");
-        return Ui.Format(Work.SupplyOpenRrDlssd ? "Str.OpenRrSupplied" : "Str.OpenRrOtherDlssd", off.Path, off.Version?.ToString() ?? "?");
+        // A Vulkan game: opennr-rr\'s copy is read first and the game keeps its own
+        var vulkan = Work.OpenRrVulkan(target, api);
+        if (vulkan && found[0].Works || found.FirstOrDefault(d => !d.Works) is not { } off) return Ui.Text("Str.OpenRrReady");
+        return Ui.Format(!Work.SupplyOpenRrDlssd ? "Str.OpenRrOtherDlssd" : vulkan ? "Str.OpenRrSuppliedVulkan" : "Str.OpenRrSupplied",
+            off.Path, off.Version?.ToString() ?? "?");
     }
 
     private void OnOpenRrChanged(object? sender, RoutedEventArgs e)

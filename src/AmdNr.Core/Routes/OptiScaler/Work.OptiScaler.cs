@@ -356,7 +356,7 @@ public static partial class Work
         }
         if (wrongGpu && x86) report.Err("WrongGPU runs in 64-bit games only. Leave it off for this one.");
         else if (wrongGpu && !report.Failed) AddWrongGpu(files, dir, src, pins, report);
-        AddOpenRr(files, dir, src, pins, x86, iniName, report);
+        AddOpenRr(files, dir, src, pins, x86, iniName, api, report);
 
         if (report.Failed)
         {

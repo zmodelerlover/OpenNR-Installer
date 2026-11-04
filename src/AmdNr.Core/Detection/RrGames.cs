@@ -53,8 +53,8 @@ public sealed partial class ApiDatabase
 
 public static partial class Work
 {
-    /// <summary>Flip when OpenRR's Vulkan runtime ships: listed Vulkan games then get the box like D3D12 ones.</summary>
-    public const bool OpenRrVulkanSupported = false;
+    /// <summary>OpenRR runs in Vulkan games (from OpenRR 0.1.0): listed Vulkan games get the box like D3D12 ones.</summary>
+    public const bool OpenRrVulkanSupported = true;
 
     /// <summary>The line a listed game gets whatever its files say, or null when the files decide.</summary>
     public static OpenRrCard? OpenRrRefusal(RrGame? listed, bool vulkan = OpenRrVulkanSupported) =>
@@ -65,7 +65,7 @@ public static partial class Work
         : null;
 
     /// <summary>The OpenRR card for a game: a listed one gets the box, or the reason it cannot have it (marked not
-    /// compatible, RTX Remix, Vulkan until <see cref="OpenRrVulkanSupported"/>); an unlisted one only when it has an
+    /// compatible, RTX Remix, Vulkan without <see cref="OpenRrVulkanSupported"/>); an unlisted one only when it has an
     /// nvngx_dlssd.dll. A listed game the files show on another API still gets it when it renders D3D12 as well
     /// (<paramref name="hasD3D12"/>), or when the list says Vulkan.</summary>
     public static OpenRrCard OpenRrCardFor(RrGame? listed, OpenRrBlock block, bool hasDlssd, bool hasD3D12,

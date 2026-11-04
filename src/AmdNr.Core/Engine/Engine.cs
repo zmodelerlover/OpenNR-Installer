@@ -246,9 +246,11 @@ public static partial class Engine
         "wronggpu-license.txt",
         "wronggpu-notices.txt",
         // OpenRR (only when ticked), its kernels matched by IsAllowed below, and NVIDIA's 310.9.1 nvngx_dlssd.dll it
-        // builds its network from, in place of the game's own when that is another version.
+        // builds its network from, in place of the game's own when that is another version; a Vulkan game gets it in
+        // opennr-rr\ instead and keeps its own.
         "OpenNrRrRuntime.dll",
         "nvngx_dlssd.dll",
+        "opennr-rr/nvngx_dlssd.dll",
         // The author's setup loads danielblnc's runtime under this name, and the OptiScaler route
         // moves that file to the backup when it takes it as its runtime; uninstall puts it back.
         // OptiScaler itself goes in under it when that is the name picked for it.

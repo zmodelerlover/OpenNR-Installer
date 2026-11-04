@@ -54,7 +54,7 @@ public class RrGamesTests
         Assert.Equal(OpenRrCard.Offered, Work.OpenRrCardFor(d3d12, OpenRrBlock.None, hasDlssd: false, hasD3D12: true));
         Assert.Equal(OpenRrCard.Hidden, Work.OpenRrCardFor(null, OpenRrBlock.None, hasDlssd: false, hasD3D12: true));
         Assert.Equal(OpenRrCard.Offered, Work.OpenRrCardFor(null, OpenRrBlock.None, hasDlssd: true, hasD3D12: true));
-        Assert.Equal(OpenRrCard.Vulkan, Work.OpenRrCardFor(vulkan, OpenRrBlock.Api, hasDlssd: true, hasD3D12: false));
+        Assert.Equal(OpenRrCard.Offered, Work.OpenRrCardFor(vulkan, OpenRrBlock.Api, hasDlssd: true, hasD3D12: false));
         Assert.Equal(OpenRrCard.Remix, Work.OpenRrCardFor(remix, OpenRrBlock.Width, hasDlssd: false, hasD3D12: false));
         Assert.Equal(OpenRrCard.Hidden, Work.OpenRrCardFor(d3d12, OpenRrBlock.Width, hasDlssd: true, hasD3D12: true));
         // A listed game the files show on D3D11 that renders D3D12 as well; one with no D3D12 at all.
@@ -80,13 +80,15 @@ public class RrGamesTests
     }
 
     [Fact]
-    public void AListedVulkanGameWaitsForTheFlag()
+    public void AListedVulkanGameGetsTheBoxSinceOpenRr010()
     {
-        Assert.False(Work.OpenRrVulkanSupported);
+        Assert.True(Work.OpenRrVulkanSupported);
         var vulkan = new RrGame { Title = "Vk", Api = "Vulkan" };
-        Assert.Equal(OpenRrCard.Vulkan, Work.OpenRrRefusal(vulkan));
-        Assert.Equal(OpenRrCard.Vulkan, Work.OpenRrCardFor(vulkan, OpenRrBlock.Api, hasDlssd: false, hasD3D12: false));
-        // Once Vulkan ships it is offered like a D3D12 game, still not in a 32-bit one.
+        Assert.Null(Work.OpenRrRefusal(vulkan));
+        // Without the flag it says Vulkan.
+        Assert.Equal(OpenRrCard.Vulkan, Work.OpenRrRefusal(vulkan, vulkan: false));
+        Assert.Equal(OpenRrCard.Vulkan, Work.OpenRrCardFor(vulkan, OpenRrBlock.Api, hasDlssd: false, hasD3D12: false, vulkan: false));
+        // Offered like a D3D12 game, still not in a 32-bit one.
         Assert.Null(Work.OpenRrRefusal(vulkan, vulkan: true));
         Assert.Equal(OpenRrCard.Offered, Work.OpenRrCardFor(vulkan, OpenRrBlock.Api, hasDlssd: false, hasD3D12: false, vulkan: true));
         Assert.Equal(OpenRrCard.Offered, Work.OpenRrCardFor(vulkan, OpenRrBlock.None, hasDlssd: false, hasD3D12: false, vulkan: true));
@@ -114,7 +116,9 @@ public class RrGamesTests
         Assert.Equal(OpenRrCard.Hidden, Card("rrlist-plain", "Game.exe", "d3d12.dll"));
         Assert.Equal(OpenRrCard.Offered, Card("rrlist-dlssd", "Game.exe", "d3d12.dll", dlssd: "310.3.0.0"));
         Assert.Equal(OpenRrCard.NotCompatible, Card("rrlist-doom", "DOOMTheDarkAges.exe", "vulkan-1.dll"));
-        Assert.Equal(OpenRrCard.Vulkan, Card("rrlist-indy", "TheGreatCircle.exe", "vulkan-1.dll"));
+        Assert.Equal(OpenRrCard.Offered, Card("rrlist-indy", "TheGreatCircle.exe", "vulkan-1.dll"));
+        // An unlisted Vulkan game with an nvngx_dlssd.dll gets no card.
+        Assert.Equal(OpenRrCard.Hidden, Card("rrlist-vk", "Game.exe", "vulkan-1.dll", dlssd: "310.9.1.0"));
         Assert.Equal(OpenRrCard.Hidden, Card("rrlist-32", "Game.exe", "d3d9.dll", x64: false, dlssd: "310.9.1.0"));
     }
 }

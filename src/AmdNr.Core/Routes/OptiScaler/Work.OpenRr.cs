@@ -1,8 +1,10 @@
 // OpenRR, this project's DLSS Ray Reconstruction runtime (OpenNR-Denoiser) for RX 9000, beside OptiScaler from the
 // build that carries it: OpenNrRrRuntime.dll next to OptiScaler and its kernels in opennr-rr\shaders\. OptiScaler loads
-// it for a D3D12 game's Ray Reconstruction, FSR-RR otherwise. Its network is read out of nvngx_dlssd.dll, and only
-// 310.9.1 works. OptiScaler takes the one beside itself first, so a game with another version, or none, gets NVIDIA's
-// 310.9.1 there (openrr-dlssd); the game's own goes to the backup and uninstall puts it back.
+// it for a D3D12 or Vulkan game's Ray Reconstruction, FSR-RR or DLSSD otherwise. Its network is read out of
+// nvngx_dlssd.dll, and only 310.9.1 works. OptiScaler takes opennr-rr\nvngx_dlssd.dll first, then the one beside
+// itself, so a D3D12 game with another version, or none, gets NVIDIA's 310.9.1 beside OptiScaler (openrr-dlssd), the
+// game's own to the backup and back at uninstall. A Vulkan game gets it in opennr-rr\ and keeps its own where it is
+// (Indiana Jones loads its 310 from streamline\).
 //
 // OptiScaler.ini's [OpenNR-RR] Enabled is auto (on) in the package, so a ticked install leaves it alone. Unticked,
 // OpenRR stays out, an earlier install's comes out, and the ini says Enabled=false.
@@ -39,6 +41,7 @@ public static partial class Work
     private const string OpenRrPayload = "opennr-rr.shaders/";
     private const string OpenRrLog = "opennr_rr.log";
     private const string DlssdName = "nvngx_dlssd.dll";
+    private const string DlssdOpenRr = "opennr-rr/nvngx_dlssd.dll";
 
     /// <summary>Whether an install brings NVIDIA's 310.9.1 nvngx_dlssd.dll where the game's is another or missing.</summary>
     public static bool SupplyOpenRrDlssd { get; set; } = true;
@@ -53,7 +56,14 @@ public static partial class Work
             : null;
 
     private static bool IsOpenRrFile(string name) =>
-        name == OpenRrRuntimeName || name.StartsWith(Engine.OpenRrShaders, StringComparison.Ordinal);
+        name is OpenRrRuntimeName or DlssdOpenRr || name.StartsWith(Engine.OpenRrShaders, StringComparison.Ordinal);
+
+    /// <summary>Whether OptiScaler runs on Vulkan in this game, where 310.9.1 goes in opennr-rr\.</summary>
+    public static bool OpenRrVulkan(string dir, GraphicsApi? api) =>
+        (api ?? GraphicsDetector.Detect(dir).OptiApi(true)) == GraphicsApi.Vulkan;
+
+    /// <summary>Where NVIDIA's 310.9.1 goes for OpenRR: beside OptiScaler in a D3D12 game, opennr-rr\ in a Vulkan one.</summary>
+    private static string OpenRrDlssdTarget(string dir, GraphicsApi? api) => OpenRrVulkan(dir, api) ? DlssdOpenRr : DlssdName;
 
     /// <summary>What an install recorded of OpenRR here, NVIDIA's nvngx_dlssd.dll with it: what comes out when it is left off.</summary>
     private static IEnumerable<string> OpenRrRecorded(Manifest? manifest) =>
@@ -68,7 +78,8 @@ public static partial class Work
                 .Where(p => p.Item1 is not null).Select(p => (p.Item1!, p.Item2))
             : [];
 
-    /// <summary>What keeps OpenRR from this game: it runs in 64-bit D3D12 games only.</summary>
+    /// <summary>What keeps OpenRR from this game: 64-bit D3D12 games, and the Vulkan ones on the RR list (Api here,
+    /// let through by OpenRrCardFor).</summary>
     public static OpenRrBlock OpenRrBlocked(string gameDir, GraphicsApi? api = null)
     {
         var dir = ResolveSource(gameDir);
@@ -78,15 +89,18 @@ public static partial class Work
         return (api ?? detected.OptiApi(true)) == GraphicsApi.D3D12 ? OpenRrBlock.None : OpenRrBlock.Api;
     }
 
-    /// <summary>The nvngx_dlssd.dll files here OpenRR could read: the game's own, the one beside OptiScaler first (what
-    /// OptiScaler takes when it is there) and then deeper ones, shallowest first; then OptiScaler\'s and the copy
-    /// danielblnc 0.8.0's host keeps in dlssnr_amd_host\, which OptiScaler takes instead while that host runs. Empty
-    /// when the game has none: it may not use Ray Reconstruction.</summary>
+    /// <summary>The nvngx_dlssd.dll files here OpenRR could read: opennr-rr\'s first (what OptiScaler takes when it is
+    /// there), then the game's own, the one beside OptiScaler and then deeper ones, shallowest first; then OptiScaler\'s
+    /// and the copy danielblnc 0.8.0's host keeps in dlssnr_amd_host\, which OptiScaler takes instead while that host
+    /// runs. Empty when the game has none: it may not use Ray Reconstruction.</summary>
     public static IReadOnlyList<DlssdFile> OpenRrDlssd(string gameDir)
     {
         var dir = ResolveSource(gameDir);
         if (dir.Length == 0 || !Directory.Exists(dir)) return [];
-        var found = GamesOwn(dir, [DlssdName]).OrderBy(r => r.Count(c => c == Path.DirectorySeparatorChar)).ToList();
+        var first = Path.Combine("opennr-rr", DlssdName);
+        var found = GamesOwn(dir, [DlssdName]).Where(r => !r.Equals(first, StringComparison.OrdinalIgnoreCase))
+            .OrderBy(r => r.Count(c => c == Path.DirectorySeparatorChar)).ToList();
+        if (File.Exists(Path.Combine(dir, first))) found.Insert(0, first);
         foreach (var ours in new[] { "OptiScaler", "dlssnr_amd_host" })
             if (File.Exists(Path.Combine(dir, ours, DlssdName))) found.Add(Path.Combine(ours, DlssdName));
         return found.Select(r => new DlssdFile(r, DlssVersion(Path.Combine(dir, r)))).ToList();
@@ -94,18 +108,26 @@ public static partial class Work
 
     /// <summary>Whether an OpenRR install in this game needs NVIDIA's 310.9.1 nvngx_dlssd.dll: the game's is missing or
     /// another version, or this app put 310.9.1 here already and keeps it.</summary>
-    public static bool OpenRrNeedsDlssd(string gameDir)
+    public static bool OpenRrNeedsDlssd(string gameDir, GraphicsApi? api = null)
     {
         if (!SupplyOpenRrDlssd) return false;
         var dir = ResolveSource(gameDir);
         if (dir.Length == 0 || !Directory.Exists(dir)) return false;
-        return OpenRrRecorded(InstalledManifest(dir)).Contains(DlssdName) || OpenRrDlssd(dir) is not [{ Works: true }, ..];
+        var recorded = OpenRrRecorded(InstalledManifest(dir)).ToList();
+        return recorded.Contains(DlssdName) || recorded.Contains(DlssdOpenRr) || OpenRrDlssd(dir) is not [{ Works: true }, ..];
     }
 
     /// <summary>What the game's nvngx_dlssd.dll means for OpenRR, said once it is ticked.</summary>
-    private static void NoteDlssd(string dir, bool supplied, Report report)
+    private static void NoteDlssd(string dir, bool supplied, bool vulkan, Report report)
     {
         var found = OpenRrDlssd(dir);
+        if (supplied && vulkan)
+        {
+            // opennr-rr's copy is what OptiScaler reads first, the game's own stays for the game
+            report.Info("NVIDIA's nvngx_dlssd.dll 310.9.1 goes in opennr-rr\\ for OpenRR to build its network from; "
+                        + "the game's own nvngx_dlssd.dll stays where it is.");
+            return;
+        }
         if (supplied)
         {
             var had = found.FirstOrDefault(f => f.Path == DlssdName);
@@ -129,7 +151,7 @@ public static partial class Work
     }
 
     /// <summary>What the pre-flight says about OpenRR.</summary>
-    private static void CheckOpenRr(string dir, string src, PayloadPins pins, bool x86, Report report)
+    private static void CheckOpenRr(string dir, string src, PayloadPins pins, bool x86, GraphicsApi? api, Report report)
     {
         if (pins.OpenRr != true)
         {
@@ -150,13 +172,13 @@ public static partial class Work
             if (missing.Count > 0) report.Err($"{Joined(missing)} {(missing.Count == 1 ? "is" : "are")} not in the payload folder.");
             else report.Ok($"OpenRR {pins.OpenRrVersion} is there: OpenNrRrRuntime.dll and opennr-rr\\shaders\\ go in beside OptiScaler.");
         }
-        NoteDlssd(dir, OpenRrNeedsDlssd(dir) && pins.OpenRrDlssd.Length > 0, report);
+        NoteDlssd(dir, OpenRrNeedsDlssd(dir, api) && pins.OpenRrDlssd.Length > 0, OpenRrVulkan(dir, api), report);
     }
 
     /// <summary>OpenRR's files, verified, when ticked, and NVIDIA's nvngx_dlssd.dll when the game needs it. Unticked,
     /// the ini about to be written gets Enabled=false. Never in a 32-bit game.</summary>
     private static void AddOpenRr(SortedDictionary<string, Blob> files, string dir, string src, PayloadPins pins, bool x86,
-        string iniName, Report report)
+        string iniName, GraphicsApi? api, Report report)
     {
         if (pins.OpenRr is not { } on || x86) return;
         if (files.TryGetValue(iniName, out var ini))
@@ -170,14 +192,15 @@ public static partial class Work
         foreach (var (path, sha) in pins.OpenRrFiles)
             if (OpenRrDestination(path) is { } to && VerifiedPayload(src, path, sha, report) is { } bytes)
                 files[to] = bytes;
-        var supply = OpenRrNeedsDlssd(dir);
+        var supply = OpenRrNeedsDlssd(dir, api);
         if (supply && (pins.OpenRrDlssd.Length == 0 || !File.Exists(Path.Combine(src, pins.OpenRrDlssd))))
         {
             report.Warn("NVIDIA's nvngx_dlssd.dll 310.9.1 was not downloaded: OpenRR runs only if the game's own is 310.9.1.");
             supply = false;
         }
-        if (supply && VerifiedPayload(src, pins.OpenRrDlssd, pins.OpenRrDlssdSha, report) is { } dlssd) files[DlssdName] = dlssd;
-        NoteDlssd(dir, supply, report);
+        if (supply && VerifiedPayload(src, pins.OpenRrDlssd, pins.OpenRrDlssdSha, report) is { } dlssd)
+            files[OpenRrDlssdTarget(dir, api)] = dlssd;
+        NoteDlssd(dir, supply, OpenRrVulkan(dir, api), report);
     }
 
     /// <summary>[OpenNR-RR] Enabled=false when OpenRR is left off; ticked again, a false there goes back to auto.</summary>

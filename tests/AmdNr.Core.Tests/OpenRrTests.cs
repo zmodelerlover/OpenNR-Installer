@@ -145,6 +145,39 @@ public class OpenRrTests
     }
 
     [Fact]
+    public void AVulkanGameGets31091InOpennrRrAndKeepsItsOwn()
+    {
+        // Indiana Jones: Vulkan, its own nvngx_dlssd.dll in streamline\
+        var game = Game("rr-vk", api: "vulkan-1.dll");
+        var own = Path.Combine(game, "streamline", "nvngx_dlssd.dll");
+        Directory.CreateDirectory(Path.GetDirectoryName(own)!);
+        Versioned.Write(own, "NVIDIA DLSS-RR", "310.2.1.0");
+        var (src, pins) = Payloads("rr-vk");
+        pins.OpenRr = true;
+        Assert.True(Work.OpenRrVulkan(game, null));
+        Assert.True(Work.OpenRrNeedsDlssd(game));
+        Assert.True(Fixture.HasAny(Work.Preflight(game, src, Preset.OptiScaler, pins), "opennr-rr"));
+        var report = Work.Install(game, src, Preset.OptiScaler, pins);
+        Assert.False(report.Failed, report.ToLog("install"));
+        Assert.Equal("310.9.1.0", Version(Path.Combine(game, "opennr-rr", "nvngx_dlssd.dll")));
+        Assert.Equal("310.2.1.0", Version(own));
+        Assert.False(File.Exists(Path.Combine(game, "nvngx_dlssd.dll")));
+        Assert.True(File.Exists(Path.Combine(game, Work.OpenRrRuntimeName)));
+        Assert.True(File.Exists(Path.Combine(game, "opennr-rr", "shaders", "rr_enc0.spv")));
+        Assert.Equal(Path.Combine("opennr-rr", "nvngx_dlssd.dll"), Work.OpenRrDlssd(game)[0].Path);
+        // Ours, so it stays on the next install.
+        Assert.True(Work.OpenRrNeedsDlssd(game));
+        Assert.False(Work.Install(game, src, Preset.OptiScaler, pins).Failed);
+        Assert.Equal("310.9.1.0", Version(Path.Combine(game, "opennr-rr", "nvngx_dlssd.dll")));
+
+        var gone = Work.Uninstall(game, Preset.OptiScaler);
+        Assert.False(gone.Failed, gone.ToLog("uninstall"));
+        Assert.False(Directory.Exists(Path.Combine(game, "opennr-rr")));
+        Assert.False(File.Exists(Path.Combine(game, Work.OpenRrRuntimeName)));
+        Assert.Equal("310.2.1.0", Version(own));
+    }
+
+    [Fact]
     public void LeftOffTheGamesOwnDlssdComesBack()
     {
         var game = Game("rr-supply-off", "310.3.0.0");

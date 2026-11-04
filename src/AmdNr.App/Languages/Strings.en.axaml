@@ -145,13 +145,13 @@
   <sys:String x:Key="Str.HostFgNoUpscaler">No DLSS, FSR or XeSS found in this game: this frame generation needs the game's upscaler.</sys:String>
   <sys:String x:Key="Str.HostFgNrOff">danielblnc's own NR is off while its FG runs: pick mochizuki or lmxxf as the NR runtime.</sys:String>
   <sys:String x:Key="Str.OpenRrToggle">OpenRR (Ray Reconstruction, RX 9000)</sys:String>
-  <sys:String x:Key="Str.OpenRrNote">On unless unticked. OpenRR, our own DLSS Ray Reconstruction runtime, goes in beside OptiScaler (OpenNrRrRuntime.dll and opennr-rr\shaders\). It builds its network from nvngx_dlssd.dll 310.9.1: a game with another version, or none, gets NVIDIA's 310.9.1, its own kept in the backup. In the game turn DLSS Ray Reconstruction on and OptiScaler's menu (Insert) shows OpenRR. Unticked, it stays out and OptiScaler.ini gets Enabled=false under [OpenNR-RR].</sys:String>
+  <sys:String x:Key="Str.OpenRrNote">On unless unticked. OpenRR, our own DLSS Ray Reconstruction runtime, goes in beside OptiScaler (OpenNrRrRuntime.dll and opennr-rr\shaders\). It builds its network from nvngx_dlssd.dll 310.9.1: a game with another version, or none, gets NVIDIA's 310.9.1, its own kept in the backup (a Vulkan game keeps its own, and 310.9.1 goes in opennr-rr\). In the game turn DLSS Ray Reconstruction on and OptiScaler's menu (Insert) shows OpenRR. Unticked, it stays out and OptiScaler.ini gets Enabled=false under [OpenNR-RR].</sys:String>
   <sys:String x:Key="Str.OpenRrHint">No nvngx_dlssd.dll in this game: installing puts NVIDIA's 310.9.1 beside OptiScaler.</sys:String>
   <sys:String x:Key="Str.OpenRrReady">nvngx_dlssd.dll 310.9.1 found: OpenRR builds its network from it.</sys:String>
   <sys:String x:Key="Str.OpenRrOtherDlssd">{0} is version {1}. OpenRR runs on 310.9.1 only: with this one Ray Reconstruction stays on FSR-RR.</sys:String>
   <sys:String x:Key="Str.OpenRrSupplied">{0} is version {1}, and OpenRR runs on 310.9.1 only: installing puts NVIDIA's 310.9.1 beside OptiScaler and keeps the game's in the backup.</sys:String>
+  <sys:String x:Key="Str.OpenRrSuppliedVulkan">{0} is version {1}, and OpenRR runs on 310.9.1 only: installing puts NVIDIA's 310.9.1 in opennr-rr\ beside OptiScaler, and the game keeps its own.</sys:String>
   <sys:String x:Key="Str.OpenRrListed">{0} supports DLSS Ray Reconstruction.</sys:String>
-  <sys:String x:Key="Str.OpenRrVulkan">{0} uses Vulkan: OpenRR is D3D12 only for now.</sys:String>
   <sys:String x:Key="Str.OpenRrRemix">{0} runs on RTX Remix (D3D9 turned into Vulkan): OpenRR does not support it.</sys:String>
   <sys:String x:Key="Str.OpenRrNotCompatible">{0} is not compatible with OpenRR.</sys:String>
   <sys:String x:Key="Str.PickRouteTitle">Pick a route to install with</sys:String>
