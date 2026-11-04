@@ -234,6 +234,12 @@ public class NrLiveTests
     }
 
     [Fact]
+    public void Int4sWeightsComeOnlyFromTheNrLivePage()
+    {
+        Assert.Contains(PayloadManifest.NrLiveInt4Component, PayloadManifest.OnDemand);
+    }
+
+    [Fact]
     public void TheModelsAReleaseCarriesAreLinkedIntoOpenNrsFolder()
     {
         var (manifest, dir) = Payload("9.4.0", false, ("NRLive.exe", "v4"), ("opennr/dlssnr-amd/shaders/a.spv", "spv"));

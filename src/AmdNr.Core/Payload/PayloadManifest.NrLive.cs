@@ -10,6 +10,10 @@ public sealed partial class PayloadManifest
     /// downloaded only from the NRLive page.</summary>
     public const string NrLiveComponent = "nrlive";
 
+    /// <summary>The int4 network's weights for NRLive, made from the 310.8 model, loose like the models and placed
+    /// beside them in opennr\dlssnr-amd. NRLive's package ships without them.</summary>
+    public const string NrLiveInt4Component = "mochizuki-int4";
+
     /// <summary>The NRLive release to offer, newest first, or null when the payload has none -- or only one still
     /// pinned to <see cref="PlaceholderSha"/>, whose zip is not published yet. Checked here rather than through
     /// <see cref="Offered"/> alone, which trusts a version listed under components: a placeholder there would be

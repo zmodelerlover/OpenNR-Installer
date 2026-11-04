@@ -22,6 +22,8 @@ param(
     [Parameter(Mandatory)] [string] $Zip,
     [Parameter(Mandatory)] [string] $Version,
     [switch] $NoModels,
+    [string] $Int4 = '',
+    [string] $Int4Version = '1',
     [string] $Out = '',
     [string] $Manifest = '',
     [string] $Repo = 'zmodelerlover/amd-nr'
@@ -62,9 +64,19 @@ $components = [ordered]@{ nrlive = [ordered]@{ version = $Version; files = @([or
     url = "https://huggingface.co/datasets/$Repo/resolve/main/nrlive/$Version/$asset"
     mirrors = @("https://github.com/Caliel666/NRLive/releases/download/$Version/$asset") }) } }
 if (-not $NoModels -and $previous) {
-    foreach ($model in 'mochizuki-model', 'mochizuki-model-small') {
+    foreach ($model in 'mochizuki-model', 'mochizuki-model-small', 'mochizuki-int4') {
         if ($previous.components.$model) { $components[$model] = $previous.components.$model }
     }
+}
+# int4's weights, loose under an address of their own, beside the models in opennr\dlssnr-amd.
+if ($Int4) {
+    if (-not (Test-Path -LiteralPath $Int4 -PathType Leaf)) { Fail "$Int4 is missing" }
+    if ((Split-Path -Leaf $Int4) -ne 'dlssnr-int4.bin') { Fail "$Int4 is not dlssnr-int4.bin" }
+    $int4Dest = "mochizuki/int4-$Int4Version/dlssnr-int4.bin"
+    $components['mochizuki-int4'] = [ordered]@{ version = $Int4Version; files = @([ordered]@{
+        name = 'dlssnr-int4.bin'; path = 'dlssnr-amd/dlssnr-int4.bin'; size = (Get-Item -LiteralPath $Int4).Length
+        sha256 = (Get-FileHash -LiteralPath $Int4 -Algorithm SHA256).Hash.ToLowerInvariant()
+        url = "https://huggingface.co/datasets/$Repo/resolve/main/$int4Dest" }) }
 }
 $release = [ordered]@{ version = $Version; components = $components }
 $m.releases | Add-Member -NotePropertyName nrlive -NotePropertyValue @($release) -Force
@@ -73,3 +85,4 @@ Good "$Manifest  (nrlive $Version, $size bytes, sha256 $sha$(if ($components.Cou
 
 Write-Host "`nUpload, before payload.json:" -ForegroundColor Cyan
 Write-Host "  hf upload $Repo `"$(Join-Path $Out $asset)`" nrlive/$Version/$asset --repo-type dataset --commit-message `"NRLive $Version`""
+if ($Int4) { Write-Host "  hf upload $Repo `"$Int4`" $int4Dest --repo-type dataset --commit-message `"int4 weights $Int4Version`"" }
