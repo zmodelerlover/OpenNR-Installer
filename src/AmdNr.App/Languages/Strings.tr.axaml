@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Turkish">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.tr.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.tr.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.tr.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- Türkçe. The same keys as Strings.en.axaml, in its order. -->

@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="AmdNr.App.ReFrameworkCard">
+
+  <!-- REFramework on an RE Engine game's sheet, on either route (GameSheet.ReFramework.cs): a box, unticked unless the
+       list says the game needs it; a game that plays online gets the warning and stays unticked; the line under the
+       box says what is in the way or what is here, and the credit links to REFramework's source. -->
+  <Border Classes="routePanel">
+    <StackPanel Spacing="6">
+      <StackPanel Orientation="Horizontal">
+        <CheckBox x:Name="Box" Content="{DynamicResource Str.ReFwToggle}" Click="OnClick"
+                  AutomationProperties.Name="{DynamicResource Str.ReFwToggle}" />
+        <Border Classes="info" ToolTip.Tip="{DynamicResource Str.ReFwNote}"><PathIcon Data="{StaticResource IconInfo}" /></Border>
+      </StackPanel>
+      <Border x:Name="RiskBox" Classes="callout" IsVisible="False">
+        <Grid ColumnDefinitions="Auto,*">
+          <PathIcon Data="{StaticResource IconWarn}" Width="16" Height="16" Foreground="{DynamicResource Warn}"
+                    VerticalAlignment="Top" Margin="0,1,10,0" />
+          <TextBlock Grid.Column="1" x:Name="RiskText" TextWrapping="Wrap" LineHeight="19" Foreground="{DynamicResource WarnText}" />
+        </Grid>
+      </Border>
+      <TextBlock x:Name="Line" Classes="muted" TextWrapping="Wrap" IsVisible="False" />
+      <Button Classes="link" Click="OnCredit" HorizontalAlignment="Left" Content="{DynamicResource Str.ReFwCredit}" />
+    </StackPanel>
+  </Border>
+</UserControl>

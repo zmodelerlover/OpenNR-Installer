@@ -1,0 +1,18 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Thai. The same keys as ReFramework.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.ReFwToggle">REFramework (ม็อดสำหรับ RE Engine)</sys:String>
+  <sys:String x:Key="Str.ReFwNote">เฟรมเวิร์กม็อดของ praydog สำหรับเกม RE Engine: สคริปต์ Lua ปลั๊กอิน กล้องอิสระ FOV และอื่น ๆ ติดตั้งเป็น dinput8.dll ข้างเกม มีบันทึกของตัวเอง และถูกถอดออกเมื่อยกเลิกติ๊ก สคริปต์และปลั๊กอินที่คุณใส่ใน reframework\ จะยังอยู่</sys:String>
+  <sys:String x:Key="Str.ReFwListed">{0} เป็นเกม RE Engine: ใช้ REFramework {1} ได้</sys:String>
+  <sys:String x:Key="Str.ReFwNeeded">บางอย่างที่ OpenNR ติดตั้งใน {0} ต้องใช้ REFramework จึงติ๊กไว้ตั้งแต่แรก</sys:String>
+  <sys:String x:Key="Str.ReFwRisk">{0} มีโหมดออนไลน์ ซึ่ง Capcom อาจดำเนินการกับเกมที่ถูกม็อด ที่นี่ REFramework ไม่ถูกติ๊ก: ติ๊กเฉพาะตอนเล่นออฟไลน์ และรับความเสี่ยงเอง</sys:String>
+  <sys:String x:Key="Str.ReFwBlocked">dinput8.dll ในโฟลเดอร์นี้เป็นของม็อดอื่น และ REFramework ต้องใช้ชื่อนี้ จะไม่ติดตั้งจนกว่าจะย้ายไฟล์นั้นออก การตรวจล่วงหน้าจะบอกว่าเป็นไฟล์ไหน</sys:String>
+  <sys:String x:Key="Str.ReFwInstalled">REFramework จากแอปนี้อยู่ในเกมนี้ ยกเลิกติ๊กแล้วติดตั้งเพื่อถอดออก สคริปต์และปลั๊กอินของคุณยังอยู่</sys:String>
+  <sys:String x:Key="Str.ReFwNoBuild">ยังไม่มีบิลด์ REFramework สำหรับ {0} ในรายการดาวน์โหลด</sys:String>
+  <sys:String x:Key="Str.ReFwCredit">REFramework โดย praydog สัญญาอนุญาต MIT</sys:String>
+  <sys:String x:Key="Str.CreditReFwTitle">REFramework โดย praydog</sys:String>
+  <sys:String x:Key="Str.CreditReFwBody">เฟรมเวิร์กม็อดสำหรับเกม RE Engine สัญญาอนุญาต MIT เลือกได้ในหน้าของเกมเหล่านั้น และติดตั้งไฟล์สัญญาอนุญาตไปด้วย</sys:String>
+</ResourceDictionary>

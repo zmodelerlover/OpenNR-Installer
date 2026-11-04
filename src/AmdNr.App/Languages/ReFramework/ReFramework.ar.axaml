@@ -1,0 +1,18 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Arabic. The same keys as ReFramework.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.ReFwToggle">REFramework (تعديلات RE Engine)</sys:String>
+  <sys:String x:Key="Str.ReFwNote">إطار التعديلات من praydog لألعاب RE Engine: سكربتات Lua وإضافات وكاميرا حرة وFOV وغير ذلك. يُثبَّت باسم dinput8.dll بجانب اللعبة، بسجل خاص به، ويُزال عند إلغاء التحديد. السكربتات والإضافات التي تضعها في reframework\ تبقى.</sys:String>
+  <sys:String x:Key="Str.ReFwListed">{0} لعبة على RE Engine: يناسبها REFramework {1}.</sys:String>
+  <sys:String x:Key="Str.ReFwNeeded">شيء يثبّته OpenNR في {0} يحتاج إلى REFramework، لذلك يبدأ محدّدًا.</sys:String>
+  <sys:String x:Key="Str.ReFwRisk">في {0} لعب عبر الإنترنت، وقد تتخذ Capcom إجراءً ضد لعبة معدّلة. هنا يبدأ REFramework غير محدّد: حدّده للعب دون اتصال فقط وعلى مسؤوليتك.</sys:String>
+  <sys:String x:Key="Str.ReFwBlocked">ملف dinput8.dll في هذا المجلد يخص تعديلًا آخر، وREFramework يحتاج هذا الاسم. لن يُثبَّت حتى يُنقل ذلك الملف؛ والفحص المسبق يذكر أي ملف هو.</sys:String>
+  <sys:String x:Key="Str.ReFwInstalled">REFramework من هذا التطبيق موجود في هذه اللعبة. ألغِ التحديد وثبّت لإزالته؛ تبقى سكربتاتك وإضافاتك.</sys:String>
+  <sys:String x:Key="Str.ReFwNoBuild">لا يوجد بعد إصدار من REFramework لـ {0} في قائمة التنزيلات.</sys:String>
+  <sys:String x:Key="Str.ReFwCredit">REFramework من praydog، رخصة MIT</sys:String>
+  <sys:String x:Key="Str.CreditReFwTitle">REFramework، من praydog</sys:String>
+  <sys:String x:Key="Str.CreditReFwBody">إطار تعديلات لألعاب RE Engine، رخصة MIT. اختياري في صفحات تلك الألعاب، وتُثبَّت رخصته معه.</sys:String>
+</ResourceDictionary>

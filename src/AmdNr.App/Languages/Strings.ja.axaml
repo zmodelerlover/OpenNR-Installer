@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Japanese">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.ja.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.ja.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.ja.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- 日本語. The same keys as Strings.en.axaml, in its order. -->

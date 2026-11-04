@@ -1,0 +1,18 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- German. The same keys as ReFramework.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.ReFwToggle">REFramework (RE-Engine-Mods)</sys:String>
+  <sys:String x:Key="Str.ReFwNote">praydogs Mod-Framework für RE-Engine-Spiele: Lua-Skripte, Plugins, freie Kamera, FOV und mehr. Es kommt als dinput8.dll neben das Spiel, mit eigenem Eintrag, und geht wieder, wenn es abgewählt wird. Skripte und Plugins, die du in reframework\ ablegst, bleiben.</sys:String>
+  <sys:String x:Key="Str.ReFwListed">{0} ist ein RE-Engine-Spiel: REFramework {1} passt dazu.</sys:String>
+  <sys:String x:Key="Str.ReFwNeeded">Etwas, das OpenNR in {0} installiert, braucht REFramework, deshalb ist es angehakt.</sys:String>
+  <sys:String x:Key="Str.ReFwRisk">{0} wird online gespielt, und Capcom kann dort gegen ein gemoddetes Spiel vorgehen. REFramework ist hier abgewählt: hake es nur für Offline-Spiel an, auf eigenes Risiko.</sys:String>
+  <sys:String x:Key="Str.ReFwBlocked">Die dinput8.dll in diesem Ordner gehört zu einem anderen Mod, und REFramework braucht diesen Namen. Es bleibt draußen, bis die Datei verschoben ist; die Vorprüfung sagt, welche es ist.</sys:String>
+  <sys:String x:Key="Str.ReFwInstalled">REFramework aus dieser App ist in diesem Spiel. Abwählen und installieren nimmt es heraus; deine Skripte und Plugins bleiben.</sys:String>
+  <sys:String x:Key="Str.ReFwNoBuild">Für {0} gibt es in der Download-Liste noch keinen REFramework-Build.</sys:String>
+  <sys:String x:Key="Str.ReFwCredit">REFramework von praydog, MIT-Lizenz</sys:String>
+  <sys:String x:Key="Str.CreditReFwTitle">REFramework, von praydog</sys:String>
+  <sys:String x:Key="Str.CreditReFwBody">Mod-Framework für RE-Engine-Spiele, MIT-Lizenz. Optional auf den Seiten dieser Spiele; seine Lizenz wird mit installiert.</sys:String>
+</ResourceDictionary>

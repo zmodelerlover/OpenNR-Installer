@@ -1,0 +1,18 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Korean. The same keys as ReFramework.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.ReFwToggle">REFramework (RE 엔진 모드)</sys:String>
+  <sys:String x:Key="Str.ReFwNote">praydog의 RE 엔진 게임용 모드 프레임워크: Lua 스크립트, 플러그인, 자유 카메라, FOV 등. 게임 옆에 dinput8.dll로 자체 기록과 함께 들어가고, 체크를 해제하면 빠집니다. reframework\에 넣은 스크립트와 플러그인은 남습니다.</sys:String>
+  <sys:String x:Key="Str.ReFwListed">{0}은(는) RE 엔진 게임입니다: REFramework {1}이(가) 맞습니다.</sys:String>
+  <sys:String x:Key="Str.ReFwNeeded">OpenNR이 {0}에 설치하는 것이 REFramework를 필요로 해서 처음부터 체크되어 있습니다.</sys:String>
+  <sys:String x:Key="Str.ReFwRisk">{0}에는 온라인 플레이가 있고, Capcom이 수정된 게임에 조치할 수 있습니다. 여기서는 REFramework가 체크 해제되어 있습니다: 오프라인 플레이에서만, 본인 책임으로 체크하세요.</sys:String>
+  <sys:String x:Key="Str.ReFwBlocked">이 폴더의 dinput8.dll은 다른 모드의 것이고, REFramework도 그 이름이 필요합니다. 그 파일을 옮길 때까지 설치되지 않으며, 어떤 파일인지는 사전 점검에 나옵니다.</sys:String>
+  <sys:String x:Key="Str.ReFwInstalled">이 앱의 REFramework가 이 게임에 있습니다. 체크를 해제하고 설치하면 빠집니다. 스크립트와 플러그인은 남습니다.</sys:String>
+  <sys:String x:Key="Str.ReFwNoBuild">다운로드 목록에 아직 {0}용 REFramework 빌드가 없습니다.</sys:String>
+  <sys:String x:Key="Str.ReFwCredit">REFramework, praydog 제작, MIT 라이선스</sys:String>
+  <sys:String x:Key="Str.CreditReFwTitle">REFramework, praydog 제작</sys:String>
+  <sys:String x:Key="Str.CreditReFwBody">RE 엔진 게임용 모드 프레임워크, MIT 라이선스. 해당 게임 페이지에서 선택할 수 있고, 라이선스도 함께 설치됩니다.</sys:String>
+</ResourceDictionary>

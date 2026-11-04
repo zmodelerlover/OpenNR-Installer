@@ -1,0 +1,18 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Pirate. The same keys as ReFramework.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.ReFwToggle">REFramework (RE Engine trinkets)</sys:String>
+  <sys:String x:Key="Str.ReFwNote">praydog's mod riggin' fer RE Engine games: Lua scripts, plugins, a free spyglass, FOV an' more. It goes aboard as dinput8.dll beside the game, with its own log, an' walks the plank when unticked. Scripts an' plugins ye stow in reframework\ stay put.</sys:String>
+  <sys:String x:Key="Str.ReFwListed">{0} be an RE Engine game: REFramework {1} fits her.</sys:String>
+  <sys:String x:Key="Str.ReFwNeeded">Somethin' OpenNR stows in {0} needs REFramework, so it starts ticked.</sys:String>
+  <sys:String x:Key="Str.ReFwRisk">{0} sails online, where Capcom can come after a tinkered game. REFramework starts unticked here: tick it only fer sailin' alone, at yer own peril.</sys:String>
+  <sys:String x:Key="Str.ReFwBlocked">The dinput8.dll in this hold belongs to another crew's mod, an' REFramework needs that name. It stays ashore till that file be moved; the pre-flight says which one.</sys:String>
+  <sys:String x:Key="Str.ReFwInstalled">REFramework from this app be in this game. Untick it an' install to cast it off; yer scripts an' plugins stay.</sys:String>
+  <sys:String x:Key="Str.ReFwNoBuild">There be no REFramework build fer {0} in the haul list yet.</sys:String>
+  <sys:String x:Key="Str.ReFwCredit">REFramework by praydog, MIT licence</sys:String>
+  <sys:String x:Key="Str.CreditReFwTitle">REFramework, by praydog</sys:String>
+  <sys:String x:Key="Str.CreditReFwBody">Mod riggin' fer RE Engine games, MIT licence. Optional on them games' pages; its licence comes aboard with it.</sys:String>
+</ResourceDictionary>

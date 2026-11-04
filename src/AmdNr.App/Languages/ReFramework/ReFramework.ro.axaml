@@ -1,0 +1,18 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Romanian. The same keys as ReFramework.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.ReFwToggle">REFramework (moduri RE Engine)</sys:String>
+  <sys:String x:Key="Str.ReFwNote">Frameworkul de moduri al lui praydog pentru jocurile RE Engine: scripturi Lua, pluginuri, cameră liberă, FOV și altele. Se pune ca dinput8.dll lângă joc, cu evidența lui proprie, și pleacă la debifare. Scripturile și pluginurile pe care le pui în reframework\ rămân.</sys:String>
+  <sys:String x:Key="Str.ReFwListed">{0} este un joc RE Engine: i se potrivește REFramework {1}.</sys:String>
+  <sys:String x:Key="Str.ReFwNeeded">Ceva ce OpenNR instalează în {0} are nevoie de REFramework, așa că pornește bifat.</sys:String>
+  <sys:String x:Key="Str.ReFwRisk">{0} are joc online, unde Capcom poate acționa împotriva unui joc modificat. Aici REFramework pornește debifat: bifează-l doar pentru joc offline, pe riscul tău.</sys:String>
+  <sys:String x:Key="Str.ReFwBlocked">dinput8.dll din acest folder e al altui mod, iar REFramework are nevoie de acest nume. Rămâne afară până când fișierul e mutat; verificarea prealabilă spune care este.</sys:String>
+  <sys:String x:Key="Str.ReFwInstalled">REFramework din această aplicație e în acest joc. Debifează și instalează ca să-l scoți; scripturile și pluginurile tale rămân.</sys:String>
+  <sys:String x:Key="Str.ReFwNoBuild">Încă nu există o versiune REFramework pentru {0} în lista de descărcări.</sys:String>
+  <sys:String x:Key="Str.ReFwCredit">REFramework de praydog, licență MIT</sys:String>
+  <sys:String x:Key="Str.CreditReFwTitle">REFramework, de praydog</sys:String>
+  <sys:String x:Key="Str.CreditReFwBody">Framework de moduri pentru jocurile RE Engine, licență MIT. Opțional pe paginile acelor jocuri; licența lui se instalează împreună cu el.</sys:String>
+</ResourceDictionary>

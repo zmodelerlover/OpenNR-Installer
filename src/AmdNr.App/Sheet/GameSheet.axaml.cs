@@ -66,6 +66,7 @@ public partial class GameSheet : UserControl
     {
         _shell = shell;
         WireAntiCheat();
+        ReFrameworkPanel.Changed += OnReFrameworkChanged;
         Session.BusyChanged += () =>
         {
             Lock(Session.Busy);

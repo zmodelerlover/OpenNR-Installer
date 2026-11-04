@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 namespace AmdNr.Core;
 
 // Settable, not init: see ApiDatabase.
-public sealed class RrGame
+public sealed class RrGame : IListedGame
 {
     [JsonPropertyName("t")] public required string Title { get; init; }
     [JsonPropertyName("steam")] public List<string> SteamAppIds { get; set; } = [];
@@ -37,17 +37,21 @@ public sealed partial class ApiDatabase
     [JsonPropertyName("rr")] public List<RrGame> RayReconstruction { get; set; } = [];
 
     /// <summary>The listed game this one is, or null: by Steam app id, then executable name, then any of its titles.</summary>
-    public RrGame? RrGameFor(string? steamAppId, string? executable, params string?[] titles)
+    public RrGame? RrGameFor(string? steamAppId, string? executable, params string?[] titles) =>
+        Listed(RayReconstruction, steamAppId, executable, titles);
+
+    /// <summary>The game of a hand-written list this one is: by Steam app id, then executable name, then any of its titles.</summary>
+    internal static T? Listed<T>(IReadOnlyList<T> games, string? steamAppId, string? executable, string?[] titles) where T : class, IListedGame
     {
         if (!string.IsNullOrWhiteSpace(steamAppId)
-            && RayReconstruction.FirstOrDefault(g => g.SteamAppIds.Contains(steamAppId.Trim())) is { } bySteam)
+            && games.FirstOrDefault(g => g.SteamAppIds.Contains(steamAppId.Trim())) is { } bySteam)
             return bySteam;
         var exe = Path.GetFileName(executable);
         if (!string.IsNullOrEmpty(exe)
-            && RayReconstruction.FirstOrDefault(g => g.Executables.Contains(exe, StringComparer.OrdinalIgnoreCase)) is { } byExe)
+            && games.FirstOrDefault(g => g.Executables.Contains(exe, StringComparer.OrdinalIgnoreCase)) is { } byExe)
             return byExe;
         var keys = titles.Select(PcgwParser.NormaliseTitle).Where(k => k.Length >= 2).ToHashSet(StringComparer.Ordinal);
-        return RayReconstruction.FirstOrDefault(g => keys.Contains(PcgwParser.NormaliseTitle(g.Title)));
+        return games.FirstOrDefault(g => keys.Contains(PcgwParser.NormaliseTitle(g.Title)));
     }
 }
 

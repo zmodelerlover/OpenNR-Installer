@@ -21,20 +21,23 @@ public partial class NrLiveStringsTests
 
     private static List<string> Keys(string file) => Key().Matches(File.ReadAllText(file)).Select(m => m.Groups[1].Value).ToList();
 
-    [Fact]
-    public void EveryLanguageHasEveryKeyInTheSameOrderAndMergesIt()
+    /// <summary>The REFramework card's strings sit the same way, in Languages\ReFramework\.</summary>
+    [Theory]
+    [InlineData("NrLive")]
+    [InlineData("ReFramework")]
+    public void EveryLanguageHasEveryKeyInTheSameOrderAndMergesIt(string part)
     {
         var languages = Languages();
-        var english = Keys(Path.Combine(languages, "NrLive", "NrLive.en.axaml"));
+        var english = Keys(Path.Combine(languages, part, $"{part}.en.axaml"));
         var strings = Directory.GetFiles(languages, "Strings.*.axaml");
         Assert.Equal(21, strings.Length);
         foreach (var file in strings)
         {
             var code = Path.GetFileName(file)["Strings.".Length..^".axaml".Length];
-            var own = Path.Combine(languages, "NrLive", $"NrLive.{code}.axaml");
+            var own = Path.Combine(languages, part, $"{part}.{code}.axaml");
             Assert.True(File.Exists(own), $"{own} is missing");
             Assert.Equal(english, Keys(own));
-            Assert.Contains($"<ResourceInclude Source=\"/Languages/NrLive/NrLive.{code}.axaml\" />", File.ReadAllText(file));
+            Assert.Contains($"<ResourceInclude Source=\"/Languages/{part}/{part}.{code}.axaml\" />", File.ReadAllText(file));
             Assert.Empty(Keys(file).Intersect(english));
         }
     }

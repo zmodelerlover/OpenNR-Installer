@@ -1,0 +1,19 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- The REFramework card on an RE Engine game's sheet and its credit, in a file of their own beside Strings.en.axaml,
+       which merges it. Every ReFramework.*.axaml has these keys, in this order. -->
+
+  <sys:String x:Key="Str.ReFwToggle">REFramework (RE Engine mods)</sys:String>
+  <sys:String x:Key="Str.ReFwNote">praydog's mod framework for RE Engine games: Lua scripts, plugins, free camera, FOV and more. It goes in as dinput8.dll beside the game, with a record of its own, and comes out when unticked. Scripts and plugins you add in reframework\ stay.</sys:String>
+  <sys:String x:Key="Str.ReFwListed">{0} is an RE Engine game: REFramework {1} fits it.</sys:String>
+  <sys:String x:Key="Str.ReFwNeeded">Something OpenNR installs in {0} needs REFramework, so it starts ticked.</sys:String>
+  <sys:String x:Key="Str.ReFwRisk">{0} plays online, where Capcom can act against a modded game. REFramework starts unticked here: tick it only for offline play, at your own risk.</sys:String>
+  <sys:String x:Key="Str.ReFwBlocked">The dinput8.dll in this folder is another mod's, and REFramework needs that name. It stays out until that file is moved; the pre-flight says which file it is.</sys:String>
+  <sys:String x:Key="Str.ReFwInstalled">REFramework from this app is in this game. Untick it and install to take it out; your scripts and plugins stay.</sys:String>
+  <sys:String x:Key="Str.ReFwNoBuild">There is no REFramework build for {0} in the download list yet.</sys:String>
+  <sys:String x:Key="Str.ReFwCredit">REFramework by praydog, MIT licence</sys:String>
+  <sys:String x:Key="Str.CreditReFwTitle">REFramework, by praydog</sys:String>
+  <sys:String x:Key="Str.CreditReFwBody">Mod framework for RE Engine games, MIT licence. Optional on those games' pages; its licence goes in with it.</sys:String>
+</ResourceDictionary>

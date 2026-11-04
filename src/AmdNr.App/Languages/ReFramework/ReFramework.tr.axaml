@@ -1,0 +1,18 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Turkish. The same keys as ReFramework.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.ReFwToggle">REFramework (RE Engine modları)</sys:String>
+  <sys:String x:Key="Str.ReFwNote">praydog'un RE Engine oyunları için mod çatısı: Lua betikleri, eklentiler, serbest kamera, FOV ve daha fazlası. Oyunun yanına kendi kaydıyla dinput8.dll olarak girer, işaret kaldırılınca çıkar. reframework\ içine eklediğin betikler ve eklentiler kalır.</sys:String>
+  <sys:String x:Key="Str.ReFwListed">{0} bir RE Engine oyunu: REFramework {1} ona uyar.</sys:String>
+  <sys:String x:Key="Str.ReFwNeeded">OpenNR'ın {0} içine kurduğu bir şey REFramework'e ihtiyaç duyuyor, bu yüzden işaretli başlar.</sys:String>
+  <sys:String x:Key="Str.ReFwRisk">{0} çevrimiçi oynanıyor ve Capcom orada modlu oyuna karşı işlem yapabilir. REFramework burada işaretsiz başlar: yalnızca çevrimdışı oyun için, riski sana ait olmak üzere işaretle.</sys:String>
+  <sys:String x:Key="Str.ReFwBlocked">Bu klasördeki dinput8.dll başka bir modun, ve REFramework'ün de bu ada ihtiyacı var. O dosya taşınana kadar kurulmaz; ön kontrol hangisi olduğunu söyler.</sys:String>
+  <sys:String x:Key="Str.ReFwInstalled">Bu uygulamanın REFramework'ü bu oyunda. Kaldırmak için işareti kaldırıp kur; betiklerin ve eklentilerin kalır.</sys:String>
+  <sys:String x:Key="Str.ReFwNoBuild">İndirme listesinde {0} için henüz bir REFramework sürümü yok.</sys:String>
+  <sys:String x:Key="Str.ReFwCredit">praydog'un REFramework'ü, MIT lisansı</sys:String>
+  <sys:String x:Key="Str.CreditReFwTitle">REFramework, praydog'dan</sys:String>
+  <sys:String x:Key="Str.CreditReFwBody">RE Engine oyunları için mod çatısı, MIT lisansı. Bu oyunların sayfasında isteğe bağlı; lisansı da onunla birlikte gelir.</sys:String>
+</ResourceDictionary>

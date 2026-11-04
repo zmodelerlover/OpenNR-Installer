@@ -1,0 +1,18 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Croatian. The same keys as ReFramework.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.ReFwToggle">REFramework (modovi za RE Engine)</sys:String>
+  <sys:String x:Key="Str.ReFwNote">praydogov okvir za modove za igre na RE Engineu: Lua skripte, dodaci, slobodna kamera, FOV i više. Ide uz igru kao dinput8.dll, s vlastitim zapisom, i uklanja se kad ga odznačiš. Skripte i dodaci koje staviš u reframework\ ostaju.</sys:String>
+  <sys:String x:Key="Str.ReFwListed">{0} je igra na RE Engineu: odgovara joj REFramework {1}.</sys:String>
+  <sys:String x:Key="Str.ReFwNeeded">Nešto što OpenNR instalira u {0} treba REFramework, pa je odmah označen.</sys:String>
+  <sys:String x:Key="Str.ReFwRisk">{0} se igra online, gdje Capcom može postupiti protiv modificirane igre. Ovdje REFramework nije označen: označi ga samo za igranje offline, na vlastiti rizik.</sys:String>
+  <sys:String x:Key="Str.ReFwBlocked">dinput8.dll u ovoj mapi pripada drugom modu, a REFramework treba to ime. Ostaje vani dok se ta datoteka ne makne; provjera unaprijed kaže koja je.</sys:String>
+  <sys:String x:Key="Str.ReFwInstalled">REFramework iz ove aplikacije je u ovoj igri. Odznači i instaliraj da ga ukloniš; tvoje skripte i dodaci ostaju.</sys:String>
+  <sys:String x:Key="Str.ReFwNoBuild">Na popisu preuzimanja još nema REFramework verzije za {0}.</sys:String>
+  <sys:String x:Key="Str.ReFwCredit">REFramework, autor praydog, MIT licenca</sys:String>
+  <sys:String x:Key="Str.CreditReFwTitle">REFramework, autor praydog</sys:String>
+  <sys:String x:Key="Str.CreditReFwBody">Okvir za modove za igre na RE Engineu, MIT licenca. Neobavezan na stranicama tih igara; njegova licenca ide s njim.</sys:String>
+</ResourceDictionary>

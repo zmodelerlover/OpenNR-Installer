@@ -1,0 +1,18 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Simplified Chinese. The same keys as ReFramework.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.ReFwToggle">REFramework（RE 引擎模组）</sys:String>
+  <sys:String x:Key="Str.ReFwNote">praydog 为 RE 引擎游戏制作的模组框架：Lua 脚本、插件、自由视角、FOV 等。它以 dinput8.dll 放在游戏旁边，有自己的记录，取消勾选即移除。你放进 reframework\ 的脚本和插件会保留。</sys:String>
+  <sys:String x:Key="Str.ReFwListed">{0} 是 RE 引擎游戏：适用 REFramework {1}。</sys:String>
+  <sys:String x:Key="Str.ReFwNeeded">OpenNR 在 {0} 中安装的某些内容需要 REFramework，因此默认勾选。</sys:String>
+  <sys:String x:Key="Str.ReFwRisk">{0} 有联机模式，Capcom 可能对修改过的游戏采取措施。这里 REFramework 默认不勾选：只在离线游玩时勾选，风险自负。</sys:String>
+  <sys:String x:Key="Str.ReFwBlocked">此文件夹里的 dinput8.dll 属于其他模组，而 REFramework 需要这个文件名。在移走该文件之前不会安装；预检会说明是哪个文件。</sys:String>
+  <sys:String x:Key="Str.ReFwInstalled">本应用安装的 REFramework 在这个游戏里。取消勾选并安装即可移除；你的脚本和插件会保留。</sys:String>
+  <sys:String x:Key="Str.ReFwNoBuild">下载列表中还没有适用于 {0} 的 REFramework 版本。</sys:String>
+  <sys:String x:Key="Str.ReFwCredit">REFramework，作者 praydog，MIT 许可</sys:String>
+  <sys:String x:Key="Str.CreditReFwTitle">REFramework，作者 praydog</sys:String>
+  <sys:String x:Key="Str.CreditReFwBody">RE 引擎游戏的模组框架，MIT 许可。在这些游戏的页面上可选；其许可证会一同安装。</sys:String>
+</ResourceDictionary>

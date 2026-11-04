@@ -1,0 +1,18 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Hindi. The same keys as ReFramework.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.ReFwToggle">REFramework (RE Engine मॉड)</sys:String>
+  <sys:String x:Key="Str.ReFwNote">RE Engine गेम के लिए praydog का मॉड फ़्रेमवर्क: Lua स्क्रिप्ट, प्लगइन, फ़्री कैमरा, FOV और भी बहुत कुछ। यह गेम के पास dinput8.dll के रूप में अपने रिकॉर्ड के साथ जाता है, और अनटिक करने पर हट जाता है। reframework\ में डाली गई आपकी स्क्रिप्ट और प्लगइन बने रहते हैं।</sys:String>
+  <sys:String x:Key="Str.ReFwListed">{0} एक RE Engine गेम है: इसमें REFramework {1} चलता है।</sys:String>
+  <sys:String x:Key="Str.ReFwNeeded">OpenNR जो {0} में इंस्टॉल करता है, उसमें से किसी चीज़ को REFramework चाहिए, इसलिए यह पहले से टिक है।</sys:String>
+  <sys:String x:Key="Str.ReFwRisk">{0} ऑनलाइन खेला जाता है, जहाँ Capcom मॉड किए गए गेम पर कार्रवाई कर सकता है। यहाँ REFramework अनटिक रहता है: इसे सिर्फ़ ऑफ़लाइन खेलने के लिए, अपने जोखिम पर टिक करें।</sys:String>
+  <sys:String x:Key="Str.ReFwBlocked">इस फ़ोल्डर का dinput8.dll किसी दूसरे मॉड का है, और REFramework को भी यही नाम चाहिए। जब तक वह फ़ाइल हटाई नहीं जाती, यह इंस्टॉल नहीं होगा; प्री-फ़्लाइट बताता है कि कौन-सी फ़ाइल है।</sys:String>
+  <sys:String x:Key="Str.ReFwInstalled">इस ऐप का REFramework इस गेम में है। हटाने के लिए अनटिक करके इंस्टॉल करें; आपकी स्क्रिप्ट और प्लगइन बने रहेंगे।</sys:String>
+  <sys:String x:Key="Str.ReFwNoBuild">डाउनलोड सूची में अभी {0} के लिए REFramework बिल्ड नहीं है।</sys:String>
+  <sys:String x:Key="Str.ReFwCredit">praydog का REFramework, MIT लाइसेंस</sys:String>
+  <sys:String x:Key="Str.CreditReFwTitle">REFramework, praydog द्वारा</sys:String>
+  <sys:String x:Key="Str.CreditReFwBody">RE Engine गेम के लिए मॉड फ़्रेमवर्क, MIT लाइसेंस। उन गेम के पेज पर वैकल्पिक; इसका लाइसेंस साथ में इंस्टॉल होता है।</sys:String>
+</ResourceDictionary>

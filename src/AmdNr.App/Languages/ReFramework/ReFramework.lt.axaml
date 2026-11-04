@@ -1,0 +1,18 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Lithuanian. The same keys as ReFramework.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.ReFwToggle">REFramework (RE Engine modai)</sys:String>
+  <sys:String x:Key="Str.ReFwNote">praydog modų karkasas RE Engine žaidimams: Lua scenarijai, papildiniai, laisva kamera, FOV ir kt. Įdedamas kaip dinput8.dll šalia žaidimo, su savo įrašu, ir pašalinamas nuėmus žymę. Į reframework\ įdėti scenarijai ir papildiniai lieka.</sys:String>
+  <sys:String x:Key="Str.ReFwListed">{0} yra RE Engine žaidimas: jam tinka REFramework {1}.</sys:String>
+  <sys:String x:Key="Str.ReFwNeeded">Kažkam, ką OpenNR įdiegia į {0}, reikia REFramework, todėl jis pažymėtas iš karto.</sys:String>
+  <sys:String x:Key="Str.ReFwRisk">{0} žaidžiamas internetu, kur Capcom gali imtis veiksmų prieš modifikuotą žaidimą. Čia REFramework nepažymėtas: žymėkite tik žaidimui be ryšio, savo rizika.</sys:String>
+  <sys:String x:Key="Str.ReFwBlocked">Šio aplanko dinput8.dll priklauso kitam modui, o REFramework reikia šio pavadinimo. Jis nebus įdiegtas, kol tas failas nebus perkeltas; išankstinė patikra nurodo, kuris tai failas.</sys:String>
+  <sys:String x:Key="Str.ReFwInstalled">Šios programos REFramework yra šiame žaidime. Nuimkite žymę ir įdiekite, kad pašalintumėte; jūsų scenarijai ir papildiniai lieka.</sys:String>
+  <sys:String x:Key="Str.ReFwNoBuild">Atsisiuntimų sąraše dar nėra REFramework versijos žaidimui {0}.</sys:String>
+  <sys:String x:Key="Str.ReFwCredit">REFramework, sukūrė praydog, MIT licencija</sys:String>
+  <sys:String x:Key="Str.CreditReFwTitle">REFramework, sukūrė praydog</sys:String>
+  <sys:String x:Key="Str.CreditReFwBody">Modų karkasas RE Engine žaidimams, MIT licencija. Pasirenkamas tų žaidimų puslapiuose; jo licencija įdiegiama kartu.</sys:String>
+</ResourceDictionary>

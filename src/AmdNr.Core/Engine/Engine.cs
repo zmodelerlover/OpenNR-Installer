@@ -49,6 +49,13 @@ public static partial class Engine
 
     public const string ManifestName = "amd-nr-x86bridge.install.json";
     public const string ManifestNameX64 = "amd-nr.install.json";
+
+    /// <summary>REFramework's own record, apart from the route's, so it is installed and taken out on its own.</summary>
+    public const string ReFrameworkManifestName = "amd-nr.reframework.json";
+    public const string ReFrameworkPreset = "REFramework";
+
+    /// <summary>The folders a manifest may record as made by its install (<see cref="Manifest.Created"/>).</summary>
+    public static readonly IReadOnlySet<string> Creatable = new HashSet<string>(StringComparer.Ordinal) { "reframework" };
     public const string BackupDir = ".amd-nr-x86bridge-backups";
     /// <summary>Where installs before v0.6.5 put their backups. Still read, never written:
     /// the files are on disk under this name in every folder installed back then, and a
@@ -251,6 +258,8 @@ public static partial class Engine
         "OpenNrRrRuntime.dll",
         "nvngx_dlssd.dll",
         "opennr-rr/nvngx_dlssd.dll",
+        // REFramework's licence beside its dinput8.dll (listed above), under REFramework's own manifest (Work.ReFramework.cs).
+        "REFramework-LICENSE.txt",
         // The author's setup loads danielblnc's runtime under this name, and the OptiScaler route
         // moves that file to the backup when it takes it as its runtime; uninstall puts it back.
         // OptiScaler itself goes in under it when that is the name picked for it.

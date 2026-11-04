@@ -1,0 +1,18 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Hungarian. The same keys as ReFramework.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.ReFwToggle">REFramework (RE Engine modok)</sys:String>
+  <sys:String x:Key="Str.ReFwNote">praydog modkerete RE Engine játékokhoz: Lua szkriptek, pluginok, szabad kamera, FOV és még több. dinput8.dll-ként kerül a játék mellé, saját nyilvántartással, és kikerül, ha kiveszed a pipát. A reframework\ mappába tett szkriptek és pluginok maradnak.</sys:String>
+  <sys:String x:Key="Str.ReFwListed">{0} RE Engine játék: a REFramework {1} illik hozzá.</sys:String>
+  <sys:String x:Key="Str.ReFwNeeded">Valami, amit az OpenNR a(z) {0} játékba telepít, igényli a REFrameworköt, ezért be van pipálva.</sys:String>
+  <sys:String x:Key="Str.ReFwRisk">A(z) {0} online is játszható, ahol a Capcom felléphet a módosított játék ellen. Itt a REFramework nincs bepipálva: csak offline játékhoz pipáld be, saját felelősségre.</sys:String>
+  <sys:String x:Key="Str.ReFwBlocked">A mappában lévő dinput8.dll egy másik modé, és a REFrameworknek is ez a név kell. Addig nem kerül fel, amíg azt a fájlt el nem viszed; az előzetes ellenőrzés megmondja, melyik az.</sys:String>
+  <sys:String x:Key="Str.ReFwInstalled">Ennek az alkalmazásnak a REFrameworkje van ebben a játékban. Vedd ki a pipát és telepíts, hogy kikerüljön; a szkriptjeid és pluginjaid maradnak.</sys:String>
+  <sys:String x:Key="Str.ReFwNoBuild">A letöltési listában még nincs REFramework build a(z) {0} játékhoz.</sys:String>
+  <sys:String x:Key="Str.ReFwCredit">REFramework, praydog munkája, MIT licenc</sys:String>
+  <sys:String x:Key="Str.CreditReFwTitle">REFramework, praydog munkája</sys:String>
+  <sys:String x:Key="Str.CreditReFwBody">Modkeret RE Engine játékokhoz, MIT licenc. Választható ezeknek a játékoknak az oldalán; a licence is vele együtt települ.</sys:String>
+</ResourceDictionary>

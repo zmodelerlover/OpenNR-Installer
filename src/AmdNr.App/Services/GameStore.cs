@@ -61,6 +61,9 @@ public sealed class GameEntry
     /// <summary>OpenRR ticked or unticked for this game; null until then, which is ticked, as [OpenNR-RR] is on by default.</summary>
     public bool? OpenRr { get; set; }
 
+    /// <summary>REFramework ticked or unticked for this game; null until then, which follows the folder and the list.</summary>
+    public bool? ReFramework { get; set; }
+
     /// <summary>mochizuki's RX 7000 network ticked or unticked for this game on an RX 7000 card; null until then, and
     /// then it follows the folder, like WrongGPU.</summary>
     public bool? MochizukiRdna3 { get; set; }

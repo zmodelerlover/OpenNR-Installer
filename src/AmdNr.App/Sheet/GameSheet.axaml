@@ -254,7 +254,6 @@
                         </StackPanel>
                       </Grid>
                     </Border>
-
                     <!-- ReShade: which API, the name it loads as, and the add-on version. -->
                     <Border x:Name="ReShadePanel" Classes="routePanel">
                       <StackPanel Spacing="12">
@@ -346,6 +345,7 @@
                         </Border>
                       </StackPanel>
                     </Border>
+                    <local:ReFrameworkCard x:Name="ReFrameworkPanel" IsVisible="False" /><!-- either route: GameSheet.ReFramework.cs -->
 
                     <!-- Which danielblnc runtime goes in: the download, or the supporter build the person supplies,
                          which this app never distributes. Two cards like the route's above, so it reads as the

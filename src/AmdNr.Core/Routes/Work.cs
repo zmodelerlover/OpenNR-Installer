@@ -97,11 +97,10 @@ public static partial class Work
 {
     public const string AddonName = "amd-nr.addon64";
     public const string RuntimeName = "dlssnr_amd_pass1.dll";
-    /// <summary>The companion effect, and where it has to land: ReShade's default
-    /// EffectSearchPaths is reshade-shaders/Shaders/**, so anywhere else and ReShade never
-    /// compiles it. This is what gives a game with no velocity buffer of its own real motion
-    /// vectors -- it reads whatever optical-flow shader is installed above it (iMMERSE
-    /// Launchpad, VORT, LumeniteFX) and hands the field to the add-on.</summary>
+    /// <summary>The companion effect, and where it has to land: ReShade's default EffectSearchPaths is
+    /// reshade-shaders/Shaders/**, so anywhere else and ReShade never compiles it. This is what gives a game with no
+    /// velocity buffer of its own real motion vectors -- it reads whatever optical-flow shader is installed above it
+    /// (iMMERSE Launchpad, VORT, LumeniteFX) and hands the field to the add-on.</summary>
     public const string ShaderName = "AMD_Neural_Feed.fx";
     public const string ShaderPath = "reshade-shaders/Shaders/" + ShaderName;
     public const string WeightsName = "dlssnr_on_amd_weights.bin";
@@ -457,7 +456,7 @@ public static partial class Work
                 report.Info($"{why} {ClearsTheWay}");
         }
         catch (InstallException) { /* the route's own lines already say what is wrong with the folder */ }
-        return report;
+        return CheckReFramework(gameDir, payloadDir, preset, pins, proxy, report);
     }
 
     // -- Install ---------------------------------------------------------------------------------
@@ -490,11 +489,12 @@ public static partial class Work
             report.Info("Nothing new was written: fix the problem above and run it again.");
             return report;
         }
+        if (ReFrameworkFirst(gameDir, preset, pins, proxy, report)) return report;
         report.Append(preset.Route() == Route.X86 ? InstallX86(gameDir, payloadDir, preset, pins, proxy, mochizuki, ownRuntime, wantedRuntime)
             : preset.IsOptiScaler() ? InstallOptiScaler(gameDir, payloadDir, pins, proxy, mochizuki, ownRuntime, wantedRuntime, suggestedProxy, api, wrongGpu, lmxxf,
                 daniel)
             : preset == Preset.FiveM ? InstallFiveM(gameDir, payloadDir, pins, ownRuntime, wantedRuntime)
             : InstallReShade(gameDir, payloadDir, preset, pins, proxy, mochizuki, ownRuntime, wantedRuntime));
-        return report;
+        return ReFrameworkAfter(gameDir, payloadDir, preset, pins, proxy, report);
     }
 }

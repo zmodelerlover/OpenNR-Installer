@@ -98,6 +98,7 @@ public static partial class Work
         if (Directory.Exists(Path.Combine(dir, FiveMGame))) gone += SweepDroppings(Path.Combine(dir, FiveMGame), report);
         gone += RemovePinnedMochizuki(dir, builds, still, report);
         foreach (var route in unreadable) gone += SetAside(dir, route, report);
+        gone += UninstallReFramework(dir, report);
         PruneEmpty(dir, [Engine.BackupDir, Engine.LegacyBackupDir, ShaderFolder, "reshade-shaders"], report);
         AfterMochizukiUninstall(dir, report);
         // A 32-bit game's OptiScaler folder holds what the host and the proxy write while the game runs.

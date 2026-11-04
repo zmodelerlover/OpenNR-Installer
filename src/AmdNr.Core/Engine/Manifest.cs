@@ -56,6 +56,15 @@ public sealed class Manifest(string preset, Route route)
     public const string PinnedReShade = "6.8.0.2156 Full Add-on Support";
     public string ReShade { get; set; } = PinnedReShade;
 
+    /// <summary>Folders that were not there when the install first went in (REFramework's reframework\, which
+    /// REFramework fills while the game runs). Uninstall takes one only while it holds nothing but empty
+    /// folders. Written only when there is one, so the route manifests keep their layout.</summary>
+    public List<string> Created { get; set; } = [];
+
+    /// <summary>The file this manifest lives in when it is not its route's own: REFramework's, which comes
+    /// and goes apart from either route.</summary>
+    public string? FileName { get; set; }
+
     public override bool Equals(object? o) =>
         o is Manifest m && m.Preset == Preset && m.State == State && m.Route == Route
         && m.Entries.SequenceEqual(Entries);
@@ -76,7 +85,9 @@ public sealed class Manifest(string preset, Route route)
             // JsonSerializer.Serialize: the published exe is trimmed with reflection off, and that threw
             // InvalidOperationException on every install in v0.8.1.
             .Append("\"dgVoodoo\":\"none\",\n\"ReShade\":\"").Append(JsonEncodedText.Encode(m.ReShade).ToString())
-            .Append("\",\n\"files\":[\n");
+            .Append("\",\n");
+        if (m.Created.Count > 0) o.Append("\"created\":[").Append(string.Join(",", m.Created.Select(c => $"\"{c}\""))).Append("],\n");
+        o.Append("\"files\":[\n");
         for (var i = 0; i < m.Entries.Count; i++)
         {
             var e = m.Entries[i];
@@ -150,7 +161,8 @@ public sealed class Manifest(string preset, Route route)
         // with. "FiveM" is the newest, and "OptiScaler" on the 32-bit route (a 32-bit game's OptiScaler).
         var known = route == Route.X86
             ? preset is "D3D11" or "D3D9" or "D3D8" or "OpenGL" or "OptiScaler"
-            : preset is "PCSX2" or "RPCS3" or "D3D11" or "D3D12" or "Vulkan" or "OpenGL" or "OptiScaler" or "FiveM";
+            : preset is "PCSX2" or "RPCS3" or "D3D11" or "D3D12" or "Vulkan" or "OpenGL" or "OptiScaler" or "FiveM"
+                or Engine.ReFrameworkPreset;
         Engine.Require(known, "Bad manifest preset");
 
         var state = Text(root, "state");
@@ -158,6 +170,16 @@ public sealed class Manifest(string preset, Route route)
 
         var m = new Manifest(preset, route) { State = state, BridgeProtocol = Protocol(root) };
         if (Text(root, "ReShade") is { Length: > 0 } reShade) m.ReShade = reShade;
+        if (root.TryGetProperty("created", out var created))
+        {
+            Engine.Require(created.ValueKind == JsonValueKind.Array, "Bad manifest field: created");
+            foreach (var folder in created.EnumerateArray())
+            {
+                Engine.Require(folder.ValueKind == JsonValueKind.String && Engine.Creatable.Contains(folder.GetString()!),
+                    "Bad manifest field: created");
+                m.Created.Add(folder.GetString()!);
+            }
+        }
         var seen = new HashSet<string>(StringComparer.Ordinal);
 
         List<JsonElement> rows = [];
@@ -221,7 +243,7 @@ public sealed class Manifest(string preset, Route route)
     /// own replace.</summary>
     public static void WriteAtomic(string dir, Manifest m)
     {
-        var name = m.Route.ManifestFileName();
+        var name = m.FileName ?? m.Route.ManifestFileName();
         var finalPath = Path.Combine(dir, name);
         var tmp = Path.Combine(dir, $"{name}.tmp");
         Engine.SafePath(tmp);

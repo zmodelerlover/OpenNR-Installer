@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Ukrainian">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.uk.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.uk.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.uk.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- Українська. The same keys as Strings.en.axaml, in its order. -->

@@ -37,6 +37,7 @@ public partial class GameSheet
         _setting = false;
         ShowHostFg();
         ShowOpenRr();
+        ShowReFramework();
     }
 
     private void OnWrongGpuChanged(object? sender, RoutedEventArgs e)

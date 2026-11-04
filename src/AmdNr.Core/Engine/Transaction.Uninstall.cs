@@ -12,16 +12,17 @@ public static partial class Transaction
     /// time is put back from its backup. <paramref name="ours"/> is asked about a changed file, by
     /// name and current hash: when it says the file is this app's anyway, it goes too.</summary>
     public static void Uninstall(string dir, Route route, bool removeConfigs, List<string> log,
-        Func<string, string, bool>? ours = null)
+        Func<string, string, bool>? ours = null, string? manifestName = null)
     {
         dir = Engine.Absolute(dir);
         Engine.SafePath(dir);
-        MigrateLegacyManifest(dir, route);
-        var manifestPath = Path.Combine(dir, route.ManifestFileName());
+        if (manifestName is null) MigrateLegacyManifest(dir, route);
+        var manifestPath = Path.Combine(dir, manifestName ?? route.ManifestFileName());
         Engine.SafePath(manifestPath);
         Engine.Require(File.Exists(manifestPath), "No install manifest");
 
         var m = Manifest.Decode(Encoding.UTF8.GetString(Engine.Read(manifestPath)));
+        m.FileName = manifestName;
         var keep = new List<Entry>();
 
         foreach (var e in m.Entries)
@@ -134,6 +135,7 @@ public static partial class Transaction
             }
         }
 
+        m.Created = m.Created.Where(f => !PruneCreated(dir, f, log)).ToList();
         if (keep.Count == 0)
         {
             TryDelete(manifestPath);
@@ -145,6 +147,35 @@ public static partial class Transaction
             Manifest.WriteAtomic(dir, m);
         }
         log.Add("Uninstall complete; retained files/backups are listed above.");
+    }
+
+    /// <summary>A folder the install recorded as its own (<see cref="Manifest.Created"/>), taken when nothing but
+    /// empty folders is in it; one with any file in it, at any depth, is somebody's now and stays whole. True when
+    /// it is gone.</summary>
+    private static bool PruneCreated(string dir, string folder, List<string> log)
+    {
+        Engine.Require(Engine.Creatable.Contains(folder), $"Refusing to remove an unmanaged folder: {folder}");
+        var path = Path.Combine(dir, folder);
+        Engine.SafePath(path);
+        if (!Directory.Exists(path)) return true;
+        try
+        {
+            if (Directory.EnumerateFiles(path, "*", SearchOption.AllDirectories).Any()
+                || new DirectoryInfo(path).EnumerateDirectories("*", SearchOption.AllDirectories)
+                    .Any(d => d.Attributes.HasFlag(FileAttributes.ReparsePoint)))
+            {
+                log.Add($"PRESERVED {folder}\\: it holds files that are not this app's (scripts, plugins, settings).");
+                return false;
+            }
+            Directory.Delete(path, recursive: true);
+            log.Add($"REMOVED: {folder}\\");
+            return true;
+        }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+        {
+            log.Add($"WARNING could not remove {folder}\\: {e.Message}");
+            return false;
+        }
     }
 
     /// <summary>The words a caller can look for to tell "the game still has it open" apart from

@@ -1,0 +1,18 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Spanish. The same keys as ReFramework.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.ReFwToggle">REFramework (mods de RE Engine)</sys:String>
+  <sys:String x:Key="Str.ReFwNote">El framework de mods de praydog para juegos de RE Engine: scripts Lua, plugins, cámara libre, FOV y más. Se instala como dinput8.dll junto al juego, con su propio registro, y se quita al desmarcarlo. Los scripts y plugins que pongas en reframework\ se quedan.</sys:String>
+  <sys:String x:Key="Str.ReFwListed">{0} es un juego de RE Engine: le sirve REFramework {1}.</sys:String>
+  <sys:String x:Key="Str.ReFwNeeded">Algo que OpenNR instala en {0} necesita REFramework, así que viene marcado.</sys:String>
+  <sys:String x:Key="Str.ReFwRisk">{0} tiene modo online, donde Capcom puede actuar contra un juego modificado. Aquí REFramework viene desmarcado: márcalo solo para jugar offline, bajo tu propio riesgo.</sys:String>
+  <sys:String x:Key="Str.ReFwBlocked">El dinput8.dll de esta carpeta es de otro mod, y REFramework necesita ese nombre. Queda fuera hasta que ese archivo se mueva; la comprobación previa dice cuál es.</sys:String>
+  <sys:String x:Key="Str.ReFwInstalled">El REFramework de esta app está en este juego. Desmárcalo e instala para quitarlo; tus scripts y plugins se quedan.</sys:String>
+  <sys:String x:Key="Str.ReFwNoBuild">Todavía no hay una versión de REFramework para {0} en la lista de descargas.</sys:String>
+  <sys:String x:Key="Str.ReFwCredit">REFramework de praydog, licencia MIT</sys:String>
+  <sys:String x:Key="Str.CreditReFwTitle">REFramework, de praydog</sys:String>
+  <sys:String x:Key="Str.CreditReFwBody">Framework de mods para juegos de RE Engine, licencia MIT. Opcional en la página de esos juegos; su licencia va con él.</sys:String>
+</ResourceDictionary>

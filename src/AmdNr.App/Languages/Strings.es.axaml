@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Spanish">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.es.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.es.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.es.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- Español. The same keys as Strings.en.axaml, in its order. -->

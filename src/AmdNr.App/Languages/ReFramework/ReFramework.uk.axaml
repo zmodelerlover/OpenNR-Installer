@@ -1,0 +1,18 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Ukrainian. The same keys as ReFramework.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.ReFwToggle">REFramework (моди для RE Engine)</sys:String>
+  <sys:String x:Key="Str.ReFwNote">Фреймворк модів від praydog для ігор на RE Engine: Lua-скрипти, плагіни, вільна камера, FOV та інше. Ставиться як dinput8.dll поруч із грою, з власним записом, і видаляється, якщо зняти позначку. Скрипти й плагіни, які ви додали в reframework\, лишаються.</sys:String>
+  <sys:String x:Key="Str.ReFwListed">{0} працює на RE Engine: їй підходить REFramework {1}.</sys:String>
+  <sys:String x:Key="Str.ReFwNeeded">Тому, що OpenNR ставить у {0}, потрібен REFramework, тож позначка вже стоїть.</sys:String>
+  <sys:String x:Key="Str.ReFwRisk">У {0} є онлайн, де Capcom може покарати за модифіковану гру. Тут REFramework без позначки: ставте її лише для гри офлайн, на власний ризик.</sys:String>
+  <sys:String x:Key="Str.ReFwBlocked">dinput8.dll у цій теці належить іншому моду, а REFramework потрібне це ім'я. Він не ставиться, доки цей файл не прибрано; попередня перевірка скаже, що це за файл.</sys:String>
+  <sys:String x:Key="Str.ReFwInstalled">REFramework з цього застосунку стоїть у цій грі. Зніміть позначку й установіть, щоб видалити; ваші скрипти й плагіни лишаться.</sys:String>
+  <sys:String x:Key="Str.ReFwNoBuild">Для {0} у списку завантажень ще немає збірки REFramework.</sys:String>
+  <sys:String x:Key="Str.ReFwCredit">REFramework від praydog, ліцензія MIT</sys:String>
+  <sys:String x:Key="Str.CreditReFwTitle">REFramework, від praydog</sys:String>
+  <sys:String x:Key="Str.CreditReFwBody">Фреймворк модів для ігор на RE Engine, ліцензія MIT. Необов'язковий, на сторінці цих ігор; його ліцензія ставиться разом із ним.</sys:String>
+</ResourceDictionary>

@@ -90,20 +90,24 @@ public static partial class Transaction
     /// (<see cref="PlanRetire"/>); a name that is also in <paramref name="desired"/> is not one.
     /// <paramref name="displace"/> names files somebody else put here that the route takes out: each
     /// goes to the backup, and uninstall puts it back. <paramref name="reShade"/> is what the manifest records
-    /// as the ReShade in use, the pinned build unless told.</summary>
+    /// as the ReShade in use, the pinned build unless told. <paramref name="manifestName"/> keeps the record in a
+    /// file of its own instead of the route's (REFramework), and <paramref name="created"/> names folders to
+    /// record as this install's when they are not there yet (<see cref="Manifest.Created"/>).</summary>
     public static void Apply(string dir, string preset, Route route,
         SortedDictionary<string, Blob> desired, List<string> log, IEnumerable<string>? retire = null,
-        IEnumerable<string>? displace = null, string? reShade = null)
+        IEnumerable<string>? displace = null, string? reShade = null, string? manifestName = null,
+        IEnumerable<string>? created = null)
     {
         Guard(dir, desired, displace);
-        MigrateLegacyManifest(dir, route);
-        var manifestPath = Path.Combine(dir, route.ManifestFileName());
+        if (manifestName is null) MigrateLegacyManifest(dir, route);
+        var manifestPath = Path.Combine(dir, manifestName ?? route.ManifestFileName());
         Engine.SafePath(manifestPath);
 
-        var m = new Manifest(preset, route);
+        var m = new Manifest(preset, route) { FileName = manifestName };
         if (File.Exists(manifestPath))
         {
             m = Manifest.Decode(Encoding.UTF8.GetString(Engine.Read(manifestPath)));
+            m.FileName = manifestName;
             // What is about to be written is this build's pair, whatever the folder had before.
             m.BridgeProtocol = Manifest.Current;
             Engine.Require(m.State == "installed",
@@ -120,6 +124,11 @@ public static partial class Transaction
                 "That folder already has an install for the other architecture; uninstall it first");
         }
         m.ReShade = reShade ?? Manifest.PinnedReShade;
+        foreach (var folder in created ?? [])
+        {
+            Engine.Require(Engine.Creatable.Contains(folder), $"Refusing to record an unmanaged folder: {folder}");
+            if (!m.Created.Contains(folder) && !Directory.Exists(Path.Combine(dir, folder))) m.Created.Add(folder);
+        }
 
         var changes = new List<Change>();
         var superseded = new List<string>();

@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Portuguese">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.pt-BR.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.pt-BR.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.pt-BR.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <sys:String x:Key="Str.AppTitle">OpenNR Installer</sys:String>

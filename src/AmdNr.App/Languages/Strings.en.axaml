@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.English">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.en.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.en.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.en.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- The fallback language. Every other Strings.*.axaml carries the same keys; one that is missing

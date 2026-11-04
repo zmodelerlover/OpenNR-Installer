@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Arabic">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.ar.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.ar.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.ar.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- العربية. The same keys as Strings.en.axaml, in its order. -->

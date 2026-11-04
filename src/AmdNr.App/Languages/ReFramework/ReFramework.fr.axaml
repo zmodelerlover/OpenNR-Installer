@@ -1,0 +1,18 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- French. The same keys as ReFramework.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.ReFwToggle">REFramework (mods RE Engine)</sys:String>
+  <sys:String x:Key="Str.ReFwNote">Le framework de mods de praydog pour les jeux RE Engine : scripts Lua, plugins, caméra libre, FOV et plus. Il s'installe en dinput8.dll à côté du jeu, avec son propre registre, et part quand il est décoché. Les scripts et plugins que vous ajoutez dans reframework\ restent.</sys:String>
+  <sys:String x:Key="Str.ReFwListed">{0} est un jeu RE Engine : REFramework {1} lui convient.</sys:String>
+  <sys:String x:Key="Str.ReFwNeeded">Quelque chose qu'OpenNR installe dans {0} a besoin de REFramework, il est donc coché.</sys:String>
+  <sys:String x:Key="Str.ReFwRisk">{0} se joue en ligne, où Capcom peut sévir contre un jeu modifié. REFramework est décoché ici : cochez-le seulement pour jouer hors ligne, à vos risques.</sys:String>
+  <sys:String x:Key="Str.ReFwBlocked">Le dinput8.dll de ce dossier appartient à un autre mod, et REFramework a besoin de ce nom. Il reste dehors tant que ce fichier n'est pas déplacé ; la vérification dit lequel.</sys:String>
+  <sys:String x:Key="Str.ReFwInstalled">Le REFramework de cette app est dans ce jeu. Décochez-le et installez pour le retirer ; vos scripts et plugins restent.</sys:String>
+  <sys:String x:Key="Str.ReFwNoBuild">Il n'y a pas encore de version de REFramework pour {0} dans la liste des téléchargements.</sys:String>
+  <sys:String x:Key="Str.ReFwCredit">REFramework par praydog, licence MIT</sys:String>
+  <sys:String x:Key="Str.CreditReFwTitle">REFramework, par praydog</sys:String>
+  <sys:String x:Key="Str.CreditReFwBody">Framework de mods pour les jeux RE Engine, licence MIT. Optionnel sur la page de ces jeux ; sa licence est installée avec lui.</sys:String>
+</ResourceDictionary>

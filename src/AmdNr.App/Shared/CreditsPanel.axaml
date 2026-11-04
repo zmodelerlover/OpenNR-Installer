@@ -90,6 +90,23 @@
       </Grid>
     </Button>
 
+    <!-- REFramework (MIT) goes into RE Engine games from here when ticked: its author and source, one click away. -->
+    <Button x:Name="ReFrameworkLink" Classes="pick" Padding="14,13" Click="OnOpen"
+            HorizontalAlignment="Stretch">
+      <Grid ColumnDefinitions="Auto,*,Auto">
+        <Border Classes="iconTile neutral" Margin="0,0,13,0">
+          <PathIcon Data="{StaticResource IconGitHub}" Foreground="{DynamicResource Text}" />
+        </Border>
+        <StackPanel Grid.Column="1" Spacing="4">
+          <TextBlock Text="{DynamicResource Str.CreditReFwTitle}" FontWeight="SemiBold" TextWrapping="Wrap" />
+          <TextBlock Text="{DynamicResource Str.CreditReFwBody}" Classes="muted" TextWrapping="Wrap"
+                     LineHeight="18" />
+        </StackPanel>
+        <PathIcon Grid.Column="2" Data="{StaticResource IconExternal}" Width="13" Height="13"
+                  Foreground="{DynamicResource Faint}" VerticalAlignment="Center" Margin="12,0,0,0" />
+      </Grid>
+    </Button>
+
     <StackPanel Orientation="Horizontal" Spacing="9" Margin="2,4,0,0">
       <TextBlock Text="{DynamicResource Str.SupportSection}" Classes="section" VerticalAlignment="Center" />
       <TextBlock Text="{DynamicResource Str.SupportNote}" Classes="muted" VerticalAlignment="Center"

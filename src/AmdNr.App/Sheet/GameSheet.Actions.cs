@@ -52,6 +52,7 @@ public partial class GameSheet
             return;
         }
         ShowHostFg();
+        ShowReFramework();
         var pins = InstallPins(card);
         var preset = card.Entry.Preset;
         var proxy = _proxy;
@@ -74,7 +75,7 @@ public partial class GameSheet
         {
             (report, staged, runtime) = await Task.Run(() =>
             {
-                var folder = CachedPayloadFolder(ComponentsFor(preset, mochizuki, wrongGpu, NeedsDlss(card, wrongGpu, pins), !Skips(card, DanielRuntime), pins.HostFg, OpenRrComponents(card, pins)));
+                var folder = CachedPayloadFolder(ComponentsFor(preset, mochizuki, wrongGpu, NeedsDlss(card, wrongGpu, pins), !Skips(card, DanielRuntime), pins.HostFg, [.. OpenRrComponents(card, pins), .. ReFrameworkComponents(pins)]));
                 var own = wanted is null ? null : Work.FindUserRuntime(wanted, TargetFor(card));
                 return (Work.Preflight(TargetFor(card), folder ?? "", preset, pins, proxy, mochizuki, own,
                     unoffered ? wanted : null, wiki, api, wrongGpu, !Skips(card, DanielRuntime)), folder, own);
@@ -147,7 +148,7 @@ public partial class GameSheet
 
             ResultBanner.IsVisible = false;
             ShowStep(StepDownload);
-            var folder = await EnsurePayloadsAsync(ComponentsFor(preset, mochizuki, wrongGpu, NeedsDlss(card, wrongGpu, pins), !Skips(card, DanielRuntime), pins.HostFg, OpenRrComponents(card, pins)));
+            var folder = await EnsurePayloadsAsync(ComponentsFor(preset, mochizuki, wrongGpu, NeedsDlss(card, wrongGpu, pins), !Skips(card, DanielRuntime), pins.HostFg, [.. OpenRrComponents(card, pins), .. ReFrameworkComponents(pins)]));
             if (folder is null)
             {
                 ShowStep(StepDownload, failed: true);
@@ -410,7 +411,7 @@ public partial class GameSheet
                 ? [PayloadManifest.BridgeComponent, PayloadManifest.X86ExtrasComponent,
                    PayloadManifest.RuntimeComponent, PayloadManifest.ShaderComponent, .. Mochizuki(mochizuki)]
                 : [PayloadManifest.AddonComponent, PayloadManifest.RuntimeComponent,
-                   PayloadManifest.ReShadeComponent, PayloadManifest.ShaderComponent, .. Mochizuki(mochizuki)];
+                   PayloadManifest.ReShadeComponent, PayloadManifest.ShaderComponent, .. Mochizuki(mochizuki), .. more ?? []];
 
     /// <summary>The RX 7000 network among them is in the manifest only when it was ticked (Selected).</summary>
     private static string[] Mochizuki(bool wanted) =>
@@ -442,7 +443,7 @@ public partial class GameSheet
     private PayloadManifest? Selected()
     {
         if (Session.Manifest is not { } manifest) return null;
-        var versioned = Versioned(manifest);
+        var versioned = WithReFramework(Versioned(manifest));
         var offer = RuntimeChoices(versioned);
         var runtime = Work.RuntimePick(offer, _card?.Entry.DanielRuntime, Rdna4);
         // lmxxf runs on RX 9070 and RX 9060 cards only: on a card read as anything else its weights stay out.
