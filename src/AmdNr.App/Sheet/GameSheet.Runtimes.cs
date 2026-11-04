@@ -84,19 +84,21 @@ public partial class GameSheet
         var opti = card.Entry.Preset.IsOptiScaler() && !RouteUndecided(card);
         _setting = true;
         // lmxxf and mochizuki run on RX 9000 only, and are not downloaded anywhere else either; mochizuki also on an
-        // RX 7000 where the version carries its RX 7000 network, off until ticked.
+        // RX 7000 or RX 6000 where the version carries that card's network, off until ticked.
         var rx7000 = OffersMochizukiRdna3(card);
-        var offered = new[] { Rdna4, Rdna4 && OffersMochizuki(card) || rx7000, true };
+        var rx6000 = OffersMochizukiRdna2(card);
+        var fp16 = rx7000 || rx6000;
+        var offered = new[] { Rdna4, Rdna4 && OffersMochizuki(card) || fp16, true };
         for (var i = 0; i < offered.Length; i++)
         {
             _runtimeRow!.Children[i].IsVisible = offered[i];
             _runtimeRow.ColumnDefinitions[i].Width = offered[i] ? new GridLength(Weights[i], GridUnitType.Star) : new GridLength(0);
         }
         _lmxxfBox!.IsChecked = !Skips(card, LmxxfRuntime);
-        _mochizukiBox!.Content = rx7000 ? "mochizuki, experimental (380 MB)" : "mochizuki (350 MB)";
-        _mochizukiBox.IsChecked = rx7000 ? WantsMochizukiRdna3(card) : !Skips(card, MochizukiRuntime);
-        _rdna3Note!.Text = Ui.Text("Str.MochizukiRdna3Note");
-        _rdna3Note.IsVisible = rx7000;
+        _mochizukiBox!.Content = fp16 ? "mochizuki, experimental (380 MB)" : "mochizuki (350 MB)";
+        _mochizukiBox.IsChecked = rx7000 ? WantsMochizukiRdna3(card) : rx6000 ? WantsMochizukiRdna2(card) : !Skips(card, MochizukiRuntime);
+        _rdna3Note!.Text = Ui.Text(rx6000 ? "Str.MochizukiRdna2Note" : "Str.MochizukiRdna3Note");
+        _rdna3Note.IsVisible = fp16;
         _danielBox!.IsChecked = !Skips(card, DanielRuntime);
         _setting = false;
         OptiRuntimes.IsVisible = opti;
@@ -119,6 +121,7 @@ public partial class GameSheet
         if (_danielBox.IsChecked != true) skipped.Add(DanielRuntime);
         card.Entry.SkippedRuntimes = skipped.Count > 0 ? skipped : null;
         if (OffersMochizukiRdna3(card)) card.Entry.MochizukiRdna3 = _mochizukiBox.IsChecked == true;
+        if (OffersMochizukiRdna2(card)) card.Entry.MochizukiRdna2 = _mochizukiBox.IsChecked == true;
         Library.Save();
         ShowMochizuki();
         ShowHostFg();

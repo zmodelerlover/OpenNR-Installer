@@ -43,13 +43,28 @@ public static partial class Work
     }
 
     /// <summary>The components the mochizuki runtime comes in: the runtime, its model, its second model, and its RX 7000
-    /// network.</summary>
+    /// and RX 6000 networks.</summary>
     internal static readonly string[] MochizukiComponents =
         [PayloadManifest.MochizukiComponent, PayloadManifest.MochizukiModelComponent, PayloadManifest.MochizukiSmallModelComponent,
-         PayloadManifest.MochizukiRdna3Component];
+         PayloadManifest.MochizukiRdna3Component, PayloadManifest.MochizukiRdna2Component];
 
     /// <summary>Where the RX 7000 network's shaders go: dlssnr-amd\shaders-rdna3\, its runtime\ and temporal\ inside.</summary>
     internal const string MochizukiRdna3Folder = Engine.MochizukiFolder + "/shaders-rdna3/";
+
+    /// <summary>Where the RX 6000 network's shaders go: dlssnr-amd\shaders-rdna2\, its runtime\ and temporal\ inside.</summary>
+    internal const string MochizukiRdna2Folder = Engine.MochizukiFolder + "/shaders-rdna2/";
+
+    /// <summary>An RX 6000 card (RDNA2: Navi 21, 22 and 23 at 0x73A0-0x73FF, Navi 24 at 0x7420-0x743F) or an RDNA2 APU
+    /// (Radeon 610M, 660M, 680M and the Steam Deck's), by device id or by its name: the GPUs mochizuki's RX 6000 network
+    /// is offered on, experimental and off unless ticked. The same ids the runtime picks the network by.</summary>
+    public static bool IsRx6000(uint vendor, uint device, string name) =>
+        vendor == 0x1002
+        && (device is >= 0x73A0 and <= 0x73FF or >= 0x7420 and <= 0x743F || Rdna2Apus.Contains(device)
+            || System.Text.RegularExpressions.Regex.IsMatch(name, @"\bRX\s*6\d{3}\b|\bPRO\s*W6\d{3}\b|\bRadeon(\s*\(TM\))?\s*6[168]0M\b",
+                System.Text.RegularExpressions.RegexOptions.IgnoreCase));
+
+    /// <summary>Rembrandt (680M/660M), Raphael/Granite Ridge (610M), Mendocino (610M) and the Steam Deck's Van Gogh.</summary>
+    private static readonly uint[] Rdna2Apus = [0x1681, 0x164E, 0x1506, 0x163F];
 
     /// <summary>An RX 7000 card (RDNA3, Navi 31, 32 and 33: device ids 0x74xx) or an RDNA3 / RDNA 3.5 APU (Radeon
     /// 740M-780M, 820M-890M, 8040S-8060S), by device id or by its name: the GPUs mochizuki's RX 7000 network is offered
@@ -73,6 +88,15 @@ public static partial class Work
         if (dir.Length == 0 || !Directory.Exists(dir)) return false;
         return new[] { Route.X64, Route.X86 }.Any(route =>
             InstalledManifest(dir, route)?.Entries.Any(e => e.Name.StartsWith(MochizukiRdna3Folder, StringComparison.Ordinal)) == true);
+    }
+
+    /// <summary>Whether this app installed mochizuki's RX 6000 network in this game folder, as <see cref="HasMochizukiRdna3"/>.</summary>
+    public static bool HasMochizukiRdna2(string gameDir)
+    {
+        var dir = ResolveSource(gameDir);
+        if (dir.Length == 0 || !Directory.Exists(dir)) return false;
+        return new[] { Route.X64, Route.X86 }.Any(route =>
+            InstalledManifest(dir, route)?.Entries.Any(e => e.Name.StartsWith(MochizukiRdna2Folder, StringComparison.Ordinal)) == true);
     }
 
     /// <summary>A name in the game folder that is the mochizuki runtime's: the runtime, or anything
@@ -179,11 +203,17 @@ public static partial class Work
         + "card's matrix layout and compiles every pipeline once apart from the game; if either fails NR stays off and "
         + "OptiScaler's mochizuki page says why.";
 
+    private const string MochizukiRdna2Installed =
+        "The RX 6000 network went in too (dlssnr-amd\\shaders-rdna2, experimental): mochizuki's FP16 network with its "
+        + "matrices worked out in ALU. The first start compiles its shaders once (tens of seconds on an RX 6600); after "
+        + "that it opens in seconds. If a pipeline fails to compile NR stays off and OptiScaler's mochizuki page says why.";
+
     /// <summary>What the mochizuki runtime writes beside its files while a game runs -- the pipeline
     /// cache, ACO's imported network, int4 mixed's own cache and binaries, the marker of a network build that never
     /// finished (build.pending, or build.failed as the add-on renames it), the mark of a game whose colour switches float
-    /// formats (float-colour-shared), the RX 7000 network's pipeline cache, prewarm list and check (rdna3-check.txt, and
-    /// the child's list and log in rdna3-check\), and the temporary file a write cut short
+    /// formats (float-colour-shared), the RX 7000 and RX 6000 networks' pipeline caches, prewarm lists, checks
+    /// (rdna3-check.txt / rdna2-check.txt, and the child's list, log and machine code in rdna3-check\ / rdna2-check\) and
+    /// the machine code kept from those checks (binaries-rdna3\, binaries-rdna2\), and the temporary file a write cut short
     /// leaves -- once the runtime itself is gone, and then its folders, deepest first, each only when nothing is left in it. With the runtime still
     /// here (the game has it open, or it was not this app's) nothing of it is touched.</summary>
     private static void AfterMochizukiUninstall(string dir, Report report)
@@ -195,24 +225,27 @@ public static partial class Work
             // int4 mixed keeps a pipeline cache of its own and its rewritten pipeline binaries under int4\.
             var acoCache = Path.Combine(root, MochizukiAcoCache);
             var int4Binaries = Path.Combine(root, "int4", "pipeline-binaries");
-            var rdna3Check = Path.Combine(root, "rdna3-check");
+            // The FP16 networks' checks (with the machine code the child compiled) and that machine code once kept.
+            string[] fp16 = [.. new[] { "rdna3-check", "rdna2-check" }.SelectMany(c => new[] { Path.Combine(root, c), Path.Combine(root, c, "binaries") }),
+                             Path.Combine(root, "binaries-rdna3"), Path.Combine(root, "binaries-rdna2")];
             foreach (var file in Directory.EnumerateFiles(root).Concat(Leaves(Path.Combine(root, "prewarm")))
                          .Concat(Leaves(Path.Combine(root, "int4"))).Concat(Leaves(acoCache))
-                         .Concat(Leaves(int4Binaries)).Concat(Leaves(rdna3Check)).ToList())
+                         .Concat(Leaves(int4Binaries)).Concat(fp16.SelectMany(Leaves)).ToList())
             {
                 var name = Path.GetFileName(file);
                 var folder = Path.GetDirectoryName(file);
-                var written = name is MochizukiPipelineCache or "pipeline-rdna3.cache" or "manifest-rdna3.txt"
-                              || folder == rdna3Check
+                var written = name is MochizukiPipelineCache or "pipeline-rdna3.cache" or "pipeline-rdna2.cache"
+                                  or "manifest-rdna3.txt" or "manifest-rdna2.txt"
+                              || fp16.Contains(folder)
                               || folder == root && name is "build.pending" or "build.failed" or "float-colour-shared"
-                                  or "rdna3-check.txt"
+                                  or "rdna3-check.txt" or "rdna2-check.txt"
                               || folder == int4Binaries
                               || folder == acoCache
                               && (name.EndsWith(".nrb", StringComparison.OrdinalIgnoreCase)
                                   || name.EndsWith(".nrb.tmp", StringComparison.OrdinalIgnoreCase))
                               || name.EndsWith(".tmp", StringComparison.OrdinalIgnoreCase)
                               && (name.StartsWith(MochizukiPipelineCache + ".", StringComparison.Ordinal)
-                                  || name.StartsWith("manifest.txt.", StringComparison.Ordinal));
+                                  || name.StartsWith("manifest", StringComparison.Ordinal) && name.Contains(".txt.", StringComparison.Ordinal));
                 if (!written) continue;
                 Engine.Writable(file);
                 File.Delete(file);

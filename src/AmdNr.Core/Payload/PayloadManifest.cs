@@ -146,6 +146,10 @@ public sealed partial class PayloadManifest
     /// <summary>mochizuki's RX 7000 network (shaders-rdna3), ticked on an RX 7000 only; apart for <see cref="LmxxfGfx1200Component"/>'s reason.</summary>
     public const string MochizukiRdna3Component = "mochizuki-rdna3";
 
+    /// <summary>mochizuki's RX 6000 network (shaders-rdna2 and its prewarm list), ticked on an RX 6000 only; apart like
+    /// <see cref="MochizukiRdna3Component"/>.</summary>
+    public const string MochizukiRdna2Component = "mochizuki-rdna2";
+
     /// <summary>lmxxf 0.44's Small model, the 31 blocks of NVIDIA's 310.9.16 DLL in native-game-tiled-assets\small\, which
     /// the OptiScaler that carries lmxxf 0.44 runs by default with one pass when it is there. Versioned and optional like
     /// <see cref="MochizukiSmallModelComponent"/>: without it lmxxf runs its 71-block model. Its payload folder is
@@ -176,7 +180,7 @@ public sealed partial class PayloadManifest
         {
             OptiScalerComponent, OptiRuntimeComponent, LmxxfWeightsComponent, LmxxfSmallWeightsComponent, LmxxfGfx1200Component,
             OptiX86Component, MochizukiComponent, MochizukiModelComponent, MochizukiSmallModelComponent, MochizukiRdna3Component,
-            PersonModelComponent, WrongGpuComponent, WrongGpuDlssComponent, NrLiveComponent, StreamlineComponent, DlssgComponent,
+            MochizukiRdna2Component, PersonModelComponent, WrongGpuComponent, WrongGpuDlssComponent, NrLiveComponent, StreamlineComponent, DlssgComponent,
             LmxxfRuntimeComponent, OptiScalerLeanComponent, OpenRrComponent, OpenRrDlssdComponent,
         };
 
@@ -439,7 +443,7 @@ public sealed partial class PayloadManifest
         // Both halves or neither (one without the other is nothing OptiScaler runs); the extras below go with them.
         var mochizuki = new Dictionary<string, string>(StringComparer.Ordinal);
         if (Components.TryGetValue(MochizukiComponent, out var mz) && Components.TryGetValue(MochizukiModelComponent, out var model))
-            foreach (var f in mz.Installed.Concat(model.Installed).Concat(new[] { MochizukiSmallModelComponent, MochizukiRdna3Component }
+            foreach (var f in mz.Installed.Concat(model.Installed).Concat(new[] { MochizukiSmallModelComponent, MochizukiRdna3Component, MochizukiRdna2Component }
                          .Where(Components.ContainsKey).SelectMany(c => Components[c].Installed)))
                 mochizuki[f.RelativePath] = Engine.Lower(f.Sha256);
         var wrongGpu = new Dictionary<string, string>(StringComparer.Ordinal);

@@ -14,6 +14,9 @@
       dlssnr-amd\shaders\...                 files, and one level of folders under it
       dlssnr-amd\aco\...                     ACO's network (optional), two folder levels
       dlssnr-amd\shaders-rdna3\...           the RX 7000 network (optional), one level of folders under it
+      dlssnr-amd\shaders-rdna2\...           the RX 6000 network (optional), one level of folders under it
+      dlssnr-amd\prewarm\manifest-rdna3.txt  the RX 7000 network's prewarm list (optional, with shaders-rdna3)
+      dlssnr-amd\prewarm\manifest-rdna2.txt  the RX 6000 network's prewarm list (optional, with shaders-rdna2)
 
   Anything else at the top of -From (OptiScaler.dll, notes, a build's .lib, .exp and obj\) is ignored.
 
@@ -35,7 +38,9 @@
        the RX 7000 network (shaders-rdna3) goes in an archive and a component of its own,
        mochizuki-rdna3-<version>.zip and releases.optiscaler[<version>].components.mochizuki-rdna3: the installers
        already published install every file of the mochizuki component on every RX 9000, and never ask for a
-       component they do not know, so only those with the RX 7000 opt-in fetch it;
+       component they do not know, so only those with the RX 7000 opt-in fetch it; the RX 6000 network
+       (shaders-rdna2) goes the same way, as mochizuki-rdna2-<version>.zip and mochizuki-rdna2. Each network's
+       prewarm list (manifest-rdna3.txt, manifest-rdna2.txt) rides in its network's archive, checked like manifest.txt;
     5. prints the upload command for each file it pinned, at the path its url names.
 
   The model has an address of its own per model version, because published addresses are
@@ -106,12 +111,12 @@ function Written($name) { $name -eq 'pipeline.cache' -or $name -like '*.tmp' -or
 
 $top = Get-ChildItem -LiteralPath $data -Force
 foreach ($item in $top) {
-    $ok = ($item.PSIsContainer -and $item.Name -in 'prewarm', 'shaders', 'shaders-rdna3', 'aco', 'int4') -or
+    $ok = ($item.PSIsContainer -and $item.Name -in 'prewarm', 'shaders', 'shaders-rdna3', 'shaders-rdna2', 'aco', 'int4') -or
           (-not $item.PSIsContainer -and $item.Name -in 'dlssnr.bin', 'dlssnr-int4.bin', 'dlssnr-small.bin')
     if (-not $ok) { Fail "dlssnr-amd\$($item.Name) is not part of a release$(if (Written $item.Name) { ': the runtime wrote it while a game ran' })" }
 }
-$extra = Get-ChildItem -LiteralPath (Join-Path $data 'prewarm') -Force | Where-Object { $_.Name -ne 'manifest.txt' }
-if ($extra) { Fail "dlssnr-amd\prewarm holds more than manifest.txt: $(($extra | ForEach-Object Name) -join ', ')" }
+$extra = Get-ChildItem -LiteralPath (Join-Path $data 'prewarm') -Force | Where-Object { $_.Name -notin 'manifest.txt', 'manifest-rdna3.txt', 'manifest-rdna2.txt' }
+if ($extra) { Fail "dlssnr-amd\prewarm holds more than its three lists: $(($extra | ForEach-Object Name) -join ', ')" }
 
 $files = [System.Collections.Generic.List[object]]::new()   # payload path -> file on disk
 $files.Add([pscustomobject]@{ Path = 'MochizukiNrRuntime.dll'; File = $runtime })
@@ -162,23 +167,43 @@ if (Test-Path -LiteralPath $int4) {
     AddTree $int4 'dlssnr-amd.int4' 2
     $files.Add([pscustomobject]@{ Path = 'dlssnr-amd/dlssnr-int4.bin'; File = $int4Weights })
 }
-# The RX 7000 network: its shaders, runtime\ and temporal\, in an archive of their own (see 4.).
-$rdna3 = Join-Path $data 'shaders-rdna3'
-if (Test-Path -LiteralPath $rdna3) { AddTree $rdna3 'dlssnr-amd.shaders-rdna3' 1 }
+# The RX 7000 and RX 6000 networks: their shaders, runtime\ and temporal\, and their prewarm lists, each in an archive
+# of its own (see 4.).
+$fp16 = foreach ($tag in 'rdna3', 'rdna2') {
+    $tree = Join-Path $data "shaders-$tag"
+    $list = Join-Path $data "prewarm\manifest-$tag.txt"
+    $hasTree = Test-Path -LiteralPath $tree
+    if ((Test-Path -LiteralPath $list) -and -not $hasTree) { Fail "dlssnr-amd\prewarm\manifest-$tag.txt without dlssnr-amd\shaders-$tag" }
+    if (-not $hasTree) { continue }
+    $before = $files.Count
+    AddTree $tree "dlssnr-amd.shaders-$tag" 1
+    $count = $files.Count - $before
+    if (Test-Path -LiteralPath $list) { $files.Add([pscustomobject]@{ Path = "dlssnr-amd.prewarm/manifest-$tag.txt"; File = $list }) }
+    else { Note "dlssnr-amd\shaders-$tag has no prewarm list: the network works, its first start compiles twice" }
+    [pscustomobject]@{ Tag = $tag; Count = $count; List = $(if (Test-Path -LiteralPath $list) { $list }) }
+}
 foreach ($f in $files) { if ($f.Path.Length -gt 128) { Fail "payload path over 128 characters: $($f.Path)" } }
 # Ordinal, not Sort-Object's culture order: the archive's bytes must not depend on the machine's language.
 $files.Sort([Comparison[object]] { param($a, $b) [string]::CompareOrdinal($a.Path, $b.Path) })
-$rdna3Files = @($files | Where-Object { $_.Path.StartsWith('dlssnr-amd.shaders-rdna3', [StringComparison]::Ordinal) })
-$files = @($files | Where-Object { -not $_.Path.StartsWith('dlssnr-amd.shaders-rdna3', [StringComparison]::Ordinal) })
-
-# --- 2. the prewarm list is for these shaders ----------------------------------------------------
-$head = (Get-Content -LiteralPath $prewarm -TotalCount 4) -join "`n"
-if ($head -notmatch '(?m)^mochizuki-prewarm \d+') { Fail "$prewarm is not a mochizuki prewarm list" }
-if ($head -notmatch '(?m)^shaders [0-9a-f]+ (\d+)$') { Fail "$prewarm has no shaders line" }
-if ([int]$Matches[1] -ne $shaderCount) {
-    Fail "the prewarm list was made for $($Matches[1]) shader files and dlssnr-amd\shaders has $shaderCount. The runtime would ignore it; make it again from these shaders"
+function OfNetwork($path, $tag) {
+    $path.StartsWith("dlssnr-amd.shaders-$tag", [StringComparison]::Ordinal) -or $path -eq "dlssnr-amd.prewarm/manifest-$tag.txt"
 }
-Good "prewarm list made for these $shaderCount shader files"
+$rdna3Files = @($files | Where-Object { OfNetwork $_.Path 'rdna3' })
+$rdna2Files = @($files | Where-Object { OfNetwork $_.Path 'rdna2' })
+$files = @($files | Where-Object { -not (OfNetwork $_.Path 'rdna3') -and -not (OfNetwork $_.Path 'rdna2') })
+
+# --- 2. the prewarm lists are for these shaders ---------------------------------------------------
+function CheckList($list, $folder, $count) {
+    $head = (Get-Content -LiteralPath $list -TotalCount 4) -join "`n"
+    if ($head -notmatch '(?m)^mochizuki-prewarm \d+') { Fail "$list is not a mochizuki prewarm list" }
+    if ($head -notmatch '(?m)^shaders [0-9a-f]+ (\d+)$') { Fail "$list has no shaders line" }
+    if ([int]$Matches[1] -ne $count) {
+        Fail "$(Split-Path -Leaf $list) was made for $($Matches[1]) shader files and dlssnr-amd\$folder has $count. The runtime would ignore it; make it again from these shaders"
+    }
+    Good "$(Split-Path -Leaf $list) made for these $count shader files"
+}
+CheckList $prewarm 'shaders' $shaderCount
+foreach ($n in $fp16) { if ($n.List) { CheckList $n.List "shaders-$($n.Tag)" $n.Count } }
 
 # --- 3. the archive --------------------------------------------------------------------------------
 Add-Type -AssemblyName System.IO.Compression, System.IO.Compression.FileSystem
@@ -209,6 +234,8 @@ $zipPath = $main.Path; $zipSha = $main.Sha; $zipSize = $main.Size; $extract = $m
 Good "$zipPath  ($($files.Count) files, $zipSize bytes)"
 $rdna3Zip = if ($rdna3Files.Count) { Archive "mochizuki-rdna3-$Version.zip" $rdna3Files }
 if ($rdna3Zip) { Good "$($rdna3Zip.Path)  ($($rdna3Files.Count) files, $($rdna3Zip.Size) bytes)" }
+$rdna2Zip = if ($rdna2Files.Count) { Archive "mochizuki-rdna2-$Version.zip" $rdna2Files }
+if ($rdna2Zip) { Good "$($rdna2Zip.Path)  ($($rdna2Files.Count) files, $($rdna2Zip.Size) bytes)" }
 
 # --- 4. payload.json -------------------------------------------------------------------------------
 $m = [IO.File]::ReadAllText($Manifest) | ConvertFrom-Json
@@ -253,14 +280,16 @@ $release.components | Add-Member -NotePropertyName mochizuki -NotePropertyValue 
 $release.components | Add-Member -NotePropertyName 'mochizuki-model' -NotePropertyValue $modelComponent -Force
 if ($smallComponent) { $release.components | Add-Member -NotePropertyName 'mochizuki-model-small' -NotePropertyValue $smallComponent -Force }
 elseif ($release.components.PSObject.Properties['mochizuki-model-small']) { $release.components.PSObject.Properties.Remove('mochizuki-model-small') }
-if ($rdna3Zip) {
-    $release.components | Add-Member -NotePropertyName 'mochizuki-rdna3' -NotePropertyValue ([ordered]@{
-        version = $Version
-        files   = @([ordered]@{ name = $rdna3Zip.Name; size = $rdna3Zip.Size; sha256 = $rdna3Zip.Sha; url = "$base/mochizuki/$Version/$($rdna3Zip.Name)" })
-        extract = $rdna3Zip.Extract
-    }) -Force
+foreach ($n in @(@{ Name = 'mochizuki-rdna3'; Zip = $rdna3Zip }, @{ Name = 'mochizuki-rdna2'; Zip = $rdna2Zip })) {
+    if ($n.Zip) {
+        $release.components | Add-Member -NotePropertyName $n.Name -NotePropertyValue ([ordered]@{
+            version = $Version
+            files   = @([ordered]@{ name = $n.Zip.Name; size = $n.Zip.Size; sha256 = $n.Zip.Sha; url = "$base/mochizuki/$Version/$($n.Zip.Name)" })
+            extract = $n.Zip.Extract
+        }) -Force
+    }
+    elseif ($release.components.PSObject.Properties[$n.Name]) { $release.components.PSObject.Properties.Remove($n.Name) }
 }
-elseif ($release.components.PSObject.Properties['mochizuki-rdna3']) { $release.components.PSObject.Properties.Remove('mochizuki-rdna3') }
 [IO.File]::WriteAllText($Manifest, ($m | ConvertTo-Json -Depth 20), [Text.UTF8Encoding]::new($false))
 Good "$Manifest"
 Note "mochizuki $Version`: $zipName $zipSha"
@@ -270,6 +299,10 @@ $sums = @("$zipSha *$zipName", "$modelSha *dlssnr.bin")
 if ($rdna3Zip) {
     Note "mochizuki-rdna3 $Version`: $($rdna3Zip.Name) $($rdna3Zip.Sha)"
     $sums += "$($rdna3Zip.Sha) *$($rdna3Zip.Name)"
+}
+if ($rdna2Zip) {
+    Note "mochizuki-rdna2 $Version`: $($rdna2Zip.Name) $($rdna2Zip.Sha)"
+    $sums += "$($rdna2Zip.Sha) *$($rdna2Zip.Name)"
 }
 if ($smallComponent) {
     Note "mochizuki-model-small $($smallComponent.version): dlssnr-small.bin $($smallComponent.files[0].size) bytes $($smallComponent.files[0].sha256)"
@@ -283,6 +316,9 @@ Write-Host "`nUpload, before payload.json:" -ForegroundColor Cyan
 Write-Host "  hf upload $Repo `"$zipPath`" mochizuki/$Version/$zipName --repo-type dataset --commit-message `"mochizuki $Version`: runtime, shaders, prewarm list and licence`""
 if ($rdna3Zip) {
     Write-Host "  hf upload $Repo `"$($rdna3Zip.Path)`" mochizuki/$Version/$($rdna3Zip.Name) --repo-type dataset --commit-message `"mochizuki $Version`: the RX 7000 network (experimental)`""
+}
+if ($rdna2Zip) {
+    Write-Host "  hf upload $Repo `"$($rdna2Zip.Path)`" mochizuki/$Version/$($rdna2Zip.Name) --repo-type dataset --commit-message `"mochizuki $Version`: the RX 6000 network (experimental)`""
 }
 Write-Host "  hf upload $Repo `"$model`" $modelInRepo --repo-type dataset --commit-message `"mochizuki model $($modelComponent.version)`""
 if ($smallComponent) {

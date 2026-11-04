@@ -441,13 +441,16 @@ public static partial class Work
                     : "RX 9070 series cards only: ")
                 + "to use it, pick lmxxf under NR runtime in OptiScaler's Neural tab and restart the game.");
         if (mochizuki)
+        {
             report.Info(MochizukiInstalled
                         + (iniWritten && (lmxxf || runsMochizuki)
                             ? ""
                             : $" {OptiScalerIni} keeps the NR runtime it names: to use mochizuki, pick it under NR runtime in "
                               + "OptiScaler's Neural tab and restart the game."));
-        if (mochizuki && pins.MochizukiFiles.Keys.Any(k => MochizukiDestination(k).StartsWith(MochizukiRdna3Folder, StringComparison.Ordinal)))
-            report.Info(MochizukiRdna3Installed);
+            var mz = pins.MochizukiFiles.Keys.Select(MochizukiDestination).ToList();
+            if (mz.Any(k => k.StartsWith(MochizukiRdna3Folder, StringComparison.Ordinal))) report.Info(MochizukiRdna3Installed);
+            if (mz.Any(k => k.StartsWith(MochizukiRdna2Folder, StringComparison.Ordinal))) report.Info(MochizukiRdna2Installed);
+        }
         else if (recorded.Count > 0) AfterMochizukiRetired(dir, report);
         report.Info(Preset.OptiScaler.Note());
         return report;
