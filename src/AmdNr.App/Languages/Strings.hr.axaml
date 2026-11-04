@@ -132,7 +132,7 @@
   <sys:String x:Key="Str.WrongGpuNote">Isključeno dok ne označiš. WrongGPU od phantoslayer21 ide pokraj OptiScalera kao njegov FSR upscaler: Model M iz DLSS 4.5 na RDNA4, s modelom pretvorenim iz DLSS datoteke na ovom računalu (službeno NVIDIA preuzimanje ako je nema). U igri odaberi FSR, a zatim WrongGPU na popisu FSR verzija u OptiScaleru.</sys:String>
   <sys:String x:Key="Str.HostFgToggle">danielblncov DLSS-FG za igre bez DLSS-FG</sys:String>
   <sys:String x:Key="Str.HostFgNote">Isključeno dok ne označiš. NVIDIA-ine Streamline i DLSS-FG datoteke (oko 280 MB, preuzimaju se jednom) idu u mapu OptiScalera, pa danielblnc 0.8.0 generira sličice u D3D12 igri bez vlastitog DLSS generiranja sličica. U igri uključi njezin DLSS, FSR ili XeSS, zatim generiranje sličica u izborniku OptiScalera (Insert). Dok radi, danielblncov vlastiti NR je isključen: za NR koristi mochizuki ili lmxxf.</sys:String>
-  <sys:String x:Key="Str.HostFgOwnFg">Ova igra ima vlastito DLSS generiranje sličica: danielblncov FG već radi kroz njega, ništa ne treba dodati.</sys:String>
+  <sys:String x:Key="Str.HostFgOwnFg">Ova igra ima vlastito DLSS generiranje sličica: s mochizuki ili lmxxf kao NR runtimeom danielblncov FG radi kroz njega, ništa ne treba dodati. S danielblncovim NR-om ostaje isključen, da bi NR radio.</sys:String>
   <sys:String x:Key="Str.HostFgNoUpscaler">U ovoj igri nije pronađen DLSS, FSR ni XeSS: ovo generiranje sličica treba upscaler igre.</sys:String>
   <sys:String x:Key="Str.HostFgNrOff">danielblncov vlastiti NR je isključen dok radi njegov FG: odaberi mochizuki ili lmxxf kao NR runtime.</sys:String>
   <sys:String x:Key="Str.PickRouteTitle">Odaberite put instalacije</sys:String>

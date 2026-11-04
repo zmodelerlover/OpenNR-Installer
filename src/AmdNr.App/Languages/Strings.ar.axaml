@@ -132,7 +132,7 @@
   <sys:String x:Key="Str.WrongGpuNote">مُعطّل ما لم تحدده. يُثبَّت WrongGPU من phantoslayer21 بجانب OptiScaler كمُكبِّر FSR الخاص به: Model M من DLSS 4.5 على RDNA4، ويُحوَّل نموذجه من ملف DLSS على هذا الحاسوب (أو من تنزيل NVIDIA الرسمي إن لم يوجد). في اللعبة اختر FSR، ثم WrongGPU من قائمة إصدارات FSR في OptiScaler.</sys:String>
   <sys:String x:Key="Str.HostFgToggle">DLSS-FG من danielblnc للألعاب التي لا تحوي DLSS-FG</sys:String>
   <sys:String x:Key="Str.HostFgNote">مطفأ ما لم تحدده. تُوضع ملفات Streamline وDLSS-FG من NVIDIA (نحو 280 ميغابايت، تُنزّل مرة واحدة) في مجلد OptiScaler، فيولّد danielblnc 0.8.0 الإطارات في لعبة D3D12 لا تملك توليد إطارات DLSS خاصًا بها. في اللعبة شغّل DLSS أو FSR أو XeSS، ثم شغّل توليد الإطارات من قائمة OptiScaler (Insert). أثناء عمله يكون NR الخاص بـ danielblnc مطفأ: استخدم mochizuki أو lmxxf من أجل NR.</sys:String>
-  <sys:String x:Key="Str.HostFgOwnFg">لهذه اللعبة توليد إطارات DLSS خاص بها: يعمل FG من danielblnc عبره أصلًا، ولا حاجة لإضافة شيء.</sys:String>
+  <sys:String x:Key="Str.HostFgOwnFg">لهذه اللعبة توليد إطارات DLSS خاص بها: مع mochizuki أو lmxxf كمشغّل NR يعمل FG من danielblnc عبره، ولا حاجة لإضافة شيء. ومع NR من danielblnc يبقى متوقفًا لكي يعمل الـ NR.</sys:String>
   <sys:String x:Key="Str.HostFgNoUpscaler">لم يُعثر على DLSS أو FSR أو XeSS في هذه اللعبة: يحتاج توليد الإطارات هذا إلى أداة الرفع في اللعبة.</sys:String>
   <sys:String x:Key="Str.HostFgNrOff">يكون NR الخاص بـ danielblnc مطفأ أثناء عمل FG الخاص به: اختر mochizuki أو lmxxf كبيئة تشغيل NR.</sys:String>
   <sys:String x:Key="Str.PickRouteTitle">اختر طريقة التثبيت</sys:String>

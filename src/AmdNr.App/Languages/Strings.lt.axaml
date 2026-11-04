@@ -132,7 +132,7 @@
   <sys:String x:Key="Str.WrongGpuNote">Išjungta, kol nepažymėta. phantoslayer21 WrongGPU įdiegiamas šalia OptiScaler kaip jo FSR didintuvas: DLSS 4.5 Model M ant RDNA4, modelis konvertuojamas iš šio kompiuterio DLSS failo (jei tokio nėra, iš oficialaus NVIDIA atsisiuntimo). Žaidime pasirinkite FSR, tada WrongGPU OptiScaler FSR versijų sąraše.</sys:String>
   <sys:String x:Key="Str.HostFgToggle">danielblnc DLSS-FG žaidimams be DLSS-FG</sys:String>
   <sys:String x:Key="Str.HostFgNote">Išjungta, kol nepažymėsite. NVIDIA Streamline ir DLSS-FG failai (apie 280 MB, atsisiunčiami vieną kartą) dedami į OptiScaler aplanką, ir danielblnc 0.8.0 generuoja kadrus D3D12 žaidime be savo DLSS kadrų generavimo. Žaidime įjunkite jo DLSS, FSR arba XeSS, tada kadrų generavimą OptiScaler meniu (Insert). Kol jis veikia, paties danielblnc NR išjungtas: NR naudokite mochizuki arba lmxxf.</sys:String>
-  <sys:String x:Key="Str.HostFgOwnFg">Šis žaidimas turi savo DLSS kadrų generavimą: danielblnc FG jau veikia per jį, nieko pridėti nereikia.</sys:String>
+  <sys:String x:Key="Str.HostFgOwnFg">Šis žaidimas turi savo DLSS kadrų generavimą: su mochizuki arba lmxxf kaip NR runtime danielblnc FG veikia per jį, nieko pridėti nereikia. Su danielblnc NR jis lieka išjungtas, kad veiktų NR.</sys:String>
   <sys:String x:Key="Str.HostFgNoUpscaler">Šiame žaidime nerasta DLSS, FSR ar XeSS: šiam kadrų generavimui reikia žaidimo didintuvo.</sys:String>
   <sys:String x:Key="Str.HostFgNrOff">Paties danielblnc NR išjungtas, kol veikia jo FG: kaip NR runtime pasirinkite mochizuki arba lmxxf.</sys:String>
   <sys:String x:Key="Str.PickRouteTitle">Pasirinkite diegimo maršrutą</sys:String>

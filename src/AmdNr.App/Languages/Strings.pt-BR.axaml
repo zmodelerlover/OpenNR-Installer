@@ -138,7 +138,7 @@
   <sys:String x:Key="Str.WrongGpuNote">Desligado até ser marcado. O WrongGPU do phantoslayer21 vai ao lado do OptiScaler como o upscaler FSR dele: o Model M do DLSS 4.5 na RDNA4, com o modelo convertido de um arquivo DLSS deste PC (o download da própria NVIDIA quando não houver). No jogo escolha FSR e depois WrongGPU na lista de versões do FSR do OptiScaler.</sys:String>
   <sys:String x:Key="Str.HostFgToggle">DLSS-FG do danielblnc para jogos sem DLSS-FG</sys:String>
   <sys:String x:Key="Str.HostFgNote">Desligado até ser marcado. Os arquivos Streamline e DLSS-FG da NVIDIA (cerca de 280 MB, baixados uma vez) vão na pasta do OptiScaler, e o danielblnc 0.8.0 gera quadros num jogo D3D12 sem frame generation DLSS própria. No jogo ligue o DLSS, FSR ou XeSS dele e depois a geração de quadros no menu do OptiScaler (Insert). Enquanto ela roda, o NR do próprio danielblnc fica desligado: use mochizuki ou lmxxf para o NR.</sys:String>
-  <sys:String x:Key="Str.HostFgOwnFg">Este jogo tem frame generation DLSS própria: o FG do danielblnc já roda por ela, sem nada a adicionar.</sys:String>
+  <sys:String x:Key="Str.HostFgOwnFg">Este jogo tem frame generation DLSS própria: com mochizuki ou lmxxf como runtime de NR, o FG do danielblnc roda por ela, sem nada a adicionar. Com o NR do danielblnc ele fica desligado, para o NR rodar.</sys:String>
   <sys:String x:Key="Str.HostFgNoUpscaler">Nenhum DLSS, FSR ou XeSS encontrado neste jogo: esta geração de quadros precisa do upscaler do jogo.</sys:String>
   <sys:String x:Key="Str.HostFgNrOff">O NR do próprio danielblnc fica desligado enquanto o FG dele roda: escolha mochizuki ou lmxxf como runtime de NR.</sys:String>
   <sys:String x:Key="Str.OpenRrToggle">OpenRR (Ray Reconstruction, RX 9000)</sys:String>

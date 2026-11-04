@@ -132,7 +132,7 @@
   <sys:String x:Key="Str.WrongGpuNote">Выключено, пока не отмечено. WrongGPU от phantoslayer21 ставится рядом с OptiScaler как его апскейлер FSR: Model M из DLSS 4.5 на RDNA4, модель конвертируется из файла DLSS на этом ПК (официальная загрузка NVIDIA, если такого нет). В игре выберите FSR, затем WrongGPU в списке версий FSR в OptiScaler.</sys:String>
   <sys:String x:Key="Str.HostFgToggle">DLSS-FG от danielblnc для игр без DLSS-FG</sys:String>
   <sys:String x:Key="Str.HostFgNote">Выключено, пока не отмечено. Файлы Streamline и DLSS-FG от NVIDIA (около 280 МБ, скачиваются один раз) ложатся в папку OptiScaler, и danielblnc 0.8.0 генерирует кадры в игре на D3D12 без собственной генерации кадров DLSS. В игре включите её DLSS, FSR или XeSS, затем генерацию кадров в меню OptiScaler (Insert). Пока она работает, собственный NR danielblnc выключен: для NR используйте mochizuki или lmxxf.</sys:String>
-  <sys:String x:Key="Str.HostFgOwnFg">В этой игре есть своя генерация кадров DLSS: FG от danielblnc уже работает через неё, ничего добавлять не нужно.</sys:String>
+  <sys:String x:Key="Str.HostFgOwnFg">В этой игре есть своя генерация кадров DLSS: с mochizuki или lmxxf в роли NR-рантайма FG от danielblnc работает через неё, ничего добавлять не нужно. С NR от danielblnc он остаётся выключенным, чтобы работал NR.</sys:String>
   <sys:String x:Key="Str.HostFgNoUpscaler">В этой игре не найдено DLSS, FSR или XeSS: этой генерации кадров нужен апскейлер игры.</sys:String>
   <sys:String x:Key="Str.HostFgNrOff">Собственный NR danielblnc выключен, пока работает его FG: выберите mochizuki или lmxxf как рантайм NR.</sys:String>
   <sys:String x:Key="Str.PickRouteTitle">Выберите способ установки</sys:String>

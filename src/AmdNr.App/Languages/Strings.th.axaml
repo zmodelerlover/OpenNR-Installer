@@ -132,7 +132,7 @@
   <sys:String x:Key="Str.WrongGpuNote">ปิดอยู่จนกว่าจะติ๊ก WrongGPU ของ phantoslayer21 จะติดตั้งข้าง OptiScaler เป็นตัวอัปสเกล FSR: Model M ของ DLSS 4.5 บน RDNA4 โดยแปลงโมเดลจากไฟล์ DLSS บนพีซีเครื่องนี้ (ใช้ไฟล์ดาวน์โหลดของ NVIDIA เองถ้าไม่มี) ในเกมให้เลือก FSR แล้วเลือก WrongGPU ในรายการเวอร์ชัน FSR ของ OptiScaler</sys:String>
   <sys:String x:Key="Str.HostFgToggle">DLSS-FG ของ danielblnc สำหรับเกมที่ไม่มี DLSS-FG</sys:String>
   <sys:String x:Key="Str.HostFgNote">ปิดอยู่จนกว่าจะติ๊ก ไฟล์ Streamline และ DLSS-FG ของ NVIDIA (ประมาณ 280 MB ดาวน์โหลดครั้งเดียว) จะไปอยู่ในโฟลเดอร์ของ OptiScaler เพื่อให้ danielblnc 0.8.0 สร้างเฟรมในเกม D3D12 ที่ไม่มีการสร้างเฟรม DLSS ของตัวเอง ในเกมให้เปิด DLSS, FSR หรือ XeSS แล้วเปิดการสร้างเฟรมในเมนูของ OptiScaler (Insert) ระหว่างที่ทำงาน NR ของ danielblnc เองจะปิด: ใช้ mochizuki หรือ lmxxf สำหรับ NR</sys:String>
-  <sys:String x:Key="Str.HostFgOwnFg">เกมนี้มีการสร้างเฟรม DLSS ของตัวเอง: FG ของ danielblnc ทำงานผ่านมันอยู่แล้ว ไม่ต้องเพิ่มอะไร</sys:String>
+  <sys:String x:Key="Str.HostFgOwnFg">เกมนี้มีการสร้างเฟรม DLSS ของตัวเอง: เมื่อใช้ mochizuki หรือ lmxxf เป็นรันไทม์ NR, FG ของ danielblnc จะทำงานผ่านมัน ไม่ต้องเพิ่มอะไร เมื่อใช้ NR ของ danielblnc มันจะปิดอยู่เพื่อให้ NR ทำงาน</sys:String>
   <sys:String x:Key="Str.HostFgNoUpscaler">ไม่พบ DLSS, FSR หรือ XeSS ในเกมนี้: การสร้างเฟรมนี้ต้องใช้อัปสเกลเลอร์ของเกม</sys:String>
   <sys:String x:Key="Str.HostFgNrOff">NR ของ danielblnc เองจะปิดระหว่างที่ FG ของมันทำงาน: เลือก mochizuki หรือ lmxxf เป็นรันไทม์ NR</sys:String>
   <sys:String x:Key="Str.PickRouteTitle">เลือกวิธีติดตั้ง</sys:String>

@@ -132,7 +132,7 @@
   <sys:String x:Key="Str.WrongGpuNote">チェックしない限りオフ。phantoslayer21 の WrongGPU が OptiScaler の FSR アップスケーラーとして横に入ります：RDNA4 で DLSS 4.5 の Model M。モデルはこの PC の DLSS ファイルから変換されます（無い場合は NVIDIA 公式のダウンロードから）。ゲームでは FSR を選び、OptiScaler の FSR バージョン一覧で WrongGPU を選んでください。</sys:String>
   <sys:String x:Key="Str.HostFgToggle">DLSS-FG のないゲーム向けの danielblnc の DLSS-FG</sys:String>
   <sys:String x:Key="Str.HostFgNote">チェックするまでオフ。NVIDIA の Streamline と DLSS-FG のファイル（約 280 MB、ダウンロードは一度だけ）を OptiScaler のフォルダーに入れ、DLSS フレーム生成を持たない D3D12 ゲームで danielblnc 0.8.0 がフレームを生成します。ゲーム内で DLSS、FSR、XeSS のいずれかをオンにし、OptiScaler のメニュー（Insert）でフレーム生成をオンにしてください。動作中は danielblnc 自身の NR はオフになります。NR には mochizuki か lmxxf を使ってください。</sys:String>
-  <sys:String x:Key="Str.HostFgOwnFg">このゲームには独自の DLSS フレーム生成があります。danielblnc の FG はすでにそれを通して動くので、追加するものはありません。</sys:String>
+  <sys:String x:Key="Str.HostFgOwnFg">このゲームには独自の DLSS フレーム生成があります。NR ランタイムが mochizuki か lmxxf なら、danielblnc の FG はそれを通して動くので追加するものはありません。danielblnc の NR では NR を動かすためにオフのままです。</sys:String>
   <sys:String x:Key="Str.HostFgNoUpscaler">このゲームに DLSS、FSR、XeSS が見つかりません。このフレーム生成にはゲームのアップスケーラーが必要です。</sys:String>
   <sys:String x:Key="Str.HostFgNrOff">FG の動作中は danielblnc 自身の NR はオフです。NR ランタイムに mochizuki か lmxxf を選んでください。</sys:String>
   <sys:String x:Key="Str.PickRouteTitle">導入方法を選んでください</sys:String>
