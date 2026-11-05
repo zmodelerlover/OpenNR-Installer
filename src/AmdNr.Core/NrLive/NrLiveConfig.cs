@@ -143,7 +143,7 @@ public sealed class NrLiveConfig
         Mz("MochizukiRenoPassesMode", NrLiveKind.Choice, 0, choices: 2, advanced: true) with { Heading = "fast" },
         Mz("MochizukiRenoLocalTone", NrLiveKind.Range, 100, 0, 200, advanced: true, scale: 100, unit: "%"),
         Mz("MochizukiRenoLocalStructure", NrLiveKind.Range, 100, 0, 200, advanced: true, scale: 100, unit: "%"),
-        Mz("MochizukiRenoSkinStructure", NrLiveKind.Range, 100, 0, 200, advanced: true, scale: 100, unit: "%"),
+        Mz("MochizukiRenoSkinStructure", NrLiveKind.Range, 100, 0, 100, advanced: true, scale: 100, unit: "%"),
         Mz("MochizukiRenoAutoMask", NrLiveKind.Toggle, 0, advanced: true),
         Mz("MochizukiRenoSkinIndependent", NrLiveKind.Toggle, 1, advanced: true),
         Mz("MochizukiTemporal", NrLiveKind.Toggle, 1, advanced: true),

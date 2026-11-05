@@ -38,7 +38,7 @@ public static class SupportReport
         "mochizuki_nr.log",
         // The OptiScaler route's own: which process loaded the proxy, and whether an overlay came
         // through its dxgi hooks, is only in these.
-        "OptiScaler.log", "OptiScaler.ini", "amd_bridge.log", "amd_presr.log",
+        "OptiScaler.log", "OptiScaler.ini", "OptiScaler.saved.ini", "amd_bridge.log", "amd_presr.log",
         // WrongGPU's, when it is installed beside OptiScaler, and person protection's worker.
         "wronggpu-fsr.log", "wronggpu-asi.log", "wronggpu.ini", "person-model/person-worker.log", "opennr_rr.log",
     ];

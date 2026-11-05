@@ -328,7 +328,7 @@ public static partial class Work
         "amd-nr-x86-host.log", "dlssnr_on_amd.log", "dlssnr_on_amd.ini",
         // What OptiScaler and its bridge into the runtime write while a game runs: from 0.5.0 on, NR without
         // upscaling loads its own copies of the runtime under these names.
-        "OptiScaler.log", "amd_bridge.log", "amd_presr.log",
+        "OptiScaler.log", "OptiScaler.saved.ini", "amd_bridge.log", "amd_presr.log",
         "dlssnr_amd_present1.dll", "dlssnr_amd_present2.dll", "dlssnr_amd_present3.dll",
         // And the mochizuki runtime, beside itself, and OptiScaler 0.5.4's person protection worker in its folder.
         MochizukiLog, OpenRrLog, "person-model/person-worker.log", "person-model/person-worker.1.log",
