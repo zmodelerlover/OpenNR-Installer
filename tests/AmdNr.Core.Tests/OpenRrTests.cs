@@ -235,4 +235,25 @@ public class OpenRrTests
         Assert.Contains(PayloadManifest.OpenRrComponent, PayloadManifest.OnDemand);
         Assert.Contains(PayloadManifest.OpenRrDlssdComponent, PayloadManifest.OnDemand);
     }
+
+    [Fact]
+    public void APickedVersionComesFromTheReleasesThatCarryIt()
+    {
+        var shipped = PayloadManifest.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "payload.json")));
+        var versions = shipped.OpenRrVersions().Select(c => c.Version).ToList();
+        Assert.Contains("0.1.0", versions);
+        Assert.Equal(versions.Distinct(), versions);
+
+        var newest = shipped.Newest(PayloadManifest.OptiScalerComponent);
+        Assert.Equal(versions[0], newest.Pins().OpenRrVersion);
+        var older = newest.WithOpenRrVersion("0.1.0").Pins();
+        Assert.Equal("0.1.0", older.OpenRrVersion);
+        Assert.NotEqual(newest.Pins().OpenRrFiles[Work.OpenRrRuntimeName], older.OpenRrFiles[Work.OpenRrRuntimeName]);
+
+        // No choice, or one the payload does not list, keeps the release's own; a release without OpenRR stays without.
+        Assert.Equal(versions[0], newest.WithOpenRrVersion(null).Pins().OpenRrVersion);
+        Assert.Equal(versions[0], newest.WithOpenRrVersion("9.9.9").Pins().OpenRrVersion);
+        var before = shipped.With(shipped.OptiScalerMenu().Single(r => r.Version == "0.5.5-opennr"));
+        Assert.Empty(before.WithOpenRrVersion("0.1.0").Pins().OpenRrFiles);
+    }
 }

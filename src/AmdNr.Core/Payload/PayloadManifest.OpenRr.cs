@@ -13,6 +13,27 @@ public sealed partial class PayloadManifest
     /// another or none (Work.OpenRrNeedsDlssd).</summary>
     public const string OpenRrDlssdComponent = "openrr-dlssd";
 
+    /// <summary>The OpenRR versions a player can pick, newest first: the ones the OptiScaler releases carry.</summary>
+    public IReadOnlyList<PayloadComponent> OpenRrVersions() =>
+        (Releases?.GetValueOrDefault(OptiScalerComponent) ?? [])
+        .Where(r => !IsPlaceholder(r))
+        .Select(r => r.Components.GetValueOrDefault(OpenRrComponent)).OfType<PayloadComponent>()
+        .DistinctBy(c => c.Version)
+        .OrderByDescending(c => AddonReleases.Version(c.Version) ?? new Version())
+        .ToList();
+
+    /// <summary>This manifest with OpenRR at a version a player picked. Null, a version this payload does not list, or
+    /// an OptiScaler release without OpenRR keeps what the release pins.</summary>
+    public PayloadManifest WithOpenRrVersion(string? version) =>
+        version is null || !Components.ContainsKey(OpenRrComponent)
+        || OpenRrVersions().FirstOrDefault(c => c.Version == version) is not { } picked
+            ? this
+            : Merge(new ComponentRelease
+            {
+                Version = version,
+                Components = new Dictionary<string, PayloadComponent>(StringComparer.Ordinal) { [OpenRrComponent] = picked },
+            });
+
     private PayloadPins WithOpenRr(PayloadPins pins)
     {
         if (Components.TryGetValue(OpenRrComponent, out var rr))

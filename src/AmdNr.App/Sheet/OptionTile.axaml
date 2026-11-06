@@ -6,14 +6,21 @@
        way while ticked: the box and its name, the (i) at the right edge, and under them a chip with the state and a
        short line. -->
   <Border x:Name="Tile" Classes="runtimeTile" Padding="12,8">
-    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+    <Grid ColumnDefinitions="*,Auto,Auto" RowDefinitions="Auto,Auto">
       <CheckBox x:Name="Box" Click="OnClick">
         <TextBlock x:Name="Label" FontWeight="SemiBold" TextWrapping="Wrap" />
       </CheckBox>
-      <Border x:Name="Info" Grid.Column="1" Classes="info" VerticalAlignment="Top" Margin="6,1,0,0">
+      <!-- A version menu in the title row, for a tile that has one: it takes no height of its own. -->
+      <Button x:Name="Pick" Grid.Column="1" IsVisible="False" Padding="6,0" MinHeight="0" VerticalAlignment="Top" Margin="6,0,0,0">
+        <StackPanel Orientation="Horizontal" Spacing="3">
+          <TextBlock x:Name="PickText" Classes="muted" FontSize="12" VerticalAlignment="Center" />
+          <PathIcon Data="{StaticResource IconChevronDown}" Width="10" Height="10" VerticalAlignment="Center" />
+        </StackPanel>
+      </Button>
+      <Border x:Name="Info" Grid.Column="2" Classes="info" VerticalAlignment="Top" Margin="6,1,0,0">
         <PathIcon Data="{StaticResource IconInfo}" />
       </Border>
-      <WrapPanel x:Name="Under" Grid.Row="1" Grid.ColumnSpan="2" Margin="28,4,0,0">
+      <WrapPanel x:Name="Under" Grid.Row="1" Grid.ColumnSpan="3" Margin="28,4,0,0">
         <Border x:Name="StateChip" Margin="0,0,8,2" VerticalAlignment="Center">
           <StackPanel Orientation="Horizontal" Spacing="4">
             <PathIcon x:Name="Dot" Data="{StaticResource IconDot}" Width="10" Height="10" VerticalAlignment="Center" />

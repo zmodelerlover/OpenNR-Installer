@@ -61,6 +61,9 @@ public sealed class GameEntry
     /// <summary>OpenRR ticked or unticked for this game; null until then, which is ticked, as [OpenNR-RR] is on by default.</summary>
     public bool? OpenRr { get; set; }
 
+    /// <summary>The OpenRR version picked for this game; null is the one the OptiScaler version chosen carries.</summary>
+    public string? OpenRrVersion { get; set; }
+
     /// <summary>REFramework ticked or unticked for this game; null until then, which follows the folder and the list.</summary>
     public bool? ReFramework { get; set; }
 

@@ -465,7 +465,7 @@ public partial class GameSheet
 
     /// <summary>The published manifest at the add-on or OptiScaler version chosen, before any runtime choice.</summary>
     private PayloadManifest Versioned(PayloadManifest manifest) =>
-        _version?.Opti is { } opti ? manifest.With(opti)
+        _version?.Opti is { } opti ? manifest.With(opti).WithOpenRrVersion(_card?.Entry.OpenRrVersion)
         : _card?.Entry.Preset.IsOptiScaler() == true ? manifest
         : (_version?.Release is { } release ? AddonReleases.With(manifest, release) : manifest).WithMochizuki();
 

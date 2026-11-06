@@ -149,6 +149,7 @@
   <sys:String x:Key="Str.OpenRrSupplied">{0} é a versão {1}, e o OpenRR só roda com a 310.9.1: a instalação põe o 310.9.1 da NVIDIA ao lado do OptiScaler e guarda o do jogo no backup.</sys:String>
   <sys:String x:Key="Str.OpenRrSuppliedVulkan">{0} é a versão {1}, e o OpenRR só roda com a 310.9.1: a instalação põe o 310.9.1 da NVIDIA em opennr-rr\ ao lado do OptiScaler, e o jogo fica com o dele.</sys:String>
   <sys:String x:Key="Str.OpenRrListed">{0} tem DLSS Ray Reconstruction.</sys:String>
+  <sys:String x:Key="Str.OpenRrVersionTip">Versão do OpenRR</sys:String>
   <sys:String x:Key="Str.OpenRrRemix">{0} roda no RTX Remix (D3D9 convertido para Vulkan): o OpenRR não é compatível.</sys:String>
   <sys:String x:Key="Str.OpenRrNotCompatible">{0} não é compatível com o OpenRR.</sys:String>
   <sys:String x:Key="Str.PickRouteTitle">Escolha a rota de instalação</sys:String>

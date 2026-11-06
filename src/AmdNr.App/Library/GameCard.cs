@@ -286,7 +286,7 @@ public sealed class GameCard(GameEntry entry) : INotifyPropertyChanged
         {
             Outdated = Installed && Payload is { } payload
                                  && folders.Any(folder => Work.PayloadMovedOn(folder, payload.WithRuntime(
-                                     Rdna4 ? Entry.DanielRuntime ?? Work.Rdna4Recommended : null)));
+                                     Rdna4 ? Entry.DanielRuntime ?? Work.Rdna4Recommended : null).WithOpenRrVersion(Entry.OpenRrVersion)));
         }
         catch (Exception)
         {

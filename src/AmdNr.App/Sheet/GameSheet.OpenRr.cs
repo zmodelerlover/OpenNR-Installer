@@ -63,8 +63,20 @@ public partial class GameSheet
         // A listed game says so on the chip's tooltip.
         OpenRrSection.Chip(chip, kind, offered && listed is not null ? Ui.Format("Str.OpenRrListed", listed.Title) : null);
         OpenRrSection.Line = line;
+        OpenRrSection.Versions(offered ? Session.Manifest?.OpenRrVersions().Select(c => c.Version).ToList() ?? [] : [],
+            Pins().OpenRrVersion, Ui.Text("Str.OpenRrVersionTip"), OnOpenRrVersion);
         _setting = false;
         ShowExtras();
+    }
+
+    /// <summary>A version picked in the tile's menu. The newest is the same as no choice, so the game follows new releases.</summary>
+    private void OnOpenRrVersion(string version)
+    {
+        if (_card is not { } card) return;
+        card.Entry.OpenRrVersion = Session.Manifest?.OpenRrVersions().FirstOrDefault()?.Version == version ? null : version;
+        Library.Save();
+        ShowInstallLabel();
+        _ = RefreshAsync();
     }
 
     /// <summary>The opt-ins' divider and the row of two show while any tile in them does.</summary>

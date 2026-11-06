@@ -61,6 +61,23 @@ public partial class OptionTile : UserControl
         Lit();
     }
 
+    /// <summary>The version menu in the title row, the one in use on the button; hidden with fewer than two to pick from.</summary>
+    public void Versions(IReadOnlyList<string> versions, string current, string tip, Action<string> picked)
+    {
+        Pick.IsVisible = versions.Count > 1;
+        PickText.Text = current;
+        ToolTip.SetTip(Pick, tip);
+        AutomationProperties.SetName(Pick, tip);
+        var menu = new MenuFlyout();
+        Pick.Flyout = menu;
+        foreach (var version in versions)
+        {
+            var item = new MenuItem { Header = version, ToggleType = MenuItemToggleType.Radio, IsChecked = version == current };
+            item.Click += (_, _) => picked(version);
+            menu.Items.Add(item);
+        }
+    }
+
     private void Lit()
     {
         var on = Box.IsChecked == true;
