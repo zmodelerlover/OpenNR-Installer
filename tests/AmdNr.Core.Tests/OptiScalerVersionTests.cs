@@ -111,8 +111,8 @@ public class OptiScalerVersionTests
         var shipped = PayloadManifest.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "payload.json")));
         var offered = shipped.Offered(PayloadManifest.OptiScalerComponent);
         // The newest release is offered first, with its own opti-runtime. Nothing older than 0.5.5 is in the menu.
-        Assert.Equal("0.6.2-opennr", offered[0].Version);
-        Assert.Equal(["0.6.2-opennr", "0.6.1-opennr", "0.6.0-opennr", "0.5.9-opennr", "0.5.8-opennr", "0.5.7-opennr", "0.5.6-opennr", "0.5.5-opennr"],
+        Assert.Equal("0.6.3-opennr", offered[0].Version);
+        Assert.Equal(["0.6.3-opennr", "0.6.2-opennr", "0.6.1-opennr", "0.6.0-opennr", "0.5.9-opennr", "0.5.8-opennr", "0.5.7-opennr", "0.5.6-opennr", "0.5.5-opennr"],
             shipped.OptiScalerMenu().Select(r => r.Version));
         var newestRuntime = shipped.With(offered[0]).Component(PayloadManifest.OptiRuntimeComponent);
         Assert.Equal("0.6.0", newestRuntime.Version);
