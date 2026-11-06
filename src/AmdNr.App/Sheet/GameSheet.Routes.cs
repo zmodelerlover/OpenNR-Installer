@@ -293,7 +293,7 @@ public partial class GameSheet
     /// archive, and a release's own sums cannot say where each file goes.</summary>
     private void ShowOptiScalerVersions()
     {
-        foreach (var release in Session.Manifest?.Offered(PayloadManifest.OptiScalerComponent) ?? [])
+        foreach (var release in Session.Manifest?.OptiScalerMenu() ?? [])
         {
             if (AddonReleases.Version(release.Version) is not { } version) continue;
             var published = release.Components[PayloadManifest.OptiScalerComponent].Published;

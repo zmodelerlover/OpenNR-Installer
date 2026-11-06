@@ -110,29 +110,13 @@ public class OptiScalerVersionTests
     {
         var shipped = PayloadManifest.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "payload.json")));
         var offered = shipped.Offered(PayloadManifest.OptiScalerComponent);
-        // The newest release is offered first, with its own opti-runtime: 0.4.5, 0.4.4 and 0.4.3 take danielblnc's
-        // public 0.4.3, which no earlier OptiScaler accepts, so 0.4.2 keeps 0.4.1 and 0.4.1 keeps 0.4.0.
+        // The newest release is offered first, with its own opti-runtime. Nothing older than 0.5.5 is in the menu.
         Assert.Equal("0.6.2-opennr", offered[0].Version);
+        Assert.Equal(["0.6.2-opennr", "0.6.1-opennr", "0.6.0-opennr", "0.5.9-opennr", "0.5.8-opennr", "0.5.7-opennr", "0.5.6-opennr", "0.5.5-opennr"],
+            shipped.OptiScalerMenu().Select(r => r.Version));
         var newestRuntime = shipped.With(offered[0]).Component(PayloadManifest.OptiRuntimeComponent);
         Assert.Equal("0.6.0", newestRuntime.Version);
         Assert.Equal("195c4a891b6eac4c1cb7671e10ff62bbbe2b17f1dfae1344dc5a6714e4775721", newestRuntime.Files.Single().Sha256);
-        // danielblnc's public 0.6.0 goes to every release that runs it, 0.4.7 and later; 0.4.6 keeps 0.5.0.
-        foreach (var version in new[] { "0.4.8-amd-nr", "0.4.7-amd-nr" })
-            Assert.Equal("0.6.0", shipped.With(offered.Single(r => r.Version == version)).Component(PayloadManifest.OptiRuntimeComponent).Version);
-        Assert.Equal("0.5.0", shipped.With(offered.Single(r => r.Version == "0.4.6-amd-nr")).Component(PayloadManifest.OptiRuntimeComponent).Version);
-        var r043 = offered.Single(r => r.Version == "0.4.3-amd-nr");
-        Assert.Equal("0.4.3", shipped.With(r043).Component(PayloadManifest.OptiRuntimeComponent).Version);
-        var r042 = offered.Single(r => r.Version == "0.4.2-amd-nr");
-        Assert.Equal("0.4.1", shipped.With(r042).Component(PayloadManifest.OptiRuntimeComponent).Version);
-        var r041 = offered.Single(r => r.Version == "0.4.1-amd-nr");
-        Assert.Equal("0.4.0", shipped.With(r041).Component(PayloadManifest.OptiRuntimeComponent).Version);
-        Assert.Contains(offered, r => r.Version == "0.4.0-amd-nr");
-        // Older releases keep the top-level runtime, the newest they accept.
-        var r040 = offered.Single(r => r.Version == "0.4.0-amd-nr");
-        Assert.Equal("0.3.1", shipped.With(r040).Component(PayloadManifest.OptiRuntimeComponent).Version);
-        Assert.Contains(offered, r => r.Version == "0.3.0-amd-nr");
-        Assert.Contains(offered, r => r.Version == "0.2.0-amd-nr");
-        Assert.Contains(offered, r => r.Version == "0.1.1-amd-nr");
         // What v0.4.0 reads stays the version it knows how to install.
         Assert.Equal("0.1.1-amd-nr", shipped.Component(PayloadManifest.OptiScalerComponent).Version);
 
@@ -163,23 +147,9 @@ public class OptiScalerVersionTests
         Assert.DoesNotContain(offered[0].Components[PayloadManifest.OptiScalerComponent].Extract!,
             f => f.RelativePath.StartsWith("lmxxf-modules-gfx1200/", StringComparison.Ordinal));
 
-        // The mochizuki runtime rides in 0.4.0 to 0.4.2 as one build, 0.4.3 carries its fix for a
-        // render-resolution change and 0.4.4 the faster build, which 0.4.5 to 0.4.7 keep, and 0.4.8 its own (the game's
-        // exposure, the Preprocess): every file it lists lands under a name the transaction takes, and its model is
-        // the one the runtime was built against.
+        // The mochizuki runtime: every file it lists lands under a name the transaction takes, and its model is the
+        // one the runtime was built against.
         var next = offered[0];
-        var r044 = offered.Single(r => r.Version == "0.4.4-amd-nr");
-        var r047 = offered.Single(r => r.Version == "0.4.7-amd-nr");
-        Assert.Equal(r044.Components[PayloadManifest.MochizukiComponent].Files.Single().Sha256,
-            r047.Components[PayloadManifest.MochizukiComponent].Files.Single().Sha256);
-        Assert.NotEqual(r044.Components[PayloadManifest.MochizukiComponent].Files.Single().Sha256,
-            next.Components[PayloadManifest.MochizukiComponent].Files.Single().Sha256);
-        Assert.Equal(r040.Components[PayloadManifest.MochizukiComponent].Files.Single().Sha256,
-            r042.Components[PayloadManifest.MochizukiComponent].Files.Single().Sha256);
-        Assert.NotEqual(r042.Components[PayloadManifest.MochizukiComponent].Files.Single().Sha256,
-            r043.Components[PayloadManifest.MochizukiComponent].Files.Single().Sha256);
-        Assert.NotEqual(r043.Components[PayloadManifest.MochizukiComponent].Files.Single().Sha256,
-            next.Components[PayloadManifest.MochizukiComponent].Files.Single().Sha256);
         var mochizuki = shipped.With(next).Pins().MochizukiFiles;
         Assert.Contains("MochizukiNrRuntime.dll", mochizuki.Keys);
         Assert.Contains("dlssnr-amd.prewarm/manifest.txt", mochizuki.Keys);
