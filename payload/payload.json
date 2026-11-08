@@ -11635,13 +11635,13 @@
             ]
           },
           "openrr": {
-            "version": "0.1.2",
+            "version": "0.1.1",
             "files": [
               {
-                "name": "openrr-0.1.2.zip",
-                "size": 3209400,
-                "sha256": "7c7401ad0a3caa9db964ed08e578c2a3ac7e806635d9dcfc6fc27db95d3e53d1",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/openrr/0.1.2/openrr-0.1.2.zip"
+                "name": "openrr-0.1.1.zip",
+                "size": 3203844,
+                "sha256": "9b834b68071b7f16f80e5131804175427f1d2f12a04b5ea9c0b7e4059901d87c",
+                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/openrr/0.1.1/openrr-0.1.1.zip"
               }
             ],
             "extract": [
@@ -12182,8 +12182,8 @@
               {
                 "name": "OpenNrRrRuntime.dll",
                 "path": "OpenNrRrRuntime.dll",
-                "size": 433152,
-                "sha256": "9f28c0f45b2b6d2d2ce9bf11685608f426bcd366b533685c35bb34b8a03bf857"
+                "size": 422912,
+                "sha256": "15b7e126f9036cfad877d7d092b9992595271268d7f4ddbed46a1fbb58303530"
               }
             ]
           },
