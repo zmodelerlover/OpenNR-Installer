@@ -93,6 +93,7 @@ public static partial class Work
             foreach (var name in OurSettings.Where(n => !still.Contains(n))) gone += RemoveFile(dir, name, report);
 
         gone += SwitchOffVulkanReShade(dir, recorded, report);
+        KeepLogs(dir);
         gone += SweepDroppings(dir, report);
         // FiveM's add-on writes its runtime copies and logs beside the game process, not in FiveM.app.
         if (Directory.Exists(Path.Combine(dir, FiveMGame))) gone += SweepDroppings(Path.Combine(dir, FiveMGame), report);
@@ -333,6 +334,33 @@ public static partial class Work
         // And the mochizuki runtime, beside itself, and OptiScaler 0.5.4's person protection worker in its folder.
         MochizukiLog, OpenRrLog, "person-model/person-worker.log", "person-model/person-worker.1.log",
     ];
+
+    /// <summary>Where a game's logs from its last run are kept once an uninstall sweeps them, so a report made after
+    /// it still carries them. One folder per game folder; each uninstall replaces it.</summary>
+    public static string KeptLogs(string gameDir) =>
+        Path.Combine(AppPaths.Logs, "kept", Engine.Sha(Encoding.UTF8.GetBytes(Path.GetFullPath(gameDir).ToLowerInvariant()))[..12]);
+
+    /// <summary>The .log files the sweep is about to remove, beside the game and in a 32-bit game's OptiScaler64\.
+    /// Best effort: a log that cannot be copied is no reason to stop an uninstall.</summary>
+    internal static void KeepLogs(string dir)
+    {
+        try
+        {
+            var into = KeptLogs(dir);
+            if (Directory.Exists(into)) Directory.Delete(into, recursive: true);
+            var host = Path.Combine(dir, OptiHostFolder);
+            foreach (var (from, names, under) in new[] { (dir, Droppings, ""), (host, [.. Droppings, .. OptiHostDroppings], OptiHostFolder) })
+                foreach (var name in names.Where(n => n.EndsWith(".log", StringComparison.OrdinalIgnoreCase)))
+                {
+                    var file = Path.Combine(from, name);
+                    if (!File.Exists(file)) continue;
+                    var to = Path.Combine(into, under, name);
+                    Directory.CreateDirectory(Path.GetDirectoryName(to)!);
+                    File.Copy(file, to, overwrite: true);
+                }
+        }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException) { }
+    }
 
     /// <summary>The logs a 32-bit game's OptiScaler host and its proxies write in OptiScaler64\.</summary>
     private static readonly string[] OptiHostDroppings =

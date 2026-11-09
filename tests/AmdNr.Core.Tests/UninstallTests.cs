@@ -311,4 +311,26 @@ public class UninstallTests
         Assert.True(report.Failed);
         Assert.True(Fixture.HasErr(report, "No game folder given"));
     }
+
+    [Fact]
+    public void TheLogsAnUninstallSweepsAreKeptForALaterReport()
+    {
+        var dir = Fixture.Temp("keptlogs");
+        File.WriteAllText(Path.Combine(dir, "OptiScaler.log"), "game log");
+        Directory.CreateDirectory(Path.Combine(dir, "OptiScaler64"));
+        File.WriteAllText(Path.Combine(dir, "OptiScaler64", "dxgi-x86.log"), "proxy log");
+        File.WriteAllText(Path.Combine(dir, "OptiScaler.saved.ini"), "not a log");
+
+        Work.KeepLogs(dir);
+
+        var kept = Work.KeptLogs(dir);
+        Assert.Equal("game log", File.ReadAllText(Path.Combine(kept, "OptiScaler.log")));
+        Assert.Equal("proxy log", File.ReadAllText(Path.Combine(kept, "OptiScaler64", "dxgi-x86.log")));
+        Assert.False(File.Exists(Path.Combine(kept, "OptiScaler.saved.ini")));
+
+        // The next uninstall replaces what the last one kept.
+        File.Delete(Path.Combine(dir, "OptiScaler64", "dxgi-x86.log"));
+        Work.KeepLogs(dir);
+        Assert.False(File.Exists(Path.Combine(kept, "OptiScaler64", "dxgi-x86.log")));
+    }
 }

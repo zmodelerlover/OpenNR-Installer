@@ -117,6 +117,11 @@ public static class SupportReport
                     if (File.Exists(file)) Copy(zip, new FileInfo(file), $"game/OptiScaler64/{name}");
                 }
             }
+            // The logs the last uninstall swept, for a report made after it.
+            var kept = Work.KeptLogs(dir);
+            if (Directory.Exists(kept))
+                foreach (var file in Directory.EnumerateFiles(kept, "*.log", SearchOption.AllDirectories))
+                    Copy(zip, new FileInfo(file), "game/kept-from-uninstall/" + Path.GetRelativePath(kept, file).Replace('\\', '/'));
             // The names before v0.6.5 too: a record the older installers left is read on every install.
             foreach (var manifest in new[] { Route.X64.ManifestFileName(), Engine.ManifestName,
                          "dlss5-neural.install.json", "dlss5-x86bridge.install.json" })

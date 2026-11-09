@@ -421,10 +421,10 @@ public static partial class Work
                         + $"on the finished frame, HUD included, on {(runsMochizuki ? "mochizuki" : "danielblnc's runtime")}. "
                         + "Where the game's DLSS, FSR or XeSS is on, the network runs inside it instead.");
         if (iniWritten && runsMochizuki)
-            report.Info($"{OptiScalerIni} runs mochizuki (NrBackend=mochizuki), the default on RX 9000 cards, with ACO on. "
+            report.Info($"{OptiScalerIni} runs mochizuki (NrBackend=mochizuki), with ACO on. "
                         + "danielblnc and lmxxf are beside it: pick another under NR runtime in OptiScaler's Neural tab.");
         else if (iniWritten && lmxxf)
-            report.Info($"{OptiScalerIni} runs lmxxf (NrBackend=lmxxf), the default on RX 9000 cards. danielblnc and "
+            report.Info($"{OptiScalerIni} runs lmxxf (NrBackend=lmxxf). danielblnc and "
                         + "mochizuki are beside it: pick another under NR runtime in OptiScaler's Neural tab.");
         else if (!LmxxfWeighted(pins))
         {
