@@ -33,4 +33,9 @@
   <sys:String x:Key="Str.DataMissingRetryBody">再次查找该文件夹。</sys:String>
   <sys:String x:Key="Str.DataMissingDefault">使用默认文件夹</sys:String>
   <sys:String x:Key="Str.DataMissingDefaultBody">在 {0} 从头开始，不带你的设置和游戏列表。另一个文件夹保持原样。</sys:String>
+  <sys:String x:Key="Str.SetupStepData">安装程序的数据放在哪里</sys:String>
+  <sys:String x:Key="Str.SetupDataBody">设置、游戏列表、日志，以及安装程序下载的文件。下载的文件要占几 GB，请选一个空间足够的磁盘。</sys:String>
+  <sys:String x:Key="Str.SetupDataLater">之后可以在设置中更改。</sys:String>
+  <sys:String x:Key="Str.SetupDataPick">选择其他文件夹…</sys:String>
+  <sys:String x:Key="Str.SetupDataIsDefault">默认文件夹</sys:String>
 </ResourceDictionary>

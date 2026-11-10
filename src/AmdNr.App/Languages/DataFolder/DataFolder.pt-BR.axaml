@@ -33,4 +33,9 @@
   <sys:String x:Key="Str.DataMissingRetryBody">Procura a pasta outra vez.</sys:String>
   <sys:String x:Key="Str.DataMissingDefault">Usar a pasta padrão</sys:String>
   <sys:String x:Key="Str.DataMissingDefaultBody">Começa do zero em {0}, sem suas configurações nem a lista de jogos. A outra pasta fica como está.</sys:String>
+  <sys:String x:Key="Str.SetupStepData">Onde guardar os dados do instalador</sys:String>
+  <sys:String x:Key="Str.SetupDataBody">Configurações, a lista de jogos, os logs e os arquivos que o instalador baixa. Os downloads ocupam alguns GB, então escolha um disco com espaço para eles.</sys:String>
+  <sys:String x:Key="Str.SetupDataLater">Dá para mudar isso depois em Configurações.</sys:String>
+  <sys:String x:Key="Str.SetupDataPick">Escolher outra pasta…</sys:String>
+  <sys:String x:Key="Str.SetupDataIsDefault">A pasta padrão</sys:String>
 </ResourceDictionary>

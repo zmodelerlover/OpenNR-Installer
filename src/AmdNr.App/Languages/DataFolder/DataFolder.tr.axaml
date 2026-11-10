@@ -33,4 +33,9 @@
   <sys:String x:Key="Str.DataMissingRetryBody">Klasörü yeniden arar.</sys:String>
   <sys:String x:Key="Str.DataMissingDefault">Varsayılan klasörü kullan</sys:String>
   <sys:String x:Key="Str.DataMissingDefaultBody">Ayarlarınız ve oyun listeniz olmadan {0} içinde sıfırdan başlar. Diğer klasör olduğu gibi kalır.</sys:String>
+  <sys:String x:Key="Str.SetupStepData">Yükleyicinin verileri nerede tutulsun</sys:String>
+  <sys:String x:Key="Str.SetupDataBody">Ayarlar, oyun listesi, günlükler ve yükleyicinin indirdiği dosyalar. İndirilenler birkaç GB yer kaplar, bu yüzden yeri olan bir sürücü seçin.</sys:String>
+  <sys:String x:Key="Str.SetupDataLater">Bunu daha sonra Ayarlar'dan değiştirebilirsiniz.</sys:String>
+  <sys:String x:Key="Str.SetupDataPick">Başka bir klasör seç…</sys:String>
+  <sys:String x:Key="Str.SetupDataIsDefault">Varsayılan klasör</sys:String>
 </ResourceDictionary>

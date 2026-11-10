@@ -33,4 +33,9 @@
   <sys:String x:Key="Str.DataMissingRetryBody">Cherche le dossier à nouveau.</sys:String>
   <sys:String x:Key="Str.DataMissingDefault">Utiliser le dossier par défaut</sys:String>
   <sys:String x:Key="Str.DataMissingDefaultBody">Repart de {0}, sans vos réglages ni votre liste de jeux. L’autre dossier reste tel quel.</sys:String>
+  <sys:String x:Key="Str.SetupStepData">Où garder les données de l'installateur</sys:String>
+  <sys:String x:Key="Str.SetupDataBody">Les paramètres, la liste des jeux, les journaux et les fichiers que l'installateur télécharge. Les téléchargements prennent quelques Go : choisissez un disque qui a la place.</sys:String>
+  <sys:String x:Key="Str.SetupDataLater">Vous pourrez changer cela plus tard dans Paramètres.</sys:String>
+  <sys:String x:Key="Str.SetupDataPick">Choisir un autre dossier…</sys:String>
+  <sys:String x:Key="Str.SetupDataIsDefault">Le dossier par défaut</sys:String>
 </ResourceDictionary>

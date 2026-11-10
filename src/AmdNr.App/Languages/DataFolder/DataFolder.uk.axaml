@@ -33,4 +33,9 @@
   <sys:String x:Key="Str.DataMissingRetryBody">Шукає теку ще раз.</sys:String>
   <sys:String x:Key="Str.DataMissingDefault">Використати типову теку</sys:String>
   <sys:String x:Key="Str.DataMissingDefaultBody">Починає з нуля в {0}, без ваших налаштувань і списку ігор. Інша тека лишається як є.</sys:String>
+  <sys:String x:Key="Str.SetupStepData">Де зберігати дані інсталятора</sys:String>
+  <sys:String x:Key="Str.SetupDataBody">Налаштування, список ігор, журнали й файли, які завантажує інсталятор. Завантаження займають кілька ГБ, тож виберіть диск, де є місце.</sys:String>
+  <sys:String x:Key="Str.SetupDataLater">Це можна змінити пізніше в налаштуваннях.</sys:String>
+  <sys:String x:Key="Str.SetupDataPick">Вибрати іншу теку…</sys:String>
+  <sys:String x:Key="Str.SetupDataIsDefault">Тека за замовчуванням</sys:String>
 </ResourceDictionary>

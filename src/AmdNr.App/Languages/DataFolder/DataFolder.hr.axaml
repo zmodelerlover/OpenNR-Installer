@@ -33,4 +33,9 @@
   <sys:String x:Key="Str.DataMissingRetryBody">Ponovno traži mapu.</sys:String>
   <sys:String x:Key="Str.DataMissingDefault">Koristi zadanu mapu</sys:String>
   <sys:String x:Key="Str.DataMissingDefaultBody">Kreće ispočetka u {0}, bez tvojih postavki i popisa igara. Druga mapa ostaje kakva jest.</sys:String>
+  <sys:String x:Key="Str.SetupStepData">Gdje čuvati podatke instalacijskog programa</sys:String>
+  <sys:String x:Key="Str.SetupDataBody">Postavke, popis igara, zapisnici i datoteke koje instalacijski program preuzima. Preuzimanja zauzimaju nekoliko GB, pa odaberite disk s dovoljno mjesta.</sys:String>
+  <sys:String x:Key="Str.SetupDataLater">Ovo možete kasnije promijeniti u Postavkama.</sys:String>
+  <sys:String x:Key="Str.SetupDataPick">Odaberi drugu mapu…</sys:String>
+  <sys:String x:Key="Str.SetupDataIsDefault">Zadana mapa</sys:String>
 </ResourceDictionary>

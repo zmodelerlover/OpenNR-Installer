@@ -33,4 +33,9 @@
   <sys:String x:Key="Str.DataMissingRetryBody">Ищет папку ещё раз.</sys:String>
   <sys:String x:Key="Str.DataMissingDefault">Использовать папку по умолчанию</sys:String>
   <sys:String x:Key="Str.DataMissingDefaultBody">Начинает с нуля в {0}, без ваших настроек и списка игр. Другая папка остаётся как есть.</sys:String>
+  <sys:String x:Key="Str.SetupStepData">Где хранить данные установщика</sys:String>
+  <sys:String x:Key="Str.SetupDataBody">Настройки, список игр, журналы и файлы, которые загружает установщик. Загрузки занимают несколько ГБ, так что выберите диск, где есть место.</sys:String>
+  <sys:String x:Key="Str.SetupDataLater">Это можно изменить позже в настройках.</sys:String>
+  <sys:String x:Key="Str.SetupDataPick">Выбрать другую папку…</sys:String>
+  <sys:String x:Key="Str.SetupDataIsDefault">Папка по умолчанию</sys:String>
 </ResourceDictionary>

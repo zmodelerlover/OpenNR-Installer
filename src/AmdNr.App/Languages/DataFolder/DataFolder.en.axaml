@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime">
 
-  <!-- The data folder card in Settings, its move, and the question a start asks when the folder is missing.
+  <!-- The data folder card in Settings, its move, the question a start asks when the folder is missing, and the first run step.
        In a file of its own beside Strings.en.axaml, which merges it. Every DataFolder.*.axaml has these keys,
        in this order. -->
 
@@ -35,4 +35,9 @@
   <sys:String x:Key="Str.DataMissingRetryBody">Looks for the folder again.</sys:String>
   <sys:String x:Key="Str.DataMissingDefault">Use the default folder</sys:String>
   <sys:String x:Key="Str.DataMissingDefaultBody">Starts from {0}, without your settings and game list. The other folder is left as it is.</sys:String>
+  <sys:String x:Key="Str.SetupStepData">Where to keep the installer's data</sys:String>
+  <sys:String x:Key="Str.SetupDataBody">Settings, the game list, logs and the files the installer downloads. The downloads take a few GB, so pick a drive with room for them.</sys:String>
+  <sys:String x:Key="Str.SetupDataLater">You can change this later in Settings.</sys:String>
+  <sys:String x:Key="Str.SetupDataPick">Choose another folder…</sys:String>
+  <sys:String x:Key="Str.SetupDataIsDefault">The default folder</sys:String>
 </ResourceDictionary>

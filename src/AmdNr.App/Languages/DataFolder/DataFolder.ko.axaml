@@ -33,4 +33,9 @@
   <sys:String x:Key="Str.DataMissingRetryBody">폴더를 다시 찾습니다.</sys:String>
   <sys:String x:Key="Str.DataMissingDefault">기본 폴더 사용</sys:String>
   <sys:String x:Key="Str.DataMissingDefaultBody">설정과 게임 목록 없이 {0}에서 처음부터 시작합니다. 다른 폴더는 그대로 둡니다.</sys:String>
+  <sys:String x:Key="Str.SetupStepData">설치 프로그램 데이터를 보관할 위치</sys:String>
+  <sys:String x:Key="Str.SetupDataBody">설정, 게임 목록, 로그, 설치 프로그램이 다운로드하는 파일입니다. 다운로드에 몇 GB가 필요하니 공간이 넉넉한 드라이브를 고르세요.</sys:String>
+  <sys:String x:Key="Str.SetupDataLater">나중에 설정에서 바꿀 수 있습니다.</sys:String>
+  <sys:String x:Key="Str.SetupDataPick">다른 폴더 선택…</sys:String>
+  <sys:String x:Key="Str.SetupDataIsDefault">기본 폴더</sys:String>
 </ResourceDictionary>

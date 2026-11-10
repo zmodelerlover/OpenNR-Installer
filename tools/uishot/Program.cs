@@ -141,6 +141,7 @@ void Flows()
                        "ApiDbUrl": "https://127.0.0.1:1/api-db.json" } }
         """); // Payload in the shape the shipped config.json has: only the two addresses.
     SeedPayload("1.0.0");
+    FirstRunDataFlow.Run(Check, Until, Click, (w, n) => Save(w, n));
     var game = Path.Combine(AppPaths.Root, "flow-game");
     Directory.CreateDirectory(game);
     File.WriteAllBytes(Path.Combine(game, "Game.exe"), Pe64());
@@ -410,15 +411,15 @@ void Wizard(string suffix, int width, int height)
     Settle();
     var next = setup.FindControl<Button>("NextButton")!;
     var files = setup.FindControl<PayloadPanel>("Payloads")!;
-    for (var step = 1; step <= 4; step++)
+    for (var step = 1; step <= 5; step++)
     {
         // The files step reads the payload list off the network; offline it says so, which is a
         // page worth seeing too, so the wait is bounded and not a check.
-        if (step == 3) Until(() => files.Missing >= 0, 20);
+        if (step == 4) Until(() => files.Missing >= 0, 20);
         var name = $"setup{suffix}-{step}-{width}x{height}";
         Save(setup, name, dump: step == 1 && suffix.Length == 0 && width == 820);
         CheckScrollReach(setup, name);
-        if (step < 4)
+        if (step < 5)
         {
             Click(next);
             Settle(8);

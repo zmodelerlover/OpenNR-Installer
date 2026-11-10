@@ -33,4 +33,9 @@
   <sys:String x:Key="Str.DataMissingRetryBody">ค้นหาโฟลเดอร์อีกครั้ง</sys:String>
   <sys:String x:Key="Str.DataMissingDefault">ใช้โฟลเดอร์เริ่มต้น</sys:String>
   <sys:String x:Key="Str.DataMissingDefaultBody">เริ่มใหม่ที่ {0} โดยไม่มีการตั้งค่าและรายชื่อเกมของคุณ โฟลเดอร์เดิมจะคงไว้ตามเดิม</sys:String>
+  <sys:String x:Key="Str.SetupStepData">เก็บข้อมูลของตัวติดตั้งไว้ที่ไหน</sys:String>
+  <sys:String x:Key="Str.SetupDataBody">การตั้งค่า รายชื่อเกม ล็อก และไฟล์ที่ตัวติดตั้งดาวน์โหลด ไฟล์ดาวน์โหลดใช้พื้นที่หลาย GB จึงควรเลือกไดรฟ์ที่มีที่ว่างพอ</sys:String>
+  <sys:String x:Key="Str.SetupDataLater">เปลี่ยนภายหลังได้ในการตั้งค่า</sys:String>
+  <sys:String x:Key="Str.SetupDataPick">เลือกโฟลเดอร์อื่น…</sys:String>
+  <sys:String x:Key="Str.SetupDataIsDefault">โฟลเดอร์เริ่มต้น</sys:String>
 </ResourceDictionary>

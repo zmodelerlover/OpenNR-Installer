@@ -33,4 +33,9 @@
   <sys:String x:Key="Str.DataMissingRetryBody">Caută din nou folderul.</sys:String>
   <sys:String x:Key="Str.DataMissingDefault">Folosește folderul implicit</sys:String>
   <sys:String x:Key="Str.DataMissingDefaultBody">Pornește de la zero în {0}, fără setările și lista ta de jocuri. Celălalt folder rămâne neatins.</sys:String>
+  <sys:String x:Key="Str.SetupStepData">Unde își păstrează instalatorul datele</sys:String>
+  <sys:String x:Key="Str.SetupDataBody">Setările, lista de jocuri, jurnalele și fișierele pe care le descarcă instalatorul. Descărcările ocupă câțiva GB, așa că alege o unitate cu spațiu suficient.</sys:String>
+  <sys:String x:Key="Str.SetupDataLater">Poți schimba asta mai târziu din Setări.</sys:String>
+  <sys:String x:Key="Str.SetupDataPick">Alege alt folder…</sys:String>
+  <sys:String x:Key="Str.SetupDataIsDefault">Folderul implicit</sys:String>
 </ResourceDictionary>

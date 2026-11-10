@@ -33,4 +33,9 @@
   <sys:String x:Key="Str.DataMissingRetryBody">Újra megkeresi a mappát.</sys:String>
   <sys:String x:Key="Str.DataMissingDefault">Az alapértelmezett mappa használata</sys:String>
   <sys:String x:Key="Str.DataMissingDefaultBody">Újrakezd itt: {0}, a beállításaid és a játéklistád nélkül. A másik mappa érintetlen marad.</sys:String>
+  <sys:String x:Key="Str.SetupStepData">Hol tárolja a telepítő az adatait</sys:String>
+  <sys:String x:Key="Str.SetupDataBody">Beállítások, a játéklista, a naplók és a telepítő által letöltött fájlok. A letöltések néhány GB-ot foglalnak, ezért válassz olyan meghajtót, amelyen van hely.</sys:String>
+  <sys:String x:Key="Str.SetupDataLater">Ezt később a Beállításokban módosíthatod.</sys:String>
+  <sys:String x:Key="Str.SetupDataPick">Másik mappa választása…</sys:String>
+  <sys:String x:Key="Str.SetupDataIsDefault">Az alapértelmezett mappa</sys:String>
 </ResourceDictionary>

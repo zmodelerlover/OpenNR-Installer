@@ -33,4 +33,9 @@
   <sys:String x:Key="Str.DataMissingRetryBody">Cerca di nuovo la cartella.</sys:String>
   <sys:String x:Key="Str.DataMissingDefault">Usa la cartella predefinita</sys:String>
   <sys:String x:Key="Str.DataMissingDefaultBody">Riparte da {0}, senza le tue impostazioni né l’elenco dei giochi. L’altra cartella resta com’è.</sys:String>
+  <sys:String x:Key="Str.SetupStepData">Dove tenere i dati dell'installer</sys:String>
+  <sys:String x:Key="Str.SetupDataBody">Impostazioni, elenco dei giochi, log e i file che l'installer scarica. I download occupano qualche GB, quindi scegli un'unità con spazio sufficiente.</sys:String>
+  <sys:String x:Key="Str.SetupDataLater">Puoi cambiarlo più avanti in Impostazioni.</sys:String>
+  <sys:String x:Key="Str.SetupDataPick">Scegli un'altra cartella…</sys:String>
+  <sys:String x:Key="Str.SetupDataIsDefault">La cartella predefinita</sys:String>
 </ResourceDictionary>

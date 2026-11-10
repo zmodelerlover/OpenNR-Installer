@@ -33,4 +33,9 @@
   <sys:String x:Key="Str.DataMissingRetryBody">फ़ोल्डर को फिर से खोजता है।</sys:String>
   <sys:String x:Key="Str.DataMissingDefault">डिफ़ॉल्ट फ़ोल्डर इस्तेमाल करें</sys:String>
   <sys:String x:Key="Str.DataMissingDefaultBody">{0} से नए सिरे से शुरू करता है, आपकी सेटिंग्स और गेम सूची के बिना। दूसरा फ़ोल्डर जैसा है वैसा ही रहता है।</sys:String>
+  <sys:String x:Key="Str.SetupStepData">इंस्टॉलर का डेटा कहाँ रखें</sys:String>
+  <sys:String x:Key="Str.SetupDataBody">सेटिंग्स, गेम की सूची, लॉग और वे फ़ाइलें जो इंस्टॉलर डाउनलोड करता है। डाउनलोड कुछ GB लेते हैं, इसलिए ऐसी ड्राइव चुनें जिसमें जगह हो।</sys:String>
+  <sys:String x:Key="Str.SetupDataLater">आप इसे बाद में सेटिंग्स में बदल सकते हैं।</sys:String>
+  <sys:String x:Key="Str.SetupDataPick">दूसरा फ़ोल्डर चुनें…</sys:String>
+  <sys:String x:Key="Str.SetupDataIsDefault">डिफ़ॉल्ट फ़ोल्डर</sys:String>
 </ResourceDictionary>

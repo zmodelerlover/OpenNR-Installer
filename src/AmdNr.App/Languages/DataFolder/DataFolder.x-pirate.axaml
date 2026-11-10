@@ -33,4 +33,9 @@
   <sys:String x:Key="Str.DataMissingRetryBody">Searches fer the folder once more.</sys:String>
   <sys:String x:Key="Str.DataMissingDefault">Use the home port</sys:String>
   <sys:String x:Key="Str.DataMissingDefaultBody">Starts fresh from {0}, without yer settings nor list o' games. The other hold be left as it is.</sys:String>
+  <sys:String x:Key="Str.SetupStepData">Where to stow the installer's plunder</sys:String>
+  <sys:String x:Key="Str.SetupDataBody">Settings, the list o' games, the ship's logs an' the cargo the installer hauls aboard. The cargo weighs a few GB, so pick a hold with room fer it.</sys:String>
+  <sys:String x:Key="Str.SetupDataLater">Ye can change this later in Settings.</sys:String>
+  <sys:String x:Key="Str.SetupDataPick">Pick another hold…</sys:String>
+  <sys:String x:Key="Str.SetupDataIsDefault">The usual hold</sys:String>
 </ResourceDictionary>

@@ -1,5 +1,5 @@
-// The first run. Four steps: which language, whether this machine can run it at all, whether every
-// payload is here, and which games are installed.
+// The first run. Five steps: which language, where the installer keeps its data, whether this machine
+// can run it at all, whether every payload is here, and which games are installed.
 //
 // It is a separate window rather than a page inside the main one on purpose: the main window has a
 // busy-state machine of its own around install and uninstall, and folding a wizard into it would
@@ -29,7 +29,7 @@ public partial class SetupWindow : Window
     private bool _settingLanguage;
     private bool _scanned;
 
-    private const int StepLanguage = 0, StepMachine = 1, StepFiles = 2, StepGames = 3, StepCount = 4;
+    private const int StepLanguage = 0, StepData = 1, StepMachine = 2, StepFiles = 3, StepGames = 4, StepCount = 5;
 
     /// <summary>True once the person reached the end. The caller only opens the main window on that,
     /// so closing the wizard with the X leaves setup un-done and it asks again next time.</summary>
@@ -59,6 +59,7 @@ public partial class SetupWindow : Window
     {
         _step = step;
         PageLanguage.IsVisible = step == StepLanguage;
+        PageData.IsVisible = step == StepData;
         PageMachine.IsVisible = step == StepMachine;
         PageFiles.IsVisible = step == StepFiles;
         PageGames.IsVisible = step == StepGames;
@@ -77,6 +78,7 @@ public partial class SetupWindow : Window
 
         // Each step reads its own state when it is reached, not on construction: the machine can be
         // fixed and the cache filled while the wizard is open.
+        if (step == StepData) ShowDataFolder();
         if (step == StepMachine) ShowMachine();
         if (step == StepFiles) _ = CheckFilesAsync();
     }
@@ -127,7 +129,7 @@ public partial class SetupWindow : Window
         ShowStep(_step);
     }
 
-    // -- 2. This machine ---------------------------------------------------------------------------
+    // -- 3. This machine ---------------------------------------------------------------------------
 
     private async void ShowMachine()
     {
@@ -164,7 +166,7 @@ public partial class SetupWindow : Window
         icon.Data = Vector(ok ? "IconCheck" : "IconErr");
     }
 
-    // -- 3. Files ----------------------------------------------------------------------------------
+    // -- 4. Files ----------------------------------------------------------------------------------
 
     /// <summary>What is in the cache already, read when the step is reached: the list is fetched
     /// the first time, and the panel does the rest -- downloading, retrying, taking files by hand.</summary>
@@ -174,7 +176,7 @@ public partial class SetupWindow : Window
         else await Payloads.RefreshAsync();
     }
 
-    // -- 4. Games ----------------------------------------------------------------------------------
+    // -- 5. Games ----------------------------------------------------------------------------------
 
     private async void OnScan(object? sender, RoutedEventArgs e)
     {
@@ -236,6 +238,8 @@ public partial class SetupWindow : Window
         SkipButton.IsEnabled = !on;
         ScanButton.IsEnabled = !on;
         LanguageBox.IsEnabled = !on;
+        DataPickButton.IsEnabled = !on;
+        DataDefaultButton.IsEnabled = !on;
     }
 
     protected override void OnOpened(EventArgs e)

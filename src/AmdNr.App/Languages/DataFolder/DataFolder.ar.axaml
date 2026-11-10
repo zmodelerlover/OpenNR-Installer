@@ -33,4 +33,9 @@
   <sys:String x:Key="Str.DataMissingRetryBody">يبحث عن المجلد مرة أخرى.</sys:String>
   <sys:String x:Key="Str.DataMissingDefault">استخدام المجلد الافتراضي</sys:String>
   <sys:String x:Key="Str.DataMissingDefaultBody">يبدأ من جديد في {0} بدون إعداداتك وقائمة ألعابك. يبقى المجلد الآخر كما هو.</sys:String>
+  <sys:String x:Key="Str.SetupStepData">أين تُحفظ بيانات المثبّت</sys:String>
+  <sys:String x:Key="Str.SetupDataBody">الإعدادات وقائمة الألعاب والسجلات والملفات التي ينزّلها المثبّت. تشغل التنزيلات بضعة غيغابايت، فاختر قرصًا فيه مساحة كافية.</sys:String>
+  <sys:String x:Key="Str.SetupDataLater">يمكنك تغيير هذا لاحقًا من الإعدادات.</sys:String>
+  <sys:String x:Key="Str.SetupDataPick">اختيار مجلد آخر…</sys:String>
+  <sys:String x:Key="Str.SetupDataIsDefault">المجلد الافتراضي</sys:String>
 </ResourceDictionary>

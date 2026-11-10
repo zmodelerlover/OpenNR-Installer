@@ -34,6 +34,17 @@ public static class AppPaths
         _root = null;
     }
 
+    /// <summary>Moves the data to <paramref name="target"/> (<see cref="DataMove.Move"/>) and reads the pointer
+    /// again, so every path after it is in the new folder: the first run goes on there without a restart.
+    /// <see cref="Home"/> as the target is the way back to the default.</summary>
+    public static int MoveTo(string target, bool withCache, IProgress<double>? progress = null,
+        CancellationToken cancel = default)
+    {
+        var left = DataMove.Move(Root, target, Home, withCache, progress, cancel);
+        Reload();
+        return left;
+    }
+
     public static void UseDefault()
     {
         try { DataLocation.Write(Home, null); }

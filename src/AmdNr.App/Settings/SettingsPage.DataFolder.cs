@@ -3,7 +3,6 @@
 
 using System.Diagnostics;
 using Avalonia.Interactivity;
-using Avalonia.Platform.Storage;
 using AmdNr.Core;
 
 namespace AmdNr.App;
@@ -15,14 +14,7 @@ public partial class SettingsPage
     private void OnChangeData(object? sender, RoutedEventArgs e) => _shell.Run("data folder", async () =>
     {
         if (Blocked()) return;
-        var picked = await _shell.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
-        {
-            Title = Ui.Text("Str.DataFolderPick"),
-            AllowMultiple = false,
-        });
-        var folder = picked.Count > 0 ? picked[0].TryGetLocalPath() : null;
-        if (string.IsNullOrWhiteSpace(folder)) return;
-        await MoveDataAsync(DataMove.Target(folder));
+        if (await DataFolderChoice.PickAsync(_shell) is { } target) await MoveDataAsync(target);
     });
 
     private void OnDefaultData(object? sender, RoutedEventArgs e) => _shell.Run("data folder", async () =>
@@ -45,10 +37,9 @@ public partial class SettingsPage
         var all = await Task.Run(() => DataMove.Size(from, withCache: true));
         var essentials = await Task.Run(() => DataMove.Size(from, withCache: false));
         var games = _shell.Library.Cards.Select(c => c.Entry.Path).ToList();
-        var (problem, game) = await Task.Run(() => DataMove.Check(target, from, AppPaths.Home, games, essentials));
-        if (problem != DataFolderProblem.None)
+        if (await DataFolderChoice.CheckAsync(target, games, essentials) is { } problem)
         {
-            _shell.Toast(Problem(problem, target, game, essentials), Level.Warn);
+            _shell.Toast(problem, Level.Warn);
             return;
         }
 
@@ -63,7 +54,7 @@ public partial class SettingsPage
         var withCache = answer == "all";
         if (withCache && Engine.FreeBytes(target) is { } free && free < all)
         {
-            _shell.Toast(Problem(DataFolderProblem.NoSpace, target, null, all), Level.Warn);
+            _shell.Toast(DataFolderChoice.Problem(DataFolderProblem.NoSpace, target, null, all), Level.Warn);
             return;
         }
 
@@ -84,8 +75,7 @@ public partial class SettingsPage
                 DataProgress.Value = p;
                 DataMovingText.Text = Ui.Format("Str.DataFolderMoving", (int)(p * 100));
             });
-            var left = await Task.Run(() => DataMove.Move(from, target, AppPaths.Home, withCache, progress, cancel));
-            AppPaths.Reload();
+            var left = await Task.Run(() => AppPaths.MoveTo(target, withCache, progress, cancel));
             InstallLog.Append($"{DateTime.Now:s} data folder moved from {from} to {target}"
                               + (withCache ? "" : ", cache left to come back by download")
                               + (left > 0 ? $"; {left} old entries could not be deleted" : ""));
@@ -137,14 +127,4 @@ public partial class SettingsPage
         }
         _shell.Close();
     }
-
-    private static string Problem(DataFolderProblem problem, string target, string? game, ulong need) => problem switch
-    {
-        DataFolderProblem.Nested => Ui.Text("Str.DataFolderNested"),
-        DataFolderProblem.SystemFolder => Ui.Text("Str.DataFolderSystem"),
-        DataFolderProblem.GameFolder => Ui.Format("Str.DataFolderGame", game ?? ""),
-        DataFolderProblem.NotEmpty => Ui.Format("Str.DataFolderNotEmpty", target),
-        DataFolderProblem.NotWritable => Ui.Format("Str.DataFolderNotWritable", target),
-        _ => Ui.Format("Str.DataFolderNoSpace", Ui.Megabytes(need), Ui.Megabytes(Engine.FreeBytes(target) ?? 0)),
-    };
 }

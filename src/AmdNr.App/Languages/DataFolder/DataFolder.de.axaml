@@ -33,4 +33,9 @@
   <sys:String x:Key="Str.DataMissingRetryBody">Sucht den Ordner noch einmal.</sys:String>
   <sys:String x:Key="Str.DataMissingDefault">Standardordner verwenden</sys:String>
   <sys:String x:Key="Str.DataMissingDefaultBody">Beginnt in {0}, ohne deine Einstellungen und Spieleliste. Der andere Ordner bleibt, wie er ist.</sys:String>
+  <sys:String x:Key="Str.SetupStepData">Wo der Installer seine Daten ablegt</sys:String>
+  <sys:String x:Key="Str.SetupDataBody">Einstellungen, die Spieleliste, Logs und die Dateien, die der Installer herunterlädt. Die Downloads brauchen ein paar GB, wähl also ein Laufwerk mit genug Platz.</sys:String>
+  <sys:String x:Key="Str.SetupDataLater">Du kannst das später in den Einstellungen ändern.</sys:String>
+  <sys:String x:Key="Str.SetupDataPick">Anderen Ordner wählen…</sys:String>
+  <sys:String x:Key="Str.SetupDataIsDefault">Der Standardordner</sys:String>
 </ResourceDictionary>

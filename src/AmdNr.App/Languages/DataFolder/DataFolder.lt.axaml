@@ -33,4 +33,9 @@
   <sys:String x:Key="Str.DataMissingRetryBody">Dar kartą ieško aplanko.</sys:String>
   <sys:String x:Key="Str.DataMissingDefault">Naudoti numatytąjį aplanką</sys:String>
   <sys:String x:Key="Str.DataMissingDefaultBody">Pradeda iš naujo {0}, be jūsų nustatymų ir žaidimų sąrašo. Kitas aplankas lieka nepaliestas.</sys:String>
+  <sys:String x:Key="Str.SetupStepData">Kur laikyti diegimo programos duomenis</sys:String>
+  <sys:String x:Key="Str.SetupDataBody">Nustatymai, žaidimų sąrašas, žurnalai ir failai, kuriuos atsisiunčia diegimo programa. Atsisiuntimai užima kelis GB, tad pasirinkite diską, kuriame pakanka vietos.</sys:String>
+  <sys:String x:Key="Str.SetupDataLater">Vėliau tai galėsite pakeisti nustatymuose.</sys:String>
+  <sys:String x:Key="Str.SetupDataPick">Pasirinkti kitą aplanką…</sys:String>
+  <sys:String x:Key="Str.SetupDataIsDefault">Numatytasis aplankas</sys:String>
 </ResourceDictionary>

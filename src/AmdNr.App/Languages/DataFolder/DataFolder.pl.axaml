@@ -33,4 +33,9 @@
   <sys:String x:Key="Str.DataMissingRetryBody">Szuka folderu jeszcze raz.</sys:String>
   <sys:String x:Key="Str.DataMissingDefault">Użyj folderu domyślnego</sys:String>
   <sys:String x:Key="Str.DataMissingDefaultBody">Zaczyna od nowa w {0}, bez twoich ustawień i listy gier. Tamten folder zostaje bez zmian.</sys:String>
+  <sys:String x:Key="Str.SetupStepData">Gdzie trzymać dane instalatora</sys:String>
+  <sys:String x:Key="Str.SetupDataBody">Ustawienia, lista gier, logi i pliki pobierane przez instalator. Pobrane pliki zajmują kilka GB, więc wybierz dysk, na którym jest miejsce.</sys:String>
+  <sys:String x:Key="Str.SetupDataLater">Możesz to później zmienić w Ustawieniach.</sys:String>
+  <sys:String x:Key="Str.SetupDataPick">Wybierz inny folder…</sys:String>
+  <sys:String x:Key="Str.SetupDataIsDefault">Folder domyślny</sys:String>
 </ResourceDictionary>

@@ -33,4 +33,9 @@
   <sys:String x:Key="Str.DataMissingRetryBody">Busca la carpeta otra vez.</sys:String>
   <sys:String x:Key="Str.DataMissingDefault">Usar la carpeta predeterminada</sys:String>
   <sys:String x:Key="Str.DataMissingDefaultBody">Empieza en {0}, sin tus ajustes ni tu lista de juegos. La otra carpeta se queda como está.</sys:String>
+  <sys:String x:Key="Str.SetupStepData">Dónde guardar los datos del instalador</sys:String>
+  <sys:String x:Key="Str.SetupDataBody">La configuración, la lista de juegos, los registros y los archivos que descarga el instalador. Las descargas ocupan unos cuantos GB, así que elige una unidad con espacio para ellas.</sys:String>
+  <sys:String x:Key="Str.SetupDataLater">Puedes cambiarlo más tarde en Configuración.</sys:String>
+  <sys:String x:Key="Str.SetupDataPick">Elegir otra carpeta…</sys:String>
+  <sys:String x:Key="Str.SetupDataIsDefault">La carpeta predeterminada</sys:String>
 </ResourceDictionary>

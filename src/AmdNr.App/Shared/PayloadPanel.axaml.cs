@@ -51,6 +51,12 @@ public partial class PayloadPanel : UserControl
     public PayloadPanel()
     {
         InitializeComponent();
+        ShowCacheFolder();
+    }
+
+    /// <summary>Read again at every refresh: the first run can move the data folder after this panel was made.</summary>
+    private void ShowCacheFolder()
+    {
         CacheFolder.Text = AppPaths.Cache;
         ToolTip.SetTip(CacheFolder, AppPaths.Cache);
     }
@@ -83,6 +89,7 @@ public partial class PayloadPanel : UserControl
     /// about a second the first time, so it runs off the UI thread.</summary>
     public async Task RefreshAsync()
     {
+        ShowCacheFolder();
         var manifest = _session.Manifest;
         ListNote.IsVisible = _session.ManifestProblem is not null && manifest is not null;
         ListNote.Text = Ui.Text("Str.ManifestLocal");

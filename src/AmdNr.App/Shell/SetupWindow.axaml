@@ -26,7 +26,7 @@
 
   <Grid Grid.Row="1" RowDefinitions="Auto,*,Auto">
 
-    <!-- Header: the mark, what this is, and where in the four steps we are. -->
+    <!-- Header: the mark, what this is, and where in the five steps we are. -->
     <Border Grid.Row="0" Background="{DynamicResource Rail}" BorderBrush="{DynamicResource Border}"
             BorderThickness="0,0,0,1" Padding="28,22">
       <Grid ColumnDefinitions="Auto,*,Auto">
@@ -40,7 +40,7 @@
           <TextBlock x:Name="StepOf" Classes="caption" />
         </StackPanel>
         <StackPanel Grid.Column="2" x:Name="Pips" Orientation="Horizontal" Spacing="7" VerticalAlignment="Center">
-          <Border Classes="pip" /><Border Classes="pip" /><Border Classes="pip" /><Border Classes="pip" />
+          <Border Classes="pip" /><Border Classes="pip" /><Border Classes="pip" /><Border Classes="pip" /><Border Classes="pip" />
         </StackPanel>
       </Grid>
     </Border>
@@ -73,7 +73,54 @@
           <local:CreditsPanel />
         </StackPanel>
 
-        <!-- 2. This machine -->
+        <!-- 2. Where the data goes: before the files step, so the downloads land there. -->
+        <StackPanel x:Name="PageData" Spacing="18" IsVisible="False">
+          <StackPanel Spacing="6">
+            <TextBlock Text="{DynamicResource Str.SetupStepData}" Classes="page" />
+            <TextBlock Text="{DynamicResource Str.SetupDataBody}" Classes="muted"
+                       TextWrapping="Wrap" LineHeight="20" MaxWidth="560" HorizontalAlignment="Left" />
+            <TextBlock Text="{DynamicResource Str.SetupDataLater}" Classes="muted"
+                       TextWrapping="Wrap" LineHeight="20" MaxWidth="560" HorizontalAlignment="Left" />
+          </StackPanel>
+
+          <Border Classes="card">
+            <StackPanel Spacing="14">
+              <Grid ColumnDefinitions="Auto,*">
+                <Border Grid.Column="0" Classes="iconTile neutral" Margin="0,0,12,0" VerticalAlignment="Center">
+                  <PathIcon Data="{StaticResource IconFolder}" />
+                </Border>
+                <StackPanel Grid.Column="1" Spacing="2" VerticalAlignment="Center">
+                  <TextBlock Text="{DynamicResource Str.DataFolderTitle}" Classes="section" />
+                  <TextBlock x:Name="DataPathText" Classes="muted path" TextTrimming="PathSegmentEllipsis" />
+                  <TextBlock x:Name="DataDefaultNote" Text="{DynamicResource Str.SetupDataIsDefault}" Classes="caption" />
+                </StackPanel>
+              </Grid>
+              <WrapPanel Orientation="Horizontal" ItemSpacing="8" LineSpacing="8">
+                <Button x:Name="DataPickButton" Classes="ghost" Click="OnPickData"
+                        Content="{DynamicResource Str.SetupDataPick}" />
+                <Button x:Name="DataDefaultButton" Classes="ghost" Click="OnDefaultData"
+                        Content="{DynamicResource Str.DataFolderDefault}" />
+              </WrapPanel>
+              <StackPanel x:Name="DataMoving" Spacing="6" IsVisible="False">
+                <TextBlock x:Name="DataMovingText" Classes="muted" />
+                <ProgressBar x:Name="DataProgress" Height="4" MinHeight="4" CornerRadius="2" Maximum="1" />
+                <Button x:Name="DataCancelButton" Classes="ghost small" HorizontalAlignment="Left"
+                        Content="{DynamicResource Str.DataFolderCancel}" Click="OnCancelData" />
+              </StackPanel>
+            </StackPanel>
+          </Border>
+
+          <Border x:Name="DataProblemBox" Classes="callout" IsVisible="False">
+            <Grid ColumnDefinitions="Auto,*">
+              <PathIcon Grid.Column="0" Data="{StaticResource IconWarn}" Width="16" Height="16"
+                        Foreground="{DynamicResource Warn}" VerticalAlignment="Top" Margin="0,1,10,0" />
+              <TextBlock Grid.Column="1" x:Name="DataProblem" TextWrapping="Wrap" LineHeight="19"
+                         Foreground="{DynamicResource WarnText}" />
+            </Grid>
+          </Border>
+        </StackPanel>
+
+        <!-- 3. This machine -->
         <StackPanel x:Name="PageMachine" Spacing="18" IsVisible="False">
           <StackPanel Spacing="6">
             <TextBlock Text="{DynamicResource Str.SetupStepMachine}" Classes="page" />
@@ -137,7 +184,7 @@
           </Border>
         </StackPanel>
 
-        <!-- 3. Files: the same panel "This machine" shows, with its retry, manual links and import. -->
+        <!-- 4. Files: the same panel "This machine" shows, with its retry, manual links and import. -->
         <StackPanel x:Name="PageFiles" Spacing="18" IsVisible="False">
           <StackPanel Spacing="6">
             <TextBlock Text="{DynamicResource Str.SetupStepFiles}" Classes="page" />
@@ -149,7 +196,7 @@
           <local:PayloadPanel x:Name="Payloads" />
         </StackPanel>
 
-        <!-- 4. Games -->
+        <!-- 5. Games -->
         <StackPanel x:Name="PageGames" Spacing="18" IsVisible="False">
           <StackPanel Spacing="6">
             <TextBlock Text="{DynamicResource Str.SetupStepGames}" Classes="page" />
