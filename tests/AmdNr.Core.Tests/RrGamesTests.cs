@@ -12,7 +12,7 @@ public class RrGamesTests
     public void TheShippedListMatchesBySteamIdExecutableAndTitle()
     {
         var db = Shipped();
-        Assert.Equal(36, db.RayReconstruction.Count);
+        Assert.Equal(42, db.RayReconstruction.Count);
         Assert.All(db.RayReconstruction, g => Assert.True(g.Is("D3D12") || g.Is("Vulkan") || g.Is("Remix"), g.Title));
         // Every Steam id and executable names one game only.
         Assert.Equal(db.RayReconstruction.SelectMany(g => g.SteamAppIds).Count(),
@@ -28,6 +28,8 @@ public class RrGamesTests
         Assert.Equal("Alan Wake 2", db.RrGameFor(null, null, null, "Alan Wake 2")?.Title);
         Assert.Equal("Marvel's Spider-Man 2", db.RrGameFor(null, null, "Marvels Spider-Man 2")?.Title);
         Assert.Equal("SILENT HILL: Townfall", db.RrGameFor("1636440", null)?.Title);
+        Assert.Equal("Black Myth: Wukong", db.RrGameFor("2358720", null)?.Title);
+        Assert.True(db.RrGameFor("2477290", null, "Half-Life 2 RTX")!.Is("Remix"));
 
         Assert.True(db.RrGameFor("3017860", null)!.Is("Vulkan"));
         Assert.Equal(new[] { "DOOM: The Dark Ages" }, db.RayReconstruction.Where(g => g.NotForOpenRr).Select(g => g.Title));
@@ -41,7 +43,7 @@ public class RrGamesTests
         Assert.Null(db.RrGameFor(null, @"C:\G\Game.exe", "My Game", "G"));
 
         // An app that writes the file back keeps the list.
-        Assert.Equal(36, ApiDatabase.Parse(db.Serialise()).RayReconstruction.Count);
+        Assert.Equal(42, ApiDatabase.Parse(db.Serialise()).RayReconstruction.Count);
         Assert.Empty(ApiDatabase.Parse("{\"schema\":1,\"games\":{}}").RayReconstruction);
     }
 
