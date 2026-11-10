@@ -23,7 +23,8 @@ public static class InstallLog
             File.AppendAllText(Path.Combine(AppPaths.Logs, "amd-nr-installer.log"),
                 text + Environment.NewLine);
         }
-        catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+        // InvalidOperation: the data folder is on a drive that is not plugged in (AppPaths.Missing).
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException or InvalidOperationException)
         {
             // Nothing to do about it, and the failure it describes is already on screen. Access
             // denied included: this is called from inside catch blocks of async void handlers,

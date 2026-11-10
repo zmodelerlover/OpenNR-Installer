@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Romanian">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.ro.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.ro.axaml" /><ResourceInclude Source="/Languages/Options/Options.ro.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.ro.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.ro.axaml" /><ResourceInclude Source="/Languages/Options/Options.ro.axaml" /><ResourceInclude Source="/Languages/DataFolder/DataFolder.ro.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- Română. The same keys as Strings.en.axaml, in its order. -->
@@ -218,7 +218,6 @@
   <sys:String x:Key="Str.DownloadingPercent">Se descarcă {0}%</sys:String>
   <sys:String x:Key="Str.SettingsSubtitle">Limbă, actualizări și despre această aplicație.</sys:String>
   <sys:String x:Key="Str.LanguageHint">Toate etichetele se schimbă imediat; nu e nevoie de repornire.</sys:String>
-  <sys:String x:Key="Str.DataFolder">Folder de date</sys:String>
   <sys:String x:Key="Str.Preset.Pcsx2">PCSX2</sys:String>
   <sys:String x:Key="Str.Preset.Rpcs3">RPCS3</sys:String>
   <sys:String x:Key="Str.Preset.Dx11">Joc D3D10/D3D11</sys:String>

@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Russian. The same keys as DataFolder.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.DataFolderTitle">Папка данных установщика</sys:String>
+  <sys:String x:Key="Str.DataFolderHint">Настройки, список игр, загрузки и журналы. Игры с установленным NR её не используют, так что перенос ничего в них не меняет.</sys:String>
+  <sys:String x:Key="Str.DataFolderChange">Изменить…</sys:String>
+  <sys:String x:Key="Str.DataFolderDefault">Вернуть по умолчанию</sys:String>
+  <sys:String x:Key="Str.DataFolderPick">Выберите, где установщик будет хранить данные</sys:String>
+  <sys:String x:Key="Str.DataFolderNrLive">Сначала закройте NRLive: он запускается из папки данных.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveTitle">Перенос папки данных</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveBody">В {0}. После завершения установщик перезапустится.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAll">Перенести всё</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAllBody">{0}, вместе с загрузками. Ничего не придётся скачивать заново.</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmpty">Начать с пустым кэшем</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmptyBody">Переносит настройки, список игр, журналы и ваши рантаймы ({0}). Загрузки удаляются и скачаются снова, когда понадобятся игре.</sys:String>
+  <sys:String x:Key="Str.DataFolderKeepBody">Ничего не переносится.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoving">Перенос… {0}%</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveFailed">Перенос не завершён ({0}). Ничего не изменилось; данные по-прежнему в {1}.</sys:String>
+  <sys:String x:Key="Str.DataFolderNested">Эта папка пересекается с папкой данных установщика. Выберите другую.</sys:String>
+  <sys:String x:Key="Str.DataFolderSystem">Не внутри Program Files или Windows. Выберите другую папку.</sys:String>
+  <sys:String x:Key="Str.DataFolderGame">Эта папка находится внутри {0}, игры из вашего списка. Выберите другую.</sys:String>
+  <sys:String x:Key="Str.DataFolderNotEmpty">В {0} уже есть файлы. Выберите пустую папку.</sys:String>
+  <sys:String x:Key="Str.DataFolderNotWritable">Не удаётся записать в {0}. Выберите другую папку.</sys:String>
+  <sys:String x:Key="Str.DataFolderNoSpace">Недостаточно места: для переноса нужно {0}, а на диске свободно {1}.</sys:String>
+  <sys:String x:Key="Str.DataMissingTitle">Папка данных не найдена</sys:String>
+  <sys:String x:Key="Str.DataMissingBody">Установщик хранит данные в {0}, но этой папки нет. Если она на отключённом диске, подключите его и попробуйте снова.</sys:String>
+  <sys:String x:Key="Str.DataMissingRetry">Повторить</sys:String>
+  <sys:String x:Key="Str.DataMissingRetryBody">Ищет папку ещё раз.</sys:String>
+  <sys:String x:Key="Str.DataMissingDefault">Использовать папку по умолчанию</sys:String>
+  <sys:String x:Key="Str.DataMissingDefaultBody">Начинает с нуля в {0}, без ваших настроек и списка игр. Другая папка остаётся как есть.</sys:String>
+</ResourceDictionary>

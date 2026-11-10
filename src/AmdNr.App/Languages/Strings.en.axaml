@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.English">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.en.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.en.axaml" /><ResourceInclude Source="/Languages/Options/Options.en.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.en.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.en.axaml" /><ResourceInclude Source="/Languages/Options/Options.en.axaml" /><ResourceInclude Source="/Languages/DataFolder/DataFolder.en.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- The fallback language. Every other Strings.*.axaml carries the same keys; one that is missing
@@ -238,7 +238,6 @@
   <sys:String x:Key="Str.DownloadingPercent">Downloading {0}%</sys:String>
   <sys:String x:Key="Str.SettingsSubtitle">Language, updates, and about this app.</sys:String>
   <sys:String x:Key="Str.LanguageHint">Every label switches right away; no restart needed.</sys:String>
-  <sys:String x:Key="Str.DataFolder">Data folder</sys:String>
   <!-- Routes: the names and notes Core carries in English, said in this language. -->
   <sys:String x:Key="Str.Preset.Pcsx2">PCSX2</sys:String>
   <sys:String x:Key="Str.Preset.Rpcs3">RPCS3</sys:String>

@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Turkish. The same keys as DataFolder.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.DataFolderTitle">Yükleyicinin veri klasörü</sys:String>
+  <sys:String x:Key="Str.DataFolderHint">Ayarlar, oyun listesi, indirmeler ve günlükler. NR kurulu oyunlar bu klasörü kullanmaz, bu yüzden taşımak onlarda hiçbir şeyi değiştirmez.</sys:String>
+  <sys:String x:Key="Str.DataFolderChange">Değiştir…</sys:String>
+  <sys:String x:Key="Str.DataFolderDefault">Varsayılana dön</sys:String>
+  <sys:String x:Key="Str.DataFolderPick">Yükleyicinin verilerini nerede tutacağını seçin</sys:String>
+  <sys:String x:Key="Str.DataFolderNrLive">Önce NRLive’ı kapatın: veri klasöründen çalışıyor.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveTitle">Veri klasörünü taşı</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveBody">{0} konumuna. Bitince yükleyici yeniden başlar.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAll">Her şeyi taşı</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAllBody">{0}, indirmeler dahil. Hiçbir şeyin yeniden indirilmesi gerekmez.</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmpty">Boş önbellekle başla</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmptyBody">Ayarları, oyun listesini, günlükleri ve runtime’larınızı ({0}) taşır. İndirmeler silinir ve bir oyun ihtiyaç duyduğunda geri gelir.</sys:String>
+  <sys:String x:Key="Str.DataFolderKeepBody">Hiçbir şey taşınmaz.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoving">Taşınıyor… %{0}</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveFailed">Taşıma tamamlanmadı ({0}). Hiçbir şey değişmedi; veriler hâlâ {1} konumunda.</sys:String>
+  <sys:String x:Key="Str.DataFolderNested">Bu klasör yükleyicinin veri klasörüyle çakışıyor. Başka bir tane seçin.</sys:String>
+  <sys:String x:Key="Str.DataFolderSystem">Program Files veya Windows içinde olamaz. Başka bir klasör seçin.</sys:String>
+  <sys:String x:Key="Str.DataFolderGame">Bu klasör, listenizdeki bir oyun olan {0} içinde. Başka bir tane seçin.</sys:String>
+  <sys:String x:Key="Str.DataFolderNotEmpty">{0} içinde zaten dosyalar var. Boş bir klasör seçin.</sys:String>
+  <sys:String x:Key="Str.DataFolderNotWritable">{0} konumuna yazılamıyor. Başka bir klasör seçin.</sys:String>
+  <sys:String x:Key="Str.DataFolderNoSpace">Yer yetersiz: taşıma için {0} gerekiyor, sürücüde {1} boş.</sys:String>
+  <sys:String x:Key="Str.DataMissingTitle">Veri klasörü bulunamadı</sys:String>
+  <sys:String x:Key="Str.DataMissingBody">Yükleyici verilerini {0} içinde tutuyor ama bu klasör yok. Bağlantısı kesilmiş bir sürücüdeyse takın ve yeniden deneyin.</sys:String>
+  <sys:String x:Key="Str.DataMissingRetry">Yeniden dene</sys:String>
+  <sys:String x:Key="Str.DataMissingRetryBody">Klasörü yeniden arar.</sys:String>
+  <sys:String x:Key="Str.DataMissingDefault">Varsayılan klasörü kullan</sys:String>
+  <sys:String x:Key="Str.DataMissingDefaultBody">Ayarlarınız ve oyun listeniz olmadan {0} içinde sıfırdan başlar. Diğer klasör olduğu gibi kalır.</sys:String>
+</ResourceDictionary>

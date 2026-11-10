@@ -9,8 +9,8 @@ namespace AmdNr.App;
 
 internal static class Program
 {
-    /// <summary>What an update starts the new executable with: it waits for the old one to let go,
-    /// where a second start by hand gives up at once and brings the first one forward.</summary>
+    /// <summary>What an update, or a moved data folder, starts the new executable with: it waits for the
+    /// old one to let go, where a second start by hand gives up at once and brings the first one forward.</summary>
     public const string AfterUpdate = "--after-update";
 
     [STAThread]
@@ -19,9 +19,10 @@ internal static class Program
         // One copy per data folder. Two write the same games.json -- the last to save wins, and the
         // other's games are gone -- and the same cache and game folders, each with its own idea of
         // what is busy. Double-clicking twice is all it takes; the second one brings the first to
-        // the front instead.
+        // the front instead. Keyed on Home, which names the data folder: a copy started while the
+        // data moves would otherwise be one with the old folder and one with the new.
         var name = @"Local\AmdNrInstaller-"
-                   + Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(AppPaths.Root.ToUpperInvariant())))[..16];
+                   + Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(AppPaths.Home.ToUpperInvariant())))[..16];
         using var single = new Mutex(false, name);
         bool mine;
         try { mine = single.WaitOne(args.Contains(AfterUpdate) ? TimeSpan.FromSeconds(20) : TimeSpan.Zero); }

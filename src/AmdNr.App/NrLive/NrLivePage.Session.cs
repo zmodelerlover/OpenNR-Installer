@@ -24,6 +24,9 @@ public partial class NrLivePage
 
     private bool Running => _process is { HasExited: false };
 
+    /// <summary>NRLive runs from the data folder, so the folder does not move under it.</summary>
+    public bool InUse => Running;
+
     /// <summary>The countdown runs here, NRLive not started yet: it starts when the countdown ends, on the window in
     /// front then, with that game's settings. Only when no administrator prompt would come up over the game.</summary>
     private bool _waiting;

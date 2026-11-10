@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Hungarian">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.hu.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.hu.axaml" /><ResourceInclude Source="/Languages/Options/Options.hu.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.hu.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.hu.axaml" /><ResourceInclude Source="/Languages/Options/Options.hu.axaml" /><ResourceInclude Source="/Languages/DataFolder/DataFolder.hu.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- Magyar. The same keys as Strings.en.axaml, in its order. -->
@@ -218,7 +218,6 @@
   <sys:String x:Key="Str.DownloadingPercent">Letöltés: {0}%</sys:String>
   <sys:String x:Key="Str.SettingsSubtitle">Nyelv, frissítések és az alkalmazás névjegye.</sys:String>
   <sys:String x:Key="Str.LanguageHint">Minden felirat azonnal átvált; nem kell újraindítani.</sys:String>
-  <sys:String x:Key="Str.DataFolder">Adatmappa</sys:String>
   <sys:String x:Key="Str.Preset.Pcsx2">PCSX2</sys:String>
   <sys:String x:Key="Str.Preset.Rpcs3">RPCS3</sys:String>
   <sys:String x:Key="Str.Preset.Dx11">D3D10/D3D11-es játék</sys:String>

@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Lithuanian. The same keys as DataFolder.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.DataFolderTitle">Diegimo programos duomenų aplankas</sys:String>
+  <sys:String x:Key="Str.DataFolderHint">Nustatymai, žaidimų sąrašas, atsisiuntimai ir žurnalai. Žaidimai su įdiegtu NR jo nenaudoja, tad perkėlus jame niekas nepasikeičia.</sys:String>
+  <sys:String x:Key="Str.DataFolderChange">Keisti…</sys:String>
+  <sys:String x:Key="Str.DataFolderDefault">Grąžinti numatytąjį</sys:String>
+  <sys:String x:Key="Str.DataFolderPick">Pasirinkite, kur diegimo programa laiko duomenis</sys:String>
+  <sys:String x:Key="Str.DataFolderNrLive">Pirmiausia uždarykite NRLive: jis veikia iš duomenų aplanko.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveTitle">Perkelti duomenų aplanką</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveBody">Į {0}. Baigusi diegimo programa pasileis iš naujo.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAll">Perkelti viską</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAllBody">{0}, kartu su atsisiuntimais. Nieko nereikės siųstis iš naujo.</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmpty">Pradėti su tuščia talpykla</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmptyBody">Perkelia nustatymus, žaidimų sąrašą, žurnalus ir jūsų runtime’us ({0}). Atsisiuntimai ištrinami ir grįžta, kai jų prireikia žaidimui.</sys:String>
+  <sys:String x:Key="Str.DataFolderKeepBody">Niekas neperkeliama.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoving">Perkeliama… {0} %</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveFailed">Perkėlimas nebaigtas ({0}). Niekas nepasikeitė; duomenys vis dar yra {1}.</sys:String>
+  <sys:String x:Key="Str.DataFolderNested">Šis aplankas persidengia su diegimo programos duomenų aplanku. Pasirinkite kitą.</sys:String>
+  <sys:String x:Key="Str.DataFolderSystem">Ne Program Files ar Windows aplanke. Pasirinkite kitą aplanką.</sys:String>
+  <sys:String x:Key="Str.DataFolderGame">Šis aplankas yra {0} – žaidimo iš jūsų sąrašo – viduje. Pasirinkite kitą.</sys:String>
+  <sys:String x:Key="Str.DataFolderNotEmpty">{0} jau yra failų. Pasirinkite tuščią aplanką.</sys:String>
+  <sys:String x:Key="Str.DataFolderNotWritable">Nepavyksta rašyti į {0}. Pasirinkite kitą aplanką.</sys:String>
+  <sys:String x:Key="Str.DataFolderNoSpace">Nepakanka vietos: perkėlimui reikia {0}, o diske laisva {1}.</sys:String>
+  <sys:String x:Key="Str.DataMissingTitle">Duomenų aplankas nerastas</sys:String>
+  <sys:String x:Key="Str.DataMissingBody">Diegimo programa laiko duomenis {0}, bet šio aplanko nėra. Jei jis atjungtame diske, prijunkite jį ir bandykite dar kartą.</sys:String>
+  <sys:String x:Key="Str.DataMissingRetry">Bandyti dar kartą</sys:String>
+  <sys:String x:Key="Str.DataMissingRetryBody">Dar kartą ieško aplanko.</sys:String>
+  <sys:String x:Key="Str.DataMissingDefault">Naudoti numatytąjį aplanką</sys:String>
+  <sys:String x:Key="Str.DataMissingDefaultBody">Pradeda iš naujo {0}, be jūsų nustatymų ir žaidimų sąrašo. Kitas aplankas lieka nepaliestas.</sys:String>
+</ResourceDictionary>

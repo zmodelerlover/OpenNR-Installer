@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Korean">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.ko.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.ko.axaml" /><ResourceInclude Source="/Languages/Options/Options.ko.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.ko.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.ko.axaml" /><ResourceInclude Source="/Languages/Options/Options.ko.axaml" /><ResourceInclude Source="/Languages/DataFolder/DataFolder.ko.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- 한국어. The same keys as Strings.en.axaml, in its order. -->
@@ -218,7 +218,6 @@
   <sys:String x:Key="Str.DownloadingPercent">다운로드 중 {0}%</sys:String>
   <sys:String x:Key="Str.SettingsSubtitle">언어, 업데이트, 이 앱 정보.</sys:String>
   <sys:String x:Key="Str.LanguageHint">모든 문구가 바로 바뀝니다. 다시 시작할 필요가 없습니다.</sys:String>
-  <sys:String x:Key="Str.DataFolder">데이터 폴더</sys:String>
   <sys:String x:Key="Str.Preset.Pcsx2">PCSX2</sys:String>
   <sys:String x:Key="Str.Preset.Rpcs3">RPCS3</sys:String>
   <sys:String x:Key="Str.Preset.Dx11">D3D10/D3D11 게임</sys:String>

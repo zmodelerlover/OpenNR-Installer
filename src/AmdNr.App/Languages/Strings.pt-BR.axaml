@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Portuguese">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.pt-BR.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.pt-BR.axaml" /><ResourceInclude Source="/Languages/Options/Options.pt-BR.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.pt-BR.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.pt-BR.axaml" /><ResourceInclude Source="/Languages/Options/Options.pt-BR.axaml" /><ResourceInclude Source="/Languages/DataFolder/DataFolder.pt-BR.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <sys:String x:Key="Str.AppTitle">OpenNR Installer</sys:String>
@@ -235,7 +235,6 @@
   <sys:String x:Key="Str.DownloadingPercent">Baixando {0}%</sys:String>
   <sys:String x:Key="Str.SettingsSubtitle">Idioma, atualizações e sobre este app.</sys:String>
   <sys:String x:Key="Str.LanguageHint">Todos os textos mudam na hora, sem reiniciar.</sys:String>
-  <sys:String x:Key="Str.DataFolder">Pasta de dados</sys:String>
   <!-- Routes: the names and notes Core carries in English, said in this language. -->
   <sys:String x:Key="Str.Preset.Pcsx2">PCSX2</sys:String>
   <sys:String x:Key="Str.Preset.Rpcs3">RPCS3</sys:String>

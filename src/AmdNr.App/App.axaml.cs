@@ -112,40 +112,86 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            ChangeLanguage(PreferredLanguage());
-
-            // A first run configures itself before the library is any use: which language, whether
-            // this machine can run the add-on, whether every payload is here, and which games are
-            // installed. The wizard writes what it finds to the same files the main window reads, so
-            // it hands nothing over -- the main window just starts with them already filled in.
-            if (Settings.Load().SetupDone)
+            if (AppPaths.Missing is not null)
             {
-                desktop.MainWindow = new MainWindow();
-            }
-            else
-            {
-                var setup = new SetupWindow();
-                // Shutdown follows the main window, and there is none yet: without this the process
-                // would exit the moment the wizard closes.
+                // Nothing reads the data folder until it is settled, the saved language included.
+                ChangeLanguage(SystemLanguage());
                 desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-                setup.Closed += (_, _) =>
-                {
-                    desktop.ShutdownMode = ShutdownMode.OnMainWindowClose;
-                    // Closed with the X rather than finished: nothing was saved as done, so there is
-                    // no half-configured state to open into.
-                    if (!setup.Completed)
-                    {
-                        desktop.Shutdown();
-                        return;
-                    }
-                    var main = new MainWindow();
-                    desktop.MainWindow = main;
-                    main.Show();
-                };
-                desktop.MainWindow = setup;
+                AskForDataFolder(desktop);
             }
+            else Start(desktop);
         }
         base.OnFrameworkInitializationCompleted();
+    }
+
+    /// <summary>The data folder was moved to a drive that is not there now. Made empty in its place, it would
+    /// read as no games and no settings, and the next save would write over that on the real one when the drive
+    /// comes back. So: try again, or go back to the default folder, which leaves the other one alone.</summary>
+    private static void AskForDataFolder(IClassicDesktopStyleApplicationLifetime desktop)
+    {
+        var missing = AppPaths.Missing!;
+        var (window, chosen) = ChoiceDialog.Build(null, Ui.Text("Str.DataMissingTitle"),
+            Ui.Format("Str.DataMissingBody", missing),
+        [
+            ("retry", Ui.Text("Str.DataMissingRetry"), Ui.Text("Str.DataMissingRetryBody")),
+            ("default", Ui.Text("Str.DataMissingDefault"), Ui.Format("Str.DataMissingDefaultBody", AppPaths.Home)),
+        ], primary: "retry");
+        window.Closed += (_, _) =>
+        {
+            switch (chosen())
+            {
+                case "retry": AppPaths.Reload(); break;
+                case "default": AppPaths.UseDefault(); break;
+                default:
+                    desktop.Shutdown();
+                    return;
+            }
+            if (AppPaths.Missing is not null)
+            {
+                AskForDataFolder(desktop);
+                return;
+            }
+            desktop.ShutdownMode = ShutdownMode.OnMainWindowClose;
+            Start(desktop);
+            desktop.MainWindow!.Show();
+        };
+        window.Show();
+    }
+
+    private static void Start(IClassicDesktopStyleApplicationLifetime desktop)
+    {
+        ChangeLanguage(PreferredLanguage());
+
+        // A first run configures itself before the library is any use: which language, whether
+        // this machine can run the add-on, whether every payload is here, and which games are
+        // installed. The wizard writes what it finds to the same files the main window reads, so
+        // it hands nothing over -- the main window just starts with them already filled in.
+        if (Settings.Load().SetupDone)
+        {
+            desktop.MainWindow = new MainWindow();
+        }
+        else
+        {
+            var setup = new SetupWindow();
+            // Shutdown follows the main window, and there is none yet: without this the process
+            // would exit the moment the wizard closes.
+            desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+            setup.Closed += (_, _) =>
+            {
+                desktop.ShutdownMode = ShutdownMode.OnMainWindowClose;
+                // Closed with the X rather than finished: nothing was saved as done, so there is
+                // no half-configured state to open into.
+                if (!setup.Completed)
+                {
+                    desktop.Shutdown();
+                    return;
+                }
+                var main = new MainWindow();
+                desktop.MainWindow = main;
+                main.Show();
+            };
+            desktop.MainWindow = setup;
+        }
     }
 
     /// <summary>The system language when it is one we have, English otherwise. A saved choice wins
@@ -153,8 +199,11 @@ public partial class App : Application
     private static string PreferredLanguage()
     {
         var saved = Settings.Load().Language;
-        if (!string.IsNullOrWhiteSpace(saved) && Languages.Any(l => l.Code == saved)) return saved!;
+        return !string.IsNullOrWhiteSpace(saved) && Languages.Any(l => l.Code == saved) ? saved! : SystemLanguage();
+    }
 
+    private static string SystemLanguage()
+    {
         var culture = CultureInfo.CurrentUICulture;
         var exact = Languages.FirstOrDefault(l => l.Code.Equals(culture.Name, StringComparison.OrdinalIgnoreCase));
         if (exact.Code is not null) return exact.Code;

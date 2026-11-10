@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.French">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.fr.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.fr.axaml" /><ResourceInclude Source="/Languages/Options/Options.fr.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.fr.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.fr.axaml" /><ResourceInclude Source="/Languages/Options/Options.fr.axaml" /><ResourceInclude Source="/Languages/DataFolder/DataFolder.fr.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- Français. The same keys as Strings.en.axaml, in its order. -->
@@ -218,7 +218,6 @@
   <sys:String x:Key="Str.DownloadingPercent">Téléchargement {0} %</sys:String>
   <sys:String x:Key="Str.SettingsSubtitle">Langue, mises à jour et à propos de cette application.</sys:String>
   <sys:String x:Key="Str.LanguageHint">Tous les textes changent immédiatement, sans redémarrage.</sys:String>
-  <sys:String x:Key="Str.DataFolder">Dossier des données</sys:String>
   <sys:String x:Key="Str.Preset.Pcsx2">PCSX2</sys:String>
   <sys:String x:Key="Str.Preset.Rpcs3">RPCS3</sys:String>
   <sys:String x:Key="Str.Preset.Dx11">Jeu D3D10/D3D11</sys:String>

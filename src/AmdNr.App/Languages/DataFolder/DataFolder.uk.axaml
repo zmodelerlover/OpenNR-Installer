@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Ukrainian. The same keys as DataFolder.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.DataFolderTitle">Тека даних інсталятора</sys:String>
+  <sys:String x:Key="Str.DataFolderHint">Налаштування, список ігор, завантаження та журнали. Ігри зі встановленим NR її не використовують, тож перенесення нічого в них не змінює.</sys:String>
+  <sys:String x:Key="Str.DataFolderChange">Змінити…</sys:String>
+  <sys:String x:Key="Str.DataFolderDefault">Повернути типову</sys:String>
+  <sys:String x:Key="Str.DataFolderPick">Виберіть, де інсталятор зберігатиме дані</sys:String>
+  <sys:String x:Key="Str.DataFolderNrLive">Спершу закрийте NRLive: він запускається з теки даних.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveTitle">Перенесення теки даних</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveBody">До {0}. Після завершення інсталятор перезапуститься.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAll">Перенести все</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAllBody">{0}, разом із завантаженнями. Нічого не доведеться завантажувати знову.</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmpty">Почати з порожнім кешем</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmptyBody">Переносить налаштування, список ігор, журнали та ваші рантайми ({0}). Завантаження видаляються й повернуться, коли знадобляться грі.</sys:String>
+  <sys:String x:Key="Str.DataFolderKeepBody">Нічого не переноситься.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoving">Перенесення… {0}%</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveFailed">Перенесення не завершено ({0}). Нічого не змінилося; дані й далі в {1}.</sys:String>
+  <sys:String x:Key="Str.DataFolderNested">Ця тека перетинається з текою даних інсталятора. Виберіть іншу.</sys:String>
+  <sys:String x:Key="Str.DataFolderSystem">Не всередині Program Files чи Windows. Виберіть іншу теку.</sys:String>
+  <sys:String x:Key="Str.DataFolderGame">Ця тека всередині {0}, гри з вашого списку. Виберіть іншу.</sys:String>
+  <sys:String x:Key="Str.DataFolderNotEmpty">У {0} уже є файли. Виберіть порожню теку.</sys:String>
+  <sys:String x:Key="Str.DataFolderNotWritable">Не вдається записати в {0}. Виберіть іншу теку.</sys:String>
+  <sys:String x:Key="Str.DataFolderNoSpace">Замало місця: для перенесення потрібно {0}, а на диску вільно {1}.</sys:String>
+  <sys:String x:Key="Str.DataMissingTitle">Теку даних не знайдено</sys:String>
+  <sys:String x:Key="Str.DataMissingBody">Інсталятор зберігає дані в {0}, але цієї теки немає. Якщо вона на від’єднаному диску, під’єднайте його та спробуйте знову.</sys:String>
+  <sys:String x:Key="Str.DataMissingRetry">Спробувати знову</sys:String>
+  <sys:String x:Key="Str.DataMissingRetryBody">Шукає теку ще раз.</sys:String>
+  <sys:String x:Key="Str.DataMissingDefault">Використати типову теку</sys:String>
+  <sys:String x:Key="Str.DataMissingDefaultBody">Починає з нуля в {0}, без ваших налаштувань і списку ігор. Інша тека лишається як є.</sys:String>
+</ResourceDictionary>

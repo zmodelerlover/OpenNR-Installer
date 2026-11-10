@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Russian">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.ru.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.ru.axaml" /><ResourceInclude Source="/Languages/Options/Options.ru.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.ru.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.ru.axaml" /><ResourceInclude Source="/Languages/Options/Options.ru.axaml" /><ResourceInclude Source="/Languages/DataFolder/DataFolder.ru.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- Русский. The same keys as Strings.en.axaml, in its order. -->
@@ -218,7 +218,6 @@
   <sys:String x:Key="Str.DownloadingPercent">Загрузка: {0}%</sys:String>
   <sys:String x:Key="Str.SettingsSubtitle">Язык, обновления и сведения о приложении.</sys:String>
   <sys:String x:Key="Str.LanguageHint">Все надписи меняются сразу, перезапуск не нужен.</sys:String>
-  <sys:String x:Key="Str.DataFolder">Папка данных</sys:String>
   <sys:String x:Key="Str.Preset.Pcsx2">PCSX2</sys:String>
   <sys:String x:Key="Str.Preset.Rpcs3">RPCS3</sys:String>
   <sys:String x:Key="Str.Preset.Dx11">Игра на D3D10/D3D11</sys:String>

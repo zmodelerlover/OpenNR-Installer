@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Hindi">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.hi.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.hi.axaml" /><ResourceInclude Source="/Languages/Options/Options.hi.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.hi.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.hi.axaml" /><ResourceInclude Source="/Languages/Options/Options.hi.axaml" /><ResourceInclude Source="/Languages/DataFolder/DataFolder.hi.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- हिन्दी. The same keys as Strings.en.axaml, in its order. -->
@@ -218,7 +218,6 @@
   <sys:String x:Key="Str.DownloadingPercent">डाउनलोड {0}%</sys:String>
   <sys:String x:Key="Str.SettingsSubtitle">भाषा, अपडेट और इस ऐप के बारे में।</sys:String>
   <sys:String x:Key="Str.LanguageHint">हर लेबल तुरंत बदल जाता है; रीस्टार्ट की ज़रूरत नहीं।</sys:String>
-  <sys:String x:Key="Str.DataFolder">डेटा फ़ोल्डर</sys:String>
   <sys:String x:Key="Str.Preset.Pcsx2">PCSX2</sys:String>
   <sys:String x:Key="Str.Preset.Rpcs3">RPCS3</sys:String>
   <sys:String x:Key="Str.Preset.Dx11">D3D10/D3D11 गेम</sys:String>

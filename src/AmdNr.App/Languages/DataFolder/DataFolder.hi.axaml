@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Hindi. The same keys as DataFolder.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.DataFolderTitle">इंस्टॉलर का डेटा फ़ोल्डर</sys:String>
+  <sys:String x:Key="Str.DataFolderHint">सेटिंग्स, गेम सूची, डाउनलोड और लॉग। जिन गेम में NR इंस्टॉल है वे इसे इस्तेमाल नहीं करते, इसलिए इसे दूसरी जगह ले जाने से उनमें कुछ नहीं बदलता।</sys:String>
+  <sys:String x:Key="Str.DataFolderChange">बदलें…</sys:String>
+  <sys:String x:Key="Str.DataFolderDefault">डिफ़ॉल्ट पर लौटें</sys:String>
+  <sys:String x:Key="Str.DataFolderPick">चुनें कि इंस्टॉलर अपना डेटा कहाँ रखे</sys:String>
+  <sys:String x:Key="Str.DataFolderNrLive">पहले NRLive बंद करें: वह डेटा फ़ोल्डर से चलता है।</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveTitle">डेटा फ़ोल्डर ले जाएँ</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveBody">{0} में। पूरा होने पर इंस्टॉलर फिर से शुरू होगा।</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAll">सब कुछ ले जाएँ</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAllBody">{0}, डाउनलोड समेत। कुछ भी दोबारा डाउनलोड नहीं करना पड़ेगा।</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmpty">खाली कैश से शुरू करें</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmptyBody">सेटिंग्स, गेम सूची, लॉग और आपके रनटाइम ({0}) ले जाता है। डाउनलोड हटा दिए जाते हैं और किसी गेम को ज़रूरत होने पर फिर आ जाते हैं।</sys:String>
+  <sys:String x:Key="Str.DataFolderKeepBody">कुछ नहीं हिलता।</sys:String>
+  <sys:String x:Key="Str.DataFolderMoving">ले जाया जा रहा है… {0}%</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveFailed">स्थानांतरण पूरा नहीं हुआ ({0})। कुछ नहीं बदला; डेटा अब भी {1} में है।</sys:String>
+  <sys:String x:Key="Str.DataFolderNested">यह फ़ोल्डर इंस्टॉलर के डेटा फ़ोल्डर से टकराता है। कोई दूसरा चुनें।</sys:String>
+  <sys:String x:Key="Str.DataFolderSystem">Program Files या Windows के अंदर नहीं। कोई दूसरा फ़ोल्डर चुनें।</sys:String>
+  <sys:String x:Key="Str.DataFolderGame">यह फ़ोल्डर {0} के अंदर है, जो आपकी सूची का एक गेम है। कोई दूसरा चुनें।</sys:String>
+  <sys:String x:Key="Str.DataFolderNotEmpty">{0} में पहले से फ़ाइलें हैं। कोई खाली फ़ोल्डर चुनें।</sys:String>
+  <sys:String x:Key="Str.DataFolderNotWritable">{0} में लिखा नहीं जा सकता। कोई दूसरा फ़ोल्डर चुनें।</sys:String>
+  <sys:String x:Key="Str.DataFolderNoSpace">पर्याप्त जगह नहीं: स्थानांतरण के लिए {0} चाहिए और ड्राइव पर {1} खाली है।</sys:String>
+  <sys:String x:Key="Str.DataMissingTitle">डेटा फ़ोल्डर नहीं मिला</sys:String>
+  <sys:String x:Key="Str.DataMissingBody">इंस्टॉलर अपना डेटा {0} में रखता है, और वह फ़ोल्डर वहाँ नहीं है। अगर वह किसी अनप्लग ड्राइव पर है, तो उसे लगाएँ और फिर कोशिश करें।</sys:String>
+  <sys:String x:Key="Str.DataMissingRetry">फिर कोशिश करें</sys:String>
+  <sys:String x:Key="Str.DataMissingRetryBody">फ़ोल्डर को फिर से खोजता है।</sys:String>
+  <sys:String x:Key="Str.DataMissingDefault">डिफ़ॉल्ट फ़ोल्डर इस्तेमाल करें</sys:String>
+  <sys:String x:Key="Str.DataMissingDefaultBody">{0} से नए सिरे से शुरू करता है, आपकी सेटिंग्स और गेम सूची के बिना। दूसरा फ़ोल्डर जैसा है वैसा ही रहता है।</sys:String>
+</ResourceDictionary>

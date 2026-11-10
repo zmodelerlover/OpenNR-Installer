@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Croatian. The same keys as DataFolder.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.DataFolderTitle">Mapa s podacima instalatora</sys:String>
+  <sys:String x:Key="Str.DataFolderHint">Postavke, popis igara, preuzimanja i zapisnici. Igre s instaliranim NR-om je ne koriste, pa premještanje u njima ništa ne mijenja.</sys:String>
+  <sys:String x:Key="Str.DataFolderChange">Promijeni…</sys:String>
+  <sys:String x:Key="Str.DataFolderDefault">Vrati na zadano</sys:String>
+  <sys:String x:Key="Str.DataFolderPick">Odaberi gdje instalator čuva podatke</sys:String>
+  <sys:String x:Key="Str.DataFolderNrLive">Najprije zatvori NRLive: pokreće se iz mape s podacima.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveTitle">Premjesti mapu s podacima</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveBody">U {0}. Instalator se ponovno pokreće kad završi.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAll">Premjesti sve</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAllBody">{0}, zajedno s preuzimanjima. Ništa ne treba ponovno preuzimati.</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmpty">Počni s praznom predmemorijom</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmptyBody">Premješta postavke, popis igara, zapisnike i tvoje runtimeove ({0}). Preuzimanja se brišu i vraćaju se kad ih neka igra zatreba.</sys:String>
+  <sys:String x:Key="Str.DataFolderKeepBody">Ništa se ne premješta.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoving">Premještanje… {0} %</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveFailed">Premještanje nije dovršeno ({0}). Ništa se nije promijenilo; podaci su i dalje u {1}.</sys:String>
+  <sys:String x:Key="Str.DataFolderNested">Ta se mapa preklapa s mapom podataka instalatora. Odaberi drugu.</sys:String>
+  <sys:String x:Key="Str.DataFolderSystem">Ne unutar Program Files ni Windows. Odaberi drugu mapu.</sys:String>
+  <sys:String x:Key="Str.DataFolderGame">Ta je mapa unutar {0}, igre s tvog popisa. Odaberi drugu.</sys:String>
+  <sys:String x:Key="Str.DataFolderNotEmpty">{0} već sadrži datoteke. Odaberi praznu mapu.</sys:String>
+  <sys:String x:Key="Str.DataFolderNotWritable">Nije moguće pisati u {0}. Odaberi drugu mapu.</sys:String>
+  <sys:String x:Key="Str.DataFolderNoSpace">Nema dovoljno mjesta: premještanje treba {0}, a na disku je slobodno {1}.</sys:String>
+  <sys:String x:Key="Str.DataMissingTitle">Mapa s podacima nije pronađena</sys:String>
+  <sys:String x:Key="Str.DataMissingBody">Instalator čuva podatke u {0}, a te mape nema. Ako je na odspojenom disku, spoji ga i pokušaj ponovno.</sys:String>
+  <sys:String x:Key="Str.DataMissingRetry">Pokušaj ponovno</sys:String>
+  <sys:String x:Key="Str.DataMissingRetryBody">Ponovno traži mapu.</sys:String>
+  <sys:String x:Key="Str.DataMissingDefault">Koristi zadanu mapu</sys:String>
+  <sys:String x:Key="Str.DataMissingDefaultBody">Kreće ispočetka u {0}, bez tvojih postavki i popisa igara. Druga mapa ostaje kakva jest.</sys:String>
+</ResourceDictionary>

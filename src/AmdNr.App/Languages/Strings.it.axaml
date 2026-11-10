@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Italian">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.it.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.it.axaml" /><ResourceInclude Source="/Languages/Options/Options.it.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.it.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.it.axaml" /><ResourceInclude Source="/Languages/Options/Options.it.axaml" /><ResourceInclude Source="/Languages/DataFolder/DataFolder.it.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- Italiano. The same keys as Strings.en.axaml, in its order. -->
@@ -218,7 +218,6 @@
   <sys:String x:Key="Str.DownloadingPercent">Download {0}%</sys:String>
   <sys:String x:Key="Str.SettingsSubtitle">Lingua, aggiornamenti e informazioni su questa app.</sys:String>
   <sys:String x:Key="Str.LanguageHint">Tutte le scritte cambiano subito, senza riavviare.</sys:String>
-  <sys:String x:Key="Str.DataFolder">Cartella dei dati</sys:String>
   <sys:String x:Key="Str.Preset.Pcsx2">PCSX2</sys:String>
   <sys:String x:Key="Str.Preset.Rpcs3">RPCS3</sys:String>
   <sys:String x:Key="Str.Preset.Dx11">Gioco D3D10/D3D11</sys:String>

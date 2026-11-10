@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Brazilian Portuguese. The same keys as DataFolder.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.DataFolderTitle">Pasta de dados do instalador</sys:String>
+  <sys:String x:Key="Str.DataFolderHint">Configurações, lista de jogos, downloads e logs. Os jogos com NR instalado não usam essa pasta, então mudar de lugar não mexe neles.</sys:String>
+  <sys:String x:Key="Str.DataFolderChange">Alterar…</sys:String>
+  <sys:String x:Key="Str.DataFolderDefault">Voltar ao padrão</sys:String>
+  <sys:String x:Key="Str.DataFolderPick">Escolha onde o instalador guarda os dados</sys:String>
+  <sys:String x:Key="Str.DataFolderNrLive">Feche o NRLive antes: ele roda a partir da pasta de dados.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveTitle">Mover a pasta de dados</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveBody">Para {0}. O instalador reinicia quando terminar.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAll">Mover tudo</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAllBody">{0}, com os downloads. Não precisa baixar nada de novo.</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmpty">Começar com o cache vazio</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmptyBody">Move configurações, lista de jogos, logs e seus runtimes ({0}). Os downloads são apagados e voltam quando algum jogo precisar.</sys:String>
+  <sys:String x:Key="Str.DataFolderKeepBody">Nada muda de lugar.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoving">Movendo… {0}%</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveFailed">A mudança não terminou ({0}). Nada foi alterado; os dados continuam em {1}.</sys:String>
+  <sys:String x:Key="Str.DataFolderNested">Essa pasta se sobrepõe à pasta de dados do instalador. Escolha outra.</sys:String>
+  <sys:String x:Key="Str.DataFolderSystem">Não pode ser dentro de Arquivos de Programas nem do Windows. Escolha outra pasta.</sys:String>
+  <sys:String x:Key="Str.DataFolderGame">Essa pasta fica dentro de {0}, um jogo da sua lista. Escolha outra.</sys:String>
+  <sys:String x:Key="Str.DataFolderNotEmpty">{0} já tem arquivos. Escolha uma pasta vazia.</sys:String>
+  <sys:String x:Key="Str.DataFolderNotWritable">Não dá para gravar em {0}. Escolha outra pasta.</sys:String>
+  <sys:String x:Key="Str.DataFolderNoSpace">Falta espaço: a mudança precisa de {0} e o disco tem {1} livres.</sys:String>
+  <sys:String x:Key="Str.DataMissingTitle">Pasta de dados não encontrada</sys:String>
+  <sys:String x:Key="Str.DataMissingBody">O instalador guarda os dados em {0}, e essa pasta não está lá. Se ela fica num disco desconectado, conecte e tente de novo.</sys:String>
+  <sys:String x:Key="Str.DataMissingRetry">Tentar de novo</sys:String>
+  <sys:String x:Key="Str.DataMissingRetryBody">Procura a pasta outra vez.</sys:String>
+  <sys:String x:Key="Str.DataMissingDefault">Usar a pasta padrão</sys:String>
+  <sys:String x:Key="Str.DataMissingDefaultBody">Começa do zero em {0}, sem suas configurações nem a lista de jogos. A outra pasta fica como está.</sys:String>
+</ResourceDictionary>

@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Polish. The same keys as DataFolder.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.DataFolderTitle">Folder danych instalatora</sys:String>
+  <sys:String x:Key="Str.DataFolderHint">Ustawienia, lista gier, pobrane pliki i logi. Gry z zainstalowanym NR z niego nie korzystają, więc przeniesienie nic w nich nie zmienia.</sys:String>
+  <sys:String x:Key="Str.DataFolderChange">Zmień…</sys:String>
+  <sys:String x:Key="Str.DataFolderDefault">Przywróć domyślny</sys:String>
+  <sys:String x:Key="Str.DataFolderPick">Wybierz, gdzie instalator ma trzymać dane</sys:String>
+  <sys:String x:Key="Str.DataFolderNrLive">Najpierw zamknij NRLive: działa z folderu danych.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveTitle">Przenieś folder danych</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveBody">Do {0}. Po zakończeniu instalator uruchomi się ponownie.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAll">Przenieś wszystko</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAllBody">{0} razem z pobranymi plikami. Nic nie trzeba pobierać ponownie.</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmpty">Zacznij z pustą pamięcią podręczną</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmptyBody">Przenosi ustawienia, listę gier, logi i twoje runtime’y ({0}). Pobrane pliki są usuwane i wrócą, gdy gra będzie ich potrzebować.</sys:String>
+  <sys:String x:Key="Str.DataFolderKeepBody">Nic nie zostanie przeniesione.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoving">Przenoszenie… {0}%</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveFailed">Przenoszenie nie zostało ukończone ({0}). Nic się nie zmieniło; dane są nadal w {1}.</sys:String>
+  <sys:String x:Key="Str.DataFolderNested">Ten folder pokrywa się z folderem danych instalatora. Wybierz inny.</sys:String>
+  <sys:String x:Key="Str.DataFolderSystem">Nie w Program Files ani w Windows. Wybierz inny folder.</sys:String>
+  <sys:String x:Key="Str.DataFolderGame">Ten folder jest w {0}, grze z twojej listy. Wybierz inny.</sys:String>
+  <sys:String x:Key="Str.DataFolderNotEmpty">{0} zawiera już pliki. Wybierz pusty folder.</sys:String>
+  <sys:String x:Key="Str.DataFolderNotWritable">Nie można zapisywać w {0}. Wybierz inny folder.</sys:String>
+  <sys:String x:Key="Str.DataFolderNoSpace">Za mało miejsca: przeniesienie wymaga {0}, a na dysku wolne jest {1}.</sys:String>
+  <sys:String x:Key="Str.DataMissingTitle">Nie znaleziono folderu danych</sys:String>
+  <sys:String x:Key="Str.DataMissingBody">Instalator trzyma dane w {0}, a tego folderu nie ma. Jeśli jest na odłączonym dysku, podłącz go i spróbuj ponownie.</sys:String>
+  <sys:String x:Key="Str.DataMissingRetry">Spróbuj ponownie</sys:String>
+  <sys:String x:Key="Str.DataMissingRetryBody">Szuka folderu jeszcze raz.</sys:String>
+  <sys:String x:Key="Str.DataMissingDefault">Użyj folderu domyślnego</sys:String>
+  <sys:String x:Key="Str.DataMissingDefaultBody">Zaczyna od nowa w {0}, bez twoich ustawień i listy gier. Tamten folder zostaje bez zmian.</sys:String>
+</ResourceDictionary>

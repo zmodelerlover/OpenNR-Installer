@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Japanese">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.ja.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.ja.axaml" /><ResourceInclude Source="/Languages/Options/Options.ja.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.ja.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.ja.axaml" /><ResourceInclude Source="/Languages/Options/Options.ja.axaml" /><ResourceInclude Source="/Languages/DataFolder/DataFolder.ja.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- 日本語. The same keys as Strings.en.axaml, in its order. -->
@@ -218,7 +218,6 @@
   <sys:String x:Key="Str.DownloadingPercent">ダウンロード中 {0}%</sys:String>
   <sys:String x:Key="Str.SettingsSubtitle">言語、アップデート、このアプリについて。</sys:String>
   <sys:String x:Key="Str.LanguageHint">すべての表示がすぐに切り替わります。再起動は不要です。</sys:String>
-  <sys:String x:Key="Str.DataFolder">データフォルダー</sys:String>
   <sys:String x:Key="Str.Preset.Pcsx2">PCSX2</sys:String>
   <sys:String x:Key="Str.Preset.Rpcs3">RPCS3</sys:String>
   <sys:String x:Key="Str.Preset.Dx11">D3D10/D3D11 のゲーム</sys:String>

@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Thai">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.th.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.th.axaml" /><ResourceInclude Source="/Languages/Options/Options.th.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.th.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.th.axaml" /><ResourceInclude Source="/Languages/Options/Options.th.axaml" /><ResourceInclude Source="/Languages/DataFolder/DataFolder.th.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- ไทย. The same keys as Strings.en.axaml, in its order. -->
@@ -218,7 +218,6 @@
   <sys:String x:Key="Str.DownloadingPercent">กำลังดาวน์โหลด {0}%</sys:String>
   <sys:String x:Key="Str.SettingsSubtitle">ภาษา การอัปเดต และข้อมูลเกี่ยวกับแอปนี้</sys:String>
   <sys:String x:Key="Str.LanguageHint">ข้อความทั้งหมดเปลี่ยนทันที ไม่ต้องรีสตาร์ต</sys:String>
-  <sys:String x:Key="Str.DataFolder">โฟลเดอร์ข้อมูล</sys:String>
   <sys:String x:Key="Str.Preset.Pcsx2">PCSX2</sys:String>
   <sys:String x:Key="Str.Preset.Rpcs3">RPCS3</sys:String>
   <sys:String x:Key="Str.Preset.Dx11">เกม D3D10/D3D11</sys:String>

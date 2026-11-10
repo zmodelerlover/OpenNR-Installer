@@ -7,14 +7,44 @@ public static class AppPaths
 {
     /// <summary>%AppData%\AmdNrInstaller, created on first use -- or wherever AMDNR_HOME says.
     /// The override is what keeps the test suite out of the real cache, and it is also how a
-    /// portable install would keep everything beside the executable.</summary>
-    public static string Root { get; } = Create(
+    /// portable install would keep everything beside the executable. Always here, wherever the data
+    /// went: the pointer to a data folder moved elsewhere (<see cref="DataLocation"/>), and the Vulkan
+    /// layer this app registers, which games load from the path it was registered with.</summary>
+    public static string Home { get; } = Create(
         Environment.GetEnvironmentVariable("AMDNR_HOME") is { Length: > 0 } home
             ? home
             : Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData,
                     Environment.SpecialFolderOption.Create),
                 "AmdNrInstaller"));
+
+    private static DataLocation.Found _found = DataLocation.Resolve(Home);
+    private static string? _root;
+
+    /// <summary>The data folder the pointer names when it is not there -- a drive unplugged. Settled with
+    /// <see cref="Reload"/> or <see cref="UseDefault"/> before anything reads <see cref="Root"/>: an empty
+    /// folder made in its place would read as no games and no settings.</summary>
+    public static string? Missing => _found.Missing ? _found.Root : null;
+
+    /// <summary>Reads the pointer again: a drive plugged back in, or a move that just pointed it somewhere
+    /// else -- whatever this process still writes on its way out goes to the new folder, not a deleted one.</summary>
+    public static void Reload()
+    {
+        _found = DataLocation.Resolve(Home);
+        _root = null;
+    }
+
+    public static void UseDefault()
+    {
+        try { DataLocation.Write(Home, null); }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException) { }
+        Reload();
+    }
+
+    /// <summary>The data folder: <see cref="Home"/>, or the folder someone moved it to.</summary>
+    public static string Root => _found.Missing
+        ? throw new InvalidOperationException($"The data folder {_found.Root} is not there.")
+        : _root ??= Create(_found.Root);
 
     public static string Cache => Create(Path.Combine(Root, "cache"));
     public static string Logs => Create(Path.Combine(Root, "logs"));

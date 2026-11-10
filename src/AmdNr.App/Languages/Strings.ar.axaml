@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Arabic">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.ar.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.ar.axaml" /><ResourceInclude Source="/Languages/Options/Options.ar.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.ar.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.ar.axaml" /><ResourceInclude Source="/Languages/Options/Options.ar.axaml" /><ResourceInclude Source="/Languages/DataFolder/DataFolder.ar.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- العربية. The same keys as Strings.en.axaml, in its order. -->
@@ -218,7 +218,6 @@
   <sys:String x:Key="Str.DownloadingPercent">جارٍ التنزيل {0}%</sys:String>
   <sys:String x:Key="Str.SettingsSubtitle">اللغة والتحديثات ومعلومات عن هذا التطبيق.</sys:String>
   <sys:String x:Key="Str.LanguageHint">تتبدّل كل النصوص فورًا دون الحاجة إلى إعادة التشغيل.</sys:String>
-  <sys:String x:Key="Str.DataFolder">مجلد البيانات</sys:String>
   <sys:String x:Key="Str.Preset.Pcsx2">PCSX2</sys:String>
   <sys:String x:Key="Str.Preset.Rpcs3">RPCS3</sys:String>
   <sys:String x:Key="Str.Preset.Dx11">لعبة D3D10/D3D11</sys:String>

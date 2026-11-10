@@ -17,7 +17,7 @@ public static class ChoiceDialog
     /// is about, so nobody has to open Details to know what they are deciding.</param>
     /// <param name="primary">The choice the dialog recommends, drawn in the accent colour.</param>
     public static (Window Window, Func<string?> Chosen) Build(
-        Window owner, string title, string body,
+        Window? owner, string title, string body,
         IReadOnlyList<(string Id, string Title, string Detail)> options,
         IReadOnlyList<string>? items = null, string? primary = null)
     {
@@ -103,9 +103,10 @@ public static class ChoiceDialog
             Width = 460,
             SizeToContent = SizeToContent.Height,
             CanResize = false,
-            WindowStartupLocation = WindowStartupLocation.CenterOwner,
+            // Without an owner it is the only window there is, as at a start whose data folder is missing.
+            WindowStartupLocation = owner is null ? WindowStartupLocation.CenterScreen : WindowStartupLocation.CenterOwner,
             Background = Brush(owner, "Bg"),
-            ShowInTaskbar = false,
+            ShowInTaskbar = owner is null,
             Content = new ScrollViewer { Content = panel },
         };
 
@@ -134,6 +135,7 @@ public static class ChoiceDialog
         return chosen();
     }
 
-    private static IBrush Brush(Window owner, string key) =>
-        owner.TryFindResource(key, out var value) && value is IBrush brush ? brush : Brushes.Gray;
+    private static IBrush Brush(Window? owner, string key) =>
+        (owner is null ? Application.Current!.TryFindResource(key, out var value) : owner.TryFindResource(key, out value))
+        && value is IBrush brush ? brush : Brushes.Gray;
 }

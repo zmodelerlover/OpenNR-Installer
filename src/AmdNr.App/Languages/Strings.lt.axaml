@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Lithuanian">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.lt.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.lt.axaml" /><ResourceInclude Source="/Languages/Options/Options.lt.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.lt.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.lt.axaml" /><ResourceInclude Source="/Languages/Options/Options.lt.axaml" /><ResourceInclude Source="/Languages/DataFolder/DataFolder.lt.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- Lietuvių. The same keys as Strings.en.axaml, in its order. -->
@@ -218,7 +218,6 @@
   <sys:String x:Key="Str.DownloadingPercent">Atsisiunčiama {0}%</sys:String>
   <sys:String x:Key="Str.SettingsSubtitle">Kalba, naujiniai ir apie šią programą.</sys:String>
   <sys:String x:Key="Str.LanguageHint">Visi užrašai pasikeičia iš karto; paleisti iš naujo nereikia.</sys:String>
-  <sys:String x:Key="Str.DataFolder">Duomenų aplankas</sys:String>
   <sys:String x:Key="Str.Preset.Pcsx2">PCSX2</sys:String>
   <sys:String x:Key="Str.Preset.Rpcs3">RPCS3</sys:String>
   <sys:String x:Key="Str.Preset.Dx11">D3D10/D3D11 žaidimas</sys:String>

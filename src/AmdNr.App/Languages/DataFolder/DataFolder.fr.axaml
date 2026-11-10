@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- French. The same keys as DataFolder.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.DataFolderTitle">Dossier de données de l’installateur</sys:String>
+  <sys:String x:Key="Str.DataFolderHint">Réglages, liste des jeux, téléchargements et journaux. Les jeux où NR est installé ne s’en servent pas : le déplacer ne change rien pour eux.</sys:String>
+  <sys:String x:Key="Str.DataFolderChange">Changer…</sys:String>
+  <sys:String x:Key="Str.DataFolderDefault">Revenir au dossier par défaut</sys:String>
+  <sys:String x:Key="Str.DataFolderPick">Choisissez où l’installateur garde ses données</sys:String>
+  <sys:String x:Key="Str.DataFolderNrLive">Fermez d’abord NRLive : il tourne depuis le dossier de données.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveTitle">Déplacer le dossier de données</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveBody">Vers {0}. L’installateur redémarre une fois terminé.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAll">Tout déplacer</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAllBody">{0}, téléchargements compris. Rien à retélécharger.</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmpty">Repartir avec un cache vide</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmptyBody">Déplace les réglages, la liste des jeux, les journaux et vos runtimes ({0}). Les téléchargements sont supprimés et reviennent quand un jeu en a besoin.</sys:String>
+  <sys:String x:Key="Str.DataFolderKeepBody">Rien ne bouge.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoving">Déplacement… {0} %</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveFailed">Le déplacement n’a pas abouti ({0}). Rien n’a changé ; les données sont toujours dans {1}.</sys:String>
+  <sys:String x:Key="Str.DataFolderNested">Ce dossier chevauche le dossier de données de l’installateur. Choisissez-en un autre.</sys:String>
+  <sys:String x:Key="Str.DataFolderSystem">Pas dans Program Files ni dans Windows. Choisissez un autre dossier.</sys:String>
+  <sys:String x:Key="Str.DataFolderGame">Ce dossier se trouve dans {0}, un jeu de votre liste. Choisissez-en un autre.</sys:String>
+  <sys:String x:Key="Str.DataFolderNotEmpty">{0} contient déjà des fichiers. Choisissez un dossier vide.</sys:String>
+  <sys:String x:Key="Str.DataFolderNotWritable">Impossible d’écrire dans {0}. Choisissez un autre dossier.</sys:String>
+  <sys:String x:Key="Str.DataFolderNoSpace">Pas assez de place : le déplacement demande {0} et le disque n’a que {1} de libre.</sys:String>
+  <sys:String x:Key="Str.DataMissingTitle">Dossier de données introuvable</sys:String>
+  <sys:String x:Key="Str.DataMissingBody">L’installateur garde ses données dans {0}, et ce dossier est introuvable. S’il est sur un disque débranché, rebranchez-le et réessayez.</sys:String>
+  <sys:String x:Key="Str.DataMissingRetry">Réessayer</sys:String>
+  <sys:String x:Key="Str.DataMissingRetryBody">Cherche le dossier à nouveau.</sys:String>
+  <sys:String x:Key="Str.DataMissingDefault">Utiliser le dossier par défaut</sys:String>
+  <sys:String x:Key="Str.DataMissingDefaultBody">Repart de {0}, sans vos réglages ni votre liste de jeux. L’autre dossier reste tel quel.</sys:String>
+</ResourceDictionary>

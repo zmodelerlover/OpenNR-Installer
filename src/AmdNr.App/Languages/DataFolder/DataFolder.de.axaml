@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- German. The same keys as DataFolder.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.DataFolderTitle">Datenordner des Installers</sys:String>
+  <sys:String x:Key="Str.DataFolderHint">Einstellungen, Spieleliste, Downloads und Protokolle. Spiele mit installiertem NR nutzen ihn nicht, ein Umzug ändert an ihnen also nichts.</sys:String>
+  <sys:String x:Key="Str.DataFolderChange">Ändern…</sys:String>
+  <sys:String x:Key="Str.DataFolderDefault">Zurück zum Standard</sys:String>
+  <sys:String x:Key="Str.DataFolderPick">Wähle, wo der Installer seine Daten ablegt</sys:String>
+  <sys:String x:Key="Str.DataFolderNrLive">Schließe zuerst NRLive: Es läuft aus dem Datenordner.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveTitle">Datenordner verschieben</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveBody">Nach {0}. Der Installer startet danach neu.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAll">Alles verschieben</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAllBody">{0}, Downloads eingeschlossen. Nichts muss neu geladen werden.</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmpty">Mit leerem Cache beginnen</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmptyBody">Verschiebt Einstellungen, Spieleliste, Protokolle und deine Runtimes ({0}). Downloads werden gelöscht und kommen wieder, wenn ein Spiel sie braucht.</sys:String>
+  <sys:String x:Key="Str.DataFolderKeepBody">Nichts wird verschoben.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoving">Wird verschoben… {0} %</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveFailed">Das Verschieben wurde nicht abgeschlossen ({0}). Nichts wurde geändert; die Daten liegen weiter in {1}.</sys:String>
+  <sys:String x:Key="Str.DataFolderNested">Dieser Ordner überschneidet sich mit dem Datenordner des Installers. Wähle einen anderen.</sys:String>
+  <sys:String x:Key="Str.DataFolderSystem">Nicht in Program Files oder Windows. Wähle einen anderen Ordner.</sys:String>
+  <sys:String x:Key="Str.DataFolderGame">Dieser Ordner liegt in {0}, einem Spiel aus deiner Liste. Wähle einen anderen.</sys:String>
+  <sys:String x:Key="Str.DataFolderNotEmpty">{0} enthält schon Dateien. Wähle einen leeren Ordner.</sys:String>
+  <sys:String x:Key="Str.DataFolderNotWritable">In {0} kann nicht geschrieben werden. Wähle einen anderen Ordner.</sys:String>
+  <sys:String x:Key="Str.DataFolderNoSpace">Zu wenig Platz: Das Verschieben braucht {0}, auf dem Laufwerk sind {1} frei.</sys:String>
+  <sys:String x:Key="Str.DataMissingTitle">Datenordner nicht gefunden</sys:String>
+  <sys:String x:Key="Str.DataMissingBody">Der Installer legt seine Daten in {0} ab, und dieser Ordner ist nicht da. Liegt er auf einem getrennten Laufwerk, schließe es an und versuche es erneut.</sys:String>
+  <sys:String x:Key="Str.DataMissingRetry">Erneut versuchen</sys:String>
+  <sys:String x:Key="Str.DataMissingRetryBody">Sucht den Ordner noch einmal.</sys:String>
+  <sys:String x:Key="Str.DataMissingDefault">Standardordner verwenden</sys:String>
+  <sys:String x:Key="Str.DataMissingDefaultBody">Beginnt in {0}, ohne deine Einstellungen und Spieleliste. Der andere Ordner bleibt, wie er ist.</sys:String>
+</ResourceDictionary>

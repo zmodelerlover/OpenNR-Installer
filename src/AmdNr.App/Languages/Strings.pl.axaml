@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Polish">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.pl.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.pl.axaml" /><ResourceInclude Source="/Languages/Options/Options.pl.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.pl.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.pl.axaml" /><ResourceInclude Source="/Languages/Options/Options.pl.axaml" /><ResourceInclude Source="/Languages/DataFolder/DataFolder.pl.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- Polski. The same keys as Strings.en.axaml, in its order. -->
@@ -218,7 +218,6 @@
   <sys:String x:Key="Str.DownloadingPercent">Pobieranie {0}%</sys:String>
   <sys:String x:Key="Str.SettingsSubtitle">Język, aktualizacje i informacje o aplikacji.</sys:String>
   <sys:String x:Key="Str.LanguageHint">Wszystkie napisy zmieniają się od razu; restart nie jest potrzebny.</sys:String>
-  <sys:String x:Key="Str.DataFolder">Folder danych</sys:String>
   <sys:String x:Key="Str.Preset.Pcsx2">PCSX2</sys:String>
   <sys:String x:Key="Str.Preset.Rpcs3">RPCS3</sys:String>
   <sys:String x:Key="Str.Preset.Dx11">Gra D3D10/D3D11</sys:String>

@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Japanese. The same keys as DataFolder.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.DataFolderTitle">インストーラーのデータフォルダー</sys:String>
+  <sys:String x:Key="Str.DataFolderHint">設定、ゲームリスト、ダウンロード、ログ。NR をインストールしたゲームはこのフォルダーを使わないので、移動してもゲーム側は何も変わりません。</sys:String>
+  <sys:String x:Key="Str.DataFolderChange">変更…</sys:String>
+  <sys:String x:Key="Str.DataFolderDefault">既定に戻す</sys:String>
+  <sys:String x:Key="Str.DataFolderPick">インストーラーがデータを保存する場所を選択</sys:String>
+  <sys:String x:Key="Str.DataFolderNrLive">先に NRLive を閉じてください。データフォルダーから実行されています。</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveTitle">データフォルダーを移動</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveBody">移動先: {0}。完了するとインストーラーが再起動します。</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAll">すべて移動</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAllBody">{0}（ダウンロードを含む）。再ダウンロードは不要です。</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmpty">空のキャッシュで始める</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmptyBody">設定、ゲームリスト、ログ、ランタイム（{0}）を移動します。ダウンロードは削除され、ゲームで必要になったときに再取得されます。</sys:String>
+  <sys:String x:Key="Str.DataFolderKeepBody">何も移動しません。</sys:String>
+  <sys:String x:Key="Str.DataFolderMoving">移動中… {0}%</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveFailed">移動が完了しませんでした（{0}）。何も変更されていません。データは {1} にあります。</sys:String>
+  <sys:String x:Key="Str.DataFolderNested">このフォルダーはインストーラーのデータフォルダーと重なっています。別のフォルダーを選んでください。</sys:String>
+  <sys:String x:Key="Str.DataFolderSystem">Program Files や Windows の中は使えません。別のフォルダーを選んでください。</sys:String>
+  <sys:String x:Key="Str.DataFolderGame">このフォルダーはリスト内のゲーム {0} の中にあります。別のフォルダーを選んでください。</sys:String>
+  <sys:String x:Key="Str.DataFolderNotEmpty">{0} にはすでにファイルがあります。空のフォルダーを選んでください。</sys:String>
+  <sys:String x:Key="Str.DataFolderNotWritable">{0} に書き込めません。別のフォルダーを選んでください。</sys:String>
+  <sys:String x:Key="Str.DataFolderNoSpace">空き容量が足りません。移動には {0} 必要ですが、ドライブの空きは {1} です。</sys:String>
+  <sys:String x:Key="Str.DataMissingTitle">データフォルダーが見つかりません</sys:String>
+  <sys:String x:Key="Str.DataMissingBody">インストーラーはデータを {0} に保存していますが、そのフォルダーがありません。取り外したドライブ上にある場合は、接続してからもう一度お試しください。</sys:String>
+  <sys:String x:Key="Str.DataMissingRetry">再試行</sys:String>
+  <sys:String x:Key="Str.DataMissingRetryBody">もう一度フォルダーを探します。</sys:String>
+  <sys:String x:Key="Str.DataMissingDefault">既定のフォルダーを使う</sys:String>
+  <sys:String x:Key="Str.DataMissingDefaultBody">{0} で最初からやり直します。設定とゲームリストは引き継がれません。もう一方のフォルダーはそのまま残ります。</sys:String>
+</ResourceDictionary>

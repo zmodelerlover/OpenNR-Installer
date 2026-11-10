@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Croatian">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.hr.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.hr.axaml" /><ResourceInclude Source="/Languages/Options/Options.hr.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.hr.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.hr.axaml" /><ResourceInclude Source="/Languages/Options/Options.hr.axaml" /><ResourceInclude Source="/Languages/DataFolder/DataFolder.hr.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- Hrvatski. The same keys as Strings.en.axaml, in its order. -->
@@ -218,7 +218,6 @@
   <sys:String x:Key="Str.DownloadingPercent">Preuzimanje {0}%</sys:String>
   <sys:String x:Key="Str.SettingsSubtitle">Jezik, ažuriranja i o ovoj aplikaciji.</sys:String>
   <sys:String x:Key="Str.LanguageHint">Svi se natpisi mijenjaju odmah; ponovno pokretanje nije potrebno.</sys:String>
-  <sys:String x:Key="Str.DataFolder">Mapa s podacima</sys:String>
   <sys:String x:Key="Str.Preset.Pcsx2">PCSX2</sys:String>
   <sys:String x:Key="Str.Preset.Rpcs3">RPCS3</sys:String>
   <sys:String x:Key="Str.Preset.Dx11">Igra na D3D10/D3D11</sys:String>

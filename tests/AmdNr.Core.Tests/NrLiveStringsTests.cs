@@ -22,11 +22,12 @@ public partial class NrLiveStringsTests
     private static List<string> Keys(string file) => Key().Matches(File.ReadAllText(file)).Select(m => m.Groups[1].Value).ToList();
 
     /// <summary>The REFramework card's strings sit the same way, in Languages\ReFramework\, and the opt-in tiles' in
-    /// Languages\Options\.</summary>
+    /// Languages\Options\, and the data folder card's in Languages\DataFolder\.</summary>
     [Theory]
     [InlineData("NrLive")]
     [InlineData("ReFramework")]
     [InlineData("Options")]
+    [InlineData("DataFolder")]
     public void EveryLanguageHasEveryKeyInTheSameOrderAndMergesIt(string part)
     {
         var languages = Languages();

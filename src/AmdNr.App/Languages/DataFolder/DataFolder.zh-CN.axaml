@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Simplified Chinese. The same keys as DataFolder.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.DataFolderTitle">安装器数据文件夹</sys:String>
+  <sys:String x:Key="Str.DataFolderHint">设置、游戏列表、下载内容和日志。已安装 NR 的游戏不使用它，所以移动它不会影响这些游戏。</sys:String>
+  <sys:String x:Key="Str.DataFolderChange">更改…</sys:String>
+  <sys:String x:Key="Str.DataFolderDefault">恢复默认</sys:String>
+  <sys:String x:Key="Str.DataFolderPick">选择安装器存放数据的位置</sys:String>
+  <sys:String x:Key="Str.DataFolderNrLive">请先关闭 NRLive：它从数据文件夹运行。</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveTitle">移动数据文件夹</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveBody">移到 {0}。完成后安装器会重新启动。</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAll">全部移动</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAllBody">{0}，包括下载内容。无需重新下载任何东西。</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmpty">以空缓存开始</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmptyBody">移动设置、游戏列表、日志和你的运行时（{0}）。下载内容会被删除，游戏需要时会重新下载。</sys:String>
+  <sys:String x:Key="Str.DataFolderKeepBody">不移动任何内容。</sys:String>
+  <sys:String x:Key="Str.DataFolderMoving">正在移动… {0}%</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveFailed">移动未完成（{0}）。没有任何更改；数据仍在 {1}。</sys:String>
+  <sys:String x:Key="Str.DataFolderNested">该文件夹与安装器的数据文件夹重叠。请另选一个。</sys:String>
+  <sys:String x:Key="Str.DataFolderSystem">不能位于 Program Files 或 Windows 中。请另选一个文件夹。</sys:String>
+  <sys:String x:Key="Str.DataFolderGame">该文件夹位于 {0} 中，这是你列表里的一个游戏。请另选一个。</sys:String>
+  <sys:String x:Key="Str.DataFolderNotEmpty">{0} 中已有文件。请选择一个空文件夹。</sys:String>
+  <sys:String x:Key="Str.DataFolderNotWritable">无法写入 {0}。请另选一个文件夹。</sys:String>
+  <sys:String x:Key="Str.DataFolderNoSpace">空间不足：移动需要 {0}，该驱动器只有 {1} 可用。</sys:String>
+  <sys:String x:Key="Str.DataMissingTitle">找不到数据文件夹</sys:String>
+  <sys:String x:Key="Str.DataMissingBody">安装器的数据存放在 {0}，但该文件夹不存在。如果它在已拔出的驱动器上，请插上后重试。</sys:String>
+  <sys:String x:Key="Str.DataMissingRetry">重试</sys:String>
+  <sys:String x:Key="Str.DataMissingRetryBody">再次查找该文件夹。</sys:String>
+  <sys:String x:Key="Str.DataMissingDefault">使用默认文件夹</sys:String>
+  <sys:String x:Key="Str.DataMissingDefaultBody">在 {0} 从头开始，不带你的设置和游戏列表。另一个文件夹保持原样。</sys:String>
+</ResourceDictionary>

@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Thai. The same keys as DataFolder.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.DataFolderTitle">โฟลเดอร์ข้อมูลของตัวติดตั้ง</sys:String>
+  <sys:String x:Key="Str.DataFolderHint">การตั้งค่า รายชื่อเกม ไฟล์ดาวน์โหลด และล็อก เกมที่ติดตั้ง NR แล้วไม่ได้ใช้โฟลเดอร์นี้ การย้ายจึงไม่เปลี่ยนอะไรในเกม</sys:String>
+  <sys:String x:Key="Str.DataFolderChange">เปลี่ยน…</sys:String>
+  <sys:String x:Key="Str.DataFolderDefault">กลับไปใช้ค่าเริ่มต้น</sys:String>
+  <sys:String x:Key="Str.DataFolderPick">เลือกที่เก็บข้อมูลของตัวติดตั้ง</sys:String>
+  <sys:String x:Key="Str.DataFolderNrLive">ปิด NRLive ก่อน: มันทำงานจากโฟลเดอร์ข้อมูล</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveTitle">ย้ายโฟลเดอร์ข้อมูล</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveBody">ไปที่ {0} ตัวติดตั้งจะเริ่มใหม่เมื่อเสร็จ</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAll">ย้ายทั้งหมด</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAllBody">{0} รวมไฟล์ดาวน์โหลด ไม่ต้องดาวน์โหลดอะไรใหม่</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmpty">เริ่มด้วยแคชว่าง</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmptyBody">ย้ายการตั้งค่า รายชื่อเกม ล็อก และรันไทม์ของคุณ ({0}) ไฟล์ดาวน์โหลดจะถูกลบและโหลดกลับมาเมื่อเกมต้องใช้</sys:String>
+  <sys:String x:Key="Str.DataFolderKeepBody">ไม่มีอะไรถูกย้าย</sys:String>
+  <sys:String x:Key="Str.DataFolderMoving">กำลังย้าย… {0}%</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveFailed">การย้ายไม่เสร็จ ({0}) ไม่มีอะไรเปลี่ยน ข้อมูลยังอยู่ที่ {1}</sys:String>
+  <sys:String x:Key="Str.DataFolderNested">โฟลเดอร์นี้ซ้อนกับโฟลเดอร์ข้อมูลของตัวติดตั้ง เลือกโฟลเดอร์อื่น</sys:String>
+  <sys:String x:Key="Str.DataFolderSystem">ห้ามอยู่ใน Program Files หรือ Windows เลือกโฟลเดอร์อื่น</sys:String>
+  <sys:String x:Key="Str.DataFolderGame">โฟลเดอร์นี้อยู่ใน {0} ซึ่งเป็นเกมในรายชื่อของคุณ เลือกโฟลเดอร์อื่น</sys:String>
+  <sys:String x:Key="Str.DataFolderNotEmpty">{0} มีไฟล์อยู่แล้ว เลือกโฟลเดอร์ว่าง</sys:String>
+  <sys:String x:Key="Str.DataFolderNotWritable">เขียนลงใน {0} ไม่ได้ เลือกโฟลเดอร์อื่น</sys:String>
+  <sys:String x:Key="Str.DataFolderNoSpace">พื้นที่ไม่พอ: การย้ายต้องใช้ {0} แต่ไดรฟ์ว่าง {1}</sys:String>
+  <sys:String x:Key="Str.DataMissingTitle">ไม่พบโฟลเดอร์ข้อมูล</sys:String>
+  <sys:String x:Key="Str.DataMissingBody">ตัวติดตั้งเก็บข้อมูลไว้ที่ {0} แต่ไม่พบโฟลเดอร์นั้น หากอยู่บนไดรฟ์ที่ถอดออก ให้เสียบแล้วลองอีกครั้ง</sys:String>
+  <sys:String x:Key="Str.DataMissingRetry">ลองอีกครั้ง</sys:String>
+  <sys:String x:Key="Str.DataMissingRetryBody">ค้นหาโฟลเดอร์อีกครั้ง</sys:String>
+  <sys:String x:Key="Str.DataMissingDefault">ใช้โฟลเดอร์เริ่มต้น</sys:String>
+  <sys:String x:Key="Str.DataMissingDefaultBody">เริ่มใหม่ที่ {0} โดยไม่มีการตั้งค่าและรายชื่อเกมของคุณ โฟลเดอร์เดิมจะคงไว้ตามเดิม</sys:String>
+</ResourceDictionary>

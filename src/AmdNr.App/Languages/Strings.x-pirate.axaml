@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Pirate">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.x-pirate.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.x-pirate.axaml" /><ResourceInclude Source="/Languages/Options/Options.x-pirate.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.x-pirate.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.x-pirate.axaml" /><ResourceInclude Source="/Languages/Options/Options.x-pirate.axaml" /><ResourceInclude Source="/Languages/DataFolder/DataFolder.x-pirate.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- Pirate English. The same keys as Strings.en.axaml, in its order. -->
@@ -218,7 +218,6 @@
   <sys:String x:Key="Str.DownloadingPercent">Haulin' {0}%</sys:String>
   <sys:String x:Key="Str.SettingsSubtitle">Tongue, updates, an' about this app.</sys:String>
   <sys:String x:Key="Str.LanguageHint">Every label switches right away; no need to drop anchor an' restart.</sys:String>
-  <sys:String x:Key="Str.DataFolder">Treasure hold</sys:String>
   <sys:String x:Key="Str.Preset.Pcsx2">PCSX2</sys:String>
   <sys:String x:Key="Str.Preset.Rpcs3">RPCS3</sys:String>
   <sys:String x:Key="Str.Preset.Dx11">D3D10/D3D11 game</sys:String>

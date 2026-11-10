@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Turkish">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.tr.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.tr.axaml" /><ResourceInclude Source="/Languages/Options/Options.tr.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.tr.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.tr.axaml" /><ResourceInclude Source="/Languages/Options/Options.tr.axaml" /><ResourceInclude Source="/Languages/DataFolder/DataFolder.tr.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- Türkçe. The same keys as Strings.en.axaml, in its order. -->
@@ -218,7 +218,6 @@
   <sys:String x:Key="Str.DownloadingPercent">İndiriliyor %{0}</sys:String>
   <sys:String x:Key="Str.SettingsSubtitle">Dil, güncellemeler ve bu uygulama hakkında.</sys:String>
   <sys:String x:Key="Str.LanguageHint">Tüm yazılar hemen değişir; yeniden başlatmak gerekmez.</sys:String>
-  <sys:String x:Key="Str.DataFolder">Veri klasörü</sys:String>
   <sys:String x:Key="Str.Preset.Pcsx2">PCSX2</sys:String>
   <sys:String x:Key="Str.Preset.Rpcs3">RPCS3</sys:String>
   <sys:String x:Key="Str.Preset.Dx11">D3D10/D3D11 oyunu</sys:String>

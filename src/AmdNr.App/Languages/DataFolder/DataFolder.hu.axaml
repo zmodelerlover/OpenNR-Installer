@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Hungarian. The same keys as DataFolder.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.DataFolderTitle">A telepítő adatmappája</sys:String>
+  <sys:String x:Key="Str.DataFolderHint">Beállítások, játéklista, letöltések és naplók. A telepített NR-rel futó játékok nem használják, így az áthelyezése rajtuk semmit nem változtat.</sys:String>
+  <sys:String x:Key="Str.DataFolderChange">Módosítás…</sys:String>
+  <sys:String x:Key="Str.DataFolderDefault">Vissza az alapértelmezettre</sys:String>
+  <sys:String x:Key="Str.DataFolderPick">Válaszd ki, hol tárolja a telepítő az adatait</sys:String>
+  <sys:String x:Key="Str.DataFolderNrLive">Előbb zárd be az NRLive-ot: az adatmappából fut.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveTitle">Az adatmappa áthelyezése</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveBody">Ide: {0}. A telepítő a végén újraindul.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAll">Minden áthelyezése</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAllBody">{0}, a letöltésekkel együtt. Semmit nem kell újra letölteni.</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmpty">Kezdés üres gyorsítótárral</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmptyBody">Áthelyezi a beállításokat, a játéklistát, a naplókat és a saját runtime-okat ({0}). A letöltések törlődnek, és visszajönnek, amikor egy játéknak kellenek.</sys:String>
+  <sys:String x:Key="Str.DataFolderKeepBody">Semmi nem mozdul.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoving">Áthelyezés… {0}%</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveFailed">Az áthelyezés nem fejeződött be ({0}). Semmi nem változott; az adatok továbbra is itt vannak: {1}.</sys:String>
+  <sys:String x:Key="Str.DataFolderNested">Ez a mappa átfedésben van a telepítő adatmappájával. Válassz másikat.</sys:String>
+  <sys:String x:Key="Str.DataFolderSystem">Nem lehet a Program Files vagy a Windows mappában. Válassz másik mappát.</sys:String>
+  <sys:String x:Key="Str.DataFolderGame">Ez a mappa a(z) {0} játék mappájában van, ami a listádon szerepel. Válassz másikat.</sys:String>
+  <sys:String x:Key="Str.DataFolderNotEmpty">A(z) {0} mappában már vannak fájlok. Válassz üres mappát.</sys:String>
+  <sys:String x:Key="Str.DataFolderNotWritable">Nem lehet írni ide: {0}. Válassz másik mappát.</sys:String>
+  <sys:String x:Key="Str.DataFolderNoSpace">Nincs elég hely: az áthelyezéshez {0} kell, a meghajtón {1} szabad.</sys:String>
+  <sys:String x:Key="Str.DataMissingTitle">Nem található az adatmappa</sys:String>
+  <sys:String x:Key="Str.DataMissingBody">A telepítő itt tárolja az adatait: {0}, de ez a mappa nincs meg. Ha egy leválasztott meghajtón van, csatlakoztasd, és próbáld újra.</sys:String>
+  <sys:String x:Key="Str.DataMissingRetry">Újra</sys:String>
+  <sys:String x:Key="Str.DataMissingRetryBody">Újra megkeresi a mappát.</sys:String>
+  <sys:String x:Key="Str.DataMissingDefault">Az alapértelmezett mappa használata</sys:String>
+  <sys:String x:Key="Str.DataMissingDefaultBody">Újrakezd itt: {0}, a beállításaid és a játéklistád nélkül. A másik mappa érintetlen marad.</sys:String>
+</ResourceDictionary>

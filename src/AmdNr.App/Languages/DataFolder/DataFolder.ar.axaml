@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Arabic. The same keys as DataFolder.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.DataFolderTitle">مجلد بيانات المثبّت</sys:String>
+  <sys:String x:Key="Str.DataFolderHint">الإعدادات وقائمة الألعاب والتنزيلات والسجلات. الألعاب المثبّت فيها NR لا تستخدمه، لذا نقله لا يغيّر فيها شيئًا.</sys:String>
+  <sys:String x:Key="Str.DataFolderChange">تغيير…</sys:String>
+  <sys:String x:Key="Str.DataFolderDefault">العودة إلى الافتراضي</sys:String>
+  <sys:String x:Key="Str.DataFolderPick">اختر أين يحفظ المثبّت بياناته</sys:String>
+  <sys:String x:Key="Str.DataFolderNrLive">أغلق NRLive أولًا: فهو يعمل من مجلد البيانات.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveTitle">نقل مجلد البيانات</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveBody">إلى {0}. يُعاد تشغيل المثبّت عند الانتهاء.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAll">نقل كل شيء</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAllBody">{0}، مع التنزيلات. لا حاجة إلى تنزيل أي شيء من جديد.</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmpty">البدء بذاكرة تخزين مؤقت فارغة</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmptyBody">ينقل الإعدادات وقائمة الألعاب والسجلات وبيئات التشغيل الخاصة بك ({0}). تُحذف التنزيلات وتعود حين تحتاجها لعبة.</sys:String>
+  <sys:String x:Key="Str.DataFolderKeepBody">لن يُنقل شيء.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoving">جارٍ النقل… {0}%</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveFailed">لم يكتمل النقل ({0}). لم يتغيّر شيء؛ البيانات ما زالت في {1}.</sys:String>
+  <sys:String x:Key="Str.DataFolderNested">هذا المجلد يتداخل مع مجلد بيانات المثبّت. اختر مجلدًا آخر.</sys:String>
+  <sys:String x:Key="Str.DataFolderSystem">ليس داخل Program Files أو Windows. اختر مجلدًا آخر.</sys:String>
+  <sys:String x:Key="Str.DataFolderGame">هذا المجلد داخل {0}، وهي لعبة في قائمتك. اختر مجلدًا آخر.</sys:String>
+  <sys:String x:Key="Str.DataFolderNotEmpty">يحتوي {0} على ملفات بالفعل. اختر مجلدًا فارغًا.</sys:String>
+  <sys:String x:Key="Str.DataFolderNotWritable">تتعذّر الكتابة في {0}. اختر مجلدًا آخر.</sys:String>
+  <sys:String x:Key="Str.DataFolderNoSpace">المساحة غير كافية: يحتاج النقل إلى {0} والمساحة الحرة على القرص {1}.</sys:String>
+  <sys:String x:Key="Str.DataMissingTitle">لم يُعثر على مجلد البيانات</sys:String>
+  <sys:String x:Key="Str.DataMissingBody">يحفظ المثبّت بياناته في {0}، وهذا المجلد غير موجود. إن كان على قرص مفصول، فأعد توصيله ثم حاول مجددًا.</sys:String>
+  <sys:String x:Key="Str.DataMissingRetry">إعادة المحاولة</sys:String>
+  <sys:String x:Key="Str.DataMissingRetryBody">يبحث عن المجلد مرة أخرى.</sys:String>
+  <sys:String x:Key="Str.DataMissingDefault">استخدام المجلد الافتراضي</sys:String>
+  <sys:String x:Key="Str.DataMissingDefaultBody">يبدأ من جديد في {0} بدون إعداداتك وقائمة ألعابك. يبقى المجلد الآخر كما هو.</sys:String>
+</ResourceDictionary>

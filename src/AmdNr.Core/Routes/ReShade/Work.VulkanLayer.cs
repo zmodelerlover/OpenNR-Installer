@@ -22,8 +22,11 @@ public static partial class Work
     private static string ImplicitLayersKey => TestLayerKey ?? @"SOFTWARE\Khronos\Vulkan\ImplicitLayers";
     private const string ReShadeLayerName = "VK_LAYER_reshade";
 
-    /// <summary>Where this app keeps the ReShade it registers as a layer itself.</summary>
-    internal static string OwnLayerFolder => Path.Combine(AppPaths.Root, "vulkan-layer");
+    internal const string VulkanLayerFolder = "vulkan-layer";
+
+    /// <summary>Where this app keeps the ReShade it registers as a layer itself. In Home, not the data folder:
+    /// the registry names this path, and moving the data folder must not take the layer from under a game.</summary>
+    internal static string OwnLayerFolder => Path.Combine(AppPaths.Home, VulkanLayerFolder);
 
     /// <param name="Manifest">The layer's JSON, as registered.</param>
     /// <param name="Library">The ReShade64.dll it loads.</param>

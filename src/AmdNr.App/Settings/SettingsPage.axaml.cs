@@ -1,4 +1,4 @@
-// Settings: the language, whether this is the newest release, and who made what.
+// Settings: the language, where the data lives, whether this is the newest release, and who made what.
 
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -17,6 +17,7 @@ public partial class SettingsPage : UserControl
         AboutVersion.Text = App.Label(App.Version);
         DataFolderText.Text = AppPaths.Root;
         ToolTip.SetTip(DataFolderText, AppPaths.Root);
+        DataDefaultButton.IsVisible = AppPaths.Root != AppPaths.Home;
 
         _settingLanguage = true;
         LanguageBox.ItemsSource = App.Languages.Select(l => l.Name).ToList();
@@ -110,6 +111,4 @@ public partial class SettingsPage : UserControl
     private void OnUpdateNotes(object? sender, RoutedEventArgs e) =>
         _shell.ShowWhatsNew(_shell.Session.Update.Release is { } release ? release.Version : App.Version,
             _shell.Session.Update.Release?.Notes);
-
-    private void OnOpenData(object? sender, RoutedEventArgs e) => AppUpdate.OpenFolder(AppPaths.Root);
 }

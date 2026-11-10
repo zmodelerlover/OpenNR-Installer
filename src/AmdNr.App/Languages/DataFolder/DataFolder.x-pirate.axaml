@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Pirate English. The same keys as DataFolder.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.DataFolderTitle">The installer's treasure hold</sys:String>
+  <sys:String x:Key="Str.DataFolderHint">Settings, the list o' games, plunder downloaded an' the ship's logs. Games with NR aboard never touch it, so movin' it changes naught in them.</sys:String>
+  <sys:String x:Key="Str.DataFolderChange">Change…</sys:String>
+  <sys:String x:Key="Str.DataFolderDefault">Back to the home port</sys:String>
+  <sys:String x:Key="Str.DataFolderPick">Pick where the installer stows its loot</sys:String>
+  <sys:String x:Key="Str.DataFolderNrLive">Strike NRLive first: it sails from the treasure hold.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveTitle">Move the treasure hold</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveBody">To {0}. The installer hoists anchor again when it be done.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAll">Haul everythin'</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveAllBody">{0}, plunder included. Naught to fetch again.</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmpty">Start with an empty hold</sys:String>
+  <sys:String x:Key="Str.DataFolderStartEmptyBody">Hauls settings, the list o' games, the logs an' yer runtimes ({0}). Downloads walk the plank an' come back when a game needs 'em.</sys:String>
+  <sys:String x:Key="Str.DataFolderKeepBody">Naught moves.</sys:String>
+  <sys:String x:Key="Str.DataFolderMoving">Haulin'… {0}%</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveFailed">The haul didn't finish ({0}). Naught changed; the loot still be in {1}.</sys:String>
+  <sys:String x:Key="Str.DataFolderNested">That folder crosses the installer's own hold. Pick another.</sys:String>
+  <sys:String x:Key="Str.DataFolderSystem">Not in Program Files nor Windows, matey. Pick another folder.</sys:String>
+  <sys:String x:Key="Str.DataFolderGame">That folder be inside {0}, a game on yer list. Pick another.</sys:String>
+  <sys:String x:Key="Str.DataFolderNotEmpty">{0} already has cargo in it. Pick an empty folder.</sys:String>
+  <sys:String x:Key="Str.DataFolderNotWritable">Can't scribble in {0}. Pick another folder.</sys:String>
+  <sys:String x:Key="Str.DataFolderNoSpace">Not enough room in the hold: the haul needs {0} an' the drive has {1} free.</sys:String>
+  <sys:String x:Key="Str.DataMissingTitle">Treasure hold not found</sys:String>
+  <sys:String x:Key="Str.DataMissingBody">The installer keeps its loot in {0}, an' that folder be gone. If it be on a drive cast adrift, plug it back an' try again.</sys:String>
+  <sys:String x:Key="Str.DataMissingRetry">Try again</sys:String>
+  <sys:String x:Key="Str.DataMissingRetryBody">Searches fer the folder once more.</sys:String>
+  <sys:String x:Key="Str.DataMissingDefault">Use the home port</sys:String>
+  <sys:String x:Key="Str.DataMissingDefaultBody">Starts fresh from {0}, without yer settings nor list o' games. The other hold be left as it is.</sys:String>
+</ResourceDictionary>

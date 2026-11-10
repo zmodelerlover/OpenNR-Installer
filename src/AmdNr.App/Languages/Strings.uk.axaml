@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     x:Class="AmdNr.App.Languages.Ukrainian">
   <ResourceDictionary.MergedDictionaries>
-    <ResourceInclude Source="/Languages/NrLive/NrLive.uk.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.uk.axaml" /><ResourceInclude Source="/Languages/Options/Options.uk.axaml" />
+    <ResourceInclude Source="/Languages/NrLive/NrLive.uk.axaml" /><ResourceInclude Source="/Languages/ReFramework/ReFramework.uk.axaml" /><ResourceInclude Source="/Languages/Options/Options.uk.axaml" /><ResourceInclude Source="/Languages/DataFolder/DataFolder.uk.axaml" />
   </ResourceDictionary.MergedDictionaries>
 
   <!-- Українська. The same keys as Strings.en.axaml, in its order. -->
@@ -218,7 +218,6 @@
   <sys:String x:Key="Str.DownloadingPercent">Завантаження {0}%</sys:String>
   <sys:String x:Key="Str.SettingsSubtitle">Мова, оновлення та про програму.</sys:String>
   <sys:String x:Key="Str.LanguageHint">Усі написи змінюються одразу; перезапуск не потрібен.</sys:String>
-  <sys:String x:Key="Str.DataFolder">Папка даних</sys:String>
   <sys:String x:Key="Str.Preset.Pcsx2">PCSX2</sys:String>
   <sys:String x:Key="Str.Preset.Rpcs3">RPCS3</sys:String>
   <sys:String x:Key="Str.Preset.Dx11">Гра на D3D10/D3D11</sys:String>
