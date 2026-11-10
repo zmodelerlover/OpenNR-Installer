@@ -451,6 +451,9 @@ public partial class LibraryPage : UserControl
         return string.IsNullOrWhiteSpace(path) ? null : path;
     }
 
+    /// <summary>The widest a tile gets, which is also the widest a cover is ever drawn.</summary>
+    public const double WidestTile = 264;
+
     /// <summary>Tiles stretch a little to fill the row, so the grid runs edge to edge with the same
     /// gap everywhere. Wider windows get wider tiles as well as more of them: with a fixed minimum,
     /// a tile at 2560 came out smaller than one at 980, thirteen to a row with their names cut short.
@@ -460,7 +463,7 @@ public partial class LibraryPage : UserControl
         if (CardList.ItemsPanelRoot is not WrapPanel panel) return;
         const double gap = 18, gutter = 24;
         var width = e.NewSize.Width - gutter * 2;
-        var minTile = width < 1100 ? 150 : Math.Clamp(width / 10, 168, 220);
+        var minTile = width < 1100 ? 150 : Math.Clamp(width / 10, 168, WidestTile - 44);
         var columns = Math.Max(1, Math.Floor((width + gap) / (minTile + gap)));
         var tile = Math.Floor(Math.Min(minTile + 44, (width - gap * (columns - 1)) / columns));
         panel.ItemWidth = tile + gap;

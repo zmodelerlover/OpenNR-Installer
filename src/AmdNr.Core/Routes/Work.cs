@@ -137,7 +137,7 @@ public static partial class Work
             var path = Path.Combine(folder, name);
             if (!File.Exists(path)) continue;
             Manifest manifest;
-            try { manifest = Manifest.Decode(Encoding.UTF8.GetString(Engine.Read(path))); }
+            try { manifest = Manifest.Decode(Engine.Read(path)); }
             catch (InstallException) { continue; }
             if (manifest.State != "installed") continue;
 

@@ -22,7 +22,9 @@ public sealed partial class PayloadCache
         using var response = await Http.GetAsync(address, cancel);
         Engine.Require(response.IsSuccessStatusCode,
             $"Could not read the payload list: the server answered {(int)response.StatusCode} {response.ReasonPhrase}.");
-        return PayloadManifest.Parse(await response.Content.ReadAsStringAsync(cancel));
+        // As the UTF-8 it arrived as. The list is some 6 MB: read into a string it is 11 MB, and the serializer
+        // rents three bytes a character to turn that back into UTF-8, a 32 MB buffer the pool then keeps.
+        return PayloadManifest.Parse(await response.Content.ReadAsStreamAsync(cancel));
     }
 
     /// <summary>The first of several addresses that answers with a manifest this build can read.
@@ -69,7 +71,11 @@ public sealed partial class PayloadCache
             try
             {
                 from = path;
-                if (File.Exists(path)) return PayloadManifest.Parse(File.ReadAllText(path));
+                if (File.Exists(path))
+                {
+                    using var file = File.OpenRead(path);
+                    return PayloadManifest.Parse(file);
+                }
             }
             catch (Exception e) when (e is IOException or InstallException or UnauthorizedAccessException)
             {
@@ -80,7 +86,8 @@ public sealed partial class PayloadCache
         from = "the copy built into the executable";
         try
         {
-            if (Embedded(fileName) is { } json) return PayloadManifest.Parse(json);
+            using var built = Assembly.GetExecutingAssembly().GetManifestResourceStream(fileName);
+            if (built is not null) return PayloadManifest.Parse(built);
         }
         catch (InstallException)
         {

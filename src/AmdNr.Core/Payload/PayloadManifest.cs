@@ -197,10 +197,11 @@ public sealed partial class PayloadManifest
     public IEnumerable<KeyValuePair<string, PayloadComponent>> Everyday =>
         Components.Where(pair => !OnDemand.Contains(pair.Key));
 
-    public static PayloadManifest Parse(string json)
+    public static PayloadManifest Parse(string json) => Parse(new MemoryStream(System.Text.Encoding.UTF8.GetBytes(json)));
+    public static PayloadManifest Parse(Stream utf8)
     {
         PayloadManifest? m;
-        try { m = JsonSerializer.Deserialize(json, CoreJson.Default.PayloadManifest); }
+        try { m = JsonSerializer.Deserialize(utf8, CoreJson.Default.PayloadManifest); }
         catch (JsonException e) { throw new InstallException($"The payload manifest is not readable: {e.Message}"); }
 
         Engine.Require(m is not null, "The payload manifest is empty.");

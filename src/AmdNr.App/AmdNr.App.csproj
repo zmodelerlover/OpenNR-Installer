@@ -39,6 +39,9 @@
     <RuntimeIdentifier Condition="'$(RuntimeIdentifier)' == ''">win-x64</RuntimeIdentifier>
     <DebugType>none</DebugType>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <!-- Nothing here runs long enough to pay the profiling back: without it the window is up some 0.15 s
+         sooner and the instrumented copies of the code, 5 MB of them, are never made. -->
+    <TieredPGO>false</TieredPGO>
   </PropertyGroup>
 
   <ItemGroup>
