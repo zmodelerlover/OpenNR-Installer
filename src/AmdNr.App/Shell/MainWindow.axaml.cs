@@ -27,7 +27,10 @@ public partial class MainWindow : Window
 
     public MainWindow()
     {
-        Library = new Library(Session);
+        Library = new Library(Session)
+        {
+            CoverWidth = (int)Math.Ceiling(LibraryPage.WidestTile * Screens.All.Select(s => s.Scaling).DefaultIfEmpty(1).Max()),
+        };
         InitializeComponent();
         _lastTab = TabGames;
         if (NrLivePage.ComingSoon)

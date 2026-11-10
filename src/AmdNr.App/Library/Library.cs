@@ -317,13 +317,18 @@ public sealed class Library(Session session)
         }
     }
 
-    /// <summary>The widths art is decoded at: what a tile shows a cover at, and what the widest page shows a banner at.</summary>
-    private const int CoverWidth = 440, HeroWidth = 1600;
+    /// <summary>The width a cover is decoded at: the widest a tile gets, in the pixels of the sharpest screen. A cover
+    /// is 4 bytes a pixel for as long as the app is open, 1.2 MB at 440 wide, and at 100% scaling no tile is drawn
+    /// wider than 264.</summary>
+    public int CoverWidth { get; init; } = 440;
 
-    private static Task<Bitmap> Decode(string file, int width = CoverWidth) => Task.Run(() =>
+    /// <summary>What the widest page shows a banner at.</summary>
+    private const int HeroWidth = 1600;
+
+    private Task<Bitmap> Decode(string file, int? width = null) => Task.Run(() =>
     {
         using var stream = File.OpenRead(file);
-        return Bitmap.DecodeToWidth(stream, width, BitmapInterpolationMode.HighQuality);
+        return Bitmap.DecodeToWidth(stream, width ?? CoverWidth, BitmapInterpolationMode.HighQuality);
     });
 
     /// <summary>A game pinned to the top of the library, or unpinned.</summary>
