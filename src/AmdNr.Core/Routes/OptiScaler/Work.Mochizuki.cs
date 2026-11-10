@@ -209,7 +209,8 @@ public static partial class Work
         + "that it opens in seconds. If a pipeline fails to compile NR stays off and OptiScaler's mochizuki page says why.";
 
     /// <summary>What the mochizuki runtime writes beside its files while a game runs -- the pipeline
-    /// cache, ACO's imported network, int4 mixed's own cache and binaries, the marker of a network build that never
+    /// cache, ACO's imported networks and the weights the runtime makes (aco-cache\*.nrb), each int4 level's own
+    /// cache and binaries (int4\, int4-performance\, int4-ultra\), the marker of a network build that never
     /// finished (build.pending, or build.failed as the add-on renames it), the mark of a game whose colour switches float
     /// formats (float-colour-shared), the RX 7000 and RX 6000 networks' pipeline caches, prewarm lists, checks
     /// (rdna3-check.txt / rdna2-check.txt, and the child's list, log and machine code in rdna3-check\ / rdna2-check\) and
@@ -222,15 +223,17 @@ public static partial class Work
         if (!Directory.Exists(root) || File.Exists(Path.Combine(dir, MochizukiRuntimeName))) return;
         try
         {
-            // int4 mixed keeps a pipeline cache of its own and its rewritten pipeline binaries under int4\.
+            // Each int4 level of the optimized network keeps a pipeline cache of its own and its rewritten pipeline
+            // binaries in its folder.
             var acoCache = Path.Combine(root, MochizukiAcoCache);
-            var int4Binaries = Path.Combine(root, "int4", "pipeline-binaries");
+            string[] int4 = [.. new[] { "int4", "int4-performance", "int4-ultra" }.Select(l => Path.Combine(root, l))];
+            var int4Binaries = int4.Select(l => Path.Combine(l, "pipeline-binaries")).ToArray();
             // The FP16 networks' checks (with the machine code the child compiled) and that machine code once kept.
             string[] fp16 = [.. new[] { "rdna3-check", "rdna2-check" }.SelectMany(c => new[] { Path.Combine(root, c), Path.Combine(root, c, "binaries") }),
                              Path.Combine(root, "binaries-rdna3"), Path.Combine(root, "binaries-rdna2")];
             foreach (var file in Directory.EnumerateFiles(root).Concat(Leaves(Path.Combine(root, "prewarm")))
-                         .Concat(Leaves(Path.Combine(root, "int4"))).Concat(Leaves(acoCache))
-                         .Concat(Leaves(int4Binaries)).Concat(fp16.SelectMany(Leaves)).ToList())
+                         .Concat(int4.SelectMany(Leaves)).Concat(Leaves(acoCache))
+                         .Concat(int4Binaries.SelectMany(Leaves)).Concat(fp16.SelectMany(Leaves)).ToList())
             {
                 var name = Path.GetFileName(file);
                 var folder = Path.GetDirectoryName(file);
@@ -239,7 +242,7 @@ public static partial class Work
                               || fp16.Contains(folder)
                               || folder == root && name is "build.pending" or "build.failed" or "float-colour-shared"
                                   or "rdna3-check.txt" or "rdna2-check.txt"
-                              || folder == int4Binaries
+                              || int4Binaries.Contains(folder)
                               || folder == acoCache
                               && (name.EndsWith(".nrb", StringComparison.OrdinalIgnoreCase)
                                   || name.EndsWith(".nrb.tmp", StringComparison.OrdinalIgnoreCase))

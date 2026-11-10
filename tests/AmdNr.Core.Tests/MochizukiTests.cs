@@ -27,7 +27,7 @@ public partial class MochizukiTests
         "dlssnr-amd.shaders/shader-constants.txt", "dlssnr-amd.shaders.runtime/cascade_blur.spv",
         "dlssnr-amd.shaders.temporal/shader-constants.txt", "dlssnr-amd/LICENSE-DLSSNR-AMD.txt",
         "dlssnr-amd.aco.shaders.temporal/temporal_pre_fp32.spv", "dlssnr-amd.aco.int4.shaders.temporal/temporal_pre_fp32.spv",
-        "dlssnr-amd/dlssnr-int4.bin",
+        "dlssnr-amd.aco.optimized.shaders.temporal/temporal_pre_fp32.spv", "dlssnr-amd.int4-ultra.shaders.temporal/temporal_pre_fp32.spv",
     ];
 
     private static readonly string[] Destinations =
@@ -36,7 +36,8 @@ public partial class MochizukiTests
         "dlssnr-amd/shaders/shader-constants.txt", "dlssnr-amd/shaders/runtime/cascade_blur.spv",
         "dlssnr-amd/shaders/temporal/shader-constants.txt", "dlssnr-amd/LICENSE-DLSSNR-AMD.txt",
         "dlssnr-amd/aco/shaders/temporal/temporal_pre_fp32.spv", "dlssnr-amd/aco/int4/shaders/temporal/temporal_pre_fp32.spv",
-        "dlssnr-amd/dlssnr-int4.bin", ModelPath,
+        "dlssnr-amd/aco/optimized/shaders/temporal/temporal_pre_fp32.spv", "dlssnr-amd/int4-ultra/shaders/temporal/temporal_pre_fp32.spv",
+        ModelPath,
     ];
 
     private static string Content(string path, string tag) => path == "OptiScaler.ini" ? Ini : $"{tag} {path}";
@@ -50,8 +51,9 @@ public partial class MochizukiTests
 
     /// <summary>A payload list shaped like the one this release ships: 0.3.0 without mochizuki and 0.4.0
     /// with it. <paramref name="tag"/> is what every mochizuki file of 0.4.0 holds, so a second list with
-    /// another tag pins another build; <paramref name="placeholder"/> leaves 0.4.0's archive unpinned.</summary>
-    internal static PayloadManifest Payload(string tag = "0.4.0", bool model = true, bool placeholder = false) =>
+    /// another tag pins another build; <paramref name="placeholder"/> leaves 0.4.0's archive unpinned; <paramref name="paths"/>
+    /// are its mochizuki files when not <see cref="MochizukiPaths"/>.</summary>
+    internal static PayloadManifest Payload(string tag = "0.4.0", bool model = true, bool placeholder = false, string[]? paths = null) =>
         PayloadManifest.Parse($$$"""
         {"schema":1,"components":{
           "addon":{"version":"1","files":[{"name":"amd-nr.addon64","size":1,"sha256":"{{{new string('1', 64)}}}","url":"https://x/a"}]},
@@ -63,7 +65,7 @@ public partial class MochizukiTests
         },"releases":{"optiscaler":[
           {"version":"0.4.0-amd-nr","components":{
             "optiscaler":{"version":"0.4.0-amd-nr","files":{{{Zip("o40.zip", placeholder ? PayloadManifest.PlaceholderSha : null)}}},"extract":[{{{Pinned(OptiPaths, "0.4.0")}}}]},
-            "mochizuki":{"version":"0.4.0-amd-nr","files":{{{Zip("mochizuki-0.4.0-amd-nr.zip")}}},"extract":[{{{Pinned(MochizukiPaths, tag)}}}]}
+            "mochizuki":{"version":"0.4.0-amd-nr","files":{{{Zip("mochizuki-0.4.0-amd-nr.zip")}}},"extract":[{{{Pinned(paths ?? MochizukiPaths, tag)}}}]}
             {{{(model ? $$""","mochizuki-model":{"version":"1","files":[{"name":"dlssnr.bin","path":"{{ModelPath}}","size":{{Encoding.UTF8.GetByteCount(Content(ModelPath, "model"))}},"sha256":"{{Sha(Content(ModelPath, "model"))}}","url":"https://x/m"}]}""" : "")}}}
           }},
           {"version":"0.3.0-amd-nr","components":{
@@ -74,9 +76,9 @@ public partial class MochizukiTests
 
     /// <summary>The staging folder PayloadCache.Stage would make for the newest version, with the bytes
     /// it pins, and the pins.</summary>
-    private static (string Src, PayloadPins Pins) Staged(string label, string tag = "0.4.0")
+    private static (string Src, PayloadPins Pins) Staged(string label, string tag = "0.4.0", string[]? paths = null)
     {
-        var manifest = Payload(tag).Newest(PayloadManifest.OptiScalerComponent);
+        var manifest = Payload(tag, paths: paths).Newest(PayloadManifest.OptiScalerComponent);
         var src = Fixture.Temp($"mochizuki-src-{label}");
         foreach (var name in new[] { PayloadManifest.OptiScalerComponent, PayloadManifest.MochizukiComponent, PayloadManifest.MochizukiModelComponent })
             foreach (var file in manifest.Component(name).Installed)
@@ -377,10 +379,17 @@ public partial class MochizukiTests
         Directory.CreateDirectory(Path.Combine(data, "aco-cache"));
         File.WriteAllText(Path.Combine(data, "aco-cache", "0123456789abcdef.nrb"), "imported");
         File.WriteAllText(Path.Combine(data, "aco-cache", "fedcba9876543210.nrb.tmp"), "half");
-        // ...and int4 mixed: its own pipeline cache and rewritten binaries.
-        Directory.CreateDirectory(Path.Combine(data, "int4", "pipeline-binaries"));
-        File.WriteAllText(Path.Combine(data, "int4", "pipeline.cache"), "compiled");
-        File.WriteAllText(Path.Combine(data, "int4", "pipeline-binaries", "0123.bin"), "rewritten");
+        // ...the optimized network's weights, made at first use...
+        File.WriteAllText(Path.Combine(data, "aco-cache", "dlssnr-optimized.nrb"), "packed");
+        File.WriteAllText(Path.Combine(data, "aco-cache", "dlssnr-optimized-int4.nrb"), "packed");
+        File.WriteAllText(Path.Combine(data, "aco-cache", "pipeline-optimized.nrb"), "packed");
+        // ...and each int4 level: its own pipeline cache and rewritten binaries.
+        foreach (var level in new[] { "int4", "int4-performance", "int4-ultra" })
+        {
+            Directory.CreateDirectory(Path.Combine(data, level, "pipeline-binaries"));
+            File.WriteAllText(Path.Combine(data, level, "pipeline.cache"), "compiled");
+            File.WriteAllText(Path.Combine(data, level, "pipeline-binaries", "0123.bin"), "rewritten");
+        }
 
         var gone = Work.Uninstall(game, Preset.OptiScaler);
         Assert.False(gone.Failed, gone.ToLog("uninstall"));

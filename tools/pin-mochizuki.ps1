@@ -12,7 +12,10 @@
       dlssnr-amd\dlssnr-small.bin            the second model (NVIDIA 310.9.16, optional; OptiScaler 0.5.4 on)
       dlssnr-amd\prewarm\manifest.txt        the prewarm list, made for these shaders
       dlssnr-amd\shaders\...                 files, and one level of folders under it
-      dlssnr-amd\aco\...                     ACO's network (optional), two folder levels
+      dlssnr-amd\aco\...                     ACO's networks (optional), three folder levels (aco\optimized\shaders\temporal)
+      dlssnr-amd\int4\...                    the optimized network's int4 levels (optional), two folder levels, and
+      dlssnr-amd\int4-performance\...        its weights made at first use from dlssnr.bin: no dlssnr-int4.bin ships
+      dlssnr-amd\int4-ultra\...              from mochizuki 0.0.8.3 on
       dlssnr-amd\shaders-rdna3\...           the RX 7000 network (optional), one level of folders under it
       dlssnr-amd\shaders-rdna2\...           the RX 6000 network (optional), one level of folders under it
       dlssnr-amd\prewarm\manifest-rdna3.txt  the RX 7000 network's prewarm list (optional, with shaders-rdna3)
@@ -111,8 +114,10 @@ function Written($name) { $name -eq 'pipeline.cache' -or $name -like '*.tmp' -or
 
 $top = Get-ChildItem -LiteralPath $data -Force
 foreach ($item in $top) {
-    $ok = ($item.PSIsContainer -and $item.Name -in 'prewarm', 'shaders', 'shaders-rdna3', 'shaders-rdna2', 'aco', 'int4') -or
-          (-not $item.PSIsContainer -and $item.Name -in 'dlssnr.bin', 'dlssnr-int4.bin', 'dlssnr-small.bin')
+    $ok = ($item.PSIsContainer -and $item.Name -in 'prewarm', 'shaders', 'shaders-rdna3', 'shaders-rdna2', 'aco', 'int4', 'int4-performance', 'int4-ultra') -or
+          (-not $item.PSIsContainer -and $item.Name -in 'dlssnr.bin', 'dlssnr-small.bin')
+    # mochizuki 0.0.8.3 on makes the int4 weights at first use (aco-cache\dlssnr-optimized-int4.nrb).
+    if ($item.Name -eq 'dlssnr-int4.bin') { Fail "dlssnr-amd\dlssnr-int4.bin no longer ships: the runtime makes the int4 weights itself. Leave it out of -From" }
     if (-not $ok) { Fail "dlssnr-amd\$($item.Name) is not part of a release$(if (Written $item.Name) { ': the runtime wrote it while a game ran' })" }
 }
 $extra = Get-ChildItem -LiteralPath (Join-Path $data 'prewarm') -Force | Where-Object { $_.Name -notin 'manifest.txt', 'manifest-rdna3.txt', 'manifest-rdna2.txt' }
@@ -141,8 +146,8 @@ foreach ($item in Get-ChildItem -LiteralPath $shaders -Force) {
         $shaderCount++
     }
 }
-# dlssnr-amd\aco\: ACO's network (OptiScaler's MochizukiAco), files and two levels of folders under it
-# (records\, shaders\, shaders\temporal\), spelled with dots like the shaders.
+# dlssnr-amd\aco\: ACO's networks (OptiScaler's MochizukiAco), files and three levels of folders under it
+# (records\, shaders\temporal\, int4\shaders\temporal\, optimized\shaders\temporal\), spelled with dots like the shaders.
 function AddTree($dir, $payload, $levels) {
     foreach ($item in Get-ChildItem -LiteralPath $dir -Force) {
         $at = "$dir\$($item.Name)".Substring($data.Length + 1)
@@ -156,16 +161,15 @@ function AddTree($dir, $payload, $levels) {
 }
 $aco = Join-Path $data 'aco'
 if (Test-Path -LiteralPath $aco) { AddTree $aco 'dlssnr-amd.aco' 3 }
-# int4 mixed: its tables, settings and network in int4\ (two levels: shaders\temporal\), and its weights, made
-# from the model by dlssnr-int4-weights.exe (MZ_MODEL in build-mochizuki-runtime.cmd), beside dlssnr.bin.
-$int4 = Join-Path $data 'int4'
-$int4Weights = Join-Path $data 'dlssnr-int4.bin'
-if ((Test-Path -LiteralPath $int4) -ne (Test-Path -LiteralPath $int4Weights)) {
-    Fail "dlssnr-amd\int4\ and dlssnr-amd\dlssnr-int4.bin ship together: build with MZ_MODEL set, or remove both"
+# The optimized network's int4 levels (MochizukiOptimizedLayers): tables, settings and shaders in int4\,
+# int4-performance\ and int4-ultra\ (two levels: vit\, swin\, shaders\temporal\). The runtime makes the int4 weights
+# from dlssnr.bin with int4-ultra's tables, so aco\optimized\ is no use without int4-ultra\.
+foreach ($level in 'int4', 'int4-performance', 'int4-ultra') {
+    $tree = Join-Path $data $level
+    if (Test-Path -LiteralPath $tree) { AddTree $tree "dlssnr-amd.$level" 2 }
 }
-if (Test-Path -LiteralPath $int4) {
-    AddTree $int4 'dlssnr-amd.int4' 2
-    $files.Add([pscustomobject]@{ Path = 'dlssnr-amd/dlssnr-int4.bin'; File = $int4Weights })
+if ((Test-Path -LiteralPath (Join-Path $data 'aco\optimized')) -and -not (Test-Path -LiteralPath (Join-Path $data 'int4-ultra'))) {
+    Fail "dlssnr-amd\aco\optimized\ without dlssnr-amd\int4-ultra\: the runtime makes the optimized network's int4 weights from its tables"
 }
 # The RX 7000 and RX 6000 networks: their shaders, runtime\ and temporal\, and their prewarm lists, each in an archive
 # of its own (see 4.).

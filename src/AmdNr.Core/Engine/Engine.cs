@@ -335,7 +335,8 @@ public static partial class Engine
 
     /// <summary>A plain file in dlssnr-amd\, or up to four folders below it: dlssnr-amd\dlssnr.bin,
     /// dlssnr-amd\prewarm\manifest.txt, dlssnr-amd\shaders\runtime\x.spv, and ACO's networks in
-    /// dlssnr-amd\aco\shaders\temporal\x.spv and dlssnr-amd\aco\int4\shaders\temporal\x.spv. Nothing deeper,
+    /// dlssnr-amd\aco\shaders\temporal\x.spv, dlssnr-amd\aco\int4\shaders\temporal\x.spv and
+    /// dlssnr-amd\aco\optimized\shaders\temporal\x.spv. Nothing deeper,
     /// nothing that climbs.</summary>
     private static bool IsMochizukiData(string name)
     {
