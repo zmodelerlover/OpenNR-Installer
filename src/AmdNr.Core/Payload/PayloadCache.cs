@@ -299,16 +299,66 @@ public sealed partial class PayloadCache(HttpClient http, IReadOnlyList<string>?
         // One at a time. The sheet's pre-flight stages in the background and Install stages right
         // after it; two of these on one folder deleted each other's links, and the install read a
         // folder with a file missing from it.
-        lock (Staging) return StageLocked(manifest, components);
+        lock (Staging)
+        {
+            var staging = StageLocked(manifest, components);
+            SweepOthers(Path.GetDirectoryName(staging)!);
+            return staging;
+        }
     }
 
     private static readonly Lock Staging = new();
+
+    /// <summary>The folders this run of the app staged: the only ones a pre-flight or an install can be reading.</summary>
+    private static readonly HashSet<string> Staged = new(StringComparer.OrdinalIgnoreCase);
+
+    /// <summary>The sweep <see cref="Stage"/> last started, for a test to wait on.</summary>
+    internal static Task Sweep { get; private set; } = Task.CompletedTask;
+
+    /// <summary>Deletes every folder in cache\staging that this run of the app did not stage. One was made per
+    /// set of component versions and none was ever deleted: on NTFS the links cost next to nothing, but Explorer
+    /// adds them all up (40 GB, as one player counted before emptying it by hand), and on a volume that refuses
+    /// links they are whole copies. A folder is made again at every pre-flight and every install, so nothing is
+    /// lost with one. Whatever is reading one got it from Stage in this run, and those stay until the next.
+    ///
+    /// On another thread, and the staging lock is held only to rename a folder out of the way, under a name no
+    /// set of versions can have: a folder is over a thousand links and 0.3 s to delete, and an install waiting to
+    /// stage would sit through forty of them. One that will not move or delete has a file held open, and goes with
+    /// a later sweep.</summary>
+    private static void SweepOthers(string root)
+    {
+        if (!Sweep.IsCompleted) return;
+        Sweep = Task.Run(() =>
+        {
+            try
+            {
+                var staging = new DirectoryInfo(root);
+                if (Engine.IsLink(staging)) return;
+                foreach (var dir in staging.GetDirectories())
+                {
+                    try
+                    {
+                        lock (Staging)
+                        {
+                            if (Staged.Contains(dir.FullName) || Engine.IsLink(dir)) continue;
+                            dir.MoveTo(Path.Combine(root, $"~{Guid.NewGuid():N}"));
+                        }
+                        dir.Delete(recursive: true);
+                    }
+                    catch (Exception e) when (e is IOException or UnauthorizedAccessException) { }
+                }
+            }
+            catch (Exception e) when (e is IOException or UnauthorizedAccessException) { }
+        });
+    }
 
     private static string StageLocked(PayloadManifest manifest, string[] components)
     {
         var key = string.Join("-", components.Select(c => $"{Sanitise(c)}.{Sanitise(manifest.Component(c).Version)}"));
         var staging = Path.Combine(AppPaths.Cache, "staging", key.Length <= 120 ? key : key[..120]);
         Directory.CreateDirectory(staging);
+        // As the sweep will read it off the disk: a key cut at 120 can end in a period, which Windows drops.
+        Staged.Add(Path.GetFullPath(staging));
 
         foreach (var component in components)
         {
