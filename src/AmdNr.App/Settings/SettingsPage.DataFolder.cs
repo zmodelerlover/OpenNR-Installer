@@ -74,11 +74,14 @@ public partial class SettingsPage
         DataMovingText.Text = Ui.Format("Str.DataFolderMoving", 0);
         try
         {
-            var left = await Task.Run(() => DataMove.Move(from, target, AppPaths.Home, withCache, new Progress<double>(p =>
+            // Made here, on the UI thread, so its reports come back to it: made inside Task.Run they ran on the
+            // thread pool and the progress bar threw "Call from invalid thread", which closed the app.
+            var progress = new Progress<double>(p =>
             {
                 DataProgress.Value = p;
                 DataMovingText.Text = Ui.Format("Str.DataFolderMoving", (int)(p * 100));
-            })));
+            });
+            var left = await Task.Run(() => DataMove.Move(from, target, AppPaths.Home, withCache, progress));
             AppPaths.Reload();
             InstallLog.Append($"{DateTime.Now:s} data folder moved from {from} to {target}"
                               + (withCache ? "" : ", cache left to come back by download")
