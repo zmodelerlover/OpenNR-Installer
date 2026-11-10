@@ -102,6 +102,10 @@ public partial class MainWindow : Window
         // ignoring the only answer it asked for.
         if (Library.Cards.Count == 0 && Library.Away == 0 && !Settings.Load().ScanDeclined)
             await GamesPage.ScanAsync();
+
+        // Opening read the payload list and every game's files, and a third of the heap is what that left behind.
+        // Collected and given back here, once, not whenever the next full collection happens to come.
+        GC.Collect(GC.MaxGeneration, GCCollectionMode.Aggressive, blocking: true, compacting: true);
     }
 
     private static string GoneMessage(IReadOnlyList<string> gone) =>
