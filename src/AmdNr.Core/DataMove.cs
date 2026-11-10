@@ -169,7 +169,14 @@ public static class DataMove
         try
         {
             if (made) Directory.Delete(to, recursive: true);
-            else foreach (var file in written) File.Delete(file);
+            else
+            {
+                foreach (var file in written) File.Delete(file);
+                // The folders it made for them too, deepest first, leaving the person's own folder empty again.
+                foreach (var dir in Directory.EnumerateDirectories(to, "*", SearchOption.AllDirectories)
+                             .OrderByDescending(d => d.Length).ToList())
+                    if (!Directory.EnumerateFileSystemEntries(dir).Any()) Directory.Delete(dir);
+            }
         }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException)
         {
