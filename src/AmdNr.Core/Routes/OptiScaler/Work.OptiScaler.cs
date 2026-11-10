@@ -175,7 +175,7 @@ public static partial class Work
     {
         var path = Path.Combine(dir, route.ManifestFileName());
         if (!File.Exists(path)) return null;
-        try { return Manifest.Decode(System.Text.Encoding.UTF8.GetString(Engine.Read(path))); }
+        try { return Manifest.Decode(Engine.Read(path)); }
         catch (InstallException) { return null; }
     }
 

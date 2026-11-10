@@ -155,7 +155,7 @@ public static partial class Work
         string why;
         try
         {
-            Manifest.Decode(Encoding.UTF8.GetString(Engine.Read(path)));
+            Manifest.Decode(Engine.Read(path));
             return 0;
         }
         catch (InstallException e) { why = e.Message; }
@@ -185,7 +185,7 @@ public static partial class Work
             var path = Path.Combine(dir, route.ManifestFileName());
             if (!File.Exists(path)) continue;
             Manifest m;
-            try { m = Manifest.Decode(Encoding.UTF8.GetString(Engine.Read(path))); }
+            try { m = Manifest.Decode(Engine.Read(path)); }
             catch (InstallException e) { return $"The install record here ({route.ManifestFileName()}) cannot be read: {e.Message}."; }
             if (m.State != "installed") return "An earlier install here was cut off before it finished.";
             if (route != preset.Route() || m.Preset == preset.ManifestPreset()
@@ -278,7 +278,7 @@ public static partial class Work
             {
                 if (migrate) Transaction.MigrateLegacyManifest(dir, route);
                 var path = Path.Combine(dir, route.ManifestFileName());
-                if (File.Exists(path)) found.Add(Manifest.Decode(Encoding.UTF8.GetString(Engine.Read(path))));
+                if (File.Exists(path)) found.Add(Manifest.Decode(Engine.Read(path)));
             }
             catch (InstallException)
             {

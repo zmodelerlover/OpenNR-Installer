@@ -79,7 +79,7 @@ public static partial class Transaction
         Engine.SafePath(was);
         if (File.Exists(now) || !File.Exists(was)) return;
 
-        var m = Manifest.Decode(Encoding.UTF8.GetString(Engine.Read(was)));
+        var m = Manifest.Decode(Engine.Read(was));
         m.Entries.RemoveAll(e => Engine.Legacy.Contains(e.Name, StringComparer.Ordinal));
         Manifest.WriteAtomic(dir, m);
         try { File.Delete(was); } catch (IOException) { /* the new one is authoritative either way */ }
@@ -106,7 +106,7 @@ public static partial class Transaction
         var m = new Manifest(preset, route) { FileName = manifestName };
         if (File.Exists(manifestPath))
         {
-            m = Manifest.Decode(Encoding.UTF8.GetString(Engine.Read(manifestPath)));
+            m = Manifest.Decode(Engine.Read(manifestPath));
             m.FileName = manifestName;
             // What is about to be written is this build's pair, whatever the folder had before.
             m.BridgeProtocol = Manifest.Current;

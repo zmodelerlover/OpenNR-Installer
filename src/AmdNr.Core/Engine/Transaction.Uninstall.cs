@@ -21,7 +21,7 @@ public static partial class Transaction
         Engine.SafePath(manifestPath);
         Engine.Require(File.Exists(manifestPath), "No install manifest");
 
-        var m = Manifest.Decode(Encoding.UTF8.GetString(Engine.Read(manifestPath)));
+        var m = Manifest.Decode(Engine.Read(manifestPath));
         m.FileName = manifestName;
         var keep = new List<Entry>();
 

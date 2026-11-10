@@ -35,7 +35,7 @@ public static partial class GameScanner
             var path = Path.Combine(folder, name);
             if (!File.Exists(path)) continue;
             Manifest manifest;
-            try { manifest = Manifest.Decode(Encoding.UTF8.GetString(Engine.Read(path))); }
+            try { manifest = Manifest.Decode(Engine.Read(path)); }
             catch (InstallException) { continue; }
             if (!manifest.Entries.Any(e => e.Owned && !e.Configuration && File.Exists(Path.Combine(folder, e.Name))))
                 continue;

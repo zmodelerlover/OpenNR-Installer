@@ -131,22 +131,32 @@ public sealed class Manifest(string preset, Route route)
     /// <see cref="Engine.Allowed"/>, the hashes as hashes, a backup only inside the backup folder and
     /// under its own name. Those checks are what stop a tampered manifest from reaching any file this
     /// app does not own; the layout never did.</summary>
-    public static Manifest Decode(string s)
+    public static Manifest Decode(string s) => Decode(Encoding.UTF8.GetBytes(s));
+
+    /// <summary>The file's bytes as they are. An OptiScaler install's record is some 300 KB and every tile reads
+    /// its own several times while the app opens: as a string, trimmed and copied out of the parser, each read
+    /// left 2 MB on the large object heap.</summary>
+    public static Manifest Decode(ReadOnlyMemory<byte> utf8)
     {
-        JsonElement root;
+        // White space around the document is the parser's to skip; a byte order mark is not.
+        if (utf8.Span.StartsWith(Encoding.UTF8.Preamble)) utf8 = utf8[Encoding.UTF8.Preamble.Length..];
+        // Checked here: the parser leaves the inside of a string alone, and reading one that is not UTF-8 throws later.
+        Engine.Require(System.Text.Unicode.Utf8.IsValid(utf8.Span), "Unreadable install manifest: it is not complete JSON");
+        JsonDocument doc;
         try
         {
-            using var doc = JsonDocument.Parse(Engine.Trim(s), new JsonDocumentOptions
+            doc = JsonDocument.Parse(utf8, new JsonDocumentOptions
             {
                 AllowTrailingCommas = true,
                 CommentHandling = JsonCommentHandling.Skip,
             });
-            root = doc.RootElement.Clone();
         }
         catch (JsonException)
         {
             throw new InstallException("Unreadable install manifest: it is not complete JSON");
         }
+        using var parsed = doc;
+        var root = doc.RootElement;
         Engine.Require(root.ValueKind == JsonValueKind.Object, "Unreadable install manifest: it is not complete JSON");
         Engine.Require(root.TryGetProperty("schema", out var schema) && schema.ValueKind == JsonValueKind.Number
                        && schema.TryGetInt32(out var version) && version == 1, "Unknown manifest schema");
