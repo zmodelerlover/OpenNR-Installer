@@ -19,6 +19,8 @@
   <sys:String x:Key="Str.DataFolderKeepBody">Нічого не переноситься.</sys:String>
   <sys:String x:Key="Str.DataFolderMoving">Перенесення… {0}%</sys:String>
   <sys:String x:Key="Str.DataFolderMoveFailed">Перенесення не завершено ({0}). Нічого не змінилося; дані й далі в {1}.</sys:String>
+  <sys:String x:Key="Str.DataFolderCancel">Скасувати</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveCancelled">Перенесення скасовано. Нічого не змінилося; дані й далі в {0}.</sys:String>
   <sys:String x:Key="Str.DataFolderNested">Ця тека перетинається з текою даних інсталятора. Виберіть іншу.</sys:String>
   <sys:String x:Key="Str.DataFolderSystem">Не всередині Program Files чи Windows. Виберіть іншу теку.</sys:String>
   <sys:String x:Key="Str.DataFolderGame">Ця тека всередині {0}, гри з вашого списку. Виберіть іншу.</sys:String>

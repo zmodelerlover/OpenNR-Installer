@@ -19,6 +19,8 @@
   <sys:String x:Key="Str.DataFolderKeepBody">Niekas neperkeliama.</sys:String>
   <sys:String x:Key="Str.DataFolderMoving">Perkeliama… {0} %</sys:String>
   <sys:String x:Key="Str.DataFolderMoveFailed">Perkėlimas nebaigtas ({0}). Niekas nepasikeitė; duomenys vis dar yra {1}.</sys:String>
+  <sys:String x:Key="Str.DataFolderCancel">Atšaukti</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveCancelled">Perkėlimas atšauktas. Niekas nepasikeitė; duomenys vis dar yra {0}.</sys:String>
   <sys:String x:Key="Str.DataFolderNested">Šis aplankas persidengia su diegimo programos duomenų aplanku. Pasirinkite kitą.</sys:String>
   <sys:String x:Key="Str.DataFolderSystem">Ne Program Files ar Windows aplanke. Pasirinkite kitą aplanką.</sys:String>
   <sys:String x:Key="Str.DataFolderGame">Šis aplankas yra {0} – žaidimo iš jūsų sąrašo – viduje. Pasirinkite kitą.</sys:String>

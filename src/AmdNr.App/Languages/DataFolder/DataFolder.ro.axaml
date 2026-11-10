@@ -19,6 +19,8 @@
   <sys:String x:Key="Str.DataFolderKeepBody">Nu se mută nimic.</sys:String>
   <sys:String x:Key="Str.DataFolderMoving">Se mută… {0}%</sys:String>
   <sys:String x:Key="Str.DataFolderMoveFailed">Mutarea nu s-a terminat ({0}). Nu s-a schimbat nimic; datele sunt tot în {1}.</sys:String>
+  <sys:String x:Key="Str.DataFolderCancel">Anulează</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveCancelled">Mutarea a fost anulată. Nu s-a schimbat nimic; datele sunt tot în {0}.</sys:String>
   <sys:String x:Key="Str.DataFolderNested">Folderul acesta se suprapune cu folderul de date al instalatorului. Alege altul.</sys:String>
   <sys:String x:Key="Str.DataFolderSystem">Nu în Program Files sau Windows. Alege alt folder.</sys:String>
   <sys:String x:Key="Str.DataFolderGame">Folderul acesta e în {0}, un joc din lista ta. Alege altul.</sys:String>

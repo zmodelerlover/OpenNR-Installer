@@ -19,6 +19,8 @@
   <sys:String x:Key="Str.DataFolderKeepBody">Nic nie zostanie przeniesione.</sys:String>
   <sys:String x:Key="Str.DataFolderMoving">Przenoszenie… {0}%</sys:String>
   <sys:String x:Key="Str.DataFolderMoveFailed">Przenoszenie nie zostało ukończone ({0}). Nic się nie zmieniło; dane są nadal w {1}.</sys:String>
+  <sys:String x:Key="Str.DataFolderCancel">Anuluj</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveCancelled">Przenoszenie anulowane. Nic się nie zmieniło; dane nadal są w {0}.</sys:String>
   <sys:String x:Key="Str.DataFolderNested">Ten folder pokrywa się z folderem danych instalatora. Wybierz inny.</sys:String>
   <sys:String x:Key="Str.DataFolderSystem">Nie w Program Files ani w Windows. Wybierz inny folder.</sys:String>
   <sys:String x:Key="Str.DataFolderGame">Ten folder jest w {0}, grze z twojej listy. Wybierz inny.</sys:String>

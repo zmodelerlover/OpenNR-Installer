@@ -19,6 +19,8 @@
   <sys:String x:Key="Str.DataFolderKeepBody">不移动任何内容。</sys:String>
   <sys:String x:Key="Str.DataFolderMoving">正在移动… {0}%</sys:String>
   <sys:String x:Key="Str.DataFolderMoveFailed">移动未完成（{0}）。没有任何更改；数据仍在 {1}。</sys:String>
+  <sys:String x:Key="Str.DataFolderCancel">取消</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveCancelled">已取消移动。没有任何更改；数据仍在 {0}。</sys:String>
   <sys:String x:Key="Str.DataFolderNested">该文件夹与安装器的数据文件夹重叠。请另选一个。</sys:String>
   <sys:String x:Key="Str.DataFolderSystem">不能位于 Program Files 或 Windows 中。请另选一个文件夹。</sys:String>
   <sys:String x:Key="Str.DataFolderGame">该文件夹位于 {0} 中，这是你列表里的一个游戏。请另选一个。</sys:String>

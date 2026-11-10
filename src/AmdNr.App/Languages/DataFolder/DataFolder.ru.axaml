@@ -19,6 +19,8 @@
   <sys:String x:Key="Str.DataFolderKeepBody">Ничего не переносится.</sys:String>
   <sys:String x:Key="Str.DataFolderMoving">Перенос… {0}%</sys:String>
   <sys:String x:Key="Str.DataFolderMoveFailed">Перенос не завершён ({0}). Ничего не изменилось; данные по-прежнему в {1}.</sys:String>
+  <sys:String x:Key="Str.DataFolderCancel">Отмена</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveCancelled">Перенос отменён. Ничего не изменилось; данные по-прежнему в {0}.</sys:String>
   <sys:String x:Key="Str.DataFolderNested">Эта папка пересекается с папкой данных установщика. Выберите другую.</sys:String>
   <sys:String x:Key="Str.DataFolderSystem">Не внутри Program Files или Windows. Выберите другую папку.</sys:String>
   <sys:String x:Key="Str.DataFolderGame">Эта папка находится внутри {0}, игры из вашего списка. Выберите другую.</sys:String>

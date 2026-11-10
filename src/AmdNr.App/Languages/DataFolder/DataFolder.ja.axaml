@@ -19,6 +19,8 @@
   <sys:String x:Key="Str.DataFolderKeepBody">何も移動しません。</sys:String>
   <sys:String x:Key="Str.DataFolderMoving">移動中… {0}%</sys:String>
   <sys:String x:Key="Str.DataFolderMoveFailed">移動が完了しませんでした（{0}）。何も変更されていません。データは {1} にあります。</sys:String>
+  <sys:String x:Key="Str.DataFolderCancel">キャンセル</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveCancelled">移動をキャンセルしました。何も変更されていません。データは {0} にあります。</sys:String>
   <sys:String x:Key="Str.DataFolderNested">このフォルダーはインストーラーのデータフォルダーと重なっています。別のフォルダーを選んでください。</sys:String>
   <sys:String x:Key="Str.DataFolderSystem">Program Files や Windows の中は使えません。別のフォルダーを選んでください。</sys:String>
   <sys:String x:Key="Str.DataFolderGame">このフォルダーはリスト内のゲーム {0} の中にあります。別のフォルダーを選んでください。</sys:String>

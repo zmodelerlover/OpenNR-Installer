@@ -70,6 +70,9 @@ public partial class SettingsPage
         _shell.Session.Busy = true;
         DataChangeButton.IsEnabled = DataDefaultButton.IsEnabled = false;
         DataMoving.IsVisible = true;
+        DataCancelButton.IsEnabled = true;
+        _moveCancel = new CancellationTokenSource();
+        var cancel = _moveCancel.Token;
         DataProgress.Value = 0;
         DataMovingText.Text = Ui.Format("Str.DataFolderMoving", 0);
         try
@@ -81,11 +84,17 @@ public partial class SettingsPage
                 DataProgress.Value = p;
                 DataMovingText.Text = Ui.Format("Str.DataFolderMoving", (int)(p * 100));
             });
-            var left = await Task.Run(() => DataMove.Move(from, target, AppPaths.Home, withCache, progress));
+            var left = await Task.Run(() => DataMove.Move(from, target, AppPaths.Home, withCache, progress, cancel));
             AppPaths.Reload();
             InstallLog.Append($"{DateTime.Now:s} data folder moved from {from} to {target}"
                               + (withCache ? "" : ", cache left to come back by download")
                               + (left > 0 ? $"; {left} old entries could not be deleted" : ""));
+        }
+        catch (OperationCanceledException)
+        {
+            InstallLog.Append($"{DateTime.Now:s} data folder move to {target} cancelled, nothing changed");
+            _shell.Toast(Ui.Format("Str.DataFolderMoveCancelled", from), Level.Info);
+            return;
         }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException)
         {
@@ -98,8 +107,19 @@ public partial class SettingsPage
             _shell.Session.Busy = false;
             DataChangeButton.IsEnabled = DataDefaultButton.IsEnabled = true;
             DataMoving.IsVisible = false;
+            _moveCancel?.Dispose();
+            _moveCancel = null;
         }
         Restart();
+    }
+
+    private CancellationTokenSource? _moveCancel;
+
+    /// <summary>Stops the copy at the next buffer; what was copied goes and the data stays where it was.</summary>
+    private void OnCancelMove(object? sender, RoutedEventArgs e)
+    {
+        DataCancelButton.IsEnabled = false;
+        _moveCancel?.Cancel();
     }
 
     /// <summary>The pointer already names the new folder; this process still has the old one, so it hands over.</summary>

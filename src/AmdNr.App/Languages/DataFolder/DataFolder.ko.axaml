@@ -19,6 +19,8 @@
   <sys:String x:Key="Str.DataFolderKeepBody">아무것도 옮기지 않습니다.</sys:String>
   <sys:String x:Key="Str.DataFolderMoving">옮기는 중… {0}%</sys:String>
   <sys:String x:Key="Str.DataFolderMoveFailed">옮기기를 마치지 못했습니다({0}). 바뀐 것은 없으며 데이터는 그대로 {1}에 있습니다.</sys:String>
+  <sys:String x:Key="Str.DataFolderCancel">취소</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveCancelled">이동을 취소했습니다. 아무것도 바뀌지 않았으며 데이터는 계속 {0}에 있습니다.</sys:String>
   <sys:String x:Key="Str.DataFolderNested">이 폴더는 설치 프로그램의 데이터 폴더와 겹칩니다. 다른 폴더를 고르세요.</sys:String>
   <sys:String x:Key="Str.DataFolderSystem">Program Files나 Windows 안은 안 됩니다. 다른 폴더를 고르세요.</sys:String>
   <sys:String x:Key="Str.DataFolderGame">이 폴더는 목록에 있는 게임 {0} 안에 있습니다. 다른 폴더를 고르세요.</sys:String>

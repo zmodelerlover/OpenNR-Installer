@@ -19,6 +19,8 @@
   <sys:String x:Key="Str.DataFolderKeepBody">No se mueve nada.</sys:String>
   <sys:String x:Key="Str.DataFolderMoving">Moviendo… {0}%</sys:String>
   <sys:String x:Key="Str.DataFolderMoveFailed">El traslado no terminó ({0}). No cambió nada; los datos siguen en {1}.</sys:String>
+  <sys:String x:Key="Str.DataFolderCancel">Cancelar</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveCancelled">Traslado cancelado. No cambió nada; los datos siguen en {0}.</sys:String>
   <sys:String x:Key="Str.DataFolderNested">Esa carpeta se solapa con la carpeta de datos del instalador. Elige otra.</sys:String>
   <sys:String x:Key="Str.DataFolderSystem">No puede estar dentro de Archivos de programa ni de Windows. Elige otra carpeta.</sys:String>
   <sys:String x:Key="Str.DataFolderGame">Esa carpeta está dentro de {0}, un juego de tu lista. Elige otra.</sys:String>

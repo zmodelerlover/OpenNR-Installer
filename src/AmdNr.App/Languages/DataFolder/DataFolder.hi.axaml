@@ -19,6 +19,8 @@
   <sys:String x:Key="Str.DataFolderKeepBody">कुछ नहीं हिलता।</sys:String>
   <sys:String x:Key="Str.DataFolderMoving">ले जाया जा रहा है… {0}%</sys:String>
   <sys:String x:Key="Str.DataFolderMoveFailed">स्थानांतरण पूरा नहीं हुआ ({0})। कुछ नहीं बदला; डेटा अब भी {1} में है।</sys:String>
+  <sys:String x:Key="Str.DataFolderCancel">रद्द करें</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveCancelled">स्थानांतरण रद्द किया गया। कुछ नहीं बदला; डेटा अब भी {0} में है।</sys:String>
   <sys:String x:Key="Str.DataFolderNested">यह फ़ोल्डर इंस्टॉलर के डेटा फ़ोल्डर से टकराता है। कोई दूसरा चुनें।</sys:String>
   <sys:String x:Key="Str.DataFolderSystem">Program Files या Windows के अंदर नहीं। कोई दूसरा फ़ोल्डर चुनें।</sys:String>
   <sys:String x:Key="Str.DataFolderGame">यह फ़ोल्डर {0} के अंदर है, जो आपकी सूची का एक गेम है। कोई दूसरा चुनें।</sys:String>

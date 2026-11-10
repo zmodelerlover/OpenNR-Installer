@@ -19,6 +19,8 @@
   <sys:String x:Key="Str.DataFolderKeepBody">Rien ne bouge.</sys:String>
   <sys:String x:Key="Str.DataFolderMoving">Déplacement… {0} %</sys:String>
   <sys:String x:Key="Str.DataFolderMoveFailed">Le déplacement n’a pas abouti ({0}). Rien n’a changé ; les données sont toujours dans {1}.</sys:String>
+  <sys:String x:Key="Str.DataFolderCancel">Annuler</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveCancelled">Déplacement annulé. Rien n’a changé ; les données sont toujours dans {0}.</sys:String>
   <sys:String x:Key="Str.DataFolderNested">Ce dossier chevauche le dossier de données de l’installateur. Choisissez-en un autre.</sys:String>
   <sys:String x:Key="Str.DataFolderSystem">Pas dans Program Files ni dans Windows. Choisissez un autre dossier.</sys:String>
   <sys:String x:Key="Str.DataFolderGame">Ce dossier se trouve dans {0}, un jeu de votre liste. Choisissez-en un autre.</sys:String>

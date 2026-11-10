@@ -19,6 +19,8 @@
   <sys:String x:Key="Str.DataFolderKeepBody">Ništa se ne premješta.</sys:String>
   <sys:String x:Key="Str.DataFolderMoving">Premještanje… {0} %</sys:String>
   <sys:String x:Key="Str.DataFolderMoveFailed">Premještanje nije dovršeno ({0}). Ništa se nije promijenilo; podaci su i dalje u {1}.</sys:String>
+  <sys:String x:Key="Str.DataFolderCancel">Odustani</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveCancelled">Premještanje je otkazano. Ništa se nije promijenilo; podaci su i dalje u {0}.</sys:String>
   <sys:String x:Key="Str.DataFolderNested">Ta se mapa preklapa s mapom podataka instalatora. Odaberi drugu.</sys:String>
   <sys:String x:Key="Str.DataFolderSystem">Ne unutar Program Files ni Windows. Odaberi drugu mapu.</sys:String>
   <sys:String x:Key="Str.DataFolderGame">Ta je mapa unutar {0}, igre s tvog popisa. Odaberi drugu.</sys:String>

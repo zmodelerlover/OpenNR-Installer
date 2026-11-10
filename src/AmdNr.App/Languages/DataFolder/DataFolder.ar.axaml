@@ -19,6 +19,8 @@
   <sys:String x:Key="Str.DataFolderKeepBody">لن يُنقل شيء.</sys:String>
   <sys:String x:Key="Str.DataFolderMoving">جارٍ النقل… {0}%</sys:String>
   <sys:String x:Key="Str.DataFolderMoveFailed">لم يكتمل النقل ({0}). لم يتغيّر شيء؛ البيانات ما زالت في {1}.</sys:String>
+  <sys:String x:Key="Str.DataFolderCancel">إلغاء</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveCancelled">أُلغي النقل. لم يتغير شيء؛ البيانات لا تزال في {0}.</sys:String>
   <sys:String x:Key="Str.DataFolderNested">هذا المجلد يتداخل مع مجلد بيانات المثبّت. اختر مجلدًا آخر.</sys:String>
   <sys:String x:Key="Str.DataFolderSystem">ليس داخل Program Files أو Windows. اختر مجلدًا آخر.</sys:String>
   <sys:String x:Key="Str.DataFolderGame">هذا المجلد داخل {0}، وهي لعبة في قائمتك. اختر مجلدًا آخر.</sys:String>

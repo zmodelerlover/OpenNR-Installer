@@ -19,6 +19,8 @@
   <sys:String x:Key="Str.DataFolderKeepBody">Hiçbir şey taşınmaz.</sys:String>
   <sys:String x:Key="Str.DataFolderMoving">Taşınıyor… %{0}</sys:String>
   <sys:String x:Key="Str.DataFolderMoveFailed">Taşıma tamamlanmadı ({0}). Hiçbir şey değişmedi; veriler hâlâ {1} konumunda.</sys:String>
+  <sys:String x:Key="Str.DataFolderCancel">İptal</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveCancelled">Taşıma iptal edildi. Hiçbir şey değişmedi; veriler hâlâ {0} konumunda.</sys:String>
   <sys:String x:Key="Str.DataFolderNested">Bu klasör yükleyicinin veri klasörüyle çakışıyor. Başka bir tane seçin.</sys:String>
   <sys:String x:Key="Str.DataFolderSystem">Program Files veya Windows içinde olamaz. Başka bir klasör seçin.</sys:String>
   <sys:String x:Key="Str.DataFolderGame">Bu klasör, listenizdeki bir oyun olan {0} içinde. Başka bir tane seçin.</sys:String>

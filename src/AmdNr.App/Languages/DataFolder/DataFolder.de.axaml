@@ -19,6 +19,8 @@
   <sys:String x:Key="Str.DataFolderKeepBody">Nichts wird verschoben.</sys:String>
   <sys:String x:Key="Str.DataFolderMoving">Wird verschoben… {0} %</sys:String>
   <sys:String x:Key="Str.DataFolderMoveFailed">Das Verschieben wurde nicht abgeschlossen ({0}). Nichts wurde geändert; die Daten liegen weiter in {1}.</sys:String>
+  <sys:String x:Key="Str.DataFolderCancel">Abbrechen</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveCancelled">Verschieben abgebrochen. Nichts wurde geändert; die Daten liegen weiterhin in {0}.</sys:String>
   <sys:String x:Key="Str.DataFolderNested">Dieser Ordner überschneidet sich mit dem Datenordner des Installers. Wähle einen anderen.</sys:String>
   <sys:String x:Key="Str.DataFolderSystem">Nicht in Program Files oder Windows. Wähle einen anderen Ordner.</sys:String>
   <sys:String x:Key="Str.DataFolderGame">Dieser Ordner liegt in {0}, einem Spiel aus deiner Liste. Wähle einen anderen.</sys:String>

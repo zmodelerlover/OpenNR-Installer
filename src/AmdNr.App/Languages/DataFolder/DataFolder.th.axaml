@@ -19,6 +19,8 @@
   <sys:String x:Key="Str.DataFolderKeepBody">ไม่มีอะไรถูกย้าย</sys:String>
   <sys:String x:Key="Str.DataFolderMoving">กำลังย้าย… {0}%</sys:String>
   <sys:String x:Key="Str.DataFolderMoveFailed">การย้ายไม่เสร็จ ({0}) ไม่มีอะไรเปลี่ยน ข้อมูลยังอยู่ที่ {1}</sys:String>
+  <sys:String x:Key="Str.DataFolderCancel">ยกเลิก</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveCancelled">ยกเลิกการย้ายแล้ว ไม่มีอะไรเปลี่ยนแปลง ข้อมูลยังอยู่ที่ {0}</sys:String>
   <sys:String x:Key="Str.DataFolderNested">โฟลเดอร์นี้ซ้อนกับโฟลเดอร์ข้อมูลของตัวติดตั้ง เลือกโฟลเดอร์อื่น</sys:String>
   <sys:String x:Key="Str.DataFolderSystem">ห้ามอยู่ใน Program Files หรือ Windows เลือกโฟลเดอร์อื่น</sys:String>
   <sys:String x:Key="Str.DataFolderGame">โฟลเดอร์นี้อยู่ใน {0} ซึ่งเป็นเกมในรายชื่อของคุณ เลือกโฟลเดอร์อื่น</sys:String>

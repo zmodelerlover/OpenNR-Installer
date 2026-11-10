@@ -21,6 +21,8 @@
   <sys:String x:Key="Str.DataFolderKeepBody">Nothing moves.</sys:String>
   <sys:String x:Key="Str.DataFolderMoving">Moving… {0}%</sys:String>
   <sys:String x:Key="Str.DataFolderMoveFailed">The move did not finish ({0}). Nothing changed; the data is still in {1}.</sys:String>
+  <sys:String x:Key="Str.DataFolderCancel">Cancel</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveCancelled">Move cancelled. Nothing changed; the data is still in {0}.</sys:String>
   <sys:String x:Key="Str.DataFolderNested">That folder overlaps the installer's own data folder. Pick another one.</sys:String>
   <sys:String x:Key="Str.DataFolderSystem">Not inside Program Files or Windows. Pick another folder.</sys:String>
   <sys:String x:Key="Str.DataFolderGame">That folder is inside {0}, a game in your list. Pick another one.</sys:String>

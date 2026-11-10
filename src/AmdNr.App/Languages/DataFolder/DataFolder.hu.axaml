@@ -19,6 +19,8 @@
   <sys:String x:Key="Str.DataFolderKeepBody">Semmi nem mozdul.</sys:String>
   <sys:String x:Key="Str.DataFolderMoving">Áthelyezés… {0}%</sys:String>
   <sys:String x:Key="Str.DataFolderMoveFailed">Az áthelyezés nem fejeződött be ({0}). Semmi nem változott; az adatok továbbra is itt vannak: {1}.</sys:String>
+  <sys:String x:Key="Str.DataFolderCancel">Mégse</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveCancelled">Az áthelyezés megszakítva. Semmi sem változott; az adatok továbbra is itt vannak: {0}.</sys:String>
   <sys:String x:Key="Str.DataFolderNested">Ez a mappa átfedésben van a telepítő adatmappájával. Válassz másikat.</sys:String>
   <sys:String x:Key="Str.DataFolderSystem">Nem lehet a Program Files vagy a Windows mappában. Válassz másik mappát.</sys:String>
   <sys:String x:Key="Str.DataFolderGame">Ez a mappa a(z) {0} játék mappájában van, ami a listádon szerepel. Válassz másikat.</sys:String>

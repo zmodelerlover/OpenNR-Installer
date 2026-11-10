@@ -19,6 +19,8 @@
   <sys:String x:Key="Str.DataFolderKeepBody">Naught moves.</sys:String>
   <sys:String x:Key="Str.DataFolderMoving">Haulin'… {0}%</sys:String>
   <sys:String x:Key="Str.DataFolderMoveFailed">The haul didn't finish ({0}). Naught changed; the loot still be in {1}.</sys:String>
+  <sys:String x:Key="Str.DataFolderCancel">Belay that</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveCancelled">Move belayed. Nothin’ changed; yer plunder still be in {0}.</sys:String>
   <sys:String x:Key="Str.DataFolderNested">That folder crosses the installer's own hold. Pick another.</sys:String>
   <sys:String x:Key="Str.DataFolderSystem">Not in Program Files nor Windows, matey. Pick another folder.</sys:String>
   <sys:String x:Key="Str.DataFolderGame">That folder be inside {0}, a game on yer list. Pick another.</sys:String>

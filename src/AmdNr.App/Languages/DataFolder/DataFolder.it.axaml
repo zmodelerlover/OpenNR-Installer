@@ -19,6 +19,8 @@
   <sys:String x:Key="Str.DataFolderKeepBody">Non si sposta nulla.</sys:String>
   <sys:String x:Key="Str.DataFolderMoving">Spostamento… {0}%</sys:String>
   <sys:String x:Key="Str.DataFolderMoveFailed">Lo spostamento non è terminato ({0}). Non è cambiato nulla; i dati sono ancora in {1}.</sys:String>
+  <sys:String x:Key="Str.DataFolderCancel">Annulla</sys:String>
+  <sys:String x:Key="Str.DataFolderMoveCancelled">Spostamento annullato. Non è cambiato nulla; i dati sono ancora in {0}.</sys:String>
   <sys:String x:Key="Str.DataFolderNested">Quella cartella si sovrappone alla cartella dati dell’installer. Scegline un’altra.</sys:String>
   <sys:String x:Key="Str.DataFolderSystem">Non dentro Programmi o Windows. Scegli un’altra cartella.</sys:String>
   <sys:String x:Key="Str.DataFolderGame">Quella cartella è dentro {0}, un gioco del tuo elenco. Scegline un’altra.</sys:String>

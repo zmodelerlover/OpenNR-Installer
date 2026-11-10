@@ -73,6 +73,8 @@
           <StackPanel x:Name="DataMoving" Spacing="6" IsVisible="False">
             <TextBlock x:Name="DataMovingText" Classes="muted" />
             <ProgressBar x:Name="DataProgress" Height="4" MinHeight="4" CornerRadius="2" Maximum="1" />
+            <Button x:Name="DataCancelButton" Classes="ghost small" HorizontalAlignment="Left"
+                    Content="{DynamicResource Str.DataFolderCancel}" Click="OnCancelMove" />
           </StackPanel>
         </StackPanel>
       </Border>

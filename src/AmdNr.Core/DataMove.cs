@@ -111,7 +111,8 @@ public static class DataMove
     /// points <paramref name="home"/>'s pointer at it, and then deletes the old copy -- the cache too when it did not
     /// come along. Returns how many of the old entries could not be deleted (a file something holds open); they are
     /// only leftovers by then. Throws with nothing changed when anything before the pointer fails.</summary>
-    public static int Move(string from, string to, string home, bool withCache, IProgress<double>? progress = null)
+    public static int Move(string from, string to, string home, bool withCache, IProgress<double>? progress = null,
+        CancellationToken cancel = default)
     {
         var files = Files(from, withCache);
         var total = Math.Max(1L, files.Sum(f => new FileInfo(f).Length));
@@ -125,8 +126,10 @@ public static class DataMove
                 var copy = Path.Combine(to, Path.GetRelativePath(from, file));
                 Directory.CreateDirectory(Path.GetDirectoryName(copy)!);
                 written.Add(copy);
-                CopyChecked(file, copy, n => progress?.Report((double)(done += n) / total));
+                CopyChecked(file, copy, n => progress?.Report((double)(done += n) / total), cancel);
             }
+            // Cancelling is honoured up to here: past the pointer the move is done, and only the old copy is left to go.
+            cancel.ThrowIfCancellationRequested();
             DataLocation.Write(home, to);
         }
         catch
@@ -137,7 +140,7 @@ public static class DataMove
         return Sweep(from, home);
     }
 
-    private static void CopyChecked(string source, string copy, Action<long> advance)
+    private static void CopyChecked(string source, string copy, Action<long> advance, CancellationToken cancel)
     {
         byte[] hash;
         using (var input = new FileStream(source, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete))
@@ -148,6 +151,7 @@ public static class DataMove
             int read;
             while ((read = input.Read(buffer)) > 0)
             {
+                cancel.ThrowIfCancellationRequested();
                 sha.AppendData(buffer, 0, read);
                 output.Write(buffer, 0, read);
                 advance(read);

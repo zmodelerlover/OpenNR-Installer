@@ -137,6 +137,23 @@ public sealed class DataFolderTests : IDisposable
         Assert.Equal(before, DataMove.Size(Path.Combine(_dir, "again"), withCache: true));
     }
 
+    /// <summary>Cancel halfway: what was copied goes, the old folder and the pointer stay as they were.</summary>
+    [Fact]
+    public void CancellingTakesBackTheCopyAndKeepsTheOld()
+    {
+        Fill(Home);
+        var to = Path.Combine(_dir, "D", "OpenNR");
+        var before = Directory.GetFiles(Home, "*", SearchOption.AllDirectories).Length;
+        using var cancel = new CancellationTokenSource();
+
+        Assert.ThrowsAny<OperationCanceledException>(() =>
+            DataMove.Move(Home, to, Home, withCache: true, new SyncProgress(p => { if (p > 0.3) cancel.Cancel(); }), cancel.Token));
+
+        Assert.False(Directory.Exists(to));
+        Assert.Equal(new DataLocation.Found(Home, false), DataLocation.Resolve(Home));
+        Assert.Equal(before, Directory.GetFiles(Home, "*", SearchOption.AllDirectories).Length);
+    }
+
     [Fact]
     public void StartingEmptyMovesAllButTheCacheAndDropsTheOldCache()
     {
