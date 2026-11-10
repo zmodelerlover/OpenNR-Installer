@@ -89,10 +89,22 @@ public static class DataMove
         foreach (var entry in new DirectoryInfo(root).EnumerateFileSystemInfos())
         {
             if (Stays(entry.Name) || (!withCache && entry.Name.Equals(CacheFolder, StringComparison.OrdinalIgnoreCase))) continue;
-            if (entry is DirectoryInfo dir) files.AddRange(dir.EnumerateFiles("*", SearchOption.AllDirectories).Select(f => f.FullName));
+            if (entry is DirectoryInfo dir)
+                files.AddRange(dir.EnumerateFiles("*", SearchOption.AllDirectories).Select(f => f.FullName)
+                    .Where(f => !InStaging(root, f)));
             else files.Add(entry.FullName);
         }
         return files;
+    }
+
+    /// <summary>cache\staging\ holds hard links into the cache, one folder per set of components installed, and is made
+    /// again at every install (PayloadCache.Stage). Copied to another drive each link became a whole file: 8 GB of cache
+    /// turned into 40. It stays behind and goes with the old folder.</summary>
+    private static bool InStaging(string root, string file)
+    {
+        var parts = Path.GetRelativePath(root, file).Split(Path.DirectorySeparatorChar);
+        return parts.Length > 2 && parts[0].Equals(CacheFolder, StringComparison.OrdinalIgnoreCase)
+               && parts[1].Equals("staging", StringComparison.OrdinalIgnoreCase);
     }
 
     /// <summary>Copies the data from <paramref name="from"/> into <paramref name="to"/>, reads every file back,

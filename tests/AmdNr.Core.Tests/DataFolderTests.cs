@@ -116,6 +116,27 @@ public sealed class DataFolderTests : IDisposable
         Assert.Equal(1.0, seen.Last(), 3);
     }
 
+    /// <summary>cache\staging\ is hard links into the cache, made again at every install: it never travels, and goes
+    /// with the old folder.</summary>
+    [Fact]
+    public void TheStagingLinksStayBehindAndGo()
+    {
+        Fill(Home);
+        var staged = Path.Combine(Home, "cache", "staging", "optiscaler.0.6.4");
+        Directory.CreateDirectory(staged);
+        File.WriteAllBytes(Path.Combine(staged, "OptiScaler.dll"), new byte[300_000]);
+        var to = Path.Combine(_dir, "D", "OpenNR");
+        var before = DataMove.Size(Home, withCache: true);
+
+        DataMove.Move(Home, to, Home, withCache: true);
+
+        Assert.True(File.Exists(Path.Combine(to, "cache", "opti", "0.6.4", "OptiScaler.dll")));
+        Assert.False(Directory.Exists(Path.Combine(to, "cache", "staging")));
+        Assert.False(Directory.Exists(Path.Combine(Home, "cache")));
+        Fill(Path.Combine(_dir, "again"));
+        Assert.Equal(before, DataMove.Size(Path.Combine(_dir, "again"), withCache: true));
+    }
+
     [Fact]
     public void StartingEmptyMovesAllButTheCacheAndDropsTheOldCache()
     {
