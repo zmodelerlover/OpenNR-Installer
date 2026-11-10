@@ -252,6 +252,43 @@ public class GraphicsTests
         Assert.Equal("Launcher.exe", Path.GetFileName(GraphicsDetector.FindExecutable(root)));
     }
 
+    [Fact]
+    public void AToolInAnUnrealBinariesFolderGivesWayToTheGameNamedElsewhere()
+    {
+        // Phantom Blade Zero: 8za_v2.exe (a 7-Zip) in ProjectPBZ\Binaries\Win64, the game in platform\steam.
+        var root = Fixture.Temp("PBZ");
+        var binaries = Directory.CreateDirectory(Path.Combine(root, "ProjectPBZ", "Binaries", "Win64")).FullName;
+        var steam = Directory.CreateDirectory(Path.Combine(root, "platform", "steam")).FullName;
+        File.WriteAllBytes(Path.Combine(binaries, "8za_v2.exe"), Fixture.Pe(true).Concat(new byte[64_000]).ToArray());
+        File.WriteAllBytes(Path.Combine(binaries, "CheckEnv.exe"), Fixture.Pe(true));
+        File.WriteAllBytes(Path.Combine(steam, "PBZ.exe"), Fixture.PeWithImports(true, ["d3d12.dll", "d3d11.dll"]));
+
+        Assert.Equal(Path.Combine(steam, "PBZ.exe"), GraphicsDetector.FindExecutable(root, "Phantom Blade Zero"));
+    }
+
+    [Fact]
+    public void AnOddlyNamedUnrealBinaryStaysWhenNothingNamedAfterTheGameRenders()
+    {
+        var root = Fixture.Temp("Odd Game");
+        var binaries = Directory.CreateDirectory(Path.Combine(root, "Proj", "Binaries", "Win64")).FullName;
+        File.WriteAllBytes(Path.Combine(binaries, "Zx.exe"), Fixture.PeWithImports(true, ["d3d12.dll"]));
+        // The stub in the root carries the game's name and imports no renderer.
+        File.WriteAllBytes(Path.Combine(root, "OddGame.exe"), Fixture.PeWithImports(true, ["USER32.dll"]));
+
+        Assert.Equal("Zx.exe", Path.GetFileName(GraphicsDetector.FindExecutable(root)));
+    }
+
+    [Fact]
+    public void AnUnrealBinaryNamedAfterItsProjectIsNotSecondGuessed()
+    {
+        var root = Fixture.Temp("Some Game");
+        var binaries = Directory.CreateDirectory(Path.Combine(root, "Proj", "Binaries", "Win64")).FullName;
+        File.WriteAllBytes(Path.Combine(binaries, "Proj.exe"), Fixture.PeWithImports(true, ["d3d12.dll"]));
+        File.WriteAllBytes(Path.Combine(root, "SomeGame.exe"), Fixture.PeWithImports(true, ["d3d11.dll"]));
+
+        Assert.Equal("Proj.exe", Path.GetFileName(GraphicsDetector.FindExecutable(root)));
+    }
+
     // -- PCGamingWiki template --------------------------------------------------------------------
 
     private const string Metro2033 = """

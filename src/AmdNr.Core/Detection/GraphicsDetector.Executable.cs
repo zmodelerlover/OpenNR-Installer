@@ -84,6 +84,14 @@ public static partial class GraphicsDetector
             if (!seen.Add(folder)) continue;
             if (PickIn(folder, hints) is not { } exe) continue;
 
+            // Phantom Blade Zero keeps a 7-Zip (8za_v2.exe) in ProjectPBZ\Binaries\Win64 and the game in
+            // platform\steam\PBZ.exe. The tool was the largest thing in the first folder searched, so the install
+            // went beside it and the game died with "Fatal error". An Unreal project's Binaries folder holds a
+            // shipping binary or one named after the project; anything else there gives way to an executable
+            // named after the game that imports a renderer, wherever it is two levels down.
+            if (Nameless(exe, folder, hints) && NamedRenderer(root, hints) is { } named)
+                return named;
+
             // A 32-bit executable beside a folder holding the same game built 64-bit is a launcher,
             // not the game. BeamNG.drive ships exactly that -- BeamNG.drive.exe in the root starts
             // Bin64\BeamNG.drive.x64.exe -- and the root is searched first, so it was detected as a
@@ -104,6 +112,53 @@ public static partial class GraphicsDetector
             return Directory.EnumerateFiles(root, "*.exe")
                 .Where(e => !IsOurs(e) && Engine.MachineOfFile(e) is not null)
                 .OrderByDescending(e => Engine.SizeOf(e) ?? 0)
+                .FirstOrDefault();
+        }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+        {
+            return null;
+        }
+    }
+
+    /// <summary>A pick in a Binaries\Win64 or Binaries\Win32 folder that is neither a shipping binary nor named
+    /// after the game, its folder or the project the Binaries folder belongs to: taken only for its size.</summary>
+    private static bool Nameless(string exe, string folder, List<string> hints)
+    {
+        if (!Path.GetFileName(Path.GetDirectoryName(folder) ?? "").Equals("Binaries", StringComparison.OrdinalIgnoreCase))
+            return false;
+        if (exe.EndsWith("-Shipping.exe", StringComparison.OrdinalIgnoreCase)) return false;
+
+        var project = Normalise(Path.GetFileName(Path.GetDirectoryName(Path.GetDirectoryName(folder)!) ?? ""));
+        var names = project.Length >= 2 ? hints.Append(project).ToList() : hints;
+        return Similarity(Path.GetFileNameWithoutExtension(exe), names) == 0;
+    }
+
+    /// <summary>The executable named after the game that imports a renderer itself, in the root or up to two
+    /// folders down. The import is what tells the game from a stub or a launcher carrying its name.</summary>
+    private static string? NamedRenderer(string root, List<string> hints)
+    {
+        try
+        {
+            var folders = new List<string> { root };
+            foreach (var child in Directory.EnumerateDirectories(root))
+            {
+                folders.Add(child);
+                try { folders.AddRange(Directory.EnumerateDirectories(child)); }
+                catch (Exception e) when (e is IOException or UnauthorizedAccessException) { }
+            }
+
+            return folders
+                .SelectMany(f =>
+                {
+                    try { return Directory.EnumerateFiles(f, "*.exe").ToList(); }
+                    catch (Exception e) when (e is IOException or UnauthorizedAccessException) { return []; }
+                })
+                .Where(LooksLikeTheGame)
+                .Select(e => (Exe: e, Score: Similarity(Path.GetFileNameWithoutExtension(e), hints)))
+                .Where(x => x.Score >= 60 && Decide(PeImports.Read(x.Exe)) is not null)
+                .OrderByDescending(x => x.Score)
+                .ThenByDescending(x => Engine.SizeOf(x.Exe) ?? 0)
+                .Select(x => x.Exe)
                 .FirstOrDefault();
         }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException)
