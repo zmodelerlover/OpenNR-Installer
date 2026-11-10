@@ -1,6 +1,6 @@
 // The smaller things the sheet does around an install: start the game, open its folder or its
-// PCGamingWiki page, take the row out of the list, point the detection at another executable, and
-// gather everything a support thread would ask for into one zip.
+// PCGamingWiki page, take the row out of the list, point the detection at another executable, clear
+// the DNS cache for a download, and gather everything a support thread would ask for into one zip.
 
 using System.Diagnostics;
 using Avalonia.Interactivity;
@@ -110,6 +110,20 @@ public partial class GameSheet
         }
         Library.Redetect(card);
         Show(card);
+    });
+
+    /// <summary>Clears Windows' DNS cache and runs the install again. Offered only when the download
+    /// never reached the server, which is the failure a stale cache causes.</summary>
+    private void OnFlushDns(object? sender, RoutedEventArgs e) => _shell.Run("flush dns", async () =>
+    {
+        if (Session.Busy) return;
+        var flushed = DownloadLog.FlushDns();
+        if (!flushed)
+        {
+            _shell.Toast(Ui.Text("Str.DnsFlushFailed"), Level.Warn);
+            return;
+        }
+        await InstallAsync();
     });
 
     /// <summary>Everything someone would otherwise be asked for, three messages at a time, in one

@@ -127,6 +127,11 @@ public sealed class Library(Session session)
 
     public GameCard? Find(string path) => _cards.FirstOrDefault(c => Engine.SamePath(c.Path, path));
 
+    /// <summary>The folders of every other game: in the list, on a drive that is away, or taken out of the list with
+    /// its install left in. An install in one of them is that game's (Work.InstalledElsewhere).</summary>
+    public List<string> FoldersBut(GameCard card) =>
+        [.. _cards.Where(c => c != card).SelectMany(c => c.Folders), .. _away.Select(e => e.Path), .. Ignored.Select(i => i.Path)];
+
     /// <summary>A game added by hand, or found again. One on a drive that came back is the entry that
     /// was set aside, with everything chosen for it, not a new one.</summary>
     public GameCard Add(GameEntry entry)

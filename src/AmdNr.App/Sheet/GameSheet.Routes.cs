@@ -472,7 +472,7 @@ public partial class GameSheet
         };
         if (!InstallSpin.IsVisible) Ui.Localize(InstallLabel, key);
         InstallButton.IsEnabled = !Session.Busy && !RouteUndecided(card);
-        UninstallButton.IsVisible = card.Installed;
+        UninstallButton.IsVisible = card.Installed || EarlierBox.IsVisible;
     }
 
     /// <summary>A route's name in the current language. The engine carries it in English -- it has

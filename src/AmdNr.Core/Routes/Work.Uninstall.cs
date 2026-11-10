@@ -29,8 +29,11 @@ public static partial class Work
     /// pins: the engine's own, or one in <paramref name="pinned"/>. That half is the fix for a folder
     /// whose binaries were copied in by hand beside a manifest listing only settings, which counted
     /// as installed and could not be uninstalled at all. A proxy a manifest records as the person's
-    /// own, or put back from a backup, stays whatever it hashes to.</summary>
-    public static Report Uninstall(string gameDir, Preset preset, bool removeConfig = false, IEnumerable<string>? pinned = null)
+    /// own, or put back from a backup, stays whatever it hashes to.
+    ///
+    /// With <paramref name="tree"/>, an earlier install in another folder of the game goes too (<see cref="ClearElsewhere"/>).</summary>
+    public static Report Uninstall(string gameDir, Preset preset, bool removeConfig = false, IEnumerable<string>? pinned = null,
+        GameTree? tree = null)
     {
         var report = new Report();
         if (UninstallFolder(gameDir, preset, report) is not { } dir) return report;
@@ -114,6 +117,7 @@ public static partial class Work
         if (opti && before.Any(IsHostFgFile)) PointIniAtHostFg(dir, false, report);
         if (opti) AfterOptiScalerUninstall(dir, recorded.Count > 0, report);
 
+        gone += ClearElsewhere(gameDir, preset, tree, pinned, report);
         if (gone == 0) report.Warn("Nothing of ours was in that folder.");
         if (KeptConfigurationIn(dir) is { Count: > 0 } kept)
             report.Info($"Kept your settings: {string.Join(", ", kept)}.");
@@ -199,17 +203,21 @@ public static partial class Work
     /// <summary>What an install says it does about <see cref="InTheWay"/>.</summary>
     internal const string ClearsTheWay = "The install takes out what is this app's first, keeping your settings, and then goes in fresh.";
 
-    /// <summary>Clears what <see cref="InTheWay"/> names, the way Uninstall would, keeping the settings.
-    /// Null when nothing is in the way, or the folder cannot be found: the route says that itself.</summary>
-    private static Report? ClearTheWay(string gameDir, Preset preset, PayloadPins pins)
+    /// <summary>Clears what <see cref="InTheWay"/> names, the way Uninstall would, keeping the settings, after an
+    /// earlier install in another folder of the game (<see cref="ClearElsewhere"/>). Says nothing when nothing is
+    /// in the way, or the folder cannot be found: the route says that itself.</summary>
+    private static Report ClearTheWay(string gameDir, Preset preset, PayloadPins pins, GameTree? tree)
     {
+        string[] pinned = [pins.ReShade64Sha, pins.ReShade32Sha, pins.D3d8To9Sha, .. pins.MochizukiFiles.Values];
+        var report = new Report();
+        ClearElsewhere(gameDir, preset, tree, pinned, report);
+        if (report.Failed) return report;
         string? dir;
         try { dir = InstallFolder(gameDir, preset); }
-        catch (InstallException) { return null; }
-        if (dir is null || InTheWay(dir, preset) is not { } why) return null;
-        var report = new Report();
+        catch (InstallException) { return report; }
+        if (dir is null || InTheWay(dir, preset) is not { } why) return report;
         report.Info($"{why} {ClearsTheWay}");
-        report.Append(Uninstall(dir, preset, removeConfig: false, [pins.ReShade64Sha, pins.ReShade32Sha, pins.D3d8To9Sha, .. pins.MochizukiFiles.Values]));
+        report.Append(Uninstall(dir, preset, removeConfig: false, pinned));
         return report;
     }
 

@@ -307,6 +307,7 @@ void Flows()
     Until(() => !fresh.Session.Busy);
     fresh.Close();
     LeftoversFlow.Run(Check, Until, Click, (w, n) => Save(w, n));
+    ElsewhereFlow.Run(Check, Until, Click, (w, n) => Save(w, n));
 }
 
 // `uishot <out> perf`: how long a big library takes to open, from the window being built to every

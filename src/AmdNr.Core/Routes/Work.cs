@@ -470,10 +470,11 @@ public static partial class Work
     /// <param name="lmxxf">OptiScaler route: a fresh ini may run lmxxf (RX 9000, not left out); mochizuki implies it.</param>
     /// <param name="daniel">On the OptiScaler route, false leaves danielblnc's runtime and weights out (closed source,
     /// left out in Settings), takes out what an earlier install put in of them, and the ini runs one that is here.</param>
+    /// <param name="tree">The game's folder in the list: an install in another folder of it comes out first (Work.Elsewhere.cs).</param>
     public static Report Install(string gameDir, string payloadDir, Preset preset, PayloadPins pins,
         string? proxy = null, bool mochizuki = false, string? ownRuntime = null, UserRuntime? wantedRuntime = null,
         string? suggestedProxy = null, GraphicsApi? api = null, bool wrongGpu = false, bool lmxxf = false,
-        bool daniel = true)
+        bool daniel = true, GameTree? tree = null)
     {
         if (Running(gameDir, preset) is { } running)
         {
@@ -483,7 +484,7 @@ public static partial class Work
             return refused;
         }
         // What would make the transaction refuse, cleared first, on every route: see InTheWay.
-        var report = ClearTheWay(gameDir, preset, pins) ?? new Report();
+        var report = ClearTheWay(gameDir, preset, pins, tree);
         if (report.Failed)
         {
             report.Info("Nothing new was written: fix the problem above and run it again.");
@@ -491,8 +492,7 @@ public static partial class Work
         }
         if (ReFrameworkFirst(gameDir, preset, pins, proxy, report)) return report;
         report.Append(preset.Route() == Route.X86 ? InstallX86(gameDir, payloadDir, preset, pins, proxy, mochizuki, ownRuntime, wantedRuntime)
-            : preset.IsOptiScaler() ? InstallOptiScaler(gameDir, payloadDir, pins, proxy, mochizuki, ownRuntime, wantedRuntime, suggestedProxy, api, wrongGpu, lmxxf,
-                daniel)
+            : preset.IsOptiScaler() ? InstallOptiScaler(gameDir, payloadDir, pins, proxy, mochizuki, ownRuntime, wantedRuntime, suggestedProxy, api, wrongGpu, lmxxf, daniel)
             : preset == Preset.FiveM ? InstallFiveM(gameDir, payloadDir, pins, ownRuntime, wantedRuntime)
             : InstallReShade(gameDir, payloadDir, preset, pins, proxy, mochizuki, ownRuntime, wantedRuntime));
         return ReFrameworkAfter(gameDir, payloadDir, preset, pins, proxy, report);

@@ -319,6 +319,7 @@
   <sys:String x:Key="Str.ShowDetails">عرض التفاصيل</sys:String>
   <sys:String x:Key="Str.InstallsInto">يُثبَّت في: {0}</sys:String>
   <sys:String x:Key="Str.InstallsElsewhere">هذا خارج المجلد الذي أضفته: هنا يوجد {0}، الإصدار الذي يشغّله المشغّل. إذا كنت تلعب بإصدار آخر، فاختر ملف {0} الخاص به في الأعلى.</sys:String>
+  <sys:String x:Key="Str.EarlierInstall">يوجد تثبيت سابق في {0}، وهو ليس المكان الذي تُثبَّت فيه هذه اللعبة الآن. التثبيت أو إلغاء التثبيت هنا يزيله ويعيد الملفات التي استبدلها.</sys:String>
   <sys:String x:Key="Str.CheckApiTip">تخبرك الملفات بما ترتبط به اللعبة، لا بما تعمل عليه فعلًا: قد يحتوي مجلد واحد على ملف تنفيذي لـ D3D11 وآخر لـ D3D12. الويكي يخبرك بأيّهما تستخدم اللعبة.</sys:String>
   <sys:String x:Key="Str.DetectedFromFiles">مقروء من ملفات اللعبة نفسها.</sys:String>
   <sys:String x:Key="Str.DetectedFromWiki">من PCGamingWiki ومن ملفات اللعبة.</sys:String>

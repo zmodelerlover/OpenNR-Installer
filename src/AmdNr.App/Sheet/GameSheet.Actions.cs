@@ -63,6 +63,7 @@ public partial class GameSheet
         var unoffered = wanted is not null && !Offered(wanted);
         var wiki = WikiProxy(card);
         var api = OptiApi(card);
+        var tree = TreeFor(card);
 
         // A result belongs to the action that produced it; a new check replaces it.
         Steps.IsVisible = false;
@@ -71,14 +72,16 @@ public partial class GameSheet
 
         Report report;
         string? staged, runtime = null;
+        IReadOnlyList<string> earlier = [];
         try
         {
-            (report, staged, runtime) = await Task.Run(() =>
+            (report, staged, runtime, earlier) = await Task.Run(() =>
             {
                 var folder = CachedPayloadFolder(ComponentsFor(preset, mochizuki, wrongGpu, NeedsDlss(card, wrongGpu, pins), !Skips(card, DanielRuntime), pins.HostFg, [.. OpenRrComponents(card, pins), .. ReFrameworkComponents(pins)]));
                 var own = wanted is null ? null : Work.FindUserRuntime(wanted, TargetFor(card));
                 return (Work.Preflight(TargetFor(card), folder ?? "", preset, pins, proxy, mochizuki, own,
-                    unoffered ? wanted : null, wiki, api, wrongGpu, !Skips(card, DanielRuntime)), folder, own);
+                    unoffered ? wanted : null, wiki, api, wrongGpu, !Skips(card, DanielRuntime)), folder, own,
+                    Work.InstalledElsewhere(TargetFor(card), preset, tree));
             });
         }
         catch (Exception e)
@@ -92,6 +95,7 @@ public partial class GameSheet
 
         NoteRuntime(report, wanted, runtime);
         if (preset.IsOptiScaler() && Work.UnstableOnRdna4(pins.OptiRuntimeVersion, Rdna4) is { } unstable) report.Warn(unstable);
+        ShowEarlier(card, earlier, report);
         Show(report);
         card.RefreshInstalled();
         ShowVerdict(report, card);
@@ -163,8 +167,9 @@ public partial class GameSheet
             Report report;
             var wiki = WikiProxy(card);
             var api = OptiApi(card);
+            var tree = TreeFor(card);
             try { report = await WritingAsync(() => Work.Install(target, folder, preset, pins, proxy, mochizuki, runtime, wanted, wiki, api, wrongGpu,
-                Rdna4 && !Skips(card, LmxxfRuntime), !Skips(card, DanielRuntime))); }
+                Rdna4 && !Skips(card, LmxxfRuntime), !Skips(card, DanielRuntime), tree)); }
             catch (Exception ex)
             {
                 // The engine turns everything it expects into a report line, and rolls back before
@@ -280,8 +285,9 @@ public partial class GameSheet
         // copied in by hand, is taken out only when it is one of those.
         var pins = Pins();
         var pinned = new[] { pins.ReShade64Sha, pins.ReShade32Sha, pins.D3d8To9Sha }.Concat(pins.MochizukiFiles.Values).ToArray();
+        var tree = TreeFor(card);
         Report report;
-        try { report = await WritingAsync(() => Work.Uninstall(target, preset, removeConfig, pinned)); }
+        try { report = await WritingAsync(() => Work.Uninstall(target, preset, removeConfig, pinned, tree)); }
         catch (Exception ex) { report = Failure(ex); }
         Show(report);
         var what = removeConfig ? "uninstall (settings too)" : "uninstall";
@@ -313,24 +319,11 @@ public partial class GameSheet
     /// the window is not closed on it: see <see cref="Session.Writing"/>.</summary>
     private async Task<Report> WritingAsync(Func<Report> work)
     {
+        EarlierBox.IsVisible = false; // whatever it said, this is about to change it
         Session.Writing = true;
         try { return await Task.Run(work); }
         finally { Session.Writing = false; }
     }
-
-    /// <summary>Clears Windows' DNS cache and runs the install again. Offered only when the download
-    /// never reached the server, which is the failure a stale cache causes.</summary>
-    private void OnFlushDns(object? sender, RoutedEventArgs e) => _shell.Run("flush dns", async () =>
-    {
-        if (Session.Busy) return;
-        var flushed = DownloadLog.FlushDns();
-        if (!flushed)
-        {
-            _shell.Toast(Ui.Text("Str.DnsFlushFailed"), Level.Warn);
-            return;
-        }
-        await InstallAsync();
-    });
 
     /// <summary>The last download never reached the server: see <see cref="PayloadCache.IsNetwork"/>.</summary>
     private bool _unreachable;

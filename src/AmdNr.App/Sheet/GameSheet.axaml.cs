@@ -197,6 +197,21 @@ public partial class GameSheet : UserControl
                       && !Engine.IsInside(Engine.WeaklyCanonical(card.Path), Engine.WeaklyCanonical(exe));
         ElsewhereBox.IsVisible = outside;
         Elsewhere.Text = outside ? Ui.Format("Str.InstallsElsewhere", Path.GetFileName(graphics.Executable!)) : "";
+        EarlierBox.IsVisible = false; // the pre-flight that follows says it again for this game and this executable
+    }
+
+    /// <summary>This game's folder and every other game's, for an install left in another folder of this one
+    /// (Work.InstalledElsewhere). Read here, on the thread the list changes on.</summary>
+    private GameTree TreeFor(GameCard card) => new(card.Path, Library.FoldersBut(card));
+
+    /// <summary>The folders the pre-flight found an earlier install in: a line each in the report, and the callout
+    /// under the detection, which also brings Uninstall up for a game with nothing where it installs now.</summary>
+    private void ShowEarlier(GameCard card, IReadOnlyList<string> folders, Report report)
+    {
+        foreach (var folder in folders) report.Warn(Work.EarlierInstall(folder));
+        EarlierBox.IsVisible = folders.Count > 0;
+        Earlier.Text = folders.Count == 0 ? "" : Ui.Format("Str.EarlierInstall", string.Join(", ",
+            folders.Select(f => Engine.SamePath(f, card.Path) ? f : Path.GetRelativePath(card.Path, f))));
     }
 
     private void ShowApiHint(GraphicsDetection graphics)
