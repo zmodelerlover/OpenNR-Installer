@@ -416,7 +416,7 @@ public static partial class Work
                 _ => $"The runtime stays danielblnc's {o.Runtime}, already here and newer than the "
                      + $"{pins.OptiRuntimeVersion} the download carries.",
             });
-        if (iniWritten && everywhere && (daniel || runsMochizuki))
+        if (iniWritten && everywhere && upscalers.Count == 0 && (daniel || runsMochizuki))
             report.Info($"{OptiScalerIni} has NR without upscaling on: with no upscaler running, OptiScaler runs the network "
                         + $"on the finished frame, HUD included, on {(runsMochizuki ? "mochizuki" : "danielblnc's runtime")}. "
                         + "Where the game's DLSS, FSR or XeSS is on, the network runs inside it instead.");

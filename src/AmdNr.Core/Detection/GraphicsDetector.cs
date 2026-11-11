@@ -185,7 +185,10 @@ public static partial class GraphicsDetector
                          }))
                 {
                     if (++seen > 20_000) break;
-                    if (names.Contains(Path.GetFileName(dll))) found.Add(Path.GetFileName(dll).ToLowerInvariant());
+                    // OptiScaler's own folder carries libxess.dll and the FSR upscaler: on a reinstall they made a
+                    // game without an upscaler look like one with, and NR without upscaling went off.
+                    if (names.Contains(Path.GetFileName(dll)) && Work.GamesOwnFile(Path.GetRelativePath(dir, dll)))
+                        found.Add(Path.GetFileName(dll).ToLowerInvariant());
                 }
             }
             catch (Exception e) when (e is IOException or UnauthorizedAccessException)

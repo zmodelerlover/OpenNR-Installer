@@ -76,7 +76,6 @@ public static partial class Work
     private static IEnumerable<string> GamesOwn(string dir, string[] names)
     {
         var wanted = new HashSet<string>(names, StringComparer.OrdinalIgnoreCase);
-        string[] ours = ["OptiScaler", OptiHostFolder, "dlssnr_amd_host"];
         List<string> dlls;
         try
         {
@@ -87,8 +86,16 @@ public static partial class Work
         }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException) { return []; }
         return dlls.Where(f => wanted.Contains(Path.GetFileName(f))).Select(f => Path.GetRelativePath(dir, f))
-            .Where(r => !ours.Any(o => r.StartsWith(o + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase))
-                        && !Path.GetDirectoryName(r)!.Contains("backup", StringComparison.OrdinalIgnoreCase));
+            .Where(GamesOwnFile);
+    }
+
+    /// <summary>Whether a file, relative to the game folder, is the game's: not in a folder this app or the host
+    /// made (OptiScaler\, OptiScaler64\, dlssnr_amd_host\) nor in one named as a backup.</summary>
+    internal static bool GamesOwnFile(string relative)
+    {
+        string[] ours = ["OptiScaler", OptiHostFolder, "dlssnr_amd_host"];
+        return !ours.Any(o => relative.StartsWith(o + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase))
+               && !(Path.GetDirectoryName(relative) ?? "").Contains("backup", StringComparison.OrdinalIgnoreCase);
     }
 
     /// <summary>Whether this app put danielblnc's DLSS-FG in this game folder and it is still there.</summary>

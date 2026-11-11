@@ -95,6 +95,24 @@ public class OptiEverywhereTests
     }
 
     [Fact]
+    public void OptiScalersOwnFolderIsNotTheGamesUpscaler()
+    {
+        // A reinstall found OptiScaler\libxess.dll and turned NR without upscaling off (Resident Evil 2).
+        var game = Fixture.Temp("everywhere-own-folder");
+        foreach (var f in new[] { @"OptiScaler\libxess.dll", @"OptiScaler\amd_fidelityfx_upscaler_dx12.dll",
+                                  @"dlssnr_amd_host\nvngx_dlss.dll", @"_optiscaler_backup\nvngx_dlss.dll" })
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(Path.Combine(game, f))!);
+            File.WriteAllBytes(Path.Combine(game, f), [0]);
+        }
+        Assert.Empty(GraphicsDetector.UpscalersDeep(game));
+
+        Directory.CreateDirectory(Path.Combine(game, "bin"));
+        File.WriteAllBytes(Path.Combine(game, "bin", "libxess.dll"), [0]);
+        Assert.Equal(["libxess.dll"], GraphicsDetector.UpscalersDeep(game));
+    }
+
+    [Fact]
     public void AnUpscalerBuiltIntoTheExecutableIsFoundEvenAcrossAReadBoundary()
     {
         var dir = Fixture.Temp("everywhere-builtin");
