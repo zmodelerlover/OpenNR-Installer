@@ -120434,18 +120434,18 @@
     ],
     "nrlive": [
       {
-        "version": "3.2.1",
+        "version": "3.3.0",
         "components": {
           "nrlive": {
-            "version": "3.2.1",
+            "version": "3.3.0",
             "files": [
               {
                 "name": "NRLive.zip",
-                "size": 100071236,
-                "sha256": "a1dafbfe6937750742be4abc532214164ec852719245c0928f69be113dae9483",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/nrlive/3.2.1/NRLive.zip",
+                "size": 104703442,
+                "sha256": "9e1269ea475a0fbad57d9e58f117fa4ad0543115796461a3d011fd44c308e5c5",
+                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/nrlive/3.3.0/NRLive.zip",
                 "mirrors": [
-                  "https://github.com/Caliel666/NRLive/releases/download/3.2.1/NRLive.zip"
+                  "https://github.com/Caliel666/NRLive/releases/download/3.3.0/NRLive.zip"
                 ]
               }
             ]
