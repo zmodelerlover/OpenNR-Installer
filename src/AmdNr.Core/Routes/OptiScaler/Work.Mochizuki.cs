@@ -204,8 +204,9 @@ public static partial class Work
         + "OptiScaler's mochizuki page says why.";
 
     private const string MochizukiRdna2Installed =
-        "The RX 6000 network went in too (dlssnr-amd\\shaders-rdna2, experimental): mochizuki's FP16 network with its "
-        + "matrices worked out in ALU. The first start compiles its shaders once (tens of seconds on an RX 6600); after "
+        "The RX 6000 network went in too (dlssnr-amd\\shaders-rdna2 and shaders-rdna2-int8, experimental): mochizuki's "
+        + "network with its matrices worked out in ALU, in INT8 when the OptiScaler version has it, FP16 otherwise or if "
+        + "INT8 fails on the driver. The first start compiles its shaders once (tens of seconds on an RX 6600); after "
         + "that it opens in seconds. If a pipeline fails to compile NR stays off and OptiScaler's mochizuki page says why.";
 
     /// <summary>What the mochizuki runtime writes beside its files while a game runs -- the pipeline
@@ -229,8 +230,9 @@ public static partial class Work
             string[] int4 = [.. new[] { "int4", "int4-performance", "int4-ultra" }.Select(l => Path.Combine(root, l))];
             var int4Binaries = int4.Select(l => Path.Combine(l, "pipeline-binaries")).ToArray();
             // The FP16 networks' checks (with the machine code the child compiled) and that machine code once kept.
-            string[] fp16 = [.. new[] { "rdna3-check", "rdna2-check" }.SelectMany(c => new[] { Path.Combine(root, c), Path.Combine(root, c, "binaries") }),
-                             Path.Combine(root, "binaries-rdna3"), Path.Combine(root, "binaries-rdna2")];
+            string[] fp16 = [.. new[] { "rdna3-check", "rdna2-check", "rdna2-int8-check" }.SelectMany(c => new[] { Path.Combine(root, c), Path.Combine(root, c, "binaries") }),
+                             Path.Combine(root, "binaries-rdna3"), Path.Combine(root, "binaries-rdna2"),
+                             Path.Combine(root, "binaries-rdna2-int8")];
             foreach (var file in Directory.EnumerateFiles(root).Concat(Leaves(Path.Combine(root, "prewarm")))
                          .Concat(int4.SelectMany(Leaves)).Concat(Leaves(acoCache))
                          .Concat(int4Binaries.SelectMany(Leaves)).Concat(fp16.SelectMany(Leaves)).ToList())
@@ -238,10 +240,11 @@ public static partial class Work
                 var name = Path.GetFileName(file);
                 var folder = Path.GetDirectoryName(file);
                 var written = name is MochizukiPipelineCache or "pipeline-rdna3.cache" or "pipeline-rdna2.cache"
-                                  or "manifest-rdna3.txt" or "manifest-rdna2.txt"
+                                  or "pipeline-rdna2-int8.cache" or "manifest-rdna3.txt" or "manifest-rdna2.txt"
+                                  or "manifest-rdna2-int8.txt"
                               || fp16.Contains(folder)
                               || folder == root && name is "build.pending" or "build.failed" or "float-colour-shared"
-                                  or "rdna3-check.txt" or "rdna2-check.txt"
+                                  or "rdna3-check.txt" or "rdna2-check.txt" or "rdna2-int8-check.txt"
                               || int4Binaries.Contains(folder)
                               || folder == acoCache
                               && (name.EndsWith(".nrb", StringComparison.OrdinalIgnoreCase)

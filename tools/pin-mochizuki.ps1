@@ -18,8 +18,10 @@
       dlssnr-amd\int4-ultra\...              from mochizuki 0.0.8.3 on
       dlssnr-amd\shaders-rdna3\...           the RX 7000 network (optional), one level of folders under it
       dlssnr-amd\shaders-rdna2\...           the RX 6000 network (optional), one level of folders under it
+      dlssnr-amd\shaders-rdna2-int8\...      its INT8 form (optional, with shaders-rdna2), in the RX 6000 archive
       dlssnr-amd\prewarm\manifest-rdna3.txt  the RX 7000 network's prewarm list (optional, with shaders-rdna3)
       dlssnr-amd\prewarm\manifest-rdna2.txt  the RX 6000 network's prewarm list (optional, with shaders-rdna2)
+      dlssnr-amd\prewarm\manifest-rdna2-int8.txt  the INT8 form's (optional, with shaders-rdna2-int8)
 
   Anything else at the top of -From (OptiScaler.dll, notes, a build's .lib, .exp and obj\) is ignored.
 
@@ -114,14 +116,14 @@ function Written($name) { $name -eq 'pipeline.cache' -or $name -like '*.tmp' -or
 
 $top = Get-ChildItem -LiteralPath $data -Force
 foreach ($item in $top) {
-    $ok = ($item.PSIsContainer -and $item.Name -in 'prewarm', 'shaders', 'shaders-rdna3', 'shaders-rdna2', 'aco', 'int4', 'int4-performance', 'int4-ultra') -or
+    $ok = ($item.PSIsContainer -and $item.Name -in 'prewarm', 'shaders', 'shaders-rdna3', 'shaders-rdna2', 'shaders-rdna2-int8', 'aco', 'int4', 'int4-performance', 'int4-ultra') -or
           (-not $item.PSIsContainer -and $item.Name -in 'dlssnr.bin', 'dlssnr-small.bin')
     # mochizuki 0.0.8.3 on makes the int4 weights at first use (aco-cache\dlssnr-optimized-int4.nrb).
     if ($item.Name -eq 'dlssnr-int4.bin') { Fail "dlssnr-amd\dlssnr-int4.bin no longer ships: the runtime makes the int4 weights itself. Leave it out of -From" }
     if (-not $ok) { Fail "dlssnr-amd\$($item.Name) is not part of a release$(if (Written $item.Name) { ': the runtime wrote it while a game ran' })" }
 }
-$extra = Get-ChildItem -LiteralPath (Join-Path $data 'prewarm') -Force | Where-Object { $_.Name -notin 'manifest.txt', 'manifest-rdna3.txt', 'manifest-rdna2.txt' }
-if ($extra) { Fail "dlssnr-amd\prewarm holds more than its three lists: $(($extra | ForEach-Object Name) -join ', ')" }
+$extra = Get-ChildItem -LiteralPath (Join-Path $data 'prewarm') -Force | Where-Object { $_.Name -notin 'manifest.txt', 'manifest-rdna3.txt', 'manifest-rdna2.txt', 'manifest-rdna2-int8.txt' }
+if ($extra) { Fail "dlssnr-amd\prewarm holds more than its lists: $(($extra | ForEach-Object Name) -join ', ')" }
 
 $files = [System.Collections.Generic.List[object]]::new()   # payload path -> file on disk
 $files.Add([pscustomobject]@{ Path = 'MochizukiNrRuntime.dll'; File = $runtime })
@@ -173,7 +175,7 @@ if ((Test-Path -LiteralPath (Join-Path $data 'aco\optimized')) -and -not (Test-P
 }
 # The RX 7000 and RX 6000 networks: their shaders, runtime\ and temporal\, and their prewarm lists, each in an archive
 # of its own (see 4.).
-$fp16 = foreach ($tag in 'rdna3', 'rdna2') {
+$fp16 = foreach ($tag in 'rdna3', 'rdna2', 'rdna2-int8') {
     $tree = Join-Path $data "shaders-$tag"
     $list = Join-Path $data "prewarm\manifest-$tag.txt"
     $hasTree = Test-Path -LiteralPath $tree
@@ -190,7 +192,7 @@ foreach ($f in $files) { if ($f.Path.Length -gt 128) { Fail "payload path over 1
 # Ordinal, not Sort-Object's culture order: the archive's bytes must not depend on the machine's language.
 $files.Sort([Comparison[object]] { param($a, $b) [string]::CompareOrdinal($a.Path, $b.Path) })
 function OfNetwork($path, $tag) {
-    $path.StartsWith("dlssnr-amd.shaders-$tag", [StringComparison]::Ordinal) -or $path -eq "dlssnr-amd.prewarm/manifest-$tag.txt"
+    $path.StartsWith("dlssnr-amd.shaders-$tag", [StringComparison]::Ordinal) -or $path.StartsWith("dlssnr-amd.prewarm/manifest-$tag", [StringComparison]::Ordinal)
 }
 $rdna3Files = @($files | Where-Object { OfNetwork $_.Path 'rdna3' })
 $rdna2Files = @($files | Where-Object { OfNetwork $_.Path 'rdna2' })
