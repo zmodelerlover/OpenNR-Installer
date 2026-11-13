@@ -41,7 +41,8 @@ public partial class GameSheet
     }
 
     /// <summary>The box's answer for an install, null where it is not offered (OptiScaler.ini is then left alone).</summary>
-    private bool? WantsOpenRr(GameCard card) => OffersOpenRr(card) ? card.Entry.OpenRr ?? !OpenRrRx7000 : null;
+    private bool? WantsOpenRr(GameCard card) =>
+        OffersOpenRr(card) ? !WantsWrongGpuRr(card) && (card.Entry.OpenRr ?? !OpenRrRx7000) : null;
 
     /// <summary>OpenRR's download when ticked, and NVIDIA's nvngx_dlssd.dll 310.9.1 when the game needs it.</summary>
     private string[] OpenRrComponents(GameCard card, PayloadPins pins) =>
@@ -116,7 +117,10 @@ public partial class GameSheet
     {
         if (_setting || _card is not { } card) return;
         card.Entry.OpenRr = OpenRrSection.IsChecked == true;
+        // One Ray Reconstruction per game: OpenRR ticked unticks WrongGPU's.
+        if (card.Entry.OpenRr == true && WrongGpuRrSection.IsChecked == true) card.Entry.WrongGpuRr = false;
         Library.Save();
+        ShowWrongGpu();
         ShowInstallLabel();
         // A different set of files: the pre-flight says so again.
         _ = RefreshAsync();

@@ -5,7 +5,7 @@
   <!-- Italian. The same keys as Options.en.axaml, in its order. -->
 
   <sys:String x:Key="Str.OffByDefault">Disattivato di default</sys:String>
-  <sys:String x:Key="Str.WrongGpuLine">Converte DLSS 4.5 Model M in FSR su RDNA 4</sys:String>
+  <sys:String x:Key="Str.WrongGpuLine">WrongGPU by phantoslayer21 · github.com/phantoslayer21/wronggpu</sys:String>
   <sys:String x:Key="Str.HostFgLine">Generazione di frame di danielblnc 0.8.0 nei giochi D3D12</sys:String>
   <sys:String x:Key="Str.OpenRrFoundChip">nvngx_dlssd.dll 310.9.1 trovato</sys:String>
   <sys:String x:Key="Str.OpenRrFoundLine">OpenRR costruisce la sua rete da questo</sys:String>
@@ -14,4 +14,12 @@
   <sys:String x:Key="Str.OpenRrBlockedChip">Non compatibile</sys:String>
   <sys:String x:Key="Str.OpenRrToggleRx7000">OpenRR (Ray Reconstruction, RX 7000, sperimentale)</sys:String>
   <sys:String x:Key="Str.OpenRrNoteRx7000">Disattivato finché non lo spunti. Sperimentale su RX 7000 e grafica RDNA3 / RDNA 3.5: OpenRR usa kernel fatti per queste GPU (opennr-rr\shaders-gfx11\), più lento che su una RX 9000. Se non parte, opennr_rr.log accanto al gioco dice perché.</sys:String>
+  <sys:String x:Key="Str.WrongGpuRrToggle">Ray Reconstruction di WrongGPU (al posto di OpenRR)</sys:String>
+  <sys:String x:Key="Str.WrongGpuRrNote">Disattivato finché non lo selezioni. La Ray Reconstruction di WrongGPU in questo gioco al posto di OpenRR, mai entrambe. I suoi dati vengono convertiti su questo PC da un nvngx_dlssd.dll 310.7 o più recente arrivato con uno dei tuoi giochi, mai da uno messo da questo installer. Nel gioco attiva DLSS Ray Reconstruction.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchTitle">Scaricare WrongGPU {0}?</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchBody">WrongGPU converte il suo modello su questo PC, con il suo launcher, da un file DLSS arrivato con uno dei tuoi giochi. Questo installer può scaricare WrongGPU-{0}.zip dalla pagina ufficiale delle release di WrongGPU su GitHub, verificarlo con lo SHA-256 pubblicato lì, eseguire la conversione e cancellare il download dopo. Non viene scaricato nient'altro.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchYes">Scarica da GitHub e converti</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchNo">Non viene scaricato nulla</sys:String>
+  <sys:String x:Key="Str.WrongGpuDeclined">WrongGPU non è stato installato: prima il suo modello deve essere convertito su questo PC. Lascia WrongGPU disattivato per installare senza.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchFailed">Impossibile scaricare WrongGPU</sys:String>
 </ResourceDictionary>

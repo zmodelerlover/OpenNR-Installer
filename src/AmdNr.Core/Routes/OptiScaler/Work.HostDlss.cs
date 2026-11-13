@@ -2,7 +2,7 @@
 // from the nvngx_dlss.dll OptiScaler copies beside it: the one in OptiScaler's library folder (OptiScaler\) first, the
 // game's otherwise. A DLSS older than 310 (Red Dead Redemption 2 ships 2.2.10) has no weights it can read, so it falls
 // back to its FSR provider and the game crashes once DLSS is picked. Such a game, or one with no nvngx_dlss.dll beside
-// it, gets NVIDIA's 310.9.1 in OptiScaler\: the payload's wronggpu-dlss, the file WrongGPU's setup converts from.
+// it, gets NVIDIA's 310.9.1 in OptiScaler\: the payload's host-dlss.
 // It is recorded like every other file, so uninstall takes it, and so does an install that no longer needs it.
 // nvngx_dlssd.dll (ray reconstruction) is left to the game: the payload has no 310 one.
 
@@ -65,8 +65,8 @@ public static partial class Work
                         + "OptiScaler\\nvngx_dlss.dll already here, which stays as it is.");
             return;
         }
-        var staged = pins.WrongGpuDlss.Length > 0 ? Path.Combine(src, pins.WrongGpuDlss) : "";
-        if (!File.Exists(staged) || VerifiedPayload(src, pins.WrongGpuDlss, pins.WrongGpuDlssSha, report) is not { } bytes)
+        var staged = pins.HostDlss.Length > 0 ? Path.Combine(src, pins.HostDlss) : "";
+        if (!File.Exists(staged) || VerifiedPayload(src, pins.HostDlss, pins.HostDlssSha, report) is not { } bytes)
         {
             if (!report.Failed)
                 report.Warn($"{why}, and NVIDIA's 310 was not downloaded: picking DLSS "

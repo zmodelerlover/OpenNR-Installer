@@ -162,15 +162,14 @@ public sealed partial class PayloadManifest
     /// weights go (<see cref="WithoutLmxxf"/>).</summary>
     public const string PersonModelComponent = "person-model";
 
-    /// <summary>WrongGPU, phantoslayer21's DLSS 4.5 super resolution (Model M) for RX 9000 as an FFX upscaler
-    /// provider of OptiScaler's, redistributed with the author's written permission: its DLLs, and its setup, which
-    /// converts the model from a DLSS file on the PC (Work.WrongGpu.cs). Installed only when ticked.</summary>
+    /// <summary>WrongGPU, phantoslayer21's DLSS 4.5 super resolution (Model M) and Ray Reconstruction for RX 9000, as
+    /// an FFX upscaler provider of OptiScaler's: the files of his integration kit, unchanged, redistributed with his
+    /// written permission (Work.WrongGpu.cs). Never a model or an NVIDIA file. Installed only when ticked.</summary>
     public const string WrongGpuComponent = "wronggpu";
 
-    /// <summary>NVIDIA's nvngx_dlss.dll 310.9.1 from NVIDIA's own GitHub repository, for WrongGPU's setup to convert
-    /// the model from when the PC has no DLSS 310.5 or newer, and for OptiScaler\ in a game whose own DLSS is too old
-    /// for danielblnc 0.8.0's DLSS-SR (Work.HostDlss.cs).</summary>
-    public const string WrongGpuDlssComponent = "wronggpu-dlss";
+    /// <summary>NVIDIA's nvngx_dlss.dll 310.9.1 from NVIDIA's own GitHub repository, for OptiScaler\ in a game whose own
+    /// DLSS is too old for danielblnc 0.8.0's DLSS-SR (Work.HostDlss.cs). Nothing of WrongGPU's reads it.</summary>
+    public const string HostDlssComponent = "host-dlss";
 
     /// <summary>Components fetched only when a route that uses them is installed. The OptiScaler
     /// archive alone is 132 MB, so downloading it in the first-run wizard for everybody, most of
@@ -180,7 +179,7 @@ public sealed partial class PayloadManifest
         {
             OptiScalerComponent, OptiRuntimeComponent, LmxxfWeightsComponent, LmxxfSmallWeightsComponent, LmxxfGfx1200Component,
             OptiX86Component, MochizukiComponent, MochizukiModelComponent, MochizukiSmallModelComponent, MochizukiRdna3Component,
-            MochizukiRdna2Component, PersonModelComponent, WrongGpuComponent, WrongGpuDlssComponent, NrLiveComponent, StreamlineComponent, DlssgComponent,
+            MochizukiRdna2Component, PersonModelComponent, WrongGpuComponent, HostDlssComponent, NrLiveComponent, StreamlineComponent, DlssgComponent,
             LmxxfRuntimeComponent, OptiScalerLeanComponent, OpenRrComponent, OpenRrDlssdComponent, OpenRrGfx11Component, NrLiveInt4Component,
         };
 
@@ -448,10 +447,11 @@ public sealed partial class PayloadManifest
                          .Where(Components.ContainsKey).SelectMany(c => Components[c].Installed)))
                 mochizuki[f.RelativePath] = Engine.Lower(f.Sha256);
         var wrongGpu = new Dictionary<string, string>(StringComparer.Ordinal);
-        if (Components.TryGetValue(WrongGpuComponent, out var wg))
-            foreach (var f in wg.Installed)
-                wrongGpu[f.RelativePath] = Engine.Lower(f.Sha256);
-        var dlss = Components.TryGetValue(WrongGpuDlssComponent, out var dl) ? dl.Installed.FirstOrDefault() : null;
+        // Only the kit (0.6.0 on), never 0.5.5-ea's setup and DLLs.
+        if (Components.TryGetValue(WrongGpuComponent, out var wg) && Work.IsWrongGpuKit(wg))
+            foreach (var f in wg.Installed) wrongGpu[f.RelativePath] = Engine.Lower(f.Sha256);
+        else wg = null;
+        var dlss = Components.TryGetValue(HostDlssComponent, out var dl) ? dl.Installed.FirstOrDefault() : null;
         return WithReFrameworkPins(WithOpenRr(WithHostFg(new PayloadPins
         {
             AddonSha = addon.Sha256,
@@ -473,8 +473,8 @@ public sealed partial class PayloadManifest
             MochizukiFiles = mochizuki,
             WrongGpuFiles = wrongGpu,
             WrongGpuVersion = wg?.Version ?? string.Empty,
-            WrongGpuDlss = dlss?.RelativePath ?? string.Empty,
-            WrongGpuDlssSha = dlss is null ? string.Empty : Engine.Lower(dlss.Sha256),
+            HostDlss = dlss?.RelativePath ?? string.Empty,
+            HostDlssSha = dlss is null ? string.Empty : Engine.Lower(dlss.Sha256),
             ReShade64Sha = Pin(ReShadeComponent, "ReShade64.dll") ?? Engine.ReShade64Sha,
             ReShade32Sha = Pin(X86ExtrasComponent, "dxgi.dll") ?? Engine.ReShadeSha,
             D3d8To9Sha = Pin(X86ExtrasComponent, "d3d8to9.dll") ?? Engine.D3d8To9Sha,

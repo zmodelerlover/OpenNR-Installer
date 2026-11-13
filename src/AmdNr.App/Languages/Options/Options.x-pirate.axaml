@@ -5,7 +5,7 @@
   <!-- Pirate. The same keys as Options.en.axaml, in its order. -->
 
   <sys:String x:Key="Str.OffByDefault">Lashed down by default</sys:String>
-  <sys:String x:Key="Str.WrongGpuLine">Turns DLSS 4.5 Model M into FSR on RDNA 4</sys:String>
+  <sys:String x:Key="Str.WrongGpuLine">WrongGPU by phantoslayer21 · github.com/phantoslayer21/wronggpu</sys:String>
   <sys:String x:Key="Str.HostFgLine">danielblnc 0.8.0's frame makin' in D3D12 games</sys:String>
   <sys:String x:Key="Str.OpenRrFoundChip">nvngx_dlssd.dll 310.9.1 be found</sys:String>
   <sys:String x:Key="Str.OpenRrFoundLine">OpenRR builds its net from it</sys:String>
@@ -14,4 +14,12 @@
   <sys:String x:Key="Str.OpenRrBlockedChip">Won't sail</sys:String>
   <sys:String x:Key="Str.OpenRrToggleRx7000">OpenRR (Ray Reconstruction, RX 7000, experimental)</sys:String>
   <sys:String x:Key="Str.OpenRrNoteRx7000">Stowed unless ye tick it. Experimental on RX 7000 and RDNA3 / RDNA 3.5 graphics: OpenRR runs kernels forged fer these GPUs (opennr-rr\shaders-gfx11\), slower than on an RX 9000. If she don't sail, opennr_rr.log beside the game tells ye why.</sys:String>
+  <sys:String x:Key="Str.WrongGpuRrToggle">WrongGPU Ray Reconstruction (in place o' OpenRR)</sys:String>
+  <sys:String x:Key="Str.WrongGpuRrNote">Stowed unless ye tick it. WrongGPU's own Ray Reconstruction in this game in place o' OpenRR, never both. Its data be turned on this PC from an nvngx_dlssd.dll 310.7 or newer that came with one o' yer games, never from one this installer put aboard. In the game hoist DLSS Ray Reconstruction.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchTitle">Haul down WrongGPU {0}?</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchBody">WrongGPU turns its model on this PC with its own launcher, from a DLSS file that came with one o' yer games. This installer can haul WrongGPU-{0}.zip from WrongGPU's official release page on GitHub, check it against the SHA-256 posted there, run the conversion an' scuttle the download after. Nothin' else be hauled fer it.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchYes">Haul from GitHub an' convert</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchNo">Nothin' be hauled</sys:String>
+  <sys:String x:Key="Str.WrongGpuDeclined">WrongGPU weren't installed: its model must be turned on this PC first. Leave WrongGPU stowed to install without it.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchFailed">WrongGPU couldn't be hauled</sys:String>
 </ResourceDictionary>

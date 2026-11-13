@@ -243,15 +243,17 @@ public static partial class Engine
         "LmxxfNrRuntime.dll",
         // OptiScaler 0.4.0's third runtime, mochizuki. Its dlssnr-amd folder is matched by rule.
         "MochizukiNrRuntime.dll",
-        // WrongGPU (OptiScaler 0.5.4 on, only when ticked): its FFX provider, its runtime, AMD's FSR 4 it compares
-        // against, the ASI plugin that names it in OptiScaler, its ini and its licence and notices.
+        // WrongGPU (only when ticked): its kit's front end under route C's name, its runtime, its notices, its Ray
+        // Reconstruction plugin and that plugin's settings; and what 0.5.5-ea had, so an update takes it out.
         "wronggpu_ffx_dx12.dll",
         "wronggpu_runtime.dll",
+        "wronggpu-notices.txt",
+        "plugins/WrongGPU-RR.asi",
+        "WrongGPU/wronggpu.ini",
         "wronggpu-amd-compare.dll",
         "plugins/WrongGPU.asi",
         "wronggpu.ini",
         "wronggpu-license.txt",
-        "wronggpu-notices.txt",
         // OpenRR (only when ticked), its kernels matched by IsAllowed below, and NVIDIA's 310.9.1 nvngx_dlssd.dll it
         // builds its network from, in place of the game's own when that is another version; a Vulkan game gets it in
         // opennr-rr\ instead and keeps its own.

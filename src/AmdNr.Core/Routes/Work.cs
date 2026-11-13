@@ -60,15 +60,15 @@ public sealed partial class PayloadPins
     /// not carry it; installed only when it is asked for.</summary>
     public IReadOnlyDictionary<string, string> MochizukiFiles { get; init; } = new Dictionary<string, string>();
 
-    /// <summary>WrongGPU's files (its DLLs, its ini, its setup) by their path in the payload folder, and its
-    /// version. Empty when the OptiScaler version chosen does not carry it; installed only when it is ticked.</summary>
+    /// <summary>WrongGPU's kit files by their path in the payload folder, and its version. Empty when the OptiScaler
+    /// version chosen does not carry it; installed only when it is ticked.</summary>
     public IReadOnlyDictionary<string, string> WrongGpuFiles { get; init; } = new Dictionary<string, string>();
     public string WrongGpuVersion { get; init; } = string.Empty;
 
-    /// <summary>NVIDIA's DLSS file WrongGPU's setup converts the model from when the PC has none it can use, by
-    /// its path in the payload folder; empty when it was not downloaded.</summary>
-    public string WrongGpuDlss { get; init; } = string.Empty;
-    public string WrongGpuDlssSha { get; init; } = string.Empty;
+    /// <summary>NVIDIA's DLSS file for OptiScaler\ under danielblnc 0.8.0 (Work.HostDlss.cs), by its path in the
+    /// payload folder; empty when it was not downloaded.</summary>
+    public string HostDlss { get; init; } = string.Empty;
+    public string HostDlssSha { get; init; } = string.Empty;
 
     /// <summary>The add-on and bridge versions pinned: which of <see cref="UserRuntimes"/> the ReShade
     /// routes can run. Empty when not known, which runs none of them.</summary>

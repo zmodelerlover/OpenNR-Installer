@@ -239,7 +239,8 @@ public static partial class Work
             report.Info(here
                 ? "OpenRR is in. In the game turn DLSS Ray Reconstruction on: OptiScaler's menu (Insert) shows OpenRR, and "
                   + "its log is opennr_rr.log beside the game."
-                : $"{OptiScalerIni} has OpenRR off (Enabled=false under [OpenNR-RR]): Ray Reconstruction runs on FSR-RR.");
+                : $"{OptiScalerIni} has OpenRR off (Enabled=false under [OpenNR-RR]): Ray Reconstruction runs on "
+                  + (File.Exists(Path.Combine(dir, WrongGpuAsi)) ? "WrongGPU's." : "FSR-RR."));
         }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException)
         {

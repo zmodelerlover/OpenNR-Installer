@@ -5,7 +5,7 @@
   <!-- Romanian. The same keys as Options.en.axaml, in its order. -->
 
   <sys:String x:Key="Str.OffByDefault">Dezactivat implicit</sys:String>
-  <sys:String x:Key="Str.WrongGpuLine">Convertește DLSS 4.5 Model M în FSR pe RDNA 4</sys:String>
+  <sys:String x:Key="Str.WrongGpuLine">WrongGPU by phantoslayer21 · github.com/phantoslayer21/wronggpu</sys:String>
   <sys:String x:Key="Str.HostFgLine">Generare de cadre de la danielblnc 0.8.0 în jocurile D3D12</sys:String>
   <sys:String x:Key="Str.OpenRrFoundChip">nvngx_dlssd.dll 310.9.1 găsit</sys:String>
   <sys:String x:Key="Str.OpenRrFoundLine">OpenRR își construiește rețeaua din el</sys:String>
@@ -14,4 +14,12 @@
   <sys:String x:Key="Str.OpenRrBlockedChip">Incompatibil</sys:String>
   <sys:String x:Key="Str.OpenRrToggleRx7000">OpenRR (Ray Reconstruction, RX 7000, experimental)</sys:String>
   <sys:String x:Key="Str.OpenRrNoteRx7000">Dezactivat până îl bifezi. Experimental pe RX 7000 și grafica RDNA3 / RDNA 3.5: OpenRR folosește kernele făcute pentru aceste GPU-uri (opennr-rr\shaders-gfx11\), mai lent decât pe o RX 9000. Dacă nu pornește, opennr_rr.log de lângă joc spune de ce.</sys:String>
+  <sys:String x:Key="Str.WrongGpuRrToggle">Ray Reconstruction WrongGPU (în locul OpenRR)</sys:String>
+  <sys:String x:Key="Str.WrongGpuRrNote">Dezactivat până îl bifezi. Ray Reconstruction propriu al WrongGPU în acest joc în locul OpenRR, niciodată amândouă. Datele lui sunt convertite pe acest PC dintr-un nvngx_dlssd.dll 310.7 sau mai nou venit cu unul dintre jocurile tale, niciodată din unul pus de acest installer. În joc pornește DLSS Ray Reconstruction.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchTitle">Descarci WrongGPU {0}?</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchBody">WrongGPU își convertește modelul pe acest PC, cu launcherul lui, dintr-un fișier DLSS venit cu unul dintre jocurile tale. Acest installer poate descărca WrongGPU-{0}.zip de pe pagina oficială de versiuni WrongGPU de pe GitHub, îl verifică cu SHA-256 publicat acolo, rulează conversia și șterge apoi descărcarea. Nu se descarcă nimic altceva.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchYes">Descarcă de pe GitHub și convertește</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchNo">Nu se descarcă nimic</sys:String>
+  <sys:String x:Key="Str.WrongGpuDeclined">WrongGPU nu a fost instalat: modelul lui trebuie mai întâi convertit pe acest PC. Lasă WrongGPU dezactivat ca să instalezi fără el.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchFailed">WrongGPU nu a putut fi descărcat</sys:String>
 </ResourceDictionary>

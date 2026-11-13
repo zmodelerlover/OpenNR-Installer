@@ -5,7 +5,7 @@
   <!-- Croatian. The same keys as Options.en.axaml, in its order. -->
 
   <sys:String x:Key="Str.OffByDefault">Zadano isključeno</sys:String>
-  <sys:String x:Key="Str.WrongGpuLine">Pretvara DLSS 4.5 Model M u FSR na RDNA 4</sys:String>
+  <sys:String x:Key="Str.WrongGpuLine">WrongGPU by phantoslayer21 · github.com/phantoslayer21/wronggpu</sys:String>
   <sys:String x:Key="Str.HostFgLine">Generiranje sličica iz danielblnc 0.8.0 u D3D12 igrama</sys:String>
   <sys:String x:Key="Str.OpenRrFoundChip">nvngx_dlssd.dll 310.9.1 pronađen</sys:String>
   <sys:String x:Key="Str.OpenRrFoundLine">OpenRR iz njega gradi svoju mrežu</sys:String>
@@ -14,4 +14,12 @@
   <sys:String x:Key="Str.OpenRrBlockedChip">Nije kompatibilno</sys:String>
   <sys:String x:Key="Str.OpenRrToggleRx7000">OpenRR (Ray Reconstruction, RX 7000, eksperimentalno)</sys:String>
   <sys:String x:Key="Str.OpenRrNoteRx7000">Isključeno dok ne označite. Eksperimentalno na RX 7000 i RDNA3 / RDNA 3.5 grafici: OpenRR koristi kernele napravljene za te GPU-ove (opennr-rr\shaders-gfx11\), sporije nego na RX 9000. Ako se ne pokrene, razlog piše u opennr_rr.log pokraj igre.</sys:String>
+  <sys:String x:Key="Str.WrongGpuRrToggle">WrongGPU Ray Reconstruction (umjesto OpenRR-a)</sys:String>
+  <sys:String x:Key="Str.WrongGpuRrNote">Isključeno dok ne označiš. WrongGPU-ov Ray Reconstruction u ovoj igri umjesto OpenRR-a, nikad oba. Njegovi se podaci pretvaraju na ovom PC-u iz nvngx_dlssd.dll 310.7 ili novijeg koji je došao s nekom od tvojih igara, nikad iz onog koji je stavio ovaj program. U igri uključi DLSS Ray Reconstruction.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchTitle">Preuzeti WrongGPU {0}?</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchBody">WrongGPU pretvara svoj model na ovom PC-u svojim launcherom iz DLSS datoteke koja je došla s nekom od tvojih igara. Ovaj program može preuzeti WrongGPU-{0}.zip sa službene stranice izdanja WrongGPU-a na GitHubu, provjeriti ga prema ondje objavljenom SHA-256, pokrenuti pretvorbu i zatim obrisati preuzimanje. Ništa drugo se ne preuzima.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchYes">Preuzmi s GitHuba i pretvori</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchNo">Ništa se ne preuzima</sys:String>
+  <sys:String x:Key="Str.WrongGpuDeclined">WrongGPU nije instaliran: njegov model prvo treba pretvoriti na ovom PC-u. Ostavi WrongGPU isključen za instalaciju bez njega.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchFailed">WrongGPU se nije mogao preuzeti</sys:String>
 </ResourceDictionary>

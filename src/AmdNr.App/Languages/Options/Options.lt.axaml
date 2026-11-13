@@ -5,7 +5,7 @@
   <!-- Lithuanian. The same keys as Options.en.axaml, in its order. -->
 
   <sys:String x:Key="Str.OffByDefault">Pagal numatymą išjungta</sys:String>
-  <sys:String x:Key="Str.WrongGpuLine">Paverčia DLSS 4.5 Model M į FSR RDNA 4 kortose</sys:String>
+  <sys:String x:Key="Str.WrongGpuLine">WrongGPU by phantoslayer21 · github.com/phantoslayer21/wronggpu</sys:String>
   <sys:String x:Key="Str.HostFgLine">danielblnc 0.8.0 kadrų generavimas D3D12 žaidimuose</sys:String>
   <sys:String x:Key="Str.OpenRrFoundChip">Rastas nvngx_dlssd.dll 310.9.1</sys:String>
   <sys:String x:Key="Str.OpenRrFoundLine">OpenRR iš jo kuria savo tinklą</sys:String>
@@ -14,4 +14,12 @@
   <sys:String x:Key="Str.OpenRrBlockedChip">Nesuderinama</sys:String>
   <sys:String x:Key="Str.OpenRrToggleRx7000">OpenRR (Ray Reconstruction, RX 7000, eksperimentinis)</sys:String>
   <sys:String x:Key="Str.OpenRrNoteRx7000">Išjungta, kol nepažymėsite. Eksperimentinis RX 7000 ir RDNA3 / RDNA 3.5 grafikoje: OpenRR naudoja šiems GPU sukurtus branduolius (opennr-rr\shaders-gfx11\), lėčiau nei RX 9000. Jei nepasileidžia, priežastis nurodyta opennr_rr.log šalia žaidimo.</sys:String>
+  <sys:String x:Key="Str.WrongGpuRrToggle">WrongGPU Ray Reconstruction (vietoj OpenRR)</sys:String>
+  <sys:String x:Key="Str.WrongGpuRrNote">Išjungta, kol nepažymėsi. WrongGPU Ray Reconstruction šiame žaidime vietoj OpenRR, niekada abu. Jo duomenys konvertuojami šiame PC iš nvngx_dlssd.dll 310.7 ar naujesnio, atėjusio su vienu iš tavo žaidimų, niekada iš įdėto šio diegiklio. Žaidime įjunk DLSS Ray Reconstruction.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchTitle">Atsisiųsti WrongGPU {0}?</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchBody">WrongGPU savo paleidykle konvertuoja modelį šiame PC iš DLSS failo, atėjusio su vienu iš tavo žaidimų. Šis diegiklis gali atsisiųsti WrongGPU-{0}.zip iš oficialaus WrongGPU leidimų puslapio GitHub, patikrinti jį pagal ten paskelbtą SHA-256, paleisti konvertavimą ir po to ištrinti atsisiuntimą. Nieko kito nesiunčiama.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchYes">Atsisiųsti iš GitHub ir konvertuoti</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchNo">Niekas nesiunčiama</sys:String>
+  <sys:String x:Key="Str.WrongGpuDeclined">WrongGPU neįdiegtas: pirmiausia jo modelį reikia konvertuoti šiame PC. Palik WrongGPU išjungtą, kad įdiegtum be jo.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchFailed">Nepavyko atsisiųsti WrongGPU</sys:String>
 </ResourceDictionary>

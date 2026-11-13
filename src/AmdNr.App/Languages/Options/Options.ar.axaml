@@ -5,7 +5,7 @@
   <!-- Arabic. The same keys as Options.en.axaml, in its order. -->
 
   <sys:String x:Key="Str.OffByDefault">معطّل افتراضيًا</sys:String>
-  <sys:String x:Key="Str.WrongGpuLine">يحوّل DLSS 4.5 Model M إلى FSR على RDNA 4</sys:String>
+  <sys:String x:Key="Str.WrongGpuLine">WrongGPU by phantoslayer21 · github.com/phantoslayer21/wronggpu</sys:String>
   <sys:String x:Key="Str.HostFgLine">توليد الإطارات من danielblnc 0.8.0 في ألعاب D3D12</sys:String>
   <sys:String x:Key="Str.OpenRrFoundChip">تم العثور على nvngx_dlssd.dll 310.9.1</sys:String>
   <sys:String x:Key="Str.OpenRrFoundLine">يبني OpenRR شبكته منه</sys:String>
@@ -14,4 +14,12 @@
   <sys:String x:Key="Str.OpenRrBlockedChip">غير متوافق</sys:String>
   <sys:String x:Key="Str.OpenRrToggleRx7000">OpenRR (Ray Reconstruction, RX 7000, تجريبي)</sys:String>
   <sys:String x:Key="Str.OpenRrNoteRx7000">متوقف ما لم تحدده. تجريبي على RX 7000 ورسوميات RDNA3 / RDNA 3.5: يشغّل OpenRR نوى مصممة لهذه المعالجات (opennr-rr\shaders-gfx11\)، وهو أبطأ منه على RX 9000. إذا لم يبدأ، يذكر ملف opennr_rr.log بجانب اللعبة السبب.</sys:String>
+  <sys:String x:Key="Str.WrongGpuRrToggle">Ray Reconstruction من WrongGPU (بدلًا من OpenRR)</sys:String>
+  <sys:String x:Key="Str.WrongGpuRrNote">معطّل ما لم تحدده. Ray Reconstruction الخاص بـ WrongGPU في هذه اللعبة بدلًا من OpenRR، وليس الاثنين معًا أبدًا. تُحوَّل بياناته على هذا الحاسوب من nvngx_dlssd.dll 310.7 أو أحدث جاء مع إحدى ألعابك، وليس من ملف وضعه هذا المثبّت. فعّل DLSS Ray Reconstruction في اللعبة.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchTitle">تنزيل WrongGPU {0}؟</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchBody">يحوّل WrongGPU نموذجه على هذا الحاسوب بمشغّله الخاص من ملف DLSS جاء مع إحدى ألعابك. يستطيع هذا المثبّت تنزيل WrongGPU-{0}.zip من صفحة إصدارات WrongGPU الرسمية على GitHub، والتحقق منه بقيمة SHA-256 المنشورة هناك، وتشغيل التحويل ثم حذف التنزيل. لا يُنزَّل شيء آخر لذلك.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchYes">نزّل من GitHub وحوّل</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchNo">لن يُنزَّل شيء</sys:String>
+  <sys:String x:Key="Str.WrongGpuDeclined">لم يُثبَّت WrongGPU: يجب تحويل نموذجه على هذا الحاسوب أولًا. اترك WrongGPU معطّلًا للتثبيت من دونه.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchFailed">تعذّر تنزيل WrongGPU</sys:String>
 </ResourceDictionary>

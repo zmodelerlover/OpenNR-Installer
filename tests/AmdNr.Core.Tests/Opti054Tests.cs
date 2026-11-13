@@ -128,12 +128,13 @@ public class Opti054Tests
                  {
                      "dlssnr-amd/shaders/renodx/nr_renodx.spv", "dlssnr-amd/dlssnr-small.bin", "dlssnr-amd/int4/pipeline.cache",
                      "person-model/onnxruntime.dll", "OptiScaler64/person-model/yunet.onnx", "plugins/WrongGPU.asi",
-                     "wronggpu_ffx_dx12.dll", "wronggpu.ini", "opengl32.dll",
+                     "wronggpu_ffx_dx12.dll", "wronggpu.ini", "opengl32.dll", "plugins/WrongGPU-RR.asi", "WrongGPU/wronggpu.ini",
                  })
             Assert.True(Engine.IsAllowed(name), name);
         foreach (var name in new[] { "person-model/sub/x.dll", "plugins/other.asi", "person-model/../dxgi.dll" })
             Assert.False(Engine.IsAllowed(name), name);
         Assert.True(Engine.IsConfig("wronggpu.ini"));
+        Assert.True(Engine.IsConfig("WrongGPU/wronggpu.ini"));
     }
 
     [Fact]
@@ -166,7 +167,7 @@ public class Opti054Tests
                 [PayloadManifest.MochizukiModelComponent] = component("1", file("dlssnr.bin", "dlssnr-amd/dlssnr.bin")),
                 [PayloadManifest.MochizukiSmallModelComponent] = component("1", file("dlssnr-small.bin", "dlssnr-amd/dlssnr-small.bin")),
                 [PayloadManifest.PersonModelComponent] = component(Wide, file("yunet.onnx", "person-model/yunet.onnx")),
-                [PayloadManifest.WrongGpuComponent] = component("0.5.5-ea", file("wronggpu_ffx_dx12.dll", "wronggpu/wronggpu_ffx_dx12.dll")),
+                [PayloadManifest.WrongGpuComponent] = component("0.6.0", file("amd_fidelityfx_upscaler_dx12.dll", "wronggpu/amd_fidelityfx_upscaler_dx12.dll")),
             },
         };
         var manifest = new PayloadManifest
@@ -188,7 +189,7 @@ public class Opti054Tests
         var opti = manifest.With(release).Pins();
         Assert.Contains("dlssnr-amd/dlssnr-small.bin", opti.MochizukiFiles.Keys);
         Assert.Contains("person-model/yunet.onnx", opti.OptiFiles.Keys);
-        Assert.Equal("0.5.5-ea", opti.WrongGpuVersion);
+        Assert.Equal("0.6.0", opti.WrongGpuVersion);
         var elsewhere = manifest.With(release).WithoutLmxxf().Pins();
         Assert.DoesNotContain("person-model/yunet.onnx", elsewhere.OptiFiles.Keys);
         Assert.Empty(elsewhere.WrongGpuFiles);
@@ -207,15 +208,9 @@ public class Opti054Tests
         Assert.Contains("x86/opengl32.dll", pins.OptiFiles.Keys);
         // lmxxf 0.44's Small model, from 0.5.6 on: the 93 weights and their manifest.
         Assert.Equal(94, pins.OptiFiles.Keys.Count(k => k.StartsWith(Work.LmxxfSmallPayload, StringComparison.Ordinal)));
-        // WrongGPU 0.5.5-ea2: the same WrongGPU, its setup no longer refuses a game for another game's anti-cheat.
-        Assert.Equal("0.5.5-ea2", pins.WrongGpuVersion);
-        Assert.Equal("fb557de8d305de73c3bcbf8b54440c6588575745a3fc0194bf8bb85cb7d71636",
-            pins.WrongGpuFiles["wronggpu/WrongGPU-Setup-0.5.5-ea2.exe"]);
-        Assert.Equal("wronggpu/nvngx_dlss.dll", pins.WrongGpuDlss);
-        // and stays on a card lmxxf does not run on, for danielblnc 0.8.0 (Work.HostDlss.cs).
-        Assert.Equal("wronggpu/nvngx_dlss.dll", shipped.With(newest).WithoutLmxxf().Pins().WrongGpuDlss);
-        Assert.StartsWith("https://raw.githubusercontent.com/NVIDIA/DLSS/", shipped.With(newest)
-            .Component(PayloadManifest.WrongGpuDlssComponent).Files.Single().Url);
+        // WrongGPU 0.5.5-ea2 is still in the published list: this build leaves it alone, it is not the kit.
+        Assert.Empty(pins.WrongGpuFiles);
+        Assert.Equal("", pins.WrongGpuVersion);
         foreach (var path in pins.OptiFiles.Keys.Where(k => !k.StartsWith("x86/", StringComparison.Ordinal)))
             Assert.True(Engine.IsAllowed(Work.OptiDestination(path, "dxgi.dll"))
                         && Engine.IsAllowed("OptiScaler64/" + Work.OptiDestination(path, "OptiScaler.dll")), path);

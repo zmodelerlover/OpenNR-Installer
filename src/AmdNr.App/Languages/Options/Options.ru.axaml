@@ -5,7 +5,7 @@
   <!-- Russian. The same keys as Options.en.axaml, in its order. -->
 
   <sys:String x:Key="Str.OffByDefault">Выключено по умолчанию</sys:String>
-  <sys:String x:Key="Str.WrongGpuLine">Превращает DLSS 4.5 Model M в FSR на RDNA 4</sys:String>
+  <sys:String x:Key="Str.WrongGpuLine">WrongGPU by phantoslayer21 · github.com/phantoslayer21/wronggpu</sys:String>
   <sys:String x:Key="Str.HostFgLine">Генерация кадров danielblnc 0.8.0 в играх на D3D12</sys:String>
   <sys:String x:Key="Str.OpenRrFoundChip">Найден nvngx_dlssd.dll 310.9.1</sys:String>
   <sys:String x:Key="Str.OpenRrFoundLine">OpenRR строит из него свою сеть</sys:String>
@@ -14,4 +14,12 @@
   <sys:String x:Key="Str.OpenRrBlockedChip">Несовместимо</sys:String>
   <sys:String x:Key="Str.OpenRrToggleRx7000">OpenRR (Ray Reconstruction, RX 7000, экспериментально)</sys:String>
   <sys:String x:Key="Str.OpenRrNoteRx7000">Выключено, пока не отмечено. Экспериментально на RX 7000 и графике RDNA3 / RDNA 3.5: OpenRR использует ядра для этих GPU (opennr-rr\shaders-gfx11\), медленнее, чем на RX 9000. Если он не запускается, причина в opennr_rr.log рядом с игрой.</sys:String>
+  <sys:String x:Key="Str.WrongGpuRrToggle">Ray Reconstruction от WrongGPU (вместо OpenRR)</sys:String>
+  <sys:String x:Key="Str.WrongGpuRrNote">Выключено, пока не отмечено. Собственный Ray Reconstruction от WrongGPU в этой игре вместо OpenRR, никогда оба. Его данные конвертируются на этом ПК из nvngx_dlssd.dll 310.7 или новее, пришедшего с одной из ваших игр, никогда не из файла, положенного этим установщиком. В игре включите DLSS Ray Reconstruction.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchTitle">Скачать WrongGPU {0}?</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchBody">WrongGPU конвертирует свою модель на этом ПК своим лаунчером из файла DLSS, пришедшего с одной из ваших игр. Этот установщик может скачать WrongGPU-{0}.zip с официальной страницы релизов WrongGPU на GitHub, сверить его с опубликованным там SHA-256, выполнить конвертацию и затем удалить загрузку. Больше ничего не скачивается.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchYes">Скачать с GitHub и конвертировать</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchNo">Ничего не скачивается</sys:String>
+  <sys:String x:Key="Str.WrongGpuDeclined">WrongGPU не установлен: сначала нужно сконвертировать его модель на этом ПК. Оставьте WrongGPU выключенным, чтобы установить без него.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchFailed">Не удалось скачать WrongGPU</sys:String>
 </ResourceDictionary>

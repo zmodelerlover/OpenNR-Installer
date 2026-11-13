@@ -37,8 +37,8 @@ public static partial class Work
         // A 32-bit game's, after what is inside it (Work.Mochizuki takes dlssnr-amd).
         "OptiScaler64/OptiScaler/D3D12_OptiScaler", "OptiScaler64/OptiScaler", "OptiScaler64/experimental_lighting",
         "OptiScaler64/dlssnr-amd", "OptiScaler64/person-model", "OptiScaler64",
-        // Person protection, WrongGPU's plugin folder and OpenRR's kernels.
-        "person-model", "plugins", "opennr-rr/shaders", "opennr-rr/shaders-gfx11", "opennr-rr",
+        // Person protection, WrongGPU's plugin and settings folders and OpenRR's kernels.
+        "person-model", "plugins", "WrongGPU", "opennr-rr/shaders", "opennr-rr/shaders-gfx11", "opennr-rr",
     ];
 
     /// <summary>Person protection's folder beside OptiScaler (0.5.4 on), with its slash.</summary>
@@ -374,8 +374,8 @@ public static partial class Work
             .Concat(LmxxfWeighted(pins) ? [] : manifest?.Entries.Where(e => e.Owned && !files.ContainsKey(e.Name)
                     && (LmxxfOnly(e.Name)
                         || e.Name.StartsWith(home + PersonModelFolder, StringComparison.Ordinal))).Select(e => e.Name) ?? [])
-            // WrongGPU when it is left off, and OpenRR's files this install does not write again.
-            .Concat(wrongGpu ? [] : WrongGpuRecorded(manifest)).Concat(OpenRrRecorded(manifest).Where(n => !files.ContainsKey(n)))
+            // WrongGPU's and OpenRR's files this install does not write again: all of them when left off.
+            .Concat(WrongGpuRecorded(manifest).Where(n => !files.ContainsKey(n))).Concat(OpenRrRecorded(manifest).Where(n => !files.ContainsKey(n)))
             // danielblnc's runtime and weights, when it is left out, passes 2 and 3 under a build that runs as one module,
             // NVIDIA's DLSS in OptiScaler\ once the runtime or the game no longer needs it, and Streamline and DLSS-FG with it.
             .Concat(manifest?.Entries.Where(e => e.Owned && !files.ContainsKey(e.Name) && (!daniel && e.Name == home + WeightsName
