@@ -231,1222 +231,6 @@
       {
         "version": "0.6.8-opennr",
         "components": {
-          "optiscaler": {
-            "version": "0.6.8-opennr",
-            "published": "2026-11-13",
-            "files": [
-              {
-                "name": "OptiScaler-0.6.8-opennr.zip",
-                "size": 160145359,
-                "sha256": "64187853fcd5894d2bbcf4f9a70854c896fdf5e9ceff57eb678060ea534a5e43",
-                "url": "https://github.com/MatheusFerreiraS/OpenNR-OptiScaler/releases/download/v0.6.8-opennr/OptiScaler-0.6.8-opennr.zip"
-              }
-            ],
-            "extract": [
-              {
-                "name": "D3D12Core.dll",
-                "path": "D3D12_OptiScaler/D3D12Core.dll",
-                "size": 3351064,
-                "sha256": "07d286c306f8117321422affd9e6388c12d0fb4be1c7fc689d9e899324feeb24"
-              },
-              {
-                "name": "GatherCS.cso",
-                "path": "experimental_lighting/GatherCS.cso",
-                "size": 8608,
-                "sha256": "2f7bfd42c78b1256ed56eb93e3d75e494369a90168c06c22486a4ac1011b31ee"
-              },
-              {
-                "name": "ResolveCS.cso",
-                "path": "experimental_lighting/ResolveCS.cso",
-                "size": 9308,
-                "sha256": "fe19e23f3ea2ca8a9fb2e4017e9d803a8cc9f0657890e0dd69b329d7f4e3f350"
-              },
-              {
-                "name": "boundary_reference.hsaco",
-                "path": "lmxxf-modules/boundary_reference.hsaco",
-                "size": 17832,
-                "sha256": "6158f119bf9db7cdf0acf37f8b4fb73e5eceba9f1fd6b24a84367f7682aecd8b"
-              },
-              {
-                "name": "boundary-fast.hsaco",
-                "path": "lmxxf-modules/boundary-fast.hsaco",
-                "size": 50904,
-                "sha256": "4e3d9d46e5b206a6db1eac92d1dd7ad18cebbcb42819a356fae9d0ed0a2189ea"
-              },
-              {
-                "name": "c32_fast_attention.hsaco",
-                "path": "lmxxf-modules/c32_fast_attention.hsaco",
-                "size": 29568,
-                "sha256": "a8ae4d4ba24e1da282789edda469ee8b46a822cac68e6e70cc2c1b7a3ed9a70d"
-              },
-              {
-                "name": "c32_fast.hsaco",
-                "path": "lmxxf-modules/c32_fast.hsaco",
-                "size": 38056,
-                "sha256": "d632f620a9c9fa84b6868d37932092f4c1745e0ef832caba8fdd3801326de131"
-              },
-              {
-                "name": "c32_fused_attention.hsaco",
-                "path": "lmxxf-modules/c32_fused_attention.hsaco",
-                "size": 39472,
-                "sha256": "c31d964f641693945e453863c740f6c9016e7ef6f503c7cb5d13d438d879c694"
-              },
-              {
-                "name": "c32_fused_ffn_attention-packed.hsaco",
-                "path": "lmxxf-modules/c32_fused_ffn_attention-packed.hsaco",
-                "size": 219328,
-                "sha256": "e8257864e5c81da3c79e686212bda3fee3aeaa8110bc41c51d340e797dc480d6"
-              },
-              {
-                "name": "c32_fused_ffn_attention.hsaco",
-                "path": "lmxxf-modules/c32_fused_ffn_attention.hsaco",
-                "size": 286528,
-                "sha256": "55dd97eb760bbb799d310bc291af66279332c24b40fc9d47a13dbac9636eb59d"
-              },
-              {
-                "name": "c32_prefix_reference.hsaco",
-                "path": "lmxxf-modules/c32_prefix_reference.hsaco",
-                "size": 35784,
-                "sha256": "13ea62dbd2cb381c432dd2dda473ee99bea09c34c1b5769c18e88e5e4295d169"
-              },
-              {
-                "name": "c32_tiled.hsaco",
-                "path": "lmxxf-modules/c32_tiled.hsaco",
-                "size": 31536,
-                "sha256": "78e023640ff2ae96b42c7c1b1221bda67c5a02550bb5eb4e4ed761b71238b09b"
-              },
-              {
-                "name": "c32_wmma.hsaco",
-                "path": "lmxxf-modules/c32_wmma.hsaco",
-                "size": 66504,
-                "sha256": "e9ef0c1d31c1b2f12cdd2c86b5ed87251df5d2a4f93380f6434b3c9b80039de3"
-              },
-              {
-                "name": "c32-wave1-fast-norm900.hsaco",
-                "path": "lmxxf-modules/c32-wave1-fast-norm900.hsaco",
-                "size": 856608,
-                "sha256": "6fd5735665844260c17a16878bac7482bd0093d4428661835742a8d95a1f2958"
-              },
-              {
-                "name": "c32-wave1-fast.hsaco",
-                "path": "lmxxf-modules/c32-wave1-fast.hsaco",
-                "size": 833056,
-                "sha256": "4500f619ba599bbc0621a689e4eb2455bc8857460470118bf492f376418c761c"
-              },
-              {
-                "name": "c32-wave1-rtz.hsaco",
-                "path": "lmxxf-modules/c32-wave1-rtz.hsaco",
-                "size": 864216,
-                "sha256": "8212e23578924d897ff7c6871f2f0b146f277ef7d8a4431d1ae245b55c1dc152"
-              },
-              {
-                "name": "c32-wave1.hsaco",
-                "path": "lmxxf-modules/c32-wave1.hsaco",
-                "size": 856280,
-                "sha256": "698f5fc211e3fbad6cd19300de6ed4697bd83bec33bc00998df3ab82c0fb90b1"
-              },
-              {
-                "name": "c512-m32-deep.hsaco",
-                "path": "lmxxf-modules/c512-m32-deep.hsaco",
-                "size": 648312,
-                "sha256": "5e05e82e72cfa6edbe12c9a645e9d93fdf0470c023bc85cf5dc454a52e782676"
-              },
-              {
-                "name": "c512-m32-mh.hsaco",
-                "path": "lmxxf-modules/c512-m32-mh.hsaco",
-                "size": 1114824,
-                "sha256": "f84ec9be8cf5067a9391b8dc51e0fa8d2f054f51f4b2c3472954e6b2ab747f14"
-              },
-              {
-                "name": "c64-wave2-fast.hsaco",
-                "path": "lmxxf-modules/c64-wave2-fast.hsaco",
-                "size": 1990112,
-                "sha256": "e54cf8444f301b5274b66ed6c7d4bd2e434425a2a2f013bf1ce581f908fe5fc0"
-              },
-              {
-                "name": "c64-wave2.hsaco",
-                "path": "lmxxf-modules/c64-wave2.hsaco",
-                "size": 1823968,
-                "sha256": "518937d0fabb32dba6e15de30f850059f1c085f00dda0eb223aa23a12d8b877c"
-              },
-              {
-                "name": "deep_fast-packed-fast.hsaco",
-                "path": "lmxxf-modules/deep_fast-packed-fast.hsaco",
-                "size": 708816,
-                "sha256": "d580cab83110ca68f6ce8461e4c174f6418752a01e8cff9311170c795c0c3e29"
-              },
-              {
-                "name": "deep_fast-packed.hsaco",
-                "path": "lmxxf-modules/deep_fast-packed.hsaco",
-                "size": 712144,
-                "sha256": "298945d7415ef8608a000f84a8a98687d820f9237eed9de5e286842d9ee53d0f"
-              },
-              {
-                "name": "deep_fast.hsaco",
-                "path": "lmxxf-modules/deep_fast.hsaco",
-                "size": 609656,
-                "sha256": "1ea4b095945449b9f6df84805556d874cbeda64e5f394f5a9d50f67d74d30818"
-              },
-              {
-                "name": "deep_reference.hsaco",
-                "path": "lmxxf-modules/deep_reference.hsaco",
-                "size": 70312,
-                "sha256": "068e95a68a165486ad90c429bbeba0035fe27bca2adc859dbabc9e14d4a54bb9"
-              },
-              {
-                "name": "deep_wmma.hsaco",
-                "path": "lmxxf-modules/deep_wmma.hsaco",
-                "size": 82616,
-                "sha256": "d05dddee0672f9d8ff6677afffc8a75eff9c8f2f9caeeaf7143e61ea52f2ca3f"
-              },
-              {
-                "name": "modules.json",
-                "path": "lmxxf-modules/modules.json",
-                "size": 17185,
-                "sha256": "568a3365dcabac7f78e98f0bcc002d73422672dd6db0640de48365b5f615e634"
-              },
-              {
-                "name": "multi-pass-predict.hsaco",
-                "path": "lmxxf-modules/multi-pass-predict.hsaco",
-                "size": 14328,
-                "sha256": "ae5e9278a51f303342abcd0452faba22197d25e69c9cf7045d21336f278d28d8"
-              },
-              {
-                "name": "multi-pass-skin.hsaco",
-                "path": "lmxxf-modules/multi-pass-skin.hsaco",
-                "size": 12888,
-                "sha256": "b3b9c66aa9af5dbbd80cb8ba2bac06f5c90354930b0a1fc171ef492c948797f2"
-              },
-              {
-                "name": "multihead_fused_attention.hsaco",
-                "path": "lmxxf-modules/multihead_fused_attention.hsaco",
-                "size": 366880,
-                "sha256": "77e2c97485397310ad1a6a9ae839e6f47d2db421d98688d4c619f724db139f58"
-              },
-              {
-                "name": "multihead-fast-packed.hsaco",
-                "path": "lmxxf-modules/multihead-fast-packed.hsaco",
-                "size": 104904,
-                "sha256": "c2d37f1f0b2d60c22686d73d64f3ca69c4af88635bfb003d8c43edd18dabcf9a"
-              },
-              {
-                "name": "multihead-fast-padded-wave-packed.hsaco",
-                "path": "lmxxf-modules/multihead-fast-padded-wave-packed.hsaco",
-                "size": 1279856,
-                "sha256": "79c18b37854986e44f9761ebd4aa96bf889d2a701503b9489da417a7640d6482"
-              },
-              {
-                "name": "multihead-fast-padded-wave.hsaco",
-                "path": "lmxxf-modules/multihead-fast-padded-wave.hsaco",
-                "size": 1223032,
-                "sha256": "49427ac5ebe31da6bf877483a113be60c201577be8dac6978c566288cf3d0fe0"
-              },
-              {
-                "name": "multihead-fast.hsaco",
-                "path": "lmxxf-modules/multihead-fast.hsaco",
-                "size": 106952,
-                "sha256": "d3bcd5e230ac0eab1722c8e6cbd52636b8ef901d34f66b7dd90ca2ee42156c7e"
-              },
-              {
-                "name": "multihead-reference.hsaco",
-                "path": "lmxxf-modules/multihead-reference.hsaco",
-                "size": 66824,
-                "sha256": "5d07d107ca0b9ca747480f712de7c5b3bf0bf7cbd41c278862d2b745925745d9"
-              },
-              {
-                "name": "multihead-tiled.hsaco",
-                "path": "lmxxf-modules/multihead-tiled.hsaco",
-                "size": 49072,
-                "sha256": "1b10513f44737ddc047b4d150167d71d9d522e99c94b48d6ba899fb8ed4661a7"
-              },
-              {
-                "name": "multihead-wmma.hsaco",
-                "path": "lmxxf-modules/multihead-wmma.hsaco",
-                "size": 93264,
-                "sha256": "f5de6b6119babfdfb716613c415e4b900136a48645405c04adf55456fb210353"
-              },
-              {
-                "name": "prefix_fast.hsaco",
-                "path": "lmxxf-modules/prefix_fast.hsaco",
-                "size": 77496,
-                "sha256": "352b1abfc054b0fe32fc5d95e8633db2912b53feb568e1896ed2a93b03558f11"
-              },
-              {
-                "name": "README.md",
-                "path": "lmxxf-modules/README.md",
-                "size": 2497,
-                "sha256": "66d5320bbc88eaef06843537d86a9e572699b4ee5badf58139838dc19b7c4da2"
-              },
-              {
-                "name": "runtime-manifest.json",
-                "path": "lmxxf-modules/runtime-manifest.json",
-                "size": 938,
-                "sha256": "b5d84a910d6380560656ce7ad2d1a9d31d55325eba1a63d42bf9de04b7424092"
-              },
-              {
-                "name": "SHA256SUMS",
-                "path": "lmxxf-modules/SHA256SUMS",
-                "size": 3598,
-                "sha256": "6ed1b97608eec21648dd076f05e5357f997c729dc12aad4fc8deb6e2626437ca"
-              },
-              {
-                "name": "swin-persistent-fast.hsaco",
-                "path": "lmxxf-modules/swin-persistent-fast.hsaco",
-                "size": 1464328,
-                "sha256": "f2ef0704a269be4740541ff20603a22b4ffcec5db10e475c0d0fcb6fa9285917"
-              },
-              {
-                "name": "swin-persistent.hsaco",
-                "path": "lmxxf-modules/swin-persistent.hsaco",
-                "size": 1293960,
-                "sha256": "b8d8e7230244f61c4fb177bd9fe4660f8e05ee37cb2d0bed083ccadbc62c167b"
-              },
-              {
-                "name": "vit-stream-fast.hsaco",
-                "path": "lmxxf-modules/vit-stream-fast.hsaco",
-                "size": 734496,
-                "sha256": "6d90c97f35c8d3a4bb65ee6cf56f49253a569dd02a7d14c9884dd276fc6446ec"
-              },
-              {
-                "name": "vit-stream.hsaco",
-                "path": "lmxxf-modules/vit-stream.hsaco",
-                "size": 723488,
-                "sha256": "4463c11a4634d05a591e7414dd1a819ebb1ecc7cffeea653db00ecd6aa423b45"
-              },
-              {
-                "name": "vit-wide-deep.hsaco",
-                "path": "lmxxf-modules/vit-wide-deep.hsaco",
-                "size": 617520,
-                "sha256": "020d9e35600be16737ba21cf32b87d9e48fda8d2e55061808aaa9f49eaa6bd07"
-              },
-              {
-                "name": "wave-pointwise.hsaco",
-                "path": "lmxxf-modules/wave-pointwise.hsaco",
-                "size": 46704,
-                "sha256": "eaf51807c04267796dc470556eb042391c6a76305374c6cc05f941e27b4f3bc2"
-              },
-              {
-                "name": "LmxxfNrRuntime.dll",
-                "path": "LmxxfNrRuntime.dll",
-                "size": 1645568,
-                "sha256": "c7f24e57cfd17f022efcb9779295019f3b3c81f8323c4dbcac2a0da339d13885"
-              },
-              {
-                "name": "OptiScaler.dll",
-                "path": "OptiScaler.dll",
-                "size": 32800256,
-                "sha256": "0d35e28a867bdc8e19155a51ac66b0fb1b9b354acd680c4d8718ff2a608ab7d1"
-              },
-              {
-                "name": "OptiScaler.ini",
-                "path": "OptiScaler.ini",
-                "size": 80184,
-                "sha256": "db88031fd488db858dd28610f0a7080fd5506e5f4295d4ec4aba90e4c6452a0d"
-              },
-              {
-                "name": "amd_fidelityfx_denoiser_dx12.dll",
-                "path": "OptiScaler/amd_fidelityfx_denoiser_dx12.dll",
-                "size": 8993552,
-                "sha256": "4ca5182d5c8a855441e0c82673716e4776f9afcfadfdb4225d2fc6113b0f853c"
-              },
-              {
-                "name": "amd_fidelityfx_framegeneration_dx12.dll",
-                "path": "OptiScaler/amd_fidelityfx_framegeneration_dx12.dll",
-                "size": 29679376,
-                "sha256": "e6843252f58b0341a0d80f6a20bc0d840643ee95bc48c22cac08745344577bb6"
-              },
-              {
-                "name": "amd_fidelityfx_loader_dx12.dll",
-                "path": "OptiScaler/amd_fidelityfx_loader_dx12.dll",
-                "size": 39184,
-                "sha256": "e2191d3c0828be45eb8affd4e3ec0378f2293adc345b772a7170edcf3b021ecb"
-              },
-              {
-                "name": "amd_fidelityfx_upscaler_dx12.dll",
-                "path": "OptiScaler/amd_fidelityfx_upscaler_dx12.dll",
-                "size": 57664272,
-                "sha256": "aad4fccccb29084a655f9a4f9f613bd22c8c03fb4a0f8840148cc6543b4ccace"
-              },
-              {
-                "name": "amd_fidelityfx_vk.dll",
-                "path": "OptiScaler/amd_fidelityfx_vk.dll",
-                "size": 9332432,
-                "sha256": "a1624cc4238fef046f30c4d80ce3f47be63fc5f5373f49e3ee9edb9960f54c78"
-              },
-              {
-                "name": "libxell.dll",
-                "path": "OptiScaler/libxell.dll",
-                "size": 415368,
-                "sha256": "d2030dcd694fda8f2ec7e044b13e6db8f0b56d4ba9113a5efad334e3f3ded8c7"
-              },
-              {
-                "name": "libxess_dx11.dll",
-                "path": "OptiScaler/libxess_dx11.dll",
-                "size": 156016,
-                "sha256": "c7cfe86f0c9d94e4fb3696d3cd5035e2bbb6a8b1b0572f8b7395a4cdfd0c625e"
-              },
-              {
-                "name": "libxess_fg.dll",
-                "path": "OptiScaler/libxess_fg.dll",
-                "size": 22957432,
-                "sha256": "ec5e0c65e075570c6ede72618bb666d0be0c2e10b2ea9762c0fe8cb8e375ab27"
-              },
-              {
-                "name": "libxess.dll",
-                "path": "OptiScaler/libxess.dll",
-                "size": 77795704,
-                "sha256": "251659dd84a3e84de67c886a4186e01f3eca49b00641906fe38bb6b807e5d5b7"
-              },
-              {
-                "name": "native_black_probe.hlsl",
-                "path": "shaders/native_black_probe.hlsl",
-                "size": 1357,
-                "sha256": "629abdd90d2e7e0acfd3241f3cdf0dd00db8b5d94eebb3b8895b5ef3f5ad5869"
-              },
-              {
-                "name": "native_codec_decode.hlsl",
-                "path": "shaders/native_codec_decode.hlsl",
-                "size": 10417,
-                "sha256": "8d332acccad5aff3a1f060ad238b2897918ab9e419d7cefecdf4407ad8afad42"
-              },
-              {
-                "name": "native_codec_encode.hlsl",
-                "path": "shaders/native_codec_encode.hlsl",
-                "size": 5321,
-                "sha256": "81f2754b8734792768f27e35206ca8454c8729a1fe3827e80e6358b01e3070c0"
-              },
-              {
-                "name": "native_format_convert.hlsl",
-                "path": "shaders/native_format_convert.hlsl",
-                "size": 685,
-                "sha256": "de81723febb8462e362accebada740bcdb6180b02372199c4e200b2e48d6983b"
-              },
-              {
-                "name": "native_game_rgb_input.hlsl",
-                "path": "shaders/native_game_rgb_input.hlsl",
-                "size": 1507,
-                "sha256": "4cee56a655033d85d836e2f343de020833611b3580ac6410ed5649ff0490bba6"
-              },
-              {
-                "name": "native_history_guard.hlsl",
-                "path": "shaders/native_history_guard.hlsl",
-                "size": 1073,
-                "sha256": "4feae5de6551bcd0502c80a3f92cb38dbe4dcaec5f5353aaf537b6884f9de038"
-              },
-              {
-                "name": "native_output_smooth.hlsl",
-                "path": "shaders/native_output_smooth.hlsl",
-                "size": 2729,
-                "sha256": "834c2979cb87107934b7efc46ce4ee10106e334a35ef7465ca6e4e859c9cb006"
-              },
-              {
-                "name": "native_rgb_reflect.hlsl",
-                "path": "shaders/native_rgb_reflect.hlsl",
-                "size": 815,
-                "sha256": "a716cb3a7dd7474dfcb1ad988ea7cd38483fb0ac6cb6605f41e22db3f12a7fc4"
-              },
-              {
-                "name": "native_rgb_texture.hlsl",
-                "path": "shaders/native_rgb_texture.hlsl",
-                "size": 569,
-                "sha256": "529b18c99f48c5a09aa05bfcdf239c157660fb5adca87e834fe24d83c640bb7d"
-              },
-              {
-                "name": "native_temporal_coordinates.hlsl",
-                "path": "shaders/native_temporal_coordinates.hlsl",
-                "size": 3795,
-                "sha256": "2180062886b0d6dc9c7938e8f4ac09ae562543c142cbe8acbb7745c469ac29ca"
-              },
-              {
-                "name": "native_temporal_feed.hlsl",
-                "path": "shaders/native_temporal_feed.hlsl",
-                "size": 1583,
-                "sha256": "c558f71020b8043094385e052682d591c7b35047544498ff45577bb9bfce4964"
-              },
-              {
-                "name": "native_temporal_sample.hlsl",
-                "path": "shaders/native_temporal_sample.hlsl",
-                "size": 7633,
-                "sha256": "a0e05ca09e7e6fad757825ee93e0bec48bcc87fa408aab544133f37ee24f56bd"
-              },
-              {
-                "name": "native_text_overlay.hlsl",
-                "path": "shaders/native_text_overlay.hlsl",
-                "size": 4034,
-                "sha256": "14e58c01d2a4ce7944e09addff501e57b96ede3a332f20627dce383d7d987d91"
-              }
-            ]
-          },
-          "lmxxf-gfx1200": {
-            "version": "0.6.8-opennr",
-            "published": "2026-11-13",
-            "files": [
-              {
-                "name": "lmxxf-gfx1200-0.6.8-opennr.zip",
-                "size": 6209984,
-                "sha256": "757b1badefe91b7538ba719b41cd52442993350cd45ef192aa69df4916237725",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/lmxxf-gfx1200/0.6.8-opennr/lmxxf-gfx1200-0.6.8-opennr.zip"
-              }
-            ],
-            "extract": [
-              {
-                "name": "boundary_reference.hsaco",
-                "path": "lmxxf-modules-gfx1200/boundary_reference.hsaco",
-                "size": 17832,
-                "sha256": "3c6e83e01ce9f59657eefbeb92e70fa8de6f95155d3dea6bb91498e7967c1948"
-              },
-              {
-                "name": "boundary-fast.hsaco",
-                "path": "lmxxf-modules-gfx1200/boundary-fast.hsaco",
-                "size": 50904,
-                "sha256": "490d5573b8f5b6b2b78ab5b767547a246303f15af6507714507a9241468d1f11"
-              },
-              {
-                "name": "c32_fast_attention.hsaco",
-                "path": "lmxxf-modules-gfx1200/c32_fast_attention.hsaco",
-                "size": 29568,
-                "sha256": "d42a32005038be0f503b9929ac55958b3826203cdbb05b253b31bd33f2f36af2"
-              },
-              {
-                "name": "c32_fast.hsaco",
-                "path": "lmxxf-modules-gfx1200/c32_fast.hsaco",
-                "size": 38056,
-                "sha256": "b079e4bc302fd7ac0a5d1062bb5cf0ace56c532ed97e2d4adcf21ff2ae25e96c"
-              },
-              {
-                "name": "c32_fused_attention.hsaco",
-                "path": "lmxxf-modules-gfx1200/c32_fused_attention.hsaco",
-                "size": 39472,
-                "sha256": "8d5e3189186da27b88d80fbd23f93ad0363074cc7aa0d22fefe7392ac58cbab8"
-              },
-              {
-                "name": "c32_fused_ffn_attention-packed.hsaco",
-                "path": "lmxxf-modules-gfx1200/c32_fused_ffn_attention-packed.hsaco",
-                "size": 219328,
-                "sha256": "841c6b34c98b99b5385593debd0ad352fbab6cb2995a597ccb75f7dd6cf15bf5"
-              },
-              {
-                "name": "c32_fused_ffn_attention.hsaco",
-                "path": "lmxxf-modules-gfx1200/c32_fused_ffn_attention.hsaco",
-                "size": 286528,
-                "sha256": "03bbfb30286d724d5b2dce4b9add52de1bbd04865a62c2ca7a12b40650f42bdb"
-              },
-              {
-                "name": "c32_prefix_reference.hsaco",
-                "path": "lmxxf-modules-gfx1200/c32_prefix_reference.hsaco",
-                "size": 35784,
-                "sha256": "438c46be0038ba545da2eab663aa4f81e0cd72cd6d126371ccbd9e461a1ea8ab"
-              },
-              {
-                "name": "c32_tiled.hsaco",
-                "path": "lmxxf-modules-gfx1200/c32_tiled.hsaco",
-                "size": 31536,
-                "sha256": "54960056fec902e02771de7d1cf6913357dbd7525a2d6053d79047c3dff0fe9f"
-              },
-              {
-                "name": "c32_wmma.hsaco",
-                "path": "lmxxf-modules-gfx1200/c32_wmma.hsaco",
-                "size": 66504,
-                "sha256": "bbdb65502caa0fd71f97a26584c82bfd89973918979dd76f7e5e40c98d054cac"
-              },
-              {
-                "name": "c32-wave1-fast-norm900.hsaco",
-                "path": "lmxxf-modules-gfx1200/c32-wave1-fast-norm900.hsaco",
-                "size": 833056,
-                "sha256": "d16dc012f4438e494b60655a4911f2632738454781b287e5113c4968961b58aa"
-              },
-              {
-                "name": "c32-wave1-fast.hsaco",
-                "path": "lmxxf-modules-gfx1200/c32-wave1-fast.hsaco",
-                "size": 833056,
-                "sha256": "dc464b5d9f860111707a1a1a23eb551c50ae710625306c092490ffb05aba1a52"
-              },
-              {
-                "name": "c32-wave1-rtz.hsaco",
-                "path": "lmxxf-modules-gfx1200/c32-wave1-rtz.hsaco",
-                "size": 864216,
-                "sha256": "c86000cec7c1e0b43ebab6089c76417a6365302c6d6fcac872576af684a4ced0"
-              },
-              {
-                "name": "c32-wave1.hsaco",
-                "path": "lmxxf-modules-gfx1200/c32-wave1.hsaco",
-                "size": 856280,
-                "sha256": "b670aad4732bfa20db51b84773ef4ea246cc20b3c5adfb2d0e57e5f732b5553a"
-              },
-              {
-                "name": "c512-m32-deep.hsaco",
-                "path": "lmxxf-modules-gfx1200/c512-m32-deep.hsaco",
-                "size": 648312,
-                "sha256": "9e725f37f5641db0b12deb49e27cfb0d4fef405efff1d9377ce55b9cf098c27b"
-              },
-              {
-                "name": "c512-m32-mh.hsaco",
-                "path": "lmxxf-modules-gfx1200/c512-m32-mh.hsaco",
-                "size": 1114824,
-                "sha256": "996a6bbb0fff9267284b8859c841c5f30b9367a36b8aef6acb2851dd99534d7e"
-              },
-              {
-                "name": "c64-wave2-fast.hsaco",
-                "path": "lmxxf-modules-gfx1200/c64-wave2-fast.hsaco",
-                "size": 1990112,
-                "sha256": "7e30337772006a1919e9e91021a0151a9b71543aad8854db66cb7d92218118bb"
-              },
-              {
-                "name": "c64-wave2.hsaco",
-                "path": "lmxxf-modules-gfx1200/c64-wave2.hsaco",
-                "size": 1823968,
-                "sha256": "e4e1fca8d44a7ea2d8a7996803e85f64968560a5643dd565e605d2aef306558a"
-              },
-              {
-                "name": "deep_fast-packed-fast.hsaco",
-                "path": "lmxxf-modules-gfx1200/deep_fast-packed-fast.hsaco",
-                "size": 708816,
-                "sha256": "d23f13b7b2532ffca7342af199a7d9f93fe2b1fcc2065f2f955579a2a0a73f53"
-              },
-              {
-                "name": "deep_fast-packed.hsaco",
-                "path": "lmxxf-modules-gfx1200/deep_fast-packed.hsaco",
-                "size": 712144,
-                "sha256": "82ae63724628a81d98e552643ed19c024df7ef0b96f51acb0c485bd305b477ca"
-              },
-              {
-                "name": "deep_fast.hsaco",
-                "path": "lmxxf-modules-gfx1200/deep_fast.hsaco",
-                "size": 609656,
-                "sha256": "f55d24205b24f582e68a4a5c96ba674d238d0e91e47f0283e17d6359f33e3f10"
-              },
-              {
-                "name": "deep_reference.hsaco",
-                "path": "lmxxf-modules-gfx1200/deep_reference.hsaco",
-                "size": 70312,
-                "sha256": "d726cea76bee9304b1fe99e84542f5557f5e9dbcbca0c673a16a61c3ac73649b"
-              },
-              {
-                "name": "deep_wmma.hsaco",
-                "path": "lmxxf-modules-gfx1200/deep_wmma.hsaco",
-                "size": 82616,
-                "sha256": "c4c55a46b2fe260e37320a47a78a548919e8899d6659e752e1d36c414fa67667"
-              },
-              {
-                "name": "modules.json",
-                "path": "lmxxf-modules-gfx1200/modules.json",
-                "size": 17185,
-                "sha256": "5bc414321b1fe7a97ad832a1c15efa2d630e6b8784d88cc0bb7d8afdd9b54cee"
-              },
-              {
-                "name": "multi-pass-predict.hsaco",
-                "path": "lmxxf-modules-gfx1200/multi-pass-predict.hsaco",
-                "size": 14328,
-                "sha256": "a8a5de2e24dd92462f64bcfc2b17820cf324636d3a9c3ea2919ba739e5a9dd7a"
-              },
-              {
-                "name": "multi-pass-skin.hsaco",
-                "path": "lmxxf-modules-gfx1200/multi-pass-skin.hsaco",
-                "size": 12888,
-                "sha256": "c18b0b9ce2b510b3f69101fb272d900f0093cfecd5bc9640e0b7ee431d6ebe62"
-              },
-              {
-                "name": "multihead_fused_attention.hsaco",
-                "path": "lmxxf-modules-gfx1200/multihead_fused_attention.hsaco",
-                "size": 366880,
-                "sha256": "48ce2debccd6fb041bb225fb9d61774046ec3f8d71c14885d9417f6fe46322db"
-              },
-              {
-                "name": "multihead-fast-packed.hsaco",
-                "path": "lmxxf-modules-gfx1200/multihead-fast-packed.hsaco",
-                "size": 104904,
-                "sha256": "aee53542f433f901593106f2e581cb09459cd8fc5b946635a73f856b90ffacb0"
-              },
-              {
-                "name": "multihead-fast-padded-wave-packed.hsaco",
-                "path": "lmxxf-modules-gfx1200/multihead-fast-padded-wave-packed.hsaco",
-                "size": 1279856,
-                "sha256": "57dba44c9d1d4031db165409a259a0748a7b6872df4bb897b55233526be8fee6"
-              },
-              {
-                "name": "multihead-fast-padded-wave.hsaco",
-                "path": "lmxxf-modules-gfx1200/multihead-fast-padded-wave.hsaco",
-                "size": 1223032,
-                "sha256": "4b9a78a39cd5288bef72183b28467e22bb9b3065e0fa89ad34531a727c58722f"
-              },
-              {
-                "name": "multihead-fast.hsaco",
-                "path": "lmxxf-modules-gfx1200/multihead-fast.hsaco",
-                "size": 106952,
-                "sha256": "c9bf4af2766f0016965dc0c4fbd53f9ce44b8c20b8565283e4bc2cf6e08eb99c"
-              },
-              {
-                "name": "multihead-reference.hsaco",
-                "path": "lmxxf-modules-gfx1200/multihead-reference.hsaco",
-                "size": 66824,
-                "sha256": "16c467ffec8ff3070ef2b789dee16aff7390cf559447bb37ccd370f7eedcc44c"
-              },
-              {
-                "name": "multihead-tiled.hsaco",
-                "path": "lmxxf-modules-gfx1200/multihead-tiled.hsaco",
-                "size": 49072,
-                "sha256": "5dcb3892e76011475561f3d915dd2ac1525f79c5ebf6d351e481f4992a74b395"
-              },
-              {
-                "name": "multihead-wmma.hsaco",
-                "path": "lmxxf-modules-gfx1200/multihead-wmma.hsaco",
-                "size": 93264,
-                "sha256": "d75ba913bfa44ed8e4e91b532e34804acece0b440ca328c3c1db8f927b778334"
-              },
-              {
-                "name": "prefix_fast.hsaco",
-                "path": "lmxxf-modules-gfx1200/prefix_fast.hsaco",
-                "size": 77496,
-                "sha256": "c090fc0e39fe8c2a31725a569e51916c5db90555c6d89f636ce230be26c1987f"
-              },
-              {
-                "name": "README.md",
-                "path": "lmxxf-modules-gfx1200/README.md",
-                "size": 606,
-                "sha256": "cbf4240cd77ffbf0958b3ac72246cfd9ac20162f277a202a1d61157233f910bb"
-              },
-              {
-                "name": "SHA256SUMS",
-                "path": "lmxxf-modules-gfx1200/SHA256SUMS",
-                "size": 3598,
-                "sha256": "d3b304a214f8b3ce2471367876701d7a197f55e717e1bcc72c1550573f54f9ea"
-              },
-              {
-                "name": "swin-persistent-fast.hsaco",
-                "path": "lmxxf-modules-gfx1200/swin-persistent-fast.hsaco",
-                "size": 1464328,
-                "sha256": "6583de40fc4518a878be2a0722890431c140eb3f628aa2fb585f1d2b247cc577"
-              },
-              {
-                "name": "swin-persistent.hsaco",
-                "path": "lmxxf-modules-gfx1200/swin-persistent.hsaco",
-                "size": 1293960,
-                "sha256": "66f51ef79abaa8e2e297fef3410b4ad31c384ea2857ce28c0c248785f1f79d5c"
-              },
-              {
-                "name": "vit-stream-fast.hsaco",
-                "path": "lmxxf-modules-gfx1200/vit-stream-fast.hsaco",
-                "size": 734496,
-                "sha256": "2d380d2efe2da8b4397c9e460aa901f96877f57819fab83263f1f82f2a947551"
-              },
-              {
-                "name": "vit-stream.hsaco",
-                "path": "lmxxf-modules-gfx1200/vit-stream.hsaco",
-                "size": 723488,
-                "sha256": "7c59ecdc6648dfafb7b8a4f7c3f6bc2fdefbb526d721a82b9715e8d5ef0fe97a"
-              },
-              {
-                "name": "vit-wide-deep.hsaco",
-                "path": "lmxxf-modules-gfx1200/vit-wide-deep.hsaco",
-                "size": 617520,
-                "sha256": "eeba817442f53904ed5c7fef5f0da5fc91a48009176a0c4e3a0edbe75428b0ba"
-              },
-              {
-                "name": "wave-pointwise.hsaco",
-                "path": "lmxxf-modules-gfx1200/wave-pointwise.hsaco",
-                "size": 46704,
-                "sha256": "8b15312810023f7f08a3d104015f39ecf9552b4527a21e4856fc61bddb269b2e"
-              }
-            ]
-          },
-          "optiscaler-x86": {
-            "version": "0.6.8-opennr",
-            "published": "2026-11-13",
-            "files": [
-              {
-                "name": "optiscaler-x86-0.6.8-opennr.zip",
-                "size": 413865,
-                "sha256": "f4997167a7ae1f68a7f13957e7117089f0ab46d4747beb1de8486d7c72c7e2ba",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/optiscaler-x86/0.6.8-opennr/optiscaler-x86-0.6.8-opennr.zip"
-              }
-            ],
-            "extract": [
-              {
-                "name": "d3d9.dll",
-                "path": "x86/d3d9.dll",
-                "size": 184320,
-                "sha256": "438169d090e7852adadf58e92c856cfc271370b615ee70548b84df6aef330ff4"
-              },
-              {
-                "name": "dxgi.dll",
-                "path": "x86/dxgi.dll",
-                "size": 187904,
-                "sha256": "b195f64068d01b8315e288ea7e5a7112376d12dafcff8c65ba8729ff7a0baa64"
-              },
-              {
-                "name": "opengl32.dll",
-                "path": "x86/opengl32.dll",
-                "size": 208384,
-                "sha256": "8a6ffdd2067e05b8ed81f6be721c9d3d3423405d18cf1a55b7ada9d77c6519c8"
-              },
-              {
-                "name": "OptiScalerDx9Host.exe",
-                "path": "x86/OptiScalerDx9Host.exe",
-                "size": 182272,
-                "sha256": "92a347d8782972d2a89abfaab2a88a50b37f138717d212859089f4a410521a1f"
-              }
-            ]
-          },
-          "lmxxf-runtime": {
-            "version": "0.6.8-opennr",
-            "published": "2026-11-13",
-            "files": [
-              {
-                "name": "lmxxf-runtime-0.6.8-opennr.zip",
-                "size": 6859022,
-                "sha256": "fdd26634a99e11cbdcebe3cb394291320fe35ca3c7a3f25a816aaf5e19b136bd",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/lmxxf-runtime/0.6.8-opennr/lmxxf-runtime-0.6.8-opennr.zip"
-              }
-            ],
-            "extract": [
-              {
-                "name": "boundary_reference.hsaco",
-                "path": "lmxxf-modules/boundary_reference.hsaco",
-                "size": 17832,
-                "sha256": "6158f119bf9db7cdf0acf37f8b4fb73e5eceba9f1fd6b24a84367f7682aecd8b"
-              },
-              {
-                "name": "boundary-fast.hsaco",
-                "path": "lmxxf-modules/boundary-fast.hsaco",
-                "size": 50904,
-                "sha256": "4e3d9d46e5b206a6db1eac92d1dd7ad18cebbcb42819a356fae9d0ed0a2189ea"
-              },
-              {
-                "name": "c32_fast_attention.hsaco",
-                "path": "lmxxf-modules/c32_fast_attention.hsaco",
-                "size": 29568,
-                "sha256": "a8ae4d4ba24e1da282789edda469ee8b46a822cac68e6e70cc2c1b7a3ed9a70d"
-              },
-              {
-                "name": "c32_fast.hsaco",
-                "path": "lmxxf-modules/c32_fast.hsaco",
-                "size": 38056,
-                "sha256": "d632f620a9c9fa84b6868d37932092f4c1745e0ef832caba8fdd3801326de131"
-              },
-              {
-                "name": "c32_fused_attention.hsaco",
-                "path": "lmxxf-modules/c32_fused_attention.hsaco",
-                "size": 39472,
-                "sha256": "c31d964f641693945e453863c740f6c9016e7ef6f503c7cb5d13d438d879c694"
-              },
-              {
-                "name": "c32_fused_ffn_attention-packed.hsaco",
-                "path": "lmxxf-modules/c32_fused_ffn_attention-packed.hsaco",
-                "size": 219328,
-                "sha256": "e8257864e5c81da3c79e686212bda3fee3aeaa8110bc41c51d340e797dc480d6"
-              },
-              {
-                "name": "c32_fused_ffn_attention.hsaco",
-                "path": "lmxxf-modules/c32_fused_ffn_attention.hsaco",
-                "size": 286528,
-                "sha256": "55dd97eb760bbb799d310bc291af66279332c24b40fc9d47a13dbac9636eb59d"
-              },
-              {
-                "name": "c32_prefix_reference.hsaco",
-                "path": "lmxxf-modules/c32_prefix_reference.hsaco",
-                "size": 35784,
-                "sha256": "13ea62dbd2cb381c432dd2dda473ee99bea09c34c1b5769c18e88e5e4295d169"
-              },
-              {
-                "name": "c32_tiled.hsaco",
-                "path": "lmxxf-modules/c32_tiled.hsaco",
-                "size": 31536,
-                "sha256": "78e023640ff2ae96b42c7c1b1221bda67c5a02550bb5eb4e4ed761b71238b09b"
-              },
-              {
-                "name": "c32_wmma.hsaco",
-                "path": "lmxxf-modules/c32_wmma.hsaco",
-                "size": 66504,
-                "sha256": "e9ef0c1d31c1b2f12cdd2c86b5ed87251df5d2a4f93380f6434b3c9b80039de3"
-              },
-              {
-                "name": "c32-wave1-fast-norm900.hsaco",
-                "path": "lmxxf-modules/c32-wave1-fast-norm900.hsaco",
-                "size": 856608,
-                "sha256": "6fd5735665844260c17a16878bac7482bd0093d4428661835742a8d95a1f2958"
-              },
-              {
-                "name": "c32-wave1-fast.hsaco",
-                "path": "lmxxf-modules/c32-wave1-fast.hsaco",
-                "size": 833056,
-                "sha256": "4500f619ba599bbc0621a689e4eb2455bc8857460470118bf492f376418c761c"
-              },
-              {
-                "name": "c32-wave1-rtz.hsaco",
-                "path": "lmxxf-modules/c32-wave1-rtz.hsaco",
-                "size": 864216,
-                "sha256": "8212e23578924d897ff7c6871f2f0b146f277ef7d8a4431d1ae245b55c1dc152"
-              },
-              {
-                "name": "c32-wave1.hsaco",
-                "path": "lmxxf-modules/c32-wave1.hsaco",
-                "size": 856280,
-                "sha256": "698f5fc211e3fbad6cd19300de6ed4697bd83bec33bc00998df3ab82c0fb90b1"
-              },
-              {
-                "name": "c512-m32-deep.hsaco",
-                "path": "lmxxf-modules/c512-m32-deep.hsaco",
-                "size": 648312,
-                "sha256": "5e05e82e72cfa6edbe12c9a645e9d93fdf0470c023bc85cf5dc454a52e782676"
-              },
-              {
-                "name": "c512-m32-mh.hsaco",
-                "path": "lmxxf-modules/c512-m32-mh.hsaco",
-                "size": 1114824,
-                "sha256": "f84ec9be8cf5067a9391b8dc51e0fa8d2f054f51f4b2c3472954e6b2ab747f14"
-              },
-              {
-                "name": "c64-wave2-fast.hsaco",
-                "path": "lmxxf-modules/c64-wave2-fast.hsaco",
-                "size": 1990112,
-                "sha256": "e54cf8444f301b5274b66ed6c7d4bd2e434425a2a2f013bf1ce581f908fe5fc0"
-              },
-              {
-                "name": "c64-wave2.hsaco",
-                "path": "lmxxf-modules/c64-wave2.hsaco",
-                "size": 1823968,
-                "sha256": "518937d0fabb32dba6e15de30f850059f1c085f00dda0eb223aa23a12d8b877c"
-              },
-              {
-                "name": "deep_fast-packed-fast.hsaco",
-                "path": "lmxxf-modules/deep_fast-packed-fast.hsaco",
-                "size": 708816,
-                "sha256": "d580cab83110ca68f6ce8461e4c174f6418752a01e8cff9311170c795c0c3e29"
-              },
-              {
-                "name": "deep_fast-packed.hsaco",
-                "path": "lmxxf-modules/deep_fast-packed.hsaco",
-                "size": 712144,
-                "sha256": "298945d7415ef8608a000f84a8a98687d820f9237eed9de5e286842d9ee53d0f"
-              },
-              {
-                "name": "deep_fast.hsaco",
-                "path": "lmxxf-modules/deep_fast.hsaco",
-                "size": 609656,
-                "sha256": "1ea4b095945449b9f6df84805556d874cbeda64e5f394f5a9d50f67d74d30818"
-              },
-              {
-                "name": "deep_reference.hsaco",
-                "path": "lmxxf-modules/deep_reference.hsaco",
-                "size": 70312,
-                "sha256": "068e95a68a165486ad90c429bbeba0035fe27bca2adc859dbabc9e14d4a54bb9"
-              },
-              {
-                "name": "deep_wmma.hsaco",
-                "path": "lmxxf-modules/deep_wmma.hsaco",
-                "size": 82616,
-                "sha256": "d05dddee0672f9d8ff6677afffc8a75eff9c8f2f9caeeaf7143e61ea52f2ca3f"
-              },
-              {
-                "name": "modules.json",
-                "path": "lmxxf-modules/modules.json",
-                "size": 17185,
-                "sha256": "568a3365dcabac7f78e98f0bcc002d73422672dd6db0640de48365b5f615e634"
-              },
-              {
-                "name": "multi-pass-predict.hsaco",
-                "path": "lmxxf-modules/multi-pass-predict.hsaco",
-                "size": 14328,
-                "sha256": "ae5e9278a51f303342abcd0452faba22197d25e69c9cf7045d21336f278d28d8"
-              },
-              {
-                "name": "multi-pass-skin.hsaco",
-                "path": "lmxxf-modules/multi-pass-skin.hsaco",
-                "size": 12888,
-                "sha256": "b3b9c66aa9af5dbbd80cb8ba2bac06f5c90354930b0a1fc171ef492c948797f2"
-              },
-              {
-                "name": "multihead_fused_attention.hsaco",
-                "path": "lmxxf-modules/multihead_fused_attention.hsaco",
-                "size": 366880,
-                "sha256": "77e2c97485397310ad1a6a9ae839e6f47d2db421d98688d4c619f724db139f58"
-              },
-              {
-                "name": "multihead-fast-packed.hsaco",
-                "path": "lmxxf-modules/multihead-fast-packed.hsaco",
-                "size": 104904,
-                "sha256": "c2d37f1f0b2d60c22686d73d64f3ca69c4af88635bfb003d8c43edd18dabcf9a"
-              },
-              {
-                "name": "multihead-fast-padded-wave-packed.hsaco",
-                "path": "lmxxf-modules/multihead-fast-padded-wave-packed.hsaco",
-                "size": 1279856,
-                "sha256": "79c18b37854986e44f9761ebd4aa96bf889d2a701503b9489da417a7640d6482"
-              },
-              {
-                "name": "multihead-fast-padded-wave.hsaco",
-                "path": "lmxxf-modules/multihead-fast-padded-wave.hsaco",
-                "size": 1223032,
-                "sha256": "49427ac5ebe31da6bf877483a113be60c201577be8dac6978c566288cf3d0fe0"
-              },
-              {
-                "name": "multihead-fast.hsaco",
-                "path": "lmxxf-modules/multihead-fast.hsaco",
-                "size": 106952,
-                "sha256": "d3bcd5e230ac0eab1722c8e6cbd52636b8ef901d34f66b7dd90ca2ee42156c7e"
-              },
-              {
-                "name": "multihead-reference.hsaco",
-                "path": "lmxxf-modules/multihead-reference.hsaco",
-                "size": 66824,
-                "sha256": "5d07d107ca0b9ca747480f712de7c5b3bf0bf7cbd41c278862d2b745925745d9"
-              },
-              {
-                "name": "multihead-tiled.hsaco",
-                "path": "lmxxf-modules/multihead-tiled.hsaco",
-                "size": 49072,
-                "sha256": "1b10513f44737ddc047b4d150167d71d9d522e99c94b48d6ba899fb8ed4661a7"
-              },
-              {
-                "name": "multihead-wmma.hsaco",
-                "path": "lmxxf-modules/multihead-wmma.hsaco",
-                "size": 93264,
-                "sha256": "f5de6b6119babfdfb716613c415e4b900136a48645405c04adf55456fb210353"
-              },
-              {
-                "name": "prefix_fast.hsaco",
-                "path": "lmxxf-modules/prefix_fast.hsaco",
-                "size": 77496,
-                "sha256": "352b1abfc054b0fe32fc5d95e8633db2912b53feb568e1896ed2a93b03558f11"
-              },
-              {
-                "name": "README.md",
-                "path": "lmxxf-modules/README.md",
-                "size": 2497,
-                "sha256": "66d5320bbc88eaef06843537d86a9e572699b4ee5badf58139838dc19b7c4da2"
-              },
-              {
-                "name": "runtime-manifest.json",
-                "path": "lmxxf-modules/runtime-manifest.json",
-                "size": 938,
-                "sha256": "b5d84a910d6380560656ce7ad2d1a9d31d55325eba1a63d42bf9de04b7424092"
-              },
-              {
-                "name": "SHA256SUMS",
-                "path": "lmxxf-modules/SHA256SUMS",
-                "size": 3598,
-                "sha256": "6ed1b97608eec21648dd076f05e5357f997c729dc12aad4fc8deb6e2626437ca"
-              },
-              {
-                "name": "swin-persistent-fast.hsaco",
-                "path": "lmxxf-modules/swin-persistent-fast.hsaco",
-                "size": 1464328,
-                "sha256": "f2ef0704a269be4740541ff20603a22b4ffcec5db10e475c0d0fcb6fa9285917"
-              },
-              {
-                "name": "swin-persistent.hsaco",
-                "path": "lmxxf-modules/swin-persistent.hsaco",
-                "size": 1293960,
-                "sha256": "b8d8e7230244f61c4fb177bd9fe4660f8e05ee37cb2d0bed083ccadbc62c167b"
-              },
-              {
-                "name": "vit-stream-fast.hsaco",
-                "path": "lmxxf-modules/vit-stream-fast.hsaco",
-                "size": 734496,
-                "sha256": "6d90c97f35c8d3a4bb65ee6cf56f49253a569dd02a7d14c9884dd276fc6446ec"
-              },
-              {
-                "name": "vit-stream.hsaco",
-                "path": "lmxxf-modules/vit-stream.hsaco",
-                "size": 723488,
-                "sha256": "4463c11a4634d05a591e7414dd1a819ebb1ecc7cffeea653db00ecd6aa423b45"
-              },
-              {
-                "name": "vit-wide-deep.hsaco",
-                "path": "lmxxf-modules/vit-wide-deep.hsaco",
-                "size": 617520,
-                "sha256": "020d9e35600be16737ba21cf32b87d9e48fda8d2e55061808aaa9f49eaa6bd07"
-              },
-              {
-                "name": "wave-pointwise.hsaco",
-                "path": "lmxxf-modules/wave-pointwise.hsaco",
-                "size": 46704,
-                "sha256": "eaf51807c04267796dc470556eb042391c6a76305374c6cc05f941e27b4f3bc2"
-              },
-              {
-                "name": "LmxxfNrRuntime.dll",
-                "path": "LmxxfNrRuntime.dll",
-                "size": 1645568,
-                "sha256": "c7f24e57cfd17f022efcb9779295019f3b3c81f8323c4dbcac2a0da339d13885"
-              },
-              {
-                "name": "native_black_probe.hlsl",
-                "path": "shaders/native_black_probe.hlsl",
-                "size": 1357,
-                "sha256": "629abdd90d2e7e0acfd3241f3cdf0dd00db8b5d94eebb3b8895b5ef3f5ad5869"
-              },
-              {
-                "name": "native_codec_decode.hlsl",
-                "path": "shaders/native_codec_decode.hlsl",
-                "size": 10417,
-                "sha256": "8d332acccad5aff3a1f060ad238b2897918ab9e419d7cefecdf4407ad8afad42"
-              },
-              {
-                "name": "native_codec_encode.hlsl",
-                "path": "shaders/native_codec_encode.hlsl",
-                "size": 5321,
-                "sha256": "81f2754b8734792768f27e35206ca8454c8729a1fe3827e80e6358b01e3070c0"
-              },
-              {
-                "name": "native_format_convert.hlsl",
-                "path": "shaders/native_format_convert.hlsl",
-                "size": 685,
-                "sha256": "de81723febb8462e362accebada740bcdb6180b02372199c4e200b2e48d6983b"
-              },
-              {
-                "name": "native_game_rgb_input.hlsl",
-                "path": "shaders/native_game_rgb_input.hlsl",
-                "size": 1507,
-                "sha256": "4cee56a655033d85d836e2f343de020833611b3580ac6410ed5649ff0490bba6"
-              },
-              {
-                "name": "native_history_guard.hlsl",
-                "path": "shaders/native_history_guard.hlsl",
-                "size": 1073,
-                "sha256": "4feae5de6551bcd0502c80a3f92cb38dbe4dcaec5f5353aaf537b6884f9de038"
-              },
-              {
-                "name": "native_output_smooth.hlsl",
-                "path": "shaders/native_output_smooth.hlsl",
-                "size": 2729,
-                "sha256": "834c2979cb87107934b7efc46ce4ee10106e334a35ef7465ca6e4e859c9cb006"
-              },
-              {
-                "name": "native_rgb_reflect.hlsl",
-                "path": "shaders/native_rgb_reflect.hlsl",
-                "size": 815,
-                "sha256": "a716cb3a7dd7474dfcb1ad988ea7cd38483fb0ac6cb6605f41e22db3f12a7fc4"
-              },
-              {
-                "name": "native_rgb_texture.hlsl",
-                "path": "shaders/native_rgb_texture.hlsl",
-                "size": 569,
-                "sha256": "529b18c99f48c5a09aa05bfcdf239c157660fb5adca87e834fe24d83c640bb7d"
-              },
-              {
-                "name": "native_temporal_coordinates.hlsl",
-                "path": "shaders/native_temporal_coordinates.hlsl",
-                "size": 3795,
-                "sha256": "2180062886b0d6dc9c7938e8f4ac09ae562543c142cbe8acbb7745c469ac29ca"
-              },
-              {
-                "name": "native_temporal_feed.hlsl",
-                "path": "shaders/native_temporal_feed.hlsl",
-                "size": 1583,
-                "sha256": "c558f71020b8043094385e052682d591c7b35047544498ff45577bb9bfce4964"
-              },
-              {
-                "name": "native_temporal_sample.hlsl",
-                "path": "shaders/native_temporal_sample.hlsl",
-                "size": 7633,
-                "sha256": "a0e05ca09e7e6fad757825ee93e0bec48bcc87fa408aab544133f37ee24f56bd"
-              },
-              {
-                "name": "native_text_overlay.hlsl",
-                "path": "shaders/native_text_overlay.hlsl",
-                "size": 4034,
-                "sha256": "14e58c01d2a4ce7944e09addff501e57b96ede3a332f20627dce383d7d987d91"
-              }
-            ]
-          },
-          "optiscaler-lean": {
-            "version": "0.6.8-opennr",
-            "published": "2026-11-13",
-            "files": [
-              {
-                "name": "optiscaler-lean-0.6.8-opennr.zip",
-                "size": 146592303,
-                "sha256": "c1a96d40e1329057061da3dfd92ef5ade7320524284a69828e63028704f41acf",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/optiscaler-lean/0.6.8-opennr/optiscaler-lean-0.6.8-opennr.zip"
-              }
-            ],
-            "extract": [
-              {
-                "name": "D3D12Core.dll",
-                "path": "D3D12_OptiScaler/D3D12Core.dll",
-                "size": 3351064,
-                "sha256": "07d286c306f8117321422affd9e6388c12d0fb4be1c7fc689d9e899324feeb24"
-              },
-              {
-                "name": "GatherCS.cso",
-                "path": "experimental_lighting/GatherCS.cso",
-                "size": 8608,
-                "sha256": "2f7bfd42c78b1256ed56eb93e3d75e494369a90168c06c22486a4ac1011b31ee"
-              },
-              {
-                "name": "ResolveCS.cso",
-                "path": "experimental_lighting/ResolveCS.cso",
-                "size": 9308,
-                "sha256": "fe19e23f3ea2ca8a9fb2e4017e9d803a8cc9f0657890e0dd69b329d7f4e3f350"
-              },
-              {
-                "name": "OptiScaler.dll",
-                "path": "OptiScaler.dll",
-                "size": 32800256,
-                "sha256": "0d35e28a867bdc8e19155a51ac66b0fb1b9b354acd680c4d8718ff2a608ab7d1"
-              },
-              {
-                "name": "OptiScaler.ini",
-                "path": "OptiScaler.ini",
-                "size": 80184,
-                "sha256": "db88031fd488db858dd28610f0a7080fd5506e5f4295d4ec4aba90e4c6452a0d"
-              },
-              {
-                "name": "amd_fidelityfx_denoiser_dx12.dll",
-                "path": "OptiScaler/amd_fidelityfx_denoiser_dx12.dll",
-                "size": 8993552,
-                "sha256": "4ca5182d5c8a855441e0c82673716e4776f9afcfadfdb4225d2fc6113b0f853c"
-              },
-              {
-                "name": "amd_fidelityfx_framegeneration_dx12.dll",
-                "path": "OptiScaler/amd_fidelityfx_framegeneration_dx12.dll",
-                "size": 29679376,
-                "sha256": "e6843252f58b0341a0d80f6a20bc0d840643ee95bc48c22cac08745344577bb6"
-              },
-              {
-                "name": "amd_fidelityfx_loader_dx12.dll",
-                "path": "OptiScaler/amd_fidelityfx_loader_dx12.dll",
-                "size": 39184,
-                "sha256": "e2191d3c0828be45eb8affd4e3ec0378f2293adc345b772a7170edcf3b021ecb"
-              },
-              {
-                "name": "amd_fidelityfx_upscaler_dx12.dll",
-                "path": "OptiScaler/amd_fidelityfx_upscaler_dx12.dll",
-                "size": 57664272,
-                "sha256": "aad4fccccb29084a655f9a4f9f613bd22c8c03fb4a0f8840148cc6543b4ccace"
-              },
-              {
-                "name": "amd_fidelityfx_vk.dll",
-                "path": "OptiScaler/amd_fidelityfx_vk.dll",
-                "size": 9332432,
-                "sha256": "a1624cc4238fef046f30c4d80ce3f47be63fc5f5373f49e3ee9edb9960f54c78"
-              },
-              {
-                "name": "libxell.dll",
-                "path": "OptiScaler/libxell.dll",
-                "size": 415368,
-                "sha256": "d2030dcd694fda8f2ec7e044b13e6db8f0b56d4ba9113a5efad334e3f3ded8c7"
-              },
-              {
-                "name": "libxess_dx11.dll",
-                "path": "OptiScaler/libxess_dx11.dll",
-                "size": 156016,
-                "sha256": "c7cfe86f0c9d94e4fb3696d3cd5035e2bbb6a8b1b0572f8b7395a4cdfd0c625e"
-              },
-              {
-                "name": "libxess_fg.dll",
-                "path": "OptiScaler/libxess_fg.dll",
-                "size": 22957432,
-                "sha256": "ec5e0c65e075570c6ede72618bb666d0be0c2e10b2ea9762c0fe8cb8e375ab27"
-              },
-              {
-                "name": "libxess.dll",
-                "path": "OptiScaler/libxess.dll",
-                "size": 77795704,
-                "sha256": "251659dd84a3e84de67c886a4186e01f3eca49b00641906fe38bb6b807e5d5b7"
-              }
-            ]
-          },
           "lmxxf-weights": {
             "version": "1",
             "files": [
@@ -4882,53 +3666,6 @@
               }
             ]
           },
-          "wronggpu": {
-            "version": "0.5.5-ea2",
-            "files": [
-              {
-                "name": "wronggpu_ffx_dx12.dll",
-                "path": "wronggpu/wronggpu_ffx_dx12.dll",
-                "size": 2182144,
-                "sha256": "3511adb5994cb217a85bd06a662989338f7e219b3f18c49b9d12de3ac0c7300f",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_ffx_dx12.dll"
-              },
-              {
-                "name": "wronggpu_runtime.dll",
-                "path": "wronggpu/wronggpu_runtime.dll",
-                "size": 24689152,
-                "sha256": "331bc00e02f048a990a4c37362f8001b2c1eb31c27bd57b9ed58f6a66222a1be",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_runtime.dll"
-              },
-              {
-                "name": "WrongGPU.asi",
-                "path": "wronggpu/WrongGPU.asi",
-                "size": 910336,
-                "sha256": "e9aab52cc1b4a5e411a65560eacdfe26a442c6b8085d318a125e114e2e0bac25",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/WrongGPU.asi"
-              },
-              {
-                "name": "wronggpu-license.txt",
-                "path": "wronggpu/wronggpu-license.txt",
-                "size": 3450,
-                "sha256": "7a215435017d9d96871c41c73578f7066042cbdc131b20a4529a9d7431d681c3",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-license.txt"
-              },
-              {
-                "name": "wronggpu-notices.txt",
-                "path": "wronggpu/wronggpu-notices.txt",
-                "size": 3243,
-                "sha256": "866718674cc3e5af72b07031064444daf464fdbd04d4d8e39d0dda9ce9338bd9",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-notices.txt"
-              },
-              {
-                "name": "WrongGPU-Setup-0.5.5-ea2.exe",
-                "path": "wronggpu/WrongGPU-Setup-0.5.5-ea2.exe",
-                "size": 30454784,
-                "sha256": "fb557de8d305de73c3bcbf8b54440c6588575745a3fc0194bf8bb85cb7d71636",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea2/WrongGPU-Setup-0.5.5-ea2.exe"
-              }
-            ]
-          },
           "streamline": {
             "version": "2.14.1",
             "files": [
@@ -4981,18 +3718,6 @@
                 "size": 7460976,
                 "sha256": "ff6e90eb78b827927dff5b4ecc6b1c870c2e9bca29ed9f48c7d348cc9e170b82",
                 "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlssg.dll"
-              }
-            ]
-          },
-          "wronggpu-dlss": {
-            "version": "310.9.1",
-            "files": [
-              {
-                "name": "nvngx_dlss.dll",
-                "path": "wronggpu/nvngx_dlss.dll",
-                "size": 58956912,
-                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
-                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
               }
             ]
           },
@@ -16225,6 +14950,1267 @@
                 "sha256": "6f0ef2ee0e7ce4559e7a6741e5a16813f178d3a054ad0c1008c8d7f64eb47c96"
               }
             ]
+          },
+          "optiscaler": {
+            "version": "0.6.8-opennr",
+            "published": "2026-11-13",
+            "files": [
+              {
+                "name": "OptiScaler-0.6.8-opennr.zip",
+                "size": 160144683,
+                "sha256": "ca55663262ca7aa1647f01922700a92370adcf1d0c854e7cfcfdafb1f72a8e6d",
+                "url": "https://github.com/MatheusFerreiraS/OpenNR-OptiScaler/releases/download/v0.6.8-opennr/OptiScaler-0.6.8-opennr.zip"
+              }
+            ],
+            "extract": [
+              {
+                "name": "D3D12Core.dll",
+                "path": "D3D12_OptiScaler/D3D12Core.dll",
+                "size": 3351064,
+                "sha256": "07d286c306f8117321422affd9e6388c12d0fb4be1c7fc689d9e899324feeb24"
+              },
+              {
+                "name": "GatherCS.cso",
+                "path": "experimental_lighting/GatherCS.cso",
+                "size": 8608,
+                "sha256": "2f7bfd42c78b1256ed56eb93e3d75e494369a90168c06c22486a4ac1011b31ee"
+              },
+              {
+                "name": "ResolveCS.cso",
+                "path": "experimental_lighting/ResolveCS.cso",
+                "size": 9308,
+                "sha256": "fe19e23f3ea2ca8a9fb2e4017e9d803a8cc9f0657890e0dd69b329d7f4e3f350"
+              },
+              {
+                "name": "boundary_reference.hsaco",
+                "path": "lmxxf-modules/boundary_reference.hsaco",
+                "size": 17832,
+                "sha256": "6158f119bf9db7cdf0acf37f8b4fb73e5eceba9f1fd6b24a84367f7682aecd8b"
+              },
+              {
+                "name": "boundary-fast.hsaco",
+                "path": "lmxxf-modules/boundary-fast.hsaco",
+                "size": 50904,
+                "sha256": "4e3d9d46e5b206a6db1eac92d1dd7ad18cebbcb42819a356fae9d0ed0a2189ea"
+              },
+              {
+                "name": "c32_fast_attention.hsaco",
+                "path": "lmxxf-modules/c32_fast_attention.hsaco",
+                "size": 29568,
+                "sha256": "a8ae4d4ba24e1da282789edda469ee8b46a822cac68e6e70cc2c1b7a3ed9a70d"
+              },
+              {
+                "name": "c32_fast.hsaco",
+                "path": "lmxxf-modules/c32_fast.hsaco",
+                "size": 38056,
+                "sha256": "d632f620a9c9fa84b6868d37932092f4c1745e0ef832caba8fdd3801326de131"
+              },
+              {
+                "name": "c32_fused_attention.hsaco",
+                "path": "lmxxf-modules/c32_fused_attention.hsaco",
+                "size": 39472,
+                "sha256": "c31d964f641693945e453863c740f6c9016e7ef6f503c7cb5d13d438d879c694"
+              },
+              {
+                "name": "c32_fused_ffn_attention-packed.hsaco",
+                "path": "lmxxf-modules/c32_fused_ffn_attention-packed.hsaco",
+                "size": 219328,
+                "sha256": "e8257864e5c81da3c79e686212bda3fee3aeaa8110bc41c51d340e797dc480d6"
+              },
+              {
+                "name": "c32_fused_ffn_attention.hsaco",
+                "path": "lmxxf-modules/c32_fused_ffn_attention.hsaco",
+                "size": 286528,
+                "sha256": "55dd97eb760bbb799d310bc291af66279332c24b40fc9d47a13dbac9636eb59d"
+              },
+              {
+                "name": "c32_prefix_reference.hsaco",
+                "path": "lmxxf-modules/c32_prefix_reference.hsaco",
+                "size": 35784,
+                "sha256": "13ea62dbd2cb381c432dd2dda473ee99bea09c34c1b5769c18e88e5e4295d169"
+              },
+              {
+                "name": "c32_tiled.hsaco",
+                "path": "lmxxf-modules/c32_tiled.hsaco",
+                "size": 31536,
+                "sha256": "78e023640ff2ae96b42c7c1b1221bda67c5a02550bb5eb4e4ed761b71238b09b"
+              },
+              {
+                "name": "c32_wmma.hsaco",
+                "path": "lmxxf-modules/c32_wmma.hsaco",
+                "size": 66504,
+                "sha256": "e9ef0c1d31c1b2f12cdd2c86b5ed87251df5d2a4f93380f6434b3c9b80039de3"
+              },
+              {
+                "name": "c32-wave1-fast-norm900.hsaco",
+                "path": "lmxxf-modules/c32-wave1-fast-norm900.hsaco",
+                "size": 856608,
+                "sha256": "6fd5735665844260c17a16878bac7482bd0093d4428661835742a8d95a1f2958"
+              },
+              {
+                "name": "c32-wave1-fast.hsaco",
+                "path": "lmxxf-modules/c32-wave1-fast.hsaco",
+                "size": 833056,
+                "sha256": "4500f619ba599bbc0621a689e4eb2455bc8857460470118bf492f376418c761c"
+              },
+              {
+                "name": "c32-wave1-rtz.hsaco",
+                "path": "lmxxf-modules/c32-wave1-rtz.hsaco",
+                "size": 864216,
+                "sha256": "8212e23578924d897ff7c6871f2f0b146f277ef7d8a4431d1ae245b55c1dc152"
+              },
+              {
+                "name": "c32-wave1.hsaco",
+                "path": "lmxxf-modules/c32-wave1.hsaco",
+                "size": 856280,
+                "sha256": "698f5fc211e3fbad6cd19300de6ed4697bd83bec33bc00998df3ab82c0fb90b1"
+              },
+              {
+                "name": "c512-m32-deep.hsaco",
+                "path": "lmxxf-modules/c512-m32-deep.hsaco",
+                "size": 648312,
+                "sha256": "5e05e82e72cfa6edbe12c9a645e9d93fdf0470c023bc85cf5dc454a52e782676"
+              },
+              {
+                "name": "c512-m32-mh.hsaco",
+                "path": "lmxxf-modules/c512-m32-mh.hsaco",
+                "size": 1114824,
+                "sha256": "f84ec9be8cf5067a9391b8dc51e0fa8d2f054f51f4b2c3472954e6b2ab747f14"
+              },
+              {
+                "name": "c64-wave2-fast.hsaco",
+                "path": "lmxxf-modules/c64-wave2-fast.hsaco",
+                "size": 1990112,
+                "sha256": "e54cf8444f301b5274b66ed6c7d4bd2e434425a2a2f013bf1ce581f908fe5fc0"
+              },
+              {
+                "name": "c64-wave2.hsaco",
+                "path": "lmxxf-modules/c64-wave2.hsaco",
+                "size": 1823968,
+                "sha256": "518937d0fabb32dba6e15de30f850059f1c085f00dda0eb223aa23a12d8b877c"
+              },
+              {
+                "name": "deep_fast-packed-fast.hsaco",
+                "path": "lmxxf-modules/deep_fast-packed-fast.hsaco",
+                "size": 708816,
+                "sha256": "d580cab83110ca68f6ce8461e4c174f6418752a01e8cff9311170c795c0c3e29"
+              },
+              {
+                "name": "deep_fast-packed.hsaco",
+                "path": "lmxxf-modules/deep_fast-packed.hsaco",
+                "size": 712144,
+                "sha256": "298945d7415ef8608a000f84a8a98687d820f9237eed9de5e286842d9ee53d0f"
+              },
+              {
+                "name": "deep_fast.hsaco",
+                "path": "lmxxf-modules/deep_fast.hsaco",
+                "size": 609656,
+                "sha256": "1ea4b095945449b9f6df84805556d874cbeda64e5f394f5a9d50f67d74d30818"
+              },
+              {
+                "name": "deep_reference.hsaco",
+                "path": "lmxxf-modules/deep_reference.hsaco",
+                "size": 70312,
+                "sha256": "068e95a68a165486ad90c429bbeba0035fe27bca2adc859dbabc9e14d4a54bb9"
+              },
+              {
+                "name": "deep_wmma.hsaco",
+                "path": "lmxxf-modules/deep_wmma.hsaco",
+                "size": 82616,
+                "sha256": "d05dddee0672f9d8ff6677afffc8a75eff9c8f2f9caeeaf7143e61ea52f2ca3f"
+              },
+              {
+                "name": "modules.json",
+                "path": "lmxxf-modules/modules.json",
+                "size": 17185,
+                "sha256": "568a3365dcabac7f78e98f0bcc002d73422672dd6db0640de48365b5f615e634"
+              },
+              {
+                "name": "multi-pass-predict.hsaco",
+                "path": "lmxxf-modules/multi-pass-predict.hsaco",
+                "size": 14328,
+                "sha256": "ae5e9278a51f303342abcd0452faba22197d25e69c9cf7045d21336f278d28d8"
+              },
+              {
+                "name": "multi-pass-skin.hsaco",
+                "path": "lmxxf-modules/multi-pass-skin.hsaco",
+                "size": 12888,
+                "sha256": "b3b9c66aa9af5dbbd80cb8ba2bac06f5c90354930b0a1fc171ef492c948797f2"
+              },
+              {
+                "name": "multihead_fused_attention.hsaco",
+                "path": "lmxxf-modules/multihead_fused_attention.hsaco",
+                "size": 366880,
+                "sha256": "77e2c97485397310ad1a6a9ae839e6f47d2db421d98688d4c619f724db139f58"
+              },
+              {
+                "name": "multihead-fast-packed.hsaco",
+                "path": "lmxxf-modules/multihead-fast-packed.hsaco",
+                "size": 104904,
+                "sha256": "c2d37f1f0b2d60c22686d73d64f3ca69c4af88635bfb003d8c43edd18dabcf9a"
+              },
+              {
+                "name": "multihead-fast-padded-wave-packed.hsaco",
+                "path": "lmxxf-modules/multihead-fast-padded-wave-packed.hsaco",
+                "size": 1279856,
+                "sha256": "79c18b37854986e44f9761ebd4aa96bf889d2a701503b9489da417a7640d6482"
+              },
+              {
+                "name": "multihead-fast-padded-wave.hsaco",
+                "path": "lmxxf-modules/multihead-fast-padded-wave.hsaco",
+                "size": 1223032,
+                "sha256": "49427ac5ebe31da6bf877483a113be60c201577be8dac6978c566288cf3d0fe0"
+              },
+              {
+                "name": "multihead-fast.hsaco",
+                "path": "lmxxf-modules/multihead-fast.hsaco",
+                "size": 106952,
+                "sha256": "d3bcd5e230ac0eab1722c8e6cbd52636b8ef901d34f66b7dd90ca2ee42156c7e"
+              },
+              {
+                "name": "multihead-reference.hsaco",
+                "path": "lmxxf-modules/multihead-reference.hsaco",
+                "size": 66824,
+                "sha256": "5d07d107ca0b9ca747480f712de7c5b3bf0bf7cbd41c278862d2b745925745d9"
+              },
+              {
+                "name": "multihead-tiled.hsaco",
+                "path": "lmxxf-modules/multihead-tiled.hsaco",
+                "size": 49072,
+                "sha256": "1b10513f44737ddc047b4d150167d71d9d522e99c94b48d6ba899fb8ed4661a7"
+              },
+              {
+                "name": "multihead-wmma.hsaco",
+                "path": "lmxxf-modules/multihead-wmma.hsaco",
+                "size": 93264,
+                "sha256": "f5de6b6119babfdfb716613c415e4b900136a48645405c04adf55456fb210353"
+              },
+              {
+                "name": "prefix_fast.hsaco",
+                "path": "lmxxf-modules/prefix_fast.hsaco",
+                "size": 77496,
+                "sha256": "352b1abfc054b0fe32fc5d95e8633db2912b53feb568e1896ed2a93b03558f11"
+              },
+              {
+                "name": "README.md",
+                "path": "lmxxf-modules/README.md",
+                "size": 2497,
+                "sha256": "66d5320bbc88eaef06843537d86a9e572699b4ee5badf58139838dc19b7c4da2"
+              },
+              {
+                "name": "runtime-manifest.json",
+                "path": "lmxxf-modules/runtime-manifest.json",
+                "size": 938,
+                "sha256": "b5d84a910d6380560656ce7ad2d1a9d31d55325eba1a63d42bf9de04b7424092"
+              },
+              {
+                "name": "SHA256SUMS",
+                "path": "lmxxf-modules/SHA256SUMS",
+                "size": 3598,
+                "sha256": "6ed1b97608eec21648dd076f05e5357f997c729dc12aad4fc8deb6e2626437ca"
+              },
+              {
+                "name": "swin-persistent-fast.hsaco",
+                "path": "lmxxf-modules/swin-persistent-fast.hsaco",
+                "size": 1464328,
+                "sha256": "f2ef0704a269be4740541ff20603a22b4ffcec5db10e475c0d0fcb6fa9285917"
+              },
+              {
+                "name": "swin-persistent.hsaco",
+                "path": "lmxxf-modules/swin-persistent.hsaco",
+                "size": 1293960,
+                "sha256": "b8d8e7230244f61c4fb177bd9fe4660f8e05ee37cb2d0bed083ccadbc62c167b"
+              },
+              {
+                "name": "vit-stream-fast.hsaco",
+                "path": "lmxxf-modules/vit-stream-fast.hsaco",
+                "size": 734496,
+                "sha256": "6d90c97f35c8d3a4bb65ee6cf56f49253a569dd02a7d14c9884dd276fc6446ec"
+              },
+              {
+                "name": "vit-stream.hsaco",
+                "path": "lmxxf-modules/vit-stream.hsaco",
+                "size": 723488,
+                "sha256": "4463c11a4634d05a591e7414dd1a819ebb1ecc7cffeea653db00ecd6aa423b45"
+              },
+              {
+                "name": "vit-wide-deep.hsaco",
+                "path": "lmxxf-modules/vit-wide-deep.hsaco",
+                "size": 617520,
+                "sha256": "020d9e35600be16737ba21cf32b87d9e48fda8d2e55061808aaa9f49eaa6bd07"
+              },
+              {
+                "name": "wave-pointwise.hsaco",
+                "path": "lmxxf-modules/wave-pointwise.hsaco",
+                "size": 46704,
+                "sha256": "eaf51807c04267796dc470556eb042391c6a76305374c6cc05f941e27b4f3bc2"
+              },
+              {
+                "name": "LmxxfNrRuntime.dll",
+                "path": "LmxxfNrRuntime.dll",
+                "size": 1645568,
+                "sha256": "19909baf4b37787509439a536d653fae7e71b008809cbd6d9ae176a906d57c62"
+              },
+              {
+                "name": "OptiScaler.dll",
+                "path": "OptiScaler.dll",
+                "size": 32803840,
+                "sha256": "f33ac1fee356471809af47149dafcd19d65efa6a38bd32d1f53cf0f9ad63514c"
+              },
+              {
+                "name": "OptiScaler.ini",
+                "path": "OptiScaler.ini",
+                "size": 80184,
+                "sha256": "db88031fd488db858dd28610f0a7080fd5506e5f4295d4ec4aba90e4c6452a0d"
+              },
+              {
+                "name": "amd_fidelityfx_denoiser_dx12.dll",
+                "path": "OptiScaler/amd_fidelityfx_denoiser_dx12.dll",
+                "size": 8993552,
+                "sha256": "4ca5182d5c8a855441e0c82673716e4776f9afcfadfdb4225d2fc6113b0f853c"
+              },
+              {
+                "name": "amd_fidelityfx_framegeneration_dx12.dll",
+                "path": "OptiScaler/amd_fidelityfx_framegeneration_dx12.dll",
+                "size": 29679376,
+                "sha256": "e6843252f58b0341a0d80f6a20bc0d840643ee95bc48c22cac08745344577bb6"
+              },
+              {
+                "name": "amd_fidelityfx_loader_dx12.dll",
+                "path": "OptiScaler/amd_fidelityfx_loader_dx12.dll",
+                "size": 39184,
+                "sha256": "e2191d3c0828be45eb8affd4e3ec0378f2293adc345b772a7170edcf3b021ecb"
+              },
+              {
+                "name": "amd_fidelityfx_upscaler_dx12.dll",
+                "path": "OptiScaler/amd_fidelityfx_upscaler_dx12.dll",
+                "size": 57664272,
+                "sha256": "aad4fccccb29084a655f9a4f9f613bd22c8c03fb4a0f8840148cc6543b4ccace"
+              },
+              {
+                "name": "amd_fidelityfx_vk.dll",
+                "path": "OptiScaler/amd_fidelityfx_vk.dll",
+                "size": 9332432,
+                "sha256": "a1624cc4238fef046f30c4d80ce3f47be63fc5f5373f49e3ee9edb9960f54c78"
+              },
+              {
+                "name": "libxell.dll",
+                "path": "OptiScaler/libxell.dll",
+                "size": 415368,
+                "sha256": "d2030dcd694fda8f2ec7e044b13e6db8f0b56d4ba9113a5efad334e3f3ded8c7"
+              },
+              {
+                "name": "libxess_dx11.dll",
+                "path": "OptiScaler/libxess_dx11.dll",
+                "size": 156016,
+                "sha256": "c7cfe86f0c9d94e4fb3696d3cd5035e2bbb6a8b1b0572f8b7395a4cdfd0c625e"
+              },
+              {
+                "name": "libxess_fg.dll",
+                "path": "OptiScaler/libxess_fg.dll",
+                "size": 22957432,
+                "sha256": "ec5e0c65e075570c6ede72618bb666d0be0c2e10b2ea9762c0fe8cb8e375ab27"
+              },
+              {
+                "name": "libxess.dll",
+                "path": "OptiScaler/libxess.dll",
+                "size": 77795704,
+                "sha256": "251659dd84a3e84de67c886a4186e01f3eca49b00641906fe38bb6b807e5d5b7"
+              },
+              {
+                "name": "native_black_probe.hlsl",
+                "path": "shaders/native_black_probe.hlsl",
+                "size": 1357,
+                "sha256": "629abdd90d2e7e0acfd3241f3cdf0dd00db8b5d94eebb3b8895b5ef3f5ad5869"
+              },
+              {
+                "name": "native_codec_decode.hlsl",
+                "path": "shaders/native_codec_decode.hlsl",
+                "size": 10417,
+                "sha256": "8d332acccad5aff3a1f060ad238b2897918ab9e419d7cefecdf4407ad8afad42"
+              },
+              {
+                "name": "native_codec_encode.hlsl",
+                "path": "shaders/native_codec_encode.hlsl",
+                "size": 5321,
+                "sha256": "81f2754b8734792768f27e35206ca8454c8729a1fe3827e80e6358b01e3070c0"
+              },
+              {
+                "name": "native_format_convert.hlsl",
+                "path": "shaders/native_format_convert.hlsl",
+                "size": 685,
+                "sha256": "de81723febb8462e362accebada740bcdb6180b02372199c4e200b2e48d6983b"
+              },
+              {
+                "name": "native_game_rgb_input.hlsl",
+                "path": "shaders/native_game_rgb_input.hlsl",
+                "size": 1507,
+                "sha256": "4cee56a655033d85d836e2f343de020833611b3580ac6410ed5649ff0490bba6"
+              },
+              {
+                "name": "native_history_guard.hlsl",
+                "path": "shaders/native_history_guard.hlsl",
+                "size": 1073,
+                "sha256": "4feae5de6551bcd0502c80a3f92cb38dbe4dcaec5f5353aaf537b6884f9de038"
+              },
+              {
+                "name": "native_output_smooth.hlsl",
+                "path": "shaders/native_output_smooth.hlsl",
+                "size": 2729,
+                "sha256": "834c2979cb87107934b7efc46ce4ee10106e334a35ef7465ca6e4e859c9cb006"
+              },
+              {
+                "name": "native_rgb_reflect.hlsl",
+                "path": "shaders/native_rgb_reflect.hlsl",
+                "size": 815,
+                "sha256": "a716cb3a7dd7474dfcb1ad988ea7cd38483fb0ac6cb6605f41e22db3f12a7fc4"
+              },
+              {
+                "name": "native_rgb_texture.hlsl",
+                "path": "shaders/native_rgb_texture.hlsl",
+                "size": 569,
+                "sha256": "529b18c99f48c5a09aa05bfcdf239c157660fb5adca87e834fe24d83c640bb7d"
+              },
+              {
+                "name": "native_temporal_coordinates.hlsl",
+                "path": "shaders/native_temporal_coordinates.hlsl",
+                "size": 3795,
+                "sha256": "2180062886b0d6dc9c7938e8f4ac09ae562543c142cbe8acbb7745c469ac29ca"
+              },
+              {
+                "name": "native_temporal_feed.hlsl",
+                "path": "shaders/native_temporal_feed.hlsl",
+                "size": 1583,
+                "sha256": "c558f71020b8043094385e052682d591c7b35047544498ff45577bb9bfce4964"
+              },
+              {
+                "name": "native_temporal_sample.hlsl",
+                "path": "shaders/native_temporal_sample.hlsl",
+                "size": 7633,
+                "sha256": "a0e05ca09e7e6fad757825ee93e0bec48bcc87fa408aab544133f37ee24f56bd"
+              },
+              {
+                "name": "native_text_overlay.hlsl",
+                "path": "shaders/native_text_overlay.hlsl",
+                "size": 4034,
+                "sha256": "14e58c01d2a4ce7944e09addff501e57b96ede3a332f20627dce383d7d987d91"
+              }
+            ]
+          },
+          "lmxxf-gfx1200": {
+            "version": "0.6.8-opennr",
+            "published": "2026-11-13",
+            "files": [
+              {
+                "name": "lmxxf-gfx1200-0.6.8-opennr.zip",
+                "size": 6209984,
+                "sha256": "757b1badefe91b7538ba719b41cd52442993350cd45ef192aa69df4916237725",
+                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/lmxxf-gfx1200/0.6.8-opennr/lmxxf-gfx1200-0.6.8-opennr.zip"
+              }
+            ],
+            "extract": [
+              {
+                "name": "boundary_reference.hsaco",
+                "path": "lmxxf-modules-gfx1200/boundary_reference.hsaco",
+                "size": 17832,
+                "sha256": "3c6e83e01ce9f59657eefbeb92e70fa8de6f95155d3dea6bb91498e7967c1948"
+              },
+              {
+                "name": "boundary-fast.hsaco",
+                "path": "lmxxf-modules-gfx1200/boundary-fast.hsaco",
+                "size": 50904,
+                "sha256": "490d5573b8f5b6b2b78ab5b767547a246303f15af6507714507a9241468d1f11"
+              },
+              {
+                "name": "c32_fast_attention.hsaco",
+                "path": "lmxxf-modules-gfx1200/c32_fast_attention.hsaco",
+                "size": 29568,
+                "sha256": "d42a32005038be0f503b9929ac55958b3826203cdbb05b253b31bd33f2f36af2"
+              },
+              {
+                "name": "c32_fast.hsaco",
+                "path": "lmxxf-modules-gfx1200/c32_fast.hsaco",
+                "size": 38056,
+                "sha256": "b079e4bc302fd7ac0a5d1062bb5cf0ace56c532ed97e2d4adcf21ff2ae25e96c"
+              },
+              {
+                "name": "c32_fused_attention.hsaco",
+                "path": "lmxxf-modules-gfx1200/c32_fused_attention.hsaco",
+                "size": 39472,
+                "sha256": "8d5e3189186da27b88d80fbd23f93ad0363074cc7aa0d22fefe7392ac58cbab8"
+              },
+              {
+                "name": "c32_fused_ffn_attention-packed.hsaco",
+                "path": "lmxxf-modules-gfx1200/c32_fused_ffn_attention-packed.hsaco",
+                "size": 219328,
+                "sha256": "841c6b34c98b99b5385593debd0ad352fbab6cb2995a597ccb75f7dd6cf15bf5"
+              },
+              {
+                "name": "c32_fused_ffn_attention.hsaco",
+                "path": "lmxxf-modules-gfx1200/c32_fused_ffn_attention.hsaco",
+                "size": 286528,
+                "sha256": "03bbfb30286d724d5b2dce4b9add52de1bbd04865a62c2ca7a12b40650f42bdb"
+              },
+              {
+                "name": "c32_prefix_reference.hsaco",
+                "path": "lmxxf-modules-gfx1200/c32_prefix_reference.hsaco",
+                "size": 35784,
+                "sha256": "438c46be0038ba545da2eab663aa4f81e0cd72cd6d126371ccbd9e461a1ea8ab"
+              },
+              {
+                "name": "c32_tiled.hsaco",
+                "path": "lmxxf-modules-gfx1200/c32_tiled.hsaco",
+                "size": 31536,
+                "sha256": "54960056fec902e02771de7d1cf6913357dbd7525a2d6053d79047c3dff0fe9f"
+              },
+              {
+                "name": "c32_wmma.hsaco",
+                "path": "lmxxf-modules-gfx1200/c32_wmma.hsaco",
+                "size": 66504,
+                "sha256": "bbdb65502caa0fd71f97a26584c82bfd89973918979dd76f7e5e40c98d054cac"
+              },
+              {
+                "name": "c32-wave1-fast-norm900.hsaco",
+                "path": "lmxxf-modules-gfx1200/c32-wave1-fast-norm900.hsaco",
+                "size": 833056,
+                "sha256": "d16dc012f4438e494b60655a4911f2632738454781b287e5113c4968961b58aa"
+              },
+              {
+                "name": "c32-wave1-fast.hsaco",
+                "path": "lmxxf-modules-gfx1200/c32-wave1-fast.hsaco",
+                "size": 833056,
+                "sha256": "dc464b5d9f860111707a1a1a23eb551c50ae710625306c092490ffb05aba1a52"
+              },
+              {
+                "name": "c32-wave1-rtz.hsaco",
+                "path": "lmxxf-modules-gfx1200/c32-wave1-rtz.hsaco",
+                "size": 864216,
+                "sha256": "c86000cec7c1e0b43ebab6089c76417a6365302c6d6fcac872576af684a4ced0"
+              },
+              {
+                "name": "c32-wave1.hsaco",
+                "path": "lmxxf-modules-gfx1200/c32-wave1.hsaco",
+                "size": 856280,
+                "sha256": "b670aad4732bfa20db51b84773ef4ea246cc20b3c5adfb2d0e57e5f732b5553a"
+              },
+              {
+                "name": "c512-m32-deep.hsaco",
+                "path": "lmxxf-modules-gfx1200/c512-m32-deep.hsaco",
+                "size": 648312,
+                "sha256": "9e725f37f5641db0b12deb49e27cfb0d4fef405efff1d9377ce55b9cf098c27b"
+              },
+              {
+                "name": "c512-m32-mh.hsaco",
+                "path": "lmxxf-modules-gfx1200/c512-m32-mh.hsaco",
+                "size": 1114824,
+                "sha256": "996a6bbb0fff9267284b8859c841c5f30b9367a36b8aef6acb2851dd99534d7e"
+              },
+              {
+                "name": "c64-wave2-fast.hsaco",
+                "path": "lmxxf-modules-gfx1200/c64-wave2-fast.hsaco",
+                "size": 1990112,
+                "sha256": "7e30337772006a1919e9e91021a0151a9b71543aad8854db66cb7d92218118bb"
+              },
+              {
+                "name": "c64-wave2.hsaco",
+                "path": "lmxxf-modules-gfx1200/c64-wave2.hsaco",
+                "size": 1823968,
+                "sha256": "e4e1fca8d44a7ea2d8a7996803e85f64968560a5643dd565e605d2aef306558a"
+              },
+              {
+                "name": "deep_fast-packed-fast.hsaco",
+                "path": "lmxxf-modules-gfx1200/deep_fast-packed-fast.hsaco",
+                "size": 708816,
+                "sha256": "d23f13b7b2532ffca7342af199a7d9f93fe2b1fcc2065f2f955579a2a0a73f53"
+              },
+              {
+                "name": "deep_fast-packed.hsaco",
+                "path": "lmxxf-modules-gfx1200/deep_fast-packed.hsaco",
+                "size": 712144,
+                "sha256": "82ae63724628a81d98e552643ed19c024df7ef0b96f51acb0c485bd305b477ca"
+              },
+              {
+                "name": "deep_fast.hsaco",
+                "path": "lmxxf-modules-gfx1200/deep_fast.hsaco",
+                "size": 609656,
+                "sha256": "f55d24205b24f582e68a4a5c96ba674d238d0e91e47f0283e17d6359f33e3f10"
+              },
+              {
+                "name": "deep_reference.hsaco",
+                "path": "lmxxf-modules-gfx1200/deep_reference.hsaco",
+                "size": 70312,
+                "sha256": "d726cea76bee9304b1fe99e84542f5557f5e9dbcbca0c673a16a61c3ac73649b"
+              },
+              {
+                "name": "deep_wmma.hsaco",
+                "path": "lmxxf-modules-gfx1200/deep_wmma.hsaco",
+                "size": 82616,
+                "sha256": "c4c55a46b2fe260e37320a47a78a548919e8899d6659e752e1d36c414fa67667"
+              },
+              {
+                "name": "modules.json",
+                "path": "lmxxf-modules-gfx1200/modules.json",
+                "size": 17185,
+                "sha256": "5bc414321b1fe7a97ad832a1c15efa2d630e6b8784d88cc0bb7d8afdd9b54cee"
+              },
+              {
+                "name": "multi-pass-predict.hsaco",
+                "path": "lmxxf-modules-gfx1200/multi-pass-predict.hsaco",
+                "size": 14328,
+                "sha256": "a8a5de2e24dd92462f64bcfc2b17820cf324636d3a9c3ea2919ba739e5a9dd7a"
+              },
+              {
+                "name": "multi-pass-skin.hsaco",
+                "path": "lmxxf-modules-gfx1200/multi-pass-skin.hsaco",
+                "size": 12888,
+                "sha256": "c18b0b9ce2b510b3f69101fb272d900f0093cfecd5bc9640e0b7ee431d6ebe62"
+              },
+              {
+                "name": "multihead_fused_attention.hsaco",
+                "path": "lmxxf-modules-gfx1200/multihead_fused_attention.hsaco",
+                "size": 366880,
+                "sha256": "48ce2debccd6fb041bb225fb9d61774046ec3f8d71c14885d9417f6fe46322db"
+              },
+              {
+                "name": "multihead-fast-packed.hsaco",
+                "path": "lmxxf-modules-gfx1200/multihead-fast-packed.hsaco",
+                "size": 104904,
+                "sha256": "aee53542f433f901593106f2e581cb09459cd8fc5b946635a73f856b90ffacb0"
+              },
+              {
+                "name": "multihead-fast-padded-wave-packed.hsaco",
+                "path": "lmxxf-modules-gfx1200/multihead-fast-padded-wave-packed.hsaco",
+                "size": 1279856,
+                "sha256": "57dba44c9d1d4031db165409a259a0748a7b6872df4bb897b55233526be8fee6"
+              },
+              {
+                "name": "multihead-fast-padded-wave.hsaco",
+                "path": "lmxxf-modules-gfx1200/multihead-fast-padded-wave.hsaco",
+                "size": 1223032,
+                "sha256": "4b9a78a39cd5288bef72183b28467e22bb9b3065e0fa89ad34531a727c58722f"
+              },
+              {
+                "name": "multihead-fast.hsaco",
+                "path": "lmxxf-modules-gfx1200/multihead-fast.hsaco",
+                "size": 106952,
+                "sha256": "c9bf4af2766f0016965dc0c4fbd53f9ce44b8c20b8565283e4bc2cf6e08eb99c"
+              },
+              {
+                "name": "multihead-reference.hsaco",
+                "path": "lmxxf-modules-gfx1200/multihead-reference.hsaco",
+                "size": 66824,
+                "sha256": "16c467ffec8ff3070ef2b789dee16aff7390cf559447bb37ccd370f7eedcc44c"
+              },
+              {
+                "name": "multihead-tiled.hsaco",
+                "path": "lmxxf-modules-gfx1200/multihead-tiled.hsaco",
+                "size": 49072,
+                "sha256": "5dcb3892e76011475561f3d915dd2ac1525f79c5ebf6d351e481f4992a74b395"
+              },
+              {
+                "name": "multihead-wmma.hsaco",
+                "path": "lmxxf-modules-gfx1200/multihead-wmma.hsaco",
+                "size": 93264,
+                "sha256": "d75ba913bfa44ed8e4e91b532e34804acece0b440ca328c3c1db8f927b778334"
+              },
+              {
+                "name": "prefix_fast.hsaco",
+                "path": "lmxxf-modules-gfx1200/prefix_fast.hsaco",
+                "size": 77496,
+                "sha256": "c090fc0e39fe8c2a31725a569e51916c5db90555c6d89f636ce230be26c1987f"
+              },
+              {
+                "name": "README.md",
+                "path": "lmxxf-modules-gfx1200/README.md",
+                "size": 606,
+                "sha256": "cbf4240cd77ffbf0958b3ac72246cfd9ac20162f277a202a1d61157233f910bb"
+              },
+              {
+                "name": "SHA256SUMS",
+                "path": "lmxxf-modules-gfx1200/SHA256SUMS",
+                "size": 3598,
+                "sha256": "d3b304a214f8b3ce2471367876701d7a197f55e717e1bcc72c1550573f54f9ea"
+              },
+              {
+                "name": "swin-persistent-fast.hsaco",
+                "path": "lmxxf-modules-gfx1200/swin-persistent-fast.hsaco",
+                "size": 1464328,
+                "sha256": "6583de40fc4518a878be2a0722890431c140eb3f628aa2fb585f1d2b247cc577"
+              },
+              {
+                "name": "swin-persistent.hsaco",
+                "path": "lmxxf-modules-gfx1200/swin-persistent.hsaco",
+                "size": 1293960,
+                "sha256": "66f51ef79abaa8e2e297fef3410b4ad31c384ea2857ce28c0c248785f1f79d5c"
+              },
+              {
+                "name": "vit-stream-fast.hsaco",
+                "path": "lmxxf-modules-gfx1200/vit-stream-fast.hsaco",
+                "size": 734496,
+                "sha256": "2d380d2efe2da8b4397c9e460aa901f96877f57819fab83263f1f82f2a947551"
+              },
+              {
+                "name": "vit-stream.hsaco",
+                "path": "lmxxf-modules-gfx1200/vit-stream.hsaco",
+                "size": 723488,
+                "sha256": "7c59ecdc6648dfafb7b8a4f7c3f6bc2fdefbb526d721a82b9715e8d5ef0fe97a"
+              },
+              {
+                "name": "vit-wide-deep.hsaco",
+                "path": "lmxxf-modules-gfx1200/vit-wide-deep.hsaco",
+                "size": 617520,
+                "sha256": "eeba817442f53904ed5c7fef5f0da5fc91a48009176a0c4e3a0edbe75428b0ba"
+              },
+              {
+                "name": "wave-pointwise.hsaco",
+                "path": "lmxxf-modules-gfx1200/wave-pointwise.hsaco",
+                "size": 46704,
+                "sha256": "8b15312810023f7f08a3d104015f39ecf9552b4527a21e4856fc61bddb269b2e"
+              }
+            ]
+          },
+          "optiscaler-x86": {
+            "version": "0.6.8-opennr",
+            "published": "2026-11-13",
+            "files": [
+              {
+                "name": "optiscaler-x86-0.6.8-opennr.zip",
+                "size": 413864,
+                "sha256": "c619db457ed2a88ef650a62cbbc10a485283534c7f936ff8d6bb2f97f1d0f421",
+                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/optiscaler-x86/0.6.8-opennr/optiscaler-x86-0.6.8-opennr.zip"
+              }
+            ],
+            "extract": [
+              {
+                "name": "d3d9.dll",
+                "path": "x86/d3d9.dll",
+                "size": 184320,
+                "sha256": "5c5678d06130f723d3ad3fd318a15cd74f1795f8ac80272d9b12bc1b2c1c866e"
+              },
+              {
+                "name": "dxgi.dll",
+                "path": "x86/dxgi.dll",
+                "size": 187904,
+                "sha256": "4c609189447f8d29f64debe353d1ba2c74fd433919f5787518a7e0637124306a"
+              },
+              {
+                "name": "opengl32.dll",
+                "path": "x86/opengl32.dll",
+                "size": 208384,
+                "sha256": "603999babc616f7fe01ff1251382672a2a88dc651758fbbdb82b3ba079cdec3e"
+              },
+              {
+                "name": "OptiScalerDx9Host.exe",
+                "path": "x86/OptiScalerDx9Host.exe",
+                "size": 182272,
+                "sha256": "9bbac696eb696c4e28b670e73eb469e0b5c8bb8d14fe617881291bc2d4bfbc1f"
+              }
+            ]
+          },
+          "lmxxf-runtime": {
+            "version": "0.6.8-opennr",
+            "published": "2026-11-13",
+            "files": [
+              {
+                "name": "lmxxf-runtime-0.6.8-opennr.zip",
+                "size": 6859022,
+                "sha256": "62100daf48e9b568c48b73849e6e42a4419a385808d0f39c5056f9c038ee4f4b",
+                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/lmxxf-runtime/0.6.8-opennr/lmxxf-runtime-0.6.8-opennr.zip"
+              }
+            ],
+            "extract": [
+              {
+                "name": "boundary_reference.hsaco",
+                "path": "lmxxf-modules/boundary_reference.hsaco",
+                "size": 17832,
+                "sha256": "6158f119bf9db7cdf0acf37f8b4fb73e5eceba9f1fd6b24a84367f7682aecd8b"
+              },
+              {
+                "name": "boundary-fast.hsaco",
+                "path": "lmxxf-modules/boundary-fast.hsaco",
+                "size": 50904,
+                "sha256": "4e3d9d46e5b206a6db1eac92d1dd7ad18cebbcb42819a356fae9d0ed0a2189ea"
+              },
+              {
+                "name": "c32_fast_attention.hsaco",
+                "path": "lmxxf-modules/c32_fast_attention.hsaco",
+                "size": 29568,
+                "sha256": "a8ae4d4ba24e1da282789edda469ee8b46a822cac68e6e70cc2c1b7a3ed9a70d"
+              },
+              {
+                "name": "c32_fast.hsaco",
+                "path": "lmxxf-modules/c32_fast.hsaco",
+                "size": 38056,
+                "sha256": "d632f620a9c9fa84b6868d37932092f4c1745e0ef832caba8fdd3801326de131"
+              },
+              {
+                "name": "c32_fused_attention.hsaco",
+                "path": "lmxxf-modules/c32_fused_attention.hsaco",
+                "size": 39472,
+                "sha256": "c31d964f641693945e453863c740f6c9016e7ef6f503c7cb5d13d438d879c694"
+              },
+              {
+                "name": "c32_fused_ffn_attention-packed.hsaco",
+                "path": "lmxxf-modules/c32_fused_ffn_attention-packed.hsaco",
+                "size": 219328,
+                "sha256": "e8257864e5c81da3c79e686212bda3fee3aeaa8110bc41c51d340e797dc480d6"
+              },
+              {
+                "name": "c32_fused_ffn_attention.hsaco",
+                "path": "lmxxf-modules/c32_fused_ffn_attention.hsaco",
+                "size": 286528,
+                "sha256": "55dd97eb760bbb799d310bc291af66279332c24b40fc9d47a13dbac9636eb59d"
+              },
+              {
+                "name": "c32_prefix_reference.hsaco",
+                "path": "lmxxf-modules/c32_prefix_reference.hsaco",
+                "size": 35784,
+                "sha256": "13ea62dbd2cb381c432dd2dda473ee99bea09c34c1b5769c18e88e5e4295d169"
+              },
+              {
+                "name": "c32_tiled.hsaco",
+                "path": "lmxxf-modules/c32_tiled.hsaco",
+                "size": 31536,
+                "sha256": "78e023640ff2ae96b42c7c1b1221bda67c5a02550bb5eb4e4ed761b71238b09b"
+              },
+              {
+                "name": "c32_wmma.hsaco",
+                "path": "lmxxf-modules/c32_wmma.hsaco",
+                "size": 66504,
+                "sha256": "e9ef0c1d31c1b2f12cdd2c86b5ed87251df5d2a4f93380f6434b3c9b80039de3"
+              },
+              {
+                "name": "c32-wave1-fast-norm900.hsaco",
+                "path": "lmxxf-modules/c32-wave1-fast-norm900.hsaco",
+                "size": 856608,
+                "sha256": "6fd5735665844260c17a16878bac7482bd0093d4428661835742a8d95a1f2958"
+              },
+              {
+                "name": "c32-wave1-fast.hsaco",
+                "path": "lmxxf-modules/c32-wave1-fast.hsaco",
+                "size": 833056,
+                "sha256": "4500f619ba599bbc0621a689e4eb2455bc8857460470118bf492f376418c761c"
+              },
+              {
+                "name": "c32-wave1-rtz.hsaco",
+                "path": "lmxxf-modules/c32-wave1-rtz.hsaco",
+                "size": 864216,
+                "sha256": "8212e23578924d897ff7c6871f2f0b146f277ef7d8a4431d1ae245b55c1dc152"
+              },
+              {
+                "name": "c32-wave1.hsaco",
+                "path": "lmxxf-modules/c32-wave1.hsaco",
+                "size": 856280,
+                "sha256": "698f5fc211e3fbad6cd19300de6ed4697bd83bec33bc00998df3ab82c0fb90b1"
+              },
+              {
+                "name": "c512-m32-deep.hsaco",
+                "path": "lmxxf-modules/c512-m32-deep.hsaco",
+                "size": 648312,
+                "sha256": "5e05e82e72cfa6edbe12c9a645e9d93fdf0470c023bc85cf5dc454a52e782676"
+              },
+              {
+                "name": "c512-m32-mh.hsaco",
+                "path": "lmxxf-modules/c512-m32-mh.hsaco",
+                "size": 1114824,
+                "sha256": "f84ec9be8cf5067a9391b8dc51e0fa8d2f054f51f4b2c3472954e6b2ab747f14"
+              },
+              {
+                "name": "c64-wave2-fast.hsaco",
+                "path": "lmxxf-modules/c64-wave2-fast.hsaco",
+                "size": 1990112,
+                "sha256": "e54cf8444f301b5274b66ed6c7d4bd2e434425a2a2f013bf1ce581f908fe5fc0"
+              },
+              {
+                "name": "c64-wave2.hsaco",
+                "path": "lmxxf-modules/c64-wave2.hsaco",
+                "size": 1823968,
+                "sha256": "518937d0fabb32dba6e15de30f850059f1c085f00dda0eb223aa23a12d8b877c"
+              },
+              {
+                "name": "deep_fast-packed-fast.hsaco",
+                "path": "lmxxf-modules/deep_fast-packed-fast.hsaco",
+                "size": 708816,
+                "sha256": "d580cab83110ca68f6ce8461e4c174f6418752a01e8cff9311170c795c0c3e29"
+              },
+              {
+                "name": "deep_fast-packed.hsaco",
+                "path": "lmxxf-modules/deep_fast-packed.hsaco",
+                "size": 712144,
+                "sha256": "298945d7415ef8608a000f84a8a98687d820f9237eed9de5e286842d9ee53d0f"
+              },
+              {
+                "name": "deep_fast.hsaco",
+                "path": "lmxxf-modules/deep_fast.hsaco",
+                "size": 609656,
+                "sha256": "1ea4b095945449b9f6df84805556d874cbeda64e5f394f5a9d50f67d74d30818"
+              },
+              {
+                "name": "deep_reference.hsaco",
+                "path": "lmxxf-modules/deep_reference.hsaco",
+                "size": 70312,
+                "sha256": "068e95a68a165486ad90c429bbeba0035fe27bca2adc859dbabc9e14d4a54bb9"
+              },
+              {
+                "name": "deep_wmma.hsaco",
+                "path": "lmxxf-modules/deep_wmma.hsaco",
+                "size": 82616,
+                "sha256": "d05dddee0672f9d8ff6677afffc8a75eff9c8f2f9caeeaf7143e61ea52f2ca3f"
+              },
+              {
+                "name": "modules.json",
+                "path": "lmxxf-modules/modules.json",
+                "size": 17185,
+                "sha256": "568a3365dcabac7f78e98f0bcc002d73422672dd6db0640de48365b5f615e634"
+              },
+              {
+                "name": "multi-pass-predict.hsaco",
+                "path": "lmxxf-modules/multi-pass-predict.hsaco",
+                "size": 14328,
+                "sha256": "ae5e9278a51f303342abcd0452faba22197d25e69c9cf7045d21336f278d28d8"
+              },
+              {
+                "name": "multi-pass-skin.hsaco",
+                "path": "lmxxf-modules/multi-pass-skin.hsaco",
+                "size": 12888,
+                "sha256": "b3b9c66aa9af5dbbd80cb8ba2bac06f5c90354930b0a1fc171ef492c948797f2"
+              },
+              {
+                "name": "multihead_fused_attention.hsaco",
+                "path": "lmxxf-modules/multihead_fused_attention.hsaco",
+                "size": 366880,
+                "sha256": "77e2c97485397310ad1a6a9ae839e6f47d2db421d98688d4c619f724db139f58"
+              },
+              {
+                "name": "multihead-fast-packed.hsaco",
+                "path": "lmxxf-modules/multihead-fast-packed.hsaco",
+                "size": 104904,
+                "sha256": "c2d37f1f0b2d60c22686d73d64f3ca69c4af88635bfb003d8c43edd18dabcf9a"
+              },
+              {
+                "name": "multihead-fast-padded-wave-packed.hsaco",
+                "path": "lmxxf-modules/multihead-fast-padded-wave-packed.hsaco",
+                "size": 1279856,
+                "sha256": "79c18b37854986e44f9761ebd4aa96bf889d2a701503b9489da417a7640d6482"
+              },
+              {
+                "name": "multihead-fast-padded-wave.hsaco",
+                "path": "lmxxf-modules/multihead-fast-padded-wave.hsaco",
+                "size": 1223032,
+                "sha256": "49427ac5ebe31da6bf877483a113be60c201577be8dac6978c566288cf3d0fe0"
+              },
+              {
+                "name": "multihead-fast.hsaco",
+                "path": "lmxxf-modules/multihead-fast.hsaco",
+                "size": 106952,
+                "sha256": "d3bcd5e230ac0eab1722c8e6cbd52636b8ef901d34f66b7dd90ca2ee42156c7e"
+              },
+              {
+                "name": "multihead-reference.hsaco",
+                "path": "lmxxf-modules/multihead-reference.hsaco",
+                "size": 66824,
+                "sha256": "5d07d107ca0b9ca747480f712de7c5b3bf0bf7cbd41c278862d2b745925745d9"
+              },
+              {
+                "name": "multihead-tiled.hsaco",
+                "path": "lmxxf-modules/multihead-tiled.hsaco",
+                "size": 49072,
+                "sha256": "1b10513f44737ddc047b4d150167d71d9d522e99c94b48d6ba899fb8ed4661a7"
+              },
+              {
+                "name": "multihead-wmma.hsaco",
+                "path": "lmxxf-modules/multihead-wmma.hsaco",
+                "size": 93264,
+                "sha256": "f5de6b6119babfdfb716613c415e4b900136a48645405c04adf55456fb210353"
+              },
+              {
+                "name": "prefix_fast.hsaco",
+                "path": "lmxxf-modules/prefix_fast.hsaco",
+                "size": 77496,
+                "sha256": "352b1abfc054b0fe32fc5d95e8633db2912b53feb568e1896ed2a93b03558f11"
+              },
+              {
+                "name": "README.md",
+                "path": "lmxxf-modules/README.md",
+                "size": 2497,
+                "sha256": "66d5320bbc88eaef06843537d86a9e572699b4ee5badf58139838dc19b7c4da2"
+              },
+              {
+                "name": "runtime-manifest.json",
+                "path": "lmxxf-modules/runtime-manifest.json",
+                "size": 938,
+                "sha256": "b5d84a910d6380560656ce7ad2d1a9d31d55325eba1a63d42bf9de04b7424092"
+              },
+              {
+                "name": "SHA256SUMS",
+                "path": "lmxxf-modules/SHA256SUMS",
+                "size": 3598,
+                "sha256": "6ed1b97608eec21648dd076f05e5357f997c729dc12aad4fc8deb6e2626437ca"
+              },
+              {
+                "name": "swin-persistent-fast.hsaco",
+                "path": "lmxxf-modules/swin-persistent-fast.hsaco",
+                "size": 1464328,
+                "sha256": "f2ef0704a269be4740541ff20603a22b4ffcec5db10e475c0d0fcb6fa9285917"
+              },
+              {
+                "name": "swin-persistent.hsaco",
+                "path": "lmxxf-modules/swin-persistent.hsaco",
+                "size": 1293960,
+                "sha256": "b8d8e7230244f61c4fb177bd9fe4660f8e05ee37cb2d0bed083ccadbc62c167b"
+              },
+              {
+                "name": "vit-stream-fast.hsaco",
+                "path": "lmxxf-modules/vit-stream-fast.hsaco",
+                "size": 734496,
+                "sha256": "6d90c97f35c8d3a4bb65ee6cf56f49253a569dd02a7d14c9884dd276fc6446ec"
+              },
+              {
+                "name": "vit-stream.hsaco",
+                "path": "lmxxf-modules/vit-stream.hsaco",
+                "size": 723488,
+                "sha256": "4463c11a4634d05a591e7414dd1a819ebb1ecc7cffeea653db00ecd6aa423b45"
+              },
+              {
+                "name": "vit-wide-deep.hsaco",
+                "path": "lmxxf-modules/vit-wide-deep.hsaco",
+                "size": 617520,
+                "sha256": "020d9e35600be16737ba21cf32b87d9e48fda8d2e55061808aaa9f49eaa6bd07"
+              },
+              {
+                "name": "wave-pointwise.hsaco",
+                "path": "lmxxf-modules/wave-pointwise.hsaco",
+                "size": 46704,
+                "sha256": "eaf51807c04267796dc470556eb042391c6a76305374c6cc05f941e27b4f3bc2"
+              },
+              {
+                "name": "LmxxfNrRuntime.dll",
+                "path": "LmxxfNrRuntime.dll",
+                "size": 1645568,
+                "sha256": "19909baf4b37787509439a536d653fae7e71b008809cbd6d9ae176a906d57c62"
+              },
+              {
+                "name": "native_black_probe.hlsl",
+                "path": "shaders/native_black_probe.hlsl",
+                "size": 1357,
+                "sha256": "629abdd90d2e7e0acfd3241f3cdf0dd00db8b5d94eebb3b8895b5ef3f5ad5869"
+              },
+              {
+                "name": "native_codec_decode.hlsl",
+                "path": "shaders/native_codec_decode.hlsl",
+                "size": 10417,
+                "sha256": "8d332acccad5aff3a1f060ad238b2897918ab9e419d7cefecdf4407ad8afad42"
+              },
+              {
+                "name": "native_codec_encode.hlsl",
+                "path": "shaders/native_codec_encode.hlsl",
+                "size": 5321,
+                "sha256": "81f2754b8734792768f27e35206ca8454c8729a1fe3827e80e6358b01e3070c0"
+              },
+              {
+                "name": "native_format_convert.hlsl",
+                "path": "shaders/native_format_convert.hlsl",
+                "size": 685,
+                "sha256": "de81723febb8462e362accebada740bcdb6180b02372199c4e200b2e48d6983b"
+              },
+              {
+                "name": "native_game_rgb_input.hlsl",
+                "path": "shaders/native_game_rgb_input.hlsl",
+                "size": 1507,
+                "sha256": "4cee56a655033d85d836e2f343de020833611b3580ac6410ed5649ff0490bba6"
+              },
+              {
+                "name": "native_history_guard.hlsl",
+                "path": "shaders/native_history_guard.hlsl",
+                "size": 1073,
+                "sha256": "4feae5de6551bcd0502c80a3f92cb38dbe4dcaec5f5353aaf537b6884f9de038"
+              },
+              {
+                "name": "native_output_smooth.hlsl",
+                "path": "shaders/native_output_smooth.hlsl",
+                "size": 2729,
+                "sha256": "834c2979cb87107934b7efc46ce4ee10106e334a35ef7465ca6e4e859c9cb006"
+              },
+              {
+                "name": "native_rgb_reflect.hlsl",
+                "path": "shaders/native_rgb_reflect.hlsl",
+                "size": 815,
+                "sha256": "a716cb3a7dd7474dfcb1ad988ea7cd38483fb0ac6cb6605f41e22db3f12a7fc4"
+              },
+              {
+                "name": "native_rgb_texture.hlsl",
+                "path": "shaders/native_rgb_texture.hlsl",
+                "size": 569,
+                "sha256": "529b18c99f48c5a09aa05bfcdf239c157660fb5adca87e834fe24d83c640bb7d"
+              },
+              {
+                "name": "native_temporal_coordinates.hlsl",
+                "path": "shaders/native_temporal_coordinates.hlsl",
+                "size": 3795,
+                "sha256": "2180062886b0d6dc9c7938e8f4ac09ae562543c142cbe8acbb7745c469ac29ca"
+              },
+              {
+                "name": "native_temporal_feed.hlsl",
+                "path": "shaders/native_temporal_feed.hlsl",
+                "size": 1583,
+                "sha256": "c558f71020b8043094385e052682d591c7b35047544498ff45577bb9bfce4964"
+              },
+              {
+                "name": "native_temporal_sample.hlsl",
+                "path": "shaders/native_temporal_sample.hlsl",
+                "size": 7633,
+                "sha256": "a0e05ca09e7e6fad757825ee93e0bec48bcc87fa408aab544133f37ee24f56bd"
+              },
+              {
+                "name": "native_text_overlay.hlsl",
+                "path": "shaders/native_text_overlay.hlsl",
+                "size": 4034,
+                "sha256": "14e58c01d2a4ce7944e09addff501e57b96ede3a332f20627dce383d7d987d91"
+              }
+            ]
+          },
+          "optiscaler-lean": {
+            "version": "0.6.8-opennr",
+            "published": "2026-11-13",
+            "files": [
+              {
+                "name": "optiscaler-lean-0.6.8-opennr.zip",
+                "size": 146591762,
+                "sha256": "eb46cf5964e976639dcf37d87a0fcf5ed1cc28b9de38ecf45777a2a2f4616d8a",
+                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/optiscaler-lean/0.6.8-opennr/optiscaler-lean-0.6.8-opennr.zip"
+              }
+            ],
+            "extract": [
+              {
+                "name": "D3D12Core.dll",
+                "path": "D3D12_OptiScaler/D3D12Core.dll",
+                "size": 3351064,
+                "sha256": "07d286c306f8117321422affd9e6388c12d0fb4be1c7fc689d9e899324feeb24"
+              },
+              {
+                "name": "GatherCS.cso",
+                "path": "experimental_lighting/GatherCS.cso",
+                "size": 8608,
+                "sha256": "2f7bfd42c78b1256ed56eb93e3d75e494369a90168c06c22486a4ac1011b31ee"
+              },
+              {
+                "name": "ResolveCS.cso",
+                "path": "experimental_lighting/ResolveCS.cso",
+                "size": 9308,
+                "sha256": "fe19e23f3ea2ca8a9fb2e4017e9d803a8cc9f0657890e0dd69b329d7f4e3f350"
+              },
+              {
+                "name": "OptiScaler.dll",
+                "path": "OptiScaler.dll",
+                "size": 32803840,
+                "sha256": "f33ac1fee356471809af47149dafcd19d65efa6a38bd32d1f53cf0f9ad63514c"
+              },
+              {
+                "name": "OptiScaler.ini",
+                "path": "OptiScaler.ini",
+                "size": 80184,
+                "sha256": "db88031fd488db858dd28610f0a7080fd5506e5f4295d4ec4aba90e4c6452a0d"
+              },
+              {
+                "name": "amd_fidelityfx_denoiser_dx12.dll",
+                "path": "OptiScaler/amd_fidelityfx_denoiser_dx12.dll",
+                "size": 8993552,
+                "sha256": "4ca5182d5c8a855441e0c82673716e4776f9afcfadfdb4225d2fc6113b0f853c"
+              },
+              {
+                "name": "amd_fidelityfx_framegeneration_dx12.dll",
+                "path": "OptiScaler/amd_fidelityfx_framegeneration_dx12.dll",
+                "size": 29679376,
+                "sha256": "e6843252f58b0341a0d80f6a20bc0d840643ee95bc48c22cac08745344577bb6"
+              },
+              {
+                "name": "amd_fidelityfx_loader_dx12.dll",
+                "path": "OptiScaler/amd_fidelityfx_loader_dx12.dll",
+                "size": 39184,
+                "sha256": "e2191d3c0828be45eb8affd4e3ec0378f2293adc345b772a7170edcf3b021ecb"
+              },
+              {
+                "name": "amd_fidelityfx_upscaler_dx12.dll",
+                "path": "OptiScaler/amd_fidelityfx_upscaler_dx12.dll",
+                "size": 57664272,
+                "sha256": "aad4fccccb29084a655f9a4f9f613bd22c8c03fb4a0f8840148cc6543b4ccace"
+              },
+              {
+                "name": "amd_fidelityfx_vk.dll",
+                "path": "OptiScaler/amd_fidelityfx_vk.dll",
+                "size": 9332432,
+                "sha256": "a1624cc4238fef046f30c4d80ce3f47be63fc5f5373f49e3ee9edb9960f54c78"
+              },
+              {
+                "name": "libxell.dll",
+                "path": "OptiScaler/libxell.dll",
+                "size": 415368,
+                "sha256": "d2030dcd694fda8f2ec7e044b13e6db8f0b56d4ba9113a5efad334e3f3ded8c7"
+              },
+              {
+                "name": "libxess_dx11.dll",
+                "path": "OptiScaler/libxess_dx11.dll",
+                "size": 156016,
+                "sha256": "c7cfe86f0c9d94e4fb3696d3cd5035e2bbb6a8b1b0572f8b7395a4cdfd0c625e"
+              },
+              {
+                "name": "libxess_fg.dll",
+                "path": "OptiScaler/libxess_fg.dll",
+                "size": 22957432,
+                "sha256": "ec5e0c65e075570c6ede72618bb666d0be0c2e10b2ea9762c0fe8cb8e375ab27"
+              },
+              {
+                "name": "libxess.dll",
+                "path": "OptiScaler/libxess.dll",
+                "size": 77795704,
+                "sha256": "251659dd84a3e84de67c886a4186e01f3eca49b00641906fe38bb6b807e5d5b7"
+              }
+            ]
+          },
+          "host-dlss": {
+            "version": "310.9.1",
+            "files": [
+              {
+                "name": "nvngx_dlss.dll",
+                "path": "host-dlss/nvngx_dlss.dll",
+                "size": 58956912,
+                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
+                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
+              }
+            ]
+          },
+          "wronggpu": {
+            "version": "0.6.0",
+            "files": [
+              {
+                "name": "wronggpu_runtime.dll",
+                "path": "wronggpu/wronggpu_runtime.dll",
+                "size": 73618432,
+                "sha256": "8087a1e613224ac18d082553d5fa75ecef36a15d5752b80ee0f0aabed8eef4ba",
+                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.6.0/wronggpu_runtime.dll"
+              },
+              {
+                "name": "wronggpu-notices.txt",
+                "path": "wronggpu/wronggpu-notices.txt",
+                "size": 4417,
+                "sha256": "ebdd1bf59e6b3a401892c16b707fe3f98213835ba3b97ee4be23a28a878dce6f",
+                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.6.0/wronggpu-notices.txt"
+              },
+              {
+                "name": "amd_fidelityfx_upscaler_dx12.dll",
+                "path": "wronggpu/amd_fidelityfx_upscaler_dx12.dll",
+                "size": 2402816,
+                "sha256": "5de1610d611d882f9d6aadd86ebba58b5ce496d298a1975c916099105346164f",
+                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.6.0/amd_fidelityfx_upscaler_dx12.dll"
+              },
+              {
+                "name": "WrongGPU-RR.asi",
+                "path": "wronggpu/WrongGPU-RR.asi",
+                "size": 366080,
+                "sha256": "349062ecad3756b1d1b0e33ec922f959d17f93c78c1372e82c5f0763a9e7b19a",
+                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.6.0/WrongGPU-RR.asi"
+              }
+            ]
           }
         }
       },
@@ -20882,53 +20868,6 @@
               }
             ]
           },
-          "wronggpu": {
-            "version": "0.5.5-ea2",
-            "files": [
-              {
-                "name": "wronggpu_ffx_dx12.dll",
-                "path": "wronggpu/wronggpu_ffx_dx12.dll",
-                "size": 2182144,
-                "sha256": "3511adb5994cb217a85bd06a662989338f7e219b3f18c49b9d12de3ac0c7300f",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_ffx_dx12.dll"
-              },
-              {
-                "name": "wronggpu_runtime.dll",
-                "path": "wronggpu/wronggpu_runtime.dll",
-                "size": 24689152,
-                "sha256": "331bc00e02f048a990a4c37362f8001b2c1eb31c27bd57b9ed58f6a66222a1be",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_runtime.dll"
-              },
-              {
-                "name": "WrongGPU.asi",
-                "path": "wronggpu/WrongGPU.asi",
-                "size": 910336,
-                "sha256": "e9aab52cc1b4a5e411a65560eacdfe26a442c6b8085d318a125e114e2e0bac25",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/WrongGPU.asi"
-              },
-              {
-                "name": "wronggpu-license.txt",
-                "path": "wronggpu/wronggpu-license.txt",
-                "size": 3450,
-                "sha256": "7a215435017d9d96871c41c73578f7066042cbdc131b20a4529a9d7431d681c3",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-license.txt"
-              },
-              {
-                "name": "wronggpu-notices.txt",
-                "path": "wronggpu/wronggpu-notices.txt",
-                "size": 3243,
-                "sha256": "866718674cc3e5af72b07031064444daf464fdbd04d4d8e39d0dda9ce9338bd9",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-notices.txt"
-              },
-              {
-                "name": "WrongGPU-Setup-0.5.5-ea2.exe",
-                "path": "wronggpu/WrongGPU-Setup-0.5.5-ea2.exe",
-                "size": 30454784,
-                "sha256": "fb557de8d305de73c3bcbf8b54440c6588575745a3fc0194bf8bb85cb7d71636",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea2/WrongGPU-Setup-0.5.5-ea2.exe"
-              }
-            ]
-          },
           "streamline": {
             "version": "2.14.1",
             "files": [
@@ -20981,18 +20920,6 @@
                 "size": 7460976,
                 "sha256": "ff6e90eb78b827927dff5b4ecc6b1c870c2e9bca29ed9f48c7d348cc9e170b82",
                 "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlssg.dll"
-              }
-            ]
-          },
-          "wronggpu-dlss": {
-            "version": "310.9.1",
-            "files": [
-              {
-                "name": "nvngx_dlss.dll",
-                "path": "wronggpu/nvngx_dlss.dll",
-                "size": 58956912,
-                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
-                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
               }
             ]
           },
@@ -31781,6 +31708,18 @@
                 "sha256": "d35838d2d0303901f2db5601bfb3aafd364bfa491bce29e0b0523872e1bd6e00"
               }
             ]
+          },
+          "host-dlss": {
+            "version": "310.9.1",
+            "files": [
+              {
+                "name": "nvngx_dlss.dll",
+                "path": "host-dlss/nvngx_dlss.dll",
+                "size": 58956912,
+                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
+                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
+              }
+            ]
           }
         }
       },
@@ -36438,53 +36377,6 @@
               }
             ]
           },
-          "wronggpu": {
-            "version": "0.5.5-ea2",
-            "files": [
-              {
-                "name": "wronggpu_ffx_dx12.dll",
-                "path": "wronggpu/wronggpu_ffx_dx12.dll",
-                "size": 2182144,
-                "sha256": "3511adb5994cb217a85bd06a662989338f7e219b3f18c49b9d12de3ac0c7300f",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_ffx_dx12.dll"
-              },
-              {
-                "name": "wronggpu_runtime.dll",
-                "path": "wronggpu/wronggpu_runtime.dll",
-                "size": 24689152,
-                "sha256": "331bc00e02f048a990a4c37362f8001b2c1eb31c27bd57b9ed58f6a66222a1be",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_runtime.dll"
-              },
-              {
-                "name": "WrongGPU.asi",
-                "path": "wronggpu/WrongGPU.asi",
-                "size": 910336,
-                "sha256": "e9aab52cc1b4a5e411a65560eacdfe26a442c6b8085d318a125e114e2e0bac25",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/WrongGPU.asi"
-              },
-              {
-                "name": "wronggpu-license.txt",
-                "path": "wronggpu/wronggpu-license.txt",
-                "size": 3450,
-                "sha256": "7a215435017d9d96871c41c73578f7066042cbdc131b20a4529a9d7431d681c3",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-license.txt"
-              },
-              {
-                "name": "wronggpu-notices.txt",
-                "path": "wronggpu/wronggpu-notices.txt",
-                "size": 3243,
-                "sha256": "866718674cc3e5af72b07031064444daf464fdbd04d4d8e39d0dda9ce9338bd9",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-notices.txt"
-              },
-              {
-                "name": "WrongGPU-Setup-0.5.5-ea2.exe",
-                "path": "wronggpu/WrongGPU-Setup-0.5.5-ea2.exe",
-                "size": 30454784,
-                "sha256": "fb557de8d305de73c3bcbf8b54440c6588575745a3fc0194bf8bb85cb7d71636",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea2/WrongGPU-Setup-0.5.5-ea2.exe"
-              }
-            ]
-          },
           "streamline": {
             "version": "2.14.1",
             "files": [
@@ -36537,18 +36429,6 @@
                 "size": 7460976,
                 "sha256": "ff6e90eb78b827927dff5b4ecc6b1c870c2e9bca29ed9f48c7d348cc9e170b82",
                 "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlssg.dll"
-              }
-            ]
-          },
-          "wronggpu-dlss": {
-            "version": "310.9.1",
-            "files": [
-              {
-                "name": "nvngx_dlss.dll",
-                "path": "wronggpu/nvngx_dlss.dll",
-                "size": 58956912,
-                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
-                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
               }
             ]
           },
@@ -46766,6 +46646,18 @@
                 "sha256": "358bc192c4b501127a13bd8a23b616d482006f06d1168dba7f74c3c4b32851ee"
               }
             ]
+          },
+          "host-dlss": {
+            "version": "310.9.1",
+            "files": [
+              {
+                "name": "nvngx_dlss.dll",
+                "path": "host-dlss/nvngx_dlss.dll",
+                "size": 58956912,
+                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
+                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
+              }
+            ]
           }
         }
       },
@@ -51423,53 +51315,6 @@
               }
             ]
           },
-          "wronggpu": {
-            "version": "0.5.5-ea2",
-            "files": [
-              {
-                "name": "wronggpu_ffx_dx12.dll",
-                "path": "wronggpu/wronggpu_ffx_dx12.dll",
-                "size": 2182144,
-                "sha256": "3511adb5994cb217a85bd06a662989338f7e219b3f18c49b9d12de3ac0c7300f",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_ffx_dx12.dll"
-              },
-              {
-                "name": "wronggpu_runtime.dll",
-                "path": "wronggpu/wronggpu_runtime.dll",
-                "size": 24689152,
-                "sha256": "331bc00e02f048a990a4c37362f8001b2c1eb31c27bd57b9ed58f6a66222a1be",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_runtime.dll"
-              },
-              {
-                "name": "WrongGPU.asi",
-                "path": "wronggpu/WrongGPU.asi",
-                "size": 910336,
-                "sha256": "e9aab52cc1b4a5e411a65560eacdfe26a442c6b8085d318a125e114e2e0bac25",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/WrongGPU.asi"
-              },
-              {
-                "name": "wronggpu-license.txt",
-                "path": "wronggpu/wronggpu-license.txt",
-                "size": 3450,
-                "sha256": "7a215435017d9d96871c41c73578f7066042cbdc131b20a4529a9d7431d681c3",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-license.txt"
-              },
-              {
-                "name": "wronggpu-notices.txt",
-                "path": "wronggpu/wronggpu-notices.txt",
-                "size": 3243,
-                "sha256": "866718674cc3e5af72b07031064444daf464fdbd04d4d8e39d0dda9ce9338bd9",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-notices.txt"
-              },
-              {
-                "name": "WrongGPU-Setup-0.5.5-ea2.exe",
-                "path": "wronggpu/WrongGPU-Setup-0.5.5-ea2.exe",
-                "size": 30454784,
-                "sha256": "fb557de8d305de73c3bcbf8b54440c6588575745a3fc0194bf8bb85cb7d71636",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea2/WrongGPU-Setup-0.5.5-ea2.exe"
-              }
-            ]
-          },
           "streamline": {
             "version": "2.14.1",
             "files": [
@@ -51522,18 +51367,6 @@
                 "size": 7460976,
                 "sha256": "ff6e90eb78b827927dff5b4ecc6b1c870c2e9bca29ed9f48c7d348cc9e170b82",
                 "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlssg.dll"
-              }
-            ]
-          },
-          "wronggpu-dlss": {
-            "version": "310.9.1",
-            "files": [
-              {
-                "name": "nvngx_dlss.dll",
-                "path": "wronggpu/nvngx_dlss.dll",
-                "size": 58956912,
-                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
-                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
               }
             ]
           },
@@ -61727,6 +61560,18 @@
                 "sha256": "6f0ef2ee0e7ce4559e7a6741e5a16813f178d3a054ad0c1008c8d7f64eb47c96"
               }
             ]
+          },
+          "host-dlss": {
+            "version": "310.9.1",
+            "files": [
+              {
+                "name": "nvngx_dlss.dll",
+                "path": "host-dlss/nvngx_dlss.dll",
+                "size": 58956912,
+                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
+                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
+              }
+            ]
           }
         }
       },
@@ -66384,53 +66229,6 @@
               }
             ]
           },
-          "wronggpu": {
-            "version": "0.5.5-ea2",
-            "files": [
-              {
-                "name": "wronggpu_ffx_dx12.dll",
-                "path": "wronggpu/wronggpu_ffx_dx12.dll",
-                "size": 2182144,
-                "sha256": "3511adb5994cb217a85bd06a662989338f7e219b3f18c49b9d12de3ac0c7300f",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_ffx_dx12.dll"
-              },
-              {
-                "name": "wronggpu_runtime.dll",
-                "path": "wronggpu/wronggpu_runtime.dll",
-                "size": 24689152,
-                "sha256": "331bc00e02f048a990a4c37362f8001b2c1eb31c27bd57b9ed58f6a66222a1be",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_runtime.dll"
-              },
-              {
-                "name": "WrongGPU.asi",
-                "path": "wronggpu/WrongGPU.asi",
-                "size": 910336,
-                "sha256": "e9aab52cc1b4a5e411a65560eacdfe26a442c6b8085d318a125e114e2e0bac25",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/WrongGPU.asi"
-              },
-              {
-                "name": "wronggpu-license.txt",
-                "path": "wronggpu/wronggpu-license.txt",
-                "size": 3450,
-                "sha256": "7a215435017d9d96871c41c73578f7066042cbdc131b20a4529a9d7431d681c3",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-license.txt"
-              },
-              {
-                "name": "wronggpu-notices.txt",
-                "path": "wronggpu/wronggpu-notices.txt",
-                "size": 3243,
-                "sha256": "866718674cc3e5af72b07031064444daf464fdbd04d4d8e39d0dda9ce9338bd9",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-notices.txt"
-              },
-              {
-                "name": "WrongGPU-Setup-0.5.5-ea2.exe",
-                "path": "wronggpu/WrongGPU-Setup-0.5.5-ea2.exe",
-                "size": 30454784,
-                "sha256": "fb557de8d305de73c3bcbf8b54440c6588575745a3fc0194bf8bb85cb7d71636",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea2/WrongGPU-Setup-0.5.5-ea2.exe"
-              }
-            ]
-          },
           "streamline": {
             "version": "2.14.1",
             "files": [
@@ -66483,18 +66281,6 @@
                 "size": 7460976,
                 "sha256": "ff6e90eb78b827927dff5b4ecc6b1c870c2e9bca29ed9f48c7d348cc9e170b82",
                 "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlssg.dll"
-              }
-            ]
-          },
-          "wronggpu-dlss": {
-            "version": "310.9.1",
-            "files": [
-              {
-                "name": "nvngx_dlss.dll",
-                "path": "wronggpu/nvngx_dlss.dll",
-                "size": 58956912,
-                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
-                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
               }
             ]
           },
@@ -73700,6 +73486,18 @@
                 "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/openrr-dlssd/310.9.1/nvngx_dlssd.dll"
               }
             ]
+          },
+          "host-dlss": {
+            "version": "310.9.1",
+            "files": [
+              {
+                "name": "nvngx_dlss.dll",
+                "path": "host-dlss/nvngx_dlss.dll",
+                "size": 58956912,
+                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
+                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
+              }
+            ]
           }
         }
       },
@@ -78357,53 +78155,6 @@
               }
             ]
           },
-          "wronggpu": {
-            "version": "0.5.5-ea2",
-            "files": [
-              {
-                "name": "wronggpu_ffx_dx12.dll",
-                "path": "wronggpu/wronggpu_ffx_dx12.dll",
-                "size": 2182144,
-                "sha256": "3511adb5994cb217a85bd06a662989338f7e219b3f18c49b9d12de3ac0c7300f",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_ffx_dx12.dll"
-              },
-              {
-                "name": "wronggpu_runtime.dll",
-                "path": "wronggpu/wronggpu_runtime.dll",
-                "size": 24689152,
-                "sha256": "331bc00e02f048a990a4c37362f8001b2c1eb31c27bd57b9ed58f6a66222a1be",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_runtime.dll"
-              },
-              {
-                "name": "WrongGPU.asi",
-                "path": "wronggpu/WrongGPU.asi",
-                "size": 910336,
-                "sha256": "e9aab52cc1b4a5e411a65560eacdfe26a442c6b8085d318a125e114e2e0bac25",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/WrongGPU.asi"
-              },
-              {
-                "name": "wronggpu-license.txt",
-                "path": "wronggpu/wronggpu-license.txt",
-                "size": 3450,
-                "sha256": "7a215435017d9d96871c41c73578f7066042cbdc131b20a4529a9d7431d681c3",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-license.txt"
-              },
-              {
-                "name": "wronggpu-notices.txt",
-                "path": "wronggpu/wronggpu-notices.txt",
-                "size": 3243,
-                "sha256": "866718674cc3e5af72b07031064444daf464fdbd04d4d8e39d0dda9ce9338bd9",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-notices.txt"
-              },
-              {
-                "name": "WrongGPU-Setup-0.5.5-ea2.exe",
-                "path": "wronggpu/WrongGPU-Setup-0.5.5-ea2.exe",
-                "size": 30454784,
-                "sha256": "fb557de8d305de73c3bcbf8b54440c6588575745a3fc0194bf8bb85cb7d71636",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea2/WrongGPU-Setup-0.5.5-ea2.exe"
-              }
-            ]
-          },
           "streamline": {
             "version": "2.14.1",
             "files": [
@@ -78456,18 +78207,6 @@
                 "size": 7460976,
                 "sha256": "ff6e90eb78b827927dff5b4ecc6b1c870c2e9bca29ed9f48c7d348cc9e170b82",
                 "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlssg.dll"
-              }
-            ]
-          },
-          "wronggpu-dlss": {
-            "version": "310.9.1",
-            "files": [
-              {
-                "name": "nvngx_dlss.dll",
-                "path": "wronggpu/nvngx_dlss.dll",
-                "size": 58956912,
-                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
-                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
               }
             ]
           },
@@ -85671,6 +85410,18 @@
                 "size": 48343664,
                 "sha256": "4bc7ea5fcb2f32cf86bc2cb072e8d2860914a0be511cbdcb2fc206c1d9d83b80",
                 "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/openrr-dlssd/310.9.1/nvngx_dlssd.dll"
+              }
+            ]
+          },
+          "host-dlss": {
+            "version": "310.9.1",
+            "files": [
+              {
+                "name": "nvngx_dlss.dll",
+                "path": "host-dlss/nvngx_dlss.dll",
+                "size": 58956912,
+                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
+                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
               }
             ]
           }
@@ -90330,53 +90081,6 @@
               }
             ]
           },
-          "wronggpu": {
-            "version": "0.5.5-ea2",
-            "files": [
-              {
-                "name": "wronggpu_ffx_dx12.dll",
-                "path": "wronggpu/wronggpu_ffx_dx12.dll",
-                "size": 2182144,
-                "sha256": "3511adb5994cb217a85bd06a662989338f7e219b3f18c49b9d12de3ac0c7300f",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_ffx_dx12.dll"
-              },
-              {
-                "name": "wronggpu_runtime.dll",
-                "path": "wronggpu/wronggpu_runtime.dll",
-                "size": 24689152,
-                "sha256": "331bc00e02f048a990a4c37362f8001b2c1eb31c27bd57b9ed58f6a66222a1be",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_runtime.dll"
-              },
-              {
-                "name": "WrongGPU.asi",
-                "path": "wronggpu/WrongGPU.asi",
-                "size": 910336,
-                "sha256": "e9aab52cc1b4a5e411a65560eacdfe26a442c6b8085d318a125e114e2e0bac25",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/WrongGPU.asi"
-              },
-              {
-                "name": "wronggpu-license.txt",
-                "path": "wronggpu/wronggpu-license.txt",
-                "size": 3450,
-                "sha256": "7a215435017d9d96871c41c73578f7066042cbdc131b20a4529a9d7431d681c3",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-license.txt"
-              },
-              {
-                "name": "wronggpu-notices.txt",
-                "path": "wronggpu/wronggpu-notices.txt",
-                "size": 3243,
-                "sha256": "866718674cc3e5af72b07031064444daf464fdbd04d4d8e39d0dda9ce9338bd9",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-notices.txt"
-              },
-              {
-                "name": "WrongGPU-Setup-0.5.5-ea2.exe",
-                "path": "wronggpu/WrongGPU-Setup-0.5.5-ea2.exe",
-                "size": 30454784,
-                "sha256": "fb557de8d305de73c3bcbf8b54440c6588575745a3fc0194bf8bb85cb7d71636",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea2/WrongGPU-Setup-0.5.5-ea2.exe"
-              }
-            ]
-          },
           "streamline": {
             "version": "2.14.1",
             "files": [
@@ -90429,18 +90133,6 @@
                 "size": 7460976,
                 "sha256": "ff6e90eb78b827927dff5b4ecc6b1c870c2e9bca29ed9f48c7d348cc9e170b82",
                 "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlssg.dll"
-              }
-            ]
-          },
-          "wronggpu-dlss": {
-            "version": "310.9.1",
-            "files": [
-              {
-                "name": "nvngx_dlss.dll",
-                "path": "wronggpu/nvngx_dlss.dll",
-                "size": 58956912,
-                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
-                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
               }
             ]
           },
@@ -97644,6 +97336,18 @@
                 "size": 48343664,
                 "sha256": "4bc7ea5fcb2f32cf86bc2cb072e8d2860914a0be511cbdcb2fc206c1d9d83b80",
                 "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/openrr-dlssd/310.9.1/nvngx_dlssd.dll"
+              }
+            ]
+          },
+          "host-dlss": {
+            "version": "310.9.1",
+            "files": [
+              {
+                "name": "nvngx_dlss.dll",
+                "path": "host-dlss/nvngx_dlss.dll",
+                "size": 58956912,
+                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
+                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
               }
             ]
           }
@@ -108817,53 +108521,6 @@
               }
             ]
           },
-          "wronggpu": {
-            "version": "0.5.5-ea2",
-            "files": [
-              {
-                "name": "wronggpu_ffx_dx12.dll",
-                "path": "wronggpu/wronggpu_ffx_dx12.dll",
-                "size": 2182144,
-                "sha256": "3511adb5994cb217a85bd06a662989338f7e219b3f18c49b9d12de3ac0c7300f",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_ffx_dx12.dll"
-              },
-              {
-                "name": "wronggpu_runtime.dll",
-                "path": "wronggpu/wronggpu_runtime.dll",
-                "size": 24689152,
-                "sha256": "331bc00e02f048a990a4c37362f8001b2c1eb31c27bd57b9ed58f6a66222a1be",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_runtime.dll"
-              },
-              {
-                "name": "WrongGPU.asi",
-                "path": "wronggpu/WrongGPU.asi",
-                "size": 910336,
-                "sha256": "e9aab52cc1b4a5e411a65560eacdfe26a442c6b8085d318a125e114e2e0bac25",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/WrongGPU.asi"
-              },
-              {
-                "name": "wronggpu-license.txt",
-                "path": "wronggpu/wronggpu-license.txt",
-                "size": 3450,
-                "sha256": "7a215435017d9d96871c41c73578f7066042cbdc131b20a4529a9d7431d681c3",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-license.txt"
-              },
-              {
-                "name": "wronggpu-notices.txt",
-                "path": "wronggpu/wronggpu-notices.txt",
-                "size": 3243,
-                "sha256": "866718674cc3e5af72b07031064444daf464fdbd04d4d8e39d0dda9ce9338bd9",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-notices.txt"
-              },
-              {
-                "name": "WrongGPU-Setup-0.5.5-ea2.exe",
-                "path": "wronggpu/WrongGPU-Setup-0.5.5-ea2.exe",
-                "size": 30454784,
-                "sha256": "fb557de8d305de73c3bcbf8b54440c6588575745a3fc0194bf8bb85cb7d71636",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea2/WrongGPU-Setup-0.5.5-ea2.exe"
-              }
-            ]
-          },
           "streamline": {
             "version": "2.14.1",
             "files": [
@@ -108919,18 +108576,6 @@
               }
             ]
           },
-          "wronggpu-dlss": {
-            "version": "310.9.1",
-            "files": [
-              {
-                "name": "nvngx_dlss.dll",
-                "path": "wronggpu/nvngx_dlss.dll",
-                "size": 58956912,
-                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
-                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
-              }
-            ]
-          },
           "opti-runtime": {
             "version": "0.6.0",
             "files": [
@@ -108939,6 +108584,18 @@
                 "size": 56677888,
                 "sha256": "195c4a891b6eac4c1cb7671e10ff62bbbe2b17f1dfae1344dc5a6714e4775721",
                 "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/opti-runtime/dlssnr_amd_runtime-0.6.0.dll"
+              }
+            ]
+          },
+          "host-dlss": {
+            "version": "310.9.1",
+            "files": [
+              {
+                "name": "nvngx_dlss.dll",
+                "path": "host-dlss/nvngx_dlss.dll",
+                "size": 58956912,
+                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
+                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
               }
             ]
           }
@@ -120112,53 +119769,6 @@
               }
             ]
           },
-          "wronggpu": {
-            "version": "0.5.5-ea2",
-            "files": [
-              {
-                "name": "wronggpu_ffx_dx12.dll",
-                "path": "wronggpu/wronggpu_ffx_dx12.dll",
-                "size": 2182144,
-                "sha256": "3511adb5994cb217a85bd06a662989338f7e219b3f18c49b9d12de3ac0c7300f",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_ffx_dx12.dll"
-              },
-              {
-                "name": "wronggpu_runtime.dll",
-                "path": "wronggpu/wronggpu_runtime.dll",
-                "size": 24689152,
-                "sha256": "331bc00e02f048a990a4c37362f8001b2c1eb31c27bd57b9ed58f6a66222a1be",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_runtime.dll"
-              },
-              {
-                "name": "WrongGPU.asi",
-                "path": "wronggpu/WrongGPU.asi",
-                "size": 910336,
-                "sha256": "e9aab52cc1b4a5e411a65560eacdfe26a442c6b8085d318a125e114e2e0bac25",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/WrongGPU.asi"
-              },
-              {
-                "name": "wronggpu-license.txt",
-                "path": "wronggpu/wronggpu-license.txt",
-                "size": 3450,
-                "sha256": "7a215435017d9d96871c41c73578f7066042cbdc131b20a4529a9d7431d681c3",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-license.txt"
-              },
-              {
-                "name": "wronggpu-notices.txt",
-                "path": "wronggpu/wronggpu-notices.txt",
-                "size": 3243,
-                "sha256": "866718674cc3e5af72b07031064444daf464fdbd04d4d8e39d0dda9ce9338bd9",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-notices.txt"
-              },
-              {
-                "name": "WrongGPU-Setup-0.5.5-ea2.exe",
-                "path": "wronggpu/WrongGPU-Setup-0.5.5-ea2.exe",
-                "size": 30454784,
-                "sha256": "fb557de8d305de73c3bcbf8b54440c6588575745a3fc0194bf8bb85cb7d71636",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea2/WrongGPU-Setup-0.5.5-ea2.exe"
-              }
-            ]
-          },
           "streamline": {
             "version": "2.14.1",
             "files": [
@@ -120214,18 +119824,6 @@
               }
             ]
           },
-          "wronggpu-dlss": {
-            "version": "310.9.1",
-            "files": [
-              {
-                "name": "nvngx_dlss.dll",
-                "path": "wronggpu/nvngx_dlss.dll",
-                "size": 58956912,
-                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
-                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
-              }
-            ]
-          },
           "opti-runtime": {
             "version": "0.6.0",
             "files": [
@@ -120234,6 +119832,18 @@
                 "size": 56677888,
                 "sha256": "195c4a891b6eac4c1cb7671e10ff62bbbe2b17f1dfae1344dc5a6714e4775721",
                 "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/opti-runtime/dlssnr_amd_runtime-0.6.0.dll"
+              }
+            ]
+          },
+          "host-dlss": {
+            "version": "310.9.1",
+            "files": [
+              {
+                "name": "nvngx_dlss.dll",
+                "path": "host-dlss/nvngx_dlss.dll",
+                "size": 58956912,
+                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
+                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
               }
             ]
           }
@@ -129865,53 +129475,6 @@
               }
             ]
           },
-          "wronggpu": {
-            "version": "0.5.5-ea2",
-            "files": [
-              {
-                "name": "wronggpu_ffx_dx12.dll",
-                "path": "wronggpu/wronggpu_ffx_dx12.dll",
-                "size": 2182144,
-                "sha256": "3511adb5994cb217a85bd06a662989338f7e219b3f18c49b9d12de3ac0c7300f",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_ffx_dx12.dll"
-              },
-              {
-                "name": "wronggpu_runtime.dll",
-                "path": "wronggpu/wronggpu_runtime.dll",
-                "size": 24689152,
-                "sha256": "331bc00e02f048a990a4c37362f8001b2c1eb31c27bd57b9ed58f6a66222a1be",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_runtime.dll"
-              },
-              {
-                "name": "WrongGPU.asi",
-                "path": "wronggpu/WrongGPU.asi",
-                "size": 910336,
-                "sha256": "e9aab52cc1b4a5e411a65560eacdfe26a442c6b8085d318a125e114e2e0bac25",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/WrongGPU.asi"
-              },
-              {
-                "name": "wronggpu-license.txt",
-                "path": "wronggpu/wronggpu-license.txt",
-                "size": 3450,
-                "sha256": "7a215435017d9d96871c41c73578f7066042cbdc131b20a4529a9d7431d681c3",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-license.txt"
-              },
-              {
-                "name": "wronggpu-notices.txt",
-                "path": "wronggpu/wronggpu-notices.txt",
-                "size": 3243,
-                "sha256": "866718674cc3e5af72b07031064444daf464fdbd04d4d8e39d0dda9ce9338bd9",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-notices.txt"
-              },
-              {
-                "name": "WrongGPU-Setup-0.5.5-ea2.exe",
-                "path": "wronggpu/WrongGPU-Setup-0.5.5-ea2.exe",
-                "size": 30454784,
-                "sha256": "fb557de8d305de73c3bcbf8b54440c6588575745a3fc0194bf8bb85cb7d71636",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea2/WrongGPU-Setup-0.5.5-ea2.exe"
-              }
-            ]
-          },
           "streamline": {
             "version": "2.14.1",
             "files": [
@@ -129967,18 +129530,6 @@
               }
             ]
           },
-          "wronggpu-dlss": {
-            "version": "310.9.1",
-            "files": [
-              {
-                "name": "nvngx_dlss.dll",
-                "path": "wronggpu/nvngx_dlss.dll",
-                "size": 58956912,
-                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
-                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
-              }
-            ]
-          },
           "opti-runtime": {
             "version": "0.6.0",
             "files": [
@@ -129987,6 +129538,18 @@
                 "size": 56677888,
                 "sha256": "195c4a891b6eac4c1cb7671e10ff62bbbe2b17f1dfae1344dc5a6714e4775721",
                 "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/opti-runtime/dlssnr_amd_runtime-0.6.0.dll"
+              }
+            ]
+          },
+          "host-dlss": {
+            "version": "310.9.1",
+            "files": [
+              {
+                "name": "nvngx_dlss.dll",
+                "path": "host-dlss/nvngx_dlss.dll",
+                "size": 58956912,
+                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
+                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
               }
             ]
           }
@@ -139618,53 +139181,6 @@
               }
             ]
           },
-          "wronggpu": {
-            "version": "0.5.5-ea2",
-            "files": [
-              {
-                "name": "wronggpu_ffx_dx12.dll",
-                "path": "wronggpu/wronggpu_ffx_dx12.dll",
-                "size": 2182144,
-                "sha256": "3511adb5994cb217a85bd06a662989338f7e219b3f18c49b9d12de3ac0c7300f",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_ffx_dx12.dll"
-              },
-              {
-                "name": "wronggpu_runtime.dll",
-                "path": "wronggpu/wronggpu_runtime.dll",
-                "size": 24689152,
-                "sha256": "331bc00e02f048a990a4c37362f8001b2c1eb31c27bd57b9ed58f6a66222a1be",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_runtime.dll"
-              },
-              {
-                "name": "WrongGPU.asi",
-                "path": "wronggpu/WrongGPU.asi",
-                "size": 910336,
-                "sha256": "e9aab52cc1b4a5e411a65560eacdfe26a442c6b8085d318a125e114e2e0bac25",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/WrongGPU.asi"
-              },
-              {
-                "name": "wronggpu-license.txt",
-                "path": "wronggpu/wronggpu-license.txt",
-                "size": 3450,
-                "sha256": "7a215435017d9d96871c41c73578f7066042cbdc131b20a4529a9d7431d681c3",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-license.txt"
-              },
-              {
-                "name": "wronggpu-notices.txt",
-                "path": "wronggpu/wronggpu-notices.txt",
-                "size": 3243,
-                "sha256": "866718674cc3e5af72b07031064444daf464fdbd04d4d8e39d0dda9ce9338bd9",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-notices.txt"
-              },
-              {
-                "name": "WrongGPU-Setup-0.5.5-ea2.exe",
-                "path": "wronggpu/WrongGPU-Setup-0.5.5-ea2.exe",
-                "size": 30454784,
-                "sha256": "fb557de8d305de73c3bcbf8b54440c6588575745a3fc0194bf8bb85cb7d71636",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea2/WrongGPU-Setup-0.5.5-ea2.exe"
-              }
-            ]
-          },
           "streamline": {
             "version": "2.14.1",
             "files": [
@@ -139720,18 +139236,6 @@
               }
             ]
           },
-          "wronggpu-dlss": {
-            "version": "310.9.1",
-            "files": [
-              {
-                "name": "nvngx_dlss.dll",
-                "path": "wronggpu/nvngx_dlss.dll",
-                "size": 58956912,
-                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
-                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
-              }
-            ]
-          },
           "opti-runtime": {
             "version": "0.6.0",
             "files": [
@@ -139740,6 +139244,18 @@
                 "size": 56677888,
                 "sha256": "195c4a891b6eac4c1cb7671e10ff62bbbe2b17f1dfae1344dc5a6714e4775721",
                 "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/opti-runtime/dlssnr_amd_runtime-0.6.0.dll"
+              }
+            ]
+          },
+          "host-dlss": {
+            "version": "310.9.1",
+            "files": [
+              {
+                "name": "nvngx_dlss.dll",
+                "path": "host-dlss/nvngx_dlss.dll",
+                "size": 58956912,
+                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
+                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
               }
             ]
           }
@@ -148848,65 +148364,6 @@
               }
             ]
           },
-          "wronggpu": {
-            "version": "0.5.5-ea2",
-            "files": [
-              {
-                "name": "wronggpu_ffx_dx12.dll",
-                "path": "wronggpu/wronggpu_ffx_dx12.dll",
-                "size": 2182144,
-                "sha256": "3511adb5994cb217a85bd06a662989338f7e219b3f18c49b9d12de3ac0c7300f",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_ffx_dx12.dll"
-              },
-              {
-                "name": "wronggpu_runtime.dll",
-                "path": "wronggpu/wronggpu_runtime.dll",
-                "size": 24689152,
-                "sha256": "331bc00e02f048a990a4c37362f8001b2c1eb31c27bd57b9ed58f6a66222a1be",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_runtime.dll"
-              },
-              {
-                "name": "WrongGPU.asi",
-                "path": "wronggpu/WrongGPU.asi",
-                "size": 910336,
-                "sha256": "e9aab52cc1b4a5e411a65560eacdfe26a442c6b8085d318a125e114e2e0bac25",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/WrongGPU.asi"
-              },
-              {
-                "name": "wronggpu-license.txt",
-                "path": "wronggpu/wronggpu-license.txt",
-                "size": 3450,
-                "sha256": "7a215435017d9d96871c41c73578f7066042cbdc131b20a4529a9d7431d681c3",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-license.txt"
-              },
-              {
-                "name": "wronggpu-notices.txt",
-                "path": "wronggpu/wronggpu-notices.txt",
-                "size": 3243,
-                "sha256": "866718674cc3e5af72b07031064444daf464fdbd04d4d8e39d0dda9ce9338bd9",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-notices.txt"
-              },
-              {
-                "name": "WrongGPU-Setup-0.5.5-ea2.exe",
-                "path": "wronggpu/WrongGPU-Setup-0.5.5-ea2.exe",
-                "size": 30454784,
-                "sha256": "fb557de8d305de73c3bcbf8b54440c6588575745a3fc0194bf8bb85cb7d71636",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea2/WrongGPU-Setup-0.5.5-ea2.exe"
-              }
-            ]
-          },
-          "wronggpu-dlss": {
-            "version": "310.9.1",
-            "files": [
-              {
-                "name": "nvngx_dlss.dll",
-                "path": "wronggpu/nvngx_dlss.dll",
-                "size": 58956912,
-                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
-                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
-              }
-            ]
-          },
           "opti-runtime": {
             "version": "0.6.0",
             "files": [
@@ -148915,6 +148372,18 @@
                 "size": 56677888,
                 "sha256": "195c4a891b6eac4c1cb7671e10ff62bbbe2b17f1dfae1344dc5a6714e4775721",
                 "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/opti-runtime/dlssnr_amd_runtime-0.6.0.dll"
+              }
+            ]
+          },
+          "host-dlss": {
+            "version": "310.9.1",
+            "files": [
+              {
+                "name": "nvngx_dlss.dll",
+                "path": "host-dlss/nvngx_dlss.dll",
+                "size": 58956912,
+                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
+                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
               }
             ]
           }
@@ -158023,65 +157492,6 @@
               }
             ]
           },
-          "wronggpu": {
-            "version": "0.5.5-ea",
-            "files": [
-              {
-                "name": "wronggpu_ffx_dx12.dll",
-                "path": "wronggpu/wronggpu_ffx_dx12.dll",
-                "size": 2182144,
-                "sha256": "3511adb5994cb217a85bd06a662989338f7e219b3f18c49b9d12de3ac0c7300f",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_ffx_dx12.dll"
-              },
-              {
-                "name": "wronggpu_runtime.dll",
-                "path": "wronggpu/wronggpu_runtime.dll",
-                "size": 24689152,
-                "sha256": "331bc00e02f048a990a4c37362f8001b2c1eb31c27bd57b9ed58f6a66222a1be",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_runtime.dll"
-              },
-              {
-                "name": "WrongGPU.asi",
-                "path": "wronggpu/WrongGPU.asi",
-                "size": 910336,
-                "sha256": "e9aab52cc1b4a5e411a65560eacdfe26a442c6b8085d318a125e114e2e0bac25",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/WrongGPU.asi"
-              },
-              {
-                "name": "wronggpu-license.txt",
-                "path": "wronggpu/wronggpu-license.txt",
-                "size": 3450,
-                "sha256": "7a215435017d9d96871c41c73578f7066042cbdc131b20a4529a9d7431d681c3",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-license.txt"
-              },
-              {
-                "name": "wronggpu-notices.txt",
-                "path": "wronggpu/wronggpu-notices.txt",
-                "size": 3243,
-                "sha256": "866718674cc3e5af72b07031064444daf464fdbd04d4d8e39d0dda9ce9338bd9",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-notices.txt"
-              },
-              {
-                "name": "WrongGPU-Setup-0.5.5-ea.exe",
-                "path": "wronggpu/WrongGPU-Setup-0.5.5-ea.exe",
-                "size": 30449152,
-                "sha256": "f7b167b5ac1c9cff19984b520e85370119a8ccd12bf14f73b2d392e918bf6363",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/WrongGPU-Setup-0.5.5-ea.exe"
-              }
-            ]
-          },
-          "wronggpu-dlss": {
-            "version": "310.9.1",
-            "files": [
-              {
-                "name": "nvngx_dlss.dll",
-                "path": "wronggpu/nvngx_dlss.dll",
-                "size": 58956912,
-                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
-                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
-              }
-            ]
-          },
           "opti-runtime": {
             "version": "0.6.0",
             "files": [
@@ -158090,6 +157500,18 @@
                 "size": 56677888,
                 "sha256": "195c4a891b6eac4c1cb7671e10ff62bbbe2b17f1dfae1344dc5a6714e4775721",
                 "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/opti-runtime/dlssnr_amd_runtime-0.6.0.dll"
+              }
+            ]
+          },
+          "host-dlss": {
+            "version": "310.9.1",
+            "files": [
+              {
+                "name": "nvngx_dlss.dll",
+                "path": "host-dlss/nvngx_dlss.dll",
+                "size": 58956912,
+                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
+                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
               }
             ]
           }
@@ -166489,65 +165911,6 @@
               }
             ]
           },
-          "wronggpu": {
-            "version": "0.5.5-ea",
-            "files": [
-              {
-                "name": "wronggpu_ffx_dx12.dll",
-                "path": "wronggpu/wronggpu_ffx_dx12.dll",
-                "size": 2182144,
-                "sha256": "3511adb5994cb217a85bd06a662989338f7e219b3f18c49b9d12de3ac0c7300f",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_ffx_dx12.dll"
-              },
-              {
-                "name": "wronggpu_runtime.dll",
-                "path": "wronggpu/wronggpu_runtime.dll",
-                "size": 24689152,
-                "sha256": "331bc00e02f048a990a4c37362f8001b2c1eb31c27bd57b9ed58f6a66222a1be",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu_runtime.dll"
-              },
-              {
-                "name": "WrongGPU.asi",
-                "path": "wronggpu/WrongGPU.asi",
-                "size": 910336,
-                "sha256": "e9aab52cc1b4a5e411a65560eacdfe26a442c6b8085d318a125e114e2e0bac25",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/WrongGPU.asi"
-              },
-              {
-                "name": "wronggpu-license.txt",
-                "path": "wronggpu/wronggpu-license.txt",
-                "size": 3450,
-                "sha256": "7a215435017d9d96871c41c73578f7066042cbdc131b20a4529a9d7431d681c3",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-license.txt"
-              },
-              {
-                "name": "wronggpu-notices.txt",
-                "path": "wronggpu/wronggpu-notices.txt",
-                "size": 3243,
-                "sha256": "866718674cc3e5af72b07031064444daf464fdbd04d4d8e39d0dda9ce9338bd9",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/wronggpu-notices.txt"
-              },
-              {
-                "name": "WrongGPU-Setup-0.5.5-ea.exe",
-                "path": "wronggpu/WrongGPU-Setup-0.5.5-ea.exe",
-                "size": 30449152,
-                "sha256": "f7b167b5ac1c9cff19984b520e85370119a8ccd12bf14f73b2d392e918bf6363",
-                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/wronggpu/0.5.5-ea/WrongGPU-Setup-0.5.5-ea.exe"
-              }
-            ]
-          },
-          "wronggpu-dlss": {
-            "version": "310.9.1",
-            "files": [
-              {
-                "name": "nvngx_dlss.dll",
-                "path": "wronggpu/nvngx_dlss.dll",
-                "size": 58956912,
-                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
-                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
-              }
-            ]
-          },
           "opti-runtime": {
             "version": "0.6.0",
             "files": [
@@ -166556,6 +165919,18 @@
                 "size": 56677888,
                 "sha256": "195c4a891b6eac4c1cb7671e10ff62bbbe2b17f1dfae1344dc5a6714e4775721",
                 "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/opti-runtime/dlssnr_amd_runtime-0.6.0.dll"
+              }
+            ]
+          },
+          "host-dlss": {
+            "version": "310.9.1",
+            "files": [
+              {
+                "name": "nvngx_dlss.dll",
+                "path": "host-dlss/nvngx_dlss.dll",
+                "size": 58956912,
+                "sha256": "3975567b8943c53acce397f2b72380092f84f162d00b0d2c7d08a1025c563983",
+                "url": "https://raw.githubusercontent.com/NVIDIA/DLSS/v310.9.1/lib/Windows_x86_64/rel/nvngx_dlss.dll"
               }
             ]
           }

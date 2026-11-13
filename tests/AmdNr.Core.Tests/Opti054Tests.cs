@@ -208,9 +208,9 @@ public class Opti054Tests
         Assert.Contains("x86/opengl32.dll", pins.OptiFiles.Keys);
         // lmxxf 0.44's Small model, from 0.5.6 on: the 93 weights and their manifest.
         Assert.Equal(94, pins.OptiFiles.Keys.Count(k => k.StartsWith(Work.LmxxfSmallPayload, StringComparison.Ordinal)));
-        // WrongGPU 0.5.5-ea2 is still in the published list: this build leaves it alone, it is not the kit.
-        Assert.Empty(pins.WrongGpuFiles);
-        Assert.Equal("", pins.WrongGpuVersion);
+        // WrongGPU 0.6.0, the kit's four files.
+        Assert.Equal(4, pins.WrongGpuFiles.Count);
+        Assert.Equal("0.6.0", pins.WrongGpuVersion);
         foreach (var path in pins.OptiFiles.Keys.Where(k => !k.StartsWith("x86/", StringComparison.Ordinal)))
             Assert.True(Engine.IsAllowed(Work.OptiDestination(path, "dxgi.dll"))
                         && Engine.IsAllowed("OptiScaler64/" + Work.OptiDestination(path, "OptiScaler.dll")), path);
