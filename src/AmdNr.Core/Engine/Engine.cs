@@ -290,9 +290,9 @@ public static partial class Engine
             return inner is "OptiScaler.dll" or "OptiScalerDx9Host.exe" || inner.Length > 0 && IsAllowed(inner);
         }
         if (IsMochizukiData(name)) return true;
-        if (name.StartsWith(OpenRrShaders, StringComparison.Ordinal))
+        if (name.StartsWith(OpenRrShaders, StringComparison.Ordinal) || name.StartsWith(OpenRrShadersGfx11, StringComparison.Ordinal))
         {
-            var spv = name[OpenRrShaders.Length..];
+            var spv = name[(name.StartsWith(OpenRrShaders, StringComparison.Ordinal) ? OpenRrShaders : OpenRrShadersGfx11).Length..];
             return spv.Length is > 4 and <= 96 && spv.EndsWith(".spv", StringComparison.Ordinal)
                    && spv.IndexOfAny(Path.GetInvalidFileNameChars()) < 0;
         }
@@ -329,6 +329,9 @@ public static partial class Engine
 
     /// <summary>Where OpenRR's kernels go, beside OpenNrRrRuntime.dll, with its slash.</summary>
     public const string OpenRrShaders = "opennr-rr/shaders/";
+
+    /// <summary>Where OpenRR's RX 7000 kernels go, beside <see cref="OpenRrShaders"/>, with its slash.</summary>
+    public const string OpenRrShadersGfx11 = "opennr-rr/shaders-gfx11/";
 
     /// <summary>The folder of a 32-bit game's OptiScaler and its 64-bit host, with its slash.</summary>
     private const string OptiHostFolder = "OptiScaler64/";

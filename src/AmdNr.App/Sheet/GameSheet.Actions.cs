@@ -440,7 +440,10 @@ public partial class GameSheet
         var offer = RuntimeChoices(versioned);
         var runtime = Work.RuntimePick(offer, _card?.Entry.DanielRuntime, Rdna4);
         // lmxxf runs on RX 9070 and RX 9060 cards only: on a card read as anything else its weights stay out.
-        var picked = Session.Machine?.Rdna4 == false ? versioned.WithRuntime(runtime).WithoutLmxxf() : versioned.WithRuntime(runtime);
+        var rx7000 = Session.Machine?.Rx7000 == true;
+        var picked = Session.Machine?.Rdna4 == false ? versioned.WithRuntime(runtime).WithoutLmxxf(rx7000) : versioned.WithRuntime(runtime);
+        // OpenRR's RX 7000 kernels only on such a card
+        if (!rx7000) picked = picked.Without(PayloadManifest.OpenRrGfx11Component);
         // A runtime left out of this game is neither downloaded nor installed; person protection goes with the last of the two.
         if (Skips(_card, LmxxfRuntime)) picked = picked.Without(PayloadManifest.LmxxfComponents);
         // The RX 7000 and RX 6000 networks go nowhere they were not ticked, nor without mochizuki.

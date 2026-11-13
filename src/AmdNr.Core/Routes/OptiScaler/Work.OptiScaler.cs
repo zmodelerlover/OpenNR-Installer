@@ -38,7 +38,7 @@ public static partial class Work
         "OptiScaler64/OptiScaler/D3D12_OptiScaler", "OptiScaler64/OptiScaler", "OptiScaler64/experimental_lighting",
         "OptiScaler64/dlssnr-amd", "OptiScaler64/person-model", "OptiScaler64",
         // Person protection, WrongGPU's plugin folder and OpenRR's kernels.
-        "person-model", "plugins", "opennr-rr/shaders", "opennr-rr",
+        "person-model", "plugins", "opennr-rr/shaders", "opennr-rr/shaders-gfx11", "opennr-rr",
     ];
 
     /// <summary>Person protection's folder beside OptiScaler (0.5.4 on), with its slash.</summary>

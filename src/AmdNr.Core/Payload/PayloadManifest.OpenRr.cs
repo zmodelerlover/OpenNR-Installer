@@ -13,6 +13,11 @@ public sealed partial class PayloadManifest
     /// another or none (Work.OpenRrNeedsDlssd).</summary>
     public const string OpenRrDlssdComponent = "openrr-dlssd";
 
+    /// <summary>OpenRR's kernels for RX 7000 and RDNA3 / RDNA 3.5 graphics (OpenRR 0.1.6 on, experimental), in
+    /// opennr-rr.shaders-gfx11/ in the payload and opennr-rr\shaders-gfx11\ in the game, beside <see cref="OpenRrComponent"/>.
+    /// A component of its own for <see cref="LmxxfGfx1200Component"/>'s reason, downloaded only on such a card.</summary>
+    public const string OpenRrGfx11Component = "openrr-gfx11";
+
     /// <summary>The OpenRR versions a player can pick, newest first: the ones the OptiScaler releases carry.</summary>
     public IReadOnlyList<PayloadComponent> OpenRrVersions() =>
         (Releases?.GetValueOrDefault(OptiScalerComponent) ?? [])
@@ -38,7 +43,8 @@ public sealed partial class PayloadManifest
     {
         if (Components.TryGetValue(OpenRrComponent, out var rr))
         {
-            pins.OpenRrFiles = rr.Installed.ToDictionary(f => f.RelativePath, f => Engine.Lower(f.Sha256), StringComparer.Ordinal);
+            var gfx11 = Components.TryGetValue(OpenRrGfx11Component, out var g) ? g.Installed : [];
+            pins.OpenRrFiles = rr.Installed.Concat(gfx11).ToDictionary(f => f.RelativePath, f => Engine.Lower(f.Sha256), StringComparer.Ordinal);
             pins.OpenRrVersion = rr.Version;
         }
         if (Components.TryGetValue(OpenRrDlssdComponent, out var dlssd) && dlssd.Installed.FirstOrDefault() is { } file)

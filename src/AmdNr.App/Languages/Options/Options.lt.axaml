@@ -12,4 +12,6 @@
   <sys:String x:Key="Str.OpenRrMissingChip">Nėra nvngx_dlssd.dll</sys:String>
   <sys:String x:Key="Str.OpenRrVersionChip">nvngx_dlssd.dll {0}</sys:String>
   <sys:String x:Key="Str.OpenRrBlockedChip">Nesuderinama</sys:String>
+  <sys:String x:Key="Str.OpenRrToggleRx7000">OpenRR (Ray Reconstruction, RX 7000, eksperimentinis)</sys:String>
+  <sys:String x:Key="Str.OpenRrNoteRx7000">Išjungta, kol nepažymėsite. Eksperimentinis RX 7000 ir RDNA3 / RDNA 3.5 grafikoje: OpenRR naudoja šiems GPU sukurtus branduolius (opennr-rr\shaders-gfx11\), lėčiau nei RX 9000. Jei nepasileidžia, priežastis nurodyta opennr_rr.log šalia žaidimo.</sys:String>
 </ResourceDictionary>

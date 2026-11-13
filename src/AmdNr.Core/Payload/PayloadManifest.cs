@@ -181,7 +181,7 @@ public sealed partial class PayloadManifest
             OptiScalerComponent, OptiRuntimeComponent, LmxxfWeightsComponent, LmxxfSmallWeightsComponent, LmxxfGfx1200Component,
             OptiX86Component, MochizukiComponent, MochizukiModelComponent, MochizukiSmallModelComponent, MochizukiRdna3Component,
             MochizukiRdna2Component, PersonModelComponent, WrongGpuComponent, WrongGpuDlssComponent, NrLiveComponent, StreamlineComponent, DlssgComponent,
-            LmxxfRuntimeComponent, OptiScalerLeanComponent, OpenRrComponent, OpenRrDlssdComponent, NrLiveInt4Component,
+            LmxxfRuntimeComponent, OptiScalerLeanComponent, OpenRrComponent, OpenRrDlssdComponent, OpenRrGfx11Component, NrLiveInt4Component,
         };
 
     /// <summary>The SHA-256 a pin carries until the bytes it stands for exist: 64 zeros. A release

@@ -13,10 +13,11 @@ public sealed partial class PayloadManifest
 
     /// <summary>This manifest without lmxxf's weights and RX 9060 kernels, for a card lmxxf does not run on: about
     /// 590 MB nobody there can use. Neither is downloaded, pinned or installed then, and nor are person protection,
-    /// which only lmxxf and mochizuki run, and WrongGPU and OpenRR, which run on RX 9000 only. NVIDIA's DLSS stays:
-    /// danielblnc 0.8.0 reads it on every card.</summary>
-    public PayloadManifest WithoutLmxxf() =>
-        Without([.. LmxxfComponents, PersonModelComponent, WrongGpuComponent, OpenRrComponent, OpenRrDlssdComponent]);
+    /// which only lmxxf and mochizuki run, and WrongGPU and OpenRR, which run on RX 9000 only (OpenRR stays on an RX 7000,
+    /// <paramref name="rx7000"/>, where it is experimental). NVIDIA's DLSS stays: danielblnc 0.8.0 reads it on every card.</summary>
+    public PayloadManifest WithoutLmxxf(bool rx7000 = false) =>
+        Without([.. LmxxfComponents, PersonModelComponent, WrongGpuComponent,
+                 .. rx7000 ? Array.Empty<string>() : [OpenRrComponent, OpenRrDlssdComponent, OpenRrGfx11Component]]);
 
     /// <summary>lmxxf's weights, its Small model, its RX 9060 kernels and its runtime: what leaving lmxxf out takes away.</summary>
     public static readonly string[] LmxxfComponents =

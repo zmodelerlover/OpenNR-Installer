@@ -12,4 +12,6 @@
   <sys:String x:Key="Str.OpenRrMissingChip">Keine nvngx_dlssd.dll</sys:String>
   <sys:String x:Key="Str.OpenRrVersionChip">nvngx_dlssd.dll {0}</sys:String>
   <sys:String x:Key="Str.OpenRrBlockedChip">Nicht kompatibel</sys:String>
+  <sys:String x:Key="Str.OpenRrToggleRx7000">OpenRR (Ray Reconstruction, RX 7000, experimentell)</sys:String>
+  <sys:String x:Key="Str.OpenRrNoteRx7000">Aus, solange nicht angehakt. Experimentell auf RX 7000 und RDNA3- / RDNA-3.5-Grafik: OpenRR nutzt dafür gebaute Kernel (opennr-rr\shaders-gfx11\), langsamer als auf einer RX 9000. Startet es nicht, steht der Grund in opennr_rr.log neben dem Spiel.</sys:String>
 </ResourceDictionary>

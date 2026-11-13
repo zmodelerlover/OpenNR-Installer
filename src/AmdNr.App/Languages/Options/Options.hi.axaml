@@ -12,4 +12,6 @@
   <sys:String x:Key="Str.OpenRrMissingChip">कोई nvngx_dlssd.dll नहीं</sys:String>
   <sys:String x:Key="Str.OpenRrVersionChip">nvngx_dlssd.dll {0}</sys:String>
   <sys:String x:Key="Str.OpenRrBlockedChip">संगत नहीं</sys:String>
+  <sys:String x:Key="Str.OpenRrToggleRx7000">OpenRR (Ray Reconstruction, RX 7000, प्रायोगिक)</sys:String>
+  <sys:String x:Key="Str.OpenRrNoteRx7000">टिक करने तक बंद। RX 7000 और RDNA3 / RDNA 3.5 ग्राफ़िक्स पर प्रायोगिक: OpenRR इन GPU के लिए बने कर्नेल (opennr-rr\shaders-gfx11\) चलाता है, RX 9000 से धीमा। अगर यह शुरू न हो, तो गेम के पास opennr_rr.log में कारण लिखा होता है।</sys:String>
 </ResourceDictionary>

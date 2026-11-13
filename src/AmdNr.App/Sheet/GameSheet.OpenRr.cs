@@ -1,4 +1,5 @@
 // OpenRR on the OptiScaler route, on an RX 9000 card: a box, ticked unless unticked, in a 64-bit D3D12 or Vulkan game
+// (on an RX 7000 or RDNA3 / RDNA 3.5 graphics, experimental and off unless ticked, where the version has their kernels)
 // NVIDIA lists with Ray Reconstruction (api-db.json's "rr", RrGames.cs) or a D3D12 one with an nvngx_dlssd.dll; a
 // listed game marked not compatible or on RTX Remix gets the line saying why it cannot have it, every other game no
 // card at all. The line under the box says what the game's nvngx_dlssd.dll means for it. What it installs is
@@ -13,6 +14,11 @@ public partial class GameSheet
 {
     private static bool CarriesOpenRr(ComponentRelease opti) => opti.Components.ContainsKey(PayloadManifest.OpenRrComponent);
 
+    private bool Rx7000 => Session.Machine?.Rx7000 == true;
+
+    /// <summary>An RX 7000 card where the version chosen carries OpenRR's kernels for it.</summary>
+    private bool OpenRrRx7000 => !Rdna4 && Rx7000 && _version?.Opti is { } opti && opti.Components.ContainsKey(PayloadManifest.OpenRrGfx11Component);
+
     private bool OffersOpenRr(GameCard card) => OpenRrCardFor(card) == OpenRrCard.Offered;
 
     /// <summary>The listed Ray Reconstruction game this is, or null.</summary>
@@ -22,7 +28,7 @@ public partial class GameSheet
 
     private OpenRrCard OpenRrCardFor(GameCard card)
     {
-        if (!card.Entry.Preset.IsOptiScaler() || RouteUndecided(card) || !Rdna4) return OpenRrCard.Hidden;
+        if (!card.Entry.Preset.IsOptiScaler() || RouteUndecided(card) || !Rdna4 && !OpenRrRx7000) return OpenRrCard.Hidden;
         var listed = ListedRr(card);
         // The lines saying why a listed game cannot have it do not depend on the version chosen.
         if (Work.OpenRrRefusal(listed) is { } refused) return refused;
@@ -35,13 +41,14 @@ public partial class GameSheet
     }
 
     /// <summary>The box's answer for an install, null where it is not offered (OptiScaler.ini is then left alone).</summary>
-    private bool? WantsOpenRr(GameCard card) => OffersOpenRr(card) ? card.Entry.OpenRr ?? true : null;
+    private bool? WantsOpenRr(GameCard card) => OffersOpenRr(card) ? card.Entry.OpenRr ?? !OpenRrRx7000 : null;
 
     /// <summary>OpenRR's download when ticked, and NVIDIA's nvngx_dlssd.dll 310.9.1 when the game needs it.</summary>
     private string[] OpenRrComponents(GameCard card, PayloadPins pins) =>
         pins.OpenRr != true ? []
-        : Work.OpenRrNeedsDlssd(TargetFor(card), OptiApi(card)) ? [PayloadManifest.OpenRrComponent, PayloadManifest.OpenRrDlssdComponent]
-        : [PayloadManifest.OpenRrComponent];
+        : [PayloadManifest.OpenRrComponent,
+           .. Work.OpenRrNeedsDlssd(TargetFor(card), OptiApi(card)) ? [PayloadManifest.OpenRrDlssdComponent] : Array.Empty<string>(),
+           .. OpenRrRx7000 ? [PayloadManifest.OpenRrGfx11Component] : Array.Empty<string>()];
 
     private void ShowOpenRr()
     {
@@ -59,11 +66,14 @@ public partial class GameSheet
         _setting = true;
         OpenRrSection.IsVisible = shown != OpenRrCard.Hidden;
         OpenRrSection.BoxEnabled = offered;
-        OpenRrSection.IsChecked = offered && card.Entry.OpenRr != false;
+        OpenRrSection.IsChecked = offered && WantsOpenRr(card) == true;
+        OpenRrSection.Title = Ui.Text(OpenRrRx7000 ? "Str.OpenRrToggleRx7000" : "Str.OpenRrToggle");
+        OpenRrSection.Note = Ui.Text(OpenRrRx7000 ? "Str.OpenRrNoteRx7000" : "Str.OpenRrNote");
         // A listed game says so on the chip's tooltip.
         OpenRrSection.Chip(chip, kind, offered && listed is not null ? Ui.Format("Str.OpenRrListed", listed.Title) : null);
         OpenRrSection.Line = line;
-        OpenRrSection.Versions(offered ? Session.Manifest?.OpenRrVersions().Select(c => c.Version).ToList() ?? [] : [],
+        // Older OpenRR versions have no RX 7000 kernels
+        OpenRrSection.Versions(offered && !OpenRrRx7000 ? Session.Manifest?.OpenRrVersions().Select(c => c.Version).ToList() ?? [] : [],
             Pins().OpenRrVersion, Ui.Text("Str.OpenRrVersionTip"), OnOpenRrVersion);
         _setting = false;
         ShowExtras();

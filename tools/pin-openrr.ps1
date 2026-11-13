@@ -9,6 +9,7 @@
 
       OpenNrRrRuntime.dll
       opennr-rr\shaders\*.spv
+      opennr-rr\shaders-gfx11\*.spv   (RX 7000 kernels, OpenRR 0.1.6 on; optional)
 
   Anything else there (INSTALAR.txt, notes) is ignored. What this does:
 
@@ -16,6 +17,8 @@
        (opennr-rr.shaders/x.spv for opennr-rr\shaders\x.spv, see Work.OpenRrDestination: a payload path is two levels
        deep at most), in ordinal order and with a fixed timestamp, so the same files always make the same archive;
     2. writes releases.optiscaler[<release>].components.openrr (the archive and every file in it);
+       with shaders-gfx11\, <Out>\openrr-gfx11-<version>.zip (opennr-rr.shaders-gfx11/x.spv) as the openrr-gfx11 component,
+       which the installers already out there never ask for;
     3. with -Dlssd, checks it is nvngx_dlssd.dll 310.9.1, copies it into <Out> and pins it loose as openrr-dlssd at
        openrr-dlssd/310.9.1/nvngx_dlssd.dll in the dataset;
     4. prints the upload commands. Nothing is uploaded here.
@@ -52,48 +55,58 @@ function Sha256File($path) {
 }
 
 $runtime = Join-Path $From 'OpenNrRrRuntime.dll'
-$shaders = Join-Path $From 'opennr-rr\shaders'
 if (-not (Test-Path -LiteralPath $runtime -PathType Leaf)) { Fail "$runtime is missing" }
-if (-not (Test-Path -LiteralPath $shaders -PathType Container)) { Fail "$shaders is missing" }
-if (Get-ChildItem -LiteralPath $shaders -Directory) { Fail "$shaders has folders: the app installs its .spv files only" }
-$kernels = @(Get-ChildItem -LiteralPath $shaders -File | Sort-Object { $_.Name } -Culture ([cultureinfo]::InvariantCulture))
-if ($kernels.Count -eq 0) { Fail "$shaders has no kernels" }
-$odd = $kernels | Where-Object { $_.Extension -ne '.spv' -or $_.Name.Length -gt 96 }
-if ($odd) { Fail "not a kernel the app installs: $($odd.Name -join ', ')" }
-
-$files = @([pscustomobject]@{ Path = 'OpenNrRrRuntime.dll'; File = $runtime }) +
-    @($kernels | ForEach-Object { [pscustomobject]@{ Path = "opennr-rr.shaders/$($_.Name)"; File = $_.FullName } })
-$files = $files | Sort-Object Path -Culture ([cultureinfo]::InvariantCulture)
+function Kernels($dir, $payload) {
+    if (-not (Test-Path -LiteralPath $dir -PathType Container)) { Fail "$dir is missing" }
+    if (Get-ChildItem -LiteralPath $dir -Directory) { Fail "$dir has folders: the app installs its .spv files only" }
+    $k = @(Get-ChildItem -LiteralPath $dir -File)
+    if ($k.Count -eq 0) { Fail "$dir has no kernels" }
+    $odd = $k | Where-Object { $_.Extension -ne '.spv' -or $_.Name.Length -gt 96 }
+    if ($odd) { Fail "not a kernel the app installs: $($odd.Name -join ', ')" }
+    $k | ForEach-Object { [pscustomobject]@{ Path = "$payload/$($_.Name)"; File = $_.FullName } }
+}
 
 New-Item -ItemType Directory -Force -Path $Out | Out-Null
-$zipName = "openrr-$Version.zip"
-$zipPath = Join-Path $Out $zipName
-if (Test-Path -LiteralPath $zipPath) { Remove-Item -LiteralPath $zipPath -Force }
 $stamp = [DateTimeOffset]::new(2026, 1, 1, 0, 0, 0, [TimeSpan]::Zero)
-$extract = [System.Collections.Generic.List[object]]::new()
-$stream = [IO.File]::Open($zipPath, [IO.FileMode]::CreateNew)
-$zip = [IO.Compression.ZipArchive]::new($stream, [IO.Compression.ZipArchiveMode]::Create)
-try {
-    foreach ($f in $files) {
-        $entry = $zip.CreateEntry($f.Path, [IO.Compression.CompressionLevel]::Optimal)
-        $entry.LastWriteTime = $stamp
-        $sink = $entry.Open()
-        $source = [IO.File]::OpenRead($f.File)
-        try { $source.CopyTo($sink) } finally { $source.Dispose(); $sink.Dispose() }
-        $extract.Add([ordered]@{ name = [IO.Path]::GetFileName($f.Path); path = $f.Path; size = (Get-Item -LiteralPath $f.File).Length; sha256 = Sha256File $f.File })
+# a component: the archive in <Out> and every file in it, under the payload paths, at openrr/<version>/ in the dataset
+function Pack($zipName, $files) {
+    $files = @($files | Sort-Object Path -Culture ([cultureinfo]::InvariantCulture))
+    $zipPath = Join-Path $Out $zipName
+    if (Test-Path -LiteralPath $zipPath) { Remove-Item -LiteralPath $zipPath -Force }
+    $extract = [System.Collections.Generic.List[object]]::new()
+    $stream = [IO.File]::Open($zipPath, [IO.FileMode]::CreateNew)
+    $zip = [IO.Compression.ZipArchive]::new($stream, [IO.Compression.ZipArchiveMode]::Create)
+    try {
+        foreach ($f in $files) {
+            $entry = $zip.CreateEntry($f.Path, [IO.Compression.CompressionLevel]::Optimal)
+            $entry.LastWriteTime = $stamp
+            $sink = $entry.Open()
+            $source = [IO.File]::OpenRead($f.File)
+            try { $source.CopyTo($sink) } finally { $source.Dispose(); $sink.Dispose() }
+            $extract.Add([ordered]@{ name = [IO.Path]::GetFileName($f.Path); path = $f.Path; size = (Get-Item -LiteralPath $f.File).Length; sha256 = Sha256File $f.File })
+        }
+    } finally { $zip.Dispose(); $stream.Dispose() }
+    Good "$zipPath  ($($files.Count) files)"
+    $script:uploads += $zipPath
+    [ordered]@{
+        version = $Version
+        files   = @([ordered]@{ name = $zipName; size = (Get-Item -LiteralPath $zipPath).Length; sha256 = (Sha256File $zipPath); url = "$base/openrr/$Version/$zipName" })
+        extract = $extract.ToArray()
     }
-} finally { $zip.Dispose(); $stream.Dispose() }
-$zipSha = Sha256File $zipPath
-Good "$zipPath  ($($files.Count) files)"
+}
 
 $m = [IO.File]::ReadAllText($Manifest) | ConvertFrom-Json
 $target = @($m.releases.optiscaler) | Where-Object { $_.version -eq $Release } | Select-Object -First 1
 if (-not $target) { Fail "releases.optiscaler has no $Release. Run tools/pin-optiscaler.ps1 with its archive first" }
-$target.components | Add-Member -NotePropertyName openrr -NotePropertyValue ([ordered]@{
-    version = $Version
-    files   = @([ordered]@{ name = $zipName; size = (Get-Item -LiteralPath $zipPath).Length; sha256 = $zipSha; url = "$base/openrr/$Version/$zipName" })
-    extract = $extract.ToArray()
-}) -Force
+$uploads = @()
+$target.components | Add-Member -NotePropertyName openrr -NotePropertyValue (Pack "openrr-$Version.zip" (
+    @([pscustomobject]@{ Path = 'OpenNrRrRuntime.dll'; File = $runtime }) + @(Kernels (Join-Path $From 'opennr-rr\shaders') 'opennr-rr.shaders'))) -Force
+# RX 7000 kernels (OpenRR 0.1.6 on): a component of their own, which only the installers that know it ask for
+$gfx11 = Join-Path $From 'opennr-rr\shaders-gfx11'
+if (Test-Path -LiteralPath $gfx11) {
+    $target.components | Add-Member -NotePropertyName 'openrr-gfx11' -NotePropertyValue (Pack "openrr-gfx11-$Version.zip" (
+        Kernels $gfx11 'opennr-rr.shaders-gfx11')) -Force
+}
 
 if ($Dlssd) {
     if (-not (Test-Path -LiteralPath $Dlssd -PathType Leaf)) { Fail "$Dlssd is missing" }
@@ -106,10 +119,12 @@ if ($Dlssd) {
                     sha256 = (Sha256File $Dlssd); url = "$base/openrr-dlssd/$DlssdVersion/nvngx_dlssd.dll" }) }) -Force
 }
 [IO.File]::WriteAllText($Manifest, ($m | ConvertTo-Json -Depth 20), [Text.UTF8Encoding]::new($false))
-Good "$Manifest  (openrr $Version in $Release$(if ($Dlssd) { ", openrr-dlssd $DlssdVersion" }))"
+Good "$Manifest  (openrr $Version in $Release$(if (Test-Path -LiteralPath $gfx11) { ', openrr-gfx11' })$(if ($Dlssd) { ", openrr-dlssd $DlssdVersion" }))"
 
 Write-Host "`nUpload, before payload.json (each needs the owner's go-ahead; nvngx_dlssd.dll is NVIDIA's):" -ForegroundColor Cyan
-Write-Host "  hf upload $Repo `"$zipPath`" openrr/$Version/$zipName --repo-type dataset --commit-message `"OpenRR $Version`""
+foreach ($z in $uploads) {
+    Write-Host "  hf upload $Repo `"$z`" openrr/$Version/$(Split-Path -Leaf $z) --repo-type dataset --commit-message `"OpenRR $Version`""
+}
 if ($Dlssd) {
     Write-Host "  hf upload $Repo `"$(Join-Path $Out 'nvngx_dlssd.dll')`" openrr-dlssd/$DlssdVersion/nvngx_dlssd.dll --repo-type dataset --commit-message `"nvngx_dlssd.dll $DlssdVersion for OpenRR`""
 }

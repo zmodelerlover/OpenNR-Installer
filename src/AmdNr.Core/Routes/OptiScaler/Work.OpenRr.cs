@@ -39,6 +39,7 @@ public static partial class Work
 {
     public const string OpenRrRuntimeName = "OpenNrRrRuntime.dll";
     private const string OpenRrPayload = "opennr-rr.shaders/";
+    private const string OpenRrGfx11Payload = "opennr-rr.shaders-gfx11/";
     private const string OpenRrLog = "opennr_rr.log";
     private const string DlssdName = "nvngx_dlssd.dll";
     private const string DlssdOpenRr = "opennr-rr/nvngx_dlssd.dll";
@@ -48,15 +49,19 @@ public static partial class Work
 
     private const string NoOpenRr = "The OptiScaler version chosen has no OpenRR. Pick one that carries it, or leave OpenRR off.";
 
-    /// <summary>Where an OpenRR payload file goes in the game: the runtime beside OptiScaler, a kernel in opennr-rr\shaders\.</summary>
+    /// <summary>Where an OpenRR payload file goes in the game: the runtime beside OptiScaler, a kernel in opennr-rr\shaders\
+    /// (an RX 7000 one in opennr-rr\shaders-gfx11\).</summary>
     internal static string? OpenRrDestination(string payloadPath) =>
         payloadPath == OpenRrRuntimeName ? payloadPath
         : payloadPath.StartsWith(OpenRrPayload, StringComparison.Ordinal) && payloadPath.Length > OpenRrPayload.Length
             ? Engine.OpenRrShaders + payloadPath[OpenRrPayload.Length..]
-            : null;
+            : payloadPath.StartsWith(OpenRrGfx11Payload, StringComparison.Ordinal) && payloadPath.Length > OpenRrGfx11Payload.Length
+                ? Engine.OpenRrShadersGfx11 + payloadPath[OpenRrGfx11Payload.Length..]
+                : null;
 
     private static bool IsOpenRrFile(string name) =>
-        name is OpenRrRuntimeName or DlssdOpenRr || name.StartsWith(Engine.OpenRrShaders, StringComparison.Ordinal);
+        name is OpenRrRuntimeName or DlssdOpenRr || name.StartsWith(Engine.OpenRrShaders, StringComparison.Ordinal)
+        || name.StartsWith(Engine.OpenRrShadersGfx11, StringComparison.Ordinal);
 
     /// <summary>Whether OptiScaler runs on Vulkan in this game, where 310.9.1 goes in opennr-rr\.</summary>
     public static bool OpenRrVulkan(string dir, GraphicsApi? api) =>
@@ -221,7 +226,7 @@ public static partial class Work
         if (!here && recorded.Any(IsOpenRrFile))
         {
             RemoveFile(dir, OpenRrLog, report);
-            PruneEmpty(dir, [Engine.OpenRrShaders.TrimEnd('/'), "opennr-rr"], report);
+            PruneEmpty(dir, [Engine.OpenRrShaders.TrimEnd('/'), Engine.OpenRrShadersGfx11.TrimEnd('/'), "opennr-rr"], report);
         }
         if (pins.OpenRr is not { } on) return;
         var ini = Path.Combine(dir, OptiScalerIni);

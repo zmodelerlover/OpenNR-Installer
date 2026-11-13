@@ -12,4 +12,6 @@
   <sys:String x:Key="Str.OpenRrMissingChip">Nincs nvngx_dlssd.dll</sys:String>
   <sys:String x:Key="Str.OpenRrVersionChip">nvngx_dlssd.dll {0}</sys:String>
   <sys:String x:Key="Str.OpenRrBlockedChip">Nem kompatibilis</sys:String>
+  <sys:String x:Key="Str.OpenRrToggleRx7000">OpenRR (Ray Reconstruction, RX 7000, kísérleti)</sys:String>
+  <sys:String x:Key="Str.OpenRrNoteRx7000">Kikapcsolva, amíg be nem jelölöd. Kísérleti RX 7000 és RDNA3 / RDNA 3.5 grafikán: az OpenRR ezekre a GPU-kra készült kerneleket futtat (opennr-rr\shaders-gfx11\), lassabban, mint egy RX 9000-en. Ha nem indul el, az ok a játék melletti opennr_rr.log fájlban áll.</sys:String>
 </ResourceDictionary>

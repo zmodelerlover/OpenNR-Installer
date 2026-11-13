@@ -256,4 +256,23 @@ public class OpenRrTests
         var before = shipped.With(shipped.OptiScalerMenu().Single(r => r.Version == "0.5.5-opennr"));
         Assert.Empty(before.WithOpenRrVersion("0.1.0").Pins().OpenRrFiles);
     }
+
+    [Fact]
+    public void TheRx7000KernelsGoInShadersGfx11AndOnlyOnSuchACard()
+    {
+        Assert.True(Engine.IsAllowed("opennr-rr/shaders-gfx11/rr_enc0.spv"));
+        Assert.False(Engine.IsAllowed("opennr-rr/shaders-gfx11/notes.txt"));
+        Assert.Equal("opennr-rr/shaders-gfx11/rr_enc0.spv", Work.OpenRrDestination("opennr-rr.shaders-gfx11/rr_enc0.spv"));
+        Assert.Contains(PayloadManifest.OpenRrGfx11Component, PayloadManifest.OnDemand);
+
+        // The newest release pins them as a component of their own; OpenRR's pins take them while it is there.
+        static bool Gfx11(PayloadPins p) => p.OpenRrFiles.Keys.Any(k => k.StartsWith("opennr-rr.shaders-gfx11/", StringComparison.Ordinal));
+        var newest = PayloadManifest.Parse(PayloadCache.Embedded("payload.json")).Newest(PayloadManifest.OptiScalerComponent);
+        Assert.True(Gfx11(newest.Pins()));
+        Assert.False(Gfx11(newest.Without(PayloadManifest.OpenRrGfx11Component).Pins()));
+        Assert.True(newest.Without(PayloadManifest.OpenRrGfx11Component).Pins().OpenRrFiles.ContainsKey(Work.OpenRrRuntimeName));
+        // A card lmxxf does not run on loses OpenRR, except an RX 7000.
+        Assert.Empty(newest.WithoutLmxxf().Pins().OpenRrFiles);
+        Assert.True(Gfx11(newest.WithoutLmxxf(rx7000: true).Pins()));
+    }
 }

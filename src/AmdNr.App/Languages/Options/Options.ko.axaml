@@ -12,4 +12,6 @@
   <sys:String x:Key="Str.OpenRrMissingChip">nvngx_dlssd.dll 없음</sys:String>
   <sys:String x:Key="Str.OpenRrVersionChip">nvngx_dlssd.dll {0}</sys:String>
   <sys:String x:Key="Str.OpenRrBlockedChip">호환되지 않음</sys:String>
+  <sys:String x:Key="Str.OpenRrToggleRx7000">OpenRR (Ray Reconstruction, RX 7000, 실험적)</sys:String>
+  <sys:String x:Key="Str.OpenRrNoteRx7000">체크하기 전에는 꺼져 있습니다. RX 7000 및 RDNA3 / RDNA 3.5 그래픽에서는 실험적: OpenRR이 이 GPU용 커널 (opennr-rr\shaders-gfx11\)을 사용하며 RX 9000보다 느립니다. 시작되지 않으면 게임 옆의 opennr_rr.log에 이유가 적힙니다.</sys:String>
 </ResourceDictionary>
