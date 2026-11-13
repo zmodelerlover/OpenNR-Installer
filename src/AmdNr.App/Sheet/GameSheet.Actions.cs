@@ -77,7 +77,7 @@ public partial class GameSheet
         {
             (report, staged, runtime, earlier) = await Task.Run(() =>
             {
-                var folder = CachedPayloadFolder(ComponentsFor(preset, mochizuki, wrongGpu, NeedsDlss(card, wrongGpu, pins), !Skips(card, DanielRuntime), pins.HostFg, [.. OpenRrComponents(card, pins), .. ReFrameworkComponents(pins)]));
+                var folder = CachedPayloadFolder(ComponentsFor(preset, mochizuki, wrongGpu, NeedsDlss(card, pins), !Skips(card, DanielRuntime), pins.HostFg, [.. OpenRrComponents(card, pins), .. ReFrameworkComponents(pins)]));
                 var own = wanted is null ? null : Work.FindUserRuntime(wanted, TargetFor(card));
                 return (Work.Preflight(TargetFor(card), folder ?? "", preset, pins, proxy, mochizuki, own,
                     unoffered ? wanted : null, wiki, api, wrongGpu, !Skips(card, DanielRuntime)), folder, own,
@@ -129,6 +129,7 @@ public partial class GameSheet
         var mochizuki = WantsMochizuki(card);
         var wrongGpu = WantsWrongGpu(card);
         var wanted = WantedRuntime(card);
+        var fetched = Path.Combine(Path.GetTempPath(), "opennr-wronggpu-" + Guid.NewGuid().ToString("N"));
         try
         {
             // The build the person supplied, found and kept before a switch takes the other route's
@@ -152,7 +153,7 @@ public partial class GameSheet
 
             ResultBanner.IsVisible = false;
             ShowStep(StepDownload);
-            var folder = await EnsurePayloadsAsync(ComponentsFor(preset, mochizuki, wrongGpu, NeedsDlss(card, wrongGpu, pins), !Skips(card, DanielRuntime), pins.HostFg, [.. OpenRrComponents(card, pins), .. ReFrameworkComponents(pins)]));
+            var folder = await EnsurePayloadsAsync(ComponentsFor(preset, mochizuki, wrongGpu, NeedsDlss(card, pins), !Skips(card, DanielRuntime), pins.HostFg, [.. OpenRrComponents(card, pins), .. ReFrameworkComponents(pins)]));
             if (folder is null)
             {
                 ShowStep(StepDownload, failed: true);
@@ -160,6 +161,8 @@ public partial class GameSheet
                 DnsRetryButton.IsVisible = _unreachable;
                 return;
             }
+
+            if (wrongGpu && !await FetchWrongGpuAsync(card, pins, fetched)) return;
 
             ShowStep(StepInstall);
             Status(Ui.Text("Str.Working"));
@@ -198,6 +201,7 @@ public partial class GameSheet
         }
         finally
         {
+            DropWrongGpuLauncher(fetched);
             Busy(false);
             ShowRoutes(card, card.Graphics ?? GraphicsDetector.Detect(card.Path));
         }
@@ -386,7 +390,7 @@ public partial class GameSheet
     /// routes also need their own 32-bit pair and the pinned ReShade beside it. The OptiScaler route
     /// needs OptiScaler, the runtime build it drives, and the weights out of the runtime component --
     /// and the mochizuki runtime and its models only when it was asked for, and WrongGPU only when it was ticked; NVIDIA's
-    /// DLSS when WrongGPU's setup or danielblnc 0.8.0 needs it (NeedsDlss), and NVIDIA's Streamline and DLSS-FG when
+    /// DLSS when danielblnc 0.8.0 needs it (NeedsDlss), and NVIDIA's Streamline and DLSS-FG when
     /// danielblnc's DLSS-FG is ticked.</summary>
     private static string[] ComponentsFor(Preset preset, bool mochizuki = false, bool wrongGpu = false, bool dlss = false,
         bool daniel = true, bool hostFg = false, string[]? more = null) =>
@@ -397,7 +401,7 @@ public partial class GameSheet
                PayloadManifest.LmxxfRuntimeComponent, PayloadManifest.OptiX86Component,
                PayloadManifest.PersonModelComponent, .. Mochizuki(mochizuki),
                .. wrongGpu ? [PayloadManifest.WrongGpuComponent] : Array.Empty<string>(),
-               .. dlss ? [PayloadManifest.WrongGpuDlssComponent] : Array.Empty<string>(),
+               .. dlss ? [PayloadManifest.HostDlssComponent] : Array.Empty<string>(),
                .. hostFg ? [PayloadManifest.StreamlineComponent, PayloadManifest.DlssgComponent] : Array.Empty<string>(),
                .. more ?? []]
             : preset.Route() == Route.X86

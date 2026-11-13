@@ -5,7 +5,7 @@
   <!-- Simplified Chinese. The same keys as Options.en.axaml, in its order. -->
 
   <sys:String x:Key="Str.OffByDefault">默认关闭</sys:String>
-  <sys:String x:Key="Str.WrongGpuLine">在 RDNA 4 上把 DLSS 4.5 Model M 转为 FSR</sys:String>
+  <sys:String x:Key="Str.WrongGpuLine">WrongGPU by phantoslayer21 · github.com/phantoslayer21/wronggpu</sys:String>
   <sys:String x:Key="Str.HostFgLine">在 D3D12 游戏中使用 danielblnc 0.8.0 的帧生成</sys:String>
   <sys:String x:Key="Str.OpenRrFoundChip">已找到 nvngx_dlssd.dll 310.9.1</sys:String>
   <sys:String x:Key="Str.OpenRrFoundLine">OpenRR 以它构建网络</sys:String>
@@ -14,4 +14,12 @@
   <sys:String x:Key="Str.OpenRrBlockedChip">不兼容</sys:String>
   <sys:String x:Key="Str.OpenRrToggleRx7000">OpenRR (Ray Reconstruction, RX 7000, 实验性)</sys:String>
   <sys:String x:Key="Str.OpenRrNoteRx7000">勾选前保持关闭。在 RX 7000 和 RDNA3 / RDNA 3.5 显卡上为实验性：OpenRR 使用为这些 GPU 编写的内核 (opennr-rr\shaders-gfx11\)，比 RX 9000 慢。如果无法启动，游戏旁的 opennr_rr.log 会说明原因。</sys:String>
+  <sys:String x:Key="Str.WrongGpuRrToggle">WrongGPU 光线重建（代替 OpenRR）</sys:String>
+  <sys:String x:Key="Str.WrongGpuRrNote">勾选前保持关闭。在这个游戏中用 WrongGPU 自己的 Ray Reconstruction 代替 OpenRR，二者不会同时使用。它的数据在本机由你某个游戏自带的 nvngx_dlssd.dll 310.7 或更新版本转换，绝不用本安装器放进去的文件。在游戏中打开 DLSS Ray Reconstruction。</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchTitle">下载 WrongGPU {0}？</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchBody">WrongGPU 用自己的启动器在本机从你某个游戏自带的 DLSS 文件转换模型。本安装器可以从 GitHub 上 WrongGPU 的官方发布页下载 WrongGPU-{0}.zip，用那里公布的 SHA-256 校验，运行转换，然后删除下载的文件。不会为此下载其他任何东西。</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchYes">从 GitHub 下载并转换</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchNo">不下载任何东西</sys:String>
+  <sys:String x:Key="Str.WrongGpuDeclined">未安装 WrongGPU：需要先在本机转换它的模型。保持 WrongGPU 关闭即可不带它安装。</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchFailed">无法下载 WrongGPU</sys:String>
 </ResourceDictionary>

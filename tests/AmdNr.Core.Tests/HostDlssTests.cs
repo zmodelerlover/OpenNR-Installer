@@ -12,8 +12,8 @@ public class HostDlssTests
     private static (string Dir, PayloadPins Pins) Payloads(string tag, string runtime)
     {
         var (dir, pins) = OptiScalerRouteTests.Payloads(tag, "0.5.7-opennr", runtime);
-        Directory.CreateDirectory(Path.Combine(dir, "wronggpu"));
-        var dlss = Path.Combine(dir, "wronggpu", "nvngx_dlss.dll");
+        Directory.CreateDirectory(Path.Combine(dir, "host-dlss"));
+        var dlss = Path.Combine(dir, "host-dlss", "nvngx_dlss.dll");
         Versioned.Write(dlss, "NVIDIA DLSS", "310.9.1.0");
         return (dir, new PayloadPins
         {
@@ -21,7 +21,7 @@ public class HostDlssTests
             OptiFiles = pins.OptiFiles, OptiRuntimeName = pins.OptiRuntimeName, OptiRuntimeSha = pins.OptiRuntimeSha,
             OptiRuntimeSize = pins.OptiRuntimeSize, OptiScalerVersion = pins.OptiScalerVersion,
             OptiRuntimeVersion = pins.OptiRuntimeVersion,
-            WrongGpuDlss = "wronggpu/nvngx_dlss.dll", WrongGpuDlssSha = Engine.Sha(File.ReadAllBytes(dlss)),
+            HostDlss = "host-dlss/nvngx_dlss.dll", HostDlssSha = Engine.Sha(File.ReadAllBytes(dlss)),
         });
     }
 
@@ -52,7 +52,7 @@ public class HostDlssTests
         var report = Install(game, src, pins);
         Assert.True(Fixture.HasAny(report,
             "The game's DLSS 2.2.10 is too old for danielblnc 0.8.0's DLSS-SR; OptiScaler hands it 310.9.1"), report.ToLog("install"));
-        Assert.Equal(File.ReadAllBytes(Path.Combine(src, "wronggpu", "nvngx_dlss.dll")), File.ReadAllBytes(Path.Combine(game, Library)));
+        Assert.Equal(File.ReadAllBytes(Path.Combine(src, "host-dlss", "nvngx_dlss.dll")), File.ReadAllBytes(Path.Combine(game, Library)));
 
         var gone = Work.Uninstall(game, Preset.OptiScaler);
         Assert.False(gone.Failed, gone.ToLog("uninstall"));

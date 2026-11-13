@@ -5,7 +5,7 @@
   <!-- Hungarian. The same keys as Options.en.axaml, in its order. -->
 
   <sys:String x:Key="Str.OffByDefault">Alapból kikapcsolva</sys:String>
-  <sys:String x:Key="Str.WrongGpuLine">A DLSS 4.5 Model M-et FSR-ré alakítja RDNA 4-en</sys:String>
+  <sys:String x:Key="Str.WrongGpuLine">WrongGPU by phantoslayer21 · github.com/phantoslayer21/wronggpu</sys:String>
   <sys:String x:Key="Str.HostFgLine">danielblnc 0.8.0 képkocka-generálása D3D12-es játékokban</sys:String>
   <sys:String x:Key="Str.OpenRrFoundChip">nvngx_dlssd.dll 310.9.1 megtalálva</sys:String>
   <sys:String x:Key="Str.OpenRrFoundLine">Az OpenRR ebből építi a hálózatát</sys:String>
@@ -14,4 +14,12 @@
   <sys:String x:Key="Str.OpenRrBlockedChip">Nem kompatibilis</sys:String>
   <sys:String x:Key="Str.OpenRrToggleRx7000">OpenRR (Ray Reconstruction, RX 7000, kísérleti)</sys:String>
   <sys:String x:Key="Str.OpenRrNoteRx7000">Kikapcsolva, amíg be nem jelölöd. Kísérleti RX 7000 és RDNA3 / RDNA 3.5 grafikán: az OpenRR ezekre a GPU-kra készült kerneleket futtat (opennr-rr\shaders-gfx11\), lassabban, mint egy RX 9000-en. Ha nem indul el, az ok a játék melletti opennr_rr.log fájlban áll.</sys:String>
+  <sys:String x:Key="Str.WrongGpuRrToggle">WrongGPU Ray Reconstruction (OpenRR helyett)</sys:String>
+  <sys:String x:Key="Str.WrongGpuRrNote">Kikapcsolva, amíg be nem jelölöd. A WrongGPU saját Ray Reconstructionje ebben a játékban az OpenRR helyett, soha nem mindkettő. Az adatait ezen a gépen alakítja át egy nvngx_dlssd.dll 310.7 vagy újabb fájlból, amely valamelyik játékoddal érkezett, soha nem olyanból, amelyet ez a telepítő tett be. A játékban kapcsold be a DLSS Ray Reconstructiont.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchTitle">Letöltöd a WrongGPU {0}-t?</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchBody">A WrongGPU a saját launcherével ezen a gépen alakítja át a modelljét egy DLSS-fájlból, amely valamelyik játékoddal érkezett. Ez a telepítő letöltheti a WrongGPU-{0}.zip-et a WrongGPU hivatalos GitHub-kiadási oldaláról, ellenőrzi az ott közzétett SHA-256-tal, lefuttatja az átalakítást, majd törli a letöltést. Mást nem tölt le hozzá.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchYes">Letöltés GitHubról és átalakítás</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchNo">Semmi sem töltődik le</sys:String>
+  <sys:String x:Key="Str.WrongGpuDeclined">A WrongGPU nincs telepítve: előbb a modelljét át kell alakítani ezen a gépen. Hagyd kikapcsolva a WrongGPU-t, ha nélküle telepítenél.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchFailed">A WrongGPU nem tölthető le</sys:String>
 </ResourceDictionary>

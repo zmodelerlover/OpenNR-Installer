@@ -5,7 +5,7 @@
   <!-- Hindi. The same keys as Options.en.axaml, in its order. -->
 
   <sys:String x:Key="Str.OffByDefault">डिफ़ॉल्ट रूप से बंद</sys:String>
-  <sys:String x:Key="Str.WrongGpuLine">RDNA 4 पर DLSS 4.5 Model M को FSR में बदलता है</sys:String>
+  <sys:String x:Key="Str.WrongGpuLine">WrongGPU by phantoslayer21 · github.com/phantoslayer21/wronggpu</sys:String>
   <sys:String x:Key="Str.HostFgLine">D3D12 गेम्स में danielblnc 0.8.0 का फ़्रेम जनरेशन</sys:String>
   <sys:String x:Key="Str.OpenRrFoundChip">nvngx_dlssd.dll 310.9.1 मिला</sys:String>
   <sys:String x:Key="Str.OpenRrFoundLine">OpenRR इससे अपना नेटवर्क बनाता है</sys:String>
@@ -14,4 +14,12 @@
   <sys:String x:Key="Str.OpenRrBlockedChip">संगत नहीं</sys:String>
   <sys:String x:Key="Str.OpenRrToggleRx7000">OpenRR (Ray Reconstruction, RX 7000, प्रायोगिक)</sys:String>
   <sys:String x:Key="Str.OpenRrNoteRx7000">टिक करने तक बंद। RX 7000 और RDNA3 / RDNA 3.5 ग्राफ़िक्स पर प्रायोगिक: OpenRR इन GPU के लिए बने कर्नेल (opennr-rr\shaders-gfx11\) चलाता है, RX 9000 से धीमा। अगर यह शुरू न हो, तो गेम के पास opennr_rr.log में कारण लिखा होता है।</sys:String>
+  <sys:String x:Key="Str.WrongGpuRrToggle">WrongGPU Ray Reconstruction (OpenRR की जगह)</sys:String>
+  <sys:String x:Key="Str.WrongGpuRrNote">टिक न करने तक बंद। इस गेम में OpenRR की जगह WrongGPU का अपना Ray Reconstruction, दोनों कभी नहीं। इसका डेटा इस PC पर आपके किसी गेम के साथ आए nvngx_dlssd.dll 310.7 या नए से बदला जाता है, इस इंस्टॉलर की रखी फ़ाइल से कभी नहीं। गेम में DLSS Ray Reconstruction चालू करें।</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchTitle">WrongGPU {0} डाउनलोड करें?</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchBody">WrongGPU अपने लॉन्चर से इस PC पर अपना मॉडल आपके किसी गेम के साथ आई DLSS फ़ाइल से बदलता है। यह इंस्टॉलर GitHub पर WrongGPU के आधिकारिक रिलीज़ पेज से WrongGPU-{0}.zip डाउनलोड कर सकता है, वहाँ प्रकाशित SHA-256 से जाँचता है, रूपांतरण चलाता है और फिर डाउनलोड मिटा देता है। इसके लिए और कुछ डाउनलोड नहीं होता।</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchYes">GitHub से डाउनलोड करें और बदलें</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchNo">कुछ भी डाउनलोड नहीं होगा</sys:String>
+  <sys:String x:Key="Str.WrongGpuDeclined">WrongGPU इंस्टॉल नहीं हुआ: पहले इस PC पर उसका मॉडल बदलना होगा। उसके बिना इंस्टॉल करने के लिए WrongGPU बंद रखें।</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchFailed">WrongGPU डाउनलोड नहीं हो सका</sys:String>
 </ResourceDictionary>

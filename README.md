@@ -45,7 +45,10 @@ The first-run wizard checks your card and driver, and the **This machine** page 
   needs `nvngx_dlssd.dll` 310.9.1; when the game has another version, the installer supplies 310.9.1 and keeps the
   game's own in the backup.
 - **WrongGPU** (RX 9000, off unless ticked): phantoslayer21's DLSS 4.5 super resolution (Model M) as OptiScaler's
-  upscaler. Its model is converted on your PC.
+  upscaler, and its Ray Reconstruction in place of OpenRR where a game can use it. WrongGPU's own launcher converts
+  the model on your PC from a DLSS file that came with one of your games; the installer asks before it downloads the
+  launcher from [WrongGPU's release page](https://github.com/phantoslayer21/wronggpu/releases), and never downloads
+  NVIDIA files for it.
 - **NRLive tab**: Caliel's [NRLive](https://github.com/Caliel666/NRLive) plays a game scaled in a window of its own,
   with FSR, frame generation and NR on top, without touching the game's files. Meant for games with anti-cheat.
 - **REFramework** (praydog, MIT) for RE Engine games: an optional card per game, off by default and off where online play makes injection risky.
@@ -79,7 +82,8 @@ page headless against a throwaway `AMDNR_HOME`.
   [mochizuki0323/DLSSNR-AMD](https://gitlab.com/mochizuki0323/DLSSNR-AMD) (MIT): the open-source runtimes, as built
   by the OpenNR OptiScaler fork (GPL-3.0). Their licences go into the game folder with them.
 - [NRLive](https://github.com/Caliel666/NRLive) by Caliel (GPL-3.0), downloaded on demand.
-- WrongGPU by phantoslayer21, closed source, installed with the author's written permission.
+- [WrongGPU](https://github.com/phantoslayer21/wronggpu) by phantoslayer21: the files of his integration kit,
+  unchanged, with `wronggpu-notices.txt`, installed with the author's written permission.
 - Person protection: [ONNX Runtime](https://github.com/microsoft/onnxruntime) (MIT), YuNet (MIT) and PP-HumanSeg
   (Apache-2.0) from the [OpenCV Zoo](https://github.com/opencv/opencv_zoo), and
   [Ultralytics YOLO11n-seg](https://github.com/ultralytics/ultralytics) (AGPL-3.0). Licences in `person-model\`.

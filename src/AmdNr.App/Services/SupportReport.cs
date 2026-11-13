@@ -40,7 +40,7 @@ public static class SupportReport
         // through its dxgi hooks, is only in these.
         "OptiScaler.log", "OptiScaler.ini", "OptiScaler.saved.ini", "amd_bridge.log", "amd_presr.log",
         // WrongGPU's, when it is installed beside OptiScaler, and person protection's worker.
-        "wronggpu-fsr.log", "wronggpu-asi.log", "wronggpu.ini", "person-model/person-worker.log", "opennr_rr.log",
+        "wronggpu-fsr.log", "wronggpu-rr.log", "wronggpu.ini", "WrongGPU/wronggpu.ini", "person-model/person-worker.log", "opennr_rr.log",
     ];
 
     /// <summary>What a 32-bit game's OptiScaler host and its proxies write beside OptiScaler.log.</summary>
@@ -81,9 +81,9 @@ public static class SupportReport
 
         Config(zip, "games.json", "settings.json", "config.json", "payload.json", "api-db.json");
 
-        // WrongGPU's setup log: why it refused to convert its model is only said there.
-        var wrongGpuLog = new FileInfo(Work.WrongGpuSetupLog);
-        if (wrongGpuLog.Exists) Copy(zip, wrongGpuLog, "wronggpu/setup.log");
+        // WrongGPU's launcher's last run: why it did not convert its model or RR data is only said there.
+        var wrongGpuLog = new FileInfo(Work.WrongGpuLauncherLog);
+        if (wrongGpuLog.Exists) Copy(zip, wrongGpuLog, "wronggpu/last-operation.log");
 
         // The game folder itself: what is in it, and what the add-on and ReShade wrote there.
         if (installFolder is { Length: > 0 })

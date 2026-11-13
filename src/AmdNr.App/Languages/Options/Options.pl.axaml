@@ -5,7 +5,7 @@
   <!-- Polish. The same keys as Options.en.axaml, in its order. -->
 
   <sys:String x:Key="Str.OffByDefault">Domyślnie wyłączone</sys:String>
-  <sys:String x:Key="Str.WrongGpuLine">Zamienia DLSS 4.5 Model M na FSR na RDNA 4</sys:String>
+  <sys:String x:Key="Str.WrongGpuLine">WrongGPU by phantoslayer21 · github.com/phantoslayer21/wronggpu</sys:String>
   <sys:String x:Key="Str.HostFgLine">Generowanie klatek z danielblnc 0.8.0 w grach D3D12</sys:String>
   <sys:String x:Key="Str.OpenRrFoundChip">Znaleziono nvngx_dlssd.dll 310.9.1</sys:String>
   <sys:String x:Key="Str.OpenRrFoundLine">OpenRR buduje z niego swoją sieć</sys:String>
@@ -14,4 +14,12 @@
   <sys:String x:Key="Str.OpenRrBlockedChip">Niezgodne</sys:String>
   <sys:String x:Key="Str.OpenRrToggleRx7000">OpenRR (Ray Reconstruction, RX 7000, eksperymentalnie)</sys:String>
   <sys:String x:Key="Str.OpenRrNoteRx7000">Wyłączone, dopóki nie zaznaczysz. Eksperymentalne na RX 7000 i grafice RDNA3 / RDNA 3.5: OpenRR używa kerneli zrobionych dla tych GPU (opennr-rr\shaders-gfx11\), wolniej niż na RX 9000. Jeśli się nie uruchomi, powód jest w opennr_rr.log obok gry.</sys:String>
+  <sys:String x:Key="Str.WrongGpuRrToggle">Ray Reconstruction od WrongGPU (zamiast OpenRR)</sys:String>
+  <sys:String x:Key="Str.WrongGpuRrNote">Wyłączone, dopóki nie zaznaczysz. Własny Ray Reconstruction WrongGPU w tej grze zamiast OpenRR, nigdy oba. Jego dane są konwertowane na tym PC z nvngx_dlssd.dll 310.7 lub nowszego, który przyszedł z jedną z twoich gier, nigdy z pliku włożonego przez ten instalator. W grze włącz DLSS Ray Reconstruction.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchTitle">Pobrać WrongGPU {0}?</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchBody">WrongGPU konwertuje swój model na tym PC własnym launcherem, z pliku DLSS, który przyszedł z jedną z twoich gier. Ten instalator może pobrać WrongGPU-{0}.zip z oficjalnej strony wydań WrongGPU na GitHubie, sprawdzić go z opublikowanym tam SHA-256, uruchomić konwersję i potem usunąć pobrany plik. Nic więcej nie jest pobierane.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchYes">Pobierz z GitHuba i konwertuj</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchNo">Nic nie zostanie pobrane</sys:String>
+  <sys:String x:Key="Str.WrongGpuDeclined">WrongGPU nie został zainstalowany: najpierw trzeba przekonwertować jego model na tym PC. Zostaw WrongGPU wyłączony, by zainstalować bez niego.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchFailed">Nie udało się pobrać WrongGPU</sys:String>
 </ResourceDictionary>

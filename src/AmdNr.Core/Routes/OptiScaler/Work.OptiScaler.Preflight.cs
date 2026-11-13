@@ -34,7 +34,7 @@ public static partial class Work
                 report.Ok("Every OptiScaler file is there. Installing verifies the SHA-256 of each one.");
         }
         if (mochizuki) CheckMochizukiPayload(src, pins, report);
-        if (wrongGpu) CheckWrongGpu(src, pins, Directory.Exists(dir) && GraphicsDetector.Detect(dir).Width == Route.X86, report);
+        if (wrongGpu) CheckWrongGpu(dir, src, pins, Directory.Exists(dir) && GraphicsDetector.Detect(dir).Width == Route.X86, report);
         CheckOpenRr(dir, src, pins, Directory.Exists(dir) && GraphicsDetector.Detect(dir).Width == Route.X86, api, report);
         if (daniel) CheckHostFg(dir, src, pins, api, report);
         if (daniel) CheckSupplied(ownRuntime, wantedRuntime, pins, Preset.OptiScaler, report);

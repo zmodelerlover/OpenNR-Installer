@@ -338,6 +338,7 @@
                           <StackPanel Spacing="8"><UniformGrid x:Name="OptiPair" Rows="1" Margin="-4,0"><!-- WrongGPU and OpenRR side by side, one alone full width -->
                             <local:OptionTile x:Name="WrongGpuSection" Margin="4,0" IsVisible="False" Title="{DynamicResource Str.WrongGpuToggle}" Note="{DynamicResource Str.WrongGpuNote}" /><!-- GameSheet.WrongGpu.cs -->
                             <local:OptionTile x:Name="OpenRrSection" Margin="4,0" IsVisible="False" Title="{DynamicResource Str.OpenRrToggle}" Note="{DynamicResource Str.OpenRrNote}" /></UniformGrid><!-- GameSheet.OpenRr.cs -->
+                            <local:OptionTile x:Name="WrongGpuRrSection" IsVisible="False" Title="{DynamicResource Str.WrongGpuRrToggle}" Note="{DynamicResource Str.WrongGpuRrNote}" /><!-- GameSheet.WrongGpu.cs -->
                             <local:OptionTile x:Name="HostFgSection" IsVisible="False" Title="{DynamicResource Str.HostFgToggle}" Note="{DynamicResource Str.HostFgNote}" /></StackPanel></Border><!-- GameSheet.HostFg.cs -->
                       </StackPanel>
                     </Border>

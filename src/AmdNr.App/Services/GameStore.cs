@@ -55,6 +55,10 @@ public sealed class GameEntry
     /// then it follows the folder, like the mochizuki files do.</summary>
     public bool? WrongGpu { get; set; }
 
+    /// <summary>WrongGPU's Ray Reconstruction ticked or unticked for this game, in place of OpenRR; null until then, and
+    /// then it follows the folder.</summary>
+    public bool? WrongGpuRr { get; set; }
+
     /// <summary>danielblnc's DLSS-FG for a game without its own ticked or unticked, as <see cref="WrongGpu"/>.</summary>
     public bool? HostFg { get; set; }
 

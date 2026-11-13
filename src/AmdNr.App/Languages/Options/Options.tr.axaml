@@ -5,7 +5,7 @@
   <!-- Turkish. The same keys as Options.en.axaml, in its order. -->
 
   <sys:String x:Key="Str.OffByDefault">Varsayılan olarak kapalı</sys:String>
-  <sys:String x:Key="Str.WrongGpuLine">DLSS 4.5 Model M'yi RDNA 4'te FSR'ye çevirir</sys:String>
+  <sys:String x:Key="Str.WrongGpuLine">WrongGPU by phantoslayer21 · github.com/phantoslayer21/wronggpu</sys:String>
   <sys:String x:Key="Str.HostFgLine">D3D12 oyunlarında danielblnc 0.8.0 kare üretimi</sys:String>
   <sys:String x:Key="Str.OpenRrFoundChip">nvngx_dlssd.dll 310.9.1 bulundu</sys:String>
   <sys:String x:Key="Str.OpenRrFoundLine">OpenRR ağını bundan kurar</sys:String>
@@ -14,4 +14,12 @@
   <sys:String x:Key="Str.OpenRrBlockedChip">Uyumlu değil</sys:String>
   <sys:String x:Key="Str.OpenRrToggleRx7000">OpenRR (Ray Reconstruction, RX 7000, deneysel)</sys:String>
   <sys:String x:Key="Str.OpenRrNoteRx7000">İşaretlenmedikçe kapalı. RX 7000 ve RDNA3 / RDNA 3.5 grafiklerde deneysel: OpenRR bu GPU'lar için yapılmış çekirdekleri kullanır (opennr-rr\shaders-gfx11\), RX 9000'den daha yavaştır. Başlamazsa nedeni oyunun yanındaki opennr_rr.log dosyasında yazar.</sys:String>
+  <sys:String x:Key="Str.WrongGpuRrToggle">WrongGPU Ray Reconstruction (OpenRR yerine)</sys:String>
+  <sys:String x:Key="Str.WrongGpuRrNote">İşaretlenmedikçe kapalı. Bu oyunda OpenRR yerine WrongGPU'nun kendi Ray Reconstruction'ı, asla ikisi birden değil. Verileri bu bilgisayarda, oyunlarınızdan biriyle gelen nvngx_dlssd.dll 310.7 veya daha yenisinden dönüştürülür, bu yükleyicinin koyduğu bir dosyadan asla. Oyunda DLSS Ray Reconstruction'ı açın.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchTitle">WrongGPU {0} indirilsin mi?</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchBody">WrongGPU modelini bu bilgisayarda kendi başlatıcısıyla, oyunlarınızdan biriyle gelen bir DLSS dosyasından dönüştürür. Bu yükleyici WrongGPU-{0}.zip dosyasını WrongGPU'nun GitHub'daki resmi sürüm sayfasından indirebilir, orada yayımlanan SHA-256 ile doğrular, dönüştürmeyi çalıştırır ve sonra indirmeyi siler. Bunun için başka hiçbir şey indirilmez.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchYes">GitHub'dan indir ve dönüştür</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchNo">Hiçbir şey indirilmez</sys:String>
+  <sys:String x:Key="Str.WrongGpuDeclined">WrongGPU kurulmadı: önce modelinin bu bilgisayarda dönüştürülmesi gerekiyor. Onsuz kurmak için WrongGPU'yu kapalı bırakın.</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchFailed">WrongGPU indirilemedi</sys:String>
 </ResourceDictionary>

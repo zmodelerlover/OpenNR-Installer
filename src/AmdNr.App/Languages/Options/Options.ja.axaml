@@ -5,7 +5,7 @@
   <!-- Japanese. The same keys as Options.en.axaml, in its order. -->
 
   <sys:String x:Key="Str.OffByDefault">既定ではオフ</sys:String>
-  <sys:String x:Key="Str.WrongGpuLine">RDNA 4 で DLSS 4.5 Model M を FSR に変換</sys:String>
+  <sys:String x:Key="Str.WrongGpuLine">WrongGPU by phantoslayer21 · github.com/phantoslayer21/wronggpu</sys:String>
   <sys:String x:Key="Str.HostFgLine">D3D12 ゲームで danielblnc 0.8.0 のフレーム生成</sys:String>
   <sys:String x:Key="Str.OpenRrFoundChip">nvngx_dlssd.dll 310.9.1 を検出</sys:String>
   <sys:String x:Key="Str.OpenRrFoundLine">OpenRR はこれからネットワークを構築</sys:String>
@@ -14,4 +14,12 @@
   <sys:String x:Key="Str.OpenRrBlockedChip">非対応</sys:String>
   <sys:String x:Key="Str.OpenRrToggleRx7000">OpenRR (Ray Reconstruction, RX 7000, 試験的)</sys:String>
   <sys:String x:Key="Str.OpenRrNoteRx7000">チェックするまでオフ。RX 7000 と RDNA3 / RDNA 3.5 グラフィックスでは試験的: OpenRR はこれらの GPU 用のカーネル (opennr-rr\shaders-gfx11\) を使い、RX 9000 より遅くなります。起動しない場合は、ゲームの横の opennr_rr.log に理由が書かれます。</sys:String>
+  <sys:String x:Key="Str.WrongGpuRrToggle">WrongGPU の Ray Reconstruction (OpenRR の代わり)</sys:String>
+  <sys:String x:Key="Str.WrongGpuRrNote">チェックするまでオフ。このゲームで OpenRR の代わりに WrongGPU 自身の Ray Reconstruction を使います (両方は使いません)。データはあなたのゲームに付属する nvngx_dlssd.dll 310.7 以降からこの PC 上で変換され、このインストーラーが置いたファイルからは変換しません。ゲームで DLSS Ray Reconstruction をオンにしてください。</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchTitle">WrongGPU {0} をダウンロードしますか?</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchBody">WrongGPU はあなたのゲームに付属する DLSS ファイルから、自身のランチャーでこの PC 上でモデルを変換します。このインストーラーは GitHub の WrongGPU 公式リリースページから WrongGPU-{0}.zip をダウンロードし、そこで公開されている SHA-256 で確認し、変換を実行して、その後ダウンロードを削除します。ほかには何もダウンロードしません。</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchYes">GitHub からダウンロードして変換</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchNo">何もダウンロードしません</sys:String>
+  <sys:String x:Key="Str.WrongGpuDeclined">WrongGPU はインストールされませんでした: 先にこの PC でモデルを変換する必要があります。WrongGPU なしでインストールするにはオフのままにしてください。</sys:String>
+  <sys:String x:Key="Str.WrongGpuFetchFailed">WrongGPU をダウンロードできませんでした</sys:String>
 </ResourceDictionary>
