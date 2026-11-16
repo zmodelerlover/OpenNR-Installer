@@ -1,0 +1,8 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Spanish. The same keys as HexNeural.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.HexNeuralNote">HexNeural: desactivado salvo que lo marques. Experimental, de Emion (GPL; código en su GitHub), solo para tarjetas RX 6000. Marcado, pasa a ser el runtime de NR del juego (NrBackend=rdna2), corre antes del escalado y arma su red con el nvngx_dlssnr.dll del propio juego; un juego sin él no recibe NR de aquí. Sus ajustes están en RDNA2 network, en la pestaña Neural de OptiScaler. Desmarcado, se quita.</sys:String>
+</ResourceDictionary>

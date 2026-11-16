@@ -180,7 +180,7 @@ public sealed partial class PayloadManifest
             OptiScalerComponent, OptiRuntimeComponent, LmxxfWeightsComponent, LmxxfSmallWeightsComponent, LmxxfGfx1200Component,
             OptiX86Component, MochizukiComponent, MochizukiModelComponent, MochizukiSmallModelComponent, MochizukiRdna3Component,
             MochizukiRdna2Component, PersonModelComponent, WrongGpuComponent, HostDlssComponent, NrLiveComponent, StreamlineComponent, DlssgComponent,
-            LmxxfRuntimeComponent, OptiScalerLeanComponent, OpenRrComponent, OpenRrDlssdComponent, OpenRrGfx11Component, NrLiveInt4Component,
+            LmxxfRuntimeComponent, OptiScalerLeanComponent, OpenRrComponent, OpenRrDlssdComponent, OpenRrGfx11Component, NrLiveInt4Component, HexNeuralComponent,
         };
 
     /// <summary>The SHA-256 a pin carries until the bytes it stands for exist: 64 zeros. A release
@@ -452,7 +452,7 @@ public sealed partial class PayloadManifest
             foreach (var f in wg.Installed) wrongGpu[f.RelativePath] = Engine.Lower(f.Sha256);
         else wg = null;
         var dlss = Components.TryGetValue(HostDlssComponent, out var dl) ? dl.Installed.FirstOrDefault() : null;
-        return WithReFrameworkPins(WithOpenRr(WithHostFg(new PayloadPins
+        return WithReFrameworkPins(WithHexNeural(WithOpenRr(WithHostFg(new PayloadPins
         {
             AddonSha = addon.Sha256,
             AddonSize = addon.Size,
@@ -482,7 +482,7 @@ public sealed partial class PayloadManifest
             BridgeVersion = Components.TryGetValue(BridgeComponent, out var bridge) ? bridge.Version : string.Empty,
             UserRuntimes = UserRuntimes ?? [],
             RuntimeChosen = RuntimeChoice is not null,
-        })));
+        }))));
     }
 
     /// <summary>The pin of one installed file of an optional component, or null without it.</summary>

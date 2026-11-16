@@ -78,6 +78,10 @@ public sealed class GameEntry
     /// <summary>mochizuki's RX 6000 network ticked or unticked for this game on an RX 6000 card, as <see cref="MochizukiRdna3"/>.</summary>
     public bool? MochizukiRdna2 { get; set; }
 
+    /// <summary>HexNeural (Emion's RX 6000 runtime) ticked or unticked for this game on an RX 6000 graphics card; null until
+    /// then, and then it follows the folder.</summary>
+    public bool? HexNeural { get; set; }
+
     /// <summary>NR runtimes left out of this game's OptiScaler install ("lmxxf", "mochizuki", "daniel"): neither
     /// downloaded nor installed. Null is none.</summary>
     public List<string>? SkippedRuntimes { get; set; }

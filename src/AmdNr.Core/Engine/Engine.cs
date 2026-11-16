@@ -260,6 +260,12 @@ public static partial class Engine
         "OpenNrRrRuntime.dll",
         "nvngx_dlssd.dll",
         "opennr-rr/nvngx_dlssd.dll",
+        // HexNeural, Emion's RX 6000 runtime (only when ticked): the runtime, its network, its settings and its notice;
+        // its kernels and plans in nr_data_h15\ are matched by IsAllowed below.
+        "Rdna2NrRuntime.dll",
+        "nr_runtime.dll",
+        "Rdna2NrRuntime.ini",
+        "HexNeural-NOTICE.txt",
         // REFramework's licence beside its dinput8.dll (listed above), under REFramework's own manifest (Work.ReFramework.cs).
         "REFramework-LICENSE.txt",
         // The author's setup loads danielblnc's runtime under this name, and the OptiScaler route
@@ -292,6 +298,7 @@ public static partial class Engine
             return inner is "OptiScaler.dll" or "OptiScalerDx9Host.exe" || inner.Length > 0 && IsAllowed(inner);
         }
         if (IsMochizukiData(name)) return true;
+        if (IsHexNeuralData(name)) return true;
         if (name.StartsWith(OpenRrShaders, StringComparison.Ordinal) || name.StartsWith(OpenRrShadersGfx11, StringComparison.Ordinal))
         {
             var spv = name[(name.StartsWith(OpenRrShaders, StringComparison.Ordinal) ? OpenRrShaders : OpenRrShadersGfx11).Length..];
@@ -324,6 +331,19 @@ public static partial class Engine
     /// shaders\ and one level of subfolders there, and its prewarm list. The name is the runtime's
     /// own (upstream DLSSNR-AMD's), and the names inside come from upstream and change with it.</summary>
     public const string MochizukiFolder = "dlssnr-amd";
+
+    /// <summary>The folder HexNeural's runtime reads its kernels and plans from, beside itself (Work.HexNeural.cs).</summary>
+    public const string HexNeuralData = "nr_data_h15";
+
+    /// <summary>A plain file in HexNeural's nr_data_h15 tree, at most four folders below it
+    /// (nr_data_h15\&lt;model&gt;\&lt;resolution&gt;\kernels\x.co). The names inside are the runtime's own.</summary>
+    public static bool IsHexNeuralData(string name)
+    {
+        if (!name.StartsWith(HexNeuralData + "/", StringComparison.Ordinal)) return false;
+        var parts = name.Split('/');
+        return parts.Length is >= 2 and <= 5
+               && parts.All(p => p.Length is > 0 and <= 96 && p is not ("." or "..") && p.IndexOfAny(Path.GetInvalidFileNameChars()) < 0);
+    }
 
     /// <summary>Where lmxxf 0.44's Small model goes, beside the weights it is an alternative to (the runtime reads
     /// its weights folder's small\).</summary>
@@ -385,5 +405,5 @@ public static partial class Engine
     /// with "Manifest config mismatch" (T6 Zombies).</summary>
     public static bool IsConfig(string name) =>
         Path.GetFileName(name) is "ReShade.ini" or "dgVoodoo.conf" or "amd-nr.ini" or "OptiScaler.ini"
-            or "dlss5-neural.ini" or "wronggpu.ini";
+            or "dlss5-neural.ini" or "wronggpu.ini" or "Rdna2NrRuntime.ini";
 }

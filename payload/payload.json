@@ -229,6 +229,989 @@
   "releases": {
     "optiscaler": [
       {
+        "version": "0.7.0-opennr",
+        "components": {
+          "optiscaler": {
+            "version": "0.7.0-opennr",
+            "files": [
+              {
+                "name": "OptiScaler-0.7.0-opennr.zip",
+                "size": 1,
+                "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "url": "https://github.com/MatheusFerreiraS/OpenNR-OptiScaler/releases/download/v0.7.0-opennr/OptiScaler-0.7.0-opennr.zip"
+              }
+            ]
+          },
+          "hexneural": {
+            "version": "2026.11.16",
+            "files": [
+              {
+                "name": "hexneural-2026.11.16.zip",
+                "size": 21993210,
+                "sha256": "d69cc95329df817cda1e975a4f4c462d2179521ad4d2ea04424b6578d5e5eccd",
+                "url": "https://huggingface.co/datasets/zmodelerlover/amd-nr/resolve/main/hexneural/2026.11.16/hexneural-2026.11.16.zip"
+              }
+            ],
+            "extract": [
+              {
+                "name": "HexNeural-NOTICE.txt",
+                "path": "HexNeural-NOTICE.txt",
+                "size": 885,
+                "sha256": "97e24495cf510db9059acbf47e40f68cd8c5b531f6906f9bd3fba460db44c285"
+              },
+              {
+                "name": "native_c512.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.1280x720.kernels/native_c512.co",
+                "size": 55040,
+                "sha256": "bfb606993e87fa56d6c2ee9d1eb91c9d9262647629bd36139e2011e46a7b53dd"
+              },
+              {
+                "name": "native_decup.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.1280x720.kernels/native_decup.co",
+                "size": 13192,
+                "sha256": "820f2fa14349a9d52a6592d3f45702b4aab86ed9dee4678e2463c3a80ef5a6d8"
+              },
+              {
+                "name": "native_io.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.1280x720.kernels/native_io.co",
+                "size": 34960,
+                "sha256": "7dce962fa915892a836596574e90ddc8360321329e69a97cce0e73c1db8c26ab"
+              },
+              {
+                "name": "native_post_native.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.1280x720.kernels/native_post_native.co",
+                "size": 180208,
+                "sha256": "06d9228eb085e6c1c3188d7b5e0e10fa64504055bfe7e61f3d1ce062663bbc1a"
+              },
+              {
+                "name": "native_pre_native.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.1280x720.kernels/native_pre_native.co",
+                "size": 131488,
+                "sha256": "f94d5b87b67851579efda0513d3bf50697f25f148e20c4060a2b1f901de416d7"
+              },
+              {
+                "name": "native_swin32.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.1280x720.kernels/native_swin32.co",
+                "size": 44792,
+                "sha256": "37df628d1f1116e71cd295d52b1fafcbf1368ca10af35a06055cb8652be76dd4"
+              },
+              {
+                "name": "native_swin64n.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.1280x720.kernels/native_swin64n.co",
+                "size": 707616,
+                "sha256": "7d45f0057399572464b10b9a8b1bd93b3865bd03a8a69c419435dfe39b0ac3e0"
+              },
+              {
+                "name": "native_swinvar.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.1280x720.kernels/native_swinvar.co",
+                "size": 2730920,
+                "sha256": "fc09e2bb903e1e412d8b317c12e72b0a75e24a269b9037d9f48a5ebe91d2422c"
+              },
+              {
+                "name": "native_vit.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.1280x720.kernels/native_vit.co",
+                "size": 155464,
+                "sha256": "ed404079c233eceddd5c68036bb6b4f5b025a0df03a1a5f2e46720593667dfb3"
+              },
+              {
+                "name": "arena.lzms",
+                "path": "nr_data_h15.1ff9997855c80dd5.1280x720/arena.lzms",
+                "size": 109112,
+                "sha256": "58da0e5da5cfa17e78d779ec82f433b1190a95a150916d78abcbbd18ba4003cb"
+              },
+              {
+                "name": "kernargs.bin",
+                "path": "nr_data_h15.1ff9997855c80dd5.1280x720/kernargs.bin",
+                "size": 65296,
+                "sha256": "e797867b625f89cfdede22ce989a7d9e2c5d980246ea69f88e3a742c529161a7"
+              },
+              {
+                "name": "manifest.txt",
+                "path": "nr_data_h15.1ff9997855c80dd5.1280x720/manifest.txt",
+                "size": 8508,
+                "sha256": "5a766a619401f667eaeba96119a1844c21b68203970b065483e92e982e1699e8"
+              },
+              {
+                "name": "meta.json",
+                "path": "nr_data_h15.1ff9997855c80dd5.1280x720/meta.json",
+                "size": 13431,
+                "sha256": "114255cee9980a0aa053b7fa5ec8698e58d3d29bbbe6357ec9cbea683c7ba240"
+              },
+              {
+                "name": "meta.txt",
+                "path": "nr_data_h15.1ff9997855c80dd5.1280x720/meta.txt",
+                "size": 368,
+                "sha256": "b641bd948d12fb253940ccb60ad7663364112e185109f70435cf72a1ffee0987"
+              },
+              {
+                "name": "weights.map",
+                "path": "nr_data_h15.1ff9997855c80dd5.1280x720/weights.map",
+                "size": 5922,
+                "sha256": "21b5a3d5008d16f3a722572ee7e0ffaa8796c342040ff0c50d954c883ae60c57"
+              },
+              {
+                "name": "native_c512.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.1920x1080.kernels/native_c512.co",
+                "size": 55040,
+                "sha256": "bfb606993e87fa56d6c2ee9d1eb91c9d9262647629bd36139e2011e46a7b53dd"
+              },
+              {
+                "name": "native_decup.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.1920x1080.kernels/native_decup.co",
+                "size": 13192,
+                "sha256": "820f2fa14349a9d52a6592d3f45702b4aab86ed9dee4678e2463c3a80ef5a6d8"
+              },
+              {
+                "name": "native_io.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.1920x1080.kernels/native_io.co",
+                "size": 34960,
+                "sha256": "7dce962fa915892a836596574e90ddc8360321329e69a97cce0e73c1db8c26ab"
+              },
+              {
+                "name": "native_post_native.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.1920x1080.kernels/native_post_native.co",
+                "size": 180208,
+                "sha256": "06d9228eb085e6c1c3188d7b5e0e10fa64504055bfe7e61f3d1ce062663bbc1a"
+              },
+              {
+                "name": "native_pre_native.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.1920x1080.kernels/native_pre_native.co",
+                "size": 131488,
+                "sha256": "f94d5b87b67851579efda0513d3bf50697f25f148e20c4060a2b1f901de416d7"
+              },
+              {
+                "name": "native_swin32.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.1920x1080.kernels/native_swin32.co",
+                "size": 44792,
+                "sha256": "37df628d1f1116e71cd295d52b1fafcbf1368ca10af35a06055cb8652be76dd4"
+              },
+              {
+                "name": "native_swin64n.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.1920x1080.kernels/native_swin64n.co",
+                "size": 707616,
+                "sha256": "7d45f0057399572464b10b9a8b1bd93b3865bd03a8a69c419435dfe39b0ac3e0"
+              },
+              {
+                "name": "native_swinvar.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.1920x1080.kernels/native_swinvar.co",
+                "size": 2730920,
+                "sha256": "fc09e2bb903e1e412d8b317c12e72b0a75e24a269b9037d9f48a5ebe91d2422c"
+              },
+              {
+                "name": "native_vit.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.1920x1080.kernels/native_vit.co",
+                "size": 155464,
+                "sha256": "ed404079c233eceddd5c68036bb6b4f5b025a0df03a1a5f2e46720593667dfb3"
+              },
+              {
+                "name": "arena.lzms",
+                "path": "nr_data_h15.1ff9997855c80dd5.1920x1080/arena.lzms",
+                "size": 187512,
+                "sha256": "bbd8c3ad12535901b6ee524917b3b20a412956f4851633e54cd385fc6dc9d970"
+              },
+              {
+                "name": "kernargs.bin",
+                "path": "nr_data_h15.1ff9997855c80dd5.1920x1080/kernargs.bin",
+                "size": 65296,
+                "sha256": "5cec330541726bf096f378147109b5010a008cc700d2604ccc0657f813396b1c"
+              },
+              {
+                "name": "manifest.txt",
+                "path": "nr_data_h15.1ff9997855c80dd5.1920x1080/manifest.txt",
+                "size": 8560,
+                "sha256": "ade704c04e51e1d12024db648df3d21ae0cf96e16a24ca959229d39ff1d9927b"
+              },
+              {
+                "name": "meta.json",
+                "path": "nr_data_h15.1ff9997855c80dd5.1920x1080/meta.json",
+                "size": 13450,
+                "sha256": "592d9766cd3b90bf92dc46e2bdb4b1bf01cf5880efc6f0f7ec7c0d1e69a55086"
+              },
+              {
+                "name": "meta.txt",
+                "path": "nr_data_h15.1ff9997855c80dd5.1920x1080/meta.txt",
+                "size": 372,
+                "sha256": "f06eb33d1967202073058cac2067d9a3c5939a99a09ceb7e52b77db60435187d"
+              },
+              {
+                "name": "weights.map",
+                "path": "nr_data_h15.1ff9997855c80dd5.1920x1080/weights.map",
+                "size": 5922,
+                "sha256": "98ea63176801c4686fc5a8d065c82fb05a1731c4ff62ee1db64999bf96bf1e43"
+              },
+              {
+                "name": "native_c512.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.640x360.kernels/native_c512.co",
+                "size": 55040,
+                "sha256": "bfb606993e87fa56d6c2ee9d1eb91c9d9262647629bd36139e2011e46a7b53dd"
+              },
+              {
+                "name": "native_decup.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.640x360.kernels/native_decup.co",
+                "size": 13192,
+                "sha256": "820f2fa14349a9d52a6592d3f45702b4aab86ed9dee4678e2463c3a80ef5a6d8"
+              },
+              {
+                "name": "native_io.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.640x360.kernels/native_io.co",
+                "size": 34960,
+                "sha256": "7dce962fa915892a836596574e90ddc8360321329e69a97cce0e73c1db8c26ab"
+              },
+              {
+                "name": "native_post_native.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.640x360.kernels/native_post_native.co",
+                "size": 180208,
+                "sha256": "06d9228eb085e6c1c3188d7b5e0e10fa64504055bfe7e61f3d1ce062663bbc1a"
+              },
+              {
+                "name": "native_pre_native.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.640x360.kernels/native_pre_native.co",
+                "size": 131488,
+                "sha256": "f94d5b87b67851579efda0513d3bf50697f25f148e20c4060a2b1f901de416d7"
+              },
+              {
+                "name": "native_swin32.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.640x360.kernels/native_swin32.co",
+                "size": 44792,
+                "sha256": "37df628d1f1116e71cd295d52b1fafcbf1368ca10af35a06055cb8652be76dd4"
+              },
+              {
+                "name": "native_swin64n.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.640x360.kernels/native_swin64n.co",
+                "size": 707616,
+                "sha256": "7d45f0057399572464b10b9a8b1bd93b3865bd03a8a69c419435dfe39b0ac3e0"
+              },
+              {
+                "name": "native_swinvar.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.640x360.kernels/native_swinvar.co",
+                "size": 2730920,
+                "sha256": "fc09e2bb903e1e412d8b317c12e72b0a75e24a269b9037d9f48a5ebe91d2422c"
+              },
+              {
+                "name": "native_vit.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.640x360.kernels/native_vit.co",
+                "size": 155464,
+                "sha256": "ed404079c233eceddd5c68036bb6b4f5b025a0df03a1a5f2e46720593667dfb3"
+              },
+              {
+                "name": "arena.lzms",
+                "path": "nr_data_h15.1ff9997855c80dd5.640x360/arena.lzms",
+                "size": 51544,
+                "sha256": "2d742cc1afbbb330d747121c92db297147a684494c70c8ea19d423e2bd8b5fc7"
+              },
+              {
+                "name": "kernargs.bin",
+                "path": "nr_data_h15.1ff9997855c80dd5.640x360/kernargs.bin",
+                "size": 65296,
+                "sha256": "a1e33dfa16d1175e109837b8589e275cf8fc2de94683927021e7799681513ee2"
+              },
+              {
+                "name": "manifest.txt",
+                "path": "nr_data_h15.1ff9997855c80dd5.640x360/manifest.txt",
+                "size": 8430,
+                "sha256": "27a90f11c8a77eac1a02978b78f104fd9170046c2acddeb3400094dfd748a74c"
+              },
+              {
+                "name": "meta.json",
+                "path": "nr_data_h15.1ff9997855c80dd5.640x360/meta.json",
+                "size": 13306,
+                "sha256": "d04e7c87f03fabce8c70c1289e7002ac0fa6f9d884781432701f48a63efcafb1"
+              },
+              {
+                "name": "meta.txt",
+                "path": "nr_data_h15.1ff9997855c80dd5.640x360/meta.txt",
+                "size": 363,
+                "sha256": "69cf5527d2c815a6592828d305c323f801dc9b5c3b10d2567235fa38513066de"
+              },
+              {
+                "name": "weights.map",
+                "path": "nr_data_h15.1ff9997855c80dd5.640x360/weights.map",
+                "size": 5886,
+                "sha256": "245c3d2cf7f26dd5f9991aa5b8a80f202862ddd9a6413b46d6a1e997008b3767"
+              },
+              {
+                "name": "native_c512.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.832x468.kernels/native_c512.co",
+                "size": 55040,
+                "sha256": "bfb606993e87fa56d6c2ee9d1eb91c9d9262647629bd36139e2011e46a7b53dd"
+              },
+              {
+                "name": "native_decup.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.832x468.kernels/native_decup.co",
+                "size": 13192,
+                "sha256": "820f2fa14349a9d52a6592d3f45702b4aab86ed9dee4678e2463c3a80ef5a6d8"
+              },
+              {
+                "name": "native_io.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.832x468.kernels/native_io.co",
+                "size": 34960,
+                "sha256": "7dce962fa915892a836596574e90ddc8360321329e69a97cce0e73c1db8c26ab"
+              },
+              {
+                "name": "native_post_native.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.832x468.kernels/native_post_native.co",
+                "size": 180208,
+                "sha256": "06d9228eb085e6c1c3188d7b5e0e10fa64504055bfe7e61f3d1ce062663bbc1a"
+              },
+              {
+                "name": "native_pre_native.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.832x468.kernels/native_pre_native.co",
+                "size": 131488,
+                "sha256": "f94d5b87b67851579efda0513d3bf50697f25f148e20c4060a2b1f901de416d7"
+              },
+              {
+                "name": "native_swin32.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.832x468.kernels/native_swin32.co",
+                "size": 44792,
+                "sha256": "37df628d1f1116e71cd295d52b1fafcbf1368ca10af35a06055cb8652be76dd4"
+              },
+              {
+                "name": "native_swin64n.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.832x468.kernels/native_swin64n.co",
+                "size": 707616,
+                "sha256": "7d45f0057399572464b10b9a8b1bd93b3865bd03a8a69c419435dfe39b0ac3e0"
+              },
+              {
+                "name": "native_swinvar.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.832x468.kernels/native_swinvar.co",
+                "size": 2730920,
+                "sha256": "fc09e2bb903e1e412d8b317c12e72b0a75e24a269b9037d9f48a5ebe91d2422c"
+              },
+              {
+                "name": "native_vit.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.832x468.kernels/native_vit.co",
+                "size": 155464,
+                "sha256": "ed404079c233eceddd5c68036bb6b4f5b025a0df03a1a5f2e46720593667dfb3"
+              },
+              {
+                "name": "arena.lzms",
+                "path": "nr_data_h15.1ff9997855c80dd5.832x468/arena.lzms",
+                "size": 64536,
+                "sha256": "528f3370d7cfb0540520acf0d137f90bf842e37cf88757f7974379e0f6ff53f1"
+              },
+              {
+                "name": "kernargs.bin",
+                "path": "nr_data_h15.1ff9997855c80dd5.832x468/kernargs.bin",
+                "size": 65296,
+                "sha256": "17ff5fb5a09c8432506438a0be0ed6d0846071fc95da6976dbc333a5f204048d"
+              },
+              {
+                "name": "manifest.txt",
+                "path": "nr_data_h15.1ff9997855c80dd5.832x468/manifest.txt",
+                "size": 8432,
+                "sha256": "0bd3ecba69596715994b2df23582722fe84793e8952a293b9aa12cbd8fa13223"
+              },
+              {
+                "name": "meta.json",
+                "path": "nr_data_h15.1ff9997855c80dd5.832x468/meta.json",
+                "size": 13363,
+                "sha256": "79dbfca4d89dc2d9f251da10c133f052b82b5f02b903bc9d73bf1da614713540"
+              },
+              {
+                "name": "meta.txt",
+                "path": "nr_data_h15.1ff9997855c80dd5.832x468/meta.txt",
+                "size": 364,
+                "sha256": "ff980dfbf2021f7ed469eade9d97577c9feb38b82f82df5092369827204d43a2"
+              },
+              {
+                "name": "weights.map",
+                "path": "nr_data_h15.1ff9997855c80dd5.832x468/weights.map",
+                "size": 5922,
+                "sha256": "f82d773d6743f8c8b07168a5c06114d9fabb86b50b66f5042cd06c1a780e35e2"
+              },
+              {
+                "name": "native_c512.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.960x540.kernels/native_c512.co",
+                "size": 55040,
+                "sha256": "bfb606993e87fa56d6c2ee9d1eb91c9d9262647629bd36139e2011e46a7b53dd"
+              },
+              {
+                "name": "native_decup.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.960x540.kernels/native_decup.co",
+                "size": 13192,
+                "sha256": "820f2fa14349a9d52a6592d3f45702b4aab86ed9dee4678e2463c3a80ef5a6d8"
+              },
+              {
+                "name": "native_io.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.960x540.kernels/native_io.co",
+                "size": 34960,
+                "sha256": "7dce962fa915892a836596574e90ddc8360321329e69a97cce0e73c1db8c26ab"
+              },
+              {
+                "name": "native_post_native.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.960x540.kernels/native_post_native.co",
+                "size": 180208,
+                "sha256": "06d9228eb085e6c1c3188d7b5e0e10fa64504055bfe7e61f3d1ce062663bbc1a"
+              },
+              {
+                "name": "native_pre_native.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.960x540.kernels/native_pre_native.co",
+                "size": 131488,
+                "sha256": "f94d5b87b67851579efda0513d3bf50697f25f148e20c4060a2b1f901de416d7"
+              },
+              {
+                "name": "native_swin32.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.960x540.kernels/native_swin32.co",
+                "size": 44792,
+                "sha256": "37df628d1f1116e71cd295d52b1fafcbf1368ca10af35a06055cb8652be76dd4"
+              },
+              {
+                "name": "native_swin64n.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.960x540.kernels/native_swin64n.co",
+                "size": 707616,
+                "sha256": "7d45f0057399572464b10b9a8b1bd93b3865bd03a8a69c419435dfe39b0ac3e0"
+              },
+              {
+                "name": "native_swinvar.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.960x540.kernels/native_swinvar.co",
+                "size": 2730920,
+                "sha256": "fc09e2bb903e1e412d8b317c12e72b0a75e24a269b9037d9f48a5ebe91d2422c"
+              },
+              {
+                "name": "native_vit.co",
+                "path": "nr_data_h15.1ff9997855c80dd5.960x540.kernels/native_vit.co",
+                "size": 155464,
+                "sha256": "ed404079c233eceddd5c68036bb6b4f5b025a0df03a1a5f2e46720593667dfb3"
+              },
+              {
+                "name": "arena.lzms",
+                "path": "nr_data_h15.1ff9997855c80dd5.960x540/arena.lzms",
+                "size": 74392,
+                "sha256": "d2d73ffeace2171ab110280dc969935e0e51f9ca42f43376aaf163714a8df702"
+              },
+              {
+                "name": "kernargs.bin",
+                "path": "nr_data_h15.1ff9997855c80dd5.960x540/kernargs.bin",
+                "size": 65296,
+                "sha256": "8f81ca739e6aabd0fa8d30b8c399502be2a4a830628e4d174d8eef96a8751312"
+              },
+              {
+                "name": "manifest.txt",
+                "path": "nr_data_h15.1ff9997855c80dd5.960x540/manifest.txt",
+                "size": 8486,
+                "sha256": "de2f683b84a1c5b5876e0225873206712d80b564ba4b5b423fd5c796783b0339"
+              },
+              {
+                "name": "meta.json",
+                "path": "nr_data_h15.1ff9997855c80dd5.960x540/meta.json",
+                "size": 13406,
+                "sha256": "1a62580eb566b3fe0cb5f1385e1d992be9cb12b76e2971e17f4d0e048a99ee45"
+              },
+              {
+                "name": "meta.txt",
+                "path": "nr_data_h15.1ff9997855c80dd5.960x540/meta.txt",
+                "size": 366,
+                "sha256": "d6cc29754af457041f84a8fd5c6889521084e7445170bcb8a74bcd8a90f54401"
+              },
+              {
+                "name": "weights.map",
+                "path": "nr_data_h15.1ff9997855c80dd5.960x540/weights.map",
+                "size": 5922,
+                "sha256": "a5889095ff3090a642fa4c0dd79d58d486bbb184c0e29dd592473232178e52aa"
+              },
+              {
+                "name": "native_c512.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1280x720.kernels/native_c512.co",
+                "size": 55040,
+                "sha256": "bfb606993e87fa56d6c2ee9d1eb91c9d9262647629bd36139e2011e46a7b53dd"
+              },
+              {
+                "name": "native_decup.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1280x720.kernels/native_decup.co",
+                "size": 13192,
+                "sha256": "820f2fa14349a9d52a6592d3f45702b4aab86ed9dee4678e2463c3a80ef5a6d8"
+              },
+              {
+                "name": "native_io.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1280x720.kernels/native_io.co",
+                "size": 34960,
+                "sha256": "7dce962fa915892a836596574e90ddc8360321329e69a97cce0e73c1db8c26ab"
+              },
+              {
+                "name": "native_post_native.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1280x720.kernels/native_post_native.co",
+                "size": 180208,
+                "sha256": "06d9228eb085e6c1c3188d7b5e0e10fa64504055bfe7e61f3d1ce062663bbc1a"
+              },
+              {
+                "name": "native_pre_native.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1280x720.kernels/native_pre_native.co",
+                "size": 131488,
+                "sha256": "f94d5b87b67851579efda0513d3bf50697f25f148e20c4060a2b1f901de416d7"
+              },
+              {
+                "name": "native_resample.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1280x720.kernels/native_resample.co",
+                "size": 13312,
+                "sha256": "0be51207611f56dbc8c3049a7adddab53755706b571509df5c312fef46ff7158"
+              },
+              {
+                "name": "native_swin32.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1280x720.kernels/native_swin32.co",
+                "size": 44792,
+                "sha256": "37df628d1f1116e71cd295d52b1fafcbf1368ca10af35a06055cb8652be76dd4"
+              },
+              {
+                "name": "native_swin64n.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1280x720.kernels/native_swin64n.co",
+                "size": 707616,
+                "sha256": "7d45f0057399572464b10b9a8b1bd93b3865bd03a8a69c419435dfe39b0ac3e0"
+              },
+              {
+                "name": "native_swinvar.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1280x720.kernels/native_swinvar.co",
+                "size": 2730920,
+                "sha256": "fc09e2bb903e1e412d8b317c12e72b0a75e24a269b9037d9f48a5ebe91d2422c"
+              },
+              {
+                "name": "native_vit.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1280x720.kernels/native_vit.co",
+                "size": 155464,
+                "sha256": "ed404079c233eceddd5c68036bb6b4f5b025a0df03a1a5f2e46720593667dfb3"
+              },
+              {
+                "name": "arena.lzms",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1280x720/arena.lzms",
+                "size": 80888,
+                "sha256": "f717bc659786a55855aab65c477c51312d65f5da5f6b319a5fbefa56efc7724c"
+              },
+              {
+                "name": "kernargs.bin",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1280x720/kernargs.bin",
+                "size": 33920,
+                "sha256": "56fb5f336109e1286c5061e061e0cc6ebdcb14fb906816ac841f5927c21a94ae"
+              },
+              {
+                "name": "manifest.txt",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1280x720/manifest.txt",
+                "size": 4504,
+                "sha256": "3b48834ad8ff747d49bb27afb1cf0c02bf11c7340ab4e1c59a0c062ccf741739"
+              },
+              {
+                "name": "meta.json",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1280x720/meta.json",
+                "size": 8461,
+                "sha256": "d97869081b102170279be1bc20d657fc648581a7ea300e31dc31308638afe0b1"
+              },
+              {
+                "name": "meta.txt",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1280x720/meta.txt",
+                "size": 393,
+                "sha256": "7fbdb42beff24422c2a3848092f8b2d4dcf38fe4e1b6f41431d3d84275268b53"
+              },
+              {
+                "name": "weights.map",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1280x720/weights.map",
+                "size": 2988,
+                "sha256": "c522f874771a619d6ba5e77e7b83dcf7b547cc43aa9f05de207a8c3f2166fad0"
+              },
+              {
+                "name": "native_c512.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1707x960.kernels/native_c512.co",
+                "size": 55040,
+                "sha256": "bfb606993e87fa56d6c2ee9d1eb91c9d9262647629bd36139e2011e46a7b53dd"
+              },
+              {
+                "name": "native_decup.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1707x960.kernels/native_decup.co",
+                "size": 13192,
+                "sha256": "820f2fa14349a9d52a6592d3f45702b4aab86ed9dee4678e2463c3a80ef5a6d8"
+              },
+              {
+                "name": "native_io.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1707x960.kernels/native_io.co",
+                "size": 34960,
+                "sha256": "7dce962fa915892a836596574e90ddc8360321329e69a97cce0e73c1db8c26ab"
+              },
+              {
+                "name": "native_post_native.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1707x960.kernels/native_post_native.co",
+                "size": 180208,
+                "sha256": "06d9228eb085e6c1c3188d7b5e0e10fa64504055bfe7e61f3d1ce062663bbc1a"
+              },
+              {
+                "name": "native_pre_native.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1707x960.kernels/native_pre_native.co",
+                "size": 131488,
+                "sha256": "f94d5b87b67851579efda0513d3bf50697f25f148e20c4060a2b1f901de416d7"
+              },
+              {
+                "name": "native_resample.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1707x960.kernels/native_resample.co",
+                "size": 13312,
+                "sha256": "0be51207611f56dbc8c3049a7adddab53755706b571509df5c312fef46ff7158"
+              },
+              {
+                "name": "native_swin32.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1707x960.kernels/native_swin32.co",
+                "size": 44792,
+                "sha256": "37df628d1f1116e71cd295d52b1fafcbf1368ca10af35a06055cb8652be76dd4"
+              },
+              {
+                "name": "native_swin64n.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1707x960.kernels/native_swin64n.co",
+                "size": 707616,
+                "sha256": "7d45f0057399572464b10b9a8b1bd93b3865bd03a8a69c419435dfe39b0ac3e0"
+              },
+              {
+                "name": "native_swinvar.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1707x960.kernels/native_swinvar.co",
+                "size": 2730920,
+                "sha256": "fc09e2bb903e1e412d8b317c12e72b0a75e24a269b9037d9f48a5ebe91d2422c"
+              },
+              {
+                "name": "native_vit.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1707x960.kernels/native_vit.co",
+                "size": 155464,
+                "sha256": "ed404079c233eceddd5c68036bb6b4f5b025a0df03a1a5f2e46720593667dfb3"
+              },
+              {
+                "name": "arena.lzms",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1707x960/arena.lzms",
+                "size": 115384,
+                "sha256": "b665a1ea29d50edf0a2ffbc34413e34c531383ef8dd5a734c92ed908f1813e8c"
+              },
+              {
+                "name": "kernargs.bin",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1707x960/kernargs.bin",
+                "size": 33920,
+                "sha256": "3b0da3d3ee501739c280fa61c1c895f0ea075d1c768dfaaba7c9904d59537cca"
+              },
+              {
+                "name": "manifest.txt",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1707x960/manifest.txt",
+                "size": 4524,
+                "sha256": "446ed26ed57821f184970fed51653320a15351be2bffdd852318c270960b7900"
+              },
+              {
+                "name": "meta.json",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1707x960/meta.json",
+                "size": 8488,
+                "sha256": "da9c36eaca0af02db84d989aa46b81e2d41c1a64d734562654ad83ec11223c89"
+              },
+              {
+                "name": "meta.txt",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1707x960/meta.txt",
+                "size": 396,
+                "sha256": "c107f87d085159c33091368dd841b58910e5da7a87f7b51f002084c266518f9d"
+              },
+              {
+                "name": "weights.map",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1707x960/weights.map",
+                "size": 2988,
+                "sha256": "5c014465034511f4daaea12052bf97d66595ba3f1bc32675d7d8758ea1cc0423"
+              },
+              {
+                "name": "native_c512.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1920x1080.kernels/native_c512.co",
+                "size": 55040,
+                "sha256": "bfb606993e87fa56d6c2ee9d1eb91c9d9262647629bd36139e2011e46a7b53dd"
+              },
+              {
+                "name": "native_decup.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1920x1080.kernels/native_decup.co",
+                "size": 13192,
+                "sha256": "820f2fa14349a9d52a6592d3f45702b4aab86ed9dee4678e2463c3a80ef5a6d8"
+              },
+              {
+                "name": "native_io.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1920x1080.kernels/native_io.co",
+                "size": 34960,
+                "sha256": "7dce962fa915892a836596574e90ddc8360321329e69a97cce0e73c1db8c26ab"
+              },
+              {
+                "name": "native_post_native.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1920x1080.kernels/native_post_native.co",
+                "size": 180208,
+                "sha256": "06d9228eb085e6c1c3188d7b5e0e10fa64504055bfe7e61f3d1ce062663bbc1a"
+              },
+              {
+                "name": "native_pre_native.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1920x1080.kernels/native_pre_native.co",
+                "size": 131488,
+                "sha256": "f94d5b87b67851579efda0513d3bf50697f25f148e20c4060a2b1f901de416d7"
+              },
+              {
+                "name": "native_resample.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1920x1080.kernels/native_resample.co",
+                "size": 13312,
+                "sha256": "0be51207611f56dbc8c3049a7adddab53755706b571509df5c312fef46ff7158"
+              },
+              {
+                "name": "native_swin32.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1920x1080.kernels/native_swin32.co",
+                "size": 44792,
+                "sha256": "37df628d1f1116e71cd295d52b1fafcbf1368ca10af35a06055cb8652be76dd4"
+              },
+              {
+                "name": "native_swin64n.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1920x1080.kernels/native_swin64n.co",
+                "size": 707616,
+                "sha256": "7d45f0057399572464b10b9a8b1bd93b3865bd03a8a69c419435dfe39b0ac3e0"
+              },
+              {
+                "name": "native_swinvar.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1920x1080.kernels/native_swinvar.co",
+                "size": 2730920,
+                "sha256": "fc09e2bb903e1e412d8b317c12e72b0a75e24a269b9037d9f48a5ebe91d2422c"
+              },
+              {
+                "name": "native_vit.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1920x1080.kernels/native_vit.co",
+                "size": 155464,
+                "sha256": "ed404079c233eceddd5c68036bb6b4f5b025a0df03a1a5f2e46720593667dfb3"
+              },
+              {
+                "name": "arena.lzms",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1920x1080/arena.lzms",
+                "size": 143832,
+                "sha256": "6590020c33a8d2d865e6176166236a1ac8ab84425b6b4b38908c13e1e2dac700"
+              },
+              {
+                "name": "kernargs.bin",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1920x1080/kernargs.bin",
+                "size": 33920,
+                "sha256": "29b42ad8276c2d7e855cf3d2f6c2b7cbf47246eaf8b8adf014b59a31c265a2fa"
+              },
+              {
+                "name": "manifest.txt",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1920x1080/manifest.txt",
+                "size": 4526,
+                "sha256": "489d0e7af9bcdf30af6165d91c4e31a858e3d24b02d9432fd11aaf95c477e40f"
+              },
+              {
+                "name": "meta.json",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1920x1080/meta.json",
+                "size": 8499,
+                "sha256": "258349bc650564deec59b0ca1395ce47cfcb3f148865895ebde043abdaab633b"
+              },
+              {
+                "name": "meta.txt",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1920x1080/meta.txt",
+                "size": 398,
+                "sha256": "b0bee886288253e2f138941df7bb29e21a0914b3238f8309927fa1206accec3c"
+              },
+              {
+                "name": "weights.map",
+                "path": "nr_data_h15.ca6f64f1dd88b965.1920x1080/weights.map",
+                "size": 2988,
+                "sha256": "faa2ca083cb16fa1033261e9e4d86227a2e764ddb595baafbb807d96dbae8654"
+              },
+              {
+                "name": "native_c512.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.2560x1440.kernels/native_c512.co",
+                "size": 55040,
+                "sha256": "bfb606993e87fa56d6c2ee9d1eb91c9d9262647629bd36139e2011e46a7b53dd"
+              },
+              {
+                "name": "native_decup.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.2560x1440.kernels/native_decup.co",
+                "size": 13192,
+                "sha256": "820f2fa14349a9d52a6592d3f45702b4aab86ed9dee4678e2463c3a80ef5a6d8"
+              },
+              {
+                "name": "native_io.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.2560x1440.kernels/native_io.co",
+                "size": 34960,
+                "sha256": "7dce962fa915892a836596574e90ddc8360321329e69a97cce0e73c1db8c26ab"
+              },
+              {
+                "name": "native_post_native.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.2560x1440.kernels/native_post_native.co",
+                "size": 180208,
+                "sha256": "06d9228eb085e6c1c3188d7b5e0e10fa64504055bfe7e61f3d1ce062663bbc1a"
+              },
+              {
+                "name": "native_pre_native.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.2560x1440.kernels/native_pre_native.co",
+                "size": 131488,
+                "sha256": "f94d5b87b67851579efda0513d3bf50697f25f148e20c4060a2b1f901de416d7"
+              },
+              {
+                "name": "native_resample.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.2560x1440.kernels/native_resample.co",
+                "size": 13312,
+                "sha256": "0be51207611f56dbc8c3049a7adddab53755706b571509df5c312fef46ff7158"
+              },
+              {
+                "name": "native_swin32.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.2560x1440.kernels/native_swin32.co",
+                "size": 44792,
+                "sha256": "37df628d1f1116e71cd295d52b1fafcbf1368ca10af35a06055cb8652be76dd4"
+              },
+              {
+                "name": "native_swin64n.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.2560x1440.kernels/native_swin64n.co",
+                "size": 707616,
+                "sha256": "7d45f0057399572464b10b9a8b1bd93b3865bd03a8a69c419435dfe39b0ac3e0"
+              },
+              {
+                "name": "native_swinvar.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.2560x1440.kernels/native_swinvar.co",
+                "size": 2730920,
+                "sha256": "fc09e2bb903e1e412d8b317c12e72b0a75e24a269b9037d9f48a5ebe91d2422c"
+              },
+              {
+                "name": "native_vit.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.2560x1440.kernels/native_vit.co",
+                "size": 155464,
+                "sha256": "ed404079c233eceddd5c68036bb6b4f5b025a0df03a1a5f2e46720593667dfb3"
+              },
+              {
+                "name": "arena.lzms",
+                "path": "nr_data_h15.ca6f64f1dd88b965.2560x1440/arena.lzms",
+                "size": 247992,
+                "sha256": "5f9773bb81d1282b3232a8f6ebcdd4c4fba227a50f1e8bba3c8488feaa7ca5b2"
+              },
+              {
+                "name": "kernargs.bin",
+                "path": "nr_data_h15.ca6f64f1dd88b965.2560x1440/kernargs.bin",
+                "size": 33920,
+                "sha256": "71282d13fa927aa64e89f39f165028ef9125ee6be8bd7fefaca7a6bed36ce22f"
+              },
+              {
+                "name": "manifest.txt",
+                "path": "nr_data_h15.ca6f64f1dd88b965.2560x1440/manifest.txt",
+                "size": 4532,
+                "sha256": "90390650fb83d35b90bc593d39c502da7c2a231163e10d36e3ef18d14e4d9f2e"
+              },
+              {
+                "name": "meta.json",
+                "path": "nr_data_h15.ca6f64f1dd88b965.2560x1440/meta.json",
+                "size": 8594,
+                "sha256": "5a1ab4294c9d64d36298bd6a3bc6ddf012447e8f5761e17a71f6ed76e9a014cc"
+              },
+              {
+                "name": "meta.txt",
+                "path": "nr_data_h15.ca6f64f1dd88b965.2560x1440/meta.txt",
+                "size": 398,
+                "sha256": "1f8d17daf392d8cd2be5e466dccc33b004fe22c7118f8f511ae4e598b90a099a"
+              },
+              {
+                "name": "weights.map",
+                "path": "nr_data_h15.ca6f64f1dd88b965.2560x1440/weights.map",
+                "size": 3064,
+                "sha256": "a362ff99381df70a8b7f18ecd314e74d14a806101362de4f4c73cca2fae5e707"
+              },
+              {
+                "name": "native_c512.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.3840x2160.kernels/native_c512.co",
+                "size": 55040,
+                "sha256": "bfb606993e87fa56d6c2ee9d1eb91c9d9262647629bd36139e2011e46a7b53dd"
+              },
+              {
+                "name": "native_decup.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.3840x2160.kernels/native_decup.co",
+                "size": 13192,
+                "sha256": "820f2fa14349a9d52a6592d3f45702b4aab86ed9dee4678e2463c3a80ef5a6d8"
+              },
+              {
+                "name": "native_io.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.3840x2160.kernels/native_io.co",
+                "size": 34960,
+                "sha256": "7dce962fa915892a836596574e90ddc8360321329e69a97cce0e73c1db8c26ab"
+              },
+              {
+                "name": "native_post_native.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.3840x2160.kernels/native_post_native.co",
+                "size": 180208,
+                "sha256": "06d9228eb085e6c1c3188d7b5e0e10fa64504055bfe7e61f3d1ce062663bbc1a"
+              },
+              {
+                "name": "native_pre_native.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.3840x2160.kernels/native_pre_native.co",
+                "size": 131488,
+                "sha256": "f94d5b87b67851579efda0513d3bf50697f25f148e20c4060a2b1f901de416d7"
+              },
+              {
+                "name": "native_resample.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.3840x2160.kernels/native_resample.co",
+                "size": 13312,
+                "sha256": "0be51207611f56dbc8c3049a7adddab53755706b571509df5c312fef46ff7158"
+              },
+              {
+                "name": "native_swin32.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.3840x2160.kernels/native_swin32.co",
+                "size": 44792,
+                "sha256": "37df628d1f1116e71cd295d52b1fafcbf1368ca10af35a06055cb8652be76dd4"
+              },
+              {
+                "name": "native_swin64n.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.3840x2160.kernels/native_swin64n.co",
+                "size": 707616,
+                "sha256": "7d45f0057399572464b10b9a8b1bd93b3865bd03a8a69c419435dfe39b0ac3e0"
+              },
+              {
+                "name": "native_swinvar.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.3840x2160.kernels/native_swinvar.co",
+                "size": 2730920,
+                "sha256": "fc09e2bb903e1e412d8b317c12e72b0a75e24a269b9037d9f48a5ebe91d2422c"
+              },
+              {
+                "name": "native_vit.co",
+                "path": "nr_data_h15.ca6f64f1dd88b965.3840x2160.kernels/native_vit.co",
+                "size": 155464,
+                "sha256": "ed404079c233eceddd5c68036bb6b4f5b025a0df03a1a5f2e46720593667dfb3"
+              },
+              {
+                "name": "arena.lzms",
+                "path": "nr_data_h15.ca6f64f1dd88b965.3840x2160/arena.lzms",
+                "size": 480952,
+                "sha256": "619f2070bab1cb0512c79c001654ee5795640ad80580c45b8fe5a081ea306c4c"
+              },
+              {
+                "name": "kernargs.bin",
+                "path": "nr_data_h15.ca6f64f1dd88b965.3840x2160/kernargs.bin",
+                "size": 33920,
+                "sha256": "324a350468ad7307233e84fb56c55427675b01adf1d93da04aef369766e6a2e8"
+              },
+              {
+                "name": "manifest.txt",
+                "path": "nr_data_h15.ca6f64f1dd88b965.3840x2160/manifest.txt",
+                "size": 4581,
+                "sha256": "e24e0eb2f2a58707aa07accedb567e0768dc74d45fa8eec0f5ea4aef3e30c854"
+              },
+              {
+                "name": "meta.json",
+                "path": "nr_data_h15.ca6f64f1dd88b965.3840x2160/meta.json",
+                "size": 8648,
+                "sha256": "274696bc16f98eff66ffa63d6a00e6390e56fec07f6dbde62a871df54a26c9e5"
+              },
+              {
+                "name": "meta.txt",
+                "path": "nr_data_h15.ca6f64f1dd88b965.3840x2160/meta.txt",
+                "size": 403,
+                "sha256": "647c734d66e3521a49572fba92c95eaed0d2f5cbe7e85c53f7d5375c018f2451"
+              },
+              {
+                "name": "weights.map",
+                "path": "nr_data_h15.ca6f64f1dd88b965.3840x2160/weights.map",
+                "size": 3064,
+                "sha256": "687bfa477b5ec96a22c39ee62a5c4a54e3569833fd1a4e426370cd59df1ce6fd"
+              },
+              {
+                "name": "nr_runtime.dll",
+                "path": "nr_runtime.dll",
+                "size": 520192,
+                "sha256": "e0a0a4a0828b17426ae0e3b22d2dd74eea022f4158accdb51ed5649a665684d2"
+              },
+              {
+                "name": "Rdna2NrRuntime.dll",
+                "path": "Rdna2NrRuntime.dll",
+                "size": 445952,
+                "sha256": "59bfc06a8203e8d4d0aa62c6c3cda881e5feb2c45c6e29d30ea083923df3c8cf"
+              },
+              {
+                "name": "Rdna2NrRuntime.ini",
+                "path": "Rdna2NrRuntime.ini",
+                "size": 1439,
+                "sha256": "54a33943d360a512d510ab9760d89a26dc5bd434a9715c61fce66b2e733bacc7"
+              }
+            ]
+          }
+        }
+      },
+      {
         "version": "0.6.9-opennr",
         "components": {
           "lmxxf-weights": {

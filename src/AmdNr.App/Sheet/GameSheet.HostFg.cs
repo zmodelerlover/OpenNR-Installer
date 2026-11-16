@@ -32,6 +32,7 @@ public partial class GameSheet
         var pins = Pins();
         pins.HostFg = WantsHostFg(card, pins);
         pins.OpenRr = WantsOpenRr(card);
+        pins.HexNeural = OffersHexNeural(card) ? WantsHexNeural(card) : null;
         pins.WrongGpuRr = WantsWrongGpuRr(card);
         pins.ReFramework = OffersReFramework(card) ? WantsReFramework(card) : null;
         return pins;

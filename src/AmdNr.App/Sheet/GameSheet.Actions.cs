@@ -77,7 +77,7 @@ public partial class GameSheet
         {
             (report, staged, runtime, earlier) = await Task.Run(() =>
             {
-                var folder = CachedPayloadFolder(ComponentsFor(preset, mochizuki, wrongGpu, NeedsDlss(card, pins), !Skips(card, DanielRuntime), pins.HostFg, [.. OpenRrComponents(card, pins), .. ReFrameworkComponents(pins)]));
+                var folder = CachedPayloadFolder(ComponentsFor(preset, mochizuki, wrongGpu, NeedsDlss(card, pins), !Skips(card, DanielRuntime), pins.HostFg, [.. OpenRrComponents(card, pins), .. ReFrameworkComponents(pins), .. HexNeuralComponents(pins)]));
                 var own = wanted is null ? null : Work.FindUserRuntime(wanted, TargetFor(card));
                 return (Work.Preflight(TargetFor(card), folder ?? "", preset, pins, proxy, mochizuki, own,
                     unoffered ? wanted : null, wiki, api, wrongGpu, !Skips(card, DanielRuntime)), folder, own,
@@ -153,7 +153,7 @@ public partial class GameSheet
 
             ResultBanner.IsVisible = false;
             ShowStep(StepDownload);
-            var folder = await EnsurePayloadsAsync(ComponentsFor(preset, mochizuki, wrongGpu, NeedsDlss(card, pins), !Skips(card, DanielRuntime), pins.HostFg, [.. OpenRrComponents(card, pins), .. ReFrameworkComponents(pins)]));
+            var folder = await EnsurePayloadsAsync(ComponentsFor(preset, mochizuki, wrongGpu, NeedsDlss(card, pins), !Skips(card, DanielRuntime), pins.HostFg, [.. OpenRrComponents(card, pins), .. ReFrameworkComponents(pins), .. HexNeuralComponents(pins)]));
             if (folder is null)
             {
                 ShowStep(StepDownload, failed: true);
@@ -450,12 +450,13 @@ public partial class GameSheet
         if (!rx7000) picked = picked.Without(PayloadManifest.OpenRrGfx11Component);
         // A runtime left out of this game is neither downloaded nor installed; person protection goes with the last of the two.
         if (Skips(_card, LmxxfRuntime)) picked = picked.Without(PayloadManifest.LmxxfComponents);
-        // The RX 7000 and RX 6000 networks go nowhere they were not ticked, nor without mochizuki.
+        // The RX 7000 and RX 6000 networks go nowhere they were not ticked, nor without mochizuki; HexNeural nowhere unticked.
         var mochizuki = _card is { } card && !Skips(card, MochizukiRuntime);
         if (!mochizuki || !WantsMochizukiRdna3(_card!))
             picked = picked.Without(PayloadManifest.MochizukiRdna3Component);
         if (!mochizuki || !WantsMochizukiRdna2(_card!))
             picked = picked.Without(PayloadManifest.MochizukiRdna2Component);
+        if (_card is not { } hexCard || !WantsHexNeural(hexCard)) picked = picked.Without(PayloadManifest.HexNeuralComponent);
         return Skips(_card, LmxxfRuntime) && Skips(_card, MochizukiRuntime)
             ? picked.Without(PayloadManifest.PersonModelComponent)
             : picked;

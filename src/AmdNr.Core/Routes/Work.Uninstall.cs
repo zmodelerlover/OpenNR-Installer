@@ -340,7 +340,7 @@ public static partial class Work
         "OptiScaler.log", "OptiScaler.saved.ini", "amd_bridge.log", "amd_presr.log",
         "dlssnr_amd_present1.dll", "dlssnr_amd_present2.dll", "dlssnr_amd_present3.dll",
         // And the mochizuki runtime, beside itself, and OptiScaler 0.5.4's person protection worker in its folder.
-        MochizukiLog, OpenRrLog, "person-model/person-worker.log", "person-model/person-worker.1.log",
+        MochizukiLog, OpenRrLog, HexNeuralLog, "person-model/person-worker.log", "person-model/person-worker.1.log",
     ];
 
     /// <summary>Where a game's logs from its last run are kept once an uninstall sweeps them, so a report made after

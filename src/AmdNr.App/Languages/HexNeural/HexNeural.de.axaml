@@ -1,0 +1,8 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- German. The same keys as HexNeural.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.HexNeuralNote">HexNeural: aus, solange nicht angehakt. Experimentell, von Emion (GPL; Quellcode auf seinem GitHub), nur für RX-6000-Grafikkarten. Angehakt wird es die NR-Runtime des Spiels (NrBackend=rdna2), läuft vor dem Upscaling und baut sein Netz aus der nvngx_dlssnr.dll des Spiels; ein Spiel ohne sie bekommt hier kein NR. Die Einstellungen stehen unter RDNA2 network im Neural-Tab von OptiScaler. Abgehakt kommt es wieder heraus.</sys:String>
+</ResourceDictionary>

@@ -15,12 +15,14 @@ public partial class GameSheet
 
     // Made here rather than in GameSheet.axaml, which is at the line limit: one tile per runtime, with its download size,
     // and danielblnc's version on a branch under its own tile.
-    private CheckBox? _lmxxfBox, _mochizukiBox, _danielBox;
+    private CheckBox? _lmxxfBox, _mochizukiBox, _danielBox, _hexNeuralBox;
     private Grid? _danielBranch, _runtimeRow;
     // On an RX 7000 the mochizuki tile is the opt-in to its RX 7000 network (GameSheet.Rdna3.cs), with what that costs.
     private TextBlock? _rdna3Note;
-    // lmxxf, mochizuki, danielblnc: each label on one line, and room under danielblnc's for its version and badge.
-    private static readonly double[] Weights = [1, 1.15, 1.25];
+    // On an RX 6000 graphics card HexNeural's tile says what it is and whose.
+    private TextBlock? _hexNeuralNote;
+    // lmxxf, mochizuki, danielblnc, HexNeural: each label on one line, and room under danielblnc's for its version and badge.
+    private static readonly double[] Weights = [1, 1.15, 1.25, 1.15];
 
     /// <summary>Whether this game's OptiScaler install leaves the runtime out. The ReShade routes take what they need.</summary>
     private static bool Skips(GameCard? card, string runtime) =>
@@ -59,10 +61,14 @@ public partial class GameSheet
         line.Classes.Add("branch");
         _danielBranch.Children.Add(line);
         daniel.Children.Add(_danielBranch);
+        _hexNeuralBox = Tile(Column(), "HexNeural (22 MB)");
         OptiRuntimes.Children.Add(row);
         _rdna3Note = new TextBlock { Name = "MochizukiRdna3Note", TextWrapping = Avalonia.Media.TextWrapping.Wrap, IsVisible = false };
         _rdna3Note.Classes.Add("caption");
         OptiRuntimes.Children.Add(_rdna3Note);
+        _hexNeuralNote = new TextBlock { Name = "HexNeuralNote", TextWrapping = Avalonia.Media.TextWrapping.Wrap, IsVisible = false };
+        _hexNeuralNote.Classes.Add("caption");
+        OptiRuntimes.Children.Add(_hexNeuralNote);
     }
 
     /// <summary>danielblnc's version box, under its tile on the OptiScaler route and in its own row on the ReShade ones.</summary>
@@ -88,7 +94,8 @@ public partial class GameSheet
         var rx7000 = OffersMochizukiRdna3(card);
         var rx6000 = OffersMochizukiRdna2(card);
         var fp16 = rx7000 || rx6000;
-        var offered = new[] { Rdna4, Rdna4 && OffersMochizuki(card) || fp16, true };
+        var hexNeural = OffersHexNeural(card);
+        var offered = new[] { Rdna4, Rdna4 && OffersMochizuki(card) || fp16, true, hexNeural };
         for (var i = 0; i < offered.Length; i++)
         {
             _runtimeRow!.Children[i].IsVisible = offered[i];
@@ -100,6 +107,9 @@ public partial class GameSheet
         _rdna3Note!.Text = Ui.Text(rx6000 ? "Str.MochizukiRdna2Note" : "Str.MochizukiRdna3Note");
         _rdna3Note.IsVisible = fp16;
         _danielBox!.IsChecked = !Skips(card, DanielRuntime);
+        _hexNeuralBox!.IsChecked = WantsHexNeural(card);
+        _hexNeuralNote!.Text = Ui.Text("Str.HexNeuralNote");
+        _hexNeuralNote.IsVisible = hexNeural;
         _setting = false;
         OptiRuntimes.IsVisible = opti;
         if (opti)
@@ -114,7 +124,8 @@ public partial class GameSheet
 
     private void OnRuntimesChanged(object? sender, RoutedEventArgs e)
     {
-        if (_setting || _card is not { } card || _lmxxfBox is null || _mochizukiBox is null || _danielBox is null) return;
+        if (_setting || _card is not { } card || _lmxxfBox is null || _mochizukiBox is null || _danielBox is null
+            || _hexNeuralBox is null) return;
         var skipped = new List<string>();
         if (Rdna4 && _lmxxfBox.IsChecked != true) skipped.Add(LmxxfRuntime);
         if (Rdna4 && _mochizukiBox.IsChecked != true) skipped.Add(MochizukiRuntime);
@@ -122,6 +133,7 @@ public partial class GameSheet
         card.Entry.SkippedRuntimes = skipped.Count > 0 ? skipped : null;
         if (OffersMochizukiRdna3(card)) card.Entry.MochizukiRdna3 = _mochizukiBox.IsChecked == true;
         if (OffersMochizukiRdna2(card)) card.Entry.MochizukiRdna2 = _mochizukiBox.IsChecked == true;
+        if (OffersHexNeural(card)) card.Entry.HexNeural = _hexNeuralBox.IsChecked == true;
         Library.Save();
         ShowMochizuki();
         ShowHostFg();
