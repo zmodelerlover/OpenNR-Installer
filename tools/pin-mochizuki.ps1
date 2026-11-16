@@ -17,6 +17,8 @@
       dlssnr-amd\int4-performance\...        its weights made at first use from dlssnr.bin: no dlssnr-int4.bin ships
       dlssnr-amd\int4-ultra\...              from mochizuki 0.0.8.3 on
       dlssnr-amd\shaders-rdna3\...           the RX 7000 network (optional), one level of folders under it
+      dlssnr-amd\aco-gfx11\...               its ACO code (optional, with shaders-rdna3): records\ and shaders\, in the
+                                             RX 7000 archive
       dlssnr-amd\shaders-rdna2\...           the RX 6000 network (optional), one level of folders under it
       dlssnr-amd\shaders-rdna2-int8\...      its INT8 form (optional, with shaders-rdna2), in the RX 6000 archive
       dlssnr-amd\prewarm\manifest-rdna3.txt  the RX 7000 network's prewarm list (optional, with shaders-rdna3)
@@ -40,7 +42,7 @@
     4. rewrites releases.optiscaler[<version>].components.mochizuki (the archive and every file in it),
        mochizuki-model (dlssnr.bin, loose) and, when -From has it, mochizuki-model-small (dlssnr-small.bin,
        loose) in payload.json;
-       the RX 7000 network (shaders-rdna3) goes in an archive and a component of its own,
+       the RX 7000 network (shaders-rdna3, and its ACO code in aco-gfx11) goes in an archive and a component of its own,
        mochizuki-rdna3-<version>.zip and releases.optiscaler[<version>].components.mochizuki-rdna3: the installers
        already published install every file of the mochizuki component on every RX 9000, and never ask for a
        component they do not know, so only those with the RX 7000 opt-in fetch it; the RX 6000 network
@@ -116,7 +118,7 @@ function Written($name) { $name -eq 'pipeline.cache' -or $name -like '*.tmp' -or
 
 $top = Get-ChildItem -LiteralPath $data -Force
 foreach ($item in $top) {
-    $ok = ($item.PSIsContainer -and $item.Name -in 'prewarm', 'shaders', 'shaders-rdna3', 'shaders-rdna2', 'shaders-rdna2-int8', 'aco', 'int4', 'int4-performance', 'int4-ultra') -or
+    $ok = ($item.PSIsContainer -and $item.Name -in 'prewarm', 'shaders', 'shaders-rdna3', 'aco-gfx11', 'shaders-rdna2', 'shaders-rdna2-int8', 'aco', 'int4', 'int4-performance', 'int4-ultra') -or
           (-not $item.PSIsContainer -and $item.Name -in 'dlssnr.bin', 'dlssnr-small.bin')
     # mochizuki 0.0.8.3 on makes the int4 weights at first use (aco-cache\dlssnr-optimized-int4.nrb).
     if ($item.Name -eq 'dlssnr-int4.bin') { Fail "dlssnr-amd\dlssnr-int4.bin no longer ships: the runtime makes the int4 weights itself. Leave it out of -From" }
@@ -163,6 +165,12 @@ function AddTree($dir, $payload, $levels) {
 }
 $aco = Join-Path $data 'aco'
 if (Test-Path -LiteralPath $aco) { AddTree $aco 'dlssnr-amd.aco' 3 }
+# The RX 7000 network's ACO code (MochizukiAco on an RX 7000): records\ and shaders\, in the RX 7000 archive (see 4.).
+$acoGfx11 = Join-Path $data 'aco-gfx11'
+if (Test-Path -LiteralPath $acoGfx11) {
+    if (-not (Test-Path -LiteralPath (Join-Path $data 'shaders-rdna3'))) { Fail "dlssnr-amd\aco-gfx11 without dlssnr-amd\shaders-rdna3" }
+    AddTree $acoGfx11 'dlssnr-amd.aco-gfx11' 1
+}
 # The optimized network's int4 levels (MochizukiOptimizedLayers): tables, settings and shaders in int4\,
 # int4-performance\ and int4-ultra\ (two levels: vit\, swin\, shaders\temporal\). The runtime makes the int4 weights
 # from dlssnr.bin with int4-ultra's tables, so aco\optimized\ is no use without int4-ultra\.
@@ -192,7 +200,8 @@ foreach ($f in $files) { if ($f.Path.Length -gt 128) { Fail "payload path over 1
 # Ordinal, not Sort-Object's culture order: the archive's bytes must not depend on the machine's language.
 $files.Sort([Comparison[object]] { param($a, $b) [string]::CompareOrdinal($a.Path, $b.Path) })
 function OfNetwork($path, $tag) {
-    $path.StartsWith("dlssnr-amd.shaders-$tag", [StringComparison]::Ordinal) -or $path.StartsWith("dlssnr-amd.prewarm/manifest-$tag", [StringComparison]::Ordinal)
+    $path.StartsWith("dlssnr-amd.shaders-$tag", [StringComparison]::Ordinal) -or $path.StartsWith("dlssnr-amd.prewarm/manifest-$tag", [StringComparison]::Ordinal) -or
+        ($tag -eq 'rdna3' -and $path.StartsWith('dlssnr-amd.aco-gfx11', [StringComparison]::Ordinal))
 }
 $rdna3Files = @($files | Where-Object { OfNetwork $_.Path 'rdna3' })
 $rdna2Files = @($files | Where-Object { OfNetwork $_.Path 'rdna2' })
