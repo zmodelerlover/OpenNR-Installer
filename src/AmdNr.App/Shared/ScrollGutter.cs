@@ -1,7 +1,9 @@
 // The room a scroller's content keeps on its right, for a scroller that reaches the edge of its box. Without a bar
 // the content keeps that room as its margin, so it does not touch the box's border; once the bar shows, its lane
 // (Styles/Details.axaml) is that room, and the margin is given back so the content runs up to the bar instead of
-// stopping short of it with an empty strip beside the bar.
+// stopping short of it with an empty strip beside the bar. A Size wider than the lane (10) lets a content that only
+// just fits flip between the two widths forever ("Infinite layout loop") where its height follows its width, as the
+// game sheet's does.
 
 using Avalonia;
 using Avalonia.Controls;

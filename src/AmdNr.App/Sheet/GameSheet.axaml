@@ -101,8 +101,8 @@
             </Grid>
 
             <!-- The gutter for the scroll bar is the content's margin, given back while the bar shows (ScrollGutter). -->
-            <ScrollViewer Grid.Row="1" x:Name="ReportScroll" Margin="0,12,0,0" local:ScrollGutter.Size="14" HorizontalScrollBarVisibility="Disabled">
-              <StackPanel Spacing="18" Margin="0,0,14,4">
+            <ScrollViewer Grid.Row="1" x:Name="ReportScroll" Margin="0,12,0,0" local:ScrollGutter.Size="10" HorizontalScrollBarVisibility="Disabled">
+              <StackPanel Spacing="18" Margin="0,0,10,4">
                 <!-- The verdict, or what the running action is doing: straight in the stack, so with none of it shown the stack adds no spacing for it. -->
                   <Border x:Name="ReportEmpty" Classes="result" IsVisible="False">
                     <StackPanel Orientation="Horizontal" Spacing="12">
