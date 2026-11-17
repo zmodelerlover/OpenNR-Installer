@@ -8,11 +8,13 @@ namespace AmdNr.Core.Tests;
 /// taken back on uninstall with what its runtime writes.</summary>
 public partial class MochizukiTests
 {
-    /// <summary>shaders-rdna3 as the archive keeps it: the network, runtime\ and temporal\, spelled with dots.</summary>
+    /// <summary>shaders-rdna3 as the archive keeps it: the network, runtime\ and temporal\, spelled with dots, and its ACO
+    /// code (aco-gfx11\records\ and shaders\).</summary>
     private static readonly string[] Rdna3Paths =
     [
         "dlssnr-amd.shaders-rdna3/g_attn.spv", "dlssnr-amd.shaders-rdna3/shader-constants.txt",
         "dlssnr-amd.shaders-rdna3.runtime/cascade_blur.spv", "dlssnr-amd.shaders-rdna3.temporal/temporal_post_fp32_grade.spv",
+        "dlssnr-amd.aco-gfx11.records/8d711c93fad261df.nrp", "dlssnr-amd.aco-gfx11.shaders/g_vitattn.spv",
     ];
 
     /// <summary>A release that carries mochizuki and its RX 7000 network, with the bytes of each file staged.</summary>
@@ -78,7 +80,8 @@ public partial class MochizukiTests
     {
         var destinations = Rdna3Paths.Select(Work.MochizukiDestination).ToList();
         Assert.Equal(["dlssnr-amd/shaders-rdna3/g_attn.spv", "dlssnr-amd/shaders-rdna3/shader-constants.txt",
-            "dlssnr-amd/shaders-rdna3/runtime/cascade_blur.spv", "dlssnr-amd/shaders-rdna3/temporal/temporal_post_fp32_grade.spv"],
+            "dlssnr-amd/shaders-rdna3/runtime/cascade_blur.spv", "dlssnr-amd/shaders-rdna3/temporal/temporal_post_fp32_grade.spv",
+            "dlssnr-amd/aco-gfx11/records/8d711c93fad261df.nrp", "dlssnr-amd/aco-gfx11/shaders/g_vitattn.spv"],
             destinations);
         foreach (var destination in destinations) Assert.True(Engine.IsAllowed(destination), destination);
         // And what its runtime writes there: the verdict of its checks, the child's list and log, its pipeline cache.
