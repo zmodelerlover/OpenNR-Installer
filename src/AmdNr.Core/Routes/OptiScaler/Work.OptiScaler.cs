@@ -1,15 +1,13 @@
-// The OptiScaler route: the same network, run from inside the game's own upscaler call rather than
-// from a ReShade add-on. On D3D12 an add-on is shown the finished frame and nothing else; OptiScaler
-// sits where the game hands DLSS, FSR or XeSS its colour, depth and motion vectors, so the network
-// gets all three. What it installs is the OptiScaler AMD neural rendering build
-// (MatheusFerreiraS/neural-amd-opti), the runtime build that OptiScaler recognises, once per pass,
-// and the same weights the add-on uses -- and, only when asked for, the mochizuki runtime
+// The OptiScaler route: the same network, run from inside the game's own upscaler call rather than from a ReShade
+// add-on. On D3D12 an add-on is shown the finished frame and nothing else; OptiScaler sits where the game hands DLSS,
+// FSR or XeSS its colour, depth and motion vectors, so the network gets all three. What it installs is the OptiScaler
+// AMD neural rendering build (MatheusFerreiraS/neural-amd-opti), the runtime build that OptiScaler recognises, once
+// per pass, and the same weights the add-on uses -- and, only when asked for, the mochizuki runtime
 // (Work.Mochizuki.cs). Which danielblnc builds it runs in place of the download's is Work.Runtimes.cs.
 //
-// It goes through the same transaction as every other route (one manifest, a backup of whatever
-// it displaces, uninstall putting that back), and it shares the 64-bit manifest with the ReShade
-// routes, which is what makes them alternatives: Transaction.Apply refuses a second preset in a
-// folder that already has one.
+// It goes through the same transaction as every other route (one manifest, a backup of whatever it displaces,
+// uninstall putting that back), and it shares the 64-bit manifest with the ReShade routes, which is what makes them
+// alternatives: Transaction.Apply refuses a second preset in a folder that already has one.
 
 namespace AmdNr.Core;
 
@@ -273,8 +271,8 @@ public static partial class Work
             return report;
         }
 
-        // Somebody's configuration is kept: OptiScaler rewrites its ini whenever a setting is saved,
-        // so one that is here and was not written by this route is the settings somebody chose.
+        // Somebody's configuration is kept: OptiScaler rewrites its ini whenever a setting is saved, so one that is here and
+        // was not written by this route is the settings somebody chose.
         var iniIsOurs = manifest?.Entries.Any(e => e.Name == iniName) == true;
         var iniIsForeign = !iniIsOurs && ForeignIni(homeDir, foreign.Count > 0);
         if (iniIsForeign)
@@ -357,6 +355,7 @@ public static partial class Work
         if (wrongGpu && x86) report.Err("WrongGPU runs in 64-bit games only. Leave it off for this one.");
         else if (wrongGpu && !report.Failed) AddWrongGpu(files, dir, src, pins, report);
         AddOpenRr(files, dir, src, pins, x86, iniName, api, report);
+        AddHexNeural(files, dir, src, pins, x86, iniName, report);
 
         if (report.Failed)
         {
@@ -364,18 +363,18 @@ public static partial class Work
             return report;
         }
 
-        // What an earlier install put in of mochizuki and this one does not write again comes out in
-        // the same transaction: all of it when it was left off, what an older build had when it is on.
-        // So does OptiScaler under the name it had, when it now goes in under another: two of it would
-        // both load, and whatever that name displaced comes back.
+        // What an earlier install put in of mochizuki and this one does not write again comes out in the same transaction:
+        // all of it when it was left off, what an older build had when it is on. So does OptiScaler under the name it had,
+        // when it now goes in under another: two of it would both load, and whatever that name displaced comes back.
         var recorded = MochizukiRecorded(manifest).Concat(InstalledOptiProxies(manifest).Where(n => n != proxyName))
             // lmxxf (runtime, kernels, shaders, weights) an earlier install put in, when it is left out or the card has no
             // use for it, and person protection with it.
             .Concat(LmxxfWeighted(pins) ? [] : manifest?.Entries.Where(e => e.Owned && !files.ContainsKey(e.Name)
                     && (LmxxfOnly(e.Name)
                         || e.Name.StartsWith(home + PersonModelFolder, StringComparison.Ordinal))).Select(e => e.Name) ?? [])
-            // WrongGPU's and OpenRR's files this install does not write again: all of them when left off.
+            // WrongGPU's, OpenRR's and HexNeural's files this install does not write again: all of them when left off.
             .Concat(WrongGpuRecorded(manifest).Where(n => !files.ContainsKey(n))).Concat(OpenRrRecorded(manifest).Where(n => !files.ContainsKey(n)))
+            .Concat(HexNeuralLeaving(pins, manifest, files))
             // danielblnc's runtime and weights, when it is left out, passes 2 and 3 under a build that runs as one module,
             // NVIDIA's DLSS in OptiScaler\ once the runtime or the game no longer needs it, and Streamline and DLSS-FG with it.
             .Concat(manifest?.Entries.Where(e => e.Owned && !files.ContainsKey(e.Name) && (!daniel && e.Name == home + WeightsName
@@ -396,6 +395,7 @@ public static partial class Work
 
         if (!x86 && (wrongGpu || recorded.Any(WrongGpuNames.Contains))) PointIniAtWrongGpu(dir, wrongGpu, report);
         PointIniAtOpenRr(dir, pins, x86, recorded, report);
+        PointIniAtHexNeural(dir, pins, x86, recorded, report);
         if (files.ContainsKey(HostFgDlssg) || recorded.Any(IsHostFgFile)) PointIniAtHostFg(dir, files.ContainsKey(HostFgDlssg), report);
         if (!files.ContainsKey(HostFgDlssg) && recorded.Any(IsHostFgFile)) PruneEmpty(dir, ["OptiScaler/streamline"], report);
         if (!x86 && recorded.Any(LmxxfOnly))
@@ -420,10 +420,10 @@ public static partial class Work
             report.Info($"{OptiScalerIni} has NR without upscaling on: with no upscaler running, OptiScaler runs the network "
                         + $"on the finished frame, HUD included, on {(runsMochizuki ? "mochizuki" : "danielblnc's runtime")}. "
                         + "Where the game's DLSS, FSR or XeSS is on, the network runs inside it instead.");
-        if (iniWritten && runsMochizuki)
+        if (iniWritten && runsMochizuki && pins.HexNeural != true)
             report.Info($"{OptiScalerIni} runs mochizuki (NrBackend=mochizuki), with ACO on. "
                         + "danielblnc and lmxxf are beside it: pick another under NR runtime in OptiScaler's Neural tab.");
-        else if (iniWritten && lmxxf)
+        else if (iniWritten && lmxxf && pins.HexNeural != true)
             report.Info($"{OptiScalerIni} runs lmxxf (NrBackend=lmxxf). danielblnc and "
                         + "mochizuki are beside it: pick another under NR runtime in OptiScaler's Neural tab.");
         else if (!LmxxfWeighted(pins))

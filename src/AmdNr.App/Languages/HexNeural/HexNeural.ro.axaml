@@ -1,0 +1,8 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Romanian. The same keys as HexNeural.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.HexNeuralNote">HexNeural: oprit cât timp nu e bifat. Experimental, de la Emion (GPL; sursa pe GitHub-ul lui), doar pentru plăcile RX 6000. Bifat, devine runtime-ul NR al jocului (NrBackend=rdna2), rulează înainte de upscaling și își construiește rețeaua din nvngx_dlssnr.dll al jocului; un joc fără el nu primește NR de la el. Setările sunt la RDNA2 network, în fila Neural din OptiScaler. Debifat, este scos.</sys:String>
+</ResourceDictionary>

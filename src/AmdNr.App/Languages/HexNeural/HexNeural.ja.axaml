@@ -1,0 +1,8 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Japanese. The same keys as HexNeural.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.HexNeuralNote">HexNeural：チェックしない限りオフ。実験的、作者は Emion（GPL、ソースは本人の GitHub）、RX 6000 グラフィックカード専用。チェックするとゲームの NR runtime（NrBackend=rdna2）になり、アップスケーリングの前に動き、ゲーム自身の nvngx_dlssnr.dll からネットワークを構築します。このファイルのないゲームでは NR は得られません。設定は OptiScaler の Neural タブの RDNA2 network にあります。チェックを外すと取り除かれます。</sys:String>
+</ResourceDictionary>

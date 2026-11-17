@@ -1,0 +1,8 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Pirate English. The same keys as HexNeural.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.HexNeuralNote">HexNeural: stays in the hold unless ye tick it. Experimental, crafted by Emion (GPL; his source be on his GitHub), for RX 6000 cards alone. Ticked, it be the game's NR runtime (NrBackend=rdna2), sails afore the upscaler, and builds its net from the game's own nvngx_dlssnr.dll; a game without one gets no NR from it. Its settings be under RDNA2 network in OptiScaler's Neural tab. Untick it and overboard it goes.</sys:String>
+</ResourceDictionary>

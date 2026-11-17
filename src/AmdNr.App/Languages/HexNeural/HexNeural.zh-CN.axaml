@@ -1,0 +1,8 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Simplified Chinese. The same keys as HexNeural.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.HexNeuralNote">HexNeural：不勾选则关闭。实验性，作者 Emion（GPL；源代码在他的 GitHub），仅限 RX 6000 显卡。勾选后它成为游戏的 NR runtime（NrBackend=rdna2），在超分之前运行，并用游戏自带的 nvngx_dlssnr.dll 构建网络；没有该文件的游戏不会由它获得 NR。设置位于 OptiScaler 的 Neural 选项卡中的 RDNA2 network。取消勾选则移除。</sys:String>
+</ResourceDictionary>

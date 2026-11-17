@@ -1,0 +1,8 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Turkish. The same keys as HexNeural.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.HexNeuralNote">HexNeural: işaretlenmedikçe kapalı. Deneysel, Emion'dan (GPL; kaynak kodu GitHub'ında), yalnızca RX 6000 ekran kartları için. İşaretlenince oyunun NR runtime'ı olur (NrBackend=rdna2), ölçeklemeden önce çalışır ve ağını oyunun kendi nvngx_dlssnr.dll dosyasından kurar; bu dosyası olmayan oyun ondan NR almaz. Ayarları OptiScaler'ın Neural sekmesinde, RDNA2 network altında. İşaret kaldırılınca çıkarılır.</sys:String>
+</ResourceDictionary>

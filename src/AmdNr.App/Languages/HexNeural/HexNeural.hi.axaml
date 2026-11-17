@@ -1,0 +1,8 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Hindi. The same keys as HexNeural.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.HexNeuralNote">HexNeural: टिक किए बिना बंद। प्रायोगिक, Emion का (GPL; सोर्स उनके GitHub पर), सिर्फ़ RX 6000 ग्राफ़िक्स कार्ड के लिए। टिक करने पर यह गेम का NR runtime (NrBackend=rdna2) बनता है, अपस्केलिंग से पहले चलता है और गेम की अपनी nvngx_dlssnr.dll से नेटवर्क बनाता है; जिस गेम में यह फ़ाइल नहीं, उसे इससे NR नहीं मिलता। सेटिंग्स OptiScaler के Neural टैब में RDNA2 network के नीचे हैं। टिक हटाने पर यह निकल जाता है।</sys:String>
+</ResourceDictionary>

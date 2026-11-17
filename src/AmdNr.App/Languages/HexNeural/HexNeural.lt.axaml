@@ -1,0 +1,8 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+  <!-- Lithuanian. The same keys as HexNeural.en.axaml, in its order. -->
+
+  <sys:String x:Key="Str.HexNeuralNote">HexNeural: išjungtas, kol nepažymėsite. Eksperimentinis, sukūrė Emion (GPL; šaltinio kodas jo GitHub), tik RX 6000 vaizdo plokštėms. Pažymėtas tampa žaidimo NR runtime (NrBackend=rdna2), veikia prieš mastelio didinimą ir tinklą kuria iš paties žaidimo nvngx_dlssnr.dll; žaidimas be šio failo iš jo NR negauna. Nustatymai yra OptiScaler skirtuke Neural, skiltyje RDNA2 network. Nužymėjus pašalinamas.</sys:String>
+</ResourceDictionary>

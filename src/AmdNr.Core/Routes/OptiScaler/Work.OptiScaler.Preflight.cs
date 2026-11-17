@@ -36,6 +36,7 @@ public static partial class Work
         if (mochizuki) CheckMochizukiPayload(src, pins, report);
         if (wrongGpu) CheckWrongGpu(dir, src, pins, Directory.Exists(dir) && GraphicsDetector.Detect(dir).Width == Route.X86, report);
         CheckOpenRr(dir, src, pins, Directory.Exists(dir) && GraphicsDetector.Detect(dir).Width == Route.X86, api, report);
+        CheckHexNeural(dir, src, pins, Directory.Exists(dir) && GraphicsDetector.Detect(dir).Width == Route.X86, report);
         if (daniel) CheckHostFg(dir, src, pins, api, report);
         if (daniel) CheckSupplied(ownRuntime, wantedRuntime, pins, Preset.OptiScaler, report);
         if (daniel && HostDlssReason(dir, VersionOf(pins.OptiRuntimeVersion)) is { } why)
@@ -74,7 +75,9 @@ public static partial class Work
         var retiring = !mochizuki && MochizukiRecorded(manifest).Count > 0;
         var held = new[] { proxyName, WeightsName }.Concat(OptiPasses).Concat(AuthorsRuntimesHere(dir, pins).Select(f => f.Name))
             .Where(n => Engine.IsLocked(Path.Combine(dir, n)))
-            .Concat(mochizuki || retiring ? MochizukiHeld(dir) : []).ToList();
+            .Concat(mochizuki || retiring ? MochizukiHeld(dir) : [])
+            .Concat(pins.HexNeural is null ? [] : new[] { HexNeuralRuntimeName, HexNeuralNetworkName }.Where(n => Engine.IsLocked(Path.Combine(dir, n))))
+            .ToList();
         if (held.Count > 0) report.Err(Engine.OpenElsewhere(dir, held));
 
         if (src.Length > 0 && Directory.Exists(src))
